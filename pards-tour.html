@@ -629,6 +629,11 @@ input::placeholder{color:#bbb}
 <div class="screen active" id="screen-setup">
 <div class="setup" style="padding-bottom:calc(180px + env(safe-area-inset-bottom))">
 
+  <!-- ══ PARDS TOUR BACK BUTTON ══ -->
+  <div id="ptSetupBackBtn" style="display:none;margin-bottom:10px">
+    <button onclick="showHome()" style="background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);border-radius:10px;color:rgba(201,168,76,.9);font-size:13px;font-weight:800;cursor:pointer;padding:8px 16px;-webkit-tap-highlight-color:transparent">← Pards Tour</button>
+  </div>
+
   <!-- ══ COURSE PICKER ══ -->
   <div class="card" style="background:var(--gd);border:1.5px solid rgba(201,168,76,.4);margin-bottom:14px">
     <!-- Custom course picker — replaces native <select> for better mobile appearance -->
@@ -22211,7 +22216,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.62';
+const CURRENT_VERSION = 'pards-tour-v5.64';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -22674,6 +22679,7 @@ function showHome() {
   _ptShow('ptHomeOverlay');
   var _hdr = document.querySelector('.hdr'); if (_hdr) _hdr.style.display = '';
   var hb = document.getElementById('ptHomeBtn'); if (hb) hb.style.display = 'none';
+  var _ptbb = document.getElementById('ptSetupBackBtn'); if(_ptbb) _ptbb.style.display='none';
   var _sb = document.getElementById('setupBar'); if (_sb) { _sb.classList.remove('show'); _sb.style.display = 'none'; }
   var vEl = document.getElementById('ptHomeVersion'); if (vEl) vEl.textContent = CURRENT_VERSION;
   try { hideRoundBar(); } catch(e) {}
@@ -22708,9 +22714,8 @@ function showMyRound() {
   G.pairedTeam     = null;
   window._ptResumeHoles = null;
   localStorage.removeItem('pards_G');
-  var hb=document.getElementById('ptHomeBtn'); if(hb) hb.style.display='block';
-  // Force home button visible after all async rendering completes
-  setTimeout(function(){ var _hb=document.getElementById('ptHomeBtn'); if(_hb) _hb.style.display='block'; }, 2000);
+  // Show setup back button
+  var _ptbb = document.getElementById('ptSetupBackBtn'); if(_ptbb) _ptbb.style.display='block';
   // Reset setup UI
   try { var _sel=document.getElementById('startHoleSel'); if(_sel) _sel.value='1'; } catch(e) {}
   try { document.getElementById('badge').textContent='SETUP'; } catch(e) {}
@@ -31356,7 +31361,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.62';
+const CACHE='pards-tour-v5.64';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
