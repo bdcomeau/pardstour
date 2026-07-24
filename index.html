@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.78';
+const CURRENT_VERSION = 'pards-tour-v5.79';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -29441,7 +29441,7 @@ async function ptCommitDrawImport() {
   var teams = _ptDrawImportTeams;
   var eventId = _ptDrawImportEventId;
   var btn = document.getElementById('ptImportAllBtn');
-  if(btn){btn.disabled=true;btn.textContent='Importing\u2026';}
+  if(btn){btn.disabled=true;btn.textContent='Saving\u2026';}
   var failed = [];
   for (var ti=0; ti<teams.length; ti++) {
     var team = teams[ti];
@@ -29501,15 +29501,14 @@ async function ptCommitDrawImport() {
       }
     }
   }
-  if(btn){btn.disabled=false;btn.textContent='Import All Teams \u2192';}
+  if(btn){btn.disabled=false;btn.textContent='Save Draw →';}
+  // Always close overlays and reload — remove() is safe even if already gone
+  var _dOv = document.getElementById('ptDrawImportOv'); if(_dOv) _dOv.remove();
+  var _aOv = document.getElementById('ptDAOv'); if(_aOv) _aOv.remove();
   if(failed.length){
-    if(errEl){errEl.innerHTML='<b>'+failed.length+' groups failed:</b> '+failed.join(', ')
-      +'<br><br>Delete any existing groups for this event first, then re-import.';
-    errEl.style.display='block';}
-  } else {
-    document.getElementById('ptDrawImportOv').remove();
-    loadOrgEventDetail(eventId);
+    alert(failed.length+' group'+(failed.length!==1?'s':'')+' failed to import:\n'+failed.join('\n')+'\n\nCheck for duplicate groups and try again.');
   }
+  loadOrgEventDetail(eventId);
 }
 
 
@@ -29761,8 +29760,9 @@ function ptDARender() {
   var bar = document.createElement('div');
   bar.style.cssText = 'position:fixed;bottom:0;left:0;right:0;padding:12px 16px;background:#0f1f14;border-top:1px solid rgba(201,168,76,.2);z-index:10';
   var btn = document.createElement('button');
+  btn.id = 'ptImportAllBtn';
   if (allAssigned) {
-    btn.textContent = 'Import All '+teams.length+' Teams →';
+    btn.textContent = 'Save Draw →';
     btn.style.cssText = 'width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer';
     btn.onclick = ptDAConfirm;
   } else {
@@ -31690,7 +31690,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.78';
+const CACHE='pards-tour-v5.79';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
