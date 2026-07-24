@@ -630,7 +630,7 @@ input::placeholder{color:#bbb}
 <div class="setup" style="padding-bottom:calc(180px + env(safe-area-inset-bottom))">
 
   <!-- ══ PARDS TOUR BACK BUTTON ══ -->
-  <div id="ptSetupBackBtn" style="display:none;margin-bottom:10px">
+  <div id="ptSetupBackBtn" style="display:block;margin-bottom:10px">
     <button onclick="showHome()" style="background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);border-radius:10px;color:rgba(201,168,76,.9);font-size:13px;font-weight:800;cursor:pointer;padding:8px 16px;-webkit-tap-highlight-color:transparent">← Pards Tour</button>
   </div>
 
@@ -22216,7 +22216,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.64';
+const CURRENT_VERSION = 'pards-tour-v5.65';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -31361,7 +31361,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.64';
+const CACHE='pards-tour-v5.65';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
