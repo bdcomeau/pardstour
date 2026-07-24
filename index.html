@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.71';
+const CURRENT_VERSION = 'pards-tour-v5.72';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -22966,16 +22966,48 @@ var _ptRosterCache = [];
 var _ptGroupCache = {};
 
 function ptOrgSwitchTab(tab) {
-  var isRoster = tab === 'roster';
   var pe = document.getElementById('ptOrgPaneEvents');
   var pr = document.getElementById('ptOrgPaneRoster');
+  var pl = document.getElementById('ptOrgPaneLeagues');
   var te = document.getElementById('ptOrgTabEvents');
   var tr = document.getElementById('ptOrgTabRoster');
-  if (pe) pe.style.display = isRoster ? 'none' : 'flex';
-  if (pr) pr.style.display = isRoster ? 'flex' : 'none';
-  if (te) { te.style.borderBottomColor = isRoster ? 'transparent' : '#c9a84c'; te.style.color = isRoster ? 'rgba(255,255,255,.4)' : '#c9a84c'; }
-  if (tr) { tr.style.borderBottomColor = isRoster ? '#c9a84c' : 'transparent'; tr.style.color = isRoster ? '#c9a84c' : 'rgba(255,255,255,.4)'; }
-  if (isRoster) ptLoadRoster();
+  var tl = document.getElementById('ptOrgTabLeagues');
+  var gold = '#c9a84c', dim = 'rgba(255,255,255,.4)', green = 'rgba(100,220,180,.9)';
+  if (pe) pe.style.display = tab === 'events'  ? 'flex' : 'none';
+  if (pr) pr.style.display = tab === 'roster'  ? 'flex' : 'none';
+  if (pl) pl.style.display = tab === 'leagues' ? 'flex' : 'none';
+  if (te) { te.style.borderBottomColor = tab==='events'  ? gold  : 'transparent'; te.style.color = tab==='events'  ? gold  : dim; }
+  if (tr) { tr.style.borderBottomColor = tab==='roster'  ? gold  : 'transparent'; tr.style.color = tab==='roster'  ? gold  : dim; }
+  if (tl) { tl.style.borderBottomColor = tab==='leagues' ? green : 'transparent'; tl.style.color = tab==='leagues' ? green : dim; }
+  if (tab === 'roster')  ptLoadRoster();
+  if (tab === 'leagues') ptLoadOrgLeagues();
+}
+
+function ptLoadOrgLeagues() {
+  var el = document.getElementById('ptOrgLeagueList');
+  if (!el) return;
+  el.innerHTML = '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">Loading…</div>';
+  fetch(TOUR_API + '/api/leagues', { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
+    .then(function(r){ return r.json(); })
+    .then(function(d) {
+      var leagues = d.leagues || [];
+      if (!leagues.length) {
+        el.innerHTML = '<div style="color:rgba(255,255,255,.3);font-size:13px;padding:20px;text-align:center">No leagues yet. Create one below.</div>';
+        return;
+      }
+      el.innerHTML = leagues.map(function(lg) {
+        return '<div onclick="ptShowLeagueDetail('+lg.id+')" style="background:rgba(100,220,180,.06);border:1px solid rgba(100,220,180,.2);border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;-webkit-tap-highlight-color:transparent">'
+          + '<div style="display:flex;align-items:center;justify-content:space-between">'
+          + '<div style="font-size:15px;font-weight:800;color:rgba(100,220,180,.9)">' + lg.name + '</div>'
+          + '<div style="font-size:11px;color:rgba(255,255,255,.35)">' + (lg.member_count||0) + ' members · ' + (lg.round_count||0) + ' rounds</div>'
+          + '</div>'
+          + (lg.home_course_name ? '<div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:3px">' + lg.home_course_name + '</div>' : '')
+          + '</div>';
+      }).join('');
+    })
+    .catch(function() {
+      el.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:20px;text-align:center">Failed to load leagues</div>';
+    });
 }
 
 async function ptRefreshRosterHandicaps() {
@@ -23492,9 +23524,11 @@ function showCreateEventForm() {
     +'<button id="ptFmtScrambleRbc" onclick="ptSetScrambleFmt(\'rbc_scramble\')" style="flex:1;padding:9px 6px;border-radius:8px;border:1px solid rgba(168,213,181,.25);background:transparent;color:rgba(168,213,181,.5);font-size:12px;font-weight:700;cursor:pointer">RBC</button>'
     +'</div>'
     +'<button id="ptFmtMulti" onclick="ptSetFmt(\'multi_day\')" style="width:100%;margin-bottom:8px;padding:11px;border-radius:10px;border:1.5px solid rgba(255,200,100,.3);background:transparent;color:rgba(255,200,100,.6);font-size:13px;font-weight:700;cursor:pointer">\uD83C\uDFC6 Multi-Day Team Event</button>'
-    +'<button id="ptFmtTrip" onclick="ptSetFmt(\'trip\')" style="width:100%;padding:11px;border-radius:10px;border:1.5px solid rgba(100,180,255,.3);background:transparent;color:rgba(100,180,255,.6);font-size:13px;font-weight:700;cursor:pointer">\uD83C\uDF0D Golf Trip</button>'
+    +'<button id="ptFmtTrip" onclick="ptSetFmt(\'trip\')" style="width:100%;margin-bottom:8px;padding:11px;border-radius:10px;border:1.5px solid rgba(100,180,255,.3);background:transparent;color:rgba(100,180,255,.6);font-size:13px;font-weight:700;cursor:pointer">\uD83C\uDF0D Golf Trip</button>'
+    +'<button id="ptFmtLeague" onclick="ptSetFmt(\'league\')" style="width:100%;padding:11px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:transparent;color:rgba(100,220,180,.6);font-size:13px;font-weight:700;cursor:pointer">\uD83C\uDFC5 League Night</button>'
     +'</div>'
     +'<div id="ptTripFmtNote" style="display:none;margin-top:12px;padding:12px 14px;background:rgba(100,180,255,.08);border:1px solid rgba(100,180,255,.25);border-radius:10px;color:rgba(100,180,255,.85);font-size:13px;line-height:1.5">🌍 <strong>Golf Trip</strong> — multi-round individual event with weekly Stableford standings, per-round handicap pulls from Golf Canada, and Nassau money tracking. Courses and tee times are added round by round as you book them.</div>'
+    +'<div id="ptLeagueFmtNote" style="display:none;margin-top:12px;padding:12px 14px;background:rgba(100,220,180,.08);border:1px solid rgba(100,220,180,.25);border-radius:10px;color:rgba(100,220,180,.85);font-size:13px;line-height:1.5">🏅 <strong>League Night</strong> — weekly stableford scoring, persistent member roster, round-by-round standings. Players are managed in the League dashboard.</div>'
     +'<div style="margin-bottom:18px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Rules &amp; Notes <span style="font-weight:400;color:rgba(255,255,255,.3)">(shown to scorers after PIN entry)</span></div>'
     +'<textarea id="ptNewEvRules" rows="3" placeholder="e.g. Scramble \u2014 each player must contribute 2 drives. 1 mulligan per side." style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:13px;outline:none;resize:vertical;line-height:1.5"></textarea></div>'
     +'<div style="margin-bottom:16px;padding:14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:12px;display:flex;align-items:center;justify-content:space-between">'
@@ -31515,7 +31549,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.71';
+const CACHE='pards-tour-v5.72';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
@@ -31670,6 +31704,12 @@ self.addEventListener('fetch',e=>{
     <div id="ptOrgEventList" style="flex:1"></div>
     <div style="padding-top:14px;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0">
       <button onclick="showCreateEventForm()" style="width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent">+ Create New Event</button>
+    </div>
+  </div>
+  <div id="ptOrgPaneLeagues" style="flex:1;overflow-y:auto;padding:16px 20px;padding-bottom:calc(100px + env(safe-area-inset-bottom));display:none;flex-direction:column">
+    <div id="ptOrgLeagueList" style="flex:1"></div>
+    <div style="padding-top:14px;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0">
+      <button onclick="showCreateEventForm()" style="width:100%;padding:15px;background:rgba(100,220,180,.15);border:1.5px solid rgba(100,220,180,.4);border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;color:rgba(100,220,180,.9);-webkit-tap-highlight-color:transparent">+ Create League Night</button>
     </div>
   </div>
   <div id="ptOrgPaneRoster" style="flex:1;overflow-y:auto;padding:16px 20px;padding-bottom:calc(100px + env(safe-area-inset-bottom));display:none;flex-direction:column">
