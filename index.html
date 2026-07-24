@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.54';
+const CURRENT_VERSION = 'pards-tour-v5.55';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -31361,7 +31361,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.54';
+const CACHE='pards-tour-v5.55';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
@@ -31407,7 +31407,7 @@ self.addEventListener('fetch',e=>{
 
 
 <!-- ══ PARDS TOUR — HOME OVERLAY ══ -->
-<div id="ptHomeOverlay" style="position:fixed;inset:0;z-index:200;background:linear-gradient(160deg,#0d1f14,#1a3a2a);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;box-sizing:border-box">
+<div id="ptHomeOverlay" style="position:fixed;inset:0;z-index:500;background:linear-gradient(160deg,#0d1f14,#1a3a2a);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;box-sizing:border-box">
   <div style="font-size:56px;line-height:1;margin-bottom:12px">⛳</div>
   <div style="font-size:30px;font-weight:900;color:#c9a84c;font-family:Georgia,serif;letter-spacing:-.5px;margin-bottom:4px">Pards Tour</div>
   <div style="font-size:13px;color:rgba(255,255,255,.35);margin-bottom:16px;letter-spacing:.5px">Golf · Powered by Competition</div>
@@ -31432,7 +31432,7 @@ self.addEventListener('fetch',e=>{
 </div>
 
 <!-- ══ PARDS TOUR — JOIN EVENT OVERLAY ══ -->
-<div id="ptJoinOverlay" style="position:fixed;inset:0;z-index:200;background:linear-gradient(160deg,#0d1f14,#1a3a2a);display:none;flex-direction:column;padding:0 24px 40px;box-sizing:border-box;overflow-y:auto">
+<div id="ptJoinOverlay" style="position:fixed;inset:0;z-index:500;background:linear-gradient(160deg,#0d1f14,#1a3a2a);display:none;flex-direction:column;padding:0 24px 40px;box-sizing:border-box;overflow-y:auto">
   <div style="padding:20px 0 28px;display:flex;align-items:center;gap:12px;flex-shrink:0">
     <button onclick="showHome()" style="background:none;border:none;color:rgba(201,168,76,.7);font-size:24px;cursor:pointer;padding:0;line-height:1;-webkit-tap-highlight-color:transparent">←</button>
     <div style="font-size:19px;font-weight:800;color:#c9a84c">Pards Events</div>
@@ -31480,7 +31480,7 @@ self.addEventListener('fetch',e=>{
 </div>
 
 <!-- ══ PARDS TOUR — ORGANIZER LOGIN OVERLAY ══ -->
-<div id="ptOrgLoginOverlay" style="position:fixed;inset:0;z-index:200;background:linear-gradient(160deg,#0d1f14,#1a3a2a);display:none;flex-direction:column;padding:0 24px 40px;box-sizing:border-box">
+<div id="ptOrgLoginOverlay" style="position:fixed;inset:0;z-index:500;background:linear-gradient(160deg,#0d1f14,#1a3a2a);display:none;flex-direction:column;padding:0 24px 40px;box-sizing:border-box">
   <div style="padding:20px 0 32px;display:flex;align-items:center;gap:12px">
     <button onclick="showHome()" style="background:none;border:none;color:rgba(201,168,76,.7);font-size:24px;cursor:pointer;padding:0;line-height:1;-webkit-tap-highlight-color:transparent">←</button>
     <div style="font-size:19px;font-weight:800;color:#c9a84c">Organizer Login</div>
@@ -31500,7 +31500,7 @@ self.addEventListener('fetch',e=>{
 </div>
 
 <!-- ══ PARDS TOUR — ORGANIZER DASHBOARD OVERLAY ══ -->
-<div id="ptOrgDashOverlay" style="position:fixed;inset:0;z-index:200;background:#0f1f14;display:none;flex-direction:column;box-sizing:border-box">
+<div id="ptOrgDashOverlay" style="position:fixed;inset:0;z-index:500;background:#0f1f14;display:none;flex-direction:column;box-sizing:border-box">
   <div style="background:rgba(0,0,0,.25);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid rgba(201,168,76,.15)">
     <div>
       <div style="font-size:10px;color:rgba(201,168,76,.55);font-weight:700;text-transform:uppercase;letter-spacing:.8px">Organizer</div>
