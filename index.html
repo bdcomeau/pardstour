@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.79';
+const CURRENT_VERSION = 'pards-tour-v5.80';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -22437,7 +22437,7 @@ function syncBottomBars(){
     if(hb) hb.style.display='block';
     return;
   }
-  if(sb) sb.classList.toggle('show', onSetup);
+  if(sb) { sb.style.display = ''; sb.classList.toggle('show', onSetup); }
   if(hb) hb.style.display = onSetup ? 'none' : 'block';
 }
 window.addEventListener('pageshow', function(){ setTimeout(syncBottomBars, 50); });
@@ -22673,7 +22673,7 @@ function showHome() {
   }
   _ptShow('ptHomeOverlay');
   var _hdr = document.querySelector('.hdr'); if (_hdr) _hdr.style.display = '';
-  var _sb = document.getElementById('setupBar'); if (_sb) { _sb.classList.remove('show'); _sb.style.display = 'none'; }
+  var _sb = document.getElementById('setupBar'); if (_sb) { _sb.classList.remove('show'); _sb.style.display = ''; }
   var vEl = document.getElementById('ptHomeVersion'); if (vEl) vEl.textContent = CURRENT_VERSION;
   try { hideRoundBar(); } catch(e) {}
 }
@@ -31690,7 +31690,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.79';
+const CACHE='pards-tour-v5.80';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
