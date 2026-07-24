@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.55';
+const CURRENT_VERSION = 'pards-tour-v5.56';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -22500,6 +22500,8 @@ function _ptHideAll() {
     var el = document.getElementById(oid);
     if (el) { el.style.display = 'none'; el.style.pointerEvents = 'none'; el.style.visibility = 'hidden'; }
   });
+  // Restore hdr pointer-events (disabled while home overlay is showing)
+  var _hdrPe = document.querySelector('.hdr'); if (_hdrPe) _hdrPe.style.pointerEvents = '';
   // Restore the My Round setup bar
   var sb = document.getElementById('setupBar'); if (sb) sb.style.display = '';
   // Also close any floating Tour overlays and cancel their timers
@@ -22675,8 +22677,8 @@ function showHome() {
   // Deactivate the scorecard screen so its sticky .shdr doesn't bleed above the home overlay
   document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById('screen-setup').classList.add('active');
-  // Restore the main Pards Golf header (hidden during scorecard)
-  var _hdr = document.querySelector('.hdr'); if (_hdr) _hdr.style.display = '';
+  // Restore the main Pards Golf header but disable pointer-events so it can't block the overlay
+  var _hdr = document.querySelector('.hdr'); if (_hdr) { _hdr.style.display = ''; _hdr.style.pointerEvents = 'none'; }
   var hb = document.getElementById('ptHomeBtn'); if (hb) hb.style.display = 'none';
   var _ptb = document.getElementById('ptTourBackBtn'); if (_ptb) _ptb.style.display = 'none';
   // Remove setupBar 'show' class so it can't bleed through the home overlay
@@ -31361,7 +31363,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.55';
+const CACHE='pards-tour-v5.56';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
