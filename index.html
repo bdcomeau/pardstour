@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.74';
+const CURRENT_VERSION = 'pards-tour-v5.76';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -23955,10 +23955,39 @@ window.doCreateLeagueRound = function(leagueId) {
     body:JSON.stringify({round_date:date})
   }).then(function(r){return r.json();}).then(function(d){
     if(d.trip){
+      var tripId = d.trip.id;
       var ov=document.getElementById('ptCreateLeagueRoundOv'); if(ov) ov.remove();
-      // Reload the league so the new round appears, then open the trip for setup
-      ptLoadLeagueDetail(leagueId);
-      ptShowTripDetail(d.trip.id);
+      // Fetch league members and auto-add them as trip players
+      if(btn){ btn.textContent='Adding players…'; }
+      fetch(TOUR_API+'/api/leagues/'+leagueId, { headers:{'Authorization':'Bearer '+G.orgToken} })
+        .then(function(r){return r.json();})
+        .then(function(lg){
+          var members = (lg.members||[]);
+          if(!members.length){
+            ptLoadLeagueDetail(leagueId);
+            ptShowTripDetail(tripId);
+            return;
+          }
+          // POST each league member as a trip player (sequential, ignore duplicates)
+          return members.reduce(function(chain, m){
+            return chain.then(function(){
+              return fetch(TOUR_API+'/api/trips/'+tripId+'/players', {
+                method:'POST',
+                headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
+                body:JSON.stringify({roster_id: m.roster_id||m.id})
+              }).catch(function(){});
+            });
+          }, Promise.resolve());
+        })
+        .then(function(){
+          ptLoadLeagueDetail(leagueId);
+          ptShowTripDetail(tripId);
+        })
+        .catch(function(){
+          // Even if member add fails, open the trip
+          ptLoadLeagueDetail(leagueId);
+          ptShowTripDetail(tripId);
+        });
     } else {
       if(btn){ btn.disabled=false; btn.textContent='Create Round'; }
       alert(d.error||'Failed to create round.');
@@ -31118,8 +31147,53 @@ function doJoinGroup() {
     var _hb = document.getElementById('ptHomeBtn'); if (_hb) _hb.style.display='block';
     G.roundDate = _savedDate;
     saveG();
+    // Sync start hole pill + selector (shotgun support)
+    (function(){
+      var _sh = G.startHole || 1;
+      var _sel = document.getElementById('startHoleSel'); if (_sel) _sel.value = String(_sh);
+      var _ph = document.getElementById('pillHole'); if (_ph) _ph.textContent = 'Hole ' + _sh;
+    })();
+    // Sync player count pill — scramble always 1 scoring slot
+    (function(){ var _pp = document.getElementById('pillPlayers'); if (_pp) _pp.textContent = '1'; })();
+    // Scramble: replace player rows with locked team banner
+    (function(){
+      var _container = document.getElementById('playerInputs');
+      if (!_container) return;
+      var _ownName = G.joinGroup ? (G.joinGroup.name || 'Your Team') : 'Your Team';
+      var _pairedName = G._pairedGroup ? G._pairedGroup.name : null;
+      var _ownPlayers = G._ownPlayers || [];
+      var _pairedPlayers = G._pairedPlayers || [];
+      var _tee = (G.players[0] && G.players[0].deck) || _scTee;
+      var _bh = '<div style="margin-bottom:6px">';
+      // Own team card
+      _bh += '<div style="background:rgba(100,220,180,.1);border:1.5px solid rgba(100,220,180,.3);border-radius:12px;padding:14px;margin-bottom:8px">';
+      _bh += '<div style="font-size:10px;font-weight:700;color:rgba(100,220,180,.6);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Scoring for</div>';
+      _bh += '<div style="font-size:17px;font-weight:900;color:#fff;margin-bottom:6px">'+_esc(_ownName)+'</div>';
+      if (_ownPlayers.length) {
+        _ownPlayers.forEach(function(p, i) {
+          var cap = i === 0 ? ' <span style="font-size:10px;color:#c9a84c">(C)</span>' : '';
+          _bh += '<div style="font-size:12px;color:rgba(255,255,255,.6);padding:2px 0">🏌️ '+_esc(p.name||p.player_name||'')+cap+'</div>';
+        });
+      }
+      _bh += '<div style="margin-top:8px;font-size:11px;color:rgba(201,168,76,.7)">🏌 Tee: '+_esc(_tee)+'</div>';
+      _bh += '</div>';
+      // Paired team card (if two-team scramble)
+      if (_pairedName) {
+        _bh += '<div style="background:rgba(201,168,76,.08);border:1.5px solid rgba(201,168,76,.25);border-radius:12px;padding:14px;margin-bottom:8px">';
+        _bh += '<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Playing against</div>';
+        _bh += '<div style="font-size:17px;font-weight:900;color:#c9a84c;margin-bottom:6px">'+_esc(_pairedName)+'</div>';
+        if (_pairedPlayers.length) {
+          _pairedPlayers.forEach(function(p, i) {
+            var cap = i === 0 ? ' <span style="font-size:10px;color:#c9a84c">(C)</span>' : '';
+            _bh += '<div style="font-size:12px;color:rgba(255,255,255,.5);padding:2px 0">🏌️ '+_esc(p.name||p.player_name||'')+cap+'</div>';
+          });
+        }
+        _bh += '</div>';
+      }
+      _bh += '</div>';
+      _container.innerHTML = _bh;
+    })();
     try { renderCoursePicker(); } catch(e) {}
-    try { renderPlayers(); } catch(e) {}
     try { renderGameTabs(); } catch(e) {}
     try { refreshRoundOptSummary(); } catch(e) {}
     try { refreshStartRoundBtn(); } catch(e) {}
@@ -31532,7 +31606,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.74';
+const CACHE='pards-tour-v5.76';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
