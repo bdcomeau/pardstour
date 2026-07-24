@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.70';
+const CURRENT_VERSION = 'pards-tour-v5.71';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -25563,7 +25563,7 @@ function loadOrgEventDetail(eventId) {
       +'<div id="ptRoundsSection"></div>'      +'<div style="font-size:11px;font-weight:700;color:rgba(201,168,76,.7);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Groups ('+groups.length+')</div>';
     var _footerHtml = '<div style="display:flex;gap:8px;margin-top:8px">'
       +'<button onclick="ptShowAddGroup('+ev.id+')" style="flex:1;padding:13px;background:rgba(201,168,76,.08);border:1.5px dashed rgba(201,168,76,.3);border-radius:12px;color:#c9a84c;font-size:14px;font-weight:700;cursor:pointer">+ Add Group</button>'
-      +'<button onclick="ptShowDrawImport('+ev.id+')" style="flex:1;padding:13px;background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.15);border-radius:12px;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer">📋 Import Draw</button>'
+      +'<button onclick="ptShowDrawImport('+ev.id+',\''+ev.format+'\')" style="flex:1;padding:13px;background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.15);border-radius:12px;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer">📋 Import Draw</button>'
       +'</div>'
       +(ev.format==='rbc_scramble'?(function(){ _ptRbcImportEvent=ev; return '<button onclick="ptShowRbcImport('+ev.id+',_ptRbcImportEvent)" style="width:100%;margin-top:8px;padding:13px;background:rgba(168,213,181,.06);border:1.5px dashed rgba(168,213,181,.35);border-radius:12px;color:#a8d5b5;font-size:14px;font-weight:700;cursor:pointer">🏌️ Import RBC Teams (CSV)</button>'; })():'');
     if(groups.length){
@@ -28946,9 +28946,11 @@ function _ptMatchToRoster(name, rosterPlayers) {
 var _ptDrawImportEventId = null;
 var _ptDrawImportTeams = [];
 var _ptDrawImportRoster = [];
+var _ptDrawImportFormat = null;
 
-function ptShowDrawImport(eventId) {
+function ptShowDrawImport(eventId, format) {
   _ptDrawImportEventId = eventId;
+  _ptDrawImportFormat = format || null;
   _ptDrawImportTeams = [];
   _ptDrawResolvedPlayers = {};
   var ov = document.createElement('div');
@@ -29116,7 +29118,11 @@ function ptRenderDrawPreview(teams) {
     html += '</div>';
   });
   html += '</div>';
-  html += '<button onclick="ptDAShow(_ptDrawImportTeams,_ptDrawImportEventId,\'draw\')" style="width:100%;padding:16px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:10px">Assign Holes → (' + teams.length + ' teams)</button>';
+  if (_ptDrawImportFormat === 'multi_day') {
+    html += '<button onclick="ptDrawImportMultiDay()" style="width:100%;padding:16px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:10px">Import Teams → (' + teams.length + ' teams)</button>';
+  } else {
+    html += '<button onclick="ptDAShow(_ptDrawImportTeams,_ptDrawImportEventId,\'draw\')" style="width:100%;padding:16px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:10px">Assign Holes → (' + teams.length + ' teams)</button>';
+  }
   html += '<div id="ptDrawImportErr" style="display:none;color:#e74c3c;font-size:13px;text-align:center;margin-top:8px"></div>';
   preview.innerHTML = html;
 }
@@ -29242,6 +29248,62 @@ function ptDrawResolveGcPick(idx) {
   }).catch(function(){alert('Network error');});
 }
 
+
+async function ptDrawImportMultiDay() {
+  // For multi-day events: create groups with start_hole=1 (placeholder), skip hole assignment
+  var teams = _ptDrawImportTeams;
+  var eventId = _ptDrawImportEventId;
+  if (!teams || !teams.length) return;
+  var btn = document.querySelector('#ptDrawImportOv button[onclick*="ptDrawImportMultiDay"]');
+  if (btn) { btn.disabled = true; btn.textContent = 'Importing…'; }
+  var failed = [];
+  for (var ti = 0; ti < teams.length; ti++) {
+    var team = teams[ti];
+    var nameEl = document.getElementById('ptDrawTeamName_' + ti);
+    var teamName = nameEl ? nameEl.value.trim() : (team.captain + ' Team');
+    var groupResp = await fetch(TOUR_API + '/api/events/' + eventId + '/groups', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+      body: JSON.stringify({ name: teamName, start_hole: 1, bypass_hole_limit: true })
+    }).then(function(r) { return r.json(); }).catch(function() { return null; });
+    if (!groupResp || !groupResp.group) { failed.push(teamName); continue; }
+    var groupId = groupResp.group.id;
+    var allPlayers = [team.captain].concat(team.players || []);
+    for (var pi = 0; pi < allPlayers.length && pi < 4; pi++) {
+      var pname = allPlayers[pi]; if (!pname) continue;
+      var resolveKey = ti + '_' + pi;
+      var resolved = _ptDrawResolvedPlayers[resolveKey];
+      var rosterId = null;
+      if (resolved) {
+        rosterId = resolved.roster_id;
+      } else {
+        var match = _ptMatchToRoster(pname, _ptDrawImportRoster);
+        rosterId = match.player ? match.player.id : null;
+      }
+      if (!rosterId) {
+        try {
+          var newP = await fetch(TOUR_API + '/api/roster', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+            body: JSON.stringify({ name: pname })
+          }).then(function(r) { return r.json(); });
+          rosterId = newP.player ? newP.player.id : null;
+        } catch(e) {}
+      }
+      if (rosterId) {
+        await fetch(TOUR_API + '/api/groups/' + groupId + '/roster', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+          body: JSON.stringify({ roster_id: rosterId })
+        }).catch(function() {});
+      }
+    }
+  }
+  var ov = document.getElementById('ptDrawImportOv'); if (ov) ov.remove();
+  var ov2 = document.getElementById('ptDAOv'); if (ov2) ov2.remove();
+  loadOrgEventDetail(eventId);
+  if (failed.length) alert('Imported with errors. Failed: ' + failed.join(', '));
+}
 
 async function ptCommitDrawImport() {
   var errEl = document.getElementById('ptDrawImportErr');
@@ -31453,7 +31515,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.70';
+const CACHE='pards-tour-v5.71';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
