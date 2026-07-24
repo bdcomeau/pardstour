@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.93';
+const CURRENT_VERSION = 'pards-tour-v5.96';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -23502,8 +23502,23 @@ function loadOrgEvents() {
     var d = results[0];
     var td = results[1];
     var ld = results[2];
-    var trips = td.trips || [];
+    var allTrips = td.trips || [];
     var leagues = ld.leagues || [];
+    // Fetch league rounds to get trip IDs so we can exclude them from the trips list
+    return Promise.all(leagues.map(function(lg){
+      return fetch(TOUR_API+'/api/leagues/'+lg.id, { headers:{'Authorization':'Bearer '+G.orgToken} })
+        .then(function(r){ return r.json(); })
+        .catch(function(){ return {rounds:[]}; });
+    })).then(function(leagueDetails){
+      var leagueTripIds = new Set();
+      leagueDetails.forEach(function(ld2){ (ld2.rounds||[]).forEach(function(r){ if(r.trip_id) leagueTripIds.add(r.trip_id); }); });
+      var trips = allTrips.filter(function(t){ return !leagueTripIds.has(t.id); });
+      return [d, trips, leagues];
+    });
+  }).then(function(results){
+    var d = results[0];
+    var trips = results[1];
+    var leagues = results[2];
     var _showArchived = window._ptShowArchivedEvents || false;
     var active = d.events.filter(function(ev){ return ev.status !== 'archived'; });
     var archived = d.events.filter(function(ev){ return ev.status === 'archived'; });
@@ -23814,7 +23829,7 @@ var _ptDelLgName = '';
 
 window.ptDeleteLeague = function(leagueId, leagueName) {
   _ptDelLgId = leagueId;
-  _ptDelLgName = leagueName || '';
+  _ptDelLgName = leagueName || window._ptDelLgNamePending || '';
   var old = document.getElementById('ptDelLgOv1'); if (old) old.remove();
   var ov = document.createElement('div');
   ov.id = 'ptDelLgOv1';
@@ -23997,7 +24012,7 @@ function ptRenderLeagueDetail(league, members, rounds) {
         +'<div style="font-size:12px;color:rgba(100,220,180,.7);font-weight:700">'+(r.player_count||0)+' players</div>'
         +'</div>'
         +'<div style="display:flex;gap:8px">'
-        +'<button onclick="ptShowTripDetail('+r.trip_id+')" style="flex:1;padding:10px;background:rgba(100,220,180,.12);border:1px solid rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,1);font-size:13px;font-weight:800;cursor:pointer">⚙️ Manage Round</button>'
+        +'<button onclick="ptShowTripDetail('+r.trip_id+','+lid+')" style="flex:1;padding:10px;background:rgba(100,220,180,.12);border:1px solid rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,1);font-size:13px;font-weight:800;cursor:pointer">⚙️ Manage Round</button>'
         +'<button onclick="ptShowLeagueLeaderboard('+lid+','+r.league_round_id+',\''+r.viewer_pin+'\',\''+dateStr+'\')" style="flex:1;padding:10px;background:rgba(100,220,180,.06);border:1px solid rgba(100,220,180,.2);border-radius:10px;color:rgba(100,220,180,.8);font-size:13px;font-weight:800;cursor:pointer">🏆 Leaderboard</button>'
         +'</div>'
         +'</div>';
@@ -24007,9 +24022,11 @@ function ptRenderLeagueDetail(league, members, rounds) {
   }
 
   html += '<button onclick="ptCreateLeagueRoundUI('+lid+')" style="width:100%;padding:12px;background:rgba(100,220,180,.1);border:1.5px dashed rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,.7);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px">+ Create Weekly Round</button>';
-  html += '<button onclick="ptDeleteLeague('+lid+',\"'+_esc(league.name)+'\")" style="width:100%;margin-top:12px;padding:10px;background:none;border:1px solid rgba(180,30,30,.35);border-radius:10px;color:rgba(200,60,60,.6);font-size:12px;font-weight:700;cursor:pointer">🗑️ Delete League...</button>';
+  html += '<button onclick="ptDeleteLeague('+lid+')" style="width:100%;margin-top:12px;padding:10px;background:none;border:1px solid rgba(180,30,30,.35);border-radius:10px;color:rgba(200,60,60,.6);font-size:12px;font-weight:700;cursor:pointer">🗑️ Delete League...</button>';
 
   body.innerHTML = html;
+  // Store league name for delete dialog (avoids JS quoting issues in onclick)
+  window._ptDelLgNamePending = league.name;
 }
 
 window.ptAddLeagueMemberUI = function(leagueId) {
@@ -24310,7 +24327,8 @@ window.ptDeleteTrip = function(tripId, ev) {
   }).catch(function(){ alert('Network error.'); });
 };
 
-function ptShowTripDetail(tripId) {
+function ptShowTripDetail(tripId, leagueId) {
+  window._ptTripDetailLeagueId = leagueId || null;
   var ov = document.createElement('div');
   ov.id = 'ptTripDetailOv';
   ov.style.cssText = 'position:fixed;inset:0;z-index:600;background:#0d1f0d;overflow-y:auto';
@@ -24342,7 +24360,7 @@ function ptRenderTripDetail(trip, players, rounds) {
 
   // Update overlay title based on context
   var _titleEl = document.getElementById('ptTripDetailTitle');
-  if(_titleEl) _titleEl.textContent = trip.league_id ? '🏅 League' : '🌍 Trip';
+  if(_titleEl) _titleEl.textContent = (trip.league_id || window._ptTripDetailLeagueId) ? '🏅 League' : '🌍 Trip';
 
   // Header card
   var html = '<div style="background:rgba(100,180,255,.08);border:1.5px solid rgba(100,180,255,.2);border-radius:16px;padding:18px;margin-bottom:20px">'
@@ -31895,7 +31913,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.93';
+const CACHE='pards-tour-v5.96';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
