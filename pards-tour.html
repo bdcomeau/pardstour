@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.82';
+const CURRENT_VERSION = 'pards-tour-v5.83';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -24521,7 +24521,7 @@ function _ptTRMBack() {
 var _ptTRM = {};
 
 window.ptTripRoundManager = function(tripId, roundId) {
-  _ptTRM = { tripId:tripId, roundId:roundId, step:'course', course:null, teeBox:null, slots:[] };
+  _ptTRM = { tripId:tripId, roundId:roundId, step:'course', course:null, teeBox:null, slots:[], selectedPoolId:null };
 
   var ov = document.createElement('div');
   ov.id = 'ptTRMOv';
@@ -24713,34 +24713,66 @@ function _ptTRMRenderTeeBuilder() {
       + '<input id="ptTRMCount" type="number" min="1" max="20" value="'+Math.ceil((_ptTRM.tripPlayers||[]).length/4)+'" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none"></div>'
       + '<button onclick="ptTRMGenerateSlots()" style="width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer">Generate Slots &rarr;</button>';
   } else {
-    // Slot editor
+    // Chip-based slot editor
     var assignedIds = {};
     _ptTRM.slots.forEach(function(s){ (s.players||[]).forEach(function(p){ if(p&&p.trip_player_id) assignedIds[p.trip_player_id]=true; }); });
     var tCount = (_ptTRM.tripPlayers||[]).length;
     var aCount = Object.keys(assignedIds).length;
+    var selId = _ptTRM.selectedPoolId || null;
+
+    // Toolbar
     h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">'
-      + '<div style="font-size:12px;color:rgba(201,168,76,.7)">'+_ptTRM.slots.length+' slots · '+aCount+'/'+tCount+' players</div>'
+      + '<div style="font-size:12px;color:rgba(201,168,76,.7)">'+_ptTRM.slots.length+' slots · '+aCount+'/'+tCount+' assigned</div>'
       + '<div style="display:flex;gap:6px">'
       + '<button onclick="ptTRMAutoFill()" style="padding:7px 12px;background:rgba(168,213,181,.15);border:1px solid rgba(168,213,181,.4);border-radius:8px;color:#a8d5b5;font-size:11px;font-weight:700;cursor:pointer">🎲 Auto-Fill</button>'
-      + '<button onclick="_ptTRM.slots=[];_ptTRMRenderTeeBuilder()" style="padding:7px 10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.4);font-size:11px;font-weight:700;cursor:pointer">↺ Setup</button>'
+      + '<button onclick="_ptTRM.slots=[];_ptTRM.selectedPoolId=null;_ptTRMRenderTeeBuilder()" style="padding:7px 10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.4);font-size:11px;font-weight:700;cursor:pointer">↺ Setup</button>'
       + '</div></div>';
 
-    _ptTRM.slots.forEach(function(slot,si){
-      h += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin-bottom:8px">'
-        + '<div style="font-size:13px;font-weight:800;color:#f5e6b8;margin-bottom:6px">'+slot.start_time+'</div>';
-      for(var pi=0;pi<4;pi++){
-        var assigned = slot.players[pi];
-        h += '<div style="margin-bottom:5px"><select onchange="ptTRMAssign('+si+','+pi+',this)" style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.25);color:#fff;font-size:13px;outline:none">'
-          + '<option value="">-- Player '+(pi+1)+' --</option>';
-        (_ptTRM.tripPlayers||[]).forEach(function(p){
-          var taken = assignedIds[p.id] && !(assigned && assigned.trip_player_id===p.id);
-          h += '<option value="'+p.id+'"'+(assigned&&assigned.trip_player_id===p.id?' selected':'')+(taken?' disabled':'')+'>'+_esc(p.name)+(p.current_index!=null?' (HCP '+p.current_index+')':'')+(taken?' [assigned]':'')+'</option>';
-        });
-        h += '</select></div>';
+    // Unassigned pool
+    var unassigned = (_ptTRM.tripPlayers||[]).filter(function(p){ return !assignedIds[p.id]; });
+    if(unassigned.length){
+      h += '<div style="margin-bottom:14px">'
+        + '<div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Unassigned ('+unassigned.length+') — tap to select, then tap a slot</div>'
+        + '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+      unassigned.forEach(function(p){
+        var isSel = selId === p.id;
+        h += '<button onclick="ptTRMPoolTap('+p.id+')" style="padding:6px 12px;border-radius:20px;border:1.5px solid '+( isSel?'#c9a84c':'rgba(255,255,255,.2)')+';background:'+( isSel?'rgba(201,168,76,.2)':'rgba(255,255,255,.05)')+';color:'+( isSel?'#f5e6b8':'rgba(255,255,255,.7)')+';font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">'
+          + _esc(p.name)+'</button>';
+      });
+      h += '</div></div>';
+    } else {
+      h += '<div style="margin-bottom:10px;padding:8px 12px;background:rgba(168,213,181,.08);border:1px solid rgba(168,213,181,.2);border-radius:8px;font-size:12px;color:rgba(168,213,181,.8)">✓ All players assigned</div>';
+    }
+
+    // Slot cards
+    _ptTRM.slots.forEach(function(slot, si){
+      var slotPlayers = (slot.players||[]).filter(Boolean);
+      var canDrop = !!selId;
+      var borderCol = canDrop ? 'rgba(201,168,76,.35)' : 'rgba(255,255,255,.08)';
+      h += '<div style="background:rgba(255,255,255,.04);border:1.5px solid '+borderCol+';border-radius:10px;padding:10px 12px;margin-bottom:8px">'
+        + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">'
+        + '<input type="time" value="'+slot.start_time+'" onchange="ptTRMSetTime('+si+',this.value)" style="background:none;border:none;border-bottom:1px solid rgba(201,168,76,.3);color:#f5e6b8;font-size:14px;font-weight:800;padding:2px 4px;outline:none;cursor:pointer">'
+        + '<button onclick="ptTRMRemoveSlot('+si+')" style="background:none;border:none;color:rgba(255,100,100,.4);font-size:16px;cursor:pointer;padding:0 4px;line-height:1">🗑</button>'
+        + '</div>'
+        + '<div style="display:flex;flex-wrap:wrap;gap:6px;min-height:30px">';
+      slotPlayers.forEach(function(p){
+        h += '<div style="display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:16px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3)">'
+          + '<span style="font-size:12px;font-weight:700;color:#f5e6b8">'+_esc(p.name)+'</span>'
+          + '<button onclick="ptTRMRemovePlayer('+si+','+p.trip_player_id+')" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;padding:0;line-height:1;-webkit-tap-highlight-color:transparent">×</button>'
+          + '</div>';
+      });
+      if(slotPlayers.length < 4){
+        if(canDrop){
+          h += '<button onclick="ptTRMDropInSlot('+si+')" style="padding:5px 12px;border-radius:16px;border:1.5px dashed #c9a84c;background:rgba(201,168,76,.1);color:#c9a84c;font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">+ Place here</button>';
+        } else if(slotPlayers.length===0){
+          h += '<span style="font-size:12px;color:rgba(255,255,255,.2);font-style:italic">Empty slot</span>';
+        }
       }
-      // Per-player tee override option
-      h += '</div>';
+      h += '</div></div>';
     });
+
+    // Add slot button
+    h += '<button onclick="ptTRMAddSlot()" style="width:100%;padding:11px;background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.4);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px">+ Add Slot</button>';
     h += '<div style="height:80px"></div>';
   }
   body.innerHTML = h;
@@ -24804,6 +24836,74 @@ window.ptTRMAutoFill = function() {
       slot.players[pi] = pool[si*4+pi]||null;
     }
   });
+  _ptTRMRenderTeeBuilder();
+};
+
+
+// Clear selectedPoolId when auto-filling
+var _ptTRMAutoFill_orig = window.ptTRMAutoFill;
+window.ptTRMAutoFill = function() {
+  _ptTRM.selectedPoolId = null;
+  _ptTRMAutoFill_orig();
+};
+
+// Pool chip tap — select or deselect
+window.ptTRMPoolTap = function(playerId) {
+  _ptTRM.selectedPoolId = (_ptTRM.selectedPoolId === playerId) ? null : playerId;
+  _ptTRMRenderTeeBuilder();
+};
+
+// Drop selected pool player into slot si
+window.ptTRMDropInSlot = function(si) {
+  var pid = _ptTRM.selectedPoolId;
+  if(!pid) return;
+  var tp = (_ptTRM.tripPlayers||[]).find(function(p){ return p.id === pid; });
+  if(!tp) return;
+  var slot = _ptTRM.slots[si];
+  // Don't exceed 4
+  var filled = (slot.players||[]).filter(Boolean).length;
+  if(filled >= 4) return;
+  // Find first null slot
+  var placed = false;
+  for(var i=0;i<slot.players.length;i++){
+    if(!slot.players[i]){ slot.players[i] = { trip_player_id:tp.id, name:tp.name, tee_box_id:(_ptTRM.teeBox?_ptTRM.teeBox.id:null) }; placed=true; break; }
+  }
+  if(!placed) slot.players.push({ trip_player_id:tp.id, name:tp.name, tee_box_id:(_ptTRM.teeBox?_ptTRM.teeBox.id:null) });
+  _ptTRM.selectedPoolId = null;
+  _ptTRMRenderTeeBuilder();
+};
+
+// Remove player chip from slot — returns them to pool
+window.ptTRMRemovePlayer = function(si, playerId) {
+  var slot = _ptTRM.slots[si];
+  slot.players = (slot.players||[]).map(function(p){
+    return (p && p.trip_player_id === playerId) ? null : p;
+  });
+  _ptTRMRenderTeeBuilder();
+};
+
+// Change tee time inline
+window.ptTRMSetTime = function(si, val) {
+  if(_ptTRM.slots[si]) _ptTRM.slots[si].start_time = val;
+};
+
+// Remove entire slot — players return to pool
+window.ptTRMRemoveSlot = function(si) {
+  _ptTRM.slots.splice(si, 1);
+  _ptTRM.selectedPoolId = null;
+  _ptTRMRenderTeeBuilder();
+};
+
+// Add a new empty slot after the last one
+window.ptTRMAddSlot = function() {
+  var last = _ptTRM.slots[_ptTRM.slots.length-1];
+  var newTime = '08:00';
+  if(last){
+    var sp = last.start_time.split(':');
+    var mins = parseInt(sp[0])*60 + parseInt(sp[1]) + 10;
+    newTime = String(Math.floor(mins/60)).padStart(2,'0')+':'+String(mins%60).padStart(2,'0');
+  }
+  _ptTRM.slots.push({ start_time:newTime, hole:1, players:[null,null,null,null] });
   _ptTRMRenderTeeBuilder();
 };
 
@@ -31715,7 +31815,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.82';
+const CACHE='pards-tour-v5.83';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
