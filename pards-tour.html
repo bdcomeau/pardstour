@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.80';
+const CURRENT_VERSION = 'pards-tour-v5.81';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -31662,6 +31662,27 @@ function ptLaunchFoursomeRound(foursomeData) {
   // Ensure Pards Tour back button is visible
   (function(){ var _ptb=document.getElementById('ptTourBackBtn'); if(_ptb) _ptb.style.display='block'; })();
   G.roundDate = _savedDate;
+  // Re-assert players from source — guards against any saveG/loadG clobber between setup
+  G.n = players.length;
+  G.players = players.map(function(p) {
+    return {
+      name:         p.name,
+      idx:          p.hdcpIndex || p.handicap || 0,
+      hdcpIndex:    p.hdcpIndex || p.handicap || 0,
+      hdcpBaseline: p.hdcpIndex || p.handicap || 0,
+      deck:         tee,
+      playHdcp:     p.playHdcp || 0,
+      strokes:      Array(18).fill(0),
+      golfId:       p.ghin || '',
+      typicalScore: 0,
+      _roster_id:       p.roster_id,
+      _team_name:       p.team_name,
+      _group_id:        p.group_id,
+      _trip_player_id:  p._trip_player_id || null,
+    };
+  });
+  // Sync player count DOM so pill matches G.n
+  (function(){ var _cv=document.getElementById('cntVal'); if(_cv) _cv.textContent=G.n; var _pp=document.getElementById('pillPlayers'); if(_pp) _pp.textContent=G.n; })();
   saveG();
   try { renderCoursePicker(); } catch(e) {}
   try { renderPlayers(); } catch(e) {}
@@ -31690,7 +31711,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.80';
+const CACHE='pards-tour-v5.81';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
