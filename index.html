@@ -604,7 +604,7 @@ input::placeholder{color:#bbb}
 <body>
 
 <div class="hdr">
-  <div style="flex:1 1 0;min-width:0;display:flex;align-items:center;gap:8px"><button id="ptHomeBtn" onclick="showHome()" style="display:none;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:8px;color:rgba(201,168,76,.9);font-size:12px;font-weight:800;cursor:pointer;padding:5px 10px;line-height:1.2;-webkit-tap-highlight-color:transparent">← Pards Tour</button><div><div class="hdr-title">Pards Golf</div><div class="hdr-sub" id="hdrCourseSub">Select Course</div></div></div>
+  <div style="flex:1 1 0;min-width:0;display:flex;align-items:center;gap:8px"><button id="ptHomeBtn" onclick="showHome()" style="display:none;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:8px;color:rgba(201,168,76,.9);font-size:12px;font-weight:800;cursor:pointer;padding:5px 10px;line-height:1.2;-webkit-tap-highlight-color:transparent;flex-shrink:0">← Pards Tour</button><div class="hdr-title">Pards Golf</div></div>
   
   <div style="flex:1 1 0;display:flex;align-items:center;justify-content:flex-end;min-width:0">
     <div id="hdrWx" style="display:flex;align-items:center;gap:6px">
@@ -628,11 +628,6 @@ input::placeholder{color:#bbb}
 <!-- ══════════ SETUP ══════════ -->
 <div class="screen active" id="screen-setup">
 <div class="setup" style="padding-bottom:calc(180px + env(safe-area-inset-bottom))">
-
-  <!-- ══ PARDS TOUR BACK BUTTON ══ -->
-  <div id="ptSetupBackBtn" style="display:block;margin-bottom:10px">
-    <button onclick="showHome()" style="background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);border-radius:10px;color:rgba(201,168,76,.9);font-size:13px;font-weight:800;cursor:pointer;padding:8px 16px;-webkit-tap-highlight-color:transparent">← Pards Tour</button>
-  </div>
 
   <!-- ══ COURSE PICKER ══ -->
   <div class="card" style="background:var(--gd);border:1.5px solid rgba(201,168,76,.4);margin-bottom:14px">
@@ -22216,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.66';
+const CURRENT_VERSION = 'pards-tour-v5.68';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -22713,6 +22708,7 @@ function showMyRound() {
   G.pairedTeam     = null;
   window._ptResumeHoles = null;
   localStorage.removeItem('pards_G');
+  var hb=document.getElementById('ptHomeBtn'); if(hb) hb.style.display='block';
   // Reset setup UI
   try { var _sel=document.getElementById('startHoleSel'); if(_sel) _sel.value='1'; } catch(e) {}
   try { document.getElementById('badge').textContent='SETUP'; } catch(e) {}
@@ -31358,7 +31354,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.66';
+const CACHE='pards-tour-v5.68';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
@@ -31431,7 +31427,7 @@ self.addEventListener('fetch',e=>{
 <!-- ══ PARDS TOUR — JOIN EVENT OVERLAY ══ -->
 <div id="ptJoinOverlay" style="position:fixed;inset:0;z-index:500;background:linear-gradient(160deg,#0d1f14,#1a3a2a);display:none;flex-direction:column;padding:0 24px 40px;box-sizing:border-box;overflow-y:auto">
   <div style="padding:20px 0 28px;display:flex;align-items:center;gap:12px;flex-shrink:0">
-    <button onclick="showHome()" style="background:none;border:none;color:rgba(201,168,76,.7);font-size:24px;cursor:pointer;padding:0;line-height:1;-webkit-tap-highlight-color:transparent">←</button>
+    <button onclick="showHome()" style="background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:8px;color:rgba(201,168,76,.9);font-size:12px;font-weight:800;cursor:pointer;padding:5px 10px;line-height:1.2;-webkit-tap-highlight-color:transparent;flex-shrink:0">← Pards Tour</button>
     <div style="font-size:19px;font-weight:800;color:#c9a84c">Pards Events</div>
   </div>
   <div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:24px;line-height:1.6">Enter the 6-character code your event organizer gave to your group.</div>
