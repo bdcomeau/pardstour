@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.58';
+const CURRENT_VERSION = 'pards-tour-v5.59';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -23632,16 +23632,16 @@ function ptShowCreateLeague(prefillName) {
   ov.innerHTML = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;box-sizing:border-box">'
     +'<div style="display:flex;align-items:center;margin-bottom:6px">'
     +'<div style="font-size:17px;font-weight:800;color:rgba(100,220,180,1);flex:1">🏆 New League</div>'
-    +'<button onclick="document.getElementById('ptCreateLeagueOv').remove()" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:22px;cursor:pointer;padding:0">×</button>'
+    +'<button onclick="document.getElementById(\'ptCreateLeagueOv\').remove()" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:22px;cursor:pointer;padding:0">×</button>'
     +'</div>'
     +'<div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px">Persistent member roster · Weekly rounds · Stableford scoring</div>'
     +'<div style="margin-bottom:14px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">League Name</div>'
-    +'<input id="ptLeagueName" type="text" placeholder="e.g. Derrick Men's Night" value="'+(prefillName||'')+'" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none"></div>'
+    +'<input id="ptLeagueName" type="text" placeholder="e.g. Derrick Men Night" value="'+(prefillName||'')+'" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none"></div>'
     +'<div style="margin-bottom:20px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Description <span style="font-weight:400;color:rgba(255,255,255,.3)">(optional)</span></div>'
     +'<input id="ptLeagueDesc" type="text" placeholder="e.g. Tuesday evening stableford at Derrick G&WC" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
     +'<div id="ptCreateLeagueErr" style="display:none;color:#e74c3c;font-size:13px;margin-bottom:12px;text-align:center"></div>'
     +'<button onclick="doCreateLeague()" style="width:100%;padding:15px;background:rgba(100,220,180,.9);color:#0a1a0a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:10px">Create League</button>'
-    +'<button onclick="document.getElementById('ptCreateLeagueOv').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
+    +'<button onclick="document.getElementById(\'ptCreateLeagueOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
     +'</div>';
   ov.addEventListener('click', function(e){ if(e.target===ov) ov.remove(); });
   document.body.appendChild(ov);
@@ -23680,7 +23680,7 @@ function ptShowLeagueDetail(leagueId) {
   ov.style.cssText = 'position:fixed;inset:0;z-index:600;background:#0d1f0d;overflow-y:auto';
   ov.innerHTML = '<div style="padding:20px 20px 100px">'
     +'<div style="display:flex;align-items:center;margin-bottom:20px">'
-    +'<button onclick="document.getElementById('ptLeagueDetailOv').remove();loadOrgEvents();" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer;padding:0;margin-right:12px">← Done</button>'
+    +'<button onclick="document.getElementById(\'ptLeagueDetailOv\').remove();loadOrgEvents();" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer;padding:0;margin-right:12px">← Done</button>'
     +'<div style="font-size:16px;font-weight:800;color:rgba(100,220,180,.9)">🏆 League</div>'
     +'</div>'
     +'<div id="ptLeagueDetailBody"><div style="color:rgba(255,255,255,.4);text-align:center;padding:40px 0">Loading…</div></div>'
@@ -23747,7 +23747,7 @@ function ptRenderLeagueDetail(league, members, rounds) {
         +'</div>'
         +'<div style="display:flex;gap:8px">'
         +'<button onclick="ptShowTripDetail('+r.trip_id+')" style="flex:1;padding:10px;background:rgba(100,220,180,.12);border:1px solid rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,1);font-size:13px;font-weight:800;cursor:pointer">⚙️ Manage Round</button>'
-        +'<button onclick="ptShowLeagueLeaderboard('+lid+','+r.league_round_id+',''+r.viewer_pin+'',''+dateStr+'')" style="flex:1;padding:10px;background:rgba(100,220,180,.06);border:1px solid rgba(100,220,180,.2);border-radius:10px;color:rgba(100,220,180,.8);font-size:13px;font-weight:800;cursor:pointer">🏆 Leaderboard</button>'
+        +'<button onclick="ptShowLeagueLeaderboard('+lid+','+r.league_round_id+',\''+r.viewer_pin+'\',\''+dateStr+'\')" style="flex:1;padding:10px;background:rgba(100,220,180,.06);border:1px solid rgba(100,220,180,.2);border-radius:10px;color:rgba(100,220,180,.8);font-size:13px;font-weight:800;cursor:pointer">🏆 Leaderboard</button>'
         +'</div>'
         +'</div>';
     });
@@ -23768,7 +23768,7 @@ window.ptAddLeagueMemberUI = function(leagueId) {
     +'<div style="font-size:15px;font-weight:800;color:rgba(100,220,180,1);margin-bottom:14px">Add League Members</div>'
     +'<input id="ptLeagueMemberSearch" type="text" placeholder="Search roster…" oninput="ptSearchLeaguePlayers('+leagueId+')" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none;margin-bottom:10px">'
     +'<div id="ptLeagueMemberResults" style="max-height:300px;overflow-y:auto"></div>'
-    +'<button onclick="document.getElementById('ptAddLeagueMemberOv').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;margin-top:10px">Done</button>'
+    +'<button onclick="document.getElementById(\'ptAddLeagueMemberOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;margin-top:10px">Done</button>'
     +'</div>';
   ov.addEventListener('click', function(e){ if(e.target===ov){ ov.remove(); ptLoadLeagueDetail(leagueId); } });
   document.body.appendChild(ov);
@@ -23832,9 +23832,9 @@ window.ptCreateLeagueRoundUI = function(leagueId) {
     +'<div style="font-size:15px;font-weight:800;color:rgba(100,220,180,1);margin-bottom:16px">Create Weekly Round</div>'
     +'<div style="margin-bottom:12px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Date</div>'
     +'<input id="ptLeagueRoundDate" type="date" value="'+yy+'-'+mm+'-'+dd+'" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
-    +'<div style="color:rgba(255,255,255,.35);font-size:12px;margin-bottom:18px">Creates a round linked to this league. You'll then pick who's playing tonight and set up groups.</div>'
+    +'<div style="color:rgba(255,255,255,.35);font-size:12px;margin-bottom:18px">Creates a round linked to this league. Pick who is playing tonight and set up groups.</div>'
     +'<button onclick="doCreateLeagueRound('+leagueId+')" style="width:100%;padding:13px;background:rgba(100,220,180,.9);color:#0a1a0a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;margin-bottom:8px">Create Round</button>'
-    +'<button onclick="document.getElementById('ptCreateLeagueRoundOv').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
+    +'<button onclick="document.getElementById(\'ptCreateLeagueRoundOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
     +'</div>';
   ov.addEventListener('click', function(e){ if(e.target===ov) ov.remove(); });
   document.body.appendChild(ov);
@@ -23870,7 +23870,7 @@ function ptShowLeagueLeaderboard(leagueId, roundId, pin, roundName) {
   ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:#0d1f0d;overflow-y:auto';
   ov.innerHTML = '<div style="padding:20px 20px 100px">'
     +'<div style="display:flex;align-items:center;margin-bottom:20px">'
-    +'<button onclick="document.getElementById('ptLeagueLbOv').remove()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer;padding:0;margin-right:12px">← Back</button>'
+    +'<button onclick="document.getElementById(\'ptLeagueLbOv\').remove()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer;padding:0;margin-right:12px">← Back</button>'
     +'<div style="font-size:16px;font-weight:800;color:rgba(100,220,180,.9)">🏆 Leaderboard</div>'
     +'</div>'
     +(roundName?'<div style="font-size:14px;color:rgba(255,255,255,.6);margin-bottom:20px">'+_esc(roundName)+'</div>':'')
@@ -23909,7 +23909,7 @@ function ptRenderLeagueLeaderboard(d) {
     var rankColor = idx===0?'color:#a8d5b5':idx===1?'color:rgba(255,215,0,.8)':idx===2?'color:rgba(205,127,50,.8)':'color:rgba(255,255,255,.4)';
     var isExpanded = idx === 0; // first player expanded by default
     html += '<div style="'+(rowBg?rowBg+';':'')+'border-bottom:1px solid rgba(255,255,255,.05)">'
-      +'<div style="display:grid;grid-template-columns:28px 1fr 40px 36px 36px 42px;gap:4px;padding:12px 12px 10px;cursor:pointer" onclick="(function(el){var sub=el.nextElementSibling;sub.style.display=sub.style.display==='none'?'block':'none';})(this)">'
+      +'<div style="display:grid;grid-template-columns:28px 1fr 40px 36px 36px 42px;gap:4px;padding:12px 12px 10px;cursor:pointer" onclick="(function(el){var sub=el.nextElementSibling;sub.style.display=sub.style.display===\'none\'?\'block\':\'none\';})(this)">'
       +'<div style="font-size:14px;font-weight:900;'+rankColor+'">'+p.rank+'</div>'
       +'<div>'
         +'<div style="font-size:14px;font-weight:800;color:#fff">'+_esc(p.name)+'</div>'
@@ -31354,7 +31354,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.58';
+const CACHE='pards-tour-v5.59';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
