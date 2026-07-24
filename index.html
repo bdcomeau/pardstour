@@ -22212,7 +22212,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.90';
+const CURRENT_VERSION = 'pards-tour-v5.91';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -31720,6 +31720,7 @@ function ptLaunchFoursomeRound(foursomeData) {
   }
 
   // Remove individual scorecard overlay if open
+  alert('ptLaunch individual path: players='+JSON.stringify((players||[]).map(function(p){return p.name;})));
   var indvOv = document.getElementById('ptIndvOv');
   if (indvOv) indvOv.remove();
   G._indvRound = false;
@@ -31890,7 +31891,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.90';
+const CACHE='pards-tour-v5.91';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
