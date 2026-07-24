@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.61';
+const CURRENT_VERSION = 'pards-tour-v5.62';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -22710,7 +22710,7 @@ function showMyRound() {
   localStorage.removeItem('pards_G');
   var hb=document.getElementById('ptHomeBtn'); if(hb) hb.style.display='block';
   // Force home button visible after all async rendering completes
-  setTimeout(function(){ var _hb=document.getElementById('ptHomeBtn'); if(_hb) _hb.style.display='block'; }, 300);
+  setTimeout(function(){ var _hb=document.getElementById('ptHomeBtn'); if(_hb) _hb.style.display='block'; }, 2000);
   // Reset setup UI
   try { var _sel=document.getElementById('startHoleSel'); if(_sel) _sel.value='1'; } catch(e) {}
   try { document.getElementById('badge').textContent='SETUP'; } catch(e) {}
@@ -31356,7 +31356,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.61';
+const CACHE='pards-tour-v5.62';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
