@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.83';
+const CURRENT_VERSION = 'pards-tour-v5.84';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -23555,7 +23555,7 @@ function showCreateEventForm() {
   ov.style.cssText = 'position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.75);display:flex;align-items:flex-end';
   var today = new Date();
   var yy = today.getFullYear(), mm = String(today.getMonth()+1).padStart(2,'0'), dd = String(today.getDate()).padStart(2,'0');
-  ov.innerHTML = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;box-sizing:border-box">'
+  ov.innerHTML = '<div id="ptCreateEvSheet" style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;box-sizing:border-box;max-height:92vh;overflow-y:auto">'
     +'<div style="font-size:17px;font-weight:800;color:#c9a84c;margin-bottom:20px">Create New Event</div>'
     +'<div style="margin-bottom:14px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Event Name</div>'
     +'<input id="ptNewEvName" type="text" placeholder="e.g. Derrick Scramble July 2026" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none"></div>'
@@ -23598,6 +23598,14 @@ function showCreateEventForm() {
     +'</div>';
   ov.addEventListener('click', function(e){ if(e.target===ov) ov.remove(); });
   document.body.appendChild(ov);
+  // Shrink sheet when keyboard appears so Event Name stays reachable
+  function _resizeCreateEvSheet(){
+    var vvh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    var sheet = document.getElementById('ptCreateEvSheet');
+    if(sheet) sheet.style.maxHeight = Math.round(vvh * 0.92) + 'px';
+  }
+  if(window.visualViewport) window.visualViewport.addEventListener('resize', _resizeCreateEvSheet);
+  ov.addEventListener('remove', function(){ if(window.visualViewport) window.visualViewport.removeEventListener('resize', _resizeCreateEvSheet); });
   window._ptNewEvFmt = 'scramble';
   // Trigger initial state — scramble selected with sub-picker visible
   setTimeout(function(){ try { ptSetFmt('scramble'); } catch(e){} }, 0);
@@ -31815,7 +31823,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.83';
+const CACHE='pards-tour-v5.84';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
