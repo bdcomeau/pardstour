@@ -604,7 +604,7 @@ input::placeholder{color:#bbb}
 <body>
 
 <div class="hdr">
-  <div style="flex:1 1 0;min-width:0;display:flex;align-items:center;gap:8px"><button id="ptHomeBtn" onclick="showHome()" style="display:none;background:none;border:none;color:rgba(201,168,76,.7);font-size:20px;cursor:pointer;padding:0 4px 0 0;line-height:1;-webkit-tap-highlight-color:transparent">⌂</button><div><div class="hdr-title">Pards Golf</div><div class="hdr-sub" id="hdrCourseSub">Select Course</div></div></div>
+  <div style="flex:1 1 0;min-width:0;display:flex;align-items:center;gap:8px"><button id="ptHomeBtn" onclick="showHome()" style="display:none;background:none;border:none;color:rgba(201,168,76,.7);font-size:20px;cursor:pointer;padding:0 4px 0 0;line-height:1;-webkit-tap-highlight-color:transparent">⌂</button><button id="ptTourBackBtn" onclick="showHome()" style="display:none;background:none;border:1px solid rgba(201,168,76,.35);border-radius:8px;color:rgba(201,168,76,.85);font-size:11px;font-weight:800;cursor:pointer;padding:4px 8px;line-height:1.2;-webkit-tap-highlight-color:transparent">← Pards Tour</button><div><div class="hdr-title">Pards Golf</div><div class="hdr-sub" id="hdrCourseSub">Select Course</div></div></div>
   
   <div style="flex:1 1 0;display:flex;align-items:center;justify-content:flex-end;min-width:0">
     <div id="hdrWx" style="display:flex;align-items:center;gap:6px">
@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.52';
+const CURRENT_VERSION = 'pards-tour-v5.53';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -22663,6 +22663,7 @@ function showHome() {
     try { hideRoundBar(); } catch(e) {}
     var _hdr = document.querySelector('.hdr'); if (_hdr) _hdr.style.display = '';
     var hb = document.getElementById('ptHomeBtn'); if (hb) hb.style.display = 'none';
+    var _ptb = document.getElementById('ptTourBackBtn'); if (_ptb) _ptb.style.display = 'none';
     // Restore trip detail overlay if hidden
     var tdOv = document.getElementById('ptTripDetailOv');
     if(tdOv) tdOv.style.display = '';
@@ -22677,6 +22678,7 @@ function showHome() {
   // Restore the main Pards Golf header (hidden during scorecard)
   var _hdr = document.querySelector('.hdr'); if (_hdr) _hdr.style.display = '';
   var hb = document.getElementById('ptHomeBtn'); if (hb) hb.style.display = 'none';
+  var _ptb = document.getElementById('ptTourBackBtn'); if (_ptb) _ptb.style.display = 'none';
   var vEl = document.getElementById('ptHomeVersion'); if (vEl) vEl.textContent = CURRENT_VERSION;
   // Hide round bar — it may still be visible from a scoring session
   try { hideRoundBar(); } catch(e) {}
@@ -31110,7 +31112,7 @@ function ptLaunchFoursomeRound(foursomeData) {
   var players  = foursomeData.players || [];
 
   // Scramble format — directly set up Pards Golf state without going through doJoinGroup
-  if (foursome.format === 'scramble_stableford' || foursome.format === 'scramble') {
+  if (foursome.format === 'scramble_stableford' || foursome.format === 'scramble' || foursome.format === 'rbc_scramble') {
     var scrambleTeam = players[0] || {};
     var teamPlayers = scrambleTeam.team_players || [];
     var scorerName = teamPlayers[0] ? teamPlayers[0].name : (scrambleTeam.name || 'Scorer');
@@ -31324,6 +31326,10 @@ function ptLaunchFoursomeRound(foursomeData) {
   document.getElementById('screen-setup').classList.add('active');
   var hdr = document.querySelector('.hdr'); if (hdr) hdr.style.display='';
   var hb = document.getElementById('ptHomeBtn'); if (hb) hb.style.display='block';
+  // Sync start hole dropdown to G.startHole (set from foursome.hole)
+  (function(){ var _sel=document.getElementById('startHoleSel'); if(_sel) _sel.value=String(G.startHole||1); var _ph=document.getElementById('pillHole'); if(_ph) _ph.textContent='Hole '+(G.startHole||1); })();
+  // Ensure Pards Tour back button is visible
+  (function(){ var _ptb=document.getElementById('ptTourBackBtn'); if(_ptb) _ptb.style.display='block'; })();
   G.roundDate = _savedDate;
   saveG();
   try { renderCoursePicker(); } catch(e) {}
@@ -31353,7 +31359,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.52';
+const CACHE='pards-tour-v5.53';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
