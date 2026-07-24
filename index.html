@@ -6228,7 +6228,6 @@ function refreshPlayerTabs(){
 
 
 function renderPlayers(){
-  console.log('[renderPlayers] G.n=', G.n, 'players=', JSON.stringify((G.players||[]).map(function(p){return p.name;})));
   saveSetupState();
   const contacts = loadContacts();
   // Sort: Me first, then favourites, then alphabetical
@@ -22212,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.87';
+const CURRENT_VERSION = 'pards-tour-v5.89';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -31863,6 +31862,7 @@ function ptLaunchFoursomeRound(foursomeData) {
   (function(){ var _cv=document.getElementById('cntVal'); if(_cv) _cv.textContent=G.n; var _pp=document.getElementById('pillPlayers'); if(_pp) _pp.textContent=G.n; })();
   saveG();
   try { renderCoursePicker(); } catch(e) {}
+  alert('DEBUG: G.n='+G.n+' players='+JSON.stringify((G.players||[]).map(function(p){return p.name;})));
   try { renderPlayers(); } catch(e) {}
   try { renderGameTabs(); } catch(e) {}
   try { refreshRoundOptSummary(); } catch(e) {}
@@ -31889,7 +31889,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.87';
+const CACHE='pards-tour-v5.89';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
