@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.81';
+const CURRENT_VERSION = 'pards-tour-v5.82';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -24252,7 +24252,7 @@ function ptShowTripDetail(tripId) {
   ov.innerHTML = '<div style="padding:20px 20px 100px">'
     +'<div style="display:flex;align-items:center;margin-bottom:20px">'
     +'<button onclick="document.getElementById(\'ptTripDetailOv\').remove();loadOrgEvents();" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer;padding:0;margin-right:12px">← Done</button>'
-    +'<div style="font-size:17px;font-weight:800;color:rgba(100,180,255,1);flex:1">🌍 Trip</div>'
+    +'<div id="ptTripDetailTitle" style="font-size:17px;font-weight:800;color:rgba(100,180,255,1);flex:1">🌍 Trip</div>'
     +'</div>'
     +'<div id="ptTripDetailBody" style="color:rgba(255,255,255,.5);font-size:14px">Loading…</div>'
     +'</div>';
@@ -24274,6 +24274,10 @@ function ptLoadTripDetail(tripId) {
 function ptRenderTripDetail(trip, players, rounds) {
   var body = document.getElementById('ptTripDetailBody');
   var tripId = trip.id;
+
+  // Update overlay title based on context
+  var _titleEl = document.getElementById('ptTripDetailTitle');
+  if(_titleEl) _titleEl.textContent = trip.league_id ? '🏅 League' : '🌍 Trip';
 
   // Header card
   var html = '<div style="background:rgba(100,180,255,.08);border:1.5px solid rgba(100,180,255,.2);border-radius:16px;padding:18px;margin-bottom:20px">'
@@ -31711,7 +31715,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.81';
+const CACHE='pards-tour-v5.82';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
