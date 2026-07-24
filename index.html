@@ -23497,6 +23497,13 @@ function showCreateEventForm() {
     +'<div id="ptTripFmtNote" style="display:none;margin-top:12px;padding:12px 14px;background:rgba(100,180,255,.08);border:1px solid rgba(100,180,255,.25);border-radius:10px;color:rgba(100,180,255,.85);font-size:13px;line-height:1.5">🌍 <strong>Golf Trip</strong> — multi-round individual event with weekly Stableford standings, per-round handicap pulls from Golf Canada, and Nassau money tracking. Courses and tee times are added round by round as you book them.</div>'
     +'<div style="margin-bottom:18px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Rules &amp; Notes <span style="font-weight:400;color:rgba(255,255,255,.3)">(shown to scorers after PIN entry)</span></div>'
     +'<textarea id="ptNewEvRules" rows="3" placeholder="e.g. Scramble \u2014 each player must contribute 2 drives. 1 mulligan per side." style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:13px;outline:none;resize:vertical;line-height:1.5"></textarea></div>'
+    +'<div style="margin-bottom:16px;padding:14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:12px;display:flex;align-items:center;justify-content:space-between">'
+    +'<div><div style="font-size:13px;font-weight:800;color:#c9a84c">🎰 Include Pards Bets?</div><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">Parimutuel betting for this event</div></div>'
+    +'<label style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0">'
+    +'<input type="checkbox" id="ptNewEvBets" style="opacity:0;width:0;height:0">'
+    +'<span onclick="var c=document.getElementById(\'ptNewEvBets\');c.checked=!c.checked;this.style.background=c.checked?\'#c9a84c\':\'rgba(255,255,255,.15)\'" style="position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,.15);border-radius:24px;transition:.2s"><span style="position:absolute;content:\'\';height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s"></span></span>'
+    +'</label>'
+    +'</div>'
     +'<div id="ptCreateEvErr" style="display:none;color:#e74c3c;font-size:13px;margin-bottom:12px;text-align:center"></div>'
     +'<button id="ptCreateEvBtn" onclick="doCreateEvent()" style="width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:10px">Create Event</button>'
     +'<button onclick="document.getElementById(\'ptCreateEventOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
@@ -23589,7 +23596,7 @@ function doCreateEvent() {
   fetch(TOUR_API+'/api/events',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
-    body:JSON.stringify({name:name,date:date,format:window._ptNewEvFmt||'scramble',course_id:window._ptNewEvCourse||null,course_name:window._ptNewEvCourseName||null,tee:window._ptNewEvTee||null,rules:(document.getElementById('ptNewEvRules')||{}).value||''})
+    body:JSON.stringify({name:name,date:date,format:window._ptNewEvFmt||'scramble',course_id:window._ptNewEvCourse||null,course_name:window._ptNewEvCourseName||null,tee:window._ptNewEvTee||null,rules:(document.getElementById('ptNewEvRules')||{}).value||'',config:{pards_bets:!!(document.getElementById('ptNewEvBets')&&document.getElementById('ptNewEvBets').checked)}})
   }).then(function(r){return r.json();}).then(function(d){
     if(d.event){
       var ov=document.getElementById('ptCreateEventOv'); if(ov) ov.remove();
@@ -23603,6 +23610,89 @@ function doCreateEvent() {
     btn.disabled=false; btn.textContent='Create Event';
     errEl.textContent='Network error.'; errEl.style.display='block';
   });
+}
+
+// ── Pards Bets Client Functions ─────────────────────────────────
+
+function ptBetsLoadRaces(eventId, tripId) {
+  var containerId = 'ptBetsRaceList_' + (eventId || tripId);
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  var url = TOUR_API + '/api/bets/races?' + (eventId ? 'event_id='+eventId : 'trip_id='+tripId);
+  fetch(url, { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
+    .then(function(r){ return r.json(); })
+    .then(function(d) {
+      var races = d.races || [];
+      if (!races.length) {
+        el.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,.3);text-align:center;padding:8px 0">No races set up yet</div>';
+        return;
+      }
+      el.innerHTML = races.map(function(r) {
+        var statusColor = r.status === 'settled' ? '#a8d5b5' : r.status === 'open' ? '#c9a84c' : 'rgba(255,255,255,.4)';
+        var statusLabel = r.status === 'settled' ? '✅ Settled' : r.status === 'open' ? '🟢 Open' : r.status;
+        return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)">'
+          + '<div>'
+          + '<div style="font-size:13px;font-weight:700;color:#f5e6b8">' + r.race_label + '</div>'
+          + '<div style="font-size:11px;color:rgba(255,255,255,.35)">' + r.race_type + ' · ' + r.payout_mode + '</div>'
+          + '</div>'
+          + '<div style="display:flex;align-items:center;gap:8px">'
+          + '<div style="font-size:11px;font-weight:700;color:' + statusColor + '">' + statusLabel + '</div>'
+          + '<button onclick="ptBetsOpenRace(' + r.id + ')" style="padding:6px 12px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);border-radius:8px;color:#c9a84c;font-size:11px;font-weight:800;cursor:pointer">🎰 Open</button>'
+          + '</div>'
+          + '</div>';
+      }).join('');
+    })
+    .catch(function() {
+      el.innerHTML = '<div style="font-size:12px;color:#e74c3c">Failed to load races</div>';
+    });
+}
+
+function ptBetsCreateRaces(eventId) {
+  // For a single-day event: create one race with teams=groups, bettors=roster
+  var btn = event && event.target;
+  if (btn) { btn.disabled = true; btn.textContent = 'Setting up…'; }
+  // Determine race label from event name
+  fetch(TOUR_API + '/api/events/' + eventId, { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
+    .then(function(r){ return r.json(); })
+    .then(function(d) {
+      var ev = d.event;
+      if (!ev) throw new Error('Event not found');
+      // Create one race for this event
+      return fetch(TOUR_API + '/api/bets/races', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+        body: JSON.stringify({
+          event_id: eventId,
+          race_label: ev.name,
+          race_type: 'round',
+          payout_mode: 'simplified',
+          house_pct: 0
+        })
+      }).then(function(r){ return r.json(); });
+    })
+    .then(function(d) {
+      if (!d.race) throw new Error(d.error || 'Failed to create race');
+      // Auto-populate teams and bettors
+      return fetch(TOUR_API + '/api/bets/races/' + d.race.id + '/auto-populate', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + G.orgToken }
+      }).then(function(r){ return r.json(); });
+    })
+    .then(function() {
+      if (btn) { btn.disabled = false; btn.textContent = '+ Set Up Betting Races'; }
+      ptBetsLoadRaces(eventId, null);
+    })
+    .catch(function(e) {
+      if (btn) { btn.disabled = false; btn.textContent = '+ Set Up Betting Races'; }
+      alert('Error: ' + e.message);
+    });
+}
+
+function ptBetsOpenRace(raceId) {
+  // Open Pards-Bets.html with race_id and token
+  var token = G.orgToken || '';
+  var url = 'Pards-Bets.html?race_id=' + raceId + '&token=' + encodeURIComponent(token);
+  window.open(url, '_blank');
 }
 
 // ── Golf Trip Creation & Management ─────────────────────────────
@@ -25458,6 +25548,17 @@ function loadOrgEventDetail(eventId) {
     }
     _ptDelEvId = ev.id; _ptDelEvName = ev.name || '';
     html+='<button onclick="ptDeleteEvent(_ptDelEvId,_ptDelEvName)" style="width:100%;margin-top:16px;padding:10px;background:none;border:1px solid rgba(180,30,30,.35);border-radius:10px;color:rgba(200,60,60,.6);font-size:12px;font-weight:700;cursor:pointer">🗑️ Delete Event...</button>';
+    // Pards Bets section
+    var _evConfig = {};
+    try { _evConfig = ev.config ? JSON.parse(ev.config) : {}; } catch(e) {}
+    if (_evConfig.pards_bets) {
+      html+='<div style="margin-top:16px;padding:14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:12px">'
+        +'<div style="font-size:12px;font-weight:800;color:#c9a84c;margin-bottom:10px">🎰 Pards Bets</div>'
+        +'<div id="ptBetsRaceList_'+ev.id+'" style="margin-bottom:10px"><div style="font-size:12px;color:rgba(255,255,255,.35)">Loading races…</div></div>'
+        +'<button onclick="ptBetsCreateRaces('+ev.id+')" style="width:100%;padding:10px;background:rgba(201,168,76,.12);border:1.5px dashed rgba(201,168,76,.4);border-radius:10px;color:#c9a84c;font-size:13px;font-weight:700;cursor:pointer">+ Set Up Betting Races</button>'
+        +'</div>';
+      setTimeout(function(){ ptBetsLoadRaces(ev.id, null); }, 100);
+    }
     html+='</div>'
       +'<div id="ptRoundsSection"></div>'      +'<div style="font-size:11px;font-weight:700;color:rgba(201,168,76,.7);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Groups ('+groups.length+')</div>';
     var _footerHtml = '<div style="display:flex;gap:8px;margin-top:8px">'
