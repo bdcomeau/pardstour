@@ -22216,7 +22216,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.65';
+const CURRENT_VERSION = 'pards-tour-v5.66';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -22679,7 +22679,6 @@ function showHome() {
   _ptShow('ptHomeOverlay');
   var _hdr = document.querySelector('.hdr'); if (_hdr) _hdr.style.display = '';
   var hb = document.getElementById('ptHomeBtn'); if (hb) hb.style.display = 'none';
-  var _ptbb = document.getElementById('ptSetupBackBtn'); if(_ptbb) _ptbb.style.display='none';
   var _sb = document.getElementById('setupBar'); if (_sb) { _sb.classList.remove('show'); _sb.style.display = 'none'; }
   var vEl = document.getElementById('ptHomeVersion'); if (vEl) vEl.textContent = CURRENT_VERSION;
   try { hideRoundBar(); } catch(e) {}
@@ -22714,8 +22713,6 @@ function showMyRound() {
   G.pairedTeam     = null;
   window._ptResumeHoles = null;
   localStorage.removeItem('pards_G');
-  // Show setup back button
-  var _ptbb = document.getElementById('ptSetupBackBtn'); if(_ptbb) _ptbb.style.display='block';
   // Reset setup UI
   try { var _sel=document.getElementById('startHoleSel'); if(_sel) _sel.value='1'; } catch(e) {}
   try { document.getElementById('badge').textContent='SETUP'; } catch(e) {}
@@ -31361,7 +31358,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.65';
+const CACHE='pards-tour-v5.66';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
