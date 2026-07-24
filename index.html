@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.77';
+const CURRENT_VERSION = 'pards-tour-v5.78';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -23733,6 +23733,17 @@ function ptBetsLoadRaces(eventId, tripId) {
     .catch(function() {
       el.innerHTML = '<div style="font-size:12px;color:#e74c3c">Failed to load races</div>';
     });
+}
+
+function ptEnablePardsBets(eventId) {
+  fetch(TOUR_API + '/api/events/' + eventId, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+    body: JSON.stringify({ config: { pards_bets: true } })
+  }).then(function(r){ return r.json(); }).then(function(d) {
+    if (d.event || d.ok) { loadOrgEventDetail(eventId); }
+    else { alert(d.error || 'Could not enable Pards Bets.'); }
+  }).catch(function(){ alert('Network error.'); });
 }
 
 function ptBetsCreateRaces(eventId) {
@@ -25667,7 +25678,7 @@ function loadOrgEventDetail(eventId) {
     html+='<button onclick="ptDeleteEvent(_ptDelEvId,_ptDelEvName)" style="width:100%;margin-top:16px;padding:10px;background:none;border:1px solid rgba(180,30,30,.35);border-radius:10px;color:rgba(200,60,60,.6);font-size:12px;font-weight:700;cursor:pointer">🗑️ Delete Event...</button>';
     // Pards Bets section
     var _evConfig = {};
-    try { _evConfig = ev.config ? JSON.parse(ev.config) : {}; } catch(e) {}
+    try { _evConfig = ev.config ? (typeof ev.config === 'object' ? ev.config : JSON.parse(ev.config)) : {}; } catch(e) {}
     if (_evConfig.pards_bets) {
       html+='<div style="margin-top:16px;padding:14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:12px">'
         +'<div style="font-size:12px;font-weight:800;color:#c9a84c;margin-bottom:10px">🎰 Pards Bets</div>'
@@ -25675,6 +25686,8 @@ function loadOrgEventDetail(eventId) {
         +'<button onclick="ptBetsCreateRaces('+ev.id+')" style="width:100%;padding:10px;background:rgba(201,168,76,.12);border:1.5px dashed rgba(201,168,76,.4);border-radius:10px;color:#c9a84c;font-size:13px;font-weight:700;cursor:pointer">+ Set Up Betting Races</button>'
         +'</div>';
       setTimeout(function(){ ptBetsLoadRaces(ev.id, null); }, 100);
+    } else {
+      html+='<button onclick="ptEnablePardsBets('+ev.id+')" style="width:100%;margin-top:8px;padding:10px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;color:rgba(201,168,76,.55);font-size:12px;font-weight:700;cursor:pointer">🎰 Enable Pards Bets for this event</button>';
     }
     html+='</div>'
       +'<div id="ptRoundsSection"></div>'      +'<div style="font-size:11px;font-weight:700;color:rgba(201,168,76,.7);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Groups ('+groups.length+')</div>';
@@ -31677,7 +31690,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.77';
+const CACHE='pards-tour-v5.78';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
