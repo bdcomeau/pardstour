@@ -22212,7 +22212,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.86';
+const CURRENT_VERSION = 'pards-tour-v5.87';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -25132,8 +25132,7 @@ window.ptStartTripScoring = function(code, tripId, roundId) {
   // Show loading state
   var btn = event && event.target;
   if(btn){ btn.disabled=true; btn.textContent='Loading…'; }
-  // Look up players stored at render time — avoids API returning incomplete roster
-  var _teePlayers = (_ptTeeSheetPlayers && _ptTeeSheetPlayers[code]) || null;
+  // Note: _ptTeeSheetPlayers kept for render-time display only; API returns full roster via handleJoinTrip
 
   fetch(TOUR_API+'/api/join-trip/'+encodeURIComponent(code))
     .then(function(r){return r.json();}).then(function(d){
@@ -25149,10 +25148,8 @@ window.ptStartTripScoring = function(code, tripId, roundId) {
 
       // Build foursomeData shape that ptLaunchFoursomeRound expects (individual format)
       var ft = d.foursome||{};
-      // Always prefer tee sheet players — they have all names from the organizer's slot data.
-      // API players are fallback only (join-trip may return incomplete roster).
-      var apiPlayers = d.players||[];
-      var players = (_teePlayers && _teePlayers.length) ? _teePlayers : apiPlayers;
+      // Use API players — handleJoinTrip returns full roster from trip_tee_time_players JOIN roster.
+      var players = d.players||[];
       var foursomeData = {
         foursome: {
           id:           ft.id,
@@ -31892,7 +31889,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.86';
+const CACHE='pards-tour-v5.87';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
