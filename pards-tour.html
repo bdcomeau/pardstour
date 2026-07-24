@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.68';
+const CURRENT_VERSION = 'pards-tour-v5.69';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -31354,7 +31354,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.68';
+const CACHE='pards-tour-v5.69';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
