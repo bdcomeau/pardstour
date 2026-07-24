@@ -6228,7 +6228,6 @@ function refreshPlayerTabs(){
 
 
 function renderPlayers(){
-  alert('renderPlayers called: G.n='+G.n+' players='+JSON.stringify((G.players||[]).map(function(p){return p.name;})));
   saveSetupState();
   const contacts = loadContacts();
   // Sort: Me first, then favourites, then alphabetical
@@ -22212,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.92';
+const CURRENT_VERSION = 'pards-tour-v5.93';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -31720,7 +31719,6 @@ function ptLaunchFoursomeRound(foursomeData) {
   }
 
   // Remove individual scorecard overlay if open
-  alert('ptLaunch individual path: players='+JSON.stringify((players||[]).map(function(p){return p.name;})));
   var indvOv = document.getElementById('ptIndvOv');
   if (indvOv) indvOv.remove();
   G._indvRound = false;
@@ -31841,7 +31839,6 @@ function ptLaunchFoursomeRound(foursomeData) {
   // Ensure Pards Tour back button is visible
   (function(){ var _ptb=document.getElementById('ptTourBackBtn'); if(_ptb) _ptb.style.display='block'; })();
   G.roundDate = _savedDate;
-  alert('CHECKPOINT 1: roundDate restored, about to re-assert players');
   // Re-assert players from source — guards against any saveG/loadG clobber between setup
   G.n = players.length;
   G.players = players.map(function(p) {
@@ -31864,13 +31861,19 @@ function ptLaunchFoursomeRound(foursomeData) {
   // Sync player count DOM so pill matches G.n
   (function(){ var _cv=document.getElementById('cntVal'); if(_cv) _cv.textContent=G.n; var _pp=document.getElementById('pillPlayers'); if(_pp) _pp.textContent=G.n; })();
   saveG();
-  try { renderCoursePicker(); } catch(e) { alert('renderCoursePicker CRASH: '+e.message); }
-  alert('DEBUG after renderCoursePicker: G.n='+G.n+' players='+JSON.stringify((G.players||[]).map(function(p){return p.name;})));
+  try { renderCoursePicker(); } catch(e) {}
   try { renderPlayers(); } catch(e) {}
   try { renderGameTabs(); } catch(e) {}
   try { refreshRoundOptSummary(); } catch(e) {}
   try { refreshStartRoundBtn(); } catch(e) {}
   try { syncBottomBars(); } catch(e) {}
+  // Safety net: re-render players after DOM settles in case of timing issue
+  var _launchPlayers = G.players.slice();
+  var _launchN = G.n;
+  setTimeout(function(){
+    if(G.players.length !== _launchN) { G.players = _launchPlayers; G.n = _launchN; }
+    try { renderPlayers(); } catch(e) {}
+  }, 100);
   window.scrollTo(0, 0);
 }
 
@@ -31892,7 +31895,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.92';
+const CACHE='pards-tour-v5.93';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
