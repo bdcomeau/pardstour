@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.76';
+const CURRENT_VERSION = 'pards-tour-v5.77';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -23130,6 +23130,8 @@ function ptShowRosterPlayerSheet(player) {
   };
   inner.innerHTML =
     '<div style="font-size:17px;font-weight:800;color:#c9a84c;margin-bottom:16px">' + (isEdit?'Edit Player':'Add Player') + '</div>'
+    + (!isEdit ? '<button onclick="ptRosterGcSearch()" style="width:100%;padding:11px;background:rgba(168,213,181,.12);border:1.5px solid rgba(168,213,181,.4);border-radius:10px;color:#a8d5b5;font-size:13px;font-weight:800;cursor:pointer;margin-bottom:14px">🍁 Search Golf Canada by Name</button>'
+      + '<div id="ptRpGcResults" style="display:none;margin-bottom:12px"></div>' : '')
     + fld('ptRpName',  'Name *',               'text',   isEdit?player.name:'')
     + fld('ptRpGhin',  'GHIN (Golf Canada ID)', 'text',   isEdit?player.ghin:'')
     + '<div style="font-size:11px;color:rgba(255,255,255,.25);margin-top:-8px;margin-bottom:12px;padding:0 2px">Optional — leave blank to set handicap manually below</div>'
@@ -23181,6 +23183,75 @@ function ptDeleteRosterPlayer(playerId, overlay) {
     .then(function(){ if (overlay) overlay.remove(); ptLoadRoster(); })
     .catch(function(){ alert('Network error.'); });
 }
+
+// ── Golf Canada name search for roster Add Player ─────────────
+window.ptRosterGcSearch = async function() {
+  var resultsEl = document.getElementById('ptRpGcResults');
+  if (!resultsEl) return;
+  var nameEl = document.getElementById('ptRpName');
+  var q = nameEl ? nameEl.value.trim() : '';
+  if (!q) { q = prompt('Enter player name to search Golf Canada:'); if (!q) return; }
+  resultsEl.innerHTML = '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:8px 0">Searching Golf Canada…</div>';
+  resultsEl.style.display = 'block';
+  try {
+    var tok = await _gcSearchGetToken();
+    var PAGE = 50; var members = []; var skip = 0;
+    while (true) {
+      var params = new URLSearchParams({keywords: q, skip: String(skip), take: String(PAGE)});
+      var r = await fetch(_gcWorkerBase() + '/member/search?' + params, {headers: {Authorization: 'Bearer ' + tok}});
+      if (!r.ok) throw new Error('Search failed (' + r.status + ')');
+      var d = await r.json();
+      var page = Array.isArray(d) ? d : (d.data || []);
+      members = members.concat(page);
+      if (page.length < PAGE) break;
+      skip += PAGE;
+      if (skip > 200) break;
+    }
+    if (!members.length) {
+      resultsEl.innerHTML = '<div style="color:rgba(255,200,100,.7);font-size:13px;padding:8px 0">No Golf Canada members found for "' + _esc(q) + '". Check spelling and try again.</div>';
+      return;
+    }
+    var html = '<div style="font-size:11px;color:rgba(255,255,255,.35);margin-bottom:6px">' + members.length + ' result' + (members.length !== 1 ? 's' : '') + ' — tap to fill fields</div>';
+    resultsEl.innerHTML = html;
+    // Render items via DOM to avoid quoting issues with names
+    members.forEach(function(m) {
+      var fullName = ((m.firstName || '') + ' ' + (m.lastName || '')).trim();
+      var gcId = m.golfCanadaCardId || '';
+      var club = m.clubName || '';
+      var hdcp = (m.displayHandicap && m.displayHandicap !== 'NA') ? m.displayHandicap : null;
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;margin-bottom:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);cursor:pointer;-webkit-tap-highlight-color:transparent';
+      row.innerHTML = '<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#fff">' + _esc(fullName) + '</div>'
+        + '<div style="font-size:11px;color:rgba(255,255,255,.35)">' + _esc(club) + (hdcp ? ' · HCP ' + hdcp : '') + '</div></div>'
+        + '<div style="font-size:12px;font-family:monospace;color:#c9a84c;flex-shrink:0">' + _esc(gcId) + '</div>';
+      (function(gId, gName, gClub, gHdcp) {
+        row.addEventListener('click', function() { ptRosterGcSelect(gId, gName, gClub, gHdcp); });
+      })(gcId, fullName, club, hdcp);
+      resultsEl.appendChild(row);
+    });
+  } catch(e) {
+    var msg = e.message || '';
+    if (msg.indexOf('login failed') !== -1 || msg.indexOf('401') !== -1 || msg.indexOf('No GolfNet') !== -1) {
+      resultsEl.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:8px 0">Golf Canada credentials not set up. Use Settings → Golf Canada to configure.</div>';
+    } else {
+      resultsEl.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:8px 0">Error: ' + _esc(msg) + '</div>';
+    }
+  }
+};
+
+window.ptRosterGcSelect = function(gcId, name, club, hdcp) {
+  var nameEl = document.getElementById('ptRpName');
+  var ghinEl = document.getElementById('ptRpGhin');
+  var clubEl = document.getElementById('ptRpClubN');
+  var hdcpEl = document.getElementById('ptRpHdcp');
+  if (nameEl && name) nameEl.value = name;
+  if (ghinEl && gcId) ghinEl.value = gcId;
+  if (clubEl && club) clubEl.value = club;
+  if (hdcpEl && hdcp !== null) hdcpEl.value = hdcp;
+  // Hide results after selection
+  var res = document.getElementById('ptRpGcResults');
+  if (res) { res.innerHTML = '<div style="color:rgba(100,220,180,.7);font-size:12px;padding:4px 0">✓ Filled from Golf Canada — verify and save</div>'; }
+};
 
 // ── Import (SheetJS) ─────────────────────────────────────────
 function ptShowRosterImport() {
@@ -30535,7 +30606,7 @@ function showWatchLive() {
   ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:linear-gradient(160deg,#0d1f14,#1a3a2a);display:flex;flex-direction:column;padding:0 24px 40px;box-sizing:border-box;overflow-y:auto';
   ov.innerHTML =
     '<div style="padding:20px 0 28px;display:flex;align-items:center;gap:12px;flex-shrink:0">'
-    +'<button onclick="this.closest(\'[style*=fixed]\').remove()" style="background:none;border:none;color:rgba(201,168,76,.7);font-size:24px;cursor:pointer;padding:0;line-height:1">←</button>'
+    +'<button onclick="this.closest(\'[style*=fixed]\').remove()" style="background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:8px;color:rgba(201,168,76,.9);font-size:12px;font-weight:800;cursor:pointer;padding:5px 10px;line-height:1.2;-webkit-tap-highlight-color:transparent;flex-shrink:0">← Pards Tour</button>'
     +'<div style="font-size:19px;font-weight:800;color:#c9a84c">Watch Live</div></div>'
     +'<div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:24px;line-height:1.6">Enter a 6-character event code, or a 4-digit trip viewer PIN from your organizer.</div>'
     +'<div style="margin-bottom:16px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Event Code or Trip PIN</div>'
@@ -31606,7 +31677,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.76';
+const CACHE='pards-tour-v5.77';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
