@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.96';
+const CURRENT_VERSION = 'pards-tour-v5.98';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -23895,7 +23895,7 @@ function ptShowCreateLeague(prefillName) {
   var ov = document.createElement('div');
   ov.id = 'ptCreateLeagueOv';
   ov.style.cssText = 'position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.75);display:flex;align-items:flex-end';
-  ov.innerHTML = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;box-sizing:border-box">'
+  ov.innerHTML = '<div id="ptCreateLeagueSheet" style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;box-sizing:border-box;max-height:92vh;overflow-y:auto">'
     +'<div style="display:flex;align-items:center;margin-bottom:6px">'
     +'<div style="font-size:17px;font-weight:800;color:rgba(100,220,180,1);flex:1">🏆 New League</div>'
     +'<button onclick="document.getElementById(\'ptCreateLeagueOv\').remove()" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:22px;cursor:pointer;padding:0">×</button>'
@@ -23911,6 +23911,15 @@ function ptShowCreateLeague(prefillName) {
     +'</div>';
   ov.addEventListener('click', function(e){ if(e.target===ov) ov.remove(); });
   document.body.appendChild(ov);
+  if(window.visualViewport){
+    function _lgSheetResize(){
+      var sheet=document.getElementById('ptCreateLeagueSheet');
+      if(!sheet) return;
+      sheet.style.maxHeight = Math.round(window.visualViewport.height*0.92)+'px';
+    }
+    window.visualViewport.addEventListener('resize',_lgSheetResize);
+    ov.addEventListener('remove',function(){ window.visualViewport.removeEventListener('resize',_lgSheetResize); });
+  }
 }
 
 function doCreateLeague() {
@@ -24073,6 +24082,8 @@ window.ptAddLeagueMemberById = function(leagueId, rosterId, btn) {
   }).then(function(r){return r.json();}).then(function(d){
     if(d.member){
       if(btn){ btn.textContent='✓ Added'; btn.style.background='rgba(100,220,180,.2)'; btn.style.borderColor='rgba(100,220,180,.5)'; btn.style.color='rgba(100,220,180,1)'; }
+      // Refresh league detail so new member appears in the roster list
+      ptLoadLeagueDetail(leagueId);
     } else {
       if(btn){ btn.disabled=false; btn.textContent='Add'; }
       alert(d.error||'Could not add member.');
@@ -31913,7 +31924,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.96';
+const CACHE='pards-tour-v5.98';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
