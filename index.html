@@ -22212,7 +22212,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.91';
+const CURRENT_VERSION = 'pards-tour-v5.92';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -31841,6 +31841,7 @@ function ptLaunchFoursomeRound(foursomeData) {
   // Ensure Pards Tour back button is visible
   (function(){ var _ptb=document.getElementById('ptTourBackBtn'); if(_ptb) _ptb.style.display='block'; })();
   G.roundDate = _savedDate;
+  alert('CHECKPOINT 1: roundDate restored, about to re-assert players');
   // Re-assert players from source — guards against any saveG/loadG clobber between setup
   G.n = players.length;
   G.players = players.map(function(p) {
@@ -31863,8 +31864,8 @@ function ptLaunchFoursomeRound(foursomeData) {
   // Sync player count DOM so pill matches G.n
   (function(){ var _cv=document.getElementById('cntVal'); if(_cv) _cv.textContent=G.n; var _pp=document.getElementById('pillPlayers'); if(_pp) _pp.textContent=G.n; })();
   saveG();
-  try { renderCoursePicker(); } catch(e) {}
-  alert('DEBUG: G.n='+G.n+' players='+JSON.stringify((G.players||[]).map(function(p){return p.name;})));
+  try { renderCoursePicker(); } catch(e) { alert('renderCoursePicker CRASH: '+e.message); }
+  alert('DEBUG after renderCoursePicker: G.n='+G.n+' players='+JSON.stringify((G.players||[]).map(function(p){return p.name;})));
   try { renderPlayers(); } catch(e) {}
   try { renderGameTabs(); } catch(e) {}
   try { refreshRoundOptSummary(); } catch(e) {}
@@ -31891,7 +31892,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.91';
+const CACHE='pards-tour-v5.92';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
