@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.51';
+const CURRENT_VERSION = 'pards-tour-v5.52';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -23398,18 +23398,38 @@ function loadOrgEvents() {
   list.innerHTML = '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">Loading\u2026</div>';
   Promise.all([
     fetch(TOUR_API + '/api/events', { headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(function(r){ return r.json(); }),
-    fetch(TOUR_API + '/api/trips',  { headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(function(r){ return r.json(); }).catch(function(){ return {trips:[]}; })
+    fetch(TOUR_API + '/api/trips',  { headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(function(r){ return r.json(); }).catch(function(){ return {trips:[]}; }),
+    fetch(TOUR_API + '/api/leagues',{ headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(function(r){ return r.json(); }).catch(function(){ return {leagues:[]}; })
   ]).then(function(results){
     var d = results[0];
     var td = results[1];
+    var ld = results[2];
     var trips = td.trips || [];
+    var leagues = ld.leagues || [];
     var _showArchived = window._ptShowArchivedEvents || false;
     var active = d.events.filter(function(ev){ return ev.status !== 'archived'; });
     var archived = d.events.filter(function(ev){ return ev.status === 'archived'; });
     var visible = _showArchived ? d.events : active;
     var html = '';
+    if (leagues.length) {
+      html += '<div style="font-size:10px;font-weight:800;color:rgba(100,220,180,.5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Leagues</div>';
+      html += leagues.map(function(lg){
+        return '<div style="background:rgba(100,220,180,.06);border:1px solid rgba(100,220,180,.18);border-radius:12px;padding:14px 16px;margin-bottom:10px">'
+          +'<div style="display:flex;align-items:center;gap:10px">'
+          +'<div onclick="ptShowLeagueDetail('+lg.id+')" style="flex:1;cursor:pointer;-webkit-tap-highlight-color:transparent">'
+          +'<div style="font-size:15px;font-weight:800;color:rgba(100,220,180,.95)">🏆 '+_esc(lg.name)+'</div>'
+          +(lg.description?'<div style="font-size:12px;color:rgba(255,255,255,.4)">'+_esc(lg.description)+'</div>':'')
+          +'<div style="font-size:11px;font-weight:700;color:rgba(100,220,180,.5);margin-top:3px">'
+          +(lg.member_count||0)+' members · '+(lg.round_count||0)+' round'+(lg.round_count!==1?'s':'')
+          +'</div>'
+          +'</div>'
+          +'<button onclick="ptDeleteLeague('+lg.id+',event)" style="background:none;border:none;color:rgba(255,100,100,.5);font-size:20px;cursor:pointer;padding:4px;flex-shrink:0">&#x1F5D1;</button>'
+          +'</div>'
+          +'</div>';
+      }).join('');
+    }
     if (trips.length) {
-      html += '<div style="font-size:10px;font-weight:800;color:rgba(100,180,255,.5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Golf Trips</div>';
+      html += '<div style="font-size:10px;font-weight:800;color:rgba(100,180,255,.5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px'+(leagues.length?';margin-top:12px':'')+'">Golf Trips</div>';
       html += trips.map(function(t){
         return '<div style="background:rgba(100,180,255,.06);border:1px solid rgba(100,180,255,.15);border-radius:12px;padding:14px 16px;margin-bottom:10px">'
           +'<div style="display:flex;align-items:center;gap:10px">'
@@ -23509,6 +23529,7 @@ window.ptSetFmt = function(fmt) {
   var t  = document.getElementById('ptFmtStroke');
   var m  = document.getElementById('ptFmtMulti');
   var tr = document.getElementById('ptFmtTrip');
+  var lg = document.getElementById('ptFmtLeague');
   var sub = document.getElementById('ptScrambleSubFmt');
 
   // Top-level buttons
@@ -23516,6 +23537,7 @@ window.ptSetFmt = function(fmt) {
   if(t){ t.style.border='1.5px solid '+(fmt==='stroke'?'#c9a84c':'rgba(255,255,255,.2)'); t.style.background=fmt==='stroke'?'rgba(201,168,76,.15)':'transparent'; t.style.color=fmt==='stroke'?'#c9a84c':'rgba(255,255,255,.5)'; }
   if(m){ m.style.border='1.5px solid '+(fmt==='multi_day'?'rgba(255,200,100,.9)':'rgba(255,200,100,.3)'); m.style.background=fmt==='multi_day'?'rgba(255,200,100,.15)':'transparent'; m.style.color=fmt==='multi_day'?'rgba(255,200,100,1)':'rgba(255,200,100,.6)'; }
   if(tr){ tr.style.border='1.5px solid '+(fmt==='trip'?'rgba(100,180,255,.9)':'rgba(100,180,255,.3)'); tr.style.background=fmt==='trip'?'rgba(100,180,255,.15)':'transparent'; tr.style.color=fmt==='trip'?'rgba(100,180,255,1)':'rgba(100,180,255,.6)'; }
+  if(lg){ lg.style.border='1.5px solid '+(fmt==='league'?'rgba(100,220,180,.9)':'rgba(100,220,180,.3)'); lg.style.background=fmt==='league'?'rgba(100,220,180,.15)':'transparent'; lg.style.color=fmt==='league'?'rgba(100,220,180,1)':'rgba(100,220,180,.6)'; }
 
   // Show/hide scramble sub-picker
   if(sub) sub.style.display = isScramble ? 'flex' : 'none';
@@ -23526,6 +23548,9 @@ window.ptSetFmt = function(fmt) {
   // Show/hide trip note
   var tn = document.getElementById('ptTripFmtNote');
   if(tn) tn.style.display = fmt==='trip' ? 'block' : 'none';
+  // Show/hide league note
+  var ln = document.getElementById('ptLeagueFmtNote');
+  if(ln) ln.style.display = fmt==='league' ? 'block' : 'none';
 };
 
 // Sub-format picker within Scramble
@@ -23557,6 +23582,13 @@ function doCreateEvent() {
     ptShowCreateTrip(name);
     return;
   }
+  // League Night — hand off to league creation flow
+  if (window._ptNewEvFmt === 'league') {
+    var ov2 = document.getElementById('ptCreateEventOv');
+    if (ov2) ov2.remove();
+    ptShowCreateLeague(name);
+    return;
+  }
   if (!date) { errEl.textContent='Date required.';       errEl.style.display='block'; return; }
   btn.disabled=true; btn.textContent='Creating…';
   fetch(TOUR_API+'/api/events',{
@@ -23579,6 +23611,353 @@ function doCreateEvent() {
 }
 
 // ── Golf Trip Creation & Management ─────────────────────────────
+
+
+// ════════════════════════════════════════════════════════════════
+// League UI — v5.52
+// ════════════════════════════════════════════════════════════════
+
+window.ptDeleteLeague = function(leagueId, ev) {
+  if(ev) ev.stopPropagation();
+  if(!confirm('Delete this league and all its rounds?')) return;
+  fetch(TOUR_API+'/api/leagues/'+leagueId, {
+    method:'DELETE', headers:{'Authorization':'Bearer '+G.orgToken}
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.ok||d.deleted){ loadOrgEvents(); }
+    else { alert(d.error||'Delete failed.'); }
+  }).catch(function(){ alert('Network error.'); });
+};
+
+function ptShowCreateLeague(prefillName) {
+  var ov = document.createElement('div');
+  ov.id = 'ptCreateLeagueOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.75);display:flex;align-items:flex-end';
+  ov.innerHTML = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;box-sizing:border-box">'
+    +'<div style="display:flex;align-items:center;margin-bottom:6px">'
+    +'<div style="font-size:17px;font-weight:800;color:rgba(100,220,180,1);flex:1">🏆 New League</div>'
+    +'<button onclick="document.getElementById('ptCreateLeagueOv').remove()" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:22px;cursor:pointer;padding:0">×</button>'
+    +'</div>'
+    +'<div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px">Persistent member roster · Weekly rounds · Stableford scoring</div>'
+    +'<div style="margin-bottom:14px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">League Name</div>'
+    +'<input id="ptLeagueName" type="text" placeholder="e.g. Derrick Men's Night" value="'+(prefillName||'')+'" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none"></div>'
+    +'<div style="margin-bottom:20px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Description <span style="font-weight:400;color:rgba(255,255,255,.3)">(optional)</span></div>'
+    +'<input id="ptLeagueDesc" type="text" placeholder="e.g. Tuesday evening stableford at Derrick G&WC" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
+    +'<div id="ptCreateLeagueErr" style="display:none;color:#e74c3c;font-size:13px;margin-bottom:12px;text-align:center"></div>'
+    +'<button onclick="doCreateLeague()" style="width:100%;padding:15px;background:rgba(100,220,180,.9);color:#0a1a0a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:10px">Create League</button>'
+    +'<button onclick="document.getElementById('ptCreateLeagueOv').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
+    +'</div>';
+  ov.addEventListener('click', function(e){ if(e.target===ov) ov.remove(); });
+  document.body.appendChild(ov);
+}
+
+function doCreateLeague() {
+  var name = (document.getElementById('ptLeagueName').value||'').trim();
+  var desc = (document.getElementById('ptLeagueDesc').value||'').trim();
+  var errEl = document.getElementById('ptCreateLeagueErr');
+  var btn = document.querySelector('#ptCreateLeagueOv button[style*="rgba(100,220,180"]');
+  errEl.style.display='none';
+  if(!name){ errEl.textContent='League name required.'; errEl.style.display='block'; return; }
+  if(btn){ btn.disabled=true; btn.textContent='Creating…'; }
+  fetch(TOUR_API+'/api/leagues', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
+    body:JSON.stringify({name:name, description:desc||null})
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.league){
+      var ov=document.getElementById('ptCreateLeagueOv'); if(ov) ov.remove();
+      loadOrgEvents();
+      ptShowLeagueDetail(d.league.id);
+    } else {
+      if(btn){ btn.disabled=false; btn.textContent='Create League'; }
+      errEl.textContent=d.error||'Failed.'; errEl.style.display='block';
+    }
+  }).catch(function(){
+    if(btn){ btn.disabled=false; btn.textContent='Create League'; }
+    errEl.textContent='Network error.'; errEl.style.display='block';
+  });
+}
+
+function ptShowLeagueDetail(leagueId) {
+  var ov = document.createElement('div');
+  ov.id = 'ptLeagueDetailOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:600;background:#0d1f0d;overflow-y:auto';
+  ov.innerHTML = '<div style="padding:20px 20px 100px">'
+    +'<div style="display:flex;align-items:center;margin-bottom:20px">'
+    +'<button onclick="document.getElementById('ptLeagueDetailOv').remove();loadOrgEvents();" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer;padding:0;margin-right:12px">← Done</button>'
+    +'<div style="font-size:16px;font-weight:800;color:rgba(100,220,180,.9)">🏆 League</div>'
+    +'</div>'
+    +'<div id="ptLeagueDetailBody"><div style="color:rgba(255,255,255,.4);text-align:center;padding:40px 0">Loading…</div></div>'
+    +'</div>';
+  document.body.appendChild(ov);
+  ptLoadLeagueDetail(leagueId);
+}
+
+function ptLoadLeagueDetail(leagueId) {
+  fetch(TOUR_API+'/api/leagues/'+leagueId, { headers:{'Authorization':'Bearer '+G.orgToken} })
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.error){ document.getElementById('ptLeagueDetailBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">'+_esc(d.error)+'</div>'; return; }
+      ptRenderLeagueDetail(d.league, d.members||[], d.rounds||[]);
+    })
+    .catch(function(){ document.getElementById('ptLeagueDetailBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">Network error.</div>'; });
+}
+
+function ptRenderLeagueDetail(league, members, rounds) {
+  var body = document.getElementById('ptLeagueDetailBody');
+  var lid = league.id;
+
+  // Header card
+  var html = '<div style="background:rgba(100,220,180,.08);border:1.5px solid rgba(100,220,180,.2);border-radius:16px;padding:18px;margin-bottom:20px">'
+    +'<div style="font-size:20px;font-weight:900;color:#fff;margin-bottom:4px">'+_esc(league.name)+'</div>'
+    +(league.description?'<div style="font-size:13px;color:rgba(100,220,180,.7);margin-bottom:4px">'+_esc(league.description)+'</div>':'')
+    +'<div style="margin-top:12px;display:flex;gap:8px">'
+    +'<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;text-align:center;flex:1"><div style="font-size:22px;font-weight:900;color:#fff">'+members.length+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase">Members</div></div>'
+    +'<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;text-align:center;flex:1"><div style="font-size:22px;font-weight:900;color:#fff">'+rounds.length+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase">Rounds</div></div>'
+    +'</div>'
+    +'</div>';
+
+  // Members section
+  html += '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Roster</div>';
+  if(members.length){
+    html += '<div style="background:rgba(255,255,255,.04);border-radius:12px;margin-bottom:8px;overflow:hidden">';
+    members.forEach(function(m,i){
+      html += '<div style="display:flex;align-items:center;padding:12px 14px;'+(i<members.length-1?'border-bottom:1px solid rgba(255,255,255,.06)':'')+'">'
+        +'<div style="flex:1"><div style="font-size:14px;color:#fff;font-weight:700">'+_esc(m.name)+'</div>'
+        +(m.home_club?'<div style="font-size:11px;color:rgba(255,255,255,.4)">'+_esc(m.home_club)+'</div>':'')
+        +'</div>'
+        +(m.handicap!=null?'<div style="font-size:13px;color:rgba(100,220,180,.8);font-weight:700;margin-right:12px">'+m.handicap+'</div>':'')
+        +'<button onclick="ptRemoveLeagueMember('+lid+','+m.id+')" style="background:none;border:none;color:rgba(255,100,100,.5);font-size:18px;cursor:pointer;padding:0">×</button>'
+        +'</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<div style="color:rgba(255,255,255,.3);font-size:13px;margin-bottom:8px">No members yet — add your regular players below.</div>';
+  }
+  html += '<button onclick="ptAddLeagueMemberUI('+lid+')" style="width:100%;padding:11px;background:rgba(100,220,180,.1);border:1.5px dashed rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,.7);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:24px">+ Add Members</button>';
+
+  // Rounds section
+  html += '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Weekly Rounds</div>';
+  if(rounds.length){
+    rounds.forEach(function(r){
+      var dateStr = r.round_date ? ptFormatDate(r.round_date) : 'Date TBD';
+      html += '<div style="background:rgba(255,255,255,.04);border-radius:14px;padding:16px;margin-bottom:12px">'
+        +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">'
+        +'<div>'
+        +'<div style="font-size:15px;font-weight:900;color:#fff">'+dateStr+'</div>'
+        +(r.trip_name?'<div style="font-size:12px;color:rgba(255,255,255,.4)">'+_esc(r.trip_name)+'</div>':'')
+        +'</div>'
+        +'<div style="font-size:12px;color:rgba(100,220,180,.7);font-weight:700">'+(r.player_count||0)+' players</div>'
+        +'</div>'
+        +'<div style="display:flex;gap:8px">'
+        +'<button onclick="ptShowTripDetail('+r.trip_id+')" style="flex:1;padding:10px;background:rgba(100,220,180,.12);border:1px solid rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,1);font-size:13px;font-weight:800;cursor:pointer">⚙️ Manage Round</button>'
+        +'<button onclick="ptShowLeagueLeaderboard('+lid+','+r.league_round_id+',''+r.viewer_pin+'',''+dateStr+'')" style="flex:1;padding:10px;background:rgba(100,220,180,.06);border:1px solid rgba(100,220,180,.2);border-radius:10px;color:rgba(100,220,180,.8);font-size:13px;font-weight:800;cursor:pointer">🏆 Leaderboard</button>'
+        +'</div>'
+        +'</div>';
+    });
+  } else {
+    html += '<div style="color:rgba(255,255,255,.3);font-size:13px;margin-bottom:12px">No rounds yet — create the first one below.</div>';
+  }
+
+  html += '<button onclick="ptCreateLeagueRoundUI('+lid+')" style="width:100%;padding:12px;background:rgba(100,220,180,.1);border:1.5px dashed rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,.7);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px">+ Create Weekly Round</button>';
+
+  body.innerHTML = html;
+}
+
+window.ptAddLeagueMemberUI = function(leagueId) {
+  var ov = document.createElement('div');
+  ov.id = 'ptAddLeagueMemberOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.8);display:flex;align-items:flex-end';
+  ov.innerHTML = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:20px 20px 40px;width:100%;box-sizing:border-box;max-height:80vh;overflow-y:auto">'
+    +'<div style="font-size:15px;font-weight:800;color:rgba(100,220,180,1);margin-bottom:14px">Add League Members</div>'
+    +'<input id="ptLeagueMemberSearch" type="text" placeholder="Search roster…" oninput="ptSearchLeaguePlayers('+leagueId+')" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none;margin-bottom:10px">'
+    +'<div id="ptLeagueMemberResults" style="max-height:300px;overflow-y:auto"></div>'
+    +'<button onclick="document.getElementById('ptAddLeagueMemberOv').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;margin-top:10px">Done</button>'
+    +'</div>';
+  ov.addEventListener('click', function(e){ if(e.target===ov){ ov.remove(); ptLoadLeagueDetail(leagueId); } });
+  document.body.appendChild(ov);
+  ptSearchLeaguePlayers(leagueId, '');
+};
+
+window.ptSearchLeaguePlayers = function(leagueId, q) {
+  var val = q !== undefined ? q : (document.getElementById('ptLeagueMemberSearch')||{}).value||'';
+  fetch(TOUR_API+'/api/roster?q='+encodeURIComponent(val)+'&limit=50', {
+    headers:{'Authorization':'Bearer '+G.orgToken}
+  }).then(function(r){return r.json();}).then(function(d){
+    var el = document.getElementById('ptLeagueMemberResults');
+    if(!el) return;
+    if(!d.players||!d.players.length){ el.innerHTML='<div style="color:rgba(255,255,255,.3);font-size:13px;padding:10px">No players found.</div>'; return; }
+    el.innerHTML = d.players.map(function(p){
+      return '<div style="display:flex;align-items:center;padding:11px 4px;border-bottom:1px solid rgba(255,255,255,.06)">'
+        +'<div style="flex:1"><div style="font-size:14px;color:#fff">'+_esc(p.name)+'</div>'
+        +(p.home_club?'<div style="font-size:11px;color:rgba(255,255,255,.4)">'+_esc(p.home_club)+'</div>':'')
+        +'</div>'
+        +(p.handicap!=null?'<div style="font-size:12px;color:rgba(100,220,180,.7);margin-right:10px">'+p.handicap+'</div>':'')
+        +'<button id="ptLgAddBtn_'+p.id+'" onclick="ptAddLeagueMemberById('+leagueId+','+p.id+',this)" style="padding:7px 14px;background:rgba(100,220,180,.15);border:1px solid rgba(100,220,180,.4);color:rgba(100,220,180,1);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">Add</button>'
+        +'</div>';
+    }).join('');
+  });
+};
+
+window.ptAddLeagueMemberById = function(leagueId, rosterId, btn) {
+  if(btn){ btn.disabled=true; btn.textContent='Adding…'; }
+  fetch(TOUR_API+'/api/leagues/'+leagueId+'/members', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
+    body:JSON.stringify({roster_id:rosterId})
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.member){
+      if(btn){ btn.textContent='✓ Added'; btn.style.background='rgba(100,220,180,.2)'; btn.style.borderColor='rgba(100,220,180,.5)'; btn.style.color='rgba(100,220,180,1)'; }
+    } else {
+      if(btn){ btn.disabled=false; btn.textContent='Add'; }
+      alert(d.error||'Could not add member.');
+    }
+  }).catch(function(){
+    if(btn){ btn.disabled=false; btn.textContent='Add'; }
+    alert('Network error.');
+  });
+};
+
+window.ptRemoveLeagueMember = function(leagueId, memberId) {
+  if(!confirm('Remove this member from the league?')) return;
+  fetch(TOUR_API+'/api/leagues/'+leagueId+'/members/'+memberId, {
+    method:'DELETE', headers:{'Authorization':'Bearer '+G.orgToken}
+  }).then(function(){ptLoadLeagueDetail(leagueId);})
+    .catch(function(){ alert('Network error.'); });
+};
+
+window.ptCreateLeagueRoundUI = function(leagueId) {
+  var ov = document.createElement('div');
+  ov.id = 'ptCreateLeagueRoundOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.8);display:flex;align-items:flex-end';
+  var today = new Date();
+  var yy=today.getFullYear(), mm=String(today.getMonth()+1).padStart(2,'0'), dd=String(today.getDate()).padStart(2,'0');
+  ov.innerHTML = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;box-sizing:border-box">'
+    +'<div style="font-size:15px;font-weight:800;color:rgba(100,220,180,1);margin-bottom:16px">Create Weekly Round</div>'
+    +'<div style="margin-bottom:12px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Date</div>'
+    +'<input id="ptLeagueRoundDate" type="date" value="'+yy+'-'+mm+'-'+dd+'" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
+    +'<div style="color:rgba(255,255,255,.35);font-size:12px;margin-bottom:18px">Creates a round linked to this league. You'll then pick who's playing tonight and set up groups.</div>'
+    +'<button onclick="doCreateLeagueRound('+leagueId+')" style="width:100%;padding:13px;background:rgba(100,220,180,.9);color:#0a1a0a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;margin-bottom:8px">Create Round</button>'
+    +'<button onclick="document.getElementById('ptCreateLeagueRoundOv').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
+    +'</div>';
+  ov.addEventListener('click', function(e){ if(e.target===ov) ov.remove(); });
+  document.body.appendChild(ov);
+};
+
+window.doCreateLeagueRound = function(leagueId) {
+  var date = document.getElementById('ptLeagueRoundDate').value||null;
+  var btn = document.querySelector('#ptCreateLeagueRoundOv button[style*="rgba(100,220,180"]');
+  if(btn){ btn.disabled=true; btn.textContent='Creating…'; }
+  fetch(TOUR_API+'/api/leagues/'+leagueId+'/rounds', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
+    body:JSON.stringify({round_date:date})
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.trip){
+      var ov=document.getElementById('ptCreateLeagueRoundOv'); if(ov) ov.remove();
+      // Reload the league so the new round appears, then open the trip for setup
+      ptLoadLeagueDetail(leagueId);
+      ptShowTripDetail(d.trip.id);
+    } else {
+      if(btn){ btn.disabled=false; btn.textContent='Create Round'; }
+      alert(d.error||'Failed to create round.');
+    }
+  }).catch(function(){
+    if(btn){ btn.disabled=false; btn.textContent='Create Round'; }
+    alert('Network error.');
+  });
+};
+
+function ptShowLeagueLeaderboard(leagueId, roundId, pin, roundName) {
+  var ov = document.createElement('div');
+  ov.id = 'ptLeagueLbOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:#0d1f0d;overflow-y:auto';
+  ov.innerHTML = '<div style="padding:20px 20px 100px">'
+    +'<div style="display:flex;align-items:center;margin-bottom:20px">'
+    +'<button onclick="document.getElementById('ptLeagueLbOv').remove()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer;padding:0;margin-right:12px">← Back</button>'
+    +'<div style="font-size:16px;font-weight:800;color:rgba(100,220,180,.9)">🏆 Leaderboard</div>'
+    +'</div>'
+    +(roundName?'<div style="font-size:14px;color:rgba(255,255,255,.6);margin-bottom:20px">'+_esc(roundName)+'</div>':'')
+    +'<div id="ptLeagueLbBody"><div style="color:rgba(255,255,255,.4);text-align:center;padding:40px 0">Loading…</div></div>'
+    +'</div>';
+  document.body.appendChild(ov);
+  fetch(TOUR_API+'/api/leagues/'+leagueId+'/rounds/'+roundId+'/leaderboard?pin='+encodeURIComponent(pin), {
+    headers:{'Authorization':'Bearer '+G.orgToken}
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.error){ document.getElementById('ptLeagueLbBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">'+_esc(d.error)+'</div>'; return; }
+    ptRenderLeagueLeaderboard(d);
+  }).catch(function(){ document.getElementById('ptLeagueLbBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">Network error.</div>'; });
+}
+
+function ptRenderLeagueLeaderboard(d) {
+  var body = document.getElementById('ptLeagueLbBody');
+  var standings = d.standings || [];
+  if(!standings.length){ body.innerHTML='<div style="color:rgba(255,255,255,.4);text-align:center;padding:40px">No scores recorded yet.</div>'; return; }
+
+  var html = '';
+
+  // Summary table (rank, name, hcp, tee, F9, B9, Total)
+  html += '<div style="background:rgba(255,255,255,.04);border-radius:14px;overflow:hidden;margin-bottom:20px">';
+  // Header row
+  html += '<div style="display:grid;grid-template-columns:28px 1fr 40px 36px 36px 42px;gap:4px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08)">'
+    +'<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase">#</div>'
+    +'<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase">Player</div>'
+    +'<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;text-align:center">HCP</div>'
+    +'<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;text-align:center">F9</div>'
+    +'<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;text-align:center">B9</div>'
+    +'<div style="font-size:10px;font-weight:800;color:rgba(100,220,180,.5);text-transform:uppercase;text-align:right">PTS</div>'
+    +'</div>';
+
+  standings.forEach(function(p, idx){
+    var rowBg = idx===0?'background:rgba(100,220,180,.07)':idx===1?'background:rgba(255,215,0,.03)':idx===2?'background:rgba(205,127,50,.03)':'';
+    var rankColor = idx===0?'color:#a8d5b5':idx===1?'color:rgba(255,215,0,.8)':idx===2?'color:rgba(205,127,50,.8)':'color:rgba(255,255,255,.4)';
+    var isExpanded = idx === 0; // first player expanded by default
+    html += '<div style="'+(rowBg?rowBg+';':'')+'border-bottom:1px solid rgba(255,255,255,.05)">'
+      +'<div style="display:grid;grid-template-columns:28px 1fr 40px 36px 36px 42px;gap:4px;padding:12px 12px 10px;cursor:pointer" onclick="(function(el){var sub=el.nextElementSibling;sub.style.display=sub.style.display==='none'?'block':'none';})(this)">'
+      +'<div style="font-size:14px;font-weight:900;'+rankColor+'">'+p.rank+'</div>'
+      +'<div>'
+        +'<div style="font-size:14px;font-weight:800;color:#fff">'+_esc(p.name)+'</div>'
+        +(p.tee_name?'<div style="font-size:10px;color:rgba(255,255,255,.35)">'+_esc(p.tee_name)+'</div>':'')
+      +'</div>'
+      +'<div style="font-size:13px;color:rgba(255,255,255,.5);text-align:center;padding-top:1px">'+(p.handicap!=null?p.handicap:'')+'</div>'
+      +'<div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.7);text-align:center">'+(p.holes_played>=9?p.f9_pts:'—')+'</div>'
+      +'<div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.7);text-align:center">'+(p.holes_played>=18?p.b9_pts:'—')+'</div>'
+      +'<div style="font-size:18px;font-weight:900;color:rgba(100,220,180,.9);text-align:right">'+p.total_pts+'</div>'
+      +'</div>'
+      // Hole-by-hole detail (collapsible)
+      +'<div style="display:'+(isExpanded?'block':'none')+';padding:0 12px 12px">'
+        + (function(){
+            // Build hole-by-hole grid
+            var rows = '';
+            var holePts  = p.hole_pts  || [];
+            var holeGross = p.hole_gross || [];
+            rows += '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:4px">Hole-by-hole stableford</div>';
+            rows += '<div style="display:flex;flex-wrap:wrap;gap:3px;">';
+            for(var h=0;h<18;h++){
+              var pts = holePts[h];
+              var gross = holeGross[h];
+              var hasScore = pts!=null;
+              var ptColor = !hasScore?'rgba(255,255,255,.15)':pts>=5?'#a8d5b5':pts===4?'#7abf9c':pts===3?'#c9a84c':pts===2?'rgba(255,255,255,.6)':pts===1?'rgba(255,100,100,.6)':'rgba(255,100,100,.4)';
+              rows += '<div style="width:30px;text-align:center;background:rgba(0,0,0,.3);border-radius:6px;padding:3px 2px">'
+                +'<div style="font-size:9px;color:rgba(255,255,255,.3);margin-bottom:1px">'+(h+1)+'</div>'
+                +'<div style="font-size:12px;font-weight:800;color:'+ptColor+'">'+(hasScore?pts:'•')+'</div>'
+                +(gross!=null?'<div style="font-size:9px;color:rgba(255,255,255,.3)">'+gross+'</div>':'')
+                +'</div>';
+            }
+            rows += '</div>';
+            rows += '<div style="display:flex;gap:12px;margin-top:8px;font-size:12px;color:rgba(255,255,255,.45)">'
+              +'<span>Gross: <strong style="color:rgba(255,255,255,.7)">'+(p.total_gross||0)+'</strong></span>'
+              +'<span>F9: <strong style="color:rgba(255,255,255,.7)">'+(p.f9_gross||0)+'</strong></span>'
+              +'<span>B9: <strong style="color:rgba(255,255,255,.7)">'+(p.b9_gross||0)+'</strong></span>'
+              +'</div>';
+            return rows;
+          }())
+      +'</div>'
+      +'</div>';
+  });
+  html += '</div>';
+  html += '<div style="text-align:center;font-size:12px;color:rgba(255,255,255,.3);padding-top:8px">Tap a row to expand hole-by-hole detail</div>';
+  body.innerHTML = html;
+}
 
 function ptShowCreateTrip(prefillName) {
   var ov = document.createElement('div');
@@ -30974,7 +31353,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.51';
+const CACHE='pards-tour-v5.52';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
