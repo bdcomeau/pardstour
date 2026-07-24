@@ -22211,7 +22211,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.50';
+const CURRENT_VERSION = 'pards-tour-v5.51';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -28099,19 +28099,19 @@ function _rbcEligibility(players) {
 function _rbcParseCsv(csv) {
   var lines = csv.trim().split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
   if (!lines.length) return [];
-  // Skip header if present
+  // Skip header if present (detect by first cell being non-name text)
   var start = 0;
-  if (/^hole/i.test(lines[0].split(',')[0])) start = 1;
+  var firstCell = lines[0].split(',')[0].trim().toLowerCase();
+  if (/^(captain|lead|player|name|hole|first)/.test(firstCell)) start = 1;
   var teams = [];
   for (var i = start; i < lines.length; i++) {
     var cols = lines[i].split(',').map(function(c){ return c.trim(); });
-    if (cols.length < 5 || !cols[0]) continue;
-    var hole = parseInt(cols[0], 10);
-    if (!hole || hole < 1 || hole > 18) continue;
+    if (cols.length < 2 || !cols[0]) continue;
     teams.push({
-      hole: hole,
-      captain: cols[1] || '',
-      players: [cols[2]||'', cols[3]||'', cols[4]||'']
+      hole: null,
+      start_time: null,
+      captain: cols[0] || '',
+      players: [cols[1]||'', cols[2]||'', cols[3]||''].filter(Boolean)
     });
   }
   return teams;
@@ -28179,30 +28179,37 @@ function ptHandleRbcFile(input) {
       var wb = XLSX.read(data, { type: 'array' });
       var ws = wb.Sheets[wb.SheetNames[0]];
       var rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
-      // Detect columns
-      var holeCol=-1, captainCol=-1, p2Col=-1, p3Col=-1, p4Col=-1;
+      // Detect columns — hole column no longer required; just captain + 3 players
+      var captainCol=-1, p2Col=-1, p3Col=-1, p4Col=-1;
+      var hasHeader = false;
       if (rows.length > 0) {
-        rows[0].forEach(function(h, i) {
-          var lh = (h||'').toString().toLowerCase();
-          if (/hole/.test(lh))               holeCol    = i;
-          else if (/captain|lead|first/.test(lh)) captainCol = i;
-          else if (/second/.test(lh))        p2Col      = i;
-          else if (/third/.test(lh))         p3Col      = i;
-          else if (/anchor|fourth/.test(lh)) p4Col      = i;
-        });
+        var firstRow = rows[0].map(function(h){ return (h||'').toString().toLowerCase(); });
+        hasHeader = firstRow.some(function(h){ return /captain|lead|first|second|third|anchor|player|name/.test(h); });
+        if (hasHeader) {
+          firstRow.forEach(function(lh, i) {
+            if (/captain|lead|first/.test(lh)) captainCol = i;
+            else if (/second/.test(lh))        p2Col      = i;
+            else if (/third/.test(lh))         p3Col      = i;
+            else if (/anchor|fourth/.test(lh)) p4Col      = i;
+          });
+        }
+        // No header? assume col 0=captain, 1-3=players (skip hole if old format detected)
+        if (!hasHeader) {
+          captainCol = 0; p2Col = 1; p3Col = 2; p4Col = 3;
+          // Old format had hole in col 0 — detect by numeric first cell
+          if (rows.length > 1 && !isNaN(parseInt((rows[1][0]||'').toString()))) {
+            captainCol = 1; p2Col = 2; p3Col = 3; p4Col = 4;
+          }
+        }
       }
-      if (holeCol < 0 || captainCol < 0) {
-        if (errEl) { errEl.textContent = 'Could not detect columns. Expected: Hole, Captain, Seconds, Thirds, Anchors'; errEl.style.display = 'block'; }
-        if (preview) preview.innerHTML = '';
-        return;
-      }
+      if (captainCol < 0) { captainCol = 0; p2Col = 1; p3Col = 2; p4Col = 3; }
       var teams = [];
-      rows.slice(1).forEach(function(row) {
-        var hole = parseInt(row[holeCol]);
-        var cap  = (row[captainCol]||'').toString().trim();
-        if (!hole || !cap) return;
+      var dataRows = hasHeader ? rows.slice(1) : rows;
+      dataRows.forEach(function(row) {
+        var cap = (row[captainCol]||'').toString().trim();
+        if (!cap || /^(captain|lead|first|name)$/i.test(cap)) return;
         teams.push({
-          hole: hole, captain: cap,
+          hole: null, start_time: null, captain: cap,
           players: [
             p2Col >= 0 ? (row[p2Col]||'').toString().trim() : '',
             p3Col >= 0 ? (row[p3Col]||'').toString().trim() : '',
@@ -28211,7 +28218,7 @@ function ptHandleRbcFile(input) {
         });
       });
       if (!teams.length) {
-        if (errEl) { errEl.textContent = 'No valid rows found. Check file format.'; errEl.style.display = 'block'; }
+        if (errEl) { errEl.textContent = 'No valid rows found. Expected: Captain, Player2, Player3, Player4'; errEl.style.display = 'block'; }
         if (preview) preview.innerHTML = '';
         return;
       }
@@ -28316,7 +28323,7 @@ function ptRbcRenderPreview(teams) {
   }
   html += '</div>';
   html += '<div id="ptRbcCommitErr" style="display:none;color:#e74c3c;font-size:13px;text-align:center;margin-bottom:8px"></div>';
-  html += '<button id="ptRbcImportBtn" onclick="ptRbcCommitImport()" style="width:100%;padding:15px;background:#a8d5b5;color:#1a3a2a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:8px">Import All ' + teams.length + ' Teams &#8594;</button>';
+  html += '<button onclick="ptDAShow(_ptRbcImportTeams,_ptRbcImportEventId,\'rbc\')" style="width:100%;padding:15px;background:#a8d5b5;color:#1a3a2a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:8px">Assign Holes &#8594; (' + teams.length + ' teams)</button>';
   html += '<button onclick="document.getElementById(\'ptRbcImportOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>';
 
   preview.innerHTML = html;
@@ -28519,15 +28526,18 @@ function ptHandleDrawFile(input) {
             role: 'user',
             content: [
               {type:'document', source:{type:'base64', media_type:'application/pdf', data:base64}},
-              {type:'text', text:'Extract the golf tournament draw from this document. Return ONLY a JSON array, no markdown, no explanation. Each element: {"hole": <number>, "captain": "<full name>", "players": ["<full name>", "<full name>", "<full name>"]}. The captain is the first/lead player per team. Include exactly 3 other players per team. If a column is labelled Seconds/Thirds/Anchors those are the other 3 players in order.'}
+              {type:'text', text:'Extract the golf tournament draw from this document. Return ONLY a JSON array, no markdown, no explanation. Each element: {"captain": "<full name>", "players": ["<full name>", "<full name>", "<full name>"]}. The captain is the first/lead player per team. Include exactly 3 other players per team. If a column is labelled Seconds/Thirds/Anchors those are the other 3 players in order. Do NOT include hole numbers — those will be assigned separately by the organizer.'}
             ]
           }]
         })
       }).then(function(r){return r.json();})
       .then(function(d){
         if (d.error) { status.textContent = 'Error: '+d.error; return; }
-        var teams = d.teams || [];
-        if (!teams.length) { status.textContent = 'No teams found in PDF. Try CSV instead.'; return; }
+        var rawTeams = [];
+        try { rawTeams = JSON.parse(d.content[0].text); } catch(e) { rawTeams = []; }
+        if (!rawTeams.length) { status.textContent = 'No teams found in PDF. Try CSV instead.'; return; }
+        // Normalise — ensure hole:null and start_time:null on all
+        var teams = rawTeams.map(function(t){ return { hole:null, start_time:null, captain:t.captain||'', players:t.players||[] }; });
         _ptDrawImportTeams = teams;
         ptRenderDrawPreview(teams);
         status.textContent = '\u2713 '+teams.length+' teams extracted. Review below.';
@@ -28546,26 +28556,31 @@ function ptHandleDrawFile(input) {
       var wb = XLSX.read(data,{type:'array'});
       var ws = wb.Sheets[wb.SheetNames[0]];
       var rows = XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
-      // Auto-detect columns: Hole, Captain/Lead, Seconds, Thirds, Anchors
-      var holeCol=-1,captainCol=-1,p2Col=-1,p3Col=-1,p4Col=-1;
+      // Auto-detect columns: Captain/Lead, Seconds, Thirds, Anchors (hole no longer in CSV)
+      var captainCol=-1,p2Col=-1,p3Col=-1,p4Col=-1;
+      var hasHdr=false;
       if (rows.length>0) {
-        rows[0].forEach(function(h,i){
-          var lh=(h||'').toString().toLowerCase();
-          if(/hole/.test(lh)) holeCol=i;
-          else if(/captain|lead|first/.test(lh)) captainCol=i;
+        var fr=rows[0].map(function(h){return (h||'').toString().toLowerCase();});
+        hasHdr=fr.some(function(h){return /captain|lead|first|second|third|anchor|player|name/.test(h);});
+        if(hasHdr){fr.forEach(function(lh,i){
+          if(/captain|lead|first/.test(lh)) captainCol=i;
           else if(/second/.test(lh)) p2Col=i;
           else if(/third/.test(lh)) p3Col=i;
           else if(/anchor|fourth/.test(lh)) p4Col=i;
-        });
+        });}
+        if(!hasHdr){captainCol=0;p2Col=1;p3Col=2;p4Col=3;
+          // Old format had hole in col 0
+          if(rows.length>1&&!isNaN(parseInt((rows[1][0]||'').toString()))){captainCol=1;p2Col=2;p3Col=3;p4Col=4;}
+        }
       }
-      if (holeCol<0||captainCol<0) {status.textContent='Could not detect columns. Expected: Hole, Captain, Seconds, Thirds, Anchors';return;}
+      if(captainCol<0){captainCol=0;p2Col=1;p3Col=2;p4Col=3;}
       var teams = [];
-      rows.slice(1).forEach(function(row){
-        var hole=parseInt(row[holeCol]);
+      var dataRows=hasHdr?rows.slice(1):rows;
+      dataRows.forEach(function(row){
         var cap=(row[captainCol]||'').toString().trim();
-        if(!hole||!cap) return;
+        if(!cap||/^(captain|lead|first|name)$/i.test(cap))return;
         teams.push({
-          hole:hole, captain:cap,
+          hole:null,start_time:null,captain:cap,
           players:[p2Col>=0?(row[p2Col]||'').toString().trim():'',
                    p3Col>=0?(row[p3Col]||'').toString().trim():'',
                    p4Col>=0?(row[p4Col]||'').toString().trim():''].filter(Boolean)
@@ -28626,7 +28641,7 @@ function ptRenderDrawPreview(teams) {
     html += '</div>';
   });
   html += '</div>';
-  html += '<button id="ptImportAllBtn" onclick="ptCommitDrawImport()" style="width:100%;padding:16px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:10px">Import All Teams →</button>';
+  html += '<button onclick="ptDAShow(_ptDrawImportTeams,_ptDrawImportEventId,\'draw\')" style="width:100%;padding:16px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:10px">Assign Holes → (' + teams.length + ' teams)</button>';
   html += '<div id="ptDrawImportErr" style="display:none;color:#e74c3c;font-size:13px;text-align:center;margin-top:8px"></div>';
   preview.innerHTML = html;
 }
@@ -28829,6 +28844,332 @@ async function ptCommitDrawImport() {
     loadOrgEventDetail(eventId);
   }
 }
+
+
+// ── Draw Assignment UI ────────────────────────────────────────────────────────
+// Step between CSV preview (roster matching) and commit (group creation).
+// Organiser assigns imported teams to holes + optional tee times.
+// Two teams on the same hole = paired cross-scoring (paired_group in worker).
+
+var _ptDA = {
+  teams:   [],       // imported team objects — .hole & .start_time written on confirm
+  eventId: null,
+  source:  null,     // 'rbc' | 'draw'
+  mode:    'tee_times', // 'tee_times' | 'shotgun' | 'manual'
+  perSlot: 1,        // 1 or 2 teams per slot
+  slots:   [],       // [{hole, start_time, teamIndices:[ti,...]}]
+  _selHoles: [],     // shotgun hole selection
+};
+
+function ptDAShow(teams, eventId, source) {
+  _ptDA.teams   = teams;
+  _ptDA.eventId = eventId;
+  _ptDA.source  = source;
+  _ptDA.mode    = 'tee_times';
+  _ptDA.perSlot = teams.length > 18 ? 2 : 1;
+  _ptDA.slots   = [];
+  _ptDA._selHoles = [];
+  var old = document.getElementById('ptDAOv'); if (old) old.remove();
+  var ov = document.createElement('div');
+  ov.id = 'ptDAOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:1100;background:#0f1f14;display:flex;flex-direction:column;box-sizing:border-box';
+  ov.innerHTML =
+    '<div style="display:flex;align-items:center;justify-content:space-between;padding:18px 16px 14px;border-bottom:1px solid rgba(201,168,76,.2);flex-shrink:0">'
+    +'<button onclick="ptDABack()" style="background:none;border:none;color:rgba(201,168,76,.7);font-size:24px;cursor:pointer;padding:0;line-height:1">&#8592;</button>'
+    +'<div style="font-size:18px;font-weight:800;color:#c9a84c">Assign Holes</div>'
+    +'<div style="font-size:12px;color:rgba(255,255,255,.4)">'+teams.length+' teams</div>'
+    +'</div>'
+    +'<div id="ptDABody" style="flex:1;overflow-y:auto;padding:16px"></div>';
+  document.body.appendChild(ov);
+  ptDARenderSetup();
+}
+
+function ptDABack() {
+  var ov = document.getElementById('ptDAOv'); if (ov) ov.remove();
+  if (_ptDA.source === 'rbc') ptRbcRenderPreview(_ptDA.teams);
+  else ptRenderDrawPreview(_ptDA.teams);
+}
+
+function ptDARenderSetup() {
+  var body = document.getElementById('ptDABody'); if (!body) return;
+  var h = '';
+
+  // ── Start Format ──
+  h += '<div style="margin-bottom:14px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Start Format</div>'
+    +'<div style="display:flex;gap:6px">';
+  [['tee_times','Tee Times'],['shotgun','Shotgun'],['manual','Manual']].forEach(function(m){
+    var sel = _ptDA.mode === m[0];
+    h += '<button onclick="ptDASetMode(\''+m[0]+'\')" style="flex:1;padding:10px;border-radius:10px;border:1.5px solid '+(sel?'#c9a84c':'rgba(255,255,255,.2)')+';background:'+(sel?'rgba(201,168,76,.15)':'transparent')+';color:'+(sel?'#c9a84c':'rgba(255,255,255,.5)')+';font-size:12px;font-weight:700;cursor:pointer">'+m[1]+'</button>';
+  });
+  h += '</div></div>';
+
+  // ── Teams per slot ──
+  h += '<div style="margin-bottom:14px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Teams Per Slot</div>'
+    +'<div style="display:flex;gap:6px">';
+  [[1,'1 — individual'],[2,'2 — paired (cross-score)']].forEach(function(n){
+    var sel = _ptDA.perSlot === n[0];
+    h += '<button onclick="ptDASetPerSlot('+n[0]+')" style="flex:1;padding:10px;border-radius:10px;border:1.5px solid '+(sel?'#c9a84c':'rgba(255,255,255,.2)')+';background:'+(sel?'rgba(201,168,76,.15)':'transparent')+';color:'+(sel?'#c9a84c':'rgba(255,255,255,.5)')+';font-size:12px;font-weight:700;cursor:pointer">'+n[1]+'</button>';
+  });
+  h += '</div></div>';
+
+  if (_ptDA.mode !== 'manual') {
+    h += '<div style="margin-bottom:10px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Start Time</div>'
+      +'<input id="ptDAStart" type="time" value="09:00" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none"></div>';
+  }
+
+  if (_ptDA.mode === 'tee_times') {
+    h += '<div style="margin-bottom:20px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Interval (minutes)</div>'
+      +'<input id="ptDAInterval" type="number" min="5" max="30" value="10" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none"></div>';
+    h += '<button onclick="ptDAGenerate()" style="width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer">Generate Tee Times &rarr;</button>';
+
+  } else if (_ptDA.mode === 'shotgun') {
+    h += '<div style="margin-bottom:14px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Starting Holes <span style="font-weight:400;color:rgba(255,255,255,.3)">(tap to select)</span></div>';
+    h += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">';
+    for (var hnum=1; hnum<=18; hnum++) {
+      var hs = _ptDA._selHoles.indexOf(hnum) >= 0;
+      h += '<button id="ptDAH'+hnum+'" onclick="ptDAToggleHole('+hnum+')" style="width:42px;height:42px;border-radius:8px;border:1.5px solid '+(hs?'#c9a84c':'rgba(255,255,255,.2)')+';background:'+(hs?'rgba(201,168,76,.2)':'transparent')+';color:'+(hs?'#c9a84c':'rgba(255,255,255,.5)')+';font-size:13px;font-weight:700;cursor:pointer">'+hnum+'</button>';
+    }
+    h += '</div>';
+    h += '<div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:14px">Leave blank to use holes 1–18. All teams tee off simultaneously.</div>';
+    h += '<button onclick="ptDAGenerate()" style="width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer">Generate Shotgun Holes &rarr;</button>';
+
+  } else {
+    // Manual
+    h += '<div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:20px;line-height:1.6">Slots will be created automatically based on team count. Assign each team to a hole manually. Set hole &amp; time per slot.</div>';
+    h += '<button onclick="ptDAManualInit()" style="width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer">Set Up Manually &rarr;</button>';
+  }
+
+  body.innerHTML = h;
+}
+
+function ptDASetMode(m)    { _ptDA.mode = m;     ptDARenderSetup(); }
+function ptDASetPerSlot(n) { _ptDA.perSlot = n;  ptDARenderSetup(); }
+
+function ptDAToggleHole(h) {
+  var idx = _ptDA._selHoles.indexOf(h);
+  if (idx >= 0) _ptDA._selHoles.splice(idx,1);
+  else { _ptDA._selHoles.push(h); _ptDA._selHoles.sort(function(a,b){return a-b;}); }
+  var btn = document.getElementById('ptDAH'+h);
+  if (btn) {
+    var sel = _ptDA._selHoles.indexOf(h) >= 0;
+    btn.style.border     = '1.5px solid '+(sel?'#c9a84c':'rgba(255,255,255,.2)');
+    btn.style.background = sel ? 'rgba(201,168,76,.2)' : 'transparent';
+    btn.style.color      = sel ? '#c9a84c' : 'rgba(255,255,255,.5)';
+  }
+}
+
+function ptDAGenerate() {
+  var startEl = document.getElementById('ptDAStart');
+  var startTime = startEl ? startEl.value : '09:00';
+  var nTeams = _ptDA.teams.length;
+  var perSlot = _ptDA.perSlot;
+  var nSlots = Math.ceil(nTeams / perSlot);
+  var slots = [];
+
+  if (_ptDA.mode === 'tee_times') {
+    var ivEl = document.getElementById('ptDAInterval');
+    var interval = ivEl ? (parseInt(ivEl.value) || 10) : 10;
+    var sp = startTime.split(':');
+    var cur = parseInt(sp[0])*60 + parseInt(sp[1]);
+    for (var i=0; i<nSlots; i++) {
+      var hh = String(Math.floor(cur/60)).padStart(2,'0');
+      var mm = String(cur%60).padStart(2,'0');
+      slots.push({ hole:1, start_time:hh+':'+mm, teamIndices:[] });
+      cur += interval;
+    }
+
+  } else { // shotgun
+    var holes = _ptDA._selHoles.length ? _ptDA._selHoles
+      : (function(){ var a=[]; for(var i=1;i<=18;i++) a.push(i); return a; })();
+    for (var i=0; i<nSlots; i++) {
+      slots.push({ hole: holes[i % holes.length], start_time: startTime, teamIndices:[] });
+    }
+  }
+
+  _ptDA.slots = slots;
+  ptDARender();
+}
+
+function ptDAManualInit() {
+  var nTeams = _ptDA.teams.length;
+  var perSlot = _ptDA.perSlot;
+  var nSlots = Math.ceil(nTeams / perSlot);
+  _ptDA.slots = [];
+  for (var i=0; i<nSlots; i++) {
+    _ptDA.slots.push({ hole: i+1 <= 18 ? i+1 : ((i%18)+1), start_time: null, teamIndices:[] });
+  }
+  ptDARender();
+}
+
+function ptDARender() {
+  var body = document.getElementById('ptDABody'); if (!body) return;
+  var teams  = _ptDA.teams;
+  var slots  = _ptDA.slots;
+  var isShotgun  = _ptDA.mode === 'shotgun';
+  var isTeeTime  = _ptDA.mode === 'tee_times';
+  var isManual   = _ptDA.mode === 'manual';
+
+  // Build assigned-team set
+  var assigned = {};
+  slots.forEach(function(s){ (s.teamIndices||[]).forEach(function(ti){ assigned[ti]=true; }); });
+  var nUnassigned = teams.filter(function(t,ti){ return !assigned[ti]; }).length;
+  var allAssigned = nUnassigned === 0;
+
+  var h = '';
+
+  // ── Summary / action bar ──
+  h += '<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:10px 14px;margin-bottom:12px">';
+  h += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">';
+  h += '<div style="font-size:12px;color:rgba(201,168,76,.8)">'+(teams.length-nUnassigned)+'/'+teams.length+' teams assigned</div>';
+  h += '<button onclick="ptDARenderSetup()" style="font-size:11px;color:rgba(255,255,255,.35);background:none;border:none;cursor:pointer;padding:0">&larr; Setup</button>';
+  h += '</div>';
+  h += '<div style="display:flex;gap:8px">';
+  h += '<button onclick="ptDAAutoFill()" style="flex:1;padding:9px;background:rgba(168,213,181,.15);border:1px solid rgba(168,213,181,.4);border-radius:8px;color:#a8d5b5;font-size:12px;font-weight:700;cursor:pointer">&#127922; Auto-Fill Draw</button>';
+  h += '<button onclick="ptDAClearAll()" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer">Clear</button>';
+  h += '</div></div>';
+
+  // ── Unassigned pool ──
+  if (nUnassigned > 0) {
+    h += '<div style="background:rgba(231,76,60,.06);border:1px solid rgba(231,76,60,.25);border-radius:10px;padding:10px 14px;margin-bottom:12px">';
+    h += '<div style="font-size:11px;color:rgba(231,76,60,.8);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">&#9888; '+nUnassigned+' unassigned</div>';
+    h += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+    teams.forEach(function(t,ti){
+      if (assigned[ti]) return;
+      h += '<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:5px 10px;font-size:12px;color:rgba(255,255,255,.7)">'+t.captain+'</div>';
+    });
+    h += '</div></div>';
+  }
+
+  // ── Slot cards ──
+  slots.forEach(function(slot, si) {
+    var slotLabel = '';
+    if (isTeeTime) slotLabel = slot.start_time || 'Slot '+(si+1);
+    else if (isShotgun) slotLabel = 'Hole '+(slot.hole||si+1)+(slot.start_time ? ' · '+slot.start_time : '');
+    else slotLabel = 'Hole '+(slot.hole||si+1);
+
+    var isFull = (slot.teamIndices||[]).length >= _ptDA.perSlot;
+    h += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin-bottom:8px">';
+    h += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">';
+    h += '<div style="font-size:13px;font-weight:800;color:#f5e6b8">'+slotLabel+'</div>';
+    // Inline hole / time editors (tee times and manual)
+    if (!isShotgun) {
+      h += '<div style="display:flex;gap:6px;align-items:center">';
+      if (isTeeTime && slot.start_time) {
+        h += '<input type="time" value="'+slot.start_time+'" onchange="_ptDASlotTime('+si+',this.value)" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:4px 6px;color:#fff;font-size:11px;width:88px">';
+      }
+      h += '<input type="number" min="1" max="18" value="'+(slot.hole||1)+'" onchange="_ptDASlotHole('+si+',this.value)" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:4px 6px;color:#fff;font-size:11px;width:52px" placeholder="Hole">';
+      h += '</div>';
+    }
+    h += '</div>';
+
+    // Team pickers
+    for (var pos=0; pos<_ptDA.perSlot; pos++) {
+      var ti = slot.teamIndices[pos];
+      var hasTeam = (ti !== undefined && ti !== null);
+      h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+      h += '<select onchange="ptDAAssign('+si+','+pos+',this.value)" style="flex:1;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.25);color:#fff;font-size:13px;outline:none">';
+      h += '<option value="">-- Select Team --</option>';
+      teams.forEach(function(t, tIdx) {
+        var isThisSlot = hasTeam && tIdx === ti;
+        var isTaken = assigned[tIdx] && !isThisSlot;
+        h += '<option value="'+tIdx+'"'+(isThisSlot?' selected':'')+(isTaken?' disabled':'')+'>'+t.captain+(isTaken?' [assigned]':'')+'</option>';
+      });
+      h += '</select>';
+      if (hasTeam) {
+        h += '<button onclick="ptDARemove('+si+','+pos+')" style="background:none;border:none;color:rgba(255,100,100,.6);font-size:18px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0">&times;</button>';
+      }
+      h += '</div>';
+    }
+
+    if (_ptDA.perSlot === 2 && (slot.teamIndices||[]).length === 2) {
+      h += '<div style="font-size:10px;color:rgba(168,213,181,.5);margin-top:2px">&#8644; Paired — teams keep score for each other</div>';
+    }
+    h += '</div>';
+  });
+
+  h += '<div style="height:80px"></div>';
+  body.innerHTML = h;
+
+  // ── Fixed confirm button ──
+  var bar = document.createElement('div');
+  bar.style.cssText = 'position:fixed;bottom:0;left:0;right:0;padding:12px 16px;background:#0f1f14;border-top:1px solid rgba(201,168,76,.2);z-index:10';
+  var btn = document.createElement('button');
+  if (allAssigned) {
+    btn.textContent = 'Import All '+teams.length+' Teams →';
+    btn.style.cssText = 'width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer';
+    btn.onclick = ptDAConfirm;
+  } else {
+    btn.textContent = nUnassigned+' team'+(nUnassigned!==1?'s':'')+' still unassigned';
+    btn.style.cssText = 'width:100%;padding:15px;background:rgba(201,168,76,.15);color:rgba(255,255,255,.3);border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:default';
+  }
+  bar.appendChild(btn);
+  body.appendChild(bar);
+}
+
+function ptDAAssign(si, pos, val) {
+  var ti = (val === '' || val === null) ? undefined : parseInt(val);
+  // Remove this team from any other slot position first
+  if (ti !== undefined) {
+    _ptDA.slots.forEach(function(s) {
+      var idx = s.teamIndices.indexOf(ti);
+      if (idx >= 0) s.teamIndices.splice(idx, 1);
+    });
+  }
+  if (ti !== undefined) {
+    _ptDA.slots[si].teamIndices[pos] = ti;
+  } else {
+    _ptDA.slots[si].teamIndices.splice(pos, 1);
+  }
+  ptDARender();
+}
+
+function ptDARemove(si, pos) {
+  _ptDA.slots[si].teamIndices.splice(pos, 1);
+  ptDARender();
+}
+
+function ptDAAutoFill() {
+  var assigned = {};
+  _ptDA.slots.forEach(function(s){ (s.teamIndices||[]).forEach(function(ti){ assigned[ti]=true; }); });
+  var pool = [];
+  _ptDA.teams.forEach(function(t, ti){ if (!assigned[ti]) pool.push(ti); });
+  var pi = 0;
+  _ptDA.slots.forEach(function(slot) {
+    while ((slot.teamIndices||[]).length < _ptDA.perSlot && pi < pool.length) {
+      slot.teamIndices.push(pool[pi++]);
+    }
+  });
+  ptDARender();
+}
+
+function ptDAClearAll() {
+  _ptDA.slots.forEach(function(s){ s.teamIndices = []; });
+  ptDARender();
+}
+
+function _ptDASlotHole(si, val) {
+  var h = parseInt(val);
+  if (h >= 1 && h <= 18) _ptDA.slots[si].hole = h;
+}
+function _ptDASlotTime(si, val) {
+  _ptDA.slots[si].start_time = val;
+}
+
+function ptDAConfirm() {
+  // Write hole + start_time onto each team object — commit functions read team.hole
+  _ptDA.teams.forEach(function(t){ t.hole = null; t.start_time = null; });
+  _ptDA.slots.forEach(function(slot) {
+    (slot.teamIndices||[]).forEach(function(ti) {
+      _ptDA.teams[ti].hole       = slot.hole || 1;
+      _ptDA.teams[ti].start_time = slot.start_time || null;
+    });
+  });
+  var ov = document.getElementById('ptDAOv'); if (ov) ov.remove();
+  // Trigger the right commit path
+  if (_ptDA.source === 'rbc') ptRbcCommitImport();
+  else ptCommitDrawImport();
+}
+// ── End Draw Assignment UI ───────────────────────────────────────────────────
 
 function ptShowAddGroup(eventId) {
   var ov=document.createElement('div');
@@ -30633,7 +30974,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.50';
+const CACHE='pards-tour-v5.51';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
