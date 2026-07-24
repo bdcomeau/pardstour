@@ -6228,6 +6228,7 @@ function refreshPlayerTabs(){
 
 
 function renderPlayers(){
+  console.log('[renderPlayers] G.n=', G.n, 'players=', JSON.stringify((G.players||[]).map(function(p){return p.name;})));
   saveSetupState();
   const contacts = loadContacts();
   // Sort: Me first, then favourites, then alphabetical
@@ -22211,7 +22212,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.85';
+const CURRENT_VERSION = 'pards-tour-v5.86';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -24409,6 +24410,8 @@ function ptRenderTripDetail(trip, players, rounds) {
           var _code = tt.foursome_code || '';
           var _pin  = tt.foursome_pin || tt.pin || '';
           var _names = (tt.players||[]).map(function(p){ return _esc(p.name||p.player_name||''); }).join(', ');
+          // Store players by code so ptStartTripScoring can pre-populate setup screen
+          if(_code) _ptTeeSheetPlayers[_code] = (tt.players||[]).map(function(p){return{name:p.name||p.player_name||'Player',roster_id:p.roster_id||null,current_index:p.current_index||0,playing_handicap:p.playing_handicap||0,trip_player_id:p.trip_player_id||p.id||null};});
           var _isScored = false;
           try{ _isScored = sessionStorage.getItem('_ptScored_'+r.id+'_'+_code)==='1'; }catch(e){}
 
@@ -25096,6 +25099,8 @@ window.ptShowTripTeeSheet = function(tripId, roundId, fallbackSlots) {
   });
 };
 
+var _ptTeeSheetPlayers = {}; // code -> players array, set at render time
+
 function _ptRenderTeeSheetTimes(body, times, tripId, roundId) {
     var h = '';
     times.forEach(function(tt){
@@ -25110,9 +25115,10 @@ function _ptRenderTeeSheetTimes(body, times, tripId, roundId) {
       }
       var _code = tt.foursome_code||'';
       var _hasCode = _code && _code !== '—' && _code !== '(loading…)';
-      var _encPlayers = encodeURIComponent(JSON.stringify(players.map(function(p){return{name:p.name||p.player_name||'Player',roster_id:p.roster_id||null,current_index:p.current_index||0,playing_handicap:p.playing_handicap||0,trip_player_id:p.trip_player_id||p.id||null};})));
+      // Store players in lookup by code so onclick doesn't need to pass JSON inline
+      if(_hasCode) _ptTeeSheetPlayers[_code] = players.map(function(p){return{name:p.name||p.player_name||'Player',roster_id:p.roster_id||null,current_index:p.current_index||0,playing_handicap:p.playing_handicap||0,trip_player_id:p.trip_player_id||p.id||null};})
       h += (_hasCode
-        ? '<button onclick="ptStartTripScoring(\''+_esc(_code)+'\','+tripId+','+roundId+',decodeURIComponent(\''+_encPlayers+'\'))" style="width:100%;padding:13px;background:rgba(168,213,181,.15);border:1.5px solid rgba(168,213,181,.5);border-radius:12px;color:#a8d5b5;font-size:14px;font-weight:800;cursor:pointer">▶ Score This Group</button>'
+        ? '<button onclick="ptStartTripScoring(\''+_esc(_code)+'\','+tripId+','+roundId+')" style="width:100%;padding:13px;background:rgba(168,213,181,.15);border:1.5px solid rgba(168,213,181,.5);border-radius:12px;color:#a8d5b5;font-size:14px;font-weight:800;cursor:pointer">▶ Score This Group</button>'
         : '<button onclick="document.getElementById(\'ptTripTeeSheetOv\').remove();ptShowTripTeeSheet('+tripId+','+roundId+')" style="width:100%;padding:13px;background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.3);border-radius:12px;color:#c9a84c;font-size:14px;font-weight:800;cursor:pointer">🔄 Refresh to Load Codes</button>'
       )+'</div>';
     });
@@ -25120,15 +25126,14 @@ function _ptRenderTeeSheetTimes(body, times, tripId, roundId) {
 }
 
 
-window.ptStartTripScoring = function(code, tripId, roundId, playersJson) {
+window.ptStartTripScoring = function(code, tripId, roundId) {
   if(!code){ alert('No foursome code for this slot.'); return; }
   var loadDiv = document.getElementById('ptTripTeeSheetBody');
   // Show loading state
   var btn = event && event.target;
   if(btn){ btn.disabled=true; btn.textContent='Loading…'; }
-  // Parse pre-loaded players from tee sheet (avoids API returning only 1 player)
-  var _teePlayers = null;
-  try { if(playersJson) _teePlayers = JSON.parse(playersJson); } catch(e) {}
+  // Look up players stored at render time — avoids API returning incomplete roster
+  var _teePlayers = (_ptTeeSheetPlayers && _ptTeeSheetPlayers[code]) || null;
 
   fetch(TOUR_API+'/api/join-trip/'+encodeURIComponent(code))
     .then(function(r){return r.json();}).then(function(d){
@@ -25144,10 +25149,10 @@ window.ptStartTripScoring = function(code, tripId, roundId, playersJson) {
 
       // Build foursomeData shape that ptLaunchFoursomeRound expects (individual format)
       var ft = d.foursome||{};
-      // Use pre-loaded tee sheet players if available (API may only return 1 player)
-      // Fall back to API players only if tee sheet players weren't passed
+      // Always prefer tee sheet players — they have all names from the organizer's slot data.
+      // API players are fallback only (join-trip may return incomplete roster).
       var apiPlayers = d.players||[];
-      var players = (_teePlayers && _teePlayers.length > apiPlayers.length) ? _teePlayers : apiPlayers;
+      var players = (_teePlayers && _teePlayers.length) ? _teePlayers : apiPlayers;
       var foursomeData = {
         foursome: {
           id:           ft.id,
@@ -31887,7 +31892,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.85';
+const CACHE='pards-tour-v5.86';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
