@@ -792,6 +792,14 @@
 <script>
 // ─── State ────────────────────────────────────────────────────────────────────
 const STORAGE_KEY = 'lci-v4';
+const TOUR_API = 'https://pards-tour-api.bdapple.workers.dev';
+
+// ─── D1 Mode — detect ?race_id=X&token=TOK in URL ───────────────────────────
+const _urlParams  = new URLSearchParams(window.location.search);
+const _d1RaceId   = _urlParams.get('race_id') || null;
+const _d1Token    = _urlParams.get('token') || null;
+const _d1Mode     = !!(_d1RaceId && _d1Token);
+let   _d1Race     = null;   // full race object from worker
 
 // Root storage: { bettors: [], events: [], activeEventId: null }
 // Each event: { id, name, createdAt, archived, handlePct, teams, bets, placements }
@@ -3388,6 +3396,11 @@ function confirmCash() {
 
   syncRootFromState();
   save();
+  // D1 mode: push wagers to worker
+  if (_d1Mode) {
+    var d1Wagers = betsToAdd.map(function(b){ return { team_id: b.teamId, type: b.type, amount: b.amount }; });
+    d1SubmitWagers(bettorId, d1Wagers, ticketRef);
+  }
   updateTote();
   updateHeader();
 
@@ -3729,6 +3742,10 @@ function setPlacement(pos, val) {
   const ev = activeEvent();
   if (ev) ev.placements = state.placements;
   save(); renderPlacements(); renderResults(); updateHeader();
+  // D1 mode: push places when all 3 are set
+  if (_d1Mode && state.placements.p1 && state.placements.p2 && state.placements.p3) {
+    d1SetPlaces(Number(state.placements.p1), Number(state.placements.p2), Number(state.placements.p3));
+  }
 }
 
 // ─── RESULTS ─────────────────────────────────────────────────────────────────
@@ -4374,20 +4391,151 @@ window.addEventListener('resize', applyLayout);
 // Also run after fonts/images settle
 setTimeout(applyLayout, 100);
 setTimeout(applyLayout, 500);
-load();
-// Check for updates after 3 seconds, then every 5 minutes
-setTimeout(checkForUpdate, 3000);
-setInterval(checkForUpdate, 5 * 60 * 1000);
-const _tnEl = document.getElementById('tournament-name');
-if (_tnEl) _tnEl.value = state.tournamentName || '';
-updatePayoutModeUI();
-renderTeams();
-renderBettors();
-renderEvents();
-updateActiveEventSetup();
-updateTote();
-updateHeader();
-initResetSlider();
+if (_d1Mode) {
+  // D1 mode: load race data from worker instead of localStorage
+  _d1BootLoad();
+} else {
+  load();
+  _d1BootRender();
+}
+
+function _d1BootRender() {
+  // Check for updates after 3 seconds, then every 5 minutes
+  setTimeout(checkForUpdate, 3000);
+  setInterval(checkForUpdate, 5 * 60 * 1000);
+  const _tnEl = document.getElementById('tournament-name');
+  if (_tnEl) _tnEl.value = state.tournamentName || '';
+  updatePayoutModeUI();
+  renderTeams();
+  renderBettors();
+  renderEvents();
+  updateActiveEventSetup();
+  updateTote();
+  updateHeader();
+  initResetSlider();
+  if (_d1Mode) _d1ApplyUILock();
+}
+
+async function _d1BootLoad() {
+  // Show loading state
+  const content = document.getElementById('content');
+  if (content) content.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:16px"><div style="font-size:32px">🎰</div><div style="color:#D4A843;font-size:16px;font-weight:700">Loading race from Pards Tour…</div></div>';
+  try {
+    const resp = await fetch(TOUR_API + '/api/bets/races/' + _d1RaceId, {
+      headers: { 'Authorization': 'Bearer ' + _d1Token }
+    });
+    const d = await resp.json();
+    if (!d.race) throw new Error(d.error || 'Race not found');
+    _d1Race = d;
+    // Map D1 data into state
+    state.tournamentName = d.race.race_label || 'Pards Bets';
+    state.payoutMode     = d.race.payout_mode || 'simplified';
+    state.handlePct      = d.race.house_pct || 0;
+    state.handleMode     = 'pct';
+    // Map teams
+    state.teams = (d.teams || []).map(function(t) {
+      return { id: t.id, name: t.name, _d1Id: t.id };
+    });
+    // Map bettors
+    state.bettors = (d.bettors || []).map(function(b) {
+      return { id: b.id, name: b.name, _d1Id: b.id };
+    });
+    // Map wagers
+    state.bets = (d.wagers || []).map(function(w) {
+      return {
+        id: w.id, bettorId: w.bettor_id, teamId: w.team_id,
+        type: w.type, amount: w.amount,
+        ticketRef: w.ticket_ref || null, _d1Id: w.id
+      };
+    });
+    // Map placements if settled
+    const places = d.places || [];
+    const p1 = places.find(function(p){ return p.position === 1; });
+    const p2 = places.find(function(p){ return p.position === 2; });
+    const p3 = places.find(function(p){ return p.position === 3; });
+    state.placements = {
+      p1: p1 ? String(p1.team_id) : '',
+      p2: p2 ? String(p2.team_id) : '',
+      p3: p3 ? String(p3.team_id) : ''
+    };
+    // Set up a minimal event in root so existing code works
+    const fakeEv = {
+      id: 'd1_' + _d1RaceId,
+      name: state.tournamentName,
+      createdAt: d.race.created_at || new Date().toISOString(),
+      archived: d.race.status === 'settled',
+      payoutMode: state.payoutMode,
+      handlePct: state.handlePct,
+      handleMode: 'pct',
+      handleFlat: 0,
+      teams: JSON.parse(JSON.stringify(state.teams)),
+      bettors: JSON.parse(JSON.stringify(state.bettors)),
+      bets: JSON.parse(JSON.stringify(state.bets)),
+      placements: JSON.parse(JSON.stringify(state.placements)),
+      nextTicketNum: (d.wagers || []).length + 1
+    };
+    root.events = [fakeEv];
+    root.activeEventId = fakeEv.id;
+    state.nextTicketNum = fakeEv.nextTicketNum;
+    // Restore content
+    if (content) content.innerHTML = '';
+    _d1BootRender();
+    // Go straight to entry tab
+    showTab('entry');
+  } catch(e) {
+    if (content) content.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:16px"><div style="font-size:32px">⚠️</div><div style="color:#e74c3c;font-size:15px;font-weight:700">Failed to load race</div><div style="color:rgba(255,255,255,.5);font-size:13px">' + e.message + '</div></div>';
+  }
+}
+
+function _d1ApplyUILock() {
+  // Hide Events tab (race is fixed), show D1 race label in header
+  // Hide Events tab
+  document.querySelectorAll('#tabbar button').forEach(function(btn) {
+    if ((btn.getAttribute('onclick') || '').indexOf("'events'") !== -1) btn.style.display = 'none';
+  });
+  // Show a "← Back to Pards Tour" link in header
+  const hdr = document.getElementById('header');
+  if (hdr) {
+    var backBtn = document.createElement('button');
+    backBtn.textContent = '← Pards Tour';
+    backBtn.style.cssText = 'position:absolute;top:calc(env(safe-area-inset-top,16px) + 8px);left:14px;background:rgba(212,168,67,.15);border:1px solid rgba(212,168,67,.4);border-radius:8px;color:#D4A843;font-size:11px;font-weight:800;cursor:pointer;padding:5px 10px;z-index:10';
+    backBtn.onclick = function(){ window.close(); };
+    hdr.style.position = 'relative';
+    hdr.appendChild(backBtn);
+  }
+}
+
+// Override save() in D1 mode to push wagers to worker
+const _origSave = save;
+function save() {
+  if (!_d1Mode) { _origSave(); return; }
+  // In D1 mode: sync state back to fakeEv for UI consistency but don't hit localStorage
+  syncRootFromState();
+}
+
+// D1 mode: submit a bettor's wager batch to worker
+async function d1SubmitWagers(bettorId, wagerBatch, ticketRef) {
+  if (!_d1Mode) return;
+  try {
+    await fetch(TOUR_API + '/api/bets/races/' + _d1RaceId + '/wagers', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _d1Token },
+      body: JSON.stringify({ bettor_id: bettorId, ticket_ref: ticketRef, wagers: wagerBatch })
+    });
+  } catch(e) { console.error('d1SubmitWagers error:', e); }
+}
+
+// D1 mode: set placements
+async function d1SetPlaces(p1, p2, p3) {
+  if (!_d1Mode) return;
+  try {
+    await fetch(TOUR_API + '/api/bets/races/' + _d1RaceId + '/places', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _d1Token },
+      body: JSON.stringify({ p1: p1, p2: p2, p3: p3 })
+    });
+  } catch(e) { console.error('d1SetPlaces error:', e); }
+}
 
 // ─── Service Worker Registration ──────────────────────────────────────────────
 if ('serviceWorker' in navigator) {
