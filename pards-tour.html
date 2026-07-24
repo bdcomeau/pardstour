@@ -18135,6 +18135,13 @@ function closeSideBets(){
   }
 }
 
+function updateBirdieJuiceBadge(){
+  var earned = (G.birdieJuice && G.birdieJuice.earned) ? G.birdieJuice.earned.length : 0;
+  var b1 = document.getElementById('bjBadge');
+  var b2 = document.getElementById('bjBadge2');
+  if(b1){ b1.textContent = earned; b1.style.display = earned > 0 ? 'inline-flex' : 'none'; }
+  if(b2){ b2.textContent = earned; b2.style.display = earned > 0 ? 'flex' : 'none'; }
+}
 function showBirdieJuiceFromScore(){ showS('birdiejuice'); }
 function openMidRoundSettings(){ closeRoundMenu(); openMatchManager(); }
 function openSideBetsFromScore(){
@@ -22211,7 +22218,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.98';
+const CURRENT_VERSION = 'pards-tour-v5.99';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -22384,10 +22391,9 @@ setInterval(checkForUpdate,90000);
 // which doesn't re-run boot or showS.
 function showRoundBar(){
   const rb = document.getElementById('roundBar');
-  var _rba = document.getElementById('roundBarActions'); if(_rba) _rba.style.display = (G.mode==='event') ? 'none' : '';
   if(rb) rb.style.display='flex';
   const ra = document.getElementById('roundBarActions');
-  if(ra && !G.scorecardOnly) ra.style.display='flex';
+  if(ra) ra.style.display='flex';
   const hb = document.querySelector('.help-bar');
   if(hb) hb.style.display='none';
   updateRoundBar();
@@ -31924,7 +31930,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.98';
+const CACHE='pards-tour-v5.99';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
