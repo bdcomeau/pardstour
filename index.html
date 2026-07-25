@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v223.0 -->
+  <!-- pards-tour-v224.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -33893,6 +33893,19 @@ function doJoinGroup() {
     G.scrambleFormat = _sfmt;
     // pairedTeam comes from server (G._pairedGroup already set before doJoinGroup is called)
     G.pairedTeam = G._pairedGroup ? { name: G._pairedGroup.name, players: G._pairedPlayers || [] } : null;
+    // v224.0 \u2014 cross-scoring submit override, mirroring the solo branch (which has
+    // always had it). Without this the scramble scorer's numbers \u2014 the PAIRED
+    // team's official card \u2014 were submitted under the scorer's OWN group code,
+    // swapping every paired pair's leaderboard entries and hiding scores from the
+    // paired-group resume check. (Latent in v6.06 too; only bites when two groups
+    // share a start hole, i.e. real cross-scoring.)
+    if (G._pairedGroup && G._pairedGroup.code) {
+      G._scoringForGroup = G._pairedGroup;
+      G._scoringForCode  = G._pairedGroup.code;
+    } else {
+      G._scoringForGroup = G.joinGroup;
+      G._scoringForCode  = G.joinGroup.code;
+    }
 
     // Build scramble G state (1 player slot = team, gross score entry)
     G.n = 1;
@@ -34977,7 +34990,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v223.0';
+    const TOUR_VERSION     = 'pards-tour-v224.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
