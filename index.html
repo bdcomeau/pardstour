@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v226.0 -->
+  <!-- pards-tour-v227.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -28487,7 +28487,16 @@ if (typeof _ptOrigDoStartRound === 'function') {
     try {
       if (_stash && G.mode === 'event' && G.roundDate && G.scores && G.scores[0]) {
         for (var i = 0; i < 18; i++) { if (_stash[i] != null) G.scores[0][i] = _stash[i]; }
+        // v227.0 \u2014 resume lands on the first UNSCORED hole in play order
+        // (respects shotgun starts), not back on the start hole.
+        var _sh0 = (G.startHole || 1) - 1;
+        for (var k = 0; k < 18; k++) {
+          var _hi = (_sh0 + k) % 18;
+          if (G.scores[0][_hi] == null) { G.hole = _hi; break; }
+        }
         saveG();
+        try { if (typeof renderCard === 'function') renderCard(); } catch(e2) {}
+        try { if (typeof updateHoleHeader === 'function') updateHoleHeader(); } catch(e3) {}
       }
     } catch(e) { console.error('[pt] resume re-apply failed', e); }
     G._ptEventResumeScores = null;
@@ -34992,7 +35001,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v226.0';
+    const TOUR_VERSION     = 'pards-tour-v227.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
