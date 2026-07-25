@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v238.0 -->
+  <!-- pards-tour-v239.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -27342,6 +27342,35 @@ function ptRenderTripDetail(trip, players, rounds) {
   }
 
   body.innerHTML = html;
+
+  // v239.0 — the tee-time cache only ever filled at SAVE time, so any page
+  // reload made saved tee sheets look erased ("Set Up Tee Times" again) and
+  // invited a destructive rebuild. Seed the cache from the server for rounds
+  // that miss it, then re-render once. Empty rounds stay uncached (no loop:
+  // the re-render only fires when something non-empty arrived).
+  (function(){
+    var _miss = (rounds||[]).filter(function(r){
+      var c = window._ptTeeTimeCache && window._ptTeeTimeCache[r.id];
+      return !(c && c.length);
+    });
+    if(!_miss.length) return;
+    var _got = false;
+    Promise.all(_miss.map(function(r){
+      return fetch(TOUR_API+'/api/trips/'+tripId+'/rounds/'+r.id+'/tee-times',{headers:{'Authorization':'Bearer '+G.orgToken}})
+        .then(function(res){return res.json();})
+        .then(function(d2){
+          var tts = d2.tee_times||[];
+          if(tts.length){
+            if(!window._ptTeeTimeCache) window._ptTeeTimeCache = {};
+            window._ptTeeTimeCache[r.id] = tts;
+            try { sessionStorage.setItem('_ptTTC_'+r.id, JSON.stringify(tts)); } catch(e) {}
+            _got = true;
+          }
+        }).catch(function(){});
+    })).then(function(){
+      if(_got && document.getElementById('ptTripDetailBody')) ptRenderTripDetail(trip, players, rounds);
+    });
+  })();
 }
 window.ptRemoveTripPlayer = function(tripId, playerId) {
   if(!confirm('Remove this player from the trip?')) return;
@@ -35399,7 +35428,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v238.0';
+    const TOUR_VERSION     = 'pards-tour-v239.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
