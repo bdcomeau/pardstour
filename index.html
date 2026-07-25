@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v241.0 -->
+  <!-- pards-tour-v242.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -24956,6 +24956,114 @@ window.ptToast = function(msg){
   }catch(e){}
 };
 
+// ── v242.0 [pt-save]: save-button lifecycle + REAL server errors ──────────────
+// Three failure modes used to hide behind "Network error." or a silent no-op:
+//   1) non-2xx with a JSON {error} body — r.json() resolved, but only handlers
+//      with an else-branch ever showed it;
+//   2) non-2xx with a TEXT/HTML body (the v2.34.0 `no such table: event_rounds`
+//      500) — r.json() THREW, so every such failure read as "Network error.";
+//   3) 204 / empty body — r.json() THREW the same way.
+// _ptJson normalises all three into { error:<real server message>, _http:<code> }
+// and ALWAYS console.warns the real thing, so a silent failure still leaves a
+// diagnosable trail. Handlers keep their existing `d.error || 'Failed.'` shape.
+function _ptApiMsg(status, statusText, text, parsed){
+  var m = parsed && (parsed.error || parsed.message || parsed.detail);
+  if (!m && text) m = String(text).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,200);
+  if (!m) m = 'HTTP ' + status + (statusText ? ' ' + statusText : '');
+  return String(m);
+}
+function _ptJson(r){
+  return r.text().then(function(t){
+    var d = null;
+    if (t) { try { d = JSON.parse(t); } catch(_e){ d = null; } }
+    if (!r.ok) {
+      var msg = _ptApiMsg(r.status, r.statusText, t, d);
+      try { console.warn('[pt-api] ' + r.status + ' ' + (r.url||'') + ' → ' + msg); } catch(_c){}
+      return { error: msg, _http: r.status };
+    }
+    return (d === null || d === undefined) ? {} : d;
+  }, function(e){
+    var msg = 'Could not read the server reply' + (e && e.message ? ' (' + e.message + ')' : '');
+    try { console.warn('[pt-api] read failed ' + (r.url||'') + ' → ' + msg); } catch(_c){}
+    return { error: msg, _http: (r && r.status) || 0 };
+  });
+}
+// Network-level failure (offline, DNS, CORS). Same shape as _ptJson so one
+// handler covers both: fetch(...).then(_ptJson).catch(_ptNetErr).then(handler)
+function _ptNetErr(e){
+  try { console.warn('[pt-api] network failure', e); } catch(_c){}
+  return { error: 'Network error — check your connection.' + (e && e.message ? ' (' + e.message + ')' : ''), _http: 0 };
+}
+
+// The element the user actually tapped — but ONLY while we are inside a live
+// click dispatch. event.currentTarget is null once dispatch ends, so this can
+// never grab a stale button from an async continuation.
+function ptEvBtn(){
+  try{
+    var e = window.event;
+    if (!e || e.type !== 'click') return null;
+    var el = e.currentTarget;
+    if (!el || el.nodeType !== 1) return null;
+    return document.body.contains(el) ? el : null;
+  }catch(_e){ return null; }
+}
+// ptBusy → token; ALWAYS pair with ptBusyDone (success) or ptBusyFail (error).
+function ptBusy(el, label){
+  if (typeof el === 'string') el = document.getElementById(el);
+  if (!el || el.nodeType !== 1) return null;
+  if (el._ptBusyTok) return el._ptBusyTok;            // already busy — don't re-stash
+  var tok = { el:el, html:el.innerHTML, dis:el.disabled, op:el.style.opacity, pe:el.style.pointerEvents };
+  el._ptBusyTok = tok;
+  el.disabled = true;
+  el.style.opacity = '.62';
+  el.style.pointerEvents = 'none';
+  el.innerHTML = label || 'Saving…';
+  return tok;
+}
+function _ptBusyRestore(tok){
+  if (!tok || !tok.el) return;
+  var el = tok.el;
+  el.innerHTML = tok.html; el.disabled = tok.dis;
+  el.style.opacity = tok.op; el.style.pointerEvents = tok.pe;
+  el._ptBusyTok = null;
+}
+// Flash the done label, then restore — unless the view was replaced meanwhile.
+function ptBusyDone(tok, label){
+  if (!tok || !tok.el) return;
+  var el = tok.el;
+  el.innerHTML = label || '✓ Saved';
+  el.style.opacity = '1';
+  setTimeout(function(){
+    if (el._ptBusyTok !== tok) return;
+    if (document.body.contains(el)) _ptBusyRestore(tok); else el._ptBusyTok = null;
+  }, 1100);
+}
+function ptBusyFail(tok){ _ptBusyRestore(tok); }
+// Loader chains render their own "Failed to load…" state from .catch. _ptJson
+// RESOLVES instead of rejecting, so those chains need this link to keep firing
+// — now carrying the REAL server message instead of a generic one. The _http
+// guard makes sure we only rethrow objects _ptJson/_ptNetErr synthesised, never
+// a legitimate API payload that happens to carry an `error` field.
+function _ptThrow(d){ if (d && d.error && d._http !== undefined) throw new Error(d.error); return d; }
+function _ptMsg(e, fb){ var m = (e && e.message) ? String(e.message) : ''; return m || fb; }
+function _ptEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+// The whole shape in one call. `run` returns a promise; resolving to an object
+// carrying .error counts as failure (that is what _ptJson hands back).
+function ptSaveAction(btn, opts, run){
+  opts = opts || {};
+  var tok = ptBusy(btn, opts.busy);
+  return Promise.resolve().then(run).then(function(v){
+    if (v && v.error) throw new Error(v.error);
+    ptBusyDone(tok, opts.done);
+    if (opts.toast) ptToast(opts.toast);
+    return v;
+  }).catch(function(e){
+    ptBusyFail(tok);
+    ptToast((opts.err || 'Could not save') + ' — ' + ((e && e.message) ? e.message : e));
+    return null;
+  });
+}
+
 var _PT_OVERLAYS = ['ptHomeOverlay','ptJoinOverlay','ptOrgLoginOverlay','ptOrgDashOverlay'];
 
 function _ptShow(id) {
@@ -25245,7 +25353,7 @@ function initOrgLogin() {
     G.orgToken = stored;
     fetch(TOUR_API + '/api/auth/me', {
       headers: { 'Authorization': 'Bearer ' + stored }
-    }).then(function(r){ return r.json(); }).then(function(d){
+    }).then(_ptJson).then(function(d){
       if (d.organizer) {
         G.orgInfo = d.organizer;
         showOrgDash();
@@ -25275,7 +25383,7 @@ function doOrgLogin() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: email, password: pass })
-  }).then(function(r){ return r.json(); }).then(function(d){
+  }).then(_ptJson).then(function(d){
     btn.disabled = false; btn.textContent = 'Sign In';
     if (d.token) {
       G.orgToken = d.token;
@@ -25319,7 +25427,7 @@ function ptOrgDoForgot(btn){
   if(!email){msg.textContent='Enter your email.';msg.style.color='#e74c3c';msg.style.display='block';return;}
   btn.disabled=true;btn.textContent='Sending…';
   fetch(TOUR_API+'/api/auth/forgot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email})})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){btn.disabled=false;btn.textContent='Send Reset Link';
       msg.textContent=d.ok?'Reset link sent — check your email.':(d.error||'Not found.');
       msg.style.color=d.ok?'#4CAF50':'#e74c3c';msg.style.display='block';})
@@ -25508,7 +25616,7 @@ function ptLoadOrgLeagues() {
   if (!el) return;
   el.innerHTML = '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">Loading…</div>';
   fetch(TOUR_API + '/api/leagues', { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
-    .then(function(r){ return r.json(); })
+    .then(_ptJson).then(_ptThrow)
     .then(function(d) {
       var leagues = d.leagues || [];
       if (!leagues.length) {
@@ -25525,8 +25633,8 @@ function ptLoadOrgLeagues() {
           + '</div>';
       }).join('');
     })
-    .catch(function() {
-      el.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:20px;text-align:center">Failed to load leagues</div>';
+    .catch(function(_e) {
+      el.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:20px;text-align:center">'+_ptEsc(_ptMsg(_e,'Failed to load leagues'))+'</div>';
     });
 }
 
@@ -25590,13 +25698,13 @@ function ptLoadRoster(q) {
   listEl.innerHTML = '<div style="color:rgba(255,255,255,.3);text-align:center;padding:30px 0;font-size:14px">Loading…</div>';
   var url = TOUR_API + '/api/roster' + (q ? '?q=' + encodeURIComponent(q) + '&limit=500' : '?limit=500');
   fetch(url, { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
-    .then(function(r){ return r.json(); })
+    .then(_ptJson).then(_ptThrow)
     .then(function(d) {
       _ptRosterCache = d.players || [];
       ptRenderRosterList(_ptRosterCache);
     })
-    .catch(function() {
-      if (listEl) listEl.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:30px 0;font-size:13px">Network error.</div>';
+    .catch(function(_e) {
+      if (listEl) listEl.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:30px 0;font-size:13px">'+_ptEsc(_ptMsg(_e,'Network error.'))+'</div>';
     });
 }
 
@@ -25610,7 +25718,7 @@ window.ptToggleBuddy = function(id) {
     method:'PATCH',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({ buddy: nv })
-  }).then(function(r){ return r.json(); }).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d && d.player){
       p.buddy = d.player.buddy != null ? d.player.buddy : nv;
       _ptRosterCache.sort(function(a,b){ return (b.buddy||0)-(a.buddy||0) || (a.name||'').localeCompare(b.name||''); });
@@ -25716,7 +25824,7 @@ function ptSaveRosterPlayer(playerId, overlay) {
     method: playerId ? 'PATCH' : 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
     body: JSON.stringify(payload)
-  }).then(function(r){ return r.json(); }).then(function(d) {
+  }).then(_ptJson).then(function(d) {
     if (d.player || d.ok) {
       var _addTrip = (overlay && overlay.getAttribute) ? overlay.getAttribute('data-add-to-trip') : null;
       var _newId = d.player ? d.player.id : null;
@@ -25726,7 +25834,10 @@ function ptSaveRosterPlayer(playerId, overlay) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
           body: JSON.stringify({ roster_id: _newId })
-        }).catch(function(){}).then(function(){
+        }).then(_ptJson).catch(_ptNetErr).then(function(td){
+          // v242.0: was `.catch(function(){})` — the player got created on the
+          // roster but silently never joined the trip, and the UI said nothing.
+          if (td && td.error) ptToast('Player saved to your roster, but not added to the trip — ' + td.error);
           if (overlay) overlay.remove();
           if (typeof ptLoadTripDetail === 'function') ptLoadTripDetail(_addTrip);
           var _s = document.getElementById('ptTripPlayerSearch');
@@ -25952,7 +26063,7 @@ function ptDoImport(overlay) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
     body: JSON.stringify({ players: _ptImportRows })
-  }).then(function(r){ return r.json(); }).then(function(d) {
+  }).then(_ptJson).then(function(d) {
     if (d.ok) {
       if (overlay) overlay.remove();
       ptLoadRoster();
@@ -26058,9 +26169,9 @@ function loadOrgEvents() {
   if (!list) return;
   list.innerHTML = '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">Loading\u2026</div>';
   Promise.all([
-    fetch(TOUR_API + '/api/events', { headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(function(r){ return r.json(); }),
-    fetch(TOUR_API + '/api/trips',  { headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(function(r){ return r.json(); }).catch(function(){ return {trips:[]}; }),
-    fetch(TOUR_API + '/api/leagues',{ headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(function(r){ return r.json(); }).catch(function(){ return {leagues:[]}; })
+    fetch(TOUR_API + '/api/events', { headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(_ptJson).then(_ptThrow),
+    fetch(TOUR_API + '/api/trips',  { headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(_ptJson).catch(function(){ return {trips:[]}; }),
+    fetch(TOUR_API + '/api/leagues',{ headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(_ptJson).catch(function(){ return {leagues:[]}; })
   ]).then(function(results){
     var d = results[0];
     var td = results[1];
@@ -26070,7 +26181,7 @@ function loadOrgEvents() {
     // Fetch league rounds to get trip IDs so we can exclude them from the trips list
     return Promise.all(leagues.map(function(lg){
       return fetch(TOUR_API+'/api/leagues/'+lg.id, { headers:{'Authorization':'Bearer '+G.orgToken} })
-        .then(function(r){ return r.json(); })
+        .then(_ptJson)
         .catch(function(){ return {rounds:[]}; });
     })).then(function(leagueDetails){
       var leagueTripIds = new Set();
@@ -26095,26 +26206,15 @@ function loadOrgEvents() {
           +'<div onclick="ptShowTripDetail('+t.id+')" style="flex:1;cursor:pointer;-webkit-tap-highlight-color:transparent">'
           +'<div style="font-size:15px;font-weight:800;color:rgba(100,180,255,.95)">\uD83C\uDF0D '+_esc(t.name)+'</div>'
           +(t.destination?'<div style="font-size:12px;color:rgba(255,255,255,.4)">\uD83D\uDCCD '+_esc(t.destination)+'</div>':'')
-          +'<div id="ptTripRC_'+t.id+'" style="font-size:11px;font-weight:700;color:rgba(100,180,255,.5);margin-top:3px">'+(t.round_count!=null?(t.round_count+' round'+(t.round_count===1?'':'s')):'\u2026')+'</div>'
+          +'<div id="ptTripRC_'+t.id+'" style="font-size:11px;font-weight:700;color:rgba(100,180,255,.5);margin-top:3px">'+_ptTripCounts(t)+'</div>'
           +'</div>'
           +'<button onclick="ptDeleteTrip('+t.id+',event)" style="background:none;border:none;color:rgba(255,100,100,.5);font-size:20px;cursor:pointer;padding:4px;flex-shrink:0">&#x1F5D1;</button>'
           +'</div>'
           +'</div>';
       }).join('');
-      // v237.0 — handleListTrips returns no round_count (Worker wishlist);
-      // patch the real count in per trip after render. Lists are small.
-      setTimeout(function(){
-        trips.forEach(function(t){
-          if (t.round_count != null) return;
-          fetch(TOUR_API+'/api/trips/'+t.id+'/rounds',{headers:{'Authorization':'Bearer '+G.orgToken}})
-            .then(function(r){return r.json();})
-            .then(function(d2){
-              var el=document.getElementById('ptTripRC_'+t.id); if(!el) return;
-              var nR=(d2.rounds||[]).length;
-              el.textContent = nR+' round'+(nR===1?'':'s');
-            }).catch(function(){ var el=document.getElementById('ptTripRC_'+t.id); if(el) el.textContent=''; });
-        });
-      }, 50);
+      // v242.0: the v237 per-trip count patch is gone — Worker v2.34.1's
+      // handleListTrips returns round_count/player_count, so the card renders
+      // the real number on first paint instead of '…' plus N extra GETs.
     }
     if (visible.length || archived.length) {
       if (trips.length) html += '<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.8px;margin:12px 0 8px">Events</div>';
@@ -26141,8 +26241,11 @@ function loadOrgEvents() {
     if (!html) html = '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">No events yet \u2014 tap Create below.</div>';
     list.innerHTML = html;
     _ptEventCardBadges(visible);
-  }).catch(function(){
-    list.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:20px;text-align:center">Failed to load events.</div>';
+  }).catch(function(_e){
+    // v242.0: the real reason, not "Failed to load events." — the v2.34.0
+    // `no such table: event_rounds` 500 read as an empty dashboard for 10 min.
+    list.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:20px;text-align:center">'
+      + _ptEsc(_ptMsg(_e,'Failed to load events.')) + '</div>';
   });
 }
 
@@ -26236,7 +26339,9 @@ function ptActivateEventFromList(eventId) {
     // Same side-effect Go Live performs in the detail view (RBC handicap finalize).
     fetch(TOUR_API+'/api/events/'+eventId+'/finalize-handicaps',{
       method:'POST', headers:{'Authorization':'Bearer '+G.orgToken}
-    }).catch(function(){});
+    }).then(_ptJson).catch(_ptNetErr).then(function(fd){
+      if (fd && fd.error) ptToast('Event is live, but handicaps were not finalized \u2014 ' + fd.error);
+    });
     ptToast('\u25cf Event is live \u2014 players can enter scores now.');
     loadOrgEvents();
   }).catch(function(e){ ptToast('Could not activate event: '+(e.message||e)); });
@@ -26391,7 +26496,7 @@ function doCreateEvent() {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({name:name,date:date,format:window._ptNewEvFmt||'scramble',course_id:window._ptNewEvCourse||null,course_name:window._ptNewEvCourseName||null,tee:window._ptNewEvTee||null,rules:(document.getElementById('ptNewEvRules')||{}).value||'',config:{pards_bets:!!(document.getElementById('ptNewEvBets')&&document.getElementById('ptNewEvBets').checked)}})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d.event){
       var ov=document.getElementById('ptCreateEventOv'); if(ov) ov.remove();
       loadOrgEvents();
@@ -26414,7 +26519,7 @@ function ptBetsLoadRaces(eventId, tripId) {
   if (!el) return;
   var url = TOUR_API + '/api/bets/races?' + (eventId ? 'event_id='+eventId : 'trip_id='+tripId);
   fetch(url, { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
-    .then(function(r){ return r.json(); })
+    .then(_ptJson).then(_ptThrow)
     .then(function(d) {
       var races = d.races || [];
       if (!races.length) {
@@ -26436,8 +26541,8 @@ function ptBetsLoadRaces(eventId, tripId) {
           + '</div>';
       }).join('');
     })
-    .catch(function() {
-      el.innerHTML = '<div style="font-size:12px;color:#e74c3c">Failed to load races</div>';
+    .catch(function(_e) {
+      el.innerHTML = '<div style="font-size:12px;color:#e74c3c">'+_ptEsc(_ptMsg(_e,'Failed to load races'))+'</div>';
     });
 }
 
@@ -26446,7 +26551,7 @@ function ptEnablePardsBets(eventId) {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
     body: JSON.stringify({ config: { pards_bets: true } })
-  }).then(function(r){ return r.json(); }).then(function(d) {
+  }).then(_ptJson).then(function(d) {
     if (d.event || d.ok) { loadOrgEventDetail(eventId); }
     else { ptToast(d.error || 'Could not enable Pards Bets.'); }
   }).catch(function(){ ptToast('Network error.'); });
@@ -26458,7 +26563,7 @@ function ptBetsCreateRaces(eventId) {
   if (btn) { btn.disabled = true; btn.textContent = 'Setting up…'; }
   // Determine race label from event name
   fetch(TOUR_API + '/api/events/' + eventId, { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
-    .then(function(r){ return r.json(); })
+    .then(_ptJson)
     .then(function(d) {
       var ev = d.event;
       if (!ev) throw new Error('Event not found');
@@ -26473,7 +26578,7 @@ function ptBetsCreateRaces(eventId) {
           payout_mode: 'simplified',
           house_pct: 0
         })
-      }).then(function(r){ return r.json(); });
+      }).then(_ptJson);
     })
     .then(function(d) {
       if (!d.race) throw new Error(d.error || 'Failed to create race');
@@ -26481,7 +26586,7 @@ function ptBetsCreateRaces(eventId) {
       return fetch(TOUR_API + '/api/bets/races/' + d.race.id + '/auto-populate', {
         method: 'POST',
         headers: { 'Authorization': 'Bearer ' + G.orgToken }
-      }).then(function(r){ return r.json(); });
+      }).then(_ptJson);
     })
     .then(function() {
       if (btn) { btn.disabled = false; btn.textContent = '+ Set Up Betting Races'; }
@@ -26617,7 +26722,7 @@ function doCreateLeague() {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({name:name, description:desc||null})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d.league){
       var ov=document.getElementById('ptCreateLeagueOv'); if(ov) ov.remove();
       loadOrgEvents();
@@ -26649,7 +26754,7 @@ function ptShowLeagueDetail(leagueId) {
 
 function ptLoadLeagueDetail(leagueId) {
   fetch(TOUR_API+'/api/leagues/'+leagueId, { headers:{'Authorization':'Bearer '+G.orgToken} })
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       if(d.error){ document.getElementById('ptLeagueDetailBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">'+_esc(d.error)+'</div>'; return; }
       ptRenderLeagueDetail(d.league, d.members||[], d.rounds||[]);
@@ -26788,7 +26893,7 @@ window.ptSearchLeaguePlayers = function(leagueId, q) {
   var val = q !== undefined ? q : (document.getElementById('ptLeagueMemberSearch')||{}).value||'';
   fetch(TOUR_API+'/api/roster?q='+encodeURIComponent(val)+'&limit=50', {
     headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     var el = document.getElementById('ptLeagueMemberResults');
     if(!el) return;
     if(!d.players||!d.players.length){ el.innerHTML='<div style="color:rgba(255,255,255,.3);font-size:13px;padding:10px">No players found.</div>'; return; }
@@ -26810,7 +26915,7 @@ window.ptAddLeagueMemberById = function(leagueId, rosterId, btn) {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({roster_id:rosterId})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d.member){
       if(btn){ btn.textContent='✓ Added'; btn.style.background='rgba(100,220,180,.2)'; btn.style.borderColor='rgba(100,220,180,.5)'; btn.style.color='rgba(100,220,180,1)'; }
       // Refresh league detail so new member appears in the roster list
@@ -26827,10 +26932,14 @@ window.ptAddLeagueMemberById = function(leagueId, rosterId, btn) {
 
 window.ptRemoveLeagueMember = function(leagueId, memberId) {
   if(!confirm('Remove this member from the league?')) return;
+  var _b = ptBusy(ptEvBtn(), '…');
   fetch(TOUR_API+'/api/leagues/'+leagueId+'/members/'+memberId, {
     method:'DELETE', headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(){ptLoadLeagueDetail(leagueId);})
-    .catch(function(){ ptToast('Network error.'); });
+  }).then(_ptJson).catch(_ptNetErr).then(function(d){
+    if(d && d.error){ ptBusyFail(_b); ptToast('Could not remove that member \u2014 '+d.error); return; }
+    ptBusyDone(_b, '\u2713');
+    ptLoadLeagueDetail(leagueId);
+  });
 };
 
 window.ptCreateLeagueRoundUI = function(leagueId, presetDate) {
@@ -26872,30 +26981,42 @@ window.doCreateLeagueRound = function(leagueId) {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({round_date:date, format:format})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d.trip){
       var tripId = d.trip.id;
       var ov=document.getElementById('ptCreateLeagueRoundOv'); if(ov) ov.remove();
       // Fetch league members and auto-add them as trip players
       if(btn){ btn.textContent='Adding players…'; }
       fetch(TOUR_API+'/api/leagues/'+leagueId, { headers:{'Authorization':'Bearer '+G.orgToken} })
-        .then(function(r){return r.json();})
+        .then(_ptJson)
         .then(function(lg){
           var members = (lg.members||[]);
           if(!members.length){
             ptLoadLeagueDetail(leagueId);
             return;
           }
-          // POST each league member as a trip player (sequential, ignore duplicates)
+          // POST each league member as a trip player (sequential, ignore duplicates).
+          // v242.0: failures were swallowed one by one — a round could come up
+          // half-empty with no explanation. Count them and say so once.
+          var _addFailed = [];
           return members.reduce(function(chain, m){
             return chain.then(function(){
               return fetch(TOUR_API+'/api/trips/'+tripId+'/players', {
                 method:'POST',
                 headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
                 body:JSON.stringify({roster_id: m.roster_id||m.id})
-              }).catch(function(){});
+              }).then(_ptJson).catch(_ptNetErr).then(function(pd){
+                // A duplicate is a no-op, not a failure — only real errors count.
+                if (pd && pd.error && !/exist|duplicate|already/i.test(pd.error)) {
+                  _addFailed.push((m.name||'A member') + ' — ' + pd.error);
+                }
+              });
             });
-          }, Promise.resolve());
+          }, Promise.resolve()).then(function(){
+            if (_addFailed.length) {
+              ptToast(_addFailed.length + ' of ' + members.length + ' members were not added:\n' + _addFailed.slice(0,3).join('\n'));
+            }
+          });
         })
         .then(function(){
           ptLoadLeagueDetail(leagueId);
@@ -26929,7 +27050,7 @@ function ptShowLeagueLeaderboard(leagueId, roundId, pin, roundName) {
   document.body.appendChild(ov);
   fetch(TOUR_API+'/api/leagues/'+leagueId+'/rounds/'+roundId+'/leaderboard?pin='+encodeURIComponent(pin), {
     headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d.error){ document.getElementById('ptLeagueLbBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">'+_esc(d.error)+'</div>'; return; }
     ptRenderLeagueLeaderboard(d);
   }).catch(function(){ document.getElementById('ptLeagueLbBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">Network error.</div>'; });
@@ -27053,7 +27174,7 @@ function doCreateTrip() {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({name:name, destination:dest||null, start_date:start, end_date:end})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d.trip){
       var ov=document.getElementById('ptCreateTripOv'); if(ov) ov.remove();
       ptShowTripDetail(d.trip.id);
@@ -27073,7 +27194,7 @@ window.ptDeleteTrip = function(tripId, ev) {
   fetch(TOUR_API+'/api/trips/'+tripId, {
     method:'DELETE',
     headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d.ok||d.deleted){ var _ov=document.getElementById('ptTripDetailOv'); if(_ov) _ov.remove(); loadOrgEvents(); }
     else { ptToast(d.error||'Delete failed.'); }
   }).catch(function(){ ptToast('Network error.'); });
@@ -27098,11 +27219,11 @@ function ptShowTripDetail(tripId, leagueId) {
 function ptLoadTripDetail(tripId) {
   fetch(TOUR_API+'/api/trips/'+tripId, {
     headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(_ptThrow).then(function(d){
     if(!d.trip){ document.getElementById('ptTripDetailBody').innerHTML='<div style="color:#e74c3c">Failed to load trip.</div>'; return; }
     ptRenderTripDetail(d.trip, d.players||[], d.rounds||[]);
-  }).catch(function(){
-    document.getElementById('ptTripDetailBody').innerHTML='<div style="color:#e74c3c">Network error.</div>';
+  }).catch(function(_e){
+    document.getElementById('ptTripDetailBody').innerHTML='<div style="color:#e74c3c">'+_ptEsc(_ptMsg(_e,'Network error.'))+'</div>';
   });
 }
 
@@ -27152,7 +27273,7 @@ window.ptSetRoundFormat = function(tripId, roundId, format, sel){
     method:'PATCH',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({ format: format||null })
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d && d.error){ if(sel){ sel.style.borderColor='rgba(231,76,60,.6)'; } ptToast(d.error); return; }
     if(sel){ sel.style.borderColor='rgba(168,213,181,.9)'; setTimeout(function(){ sel.style.borderColor='rgba(201,168,76,.3)'; }, 900); }
     // v216.0: unlock / re-lock the tee-time builder for this round in place
@@ -27161,7 +27282,10 @@ window.ptSetRoundFormat = function(tripId, roundId, format, sel){
     try {
       (window._ptTripDetailRounds||[]).forEach(function(rr){ if(rr.id===roundId) rr.format = format||null; });
     } catch(e) {}
-  }).catch(function(){ if(sel){ sel.style.borderColor='rgba(231,76,60,.6)'; } });
+  }).catch(function(_e){
+    if(sel){ sel.style.borderColor='rgba(231,76,60,.6)'; }
+    ptToast('Could not save the round format — ' + _ptMsg(_e,'network error.'));
+  });
 };
 
 // v216.0 — enable/disable a league round's "Set Up Tee Times" button in place.
@@ -27386,7 +27510,7 @@ function ptRenderTripDetail(trip, players, rounds) {
     var _got = false;
     Promise.all(_miss.map(function(r){
       return fetch(TOUR_API+'/api/trips/'+tripId+'/rounds/'+r.id+'/tee-times',{headers:{'Authorization':'Bearer '+G.orgToken}})
-        .then(function(res){return res.json();})
+        .then(_ptJson)
         .then(function(d2){
           var tts = d2.tee_times||[];
           if(tts.length){
@@ -27403,12 +27527,13 @@ function ptRenderTripDetail(trip, players, rounds) {
 }
 window.ptRemoveTripPlayer = function(tripId, playerId) {
   if(!confirm('Remove this player from the trip?')) return;
+  var _b = ptBusy(ptEvBtn(), '…');
   fetch(TOUR_API+'/api/trips/'+tripId+'/players/'+playerId, {
     method:'DELETE', headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(r){return r.json();}).then(function(d){
-    if(d.ok||d.deleted){ ptLoadTripDetail(tripId); }
-    else { ptToast(d.error||'Could not remove player.'); }
-  }).catch(function(){ ptToast('Network error removing player.'); });
+  }).then(_ptJson).catch(_ptNetErr).then(function(d){
+    if(d.ok||d.deleted){ ptBusyDone(_b, '\u2713'); ptLoadTripDetail(tripId); }
+    else { ptBusyFail(_b); ptToast('Could not remove that player \u2014 '+(d.error||'unknown error.')); }
+  });
 };
 
 window.ptAddTripPlayerUI = function(tripId) {
@@ -27432,7 +27557,7 @@ window.ptSearchTripPlayers = function(tripId, q) {
   var val = q !== undefined ? q : (document.getElementById('ptTripPlayerSearch')||{}).value||'';
   fetch(TOUR_API+'/api/roster?q='+encodeURIComponent(val)+'&limit=50', {
     headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     var el = document.getElementById('ptTripPlayerResults');
     if(!el) return;
     if(!d.players||!d.players.length){ el.innerHTML='<div style="color:rgba(255,255,255,.3);font-size:13px;padding:10px">No players found.</div>'; return; }
@@ -27454,7 +27579,7 @@ window.ptAddTripPlayerById = function(tripId, rosterId, btn) {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({roster_id:rosterId})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d.player||d.ok){
       if(btn){ btn.textContent='✓ Added'; btn.style.background='rgba(100,213,150,.2)'; btn.style.borderColor='rgba(100,213,150,.5)'; btn.style.color='#a8d5b5'; }
       ptLoadTripDetail(tripId);
@@ -27507,35 +27632,46 @@ window.doAddTripRound = function(tripId) {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({date:date, label:label, format:fmt})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).catch(_ptNetErr).then(function(d){
     if(d.round){
       var ov=document.getElementById('ptAddTripRoundOv'); if(ov) ov.remove();
-      // v235.0: Worker v2.33 POST ignores format — persist via PATCH (which
-      // honors it). Reload either way; a failed PATCH just renders TBD (gated).
-      if(fmt && !d.round.format){
-        fetch(TOUR_API+'/api/trips/'+tripId+'/rounds/'+d.round.id, {
-          method:'PATCH',
-          headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
-          body:JSON.stringify({format:fmt})
-        }).then(function(r){return r.json();}).catch(function(){})
-          .then(function(){ ptLoadTripDetail(tripId); });
-      } else {
-        ptLoadTripDetail(tripId);
-      }
+      // v242.0: the v235 PATCH-chain is gone — Worker v2.34.1's
+      // handleCreateTripRound INSERTs `format`, so the POST response already
+      // carries it. Kept as a one-line guard, not a second round-trip: if a
+      // stale Worker ever drops it again the round renders TBD (gated), which
+      // is the same safe state the PATCH-chain produced on failure.
+      if(fmt && !d.round.format) console.warn('[pt-api] trip round created without format — Worker older than v2.34?');
+      ptLoadTripDetail(tripId);
     } else {
-      ptToast(d.error||'Failed to add round.');
+      ptToast('Could not add the round — '+(d.error||'unknown error.'));
     }
   });
 };
 
 window.ptDeleteTripRound = function(tripId, roundId) {
   if(!confirm('Delete this round and all its scores?')) return;
-  fetch(TOUR_API+'/api/trips/'+tripId+'/rounds/'+roundId, {
-    method:'DELETE', headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(){ptLoadTripDetail(tripId);});
+  var btn = ptEvBtn();
+  // v242.0: had no .catch at all — a refused delete just re-rendered the round.
+  return ptSaveAction(btn, { busy:'Deleting…', done:'\u2713 Deleted', err:'Could not delete the round' }, function(){
+    return fetch(TOUR_API+'/api/trips/'+tripId+'/rounds/'+roundId, {
+      method:'DELETE', headers:{'Authorization':'Bearer '+G.orgToken}
+    }).then(_ptJson).catch(_ptNetErr);
+  }).then(function(d){
+    if (d) ptToast('\u2713 Round deleted.');
+    ptLoadTripDetail(tripId);
+  });
 };
 
 // ── _esc helper (used by trip functions) ──────────────────────────────────
+// v242.0 — Worker v2.34.1 returns round_count + player_count on the trips list.
+// Older Workers send neither; fall back to the em-dash rather than a wrong 0.
+function _ptTripCounts(t){
+  if (t.round_count == null) return '\u2026';
+  var s = t.round_count + ' round' + (t.round_count === 1 ? '' : 's');
+  if (t.player_count != null) s += ' \u00b7 ' + t.player_count + ' player' + (t.player_count === 1 ? '' : 's');
+  return s;
+}
+
 function _esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
 // ── Trip Round Manager ────────────────────────────────────────────────────
@@ -27572,7 +27708,7 @@ window.ptTripRoundManager = function(tripId, roundId) {
 
   // Load existing round data to pre-fill course/tee if already set
   fetch(TOUR_API+'/api/trips/'+tripId, { headers:{'Authorization':'Bearer '+G.orgToken} })
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       var round = (d.rounds||[]).find(function(r){return r.id===roundId;});
       // v216.0: hard gate — a league round with no format must not reach the
@@ -27590,7 +27726,7 @@ window.ptTripRoundManager = function(tripId, roundId) {
       _ptTRM.tripPlayers = (d.players||[]).slice().sort(function(a,b){ return (b.buddy||0)-(a.buddy||0) || (a.name||'').localeCompare(b.name||''); });
       // Load existing tee times for this round
       fetch(TOUR_API+'/api/trips/'+tripId+'/rounds/'+roundId+'/tee-times', { headers:{'Authorization':'Bearer '+G.orgToken} })
-        .then(function(r){return r.json();}).then(function(td){
+        .then(_ptJson).then(function(td){
           _ptTRM.existingTimes = td.tee_times||[];
           _ptTRMRenderCoursePicker();
         }).catch(function(){ _ptTRM.existingTimes=[]; _ptTRMRenderCoursePicker(); });
@@ -27620,7 +27756,7 @@ window.ptTRMSearchCourses = function(q) {
   if(!q || q.length < 2){ el.innerHTML='<div style="color:rgba(255,255,255,.3);text-align:center;padding:20px 0">Type to search 131 courses…</div>'; return; }
   el.innerHTML = '<div style="color:rgba(255,255,255,.3);text-align:center;padding:12px 0">Searching…</div>';
   fetch(TOUR_API+'/api/courses?q='+encodeURIComponent(q))
-    .then(function(r){return r.json();})
+    .then(_ptJson).then(_ptThrow)
     .then(function(d){
       var courses = d.courses||[];
       if(!courses.length){ el.innerHTML='<div style="color:rgba(255,255,255,.3);text-align:center;padding:20px 0">No courses found.</div>'; return; }
@@ -27635,7 +27771,7 @@ window.ptTRMSearchCourses = function(q) {
       h += '</div>';
       el.innerHTML = h;
     })
-    .catch(function(){ el.innerHTML='<div style="color:#e74c3c;text-align:center;padding:20px 0">Search failed.</div>'; });
+    .catch(function(_e){ el.innerHTML='<div style="color:#e74c3c;text-align:center;padding:20px 0">'+_ptEsc(_ptMsg(_e,'Search failed.'))+'</div>'; });
 };
 
 window.ptTRMSelectCourseByIdx = function(idx) {
@@ -27648,7 +27784,7 @@ window.ptTRMSelectCourse = function(courseId, courseName) {
   var body = document.getElementById('ptTRMBody');
   if(body) body.innerHTML = '<div style="color:rgba(255,255,255,.4);text-align:center;padding:40px 0">Loading tee boxes…</div>';
   fetch(TOUR_API+'/api/courses/'+courseId)
-    .then(function(r){return r.json();})
+    .then(_ptJson).then(_ptThrow)
     .then(function(d){
       _ptTRM.course = { id:courseId, name:courseName };
       _ptTRM._rawCourseResp = d;
@@ -27657,9 +27793,9 @@ window.ptTRMSelectCourse = function(courseId, courseName) {
       _ptTRM.tees = d.tees || (d.course && d.course.tees) || d.tee_boxes || [];
       _ptTRMRenderTeeBoxPicker();
     })
-    .catch(function(){
+    .catch(function(_e){
       var body=document.getElementById('ptTRMBody');
-      if(body) body.innerHTML='<div style="color:#e74c3c;text-align:center;padding:40px 0">Failed to load course.</div>';
+      if(body) body.innerHTML='<div style="color:#e74c3c;text-align:center;padding:40px 0">'+_ptEsc(_ptMsg(_e,'Failed to load course.'))+'</div>';
     });
 };
 
@@ -27710,7 +27846,13 @@ window.ptTRMSelectTee = function(teeId, teeName) {
     method:'PATCH',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({ course_id:_ptTRM.course.id, tee_box_id:_ptTRM.teeBox.id })
-  }).then(function(){ _ptTRMRenderTeeBuilder(); }).catch(function(){ _ptTRMRenderTeeBuilder(); });
+  }).then(_ptJson).catch(_ptNetErr).then(function(d){
+    // v242.0: this PATCH is what pins course + tee box to the round. It used to
+    // be swallowed on BOTH branches, so a failure left you building a tee sheet
+    // against a round with no course — invisible until scoring.
+    if (d && d.error) ptToast('Course/tee not saved — ' + d.error);
+    _ptTRMRenderTeeBuilder();
+  });
 };
 
 function _ptTRMRenderTeeBuilder() {
@@ -28180,10 +28322,14 @@ window.ptTRMSave = function() {
         else sessionStorage.removeItem('_ptTTC_'+_ptTRM.roundId);
       } catch(e) {}
       // Mark round as active so leaderboard counts it
+      // v242.0: this PATCH is what makes the round count on the leaderboard.
+      // It was fire-and-forget — a failure meant scores went in and never showed.
       fetch(TOUR_API+'/api/trips/'+_ptTRM.tripId+'/rounds/'+_ptTRM.roundId,{
         method:'PATCH', headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
         body:JSON.stringify({status:'active'})
-      }).catch(function(){});
+      }).then(_ptJson).catch(_ptNetErr).then(function(sd){
+        if (sd && sd.error) ptToast('Tee sheet saved, but the round was not activated — ' + sd.error);
+      });
       var afterPatch = function(){
         var _tid = _ptTRM.tripId, _rid = _ptTRM.roundId;
         _ptTRMClosePicker();
@@ -28195,7 +28341,10 @@ window.ptTRMSave = function() {
         fetch(TOUR_API+'/api/trips/'+_ptTRM.tripId+'/rounds/'+_ptTRM.roundId,{
           method:'PATCH', headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
           body:JSON.stringify(patchBody)
-        }).then(afterPatch).catch(afterPatch);
+        }).then(_ptJson).catch(_ptNetErr).then(function(pd){
+          if (pd && pd.error) ptToast('Tee sheet saved, but the round details did not update — ' + pd.error);
+          afterPatch();
+        });
       } else { afterPatch(); }
     } else {
       ptToast(d.error||'Save failed.');
@@ -28299,7 +28448,7 @@ window.ptStartTripScoring = function(code, tripId, roundId) {
   // Note: _ptTeeSheetPlayers kept for render-time display only; API returns full roster via handleJoinTrip
 
   fetch(TOUR_API+'/api/join-trip/'+encodeURIComponent(code))
-    .then(function(r){return r.json();}).then(function(d){
+    .then(_ptJson).then(function(d){
       if(d.error){ ptToast(d.error); if(btn){btn.disabled=false;btn.textContent='▶ Score This Group';} return; }
       // Close tee sheet overlay but keep trip detail alive underneath
       var tsOv = document.getElementById('ptTripTeeSheetOv');
@@ -28369,13 +28518,13 @@ window.ptShowTripRoundReport = function(tripId) {
   var ex = document.getElementById('ptTripRptOv'); if(ex) ex.remove();
   document.body.appendChild(ov);
   fetch(TOUR_API+'/api/trips/'+tripId, { headers:{'Authorization':'Bearer '+G.orgToken} })
-    .then(function(r){ return r.json(); })
+    .then(_ptJson).then(_ptThrow)
     .then(function(td){
       var rounds = td.rounds||[];
       if(!rounds.length){ document.getElementById('ptTripRptBody').innerHTML='<div>No rounds yet.</div>'; return; }
       return Promise.all(rounds.map(function(r){
         return fetch(TOUR_API+'/api/trips/'+tripId+'/rounds/'+r.id+'/scores')
-          .then(function(res){ return res.json(); })
+          .then(_ptJson)
           .then(function(sd){ return { round:r, scores:sd.scores||[] }; })
           .catch(function(){ return { round:r, scores:[] }; });
       })).then(function(roundData){
@@ -28465,9 +28614,9 @@ window.ptShowTripRoundReport = function(tripId) {
         });
         el.innerHTML = html || '<div style="color:rgba(255,255,255,.3)">No data.</div>';
       });
-    }).catch(function(){
+    }).catch(function(_e){
       var el = document.getElementById('ptTripRptBody');
-      if(el) el.innerHTML='<div style="color:#e74c3c">Failed to load report.</div>';
+      if(el) el.innerHTML='<div style="color:#e74c3c">'+_ptEsc(_ptMsg(_e,'Failed to load report.'))+'</div>';
     });
 };
 
@@ -28484,7 +28633,7 @@ window.ptShowTripLeaderboard = function(tripId, pin) {
     +'</div>';
   document.body.appendChild(ov);
   fetch(TOUR_API+'/api/trips/'+tripId+'/leaderboard?pin='+encodeURIComponent(pin))
-    .then(function(r){return r.json();}).then(function(d){
+    .then(_ptJson).then(function(d){
       if(d.error){ document.getElementById('ptTripLbBody').innerHTML='<div style="color:#e74c3c">'+d.error+'</div>'; return; }
     if(!d.standings||!d.standings.length){ document.getElementById('ptTripLbBody').innerHTML='<div style="color:rgba(255,255,255,.4)">No scores yet. Make sure rounds are active and scores submitted.</div>'; return; }
       ptRenderTripLeaderboard(d);
@@ -28596,15 +28745,15 @@ function ptLoadTripNassau(tripId) {
   var el = document.getElementById('ptTripNassauBody');
   // Fetch leaderboard data (has player list and rounds)
   fetch(TOUR_API + '/api/trips/' + tripId)
-    .then(function(r) { return r.json(); })
+    .then(_ptJson).then(_ptThrow)
     .then(function(d) {
       var trip = d.trip || {};
       var players = d.players || [];
       var rounds = d.rounds || [];
       ptRenderTripNassau(tripId, trip, players, rounds);
     })
-    .catch(function() {
-      if (el) el.innerHTML = '<div style="color:#e74c3c">Network error.</div>';
+    .catch(function(_e) {
+      if (el) el.innerHTML = '<div style="color:#e74c3c">'+_ptEsc(_ptMsg(_e,'Network error.'))+'</div>';
     });
 }
 
@@ -28867,7 +29016,7 @@ function ptOrgRefreshLive(eventId) {
   var _orgGross = (_ptOrgLiveFormat === 'scramble'); // v230.0 gross scramble
   fetch(TOUR_API + '/api/events/' + eventId + '/leaderboard', {
     headers: { 'Authorization': 'Bearer ' + G.orgToken }
-  }).then(function(r){ return r.json(); }).then(function(lb) {
+  }).then(_ptJson).then(_ptThrow).then(function(lb) {
     if (!body) return;
     var standings = lb.standings || [];
     var computed  = lb.computed_at || '';
@@ -28878,7 +29027,7 @@ function ptOrgRefreshLive(eventId) {
     var detailPromises = standings.map(function(row) {
       return fetch(TOUR_API + '/api/scores/group/' + row.group_id, {
         headers: { 'Authorization': 'Bearer ' + G.orgToken }
-      }).then(function(r){ return r.json(); })
+      }).then(_ptJson)
         .then(function(d){ return { group_id: row.group_id, players: d.players || [], par: d.par || [], start_hole: d.start_hole || 1, scorer: d.scorer || '', ineligible_reason: d.ineligible_reason || null }; })
         .catch(function(){ return { group_id: row.group_id, players: [], par: [], start_hole: 1, scorer: '' }; });
     });
@@ -29072,8 +29221,8 @@ function ptOrgRefreshLive(eventId) {
       });
       body.innerHTML = h;
     });
-  }).catch(function() {
-    if (body) body.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:40px 0;font-size:13px">Network error — will retry.</div>';
+  }).catch(function(_e) {
+    if (body) body.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:40px 0;font-size:13px">'+_ptEsc(_ptMsg(_e,'Network error — will retry.'))+'</div>';
   });
 }
 
@@ -29083,7 +29232,7 @@ function loadOrgEventDetail(eventId) {
   list.innerHTML = '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">Loading…</div>';
   fetch(TOUR_API+'/api/events/'+eventId,{
     headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(_ptThrow).then(function(d){
     if(!d.event){list.innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">Not found.</div>';return;}
     var ev=d.event, groups=d.groups||[];
     var sc=ev.status==='active'?'#4CAF50':ev.status==='complete'?'#888':ev.status==='archived'?'rgba(255,255,255,.25)':'#c9a84c';
@@ -29139,7 +29288,7 @@ function loadOrgEventDetail(eventId) {
       groups.forEach(function(g){ _ptGroupCache[String(g.id)]=g; });
       var _scorePromises = groups.map(function(g){
         return fetch(TOUR_API+'/api/scores/group/'+g.id,{headers:{'Authorization':'Bearer '+G.orgToken}})
-          .then(function(r){return r.json();})
+          .then(_ptJson)
           .then(function(d){return {group_id:g.id,scorer:d.scorer||'',players:d.players||[]};})
           .catch(function(){return {group_id:g.id,scorer:'',players:[]};});
       });
@@ -29149,13 +29298,13 @@ function loadOrgEventDetail(eventId) {
       // tee time for every day. _ttMap stays null for groups-based events.
       var _ttMap = null;
       var _ttPromise = fetch(TOUR_API+'/api/events/'+ev.id+'/rounds',{headers:{'Authorization':'Bearer '+G.orgToken}})
-        .then(function(r){return r.json();})
+        .then(_ptJson)
         .then(function(rd){
           var rounds=(rd.rounds||[]);
           if(!rounds.length) return null;
           return Promise.all(rounds.map(function(rr){
             return fetch(TOUR_API+'/api/rounds/'+rr.id+'/tee-times',{headers:{'Authorization':'Bearer '+G.orgToken}})
-              .then(function(r){return r.json();})
+              .then(_ptJson)
               .then(function(td){return {round:rr, tts:(td.tee_times||[])};})
               .catch(function(){return {round:rr, tts:[]};});
           })).then(function(all){
@@ -29260,8 +29409,8 @@ function loadOrgEventDetail(eventId) {
       html+=_footerHtml;
       list.innerHTML=html;
     }
-  }).catch(function(){
-    list.innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">Failed to load event.</div>';
+  }).catch(function(_e){
+    list.innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">'+_ptEsc(_ptMsg(_e,'Failed to load event.'))+'</div>';
   });
 }
 
@@ -29445,7 +29594,7 @@ function ptComputeMultiDayStandings(eventId, rounds, groups, headers) {
       return Promise.resolve({ round: r, playerScores: [] });
     }
     return fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers || {} })
-      .then(function(resp) { return resp.json(); })
+      .then(_ptJson)
       .then(function(d) { return { round: r, playerScores: d.scores || [] }; })
       .catch(function() { return { round: r, playerScores: [] }; });
   });
@@ -29543,9 +29692,9 @@ function ptRefreshMultiDayLeaderboard(eventId) {
 
   Promise.all([
     fetch(TOUR_API + '/api/events/' + eventId + '/rounds', { headers: headers })
-      .then(function(r){ return r.json(); }).catch(function(){ return {rounds:[]}; }),
+      .then(_ptJson).catch(function(){ return {rounds:[]}; }),
     fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers })
-      .then(function(r){ return r.json(); }).catch(function(){ return {groups:[]}; }),
+      .then(_ptJson).catch(function(){ return {groups:[]}; }),
   ]).then(function(results) {
     var rounds = results[0].rounds || [];
     var groups = results[1].groups || [];
@@ -29604,7 +29753,7 @@ function ptRefreshMultiDayLeaderboard(eventId) {
 
         Promise.all(indivRounds.map(function(r) {
           return fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers })
-            .then(function(resp){ return resp.json(); })
+            .then(_ptJson)
             .then(function(d){ return { round: r, scores: d.scores || [] }; })
             .catch(function(){ return { round: r, scores: [] }; });
         })).then(function(roundResults) {
@@ -29706,10 +29855,10 @@ function ptOpenTeeTimeBuilder(eventId, round) {
   _ptTTB = { eventId:eventId, round:round, slots:[], roster:[], groups:[], mode:round.mode||'tee_times', session:round.session||'morning', _selectedHoles:[] };
 
   Promise.all([
-    fetch(TOUR_API+'/api/events/'+eventId,{headers:{'Authorization':'Bearer '+G.orgToken}}).then(function(r){return r.json();}),
-    fetch(TOUR_API+'/api/rounds/'+round.id+'/tee-times',{headers:{'Authorization':'Bearer '+G.orgToken}}).then(function(r){return r.json();}).catch(function(){return {tee_times:[]};}),
-    fetch(TOUR_API+'/api/roster?limit=500',{headers:{'Authorization':'Bearer '+G.orgToken}}).then(function(r){return r.json();}),
-    fetch(TOUR_API+'/api/events/'+eventId+'/rounds',{headers:{'Authorization':'Bearer '+G.orgToken}}).then(function(r){return r.json();}).catch(function(){return {rounds:[]};}),
+    fetch(TOUR_API+'/api/events/'+eventId,{headers:{'Authorization':'Bearer '+G.orgToken}}).then(_ptJson),
+    fetch(TOUR_API+'/api/rounds/'+round.id+'/tee-times',{headers:{'Authorization':'Bearer '+G.orgToken}}).then(_ptJson).catch(function(){return {tee_times:[]};}),
+    fetch(TOUR_API+'/api/roster?limit=500',{headers:{'Authorization':'Bearer '+G.orgToken}}).then(_ptJson),
+    fetch(TOUR_API+'/api/events/'+eventId+'/rounds',{headers:{'Authorization':'Bearer '+G.orgToken}}).then(_ptJson).catch(function(){return {rounds:[]};}),
   ]).then(function(res) {
     _ptTTB.groups = (res[0].groups)||[];
     _ptTTB.roster = (res[2].players)||[];
@@ -29722,7 +29871,7 @@ function ptOpenTeeTimeBuilder(eventId, round) {
       // Load tee times for the morning round — fire and forget, populate when done
       siblingMorning.forEach(function(mr){
         fetch(TOUR_API+'/api/rounds/'+mr.id+'/tee-times',{headers:{'Authorization':'Bearer '+G.orgToken}})
-          .then(function(r){return r.json();})
+          .then(_ptJson)
           .then(function(d){
             (d.tee_times||[]).forEach(function(tt){
               var sp=tt.start_time.split(':'), tMin=parseInt(sp[0])*60+parseInt(sp[1]);
@@ -30142,7 +30291,7 @@ function ptTTBSave(){
       method:'PATCH',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
       body:JSON.stringify({slots:slots})
-    }).then(function(r){return r.json();}).then(function(d){
+    }).then(_ptJson).then(function(d){
       if(d.ok){
         var msg = d.changed === 0 ? 'No changes detected.' : d.changed+' group'+(d.changed===1?'':'s')+' updated with new codes. Reprint the tee sheet for changed groups.';
         ptToast(msg);
@@ -30156,7 +30305,7 @@ function ptTTBSave(){
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
       body:JSON.stringify({mode:_ptTTB.mode,session:_ptTTB.session,slots:slots})
-    }).then(function(r){return r.json();}).then(function(d){
+    }).then(_ptJson).then(function(d){
       if(d.ok){ptToast('Tee sheet saved! '+d.inserted+' groups assigned.');document.getElementById('ptTTBOv').remove();}
       else{ptToast(d.error||'Save failed.');}
     }).catch(function(){ptToast('Network error.');});
@@ -30168,7 +30317,7 @@ function ptLoadRounds(ev) {
   var el = document.getElementById('ptRoundsSection');
   if (!el) return;
   fetch(TOUR_API+'/api/events/'+ev.id+'/rounds', {headers:{'Authorization':'Bearer '+G.orgToken}})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){ ptRenderRounds(ev, d.rounds||[]); })
     .catch(function(){ /* silent fail — rounds section just stays empty */ });
 }
@@ -30243,7 +30392,7 @@ function ptRenderRounds(ev, rounds) {
 function _ptRoundsTeeBadges(rounds) {
   (rounds||[]).forEach(function(r){
     fetch(TOUR_API+'/api/rounds/'+r.id+'/tee-times', {headers:{'Authorization':'Bearer '+G.orgToken}})
-      .then(function(resp){return resp.json();})
+      .then(_ptJson)
       .then(function(d){
         var el=document.getElementById('ptRoundTT_'+r.id); if(!el) return;
         var groups=(d.tee_times||[]).filter(function(t){return (t.players||[]).length>0;}).length;
@@ -30262,7 +30411,7 @@ function ptAddRound(eventId) {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body: JSON.stringify({format:'individual_stableford'})
-  }).then(function(r){return r.json();})
+  }).then(_ptJson)
   .then(function(d){
     if(d.round) {
       // Refresh event detail to get updated rounds
@@ -30351,7 +30500,7 @@ function ptDoEditRound(eventId, roundId, overlay) {
     method:'PATCH',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body: JSON.stringify({date:date, format:format, course_id:courseId, tee:tee})
-  }).then(function(r){return r.json();})
+  }).then(_ptJson)
   .then(function(d){
     if(d.round){ if(overlay) overlay.remove(); loadOrgEventDetail(eventId); }
     else { btn.disabled=false; btn.textContent='Save Round'; errEl.textContent=d.error||'Failed.'; errEl.style.display='block'; }
@@ -30363,19 +30512,20 @@ function ptDoEditRound(eventId, roundId, overlay) {
 
 function ptDeleteRound(eventId, roundId, overlay) {
   if (!confirm('Delete this round? This cannot be undone.')) return;
+  var _b = ptBusy(ptEvBtn(), 'Deleting…');
   fetch(TOUR_API+'/api/rounds/'+roundId, {
     method:'DELETE',
     headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(r){return r.json();})
+  }).then(_ptJson).catch(_ptNetErr)
   .then(function(d){
-    if(d.ok){ if(overlay) overlay.remove(); loadOrgEventDetail(eventId); }
-    else { ptToast(d.error||'Delete failed.'); }
-  }).catch(function(){ ptToast('Network error.'); });
+    if(d.ok){ ptBusyDone(_b, '\u2713 Deleted'); if(overlay) overlay.remove(); loadOrgEventDetail(eventId); }
+    else { ptBusyFail(_b); ptToast('Could not delete the round \u2014 '+(d.error||'unknown error.')); }
+  });
 }
 
 function ptEditEvent(eventId) {
   fetch(TOUR_API+'/api/events/'+eventId,{headers:{'Authorization':'Bearer '+G.orgToken}})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       if(!d.event) return;
       var ev = d.event;
@@ -30438,7 +30588,7 @@ function ptDoEditEvent(eventId, overlay) {
     method: 'PATCH',
     headers: {'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body: JSON.stringify({name:name, date:date||null, course_id:courseId, tee:tee})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if (d.event) {
       if (overlay) overlay.remove();
       loadOrgEventDetail(eventId);
@@ -30460,8 +30610,8 @@ function ptShowReportsMenu(eventId) {
   var headers = {};
   if (G.orgToken) headers['Authorization'] = 'Bearer ' + G.orgToken;
   Promise.all([
-    fetch(TOUR_API + '/api/events/' + eventId + '/rounds', { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {rounds:[]}; }),
-    fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {}; })
+    fetch(TOUR_API + '/api/events/' + eventId + '/rounds', { headers: headers }).then(_ptJson).catch(function(){ return {rounds:[]}; }),
+    fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(_ptJson).catch(function(){ return {}; })
   ]).then(function(results) {
     var rounds = results[0].rounds || [];
     var ev = results[1].event || {};
@@ -30528,9 +30678,9 @@ function ptPrintIndividualRoundReport(eventId, round) {
   if (G.orgToken) headers['Authorization'] = 'Bearer ' + G.orgToken;
 
   Promise.all([
-    fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {}; }),
-    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/scores', { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {scores:[]}; }),
-    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {groups:[]}; })
+    fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(_ptJson).catch(function(){ return {}; }),
+    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/scores', { headers: headers }).then(_ptJson).catch(function(){ return {scores:[]}; }),
+    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(_ptJson).catch(function(){ return {groups:[]}; })
   ]).then(function(results) {
     var ev = results[0].event || {};
     var scores = results[1].scores || [];
@@ -30722,9 +30872,9 @@ function ptPrintScrambleRoundReport(eventId, round) {
   if (G.orgToken) headers['Authorization'] = 'Bearer ' + G.orgToken;
 
   Promise.all([
-    fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {}; }),
-    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/scores', { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {scores:[]}; }),
-    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {groups:[]}; })
+    fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(_ptJson).catch(function(){ return {}; }),
+    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/scores', { headers: headers }).then(_ptJson).catch(function(){ return {scores:[]}; }),
+    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(_ptJson).catch(function(){ return {groups:[]}; })
   ]).then(function(results) {
     var ev = results[0].event || {};
     var scores = results[1].scores || [];
@@ -30879,9 +31029,9 @@ function ptPrintTeamDayReport(eventId, round) {
   if (G.orgToken) headers['Authorization'] = 'Bearer ' + G.orgToken;
 
   Promise.all([
-    fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {}; }),
-    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/scores', { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {scores:[]}; }),
-    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {groups:[]}; })
+    fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(_ptJson).catch(function(){ return {}; }),
+    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/scores', { headers: headers }).then(_ptJson).catch(function(){ return {scores:[]}; }),
+    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(_ptJson).catch(function(){ return {groups:[]}; })
   ]).then(function(results) {
     var ev = results[0].event || {};
     var scores = results[1].scores || [];
@@ -30993,9 +31143,9 @@ function ptPrintTeamOverallReport(eventId) {
   if (G.orgToken) headers['Authorization'] = 'Bearer ' + G.orgToken;
 
   Promise.all([
-    fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {}; }),
-    fetch(TOUR_API + '/api/events/' + eventId + '/rounds', { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {rounds:[]}; }),
-    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {groups:[]}; })
+    fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(_ptJson).catch(function(){ return {}; }),
+    fetch(TOUR_API + '/api/events/' + eventId + '/rounds', { headers: headers }).then(_ptJson).catch(function(){ return {rounds:[]}; }),
+    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(_ptJson).catch(function(){ return {groups:[]}; })
   ]).then(function(results) {
     var ev = results[0].event || {};
     var rounds = results[1].rounds || [];
@@ -31007,7 +31157,7 @@ function ptPrintTeamOverallReport(eventId) {
       ptComputeMultiDayStandings(eventId, rounds, groups, headers),
       Promise.all(rounds.map(function(r) {
         return fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers })
-          .then(function(resp){ return resp.json(); })
+          .then(_ptJson)
           .then(function(d){ return { round: r, scores: d.scores || [] }; })
           .catch(function(){ return { round: r, scores: [] }; });
       }))
@@ -31215,8 +31365,8 @@ function ptShowIndividualLeaderboard(eventId) {
   document.body.appendChild(ov);
 
   Promise.all([
-    fetch(TOUR_API + '/api/events/' + eventId + '/rounds', { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {rounds:[]}; }),
-    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(function(r){ return r.json(); }).catch(function(){ return {groups:[]}; })
+    fetch(TOUR_API + '/api/events/' + eventId + '/rounds', { headers: headers }).then(_ptJson).catch(function(){ return {rounds:[]}; }),
+    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(_ptJson).catch(function(){ return {groups:[]}; })
   ]).then(function(results) {
     var rounds = results[0].rounds || [];
     var groups = results[1].groups || [];
@@ -31245,7 +31395,7 @@ function ptShowIndividualLeaderboard(eventId) {
 
     var roundPromises = indivRounds.map(function(r) {
       return fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers })
-        .then(function(resp){ return resp.json(); })
+        .then(_ptJson)
         .then(function(d){ return { round: r, scores: d.scores || [] }; })
         .catch(function(){ return { round: r, scores: [] }; });
     });
@@ -31365,7 +31515,7 @@ function ptShowMultiDayLeaderboard(eventId) {
 
 function ptOrgRecompute(eventId) {
   fetch(TOUR_API+'/api/events/'+eventId+'/recompute', {method:'POST', headers:{'Authorization':'Bearer '+G.orgToken}})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       if(d.ok) ptToast('Leaderboard recomputed. Refresh Live Scores to see updated flags.');
       else ptToast('Recompute failed: '+(d.error||'unknown error'));
@@ -31374,7 +31524,7 @@ function ptOrgRecompute(eventId) {
 
 function ptPrintFinalResults(eventId) {
   fetch(TOUR_API+'/api/events/'+eventId, {headers:{'Authorization':'Bearer '+G.orgToken}})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       if(!d.event) return;
       var ev = d.event, groups = d.groups || [];
@@ -31383,12 +31533,12 @@ function ptPrintFinalResults(eventId) {
         ? ptFormatDate(ev.date, ev.course_id)
         : (ev.date || '');
       return fetch(TOUR_API+'/api/events/'+eventId+'/leaderboard', {headers:{'Authorization':'Bearer '+G.orgToken}})
-        .then(function(r){return r.json();})
+        .then(_ptJson)
         .then(function(lb){
           var standings = lb.standings || [];
           var scorePromises = standings.map(function(row){
             return fetch(TOUR_API+'/api/scores/group/'+row.group_id, {headers:{'Authorization':'Bearer '+G.orgToken}})
-              .then(function(r){return r.json();})
+              .then(_ptJson)
               .then(function(sd){ return {group_id:row.group_id, players:sd.players||[], start_hole:sd.start_hole||1, scorer:sd.scorer||''}; })
               .catch(function(){ return {group_id:row.group_id, players:[], start_hole:1, scorer:''}; });
           });
@@ -31536,9 +31686,9 @@ function ptPrintFinalResults(eventId) {
 
 function ptPrintRoundTeeSheet(eventId, round) {
   Promise.all([
-    fetch(TOUR_API+'/api/events/'+eventId,{headers:{'Authorization':'Bearer '+G.orgToken}}).then(function(r){return r.json();}),
-    fetch(TOUR_API+'/api/rounds/'+round.id+'/tee-times',{headers:{'Authorization':'Bearer '+G.orgToken}}).then(function(r){return r.json();}),
-    fetch(TOUR_API+'/api/roster?limit=500',{headers:{'Authorization':'Bearer '+G.orgToken}}).then(function(r){return r.json();}).catch(function(){return {players:[]};})
+    fetch(TOUR_API+'/api/events/'+eventId,{headers:{'Authorization':'Bearer '+G.orgToken}}).then(_ptJson),
+    fetch(TOUR_API+'/api/rounds/'+round.id+'/tee-times',{headers:{'Authorization':'Bearer '+G.orgToken}}).then(_ptJson),
+    fetch(TOUR_API+'/api/roster?limit=500',{headers:{'Authorization':'Bearer '+G.orgToken}}).then(_ptJson).catch(function(){return {players:[]};})
   ]).then(function(res) {
     var evData=res[0], ttData=res[1], rosterData=res[2];
     var ev=evData.event||{}, groups=evData.groups||[], teeTimes=ttData.tee_times||[];
@@ -31651,7 +31801,7 @@ function ptPrintRoundTeeSheet(eventId, round) {
 function ptPrintTeeSheet(eventId) {
   // gather the current event data — refetch to be sure
   fetch(TOUR_API+'/api/events/'+eventId,{headers:{'Authorization':'Bearer '+G.orgToken}})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       if(!d.event) return;
       var ev=d.event, groups=d.groups||[];
@@ -31720,21 +31870,42 @@ function ptPrintTeeSheet(eventId) {
     }).catch(function(){ptToast('Could not load event data.');});
 }
 
+// v242.0 — roadmap #1's headline offender. Go Live / Mark Complete / Archive
+// used to fire and forget: no busy state (double-tap re-sent the PATCH), no
+// r.ok check, and TWO empty catches. A rejected status change looked exactly
+// like a successful one — the detail view just reloaded unchanged.
 function ptSetEvStatus(eventId, status) {
-  fetch(TOUR_API+'/api/events/'+eventId,{
-    method:'PATCH',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
-    body:JSON.stringify({status:status})
-  }).then(function(){
-    // When going live on an RBC event, finalize handicaps first
+  var btn = ptEvBtn();
+  var labels = {
+    active:   { busy:'Going live…',  done:'\u25cf Live',        toast:'\u25cf Event is live — players can enter scores now.' },
+    complete: { busy:'Saving…',      done:'\u2713 Complete',    toast:'\u2713 Event marked complete.' },
+    archived: { busy:'Archiving…',   done:'\u2713 Archived',    toast:'\ud83d\udce6 Event archived.' },
+    draft:    { busy:'Saving…',      done:'\u2713 Saved',       toast:'Event returned to draft.' }
+  }[status] || { busy:'Saving…', done:'\u2713 Saved', toast:'Event updated.' };
+
+  return ptSaveAction(btn, { busy:labels.busy, done:labels.done, err:'Could not update the event' }, function(){
+    return fetch(TOUR_API+'/api/events/'+eventId,{
+      method:'PATCH',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
+      body:JSON.stringify({status:status})
+    }).then(_ptJson).catch(_ptNetErr);
+  }).then(function(d){
+    if (!d) return;                       // ptSaveAction already toasted the real reason
+    // Going live on an RBC event finalizes handicaps. Best-effort, but no
+    // longer silent — a failure here changes the leaderboard maths.
+    var after = Promise.resolve();
     if (status === 'active') {
-      fetch(TOUR_API+'/api/events/'+eventId+'/finalize-handicaps', {
-        method:'POST',
-        headers:{'Authorization':'Bearer '+G.orgToken}
-      }).catch(function(){});
+      after = fetch(TOUR_API+'/api/events/'+eventId+'/finalize-handicaps', {
+        method:'POST', headers:{'Authorization':'Bearer '+G.orgToken}
+      }).then(_ptJson).catch(_ptNetErr).then(function(fd){
+        if (fd && fd.error) ptToast('Event is live, but handicaps were not finalized — ' + fd.error);
+      });
     }
-    loadOrgEventDetail(eventId);
-  }).catch(function(){});
+    return after.then(function(){
+      ptToast(labels.toast);
+      loadOrgEventDetail(eventId);
+    });
+  });
 }
 
 var _ptDelEvId = null;
@@ -31924,7 +32095,7 @@ function ptShowRbcImport(eventId, evObj) {
   // Load roster in background
   fetch(TOUR_API + '/api/roster?limit=500', {
     headers: { 'Authorization': 'Bearer ' + G.orgToken }
-  }).then(function(r){ return r.json(); }).then(function(d){
+  }).then(_ptJson).then(function(d){
     _ptRbcImportRoster = d.players || [];
   }).catch(function(){});
 }
@@ -32146,7 +32317,7 @@ function _ptRosterCreate(pname, rosterArr) {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({name:pname})
-  }).then(function(r){ return r.json(); })
+  }).then(_ptJson)
     .then(function(d){
       if (d && d.player) { rosterArr.push(d.player); return d.player.id; }
       console.error('Create roster player failed:', pname, d && d.error);
@@ -32190,7 +32361,7 @@ async function ptRbcCommitImport() {
         tee: _impTee,
         team_handicap: teamHandicap
       })
-    }).then(function(r){ return r.json(); }).catch(function(){ return null; });
+    }).then(_ptJson).catch(function(){ return null; });
 
     if (!groupResp || !groupResp.group) {
       failed.push(teamName + ' (hole ' + team.hole + ')');
@@ -32304,7 +32475,7 @@ function ptShowDrawImport(eventId, format) {
   }
   // Pre-load roster
   fetch(TOUR_API+'/api/roster?limit=500',{headers:{'Authorization':'Bearer '+G.orgToken}})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){_ptDrawImportRoster=d.players||[];});
 }
 
@@ -32334,7 +32505,7 @@ function ptHandleDrawFile(input) {
             ]
           }]
         })
-      }).then(function(r){return r.json();})
+      }).then(_ptJson)
       .then(function(d){
         if (d.error) { status.textContent = 'Error: '+d.error; return; }
         var rawTeams = [];
@@ -32485,7 +32656,7 @@ function ptDrawResolvePlayer(ti, pi, originalName) {
 function ptDrawResolveSearch(q) {
   var url = TOUR_API+'/api/roster'+(q?'?q='+encodeURIComponent(q)+'&limit=20':'?limit=30');
   fetch(url,{headers:{'Authorization':'Bearer '+G.orgToken}})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       var el=document.getElementById('ptResolveResults'); if(!el)return;
       var players=d.players||[];
@@ -32537,7 +32708,7 @@ function ptDrawResolveGcSearch(name) {
     var parts=name.trim().split(/\s+/);
     var kw=parts.length>=2?parts[parts.length-1].toLowerCase()+', '+parts.slice(0,-1).join(' ').toLowerCase():name.toLowerCase();
     return fetch(_gcWorkerBase()+'/member/search?'+new URLSearchParams({keywords:kw,skip:'0',take:'20'}),{headers:{Authorization:'Bearer '+tok}});
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     var members=Array.isArray(d)?d:(d.data||[]);
     if(!members.length){el.innerHTML='<div style="color:rgba(255,255,255,.25);font-size:13px;padding:12px 0">No Golf Canada results</div>';return;}
     var ov=document.getElementById('ptDrawResolveOv');
@@ -32565,7 +32736,7 @@ function ptDrawResolveGcPick(idx) {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({name:name,handicap:hdcp,ghin:ghin})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(!d.player){ptToast(d.error||'Failed');return;}
     _ptDrawImportRoster.push(d.player);
     var ov=document.getElementById('ptDrawResolveOv'); if(!ov)return;
@@ -32592,7 +32763,7 @@ async function ptDrawImportMultiDay() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
       body: JSON.stringify({ name: teamName, start_hole: 1, bypass_hole_limit: true })
-    }).then(function(r) { return r.json(); }).catch(function() { return null; });
+    }).then(_ptJson).catch(function() { return null; });
     if (!groupResp || !groupResp.group) { failed.push(teamName); continue; }
     var groupId = groupResp.group.id;
     var allPlayers = [team.captain].concat(team.players || []);
@@ -32613,7 +32784,7 @@ async function ptDrawImportMultiDay() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
             body: JSON.stringify({ name: pname })
-          }).then(function(r) { return r.json(); });
+          }).then(_ptJson);
           rosterId = newP.player ? newP.player.id : null;
         } catch(e) {}
       }
@@ -32655,7 +32826,7 @@ async function ptCommitDrawImport() {
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
       body:JSON.stringify({name:teamName,start_hole:team.hole,bypass_hole_limit:true})
-    }).then(function(r){return r.json();}).catch(function(){return null;});
+    }).then(_ptJson).catch(function(){return null;});
     if(!groupResp||!groupResp.group){
       failed.push(teamName+' (hole '+team.hole+')');
       return;
@@ -32713,7 +32884,124 @@ var _ptDA = {
   perSlot: 1,        // 1 or 2 teams per slot
   slots:   [],       // [{hole, start_time, teamIndices:[ti,...]}]
   _selHoles: [],     // shotgun hole selection
+  _moving: null,     // v242.0 tap-tap: {from:'pool'|'slot', ti, si, pos}
 };
+
+// ── v242.0 (roadmap #3) — tap-tap move & swap in the DRAW ASSISTANT ──────────
+// Closes the last selects/inputs holdout. Same gesture vocabulary as the event
+// tee sheet (v234) and the trip/league builder (v240), adapted to _ptDA's
+// teamIndices model: slot.teamIndices is DENSE (removes splice), so an "empty
+// spot" is simply any pos >= teamIndices.length, and placing always pushes.
+function _ptDATeamName(ti){
+  var t = _ptDA.teams[ti];
+  return (t && (t.captain || t.name)) || ('Team ' + (ti+1));
+}
+function _ptDASlotLabelFor(si){
+  var s = _ptDA.slots[si];
+  if (!s) return 'this slot';
+  if (_ptDA.mode === 'tee_times') return s.start_time ? _pt12h(s.start_time) : ('Slot ' + (si+1));
+  return 'H' + (s.hole || si+1);
+}
+function _ptDAClearMove(){ _ptDA._moving = null; }
+
+// Tap a PLACED team: arm it, swap it with the armed one, or cancel.
+function ptDAChipTap(si, pos){
+  var slot = _ptDA.slots[si]; if (!slot) return;
+  var ti = (slot.teamIndices||[])[pos];
+  if (ti === undefined || ti === null) return;
+  var mv = _ptDA._moving;
+  if (!mv){ _ptDA._moving = { from:'slot', ti:ti, si:si, pos:pos }; ptDARender(); return; }
+  if (mv.from === 'slot' && mv.si === si && mv.pos === pos){ _ptDAClearMove(); ptDARender(); return; }
+  if (mv.from === 'slot'){
+    var a = _ptDA.slots[mv.si];
+    if (a){ a.teamIndices[mv.pos] = ti; slot.teamIndices[pos] = mv.ti; }   // 2-tap swap
+  } else {
+    slot.teamIndices[pos] = mv.ti;                     // pool team takes the spot,
+  }                                                    // the placed team goes back to the pool
+  _ptDAClearMove(); ptDARender();
+}
+
+// Tap an EMPTY spot: place the armed team, or open the picker when nothing is armed.
+function ptDASpotTap(si, pos){
+  var slot = _ptDA.slots[si]; if (!slot) return;
+  var mv = _ptDA._moving;
+  if (!mv){ ptDAShowPicker(si); return; }
+  if ((slot.teamIndices||[]).length >= _ptDA.perSlot){ ptToast('That slot is full.'); return; }
+  if (mv.from === 'slot'){
+    var a = _ptDA.slots[mv.si];
+    if (a === slot){ _ptDAClearMove(); ptDARender(); return; }   // already here
+    if (a) a.teamIndices.splice(mv.pos, 1);
+  }
+  slot.teamIndices.push(mv.ti);
+  _ptDAClearMove(); ptDARender();
+}
+
+// Tap a POOL team: select it, or hand it the armed team's spot.
+function ptDAPoolTap(ti){
+  var mv = _ptDA._moving;
+  if (mv && mv.from === 'pool' && mv.ti === ti){ _ptDAClearMove(); ptDARender(); return; }
+  if (mv && mv.from === 'slot'){
+    var s = _ptDA.slots[mv.si];
+    if (s) s.teamIndices[mv.pos] = ti;
+    _ptDAClearMove(); ptDARender(); return;
+  }
+  _ptDA._moving = { from:'pool', ti:ti }; ptDARender();
+}
+
+// Bottom-sheet picker — the no-selection path into an empty spot.
+function _ptDAClosePicker(){
+  var p = document.getElementById('ptDAPicker'); if (p) p.remove();
+}
+function ptDAShowPicker(si){
+  _ptDAClosePicker();
+  var slot = _ptDA.slots[si]; if (!slot) return;
+  if ((slot.teamIndices||[]).length >= _ptDA.perSlot){ ptToast('That slot is full.'); return; }
+  var where = {};
+  _ptDA.slots.forEach(function(s, sidx){ (s.teamIndices||[]).forEach(function(ti){ where[ti] = sidx; }); });
+  var here = {}; (slot.teamIndices||[]).forEach(function(ti){ here[ti] = true; });
+  var un = [], placed = [];
+  _ptDA.teams.forEach(function(t, ti){ if (here[ti]) return; (where[ti] === undefined ? un : placed).push(ti); });
+
+  var row = function(ti, tag){
+    return '<div onclick="ptDAPickerPick(' + si + ',' + ti + ')" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer;-webkit-tap-highlight-color:transparent">'
+      + '<span style="font-size:14px;color:rgba(255,255,255,.85)">' + _esc(_ptDATeamName(ti)) + '</span>'
+      + (tag ? '<span style="font-size:11px;color:rgba(201,168,76,.65);white-space:nowrap">' + _esc(tag) + '</span>' : '')
+      + '</div>';
+  };
+  var h = '<div onclick="_ptDAClosePicker()" style="position:absolute;inset:0;background:rgba(0,0,0,.6)"></div>'
+    + '<div style="position:absolute;left:0;right:0;bottom:0;background:#152418;border-radius:18px 18px 0 0;max-height:72vh;overflow-y:auto;box-shadow:0 -8px 28px rgba(0,0,0,.5)">'
+    + '<div style="padding:16px 16px 10px;font-size:15px;font-weight:800;color:#c9a84c">Add to ' + _esc(_ptDASlotLabelFor(si)) + '</div>';
+  if (un.length){
+    h += '<div style="padding:6px 16px;font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.6px">Unassigned</div>';
+    h += un.map(function(ti){ return row(ti, ''); }).join('');
+  }
+  if (placed.length){
+    h += '<div style="padding:10px 16px 6px;font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.6px">Placed — picking moves them here</div>';
+    h += placed.map(function(ti){ return row(ti, '\u2192 ' + _ptDASlotLabelFor(where[ti])); }).join('');
+  }
+  if (!un.length && !placed.length){
+    h += '<div style="padding:20px 16px;font-size:13px;color:rgba(255,255,255,.35);text-align:center">Every other team is already in this slot.</div>';
+  }
+  h += '<div style="padding:12px 16px 26px"><button onclick="_ptDAClosePicker()" style="width:100%;padding:12px;background:none;border:1px solid rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer">Cancel</button></div>'
+    + '</div>';
+  var p = document.createElement('div');
+  p.id = 'ptDAPicker';
+  p.style.cssText = 'position:fixed;inset:0;z-index:1120';   // over #ptDAOv (1100)
+  p.innerHTML = h;
+  document.body.appendChild(p);
+}
+function ptDAPickerPick(si, ti){
+  var slot = _ptDA.slots[si];
+  _ptDAClosePicker();
+  if (!slot) return;
+  if ((slot.teamIndices||[]).length >= _ptDA.perSlot){ ptToast('That slot is full.'); return; }
+  _ptDA.slots.forEach(function(s){                     // free the old spot, if any
+    var idx = (s.teamIndices||[]).indexOf(ti);
+    if (idx >= 0) s.teamIndices.splice(idx, 1);
+  });
+  slot.teamIndices.push(ti);
+  _ptDAClearMove(); ptDARender();
+}
 
 function ptDAShow(teams, eventId, source) {
   _ptDA.teams   = teams;
@@ -32723,6 +33011,7 @@ function ptDAShow(teams, eventId, source) {
   _ptDA.perSlot = teams.length > 18 ? 2 : 1;
   _ptDA.slots   = [];
   _ptDA._selHoles = [];
+  _ptDAClearMove(); _ptDAClosePicker();
   var old = document.getElementById('ptDAOv'); if (old) old.remove();
   var ov = document.createElement('div');
   ov.id = 'ptDAOv';
@@ -32739,12 +33028,14 @@ function ptDAShow(teams, eventId, source) {
 }
 
 function ptDABack() {
+  _ptDAClearMove(); _ptDAClosePicker();
   var ov = document.getElementById('ptDAOv'); if (ov) ov.remove();
   if (_ptDA.source === 'rbc') ptRbcRenderPreview(_ptDA.teams);
   else ptRenderDrawPreview(_ptDA.teams);
 }
 
 function ptDARenderSetup() {
+  _ptDAClearMove(); _ptDAClosePicker();
   var body = document.getElementById('ptDABody'); if (!body) return;
   var h = '';
 
@@ -32796,8 +33087,8 @@ function ptDARenderSetup() {
   body.innerHTML = h;
 }
 
-function ptDASetMode(m)    { _ptDA.mode = m;     ptDARenderSetup(); }
-function ptDASetPerSlot(n) { _ptDA.perSlot = n;  ptDARenderSetup(); }
+function ptDASetMode(m)    { _ptDAClearMove(); _ptDA.mode = m;     ptDARenderSetup(); }
+function ptDASetPerSlot(n) { _ptDAClearMove(); _ptDA.perSlot = n;  ptDARenderSetup(); }
 
 function ptDAToggleHole(h) {
   var idx = _ptDA._selHoles.indexOf(h);
@@ -32869,6 +33160,18 @@ function ptDARender() {
   var nUnassigned = teams.filter(function(t,ti){ return !assigned[ti]; }).length;
   var allAssigned = nUnassigned === 0;
 
+  // v242.0 — drop a stale arm before drawing: the team may have been removed,
+  // cleared, auto-filled elsewhere, or the slot count may have changed.
+  var mv = _ptDA._moving;
+  if (mv){
+    if (mv.from === 'slot'){
+      var _ms = slots[mv.si];
+      if (!_ms || (_ms.teamIndices||[])[mv.pos] !== mv.ti) { _ptDAClearMove(); mv = null; }
+    } else if (mv.from === 'pool'){
+      if (assigned[mv.ti]) { _ptDAClearMove(); mv = null; }
+    }
+  }
+
   var h = '';
 
   // ── Summary / action bar ──
@@ -32882,6 +33185,12 @@ function ptDARender() {
   h += '<button onclick="ptDAClearAll()" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer">Clear</button>';
   h += '</div></div>';
 
+  // ── Move bar (v242.0) ──
+  if (mv){
+    h += '<div id="ptDAMoveBar" style="position:sticky;top:0;z-index:5;background:rgba(201,168,76,.16);border:1px solid rgba(201,168,76,.55);border-radius:10px;padding:9px 12px;margin-bottom:10px;font-size:12px;font-weight:700;color:#f5e6b8;text-align:center;line-height:1.45">Moving '
+      + _esc(_ptDATeamName(mv.ti)) + ' \u2014 tap a spot to place, a team to swap, or tap them again to cancel</div>';
+  }
+
   // ── Unassigned pool ──
   if (nUnassigned > 0) {
     h += '<div style="background:rgba(231,76,60,.06);border:1px solid rgba(231,76,60,.25);border-radius:10px;padding:10px 14px;margin-bottom:12px">';
@@ -32889,7 +33198,8 @@ function ptDARender() {
     h += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
     teams.forEach(function(t,ti){
       if (assigned[ti]) return;
-      h += '<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:5px 10px;font-size:12px;color:rgba(255,255,255,.7)">'+t.captain+'</div>';
+      var armed = mv && mv.from === 'pool' && mv.ti === ti;
+      h += '<div onclick="ptDAPoolTap('+ti+')" style="background:'+(armed?'rgba(201,168,76,.28)':'rgba(255,255,255,.06)')+';border:1px solid '+(armed?'#c9a84c':'rgba(255,255,255,.12)')+';border-radius:8px;padding:5px 10px;font-size:12px;font-weight:'+(armed?'800':'400')+';color:'+(armed?'#f5e6b8':'rgba(255,255,255,.7)')+';cursor:pointer;-webkit-tap-highlight-color:transparent">'+_esc(_ptDATeamName(ti))+'</div>';
     });
     h += '</div></div>';
   }
@@ -32916,23 +33226,19 @@ function ptDARender() {
     }
     h += '</div>';
 
-    // Team pickers
+    // Team chips (v242.0 — replaced one <select> per position)
     for (var pos=0; pos<_ptDA.perSlot; pos++) {
       var ti = slot.teamIndices[pos];
       var hasTeam = (ti !== undefined && ti !== null);
-      h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
-      h += '<select onchange="ptDAAssign('+si+','+pos+',this.value)" style="flex:1;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.25);color:#fff;font-size:13px;outline:none">';
-      h += '<option value="">-- Select Team --</option>';
-      teams.forEach(function(t, tIdx) {
-        var isThisSlot = hasTeam && tIdx === ti;
-        var isTaken = assigned[tIdx] && !isThisSlot;
-        h += '<option value="'+tIdx+'"'+(isThisSlot?' selected':'')+(isTaken?' disabled':'')+'>'+t.captain+(isTaken?' [assigned]':'')+'</option>';
-      });
-      h += '</select>';
       if (hasTeam) {
-        h += '<button onclick="ptDARemove('+si+','+pos+')" style="background:none;border:none;color:rgba(255,100,100,.6);font-size:18px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0">&times;</button>';
+        var armed = mv && mv.from === 'slot' && mv.si === si && mv.pos === pos;
+        h += '<div onclick="ptDAChipTap('+si+','+pos+')" style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;padding:9px 10px;border-radius:8px;border:1px solid '+(armed?'#c9a84c':'rgba(255,255,255,.12)')+';background:'+(armed?'rgba(201,168,76,.24)':'rgba(0,0,0,.25)')+';cursor:pointer;-webkit-tap-highlight-color:transparent">';
+        h += '<span style="font-size:13px;font-weight:'+(armed?'800':'600')+';color:'+(armed?'#f5e6b8':'#fff')+';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+_esc(_ptDATeamName(ti))+'</span>';
+        h += '<span onclick="event.stopPropagation();ptDARemove('+si+','+pos+')" style="color:rgba(255,100,100,.6);font-size:18px;cursor:pointer;padding:0 2px;line-height:1;flex-shrink:0">&times;</span>';
+        h += '</div>';
+      } else {
+        h += '<div onclick="ptDASpotTap('+si+','+pos+')" style="display:flex;align-items:center;justify-content:center;margin-bottom:6px;padding:9px 10px;border-radius:8px;border:1px dashed '+(mv?'rgba(201,168,76,.65)':'rgba(255,255,255,.16)')+';background:'+(mv?'rgba(201,168,76,.08)':'transparent')+';color:'+(mv?'rgba(245,230,184,.9)':'rgba(255,255,255,.32)')+';font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">'+(mv?'\u2b07 place here':'+ Add team')+'</div>';
       }
-      h += '</div>';
     }
 
     if (_ptDA.perSlot === 2 && (slot.teamIndices||[]).length === 2) {
@@ -32961,7 +33267,10 @@ function ptDARender() {
   body.appendChild(bar);
 }
 
+// Retained as a compat delegate — the selects are gone, but nothing that still
+// calls this needs to know that.
 function ptDAAssign(si, pos, val) {
+  _ptDAClearMove();
   var ti = (val === '' || val === null) ? undefined : parseInt(val);
   // Remove this team from any other slot position first
   if (ti !== undefined) {
@@ -32980,10 +33289,12 @@ function ptDAAssign(si, pos, val) {
 
 function ptDARemove(si, pos) {
   _ptDA.slots[si].teamIndices.splice(pos, 1);
+  _ptDAClearMove();
   ptDARender();
 }
 
 function ptDAAutoFill() {
+  _ptDAClearMove();
   var assigned = {};
   _ptDA.slots.forEach(function(s){ (s.teamIndices||[]).forEach(function(ti){ assigned[ti]=true; }); });
   var pool = [];
@@ -32999,6 +33310,7 @@ function ptDAAutoFill() {
 
 function ptDAClearAll() {
   _ptDA.slots.forEach(function(s){ s.teamIndices = []; });
+  _ptDAClearMove();
   ptDARender();
 }
 
@@ -33011,6 +33323,7 @@ function _ptDASlotTime(si, val) {
 }
 
 function ptDAConfirm() {
+  _ptDAClearMove(); _ptDAClosePicker();
   // Write hole + start_time onto each team object — commit functions read team.hole
   _ptDA.teams.forEach(function(t){ t.hole = null; t.start_time = null; });
   _ptDA.slots.forEach(function(slot) {
@@ -33055,7 +33368,7 @@ function ptDoAddGroup(eventId, overlay) {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({name:name,start_hole:hole,course_id:courseId,tee:tee})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d.group){if(overlay)overlay.remove();loadOrgEventDetail(eventId);}
     else{btn.disabled=false;btn.textContent='Add Group';errEl.textContent=d.error||'Failed.';errEl.style.display='block';}
   }).catch(function(){
@@ -33077,7 +33390,7 @@ function ptEditGroup(eventId, groupId) {
   document.body.appendChild(ov);
   // Re-fetch event detail to get fresh player list with roster_id
   fetch(TOUR_API+'/api/events/'+eventId,{headers:{'Authorization':'Bearer '+G.orgToken}})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       var freshGroup = (d.groups||[]).find(function(x){return x.id===groupId||x.id===String(groupId);});
       if(freshGroup && freshGroup.players && freshGroup.players.length) g.players = freshGroup.players;
@@ -33140,7 +33453,7 @@ function ptDoEditGroup(eventId, groupId, overlay) {
     method:'PATCH',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({name:name,start_hole:hole,course_id:courseId,tee:tee})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(d.group){
       if(overlay)overlay.remove();
       // If course/tee was set, fire finalize-handicaps to recompute team handicaps with new course data
@@ -33148,7 +33461,7 @@ function ptDoEditGroup(eventId, groupId, overlay) {
         fetch(TOUR_API+'/api/events/'+eventId+'/finalize-handicaps',{
           method:'POST',
           headers:{'Authorization':'Bearer '+G.orgToken}
-        }).then(function(r){return r.json();})
+        }).then(_ptJson)
         .then(function(fd){
           if(fd.results){
             var grpResult = fd.results.find(function(r){return r.id===groupId||r.id===String(groupId);});
@@ -33172,13 +33485,15 @@ function ptDoEditGroup(eventId, groupId, overlay) {
 
 function ptSetGroupCaptain(eventId, groupId, rosterId, overlay) {
   if(!rosterId) return;
+  var _b = ptBusy(ptEvBtn(), 'Setting…');
   fetch(TOUR_API+'/api/groups/'+groupId+'/captain',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({roster_id:rosterId})
-  }).then(function(r){return r.json();})
+  }).then(_ptJson)
   .then(function(d){
     if(d.ok){
+      ptBusyDone(_b, '\u2713');
       // v225.0 — the old close-all selector '[style*="z-index:600"]' never matched:
       // Chrome serializes cssText as 'z-index: 600' (with a space), so the edit
       // sheet stayed open showing the stale captain — change worked, cue invisible.
@@ -33186,20 +33501,21 @@ function ptSetGroupCaptain(eventId, groupId, rosterId, overlay) {
       document.querySelectorAll('[style*="z-index:600"],[style*="z-index: 600"]').forEach(function(el){el.remove();});
       ptToast(d.captain_name ? '\u2713 ' + d.captain_name + ' is now captain \u2014 team renamed \u201c' + d.captain_name + ' Team\u201d' : '\u2713 Captain updated');
       loadOrgEventDetail(eventId);
-    } else { ptToast(d.error||'Failed to set captain.'); }
-  }).catch(function(){ ptToast('Network error.'); });
+    } else { ptBusyFail(_b); ptToast('Could not set the captain \u2014 '+(d.error||'unknown error.')); }
+  }).catch(_ptNetErr).then(function(d){ if(d && d.error){ ptBusyFail(_b); ptToast('Could not set the captain \u2014 '+d.error); } });
 }
 
 function ptDeleteGroup(eventId, groupId, overlay) {
   var grpName=(document.getElementById('ptEditGrpName')||{}).value||'this group';
   if(!confirm('Delete "'+grpName+'"? This removes all assigned players and scores. Cannot be undone.')) return;
+  var _b = ptBusy(ptEvBtn(), 'Deleting…');
   fetch(TOUR_API+'/api/groups/'+groupId,{
     method:'DELETE',
     headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(r){return r.json();}).then(function(d){
-    if(d.ok){if(overlay)overlay.remove();loadOrgEventDetail(eventId);}
-    else{ptToast(d.error||'Failed to delete group.');}
-  }).catch(function(){ptToast('Network error.');});
+  }).then(_ptJson).catch(_ptNetErr).then(function(d){
+    if(d.ok){ptBusyDone(_b,'\u2713 Deleted');if(overlay)overlay.remove();loadOrgEventDetail(eventId);}
+    else{ptBusyFail(_b);ptToast('Could not delete the group \u2014 '+(d.error||'unknown error.'));}
+  });
 }
 
 // ── Tour Leaderboard Overlay (player-facing, event mode) ────────────────────
@@ -33329,7 +33645,7 @@ function ptShowRoundSummary() {
   // Fetch leaderboard position
   if (G.joinGroup.event_id) {
     fetch(TOUR_API + '/api/events/' + G.joinGroup.event_id + '/leaderboard')
-      .then(function(r){ return r.json(); })
+      .then(_ptJson)
       .then(function(d) {
         var lb = document.getElementById('ptSumLb');
         if (!lb) return;
@@ -33592,13 +33908,13 @@ function ptShowGroupScorecard(groupId, groupName, eventId) {
   } else {
     // fetch from API
     fetch(TOUR_API + '/api/scores/group/' + groupId)
-      .then(function(r){ return r.json(); })
+      .then(_ptJson).then(_ptThrow)
       .then(function(d){
         var detail = { players: d.players || [], par: d.par || [], course_id: d.course_id || null, start_hole: d.start_hole || 1, team_handicap: d.team_handicap != null ? d.team_handicap : null };
         _ptLbDetailCache[groupId] = detail;
         renderScorecardDetail(detail);
       })
-      .catch(function(){ bodyDiv.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:40px 0;font-size:13px">Failed to load.</div>'; });
+      .catch(function(_e){ bodyDiv.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:40px 0;font-size:13px">'+_ptEsc(_ptMsg(_e,'Failed to load.'))+'</div>'; });
   }
 }
 
@@ -33623,7 +33939,7 @@ function _ptRenderStandings(standings, computed, eventId) {
       return Promise.resolve(empty);
     }
     return fetch(TOUR_API + '/api/scores/group/' + row.group_id)
-      .then(function(r){ return r.json(); })
+      .then(_ptJson)
       .then(function(d){
         var detail = { players: d.players || [], par: d.par || [], start_hole: d.start_hole || 1, team_handicap: d.team_handicap != null ? d.team_handicap : null, ineligible_reason: d.ineligible_reason || null };
         _ptLbDetailCache[row.group_id] = detail;
@@ -33777,14 +34093,14 @@ function ptRefreshLeaderboard(eventId) {
   // clear detail cache on explicit refresh
   _ptLbDetailCache = {};
   fetch(TOUR_API + '/api/events/' + eventId + '/leaderboard')
-    .then(function(r){ return r.json(); })
+    .then(_ptJson).then(_ptThrow)
     .then(function(d){
       if (!body) return;
       var standings = d.standings || [];
       var computed = d.computed_at || '';
       _ptRenderStandings(standings, computed, eventId);
-    }).catch(function(){
-      if (body) body.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:40px 0;font-size:13px">Failed to load scores.</div>';
+    }).catch(function(_e){
+      if (body) body.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:40px 0;font-size:13px">'+_ptEsc(_ptMsg(_e,'Failed to load scores.'))+'</div>';
     });
 }
 
@@ -33867,7 +34183,7 @@ function doWatchLive(ov) {
   if(/^[0-9]{4}$/.test(code)){
     // Public endpoint — looks up trip by viewer PIN without auth
     fetch(TOUR_API+'/api/trips/by-viewer-pin/'+encodeURIComponent(code))
-      .then(function(r){return r.json();})
+      .then(_ptJson)
       .then(function(d){
         if(d.error||!d.trip_id){ errEl.textContent='Trip not found for that PIN.'; errEl.style.display='block'; return; }
         if(ov) ov.remove();
@@ -33879,7 +34195,7 @@ function doWatchLive(ov) {
   // 6-char = event code
   if(code.length!==6){ errEl.textContent='Enter a 6-character event code or 4-digit trip PIN.'; errEl.style.display='block'; return; }
   fetch(TOUR_API+'/api/events/watch',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event_code:code})})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       if(d.error){errEl.textContent=d.error==='Incorrect PIN'?'Incorrect PIN.':(d.error||'Not found.');errEl.style.display='block';return;}
       if(ov)ov.remove();
@@ -33927,7 +34243,7 @@ function doJoinValidatePin() {
   // Individual round foursome mode
   if (G._joinMode === 'foursome' && G._joinFoursome) {
     fetch(TOUR_API+'/api/join-round/'+code, pin?{headers:{'X-Team-Pin':pin}}:{})
-      .then(function(r){return r.json();})
+      .then(_ptJson)
       .then(function(d){
         if(btn){btn.disabled=false;btn.textContent=_btnLabel;}
         if(d.error||!d.foursome){errEl.textContent=d.error||'Round not found.';errEl.style.display='block';return;}
@@ -33958,7 +34274,7 @@ function doJoinValidatePin() {
   }
 
   fetch(TOUR_API+'/api/join/'+code, pin?{headers:{'X-Team-Pin':pin}}:{})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       if(btn){btn.disabled=false;btn.textContent=_btnLabel;}
       if(d.error||!d.group){errEl.textContent=d.error||'Group not found.';errEl.style.display='block';return;}
@@ -34021,7 +34337,7 @@ function doJoinValidatePin() {
       } // end _ptProceedToScorer
       if (_gid) {
         fetch(TOUR_API + '/api/scores/group/' + _gid)
-          .then(function(r){ return r.json(); })
+          .then(_ptJson)
           .then(function(ex){
             // Detect existing scores — Worker returns players[].holes dict (1-based hole keys)
             var _exPlayers = ex.players || [];
@@ -34105,7 +34421,7 @@ function ptAssignGroupRoster(eventId,groupId){
 
 function ptAssignLoadCurrentPlayers(groupId){
   fetch(TOUR_API+'/api/events/'+_ptAssignEvId,{headers:{'Authorization':'Bearer '+G.orgToken}})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       var group=(d.groups||[]).find(function(g){return g.id===groupId;});
       var el=document.getElementById('ptAssignCurrentPlayers'); if(!el)return;
@@ -34124,7 +34440,7 @@ function ptAssignLoadCurrentPlayers(groupId){
 function ptAssignRosterSearch(q){
   var url=TOUR_API+'/api/roster'+(q?'?q='+encodeURIComponent(q)+'&limit=20':'?limit=30');
   fetch(url,{headers:{'Authorization':'Bearer '+G.orgToken}})
-    .then(function(r){return r.json();})
+    .then(_ptJson)
     .then(function(d){
       var el=document.getElementById('ptAssignResults'); if(!el)return;
       var players=d.players||[];
@@ -34143,17 +34459,19 @@ function ptAssignAddPlayer(rosterId,name){
   fetch(TOUR_API+'/api/groups/'+_ptAssignGrpId+'/roster',{
     method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({roster_id:rosterId})
-  }).then(function(r){return r.json();}).then(function(d){
-    if(d.error){ptToast(d.error);return;}
+  }).then(_ptJson).catch(_ptNetErr).then(function(d){
+    if(d.error){ptToast('Could not add '+(name||'player')+' — '+d.error);return;}
     ptAssignLoadCurrentPlayers(_ptAssignGrpId);
-  }).catch(function(){ptToast('Network error');});
+  });
 }
 
 function ptAssignRemovePlayer(rosterId){
   fetch(TOUR_API+'/api/groups/'+_ptAssignGrpId+'/roster/'+rosterId,{
     method:'DELETE',headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(){ptAssignLoadCurrentPlayers(_ptAssignGrpId);})
-    .catch(function(){ptToast('Network error');});
+  }).then(_ptJson).catch(_ptNetErr).then(function(d){
+    if(d&&d.error){ptToast('Could not remove that player — '+d.error);return;}
+    ptAssignLoadCurrentPlayers(_ptAssignGrpId);
+  });
 }
 
 function ptAssignGcSearch(){
@@ -34167,7 +34485,7 @@ function ptAssignGcSearch(){
     var parts=name.trim().split(/\s+/);
     var kw=parts.length>=2?parts[parts.length-1].toLowerCase()+', '+parts.slice(0,-1).join(' ').toLowerCase():name.toLowerCase();
     return fetch(_gcWorkerBase()+'/member/search?'+new URLSearchParams({keywords:kw,skip:'0',take:'20'}),{headers:{Authorization:'Bearer '+tok}});
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     var members=Array.isArray(d)?d:(d.data||[]);
     if(!members.length){el.innerHTML='<div style="color:rgba(255,255,255,.25);font-size:13px;padding:12px 0">No Golf Canada results</div>';return;}
     el.innerHTML=members.map(function(m){
@@ -34187,10 +34505,30 @@ function ptAssignGcPick(name,handicap,ghin){
   fetch(TOUR_API+'/api/roster',{
     method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({name:name,handicap:handicap,ghin:ghin})
-  }).then(function(r){return r.json();}).then(function(d){
+  }).then(_ptJson).then(function(d){
     if(!d.player){ptToast(d.error||'Failed');return;}
     ptAssignAddPlayer(d.player.id,d.player.name);
   }).catch(function(){ptToast('Network error');});
+}
+
+// v242.0 (roadmap #2) — the 013208 incident. A lookup that failed left the
+// PREVIOUS code's card on screen with G.joinGroup / G._joinFoursome /
+// G._joinTripData still armed, so "Score for This Team →" scored into the wrong
+// group. Every lookup now clears the card AND the state before it asks the
+// server, and every failure path leaves it cleared.
+function _ptJoinResetCard(){
+  try{
+    G.joinGroup = null; G._joinFoursome = null; G._joinTripData = null; G._joinMode = null;
+    G._pairedGroup = null; G._pairedPlayers = null;
+    ['ptJoinGrpName','ptJoinEvName','ptJoinCrsName'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.textContent='';
+    });
+    var tp=document.getElementById('ptJoinTeamPlayers'); if(tp) tp.innerHTML='';
+    ['ptJoinGroupInfo','ptJoinPinStep','ptJoinScorerStep','ptJoinWatchBtn','ptJoinStatusWarn','ptJoinScrambleNote']
+      .forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='none'; });
+    var sb=document.getElementById('ptJoinScoreBtn');
+    if(sb){ sb.style.display='none'; var b=sb.querySelector('button'); if(b) b.textContent='Score for This Team →'; }
+  }catch(e){ console.warn('[pt-join] reset failed', e); }
 }
 
 function showJoinEvent() {
@@ -34219,10 +34557,11 @@ function doJoinLookup() {
   var errEl=document.getElementById('ptJoinErr');
   var btn=document.getElementById('ptJoinLookupBtn');
   errEl.style.display='none';
-  if(code.length!==6){errEl.textContent='Enter the full 6-character code.';errEl.style.display='block';return;}
+  if(code.length!==6){errEl.textContent='Enter the full 6-character code.';errEl.style.display='block';_ptJoinResetCard();return;}
+  _ptJoinResetCard();
   btn.disabled=true;btn.textContent='Looking up…';
   fetch(TOUR_API+'/api/join/'+code)
-    .then(function(r){return r.json();})
+    .then(_ptJson).then(_ptThrow)
     .then(function(d){
       btn.disabled=false;btn.textContent='Find Group';
       if(d.group){
@@ -34263,16 +34602,17 @@ function doJoinLookup() {
         // Not a team code — try individual round foursome code
         doJoinRoundLookup(code, btn, errEl);
       }
-    }).catch(function(){
+    }).catch(function(_e){
       btn.disabled=false;btn.textContent='Find Group';
-      errEl.textContent='Network error — check connection.';errEl.style.display='block';
+      _ptJoinResetCard();
+      errEl.textContent=_ptMsg(_e,'Network error — check connection.');errEl.style.display='block';
     });
 }
 
 function doJoinRoundLookup(code, btn, errEl) {
   // Try the individual round foursome endpoint
   fetch(TOUR_API+'/api/join-round/'+code)
-    .then(function(r){return r.json();})
+    .then(_ptJson).then(_ptThrow)
     .then(function(d){
       btn.disabled=false; btn.textContent='Find Group';
       if (d.foursome) {
@@ -34294,15 +34634,16 @@ function doJoinRoundLookup(code, btn, errEl) {
         // Not an event round — try trip tee time code
         doJoinTripLookup(code, btn, errEl);
       }
-    }).catch(function(){
+    }).catch(function(_e){
       btn.disabled=false; btn.textContent='Find Group';
-      errEl.textContent='Network error — check connection.'; errEl.style.display='block';
+      _ptJoinResetCard();
+      errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block';
     });
 }
 
 function doJoinTripLookup(code, btn, errEl) {
   fetch(TOUR_API+'/api/join-trip/'+code)
-    .then(function(r){return r.json();})
+    .then(_ptJson).then(_ptThrow)
     .then(function(d){
       btn.disabled=false; btn.textContent='Find Group';
       if(d.foursome){
@@ -34356,11 +34697,13 @@ function doJoinTripLookup(code, btn, errEl) {
         };
         ptLaunchFoursomeRound(foursomeData);
       } else {
+        _ptJoinResetCard();
         errEl.textContent='Code not found — check with your organizer.'; errEl.style.display='block';
       }
-    }).catch(function(){
+    }).catch(function(_e){
       btn.disabled=false; btn.textContent='Find Group';
-      errEl.textContent='Network error — check connection.'; errEl.style.display='block';
+      _ptJoinResetCard();
+      errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block';
     });
 }
 
@@ -35614,7 +35957,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v241.0';
+    const TOUR_VERSION     = 'pards-tour-v242.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
