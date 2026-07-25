@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v220.0 -->
+  <!-- pards-tour-v221.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -31620,17 +31620,75 @@ function ptRbcRenderPreview(teams) {
   preview.innerHTML = html;
 }
 
+// ============ v221.0 — BATCHED IMPORT COMMITS ============
+// The draw/RBC commits used to await 150+ requests one at a time (30 groups +
+// 120 player assigns \u2248 20s) with no visible progress \u2014 the Assign Holes
+// overlay (and its progress button) was removed before the save even started.
+// Now: a small worker pool runs teams concurrently, players within a team post
+// in parallel (draw order preserved by explicit sort_order, not arrival order),
+// and the overlay stays up showing 'Saving\u2026 N/M teams' until the commit ends.
+
+var _PT_IMPORT_LANES = 6;   // concurrent teams in flight
+
+// Run worker(item, index) over items with at most `limit` in flight.
+// A worker that throws is logged and counted done \u2014 one bad team never stalls the pool.
+function _ptTeamPool(items, limit, worker, onProgress) {
+  var next = 0, done = 0;
+  function lane() {
+    if (next >= items.length) return Promise.resolve();
+    var i = next++;
+    return Promise.resolve().then(function(){ return worker(items[i], i); })
+      .catch(function(e){ console.error('[pt-import] team '+(i+1)+' failed:', e); })
+      .then(function(){
+        done++;
+        if (onProgress) { try { onProgress(done); } catch(e){} }
+        return lane();
+      });
+  }
+  var lanes = [];
+  for (var k = 0; k < Math.min(limit, items.length); k++) lanes.push(lane());
+  return Promise.all(lanes);
+}
+
+// Update whichever import button is on screen (draw + RBC share the DA flow).
+function _ptImpBtns(text, disabled) {
+  ['ptImportAllBtn','ptRbcImportBtn'].forEach(function(id){
+    var b = document.getElementById(id);
+    if (b) { b.disabled = !!disabled; b.textContent = text; }
+  });
+}
+
+// Roster-create with an in-flight cache: the same unmatched name appearing in
+// two teams resolves to ONE roster row even when both teams post concurrently.
+var _ptRosterCreatePending = {};
+function _ptRosterCreate(pname, rosterArr) {
+  var key = pname.trim().toLowerCase();
+  if (_ptRosterCreatePending[key]) return _ptRosterCreatePending[key];
+  _ptRosterCreatePending[key] = fetch(TOUR_API+'/api/roster',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
+    body:JSON.stringify({name:pname})
+  }).then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d && d.player) { rosterArr.push(d.player); return d.player.id; }
+      console.error('Create roster player failed:', pname, d && d.error);
+      return null;
+    })
+    .catch(function(e){ console.error('Create roster player failed:', pname, e); return null; });
+  return _ptRosterCreatePending[key];
+}
+
 async function ptRbcCommitImport() {
   var errEl = document.getElementById('ptRbcCommitErr');
   if (errEl) errEl.style.display = 'none';
-  var btn = document.getElementById('ptRbcImportBtn');
-  if (btn) { btn.disabled = true; btn.textContent = 'Importing\u2026'; }
   var teams = _ptRbcImportTeams;
   var eventId = _ptRbcImportEventId;
+  var total = teams.length;
   var failed = [];
+  _ptRosterCreatePending = {};
+  _ptImpBtns('Importing\u2026 0/'+total, true);
 
-  for (var ti = 0; ti < teams.length; ti++) {
-    var team = teams[ti];
+  await _ptTeamPool(teams, _PT_IMPORT_LANES, async function(team, ti) {
     var allNames = [team.captain].concat(team.players);
     // Match all 4 to roster
     var rosterMatches = allNames.map(function(name) {
@@ -31658,54 +31716,29 @@ async function ptRbcCommitImport() {
 
     if (!groupResp || !groupResp.group) {
       failed.push(teamName + ' (hole ' + team.hole + ')');
-      continue;
+      return;
     }
     var groupId = groupResp.group.id;
 
-    // PATCH group with format + team_handicap via name field for now (Worker doesn't have these fields yet)
-    // Store team_handicap in group name as suffix — to be patched when Worker is updated
-    // For now: just store the handicap in a follow-up PATCH to name if needed
-    // (See Worker update notes at bottom)
-
-    // Assign players
-    for (var pi = 0; pi < allNames.length && pi < 4; pi++) {
-      var pname = allNames[pi];
-      if (!pname) continue;
+    // Assign players \u2014 parallel; order preserved by explicit sort_order
+    await Promise.all(allNames.slice(0, 4).map(async function(pname, pi) {
+      if (!pname) return;
       var matched = rosterMatches[pi];
       var rosterId = matched ? matched.id : null;
+      if (!rosterId) rosterId = await _ptRosterCreate(pname, _ptRbcImportRoster);
+      if (!rosterId) return;
+      try {
+        await fetch(TOUR_API + '/api/groups/' + groupId + '/roster', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+          body: JSON.stringify({ roster_id: rosterId, sort_order: pi })
+        });
+      } catch(e) { console.error('Assign player failed:', pname, e); }
+    }));
+  }, function(nDone){ _ptImpBtns('Importing\u2026 '+nDone+'/'+total, true); });
 
-      if (!rosterId) {
-        // Create in roster
-        try {
-          var newPResp = await fetch(TOUR_API + '/api/roster', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
-            body: JSON.stringify({ name: pname })
-          });
-          var newP = await newPResp.json();
-          if (newP && newP.player) {
-            rosterId = newP.player.id;
-            _ptRbcImportRoster.push(newP.player);
-          }
-        } catch(e) { console.error('Create roster player failed:', pname, e); }
-      }
-
-      if (rosterId) {
-        try {
-          await fetch(TOUR_API + '/api/groups/' + groupId + '/roster', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
-            body: JSON.stringify({ roster_id: rosterId, sort_order: pi })
-          });
-        } catch(e) { console.error('Assign player failed:', pname, e); }
-      }
-    }
-
-    // Update button progress
-    if (btn) btn.textContent = 'Importing\u2026 (' + (ti+1) + '/' + teams.length + ')';
-  }
-
-  if (btn) { btn.disabled = false; btn.textContent = 'Import All Teams \u2192'; }
+  _ptImpBtns('Import All Teams \u2192', false);
+  var _daOv = document.getElementById('ptDAOv'); if (_daOv) _daOv.remove();
   if (failed.length) {
     if (errEl) {
       errEl.innerHTML = '<b>' + failed.length + ' groups failed:</b> ' + failed.join(', ');
@@ -32126,13 +32159,19 @@ async function ptCommitDrawImport() {
   if(errEl) errEl.style.display='none';
   var teams = _ptDrawImportTeams;
   var eventId = _ptDrawImportEventId;
-  var btn = document.getElementById('ptImportAllBtn');
-  if(btn){btn.disabled=true;btn.textContent='Saving\u2026';}
+  var total = teams.length;
   var failed = [];
-  for (var ti=0; ti<teams.length; ti++) {
-    var team = teams[ti];
-    var nameEl = document.getElementById('ptDrawTeamName_'+ti);
-    var teamName = nameEl ? nameEl.value.trim() : (team.captain+' Team');
+  _ptRosterCreatePending = {};
+  // Snapshot editable team names synchronously \u2014 the inputs sit on the screen
+  // beneath the Assign Holes overlay and must be read before any await
+  var teamNames = teams.map(function(t, ti){
+    var el = document.getElementById('ptDrawTeamName_'+ti);
+    return (el && el.value.trim()) || (t.captain+' Team');
+  });
+  _ptImpBtns('Saving\u2026 0/'+total+' teams', true);
+
+  await _ptTeamPool(teams, _PT_IMPORT_LANES, async function(team, ti) {
+    var teamName = teamNames[ti];
     // Create group
     var groupResp = await fetch(TOUR_API+'/api/events/'+eventId+'/groups',{
       method:'POST',
@@ -32141,13 +32180,13 @@ async function ptCommitDrawImport() {
     }).then(function(r){return r.json();}).catch(function(){return null;});
     if(!groupResp||!groupResp.group){
       failed.push(teamName+' (hole '+team.hole+')');
-      continue;
+      return;
     }
     var groupId = groupResp.group.id;
-    // Assign players — check manually resolved overrides first
-    var allPlayers = [team.captain].concat(team.players||[]);
-    for (var pi=0; pi<allPlayers.length&&pi<4; pi++) {
-      var pname = allPlayers[pi]; if(!pname) continue;
+    // Assign players \u2014 parallel; pi=0 is captain, draw order preserved by explicit sort_order
+    var allPlayers = [team.captain].concat(team.players||[]).slice(0,4);
+    await Promise.all(allPlayers.map(async function(pname, pi) {
+      if(!pname) return;
       var resolveKey = ti+'_'+pi;
       var resolved = _ptDrawResolvedPlayers[resolveKey];
       var rosterId = null;
@@ -32158,37 +32197,22 @@ async function ptCommitDrawImport() {
         var match = _ptMatchToRoster(pname, _ptDrawImportRoster);
         rosterId = match.player ? match.player.id : null;
       }
-      if (!rosterId) {
-        // Create in roster
-        try {
-          var newPResp = await fetch(TOUR_API+'/api/roster',{
-            method:'POST',
-            headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
-            body:JSON.stringify({name:pname})
-          });
-          var newP = await newPResp.json();
-          if(newP&&newP.player) {
-            rosterId=newP.player.id;
-            _ptDrawImportRoster.push(newP.player);
-          }
-        } catch(e) { console.error('Create roster player failed:',pname,e); }
-      }
-      if(rosterId) {
-        try {
-          // pi=0 is captain (sort_order=0), others get sort_order=pi to preserve draw order
-          var assignResp = await fetch(TOUR_API+'/api/groups/'+groupId+'/roster',{
-            method:'POST',
-            headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
-            body:JSON.stringify({roster_id:rosterId, sort_order:pi})
-          });
-          var assignData = await assignResp.json();
-          if(assignData.error) console.error('Assign player failed:',pname,assignData.error);
-        } catch(e) { console.error('Assign player network error:',pname,e); }
-      }
-    }
-  }
-  if(btn){btn.disabled=false;btn.textContent='Save Draw →';}
-  // Always close overlays and reload — remove() is safe even if already gone
+      if (!rosterId) rosterId = await _ptRosterCreate(pname, _ptDrawImportRoster);
+      if (!rosterId) return;
+      try {
+        var assignResp = await fetch(TOUR_API+'/api/groups/'+groupId+'/roster',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
+          body:JSON.stringify({roster_id:rosterId, sort_order:pi})
+        });
+        var assignData = await assignResp.json();
+        if(assignData.error) console.error('Assign player failed:',pname,assignData.error);
+      } catch(e) { console.error('Assign player network error:',pname,e); }
+    }));
+  }, function(nDone){ _ptImpBtns('Saving\u2026 '+nDone+'/'+total+' teams', true); });
+
+  _ptImpBtns('Save Draw \u2192', false);
+  // Always close overlays and reload \u2014 remove() is safe even if already gone
   var _dOv = document.getElementById('ptDrawImportOv'); if(_dOv) _dOv.remove();
   var _aOv = document.getElementById('ptDAOv'); if(_aOv) _aOv.remove();
   if(failed.length){
@@ -32517,7 +32541,11 @@ function ptDAConfirm() {
       _ptDA.teams[ti].start_time = slot.start_time || null;
     });
   });
-  var ov = document.getElementById('ptDAOv'); if (ov) ov.remove();
+  // v221.0 \u2014 keep the overlay up so save progress is visible on its button;
+  // the commit functions close it when they finish. Frozen so nothing can be
+  // reassigned (or Backed out of) mid-save.
+  var ov = document.getElementById('ptDAOv');
+  if (ov) { ov.style.pointerEvents='none'; ov.style.opacity='.85'; }
   // Trigger the right commit path
   if (_ptDA.source === 'rbc') ptRbcCommitImport();
   else ptCommitDrawImport();
@@ -34904,7 +34932,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v220.0';
+    const TOUR_VERSION     = 'pards-tour-v221.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
