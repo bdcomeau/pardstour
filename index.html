@@ -12821,6 +12821,7 @@ function saveAndEndRound(){
   document.getElementById('holeBadge').style.display='none';
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-setup').classList.add('active'); if(typeof syncBottomBars==='function') syncBottomBars();
+  var _hbf = document.getElementById('ptHomeBtn'); if(_hbf) _hbf.style.display = 'block';
   initSetup();
   resetGameUI();
   try { window.scrollTo(0, 0); } catch(_){}
@@ -12857,6 +12858,7 @@ function abandonRound(){
   document.getElementById('intlBadge').style.display='none';
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-setup').classList.add('active'); if(typeof syncBottomBars==='function') syncBottomBars();
+  var _hba = document.getElementById('ptHomeBtn'); if(_hba) _hba.style.display = 'block';
   initSetup();
   resetGameUI();
   try { window.scrollTo(0, 0); } catch(_){}
@@ -18135,6 +18137,11 @@ function closeSideBets(){
   }
 }
 
+function updateInternationalBadge(){
+  var intl = G.internationals && Object.keys(G.internationals).length > 0;
+  var el = document.getElementById('intlBadge');
+  if(el) el.style.display = intl ? 'inline-flex' : 'none';
+}
 function updateBirdieJuiceBadge(){
   var earned = (G.birdieJuice && G.birdieJuice.earned) ? G.birdieJuice.earned.length : 0;
   var b1 = document.getElementById('bjBadge');
@@ -22218,7 +22225,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v5.99';
+const CURRENT_VERSION = 'pards-tour-v6.00';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -31930,7 +31937,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v5.99';
+const CACHE='pards-tour-v6.00';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
