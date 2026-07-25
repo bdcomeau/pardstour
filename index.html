@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v211.0 -->
+  <!-- pards-tour-v212.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -25561,7 +25561,7 @@ function ptRosterSearchDebounce() {
 function ptShowAddRosterPlayer() { ptShowRosterPlayerSheet(null); }
 function ptShowEditRosterPlayer(player) { ptShowRosterPlayerSheet(player); }
 
-function ptShowRosterPlayerSheet(player) {
+function ptShowRosterPlayerSheet(player, opts) {
   var isEdit = !!player;
   var ov = document.createElement('div');
   ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.75);display:flex;align-items:flex-end;overflow-y:auto';
@@ -25598,6 +25598,7 @@ function ptShowRosterPlayerSheet(player) {
   ov.appendChild(inner);
   ov.addEventListener('click', function(e){ if(e.target===ov) ov.remove(); });
   document.body.appendChild(ov);
+  if(opts && opts.tripId){ ov.setAttribute('data-add-to-trip', String(opts.tripId)); }
 }
 
 function ptSaveRosterPlayer(playerId, overlay) {
@@ -25619,7 +25620,25 @@ function ptSaveRosterPlayer(playerId, overlay) {
     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
     body: JSON.stringify(payload)
   }).then(function(r){ return r.json(); }).then(function(d) {
-    if (d.player || d.ok) { if (overlay) overlay.remove(); ptLoadRoster(); }
+    if (d.player || d.ok) {
+      var _addTrip = (overlay && overlay.getAttribute) ? overlay.getAttribute('data-add-to-trip') : null;
+      var _newId = d.player ? d.player.id : null;
+      if (_addTrip && _newId) {
+        // Created from a trip/league Add-Players flow → also add to that trip, no roster screen needed
+        fetch(TOUR_API + '/api/trips/' + _addTrip + '/players', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+          body: JSON.stringify({ roster_id: _newId })
+        }).catch(function(){}).then(function(){
+          if (overlay) overlay.remove();
+          if (typeof ptLoadTripDetail === 'function') ptLoadTripDetail(_addTrip);
+          var _s = document.getElementById('ptTripPlayerSearch');
+          if (_s && typeof ptSearchTripPlayers === 'function') { _s.value=''; ptSearchTripPlayers(_addTrip, ''); }
+        });
+      } else {
+        if (overlay) overlay.remove(); ptLoadRoster();
+      }
+    }
     else { btn.disabled=false; btn.textContent='Save'; errEl.textContent=d.error||'Failed.'; errEl.style.display='block'; }
   }).catch(function() { btn.disabled=false; btn.textContent='Save'; errEl.textContent='Network error.'; errEl.style.display='block'; });
 }
@@ -27087,6 +27106,7 @@ window.ptAddTripPlayerUI = function(tripId) {
   ov.innerHTML = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:20px 20px 40px;width:100%;box-sizing:border-box;max-height:80vh;overflow-y:auto">'
     +'<div style="font-size:15px;font-weight:800;color:#c9a84c;margin-bottom:14px">Add Players to Trip</div>'
     +'<input id="ptTripPlayerSearch" type="text" placeholder="Search roster…" oninput="ptSearchTripPlayers('+tripId+')" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none;margin-bottom:10px">'
+    +'<button onclick="ptShowRosterPlayerSheet(null,{tripId:'+tripId+'})" style="width:100%;padding:11px;background:rgba(168,213,181,.12);border:1.5px dashed rgba(168,213,181,.4);border-radius:10px;color:#a8d5b5;font-size:13px;font-weight:800;cursor:pointer;margin-bottom:12px">➕ New player — manual or 🍁 Golf Canada (adds to roster + here)</button>'
     +'<div id="ptTripPlayerResults" style="max-height:300px;overflow-y:auto"></div>'
     +'<button onclick="document.getElementById(\'ptAddTripPlayerOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;margin-top:10px">Done</button>'
     +'</div>';
@@ -34146,7 +34166,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v211.0';
+    const TOUR_VERSION     = 'pards-tour-v212.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
