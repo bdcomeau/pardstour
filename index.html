@@ -9125,6 +9125,9 @@ function _doStartRound(){
   haptic('medium');
   const _dm=document.getElementById('deckPickerModal'); if(_dm) _dm.remove();
   const err=document.getElementById('setupErr');err.textContent='';
+  // Clear any leftover tournament context from a previous event/league round
+  G._tournamentRound = null;
+  G._tournamentSubmitted = false;
   G.startHole = parseInt(document.getElementById('startHoleSel').value, 10) || 1;
   // Save trip context so _doStartRound doesn't lose it
   var _ptSavedTripCtx = (G.players||[]).map(function(p){ return { _trip_player_id: p._trip_player_id||null, _roster_id: p._roster_id||null }; });
@@ -22225,7 +22228,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v6.01';
+const CURRENT_VERSION = 'pards-tour-v6.02';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -31942,7 +31945,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v6.01';
+const CACHE='pards-tour-v6.02';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
