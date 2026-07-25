@@ -12816,6 +12816,7 @@ function saveAndEndRound(){
   G.birdieJuice={earned:[],redeemed:0,enabled:true};
   G.roundDate=null; G.roundEnd=null; G.weatherStart=null; G.weatherEnd=null;
   G.scorecardOnly=false; G.startHole=1; G.hole=0;
+  G._tournamentRound = null; G._tournamentSubmitted = false;
   saveG();
   // Go to clean setup screen
   localStorage.removeItem('pards_setup_state');
@@ -22228,7 +22229,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v6.02';
+const CURRENT_VERSION = 'pards-tour-v6.03';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -22687,6 +22688,42 @@ function showHome() {
     ptShowTripTeeSheet(_lts.tripId, _lts.roundId, window._ptTeeTimeCache && window._ptTeeTimeCache[_lts.roundId]);
     return;
   }
+  // Full reset — home screen is always a fresh slate
+  G.mode = 'local';
+  G.joinGroup = null;
+  G._pairedGroup = null;
+  G._pairedPlayers = [];
+  G._scoringForCode = null;
+  G._scoringForGroup = null;
+  G._refScores = Array(18).fill(null);
+  G.scorecardOnly = false;
+  G.scores = [];
+  G.players = [];
+  G.n = 4;
+  G.hole = 0;
+  G.roundDate = null;
+  G.roundEnd = null;
+  G._tournamentRound = null;
+  G._tournamentSubmitted = false;
+  G.scrambleMode = false;
+  G.scrambleFormat = null;
+  G.pairedTeam = null;
+  G.teamGames = [];
+  G.singleGames = [];
+  G.sixPointGames = [];
+  G.stablefordGames = [];
+  G.skinsGames = [];
+  G.vegasGames = [];
+  G.birdieJuice = { earned: [], redeemed: 0, enabled: true };
+  G.snake = { enabled: false, holder: null, history: [], bet: 5, settlements: [], participants: [], h18confirmed: false };
+  G.matchCards = { enabled: false, opponents: [] };
+  G.internationals = {};
+  G.firstScoreAt = null;
+  G.autoAdvance = false;
+  G._editingHistoryIdx = -1;
+  G.startHole = 1;
+  localStorage.removeItem('pards_G');
+  localStorage.removeItem('pards_G_backup');
   _ptShow('ptHomeOverlay');
   var _hdr = document.querySelector('.hdr'); if (_hdr) _hdr.style.display = '';
   var _sb = document.getElementById('setupBar'); if (_sb) { _sb.classList.remove('show'); _sb.style.display = ''; }
@@ -31945,7 +31982,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v6.02';
+const CACHE='pards-tour-v6.03';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
