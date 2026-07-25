@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v201.0 -->
+  <!-- pards-tour-v202.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -28391,7 +28391,6 @@ function loadOrgEventDetail(eventId) {
           +'<div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px">'
           +'<div style="font-size:24px;font-weight:900;color:#c9a84c;letter-spacing:4px;font-family:monospace">'+g.code+'</div>'
           +'<div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:4px">join code</div>'
-          +(g.team_pin?'<div style="font-size:10px;color:rgba(255,255,255,.3)">PIN <span style="font-weight:900;color:rgba(201,168,76,.7);letter-spacing:2px;font-family:monospace">'+g.team_pin+'</span></div>':'')
           +'<button onclick="ptEditGroup('+ev.id+','+g.id+')" style="margin-top:4px;padding:5px 10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);border-radius:8px;color:#c9a84c;font-size:11px;font-weight:700;cursor:pointer">&#9998; Edit</button>'
           +'<button onclick="ptAssignGroupRoster('+ev.id+','+g.id+')" style="margin-top:4px;padding:5px 10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer">👥 Players</button>'
           +'</div>'
@@ -30588,438 +30587,6 @@ function ptPrintFinalResults(eventId) {
 }
 
 
-// ── Individual Round Scorecard ────────────────────────────────
-// State
-var _IR = {
-  foursome: null,   // foursome object from API
-  players: [],      // [{roster_id, name, handicap, group_id, team_name}]
-  scores: {},       // {roster_id: {hole: gross_score}} (1-indexed)
-  par: [],          // 18-element array
-  si: [],           // 18-element stroke index array
-  courseId: null,
-  tee: null,
-  curHole: 1,       // 1-indexed
-  pending: null,    // {roster_id, hole, val}
-};
-
-function ptLaunchIndividualScorecard(foursomeData) {
-  _IR.foursome = foursomeData.foursome;
-  _IR.players = foursomeData.players || [];
-  _IR.curHole = 1;
-  _IR.pending = null;
-
-  // Get course/SI/par
-  var courseId = _IR.foursome.course_id;
-  var tee = _IR.foursome.tee;
-  var course = courseId ? PARDS_COURSES.find(function(c){return c.id===courseId;}) : null;
-  if (!course) course = PARDS_COURSES.find(function(c){return c.id==='derrick-gwc';});
-  _IR.par = course ? course.par : Array(18).fill(4);
-  _IR.si  = course ? course.si  : Array.from({length:18},function(_,i){return i+1;});
-
-  // Load existing scores
-  _IR.scores = {};
-  _IR._submitted = false;
-  _IR.players.forEach(function(p) {
-    _IR.scores[p.roster_id] = {};
-    var ex = (foursomeData.existing_scores||{})[p.roster_id] || {};
-    Object.keys(ex).forEach(function(h){ _IR.scores[p.roster_id][parseInt(h)] = ex[h]; });
-  });
-
-  // Create dedicated full-screen overlay — do NOT touch Pards Golf screens
-  var existing = document.getElementById('ptIndvOv');
-  if (existing) existing.remove();
-  var ov = document.createElement('div');
-  ov.id = 'ptIndvOv';
-  ov.style.cssText = 'position:fixed;inset:0;z-index:500;background:#1a2e1a;overflow-y:auto;-webkit-overflow-scrolling:touch';
-  ov.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px;background:#0f1f14;border-bottom:1px solid rgba(201,168,76,.2);position:sticky;top:0;z-index:10">'    + '<button onclick="ptIndvExit()" style="background:none;border:none;color:rgba(201,168,76,.7);font-size:22px;cursor:pointer;padding:0;line-height:1">&larr;</button>'    + '<div style="font-size:13px;font-weight:800;color:#c9a84c">Individual Scorecard</div>'    + '<div style="width:32px"></div>'    + '</div>'    + '<div id="ptIndvBody" style="padding:8px 0 120px"></div>';
-  document.body.appendChild(ov);
-
-  // Hide tour overlays
-  _ptHideAll();
-
-  // Set mode flag
-  G._indvRound = true;
-
-  ptRenderIndvCard();
-}
-
-function ptRenderIndvCard() {
-  var body = document.getElementById('ptIndvBody');
-  if (!body) return;
-
-  var h = _IR.curHole;
-  var par = _IR.par[h-1];
-  var si  = _IR.si[h-1];
-  var html = '';
-
-  // Header
-  html += '<div class="shdr" id="ptIndvShdr">';
-  html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:0 4px">';
-  html += '<div style="font-size:13px;font-weight:700;color:#c9a84c">'+_IR.foursome.event_name+'</div>';
-  html += '<div style="font-size:13px;font-weight:800;color:#f5e6b8">Round '+_IR.foursome.round_number+'</div>';
-  html += '</div>';
-  // Hole navigation
-  html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0 2px">';
-  html += '<button ontouchstart="event.preventDefault();ptIndvGoH(-1)" onclick="ptIndvGoH(-1)" style="width:44px;height:44px;background:rgba(255,255,255,.1);border:none;border-radius:10px;color:#fff;font-size:20px;cursor:pointer">&#9664;</button>';
-  html += '<div style="text-align:center">';
-  html += '<div style="font-size:28px;font-weight:900;color:#f5e6b8">Hole '+h+'</div>';
-  html += '<div style="font-size:13px;color:rgba(255,255,255,.5)">Par '+par+' &nbsp;&middot;&nbsp; SI '+si+'</div>';
-  html += '</div>';
-  html += '<button ontouchstart="event.preventDefault();ptIndvGoH(1)" onclick="ptIndvGoH(1)" style="width:44px;height:44px;background:rgba(255,255,255,.1);border:none;border-radius:10px;color:#fff;font-size:20px;cursor:pointer">&#9654;</button>';
-  html += '</div>';
-  html += '</div>'; // end shdr
-
-  // Player cards
-  _IR.players.forEach(function(p) {
-    var gross = _IR.scores[p.roster_id] ? (_IR.scores[p.roster_id][h] !== undefined ? _IR.scores[p.roster_id][h] : null) : null;
-    var isPending = _IR.pending && _IR.pending.roster_id===p.roster_id && _IR.pending.hole===h;
-    var pendingVal = isPending ? _IR.pending.val : null;
-
-    // Course handicap → strokes on this hole
-    var teeData = ptResolveCourse(_IR.foursome.course_id, _IR.foursome.tee);
-    var courseHdcp = p.handicap != null ? Math.round(ptCalcCourseHandicap(p.handicap, teeData.slope, teeData.rating, teeData.par)) : 0;
-    var strokes = courseHdcp >= si ? (courseHdcp >= si + 18 ? 2 : 1) : 0;
-
-    var sc = gross !== null ? ptIndvScoreClass(gross, par, strokes) : {box:'',lbl:'',lblCls:''};
-    var anchor = isPending ? pendingVal : (gross !== null ? gross : par + 1);
-
-    // Card border based on score
-    var cardBorder = gross !== null ? ptIndvCardBorder(sc.box) : 'border:2px solid rgba(201,168,76,.4);animation:pulse-card 1.6s ease-in-out infinite';
-
-    html += '<div class="pcard" style="background:#fff;border-radius:14px;margin:8px;padding:10px 12px;'+cardBorder+'">';
-
-    // Player header
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">';
-    html += '<div>';
-    html += '<div style="font-size:14px;font-weight:800;color:#1a1a1a">'+p.name+'</div>';
-    html += '<div style="font-size:11px;color:#888">'+p.team_name+(p.handicap!=null?' &middot; Hdcp '+p.handicap:'')+(strokes?' &middot; <span style="color:#e74c3c;font-weight:700">+'+strokes+' stroke'+(strokes>1?'s':'')+'</span>':'')+'</div>';
-    html += '</div>';
-    // To-par pill
-    var scored = Object.keys(_IR.scores[p.roster_id]||{}).filter(function(hk){return _IR.scores[p.roster_id][hk]!==null;});
-    if (scored.length > 0) {
-      var grossTotal = scored.reduce(function(a,hk){return a+_IR.scores[p.roster_id][hk];},0);
-      var parTotal = scored.reduce(function(a,hk){return a+_IR.par[parseInt(hk)-1];},0);
-      var diff = grossTotal - parTotal;
-      var pillBg = diff<0?'#27ae60':diff===0?'#2563eb':'#e74c3c';
-      var pillLbl = diff===0?'E':(diff>0?'+'+diff:''+diff);
-      html += '<div style="font-size:11px;font-weight:900;padding:3px 8px;border-radius:8px;background:'+pillBg+';color:#fff">'+pillLbl+'</div>';
-    }
-    html += '</div>';
-
-    // Score strip
-    html += ptIndvBuildScoreStrip(p.roster_id, h);
-
-    // Score wheel
-    html += ptIndvBuildWheel(p.roster_id, h, par, strokes, gross, isPending, pendingVal, anchor);
-
-    html += '</div>'; // end pcard
-  });
-
-  // Complete button
-  var allDone = _IR.players.every(function(p){
-    return Object.keys(_IR.scores[p.roster_id]||{}).length >= 18;
-  });
-  html += '<div style="padding:12px 8px 40px">';
-  if (allDone) {
-    html += '<button onclick="ptIndvComplete()" style="width:100%;padding:16px;background:#27ae60;color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer">Submit Round &#10003;</button>';
-  } else {
-    var totalScored = _IR.players.reduce(function(a,p){return a+Object.keys(_IR.scores[p.roster_id]||{}).length;},0);
-    var totalNeeded = _IR.players.length * 18;
-    html += '<div style="text-align:center;font-size:12px;color:rgba(255,255,255,.4);padding:8px">'+totalScored+' / '+totalNeeded+' scores entered</div>';
-    html += '<button onclick="ptIndvSave()" style="width:100%;padding:14px;background:rgba(201,168,76,.15);border:1.5px solid rgba(201,168,76,.4);border-radius:14px;font-size:14px;font-weight:700;color:#c9a84c;cursor:pointer">Save Progress</button>';
-  }
-  html += '</div>';
-
-  body.innerHTML = html;
-}
-
-function ptIndvScoreClass(gross, par, strokes) {
-  var net = gross - strokes;
-  var toPar = net - par;
-  if (gross === 1)  return {box:'eagle',    lbl:'Ace',       lblCls:'eagle-lbl'};
-  if (toPar <= -2)  return {box:'eagle',    lbl:'Eagle',     lblCls:'eagle-lbl'};
-  if (toPar === -1) return {box:'birdie',   lbl:'Birdie',    lblCls:'birdie-lbl'};
-  if (toPar === 0)  return {box:'par-score',lbl:'Par',       lblCls:'par-lbl'};
-  if (toPar === 1)  return {box:'bogey',    lbl:'Bogey',     lblCls:'bogey-lbl'};
-  if (toPar === 2)  return {box:'double',   lbl:'Double',    lblCls:'double-lbl'};
-  if (toPar === 3)  return {box:'triple',   lbl:'Triple',    lblCls:'triple-lbl'};
-  if (toPar >= 4)   return {box:'quad',     lbl:'+'+toPar,   lblCls:'quad-lbl'};
-  return {box:'',lbl:'',lblCls:''};
-}
-
-function ptIndvCardBorder(box) {
-  var map = {
-    'eagle':    'border:3px solid #1b5e20;box-shadow:0 0 0 3px rgba(27,94,32,.3)',
-    'birdie':   'border:3px solid #2e7d32;box-shadow:0 0 0 3px rgba(46,125,50,.25)',
-    'par-score':'border:3px solid #2d6a4f;box-shadow:0 0 0 3px rgba(45,106,79,.2)',
-    'bogey':    'border:3px solid #c0392b;box-shadow:0 0 0 3px rgba(192,57,43,.25)',
-    'double':   'border:3px solid #b71c1c;box-shadow:0 0 0 3px rgba(183,28,28,.3)',
-    'triple':   'border:3px solid #880e4f;box-shadow:0 0 0 3px rgba(136,14,79,.3)',
-    'quad':     'border:3px solid #6a0dad;box-shadow:0 0 0 3px rgba(106,13,173,.3)',
-  };
-  return map[box] || 'border:2px solid rgba(201,168,76,.3)';
-}
-
-function ptIndvBuildScoreStrip(rosterId, curHole) {
-  var scores = _IR.scores[rosterId] || {};
-  var cells = '';
-  for (var i = 1; i <= 18; i++) {
-    var s = scores[i] !== undefined ? scores[i] : null;
-    var isCur = i === curHole;
-    var par = _IR.par[i-1];
-    var bg = isCur ? 'rgba(201,168,76,.25)' : 'transparent';
-    var inner = '';
-    if (s === null) {
-      inner = '<span style="font-size:6px;color:rgba(0,0,0,.15)">&#9679;</span>';
-    } else {
-      var diff = s - par;
-      var pillBg = s===1?'#27ae60':diff<=-2?'#e67e22':diff===-1?'#e74c3c':diff===0?'#2563eb':diff===1?'#dde0e3':'#1a1a1a';
-      var pillTxt = diff===1?'#1a1a1a':'#fff';
-      inner = '<span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:3px;font-size:10px;font-weight:900;background:'+pillBg+';color:'+pillTxt+'">'+s+'</span>';
-    }
-    if (i === 10) {
-      var ft = 0, fok = true;
-      for (var fi=1;fi<=9;fi++){if(scores[fi]===undefined||scores[fi]===null){fok=false;break;}ft+=scores[fi];}
-      var fp = _IR.par.slice(0,9).reduce(function(a,b){return a+b;},0);
-      var fd = fok?ft-fp:null;
-      var fBg = fd===null?'transparent':fd<0?'#e74c3c':fd===0?'#2563eb':'#dde0e3';
-      var fTxt = fd===null?'rgba(201,168,76,.3)':fd>0?'#1a1a1a':'#fff';
-      cells += '<div style="display:flex;align-items:center;justify-content:center;flex:0 0 26px;border-left:1px solid rgba(201,168,76,.25);border-right:1px solid rgba(201,168,76,.25)"><span style="display:inline-flex;align-items:center;justify-content:center;min-width:22px;padding:0 3px;height:18px;border-radius:3px;font-size:11px;font-weight:900;background:'+fBg+';color:'+fTxt+'">'+(fok?ft:'&#183;')+'</span></div>';
-    }
-    cells += '<div style="display:flex;align-items:center;justify-content:center;flex:1;background:'+bg+'">'+inner+'</div>';
-  }
-  // B9
-  var bt=0, bok=true;
-  for(var bi=10;bi<=18;bi++){if(scores[bi]===undefined||scores[bi]===null){bok=false;break;}bt+=scores[bi];}
-  var bp=_IR.par.slice(9,18).reduce(function(a,b){return a+b;},0);
-  var bd=bok?bt-bp:null;
-  var bBg=bd===null?'transparent':bd<0?'#e74c3c':bd===0?'#2563eb':'#dde0e3';
-  var bTxt=bd===null?'rgba(201,168,76,.3)':bd>0?'#1a1a1a':'#fff';
-  cells+='<div style="display:flex;align-items:center;justify-content:center;flex:0 0 26px;border-left:1px solid rgba(201,168,76,.25);border-right:1px solid rgba(201,168,76,.25)"><span style="display:inline-flex;align-items:center;justify-content:center;min-width:22px;padding:0 3px;height:18px;border-radius:3px;font-size:11px;font-weight:900;background:'+bBg+';color:'+bTxt+'">'+(bok?bt:'&#183;')+'</span></div>';
-  // Total
-  var allS=Object.values(scores).filter(function(x){return x!==null&&x!==undefined;});
-  var tot=allS.length>0?allS.reduce(function(a,b){return a+b;},0):null;
-  var tp=_IR.par.reduce(function(a,b){return a+b;},0);
-  var td=tot!==null?tot-tp:null;
-  var tBg=td===null?'transparent':td<0?'#e74c3c':td===0?'#2563eb':'#dde0e3';
-  var tTxt=td===null?'rgba(201,168,76,.3)':td>0?'#1a1a1a':'#fff';
-  cells+='<div style="display:flex;align-items:center;justify-content:center;flex:0 0 30px"><span style="display:inline-flex;align-items:center;justify-content:center;min-width:22px;padding:0 3px;height:18px;border-radius:3px;font-size:11px;font-weight:900;background:'+tBg+';color:'+tTxt+'">'+(tot!==null?tot:'&#183;')+'</span></div>';
-
-  return '<div style="display:flex;align-items:center;width:100%;background:#eee9dd;height:22px;border-top:1px solid rgba(201,168,76,.35);margin-bottom:8px">'+cells+'</div>';
-}
-
-function ptIndvBuildWheel(rosterId, h, par, strokes, gross, isPending, pendingVal, anchor) {
-  var scClass = gross !== null ? ptIndvScoreClass(gross, par, strokes) : {box:'',lbl:'',lblCls:''};
-
-  function sideNum(v) {
-    if (v < 1 || v > 15) return '<div class="drum-side drum-far" style="visibility:hidden"><div class="drum-side-num">&nbsp;</div><div class="drum-side-lbl">&nbsp;</div></div>';
-    var s = ptIndvScoreClass(v, par, strokes);
-    return '<div class="drum-side" onclick="ptIndvDirect(\''+rosterId+'\','+h+','+v+')" style="cursor:pointer"><div class="drum-side-num '+s.lblCls+'">'+v+'</div><div class="drum-side-lbl">'+s.lbl+'</div></div>';
-  }
-  function sideFar(v) {
-    if (v < 1 || v > 15) return '<div class="drum-side drum-far" style="visibility:hidden"><div class="drum-side-num">&nbsp;</div><div class="drum-side-lbl">&nbsp;</div></div>';
-    var s = ptIndvScoreClass(v, par, strokes);
-    return '<div class="drum-side drum-far" onclick="ptIndvDirect(\''+rosterId+'\','+h+','+v+')" style="cursor:pointer"><div class="drum-side-num '+s.lblCls+'">'+v+'</div><div class="drum-side-lbl">'+s.lbl+'</div></div>';
-  }
-
-  var leftArrow = '<button class="sw-btn" ontouchstart="event.preventDefault();ptIndvArrow(\''+rosterId+'\','+h+',-1)" onclick="ptIndvArrow(\''+rosterId+'\','+h+',-1)">&#9664;</button>';
-  var rightArrow = '<button class="sw-btn" ontouchstart="event.preventDefault();ptIndvArrow(\''+rosterId+'\','+h+',1)" onclick="ptIndvArrow(\''+rosterId+'\','+h+',1)">&#9654;</button>';
-
-  var centre;
-  if (isPending) {
-    var psc = ptIndvScoreClass(pendingVal, par, strokes);
-    centre = '<div class="sw-score sw-pending" ontouchstart="ptIndvSwipeStart(\''+rosterId+'\','+h+',event)" ontouchmove="ptIndvSwipeMove(event)" ontouchend="if(ptIndvSwipeEnd()===false)ptIndvCommit(\''+rosterId+'\','+h+')" onclick="ptIndvCommit(\''+rosterId+'\','+h+')"><div class="sw-num">'+pendingVal+'</div><div class="sw-label '+psc.lblCls+'">'+(psc.lbl||'TAP TO ENTER')+'</div></div>';
-  } else if (gross === null) {
-    centre = '<div class="sw-score sw-unset" ontouchstart="ptIndvSwipeStart(\''+rosterId+'\','+h+',event)" ontouchmove="ptIndvSwipeMove(event)" ontouchend="if(ptIndvSwipeEnd()===false)ptIndvSetTypical(\''+rosterId+'\','+h+')" onclick="ptIndvSetTypical(\''+rosterId+'\','+h+')"><div class="sw-num sw-num-par-hint">'+anchor+'</div><div class="sw-label sw-lbl-hint '+ptIndvScoreClass(anchor,par,strokes).lblCls+'">'+ptIndvScoreClass(anchor,par,strokes).lbl+'</div></div>';
-  } else {
-    centre = '<div class="sw-score '+scClass.box+'" ontouchstart="ptIndvSwipeStart(\''+rosterId+'\','+h+',event)" ontouchmove="ptIndvSwipeMove(event)" ontouchend="ptIndvSwipeEnd()"><div class="sw-num">'+gross+'</div><div class="sw-label '+scClass.lblCls+'">'+scClass.lbl+'</div></div>';
-  }
-
-  return '<div class="drum-row">'+leftArrow+sideFar(anchor-2)+sideNum(anchor-1)+centre+sideNum(anchor+1)+sideFar(anchor+2)+rightArrow+'</div>';
-}
-
-// Wheel interactions
-var _irTouch = {rid:null,h:null,x0:null,y0:null,axis:null,moved:false};
-
-function ptIndvArrow(rid, h, dir) {
-  var base = (_IR.pending && _IR.pending.roster_id===rid && _IR.pending.hole===h) ? _IR.pending.val
-    : (_IR.scores[rid] && _IR.scores[rid][h] !== undefined ? _IR.scores[rid][h] : _IR.par[h-1]+1);
-  var next = base + dir;
-  if (next < 1 || next > 15) return;
-  _IR.pending = {roster_id:rid, hole:h, val:next};
-  ptRenderIndvCard();
-}
-
-function ptIndvCommit(rid, h) {
-  if (!(_IR.pending && _IR.pending.roster_id===rid && _IR.pending.hole===h)) return;
-  var val = _IR.pending.val;
-  _IR.pending = null;
-  if (!_IR.scores[rid]) _IR.scores[rid] = {};
-  _IR.scores[rid][h] = val;
-  ptRenderIndvCard();
-  _ptCheckIndvComplete();
-}
-
-function ptIndvDirect(rid, h, val) {
-  if (val < 1 || val > 15) return;
-  _IR.pending = null;
-  if (!_IR.scores[rid]) _IR.scores[rid] = {};
-  _IR.scores[rid][h] = val;
-  ptRenderIndvCard();
-  _ptCheckIndvComplete();
-}
-
-function _ptCheckIndvComplete() {
-  if (_IR._submitted) return;
-  var totalNeeded = _IR.players.length * 18;
-  var totalScored = _IR.players.reduce(function(a, p) {
-    return a + Object.keys(_IR.scores[p.roster_id] || {}).length;
-  }, 0);
-  if (totalScored < totalNeeded) return;
-  _IR._submitted = true;
-  // Auto-submit all scores
-  var promises = [];
-  _IR.players.forEach(function(p) {
-    var holeScores = _IR.scores[p.roster_id] || {};
-    var scoreArr = Object.keys(holeScores).map(function(hk) {
-      return { hole: parseInt(hk), gross_score: holeScores[hk] };
-    }).filter(function(s) { return s.gross_score !== null; });
-    if (!scoreArr.length) return;
-    promises.push(
-      fetch(TOUR_API + '/api/scores/round', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          group_code: _IR.foursome.code,
-          player_name: p.name,
-          handicap: p.handicap || 0,
-          scores: scoreArr,
-          tee_time_id: _IR.foursome.id,
-          round_id: _IR.foursome.round_id,
-          roster_id: p.roster_id || null,
-        })
-      }).then(function(r) { return r.json(); })
-        .then(function(d) { if (!d.ok) return { error: d.error || 'rejected' }; return d; })
-        .catch(function(e) { return { error: e.message }; })
-    );
-  });
-  Promise.all(promises).then(function(results) {
-    var failed = results.filter(function(r) { return !r || r.error; });
-    if (failed.length === 0) {
-      // Green toast
-      var t = document.createElement('div');
-      t.textContent = '✓ Scores saved to tournament';
-      t.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#27ae60;color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:800;z-index:9999;pointer-events:none';
-      document.body.appendChild(t);
-      setTimeout(function() { t.remove(); }, 3000);
-    } else {
-      _IR._submitted = false;
-      // Red toast — tap to retry
-      var t = document.createElement('div');
-      t.textContent = '⚠️ Score save failed — tap to retry';
-      t.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#e74c3c;color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:800;z-index:9999;cursor:pointer';
-      t.onclick = function() { t.remove(); _ptCheckIndvComplete(); };
-      document.body.appendChild(t);
-    }
-    ptRenderIndvCard();
-  });
-}
-
-function ptIndvSetTypical(rid, h) {
-  if (_IR.scores[rid] && _IR.scores[rid][h] !== undefined && _IR.scores[rid][h] !== null) return;
-  var typical = _IR.par[h-1] + 1;
-  if (!_IR.scores[rid]) _IR.scores[rid] = {};
-  _IR.scores[rid][h] = typical;
-  ptRenderIndvCard();
-}
-
-function ptIndvSwipeStart(rid, h, e) {
-  var t = e.touches ? e.touches[0] : e;
-  _irTouch = {rid:rid, h:h, x0:t.clientX, y0:t.clientY, axis:null, moved:false};
-  e.preventDefault();
-}
-
-function ptIndvSwipeMove(e) {
-  if (_irTouch.rid===null) return;
-  e.preventDefault();
-  var t = e.touches ? e.touches[0] : e;
-  var dx = t.clientX - _irTouch.x0, dy = _irTouch.y0 - t.clientY;
-  if (!_irTouch.axis) {
-    if (Math.abs(dx)>6||Math.abs(dy)>6) _irTouch.axis = Math.abs(dx)>=Math.abs(dy)?'x':'y';
-    return;
-  }
-  var THRESH = 22;
-  if (_irTouch.axis==='x') {
-    if (Math.abs(dx)>THRESH) { ptIndvArrow(_irTouch.rid,_irTouch.h,dx>0?1:-1); _irTouch.x0=t.clientX; _irTouch.moved=true; }
-  } else {
-    if (Math.abs(dy)>THRESH) { ptIndvArrow(_irTouch.rid,_irTouch.h,dy>0?1:-1); _irTouch.y0=t.clientY; _irTouch.moved=true; }
-  }
-}
-
-function ptIndvSwipeEnd() {
-  var did = !!_irTouch.moved;
-  _irTouch = {rid:null,h:null,x0:null,y0:null,axis:null,moved:false};
-  return did;
-}
-
-function ptIndvGoH(dir) {
-  _IR.pending = null;
-  var next = _IR.curHole + dir;
-  if (next < 1) next = 18;
-  if (next > 18) next = 1;
-  _IR.curHole = next;
-  ptRenderIndvCard();
-}
-
-function ptIndvSave() {
-  // POST all scores to D1 via individual round endpoint
-  var promises = [];
-  _IR.players.forEach(function(p) {
-    var holeScores = _IR.scores[p.roster_id] || {};
-    var scoreArr = Object.keys(holeScores).map(function(hk){
-      return {hole: parseInt(hk), gross_score: holeScores[hk]};
-    }).filter(function(s){return s.gross_score !== null;});
-    if (!scoreArr.length) return;
-    promises.push(
-      fetch(TOUR_API+'/api/scores/round', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          group_code: _IR.foursome.code,
-          player_name: p.name,
-          handicap: p.handicap || 0,
-          scores: scoreArr,
-          tee_time_id: _IR.foursome.id,
-          round_id: _IR.foursome.round_id,
-          roster_id: p.roster_id || null,
-        })
-      }).then(function(r){return r.json();})
-        .then(function(d){ if (!d.ok) return {error: d.error||'rejected'}; return d; })
-        .catch(function(e){ return {error: e.message}; })
-    );
-  });
-  Promise.all(promises).then(function(results){
-    var failed = results.filter(function(r){ return !r || r.error; });
-    if (failed.length === 0) {
-      alert('Scores saved!');
-    } else {
-      alert('Save failed — check connection and try again.');
-    }
-  });
-}
-
-function ptIndvComplete() {
-  if (!confirm('Submit all scores for this round?')) return;
-  ptIndvSave();
-}
-
-function ptIndvExit() {
-  if (!confirm('Leave scorecard? Unsaved scores will be lost.')) return;
-  var ov = document.getElementById('ptIndvOv');
-  if (ov) ov.remove();
-  G._indvRound = false;
-  showHome();
-}
 
 function ptPrintRoundTeeSheet(eventId, round) {
   Promise.all([
@@ -31062,15 +30629,13 @@ function ptPrintRoundTeeSheet(eventId, round) {
           // For multi_day scramble: use tee time code+PIN so scores route per-round
           var _useTeetime = tt.foursome_code && ev.format === 'multi_day';
           var code=_useTeetime ? (tt.foursome_code||'--') : (grp?grp.code:'--');
-          var pin=_useTeetime ? (tt.foursome_pin||'--') : (grp?(grp.team_pin||'--'):'--');
           var memberList=grp?_ptSortPlayers(grp.players||[]).map(function(gp,i){
             return (i===0?'<strong>':'')+(i===0?'\u25CF ':'\u25CB ')+gp.name+(gp.handicap!=null?' ('+gp.handicap+')':'')+(i===0?'</strong>':'');
           }).join('<br>'):'--';
-          rows+='<tr style="background:'+bg+'"><td style="padding:6px 8px;border-bottom:1px solid #e8e0cc;font-size:13px;font-weight:900;text-align:center;white-space:nowrap;color:#1a3a2a">'+timeOrHole+'</td><td style="padding:6px 8px;border-bottom:1px solid #e8e0cc;font-size:12px;font-weight:700;color:#1a3a2a">'+teamName+'</td><td style="padding:6px 8px;border-bottom:1px solid #e8e0cc;font-size:13px;font-family:monospace;font-weight:800;letter-spacing:2px;text-align:center">'+code+'</td><td style="padding:6px 8px;border-bottom:1px solid #e8e0cc;font-size:14px;font-family:monospace;font-weight:900;letter-spacing:3px;text-align:center;color:#b8860b">'+pin+'</td><td style="padding:6px 8px;border-bottom:1px solid #e8e0cc;font-size:11px;line-height:1.8">'+memberList+'</td></tr>';
+          rows+='<tr style="background:'+bg+'"><td style="padding:6px 8px;border-bottom:1px solid #e8e0cc;font-size:13px;font-weight:900;text-align:center;white-space:nowrap;color:#1a3a2a">'+timeOrHole+'</td><td style="padding:6px 8px;border-bottom:1px solid #e8e0cc;font-size:12px;font-weight:700;color:#1a3a2a">'+teamName+'</td><td style="padding:6px 8px;border-bottom:1px solid #e8e0cc;font-size:13px;font-family:monospace;font-weight:800;letter-spacing:2px;text-align:center">'+code+'</td><td style="padding:6px 8px;border-bottom:1px solid #e8e0cc;font-size:11px;line-height:1.8">'+memberList+'</td></tr>';
         } else {
-          // Individual round — show foursome code + PIN prominently
+          // Individual round — show foursome code
           var fCode = tt.foursome_code || '--';
-          var fPin  = tt.foursome_pin  || '--';
           rows+='<tr style="background:'+bg+'">'
             +'<td style="padding:6px 8px;border-bottom:1px solid #e8e0cc;font-size:13px;font-weight:900;text-align:center;white-space:nowrap;color:#1a3a2a;vertical-align:top">'+timeOrHole+'</td>'
             +'<td colspan="2" style="padding:0;border-bottom:1px solid #e8e0cc"><table style="width:100%;border-collapse:collapse">';
@@ -31094,18 +30659,14 @@ function ptPrintRoundTeeSheet(eventId, round) {
             +'<div style="font-size:15px;font-family:monospace;font-weight:900;letter-spacing:3px;color:#1a3a2a">'+fCode+'</div>'
             +'<div style="font-size:10px;color:#888;margin-top:2px">Foursome Code</div>'
             +'</td>'
-            +'<td style="padding:6px 8px;border-bottom:1px solid #e8e0cc;text-align:center;vertical-align:middle">'
-            +'<div style="font-size:18px;font-family:monospace;font-weight:900;letter-spacing:4px;color:#b8860b">'+fPin+'</div>'
-            +'<div style="font-size:10px;color:#888;margin-top:2px">PIN</div>'
-            +'</td>'
             +'</tr>';
         }
       });
     }
 
     var headerCols=isScramble
-      ?'<th style="text-align:center;width:80px">'+(isShotgun?'Hole':'Time')+'</th><th>Team</th><th style="text-align:center">Code</th><th style="text-align:center">PIN</th><th>Players</th>'
-      :'<th style="text-align:center;width:80px">'+(isShotgun?'Hole':'Time')+'</th><th colspan="2">Players &nbsp;\u2014&nbsp; Team</th><th style="text-align:center">Foursome Code</th><th style="text-align:center">PIN</th>';
+      ?'<th style="text-align:center;width:80px">'+(isShotgun?'Hole':'Time')+'</th><th>Team</th><th style="text-align:center">Code</th><th>Players</th>'
+      :'<th style="text-align:center;width:80px">'+(isShotgun?'Hole':'Time')+'</th><th colspan="2">Players &nbsp;\u2014&nbsp; Team</th><th style="text-align:center">Foursome Code</th>';
 
     var css='*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#1a1a1a;padding:20px;font-size:12px;max-width:920px;margin:0 auto}.hdr{background:#1a3a2a;color:#f5e6b8;border-radius:10px;padding:16px 20px;margin-bottom:16px}.hdr h1{font-size:20px;font-weight:900;margin:0 0 4px;color:#c9a84c}.hdr .meta{font-size:11px;color:rgba(245,230,184,.65);line-height:2}.hdr .meta span{margin-right:16px}table{width:100%;border-collapse:collapse}thead th{background:#1a3a2a;color:#c9a84c;padding:7px 8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;text-align:left}.footer{margin-top:12px;font-size:10px;color:#aaa;border-top:1px solid #e0d8c8;padding-top:8px;display:flex;justify-content:space-between}@media print{@page{size:letter portrait;margin:10mm}#ptRndBar{display:none!important}.hdr,thead th{-webkit-print-color-adjust:exact;print-color-adjust:exact}}';
 
@@ -31165,7 +30726,6 @@ function ptPrintTeeSheet(eventId) {
           +'<td style="padding:5px 6px;border-bottom:1px solid #e8e0cc;font-size:12px;font-weight:700;text-align:center;width:36px;background:#f5f0e8;white-space:nowrap;vertical-align:middle">'+( g.start_hole||1)+'</td>'
           +'<td style="padding:5px 6px;border-bottom:1px solid #e8e0cc;font-size:11px;font-weight:700;color:#1a3a2a;white-space:nowrap;vertical-align:middle">'+captainName+'</td>'
           +'<td style="padding:5px 6px;border-bottom:1px solid #e8e0cc;font-size:11px;color:#555;font-family:monospace;text-align:center;font-weight:700;letter-spacing:1px;white-space:nowrap;vertical-align:middle">'+g.code+'</td>'
-          +'<td style="padding:5px 6px;border-bottom:1px solid #e8e0cc;font-size:11px;color:#1a3a2a;font-family:monospace;text-align:center;font-weight:900;letter-spacing:2px;white-space:nowrap;vertical-align:middle">'+(g.team_pin||'\u2014')+'</td>'
           +'<td style="padding:5px 6px;border-bottom:1px solid #e8e0cc;font-size:10px;color:#444;line-height:1.6;vertical-align:middle">'+playersHtml+'</td>'
           +'</tr>';
       }).join('');
@@ -31186,7 +30746,7 @@ function ptPrintTeeSheet(eventId) {
         +'<div style="height:42px"></div>'
         +'<h1>'+ev.name+'</h1>'
         +'<h2>'+dateStr+(courseName?' \u00B7 '+courseName:'')+(teeBox?' \u00B7 '+teeBox+' tees':'')+(ev.format?' \u00B7 '+ev.format:'')+'&nbsp;&nbsp;&nbsp;<span style="color:#aaa;font-size:10px">Event #'+eventId+(ev.event_code?' &nbsp;\u00B7&nbsp; Code: <b style="letter-spacing:2px;font-family:monospace">'+ev.event_code+'</b>':'')+'</span></h2>'
-        +'<table><thead><tr><th class="hole-col">Hole</th><th>Group</th><th>Join Code</th><th class="hole-col">Team PIN</th><th>Players</th></tr></thead><tbody>'+rows+'</tbody></table>'
+        +'<table><thead><tr><th class="hole-col">Hole</th><th>Group</th><th>Join Code</th><th>Players</th></tr></thead><tbody>'+rows+'</tbody></table>'
         +'<div class="footer">Pards Tour \u2014 Printed '+new Date().toLocaleString()+'</div>'
         +'</body></html>';
       var blob = new Blob([html], {type:'text/html'});
@@ -34411,7 +33971,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v201.0';
+    const TOUR_VERSION     = 'pards-tour-v202.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
