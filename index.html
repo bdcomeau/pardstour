@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v218.0 -->
+  <!-- pards-tour-v219.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -24939,6 +24939,23 @@ G.scrambleFormat = null;     // 'gross' | 'stableford' | 'rbc'
 G.pairedTeam     = null;     // {name, players[]} — other team in group (if paired)
 
 // ── Overlay show/hide ──────────────────────────────────────
+
+// ── v219.0: ptToast — non-blocking feedback; the wrapper's blocking alerts now route here ──
+// Error-looking messages get a red border + longer dwell; tap to dismiss early.
+window.ptToast = function(msg){
+  try{
+    var s = String(msg==null?'':msg);
+    var isErr = /error|fail|invalid|not found|could not|couldn\u2019t|unable|incorrect|missing|denied|no longer|closed|expired/i.test(s);
+    var t = document.createElement('div');
+    t.textContent = s;
+    t.style.cssText = 'position:fixed;left:50%;bottom:calc(34px + env(safe-area-inset-bottom));transform:translateX(-50%);max-width:86%;box-sizing:border-box;z-index:99999;padding:12px 18px;border-radius:12px;font-size:14px;font-weight:700;line-height:1.45;text-align:center;white-space:pre-line;box-shadow:0 6px 24px rgba(0,0,0,.55);background:#16281c;color:'+(isErr?'#ffb4ab':'#d7f0dd')+';border:1.5px solid '+(isErr?'rgba(231,76,60,.65)':'rgba(168,213,181,.55)')+';opacity:0;transition:opacity .25s;cursor:pointer';
+    document.body.appendChild(t);
+    requestAnimationFrame(function(){ t.style.opacity='1'; });
+    t.addEventListener('click', function(){ t.remove(); });
+    setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ if(t.parentNode) t.remove(); }, 300); }, isErr?5200:3000);
+  }catch(e){}
+};
+
 var _PT_OVERLAYS = ['ptHomeOverlay','ptJoinOverlay','ptOrgLoginOverlay','ptOrgDashOverlay'];
 
 function _ptShow(id) {
@@ -25510,7 +25527,7 @@ function ptLoadOrgLeagues() {
 async function ptRefreshRosterHandicaps() {
   var withGhin = _ptRosterCache.filter(function(p){ return p.ghin && /^\d{10}$/.test(p.ghin); });
   if (!withGhin.length) {
-    alert('No roster players have a Golf Canada ID (GHIN) on file yet.');
+    ptToast('No roster players have a Golf Canada ID (GHIN) on file yet.');
     return;
   }
   var cfg = gcConfig();
@@ -25697,7 +25714,7 @@ function ptDeleteRosterPlayer(playerId, overlay) {
   if (!confirm('Remove this player from your roster?')) return;
   fetch(TOUR_API + '/api/roster/' + playerId, { method: 'DELETE', headers: { 'Authorization': 'Bearer ' + G.orgToken } })
     .then(function(){ if (overlay) overlay.remove(); ptLoadRoster(); })
-    .catch(function(){ alert('Network error.'); });
+    .catch(function(){ ptToast('Network error.'); });
 }
 
 // ── Golf Canada name search for roster Add Player ─────────────
@@ -26286,8 +26303,8 @@ function ptEnablePardsBets(eventId) {
     body: JSON.stringify({ config: { pards_bets: true } })
   }).then(function(r){ return r.json(); }).then(function(d) {
     if (d.event || d.ok) { loadOrgEventDetail(eventId); }
-    else { alert(d.error || 'Could not enable Pards Bets.'); }
-  }).catch(function(){ alert('Network error.'); });
+    else { ptToast(d.error || 'Could not enable Pards Bets.'); }
+  }).catch(function(){ ptToast('Network error.'); });
 }
 
 function ptBetsCreateRaces(eventId) {
@@ -26327,7 +26344,7 @@ function ptBetsCreateRaces(eventId) {
     })
     .catch(function(e) {
       if (btn) { btn.disabled = false; btn.textContent = '+ Set Up Betting Races'; }
-      alert('Error: ' + e.message);
+      ptToast('Error: ' + e.message);
     });
 }
 
@@ -26404,11 +26421,11 @@ function ptDeleteLeagueExecute() {
     if (r.ok) {
       loadOrgEvents();
     } else {
-      r.json().then(function(d){ alert('Delete failed: ' + (d.error || r.status)); }).catch(function(){ alert('Delete failed (' + r.status + ')'); });
+      r.json().then(function(d){ ptToast('Delete failed: ' + (d.error || r.status)); }).catch(function(){ ptToast('Delete failed (' + r.status + ')'); });
     }
   }).catch(function() {
     var ov2 = document.getElementById('ptDelLgOv2'); if (ov2) ov2.remove();
-    alert('Network error — league was not deleted.');
+    ptToast('Network error — league was not deleted.');
   });
 }
 
@@ -26655,11 +26672,11 @@ window.ptAddLeagueMemberById = function(leagueId, rosterId, btn) {
       ptLoadLeagueDetail(leagueId);
     } else {
       if(btn){ btn.disabled=false; btn.textContent='Add'; }
-      alert(d.error||'Could not add member.');
+      ptToast(d.error||'Could not add member.');
     }
   }).catch(function(){
     if(btn){ btn.disabled=false; btn.textContent='Add'; }
-    alert('Network error.');
+    ptToast('Network error.');
   });
 };
 
@@ -26668,7 +26685,7 @@ window.ptRemoveLeagueMember = function(leagueId, memberId) {
   fetch(TOUR_API+'/api/leagues/'+leagueId+'/members/'+memberId, {
     method:'DELETE', headers:{'Authorization':'Bearer '+G.orgToken}
   }).then(function(){ptLoadLeagueDetail(leagueId);})
-    .catch(function(){ alert('Network error.'); });
+    .catch(function(){ ptToast('Network error.'); });
 };
 
 window.ptCreateLeagueRoundUI = function(leagueId, presetDate) {
@@ -26744,11 +26761,11 @@ window.doCreateLeagueRound = function(leagueId) {
         });
     } else {
       if(btn){ btn.disabled=false; btn.textContent='Create Round'; }
-      alert(d.error||'Failed to create round.');
+      ptToast(d.error||'Failed to create round.');
     }
   }).catch(function(){
     if(btn){ btn.disabled=false; btn.textContent='Create Round'; }
-    alert('Network error.');
+    ptToast('Network error.');
   });
 };
 
@@ -26913,8 +26930,8 @@ window.ptDeleteTrip = function(tripId, ev) {
     headers:{'Authorization':'Bearer '+G.orgToken}
   }).then(function(r){return r.json();}).then(function(d){
     if(d.ok||d.deleted){ var _ov=document.getElementById('ptTripDetailOv'); if(_ov) _ov.remove(); loadOrgEvents(); }
-    else { alert(d.error||'Delete failed.'); }
-  }).catch(function(){ alert('Network error.'); });
+    else { ptToast(d.error||'Delete failed.'); }
+  }).catch(function(){ ptToast('Network error.'); });
 };
 
 function ptShowTripDetail(tripId, leagueId) {
@@ -26991,7 +27008,7 @@ window.ptSetRoundFormat = function(tripId, roundId, format, sel){
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({ format: format||null })
   }).then(function(r){return r.json();}).then(function(d){
-    if(d && d.error){ if(sel){ sel.style.borderColor='rgba(231,76,60,.6)'; } alert(d.error); return; }
+    if(d && d.error){ if(sel){ sel.style.borderColor='rgba(231,76,60,.6)'; } ptToast(d.error); return; }
     if(sel){ sel.style.borderColor='rgba(168,213,181,.9)'; setTimeout(function(){ sel.style.borderColor='rgba(201,168,76,.3)'; }, 900); }
     // v216.0: unlock / re-lock the tee-time builder for this round in place
     _ptApplyTeeGate(roundId, format);
@@ -27211,8 +27228,8 @@ window.ptRemoveTripPlayer = function(tripId, playerId) {
     method:'DELETE', headers:{'Authorization':'Bearer '+G.orgToken}
   }).then(function(r){return r.json();}).then(function(d){
     if(d.ok||d.deleted){ ptLoadTripDetail(tripId); }
-    else { alert(d.error||'Could not remove player.'); }
-  }).catch(function(){ alert('Network error removing player.'); });
+    else { ptToast(d.error||'Could not remove player.'); }
+  }).catch(function(){ ptToast('Network error removing player.'); });
 };
 
 window.ptAddTripPlayerUI = function(tripId) {
@@ -27264,11 +27281,11 @@ window.ptAddTripPlayerById = function(tripId, rosterId, btn) {
       ptLoadTripDetail(tripId);
     } else {
       if(btn){ btn.disabled=false; btn.textContent='Add'; }
-      alert(d.error||'Could not add player.');
+      ptToast(d.error||'Could not add player.');
     }
   }).catch(function(){
     if(btn){ btn.disabled=false; btn.textContent='Add'; }
-    alert('Network error.');
+    ptToast('Network error.');
   });
 };
 
@@ -27305,7 +27322,7 @@ window.doAddTripRound = function(tripId) {
       var ov=document.getElementById('ptAddTripRoundOv'); if(ov) ov.remove();
       ptLoadTripDetail(tripId);
     } else {
-      alert(d.error||'Failed to add round.');
+      ptToast(d.error||'Failed to add round.');
     }
   });
 };
@@ -27360,7 +27377,7 @@ window.ptTripRoundManager = function(tripId, roundId) {
       // tee-time builder (pairings depend on the format).
       if(window._ptTripDetailLeagueId && round && !(round.format||'')){
         var _g = document.getElementById('ptTRMOv'); if(_g) _g.remove();
-        alert('Choose a format for this league round first.\n\nPairings depend on it \u2014 Match Play is player-vs-player, Best Ball needs partners.');
+        ptToast('Choose a format for this league round first.\n\nPairings depend on it \u2014 Match Play is player-vs-player, Best Ball needs partners.');
         return;
       }
       if(round && round.course_id){
@@ -27777,7 +27794,7 @@ window.ptTRMSave = function() {
     };
   }).filter(function(s){return s.players.length>0;});
   console.log('[ptTRMSave] slots:', JSON.stringify(slots));
-  if(!slots.length){ alert('No players assigned to any slot — please assign players before saving.'); if(btn){btn.disabled=false;btn.textContent='Save Tee Sheet';} return; }
+  if(!slots.length){ ptToast('No players assigned to any slot — please assign players before saving.'); if(btn){btn.disabled=false;btn.textContent='Save Tee Sheet';} return; }
   fetch(TOUR_API+'/api/trips/'+_ptTRM.tripId+'/rounds/'+_ptTRM.roundId+'/tee-times', {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
@@ -27823,11 +27840,11 @@ window.ptTRMSave = function() {
         }).then(afterPatch).catch(afterPatch);
       } else { afterPatch(); }
     } else {
-      alert(d.error||'Save failed.');
+      ptToast(d.error||'Save failed.');
       if(btn){ btn.disabled=false; btn.textContent='Save Tee Sheet'; }
     }
   }).catch(function(err){
-    alert('Save error: '+(err&&err.message?err.message:'network error'));
+    ptToast('Save error: '+(err&&err.message?err.message:'network error'));
     if(btn){ btn.disabled=false; btn.textContent='Save Tee Sheet'; }
   });
 };
@@ -27916,7 +27933,7 @@ function _ptRenderTeeSheetTimes(body, times, tripId, roundId) {
 
 
 window.ptStartTripScoring = function(code, tripId, roundId) {
-  if(!code){ alert('No foursome code for this slot.'); return; }
+  if(!code){ ptToast('No foursome code for this slot.'); return; }
   var loadDiv = document.getElementById('ptTripTeeSheetBody');
   // Show loading state
   var btn = event && event.target;
@@ -27925,7 +27942,7 @@ window.ptStartTripScoring = function(code, tripId, roundId) {
 
   fetch(TOUR_API+'/api/join-trip/'+encodeURIComponent(code))
     .then(function(r){return r.json();}).then(function(d){
-      if(d.error){ alert(d.error); if(btn){btn.disabled=false;btn.textContent='▶ Score This Group';} return; }
+      if(d.error){ ptToast(d.error); if(btn){btn.disabled=false;btn.textContent='▶ Score This Group';} return; }
       // Close tee sheet overlay but keep trip detail alive underneath
       var tsOv = document.getElementById('ptTripTeeSheetOv');
       if(tsOv) tsOv.remove();
@@ -27970,7 +27987,7 @@ window.ptStartTripScoring = function(code, tripId, roundId) {
       };
       ptLaunchFoursomeRound(foursomeData);
     }).catch(function(){
-      alert('Network error joining round.');
+      ptToast('Network error joining round.');
       if(btn){btn.disabled=false;btn.textContent='▶ Score This Group';}
     });
 };
@@ -28325,7 +28342,7 @@ function ptRenderTripNassau(tripId, trip, players, rounds) {
 window.ptNassauAddPair = function(tripId, rKey) {
   var p1 = (document.getElementById('ptNassauP1_'+rKey)||{}).value || '';
   var p2 = (document.getElementById('ptNassauP2_'+rKey)||{}).value || '';
-  if (!p1 || !p2 || p1 === p2) { alert('Select two different players.'); return; }
+  if (!p1 || !p2 || p1 === p2) { ptToast('Select two different players.'); return; }
   var bet = parseInt((document.getElementById('ptNassauBet_'+rKey)||{}).value||'5') || 5;
   var storageKey = '_ptNassau_' + tripId;
   var nassauData = {};
@@ -29471,7 +29488,7 @@ function ptTTBAutoFill() {
     var hasRest = _ptTTB.slots.some(function(s,si){return _ptTTBCheckWarnings(s,si).some(function(w){return w.type==='rest';});});
     if (hasSameTeam) msgs.push('same-team conflicts');
     if (hasRest) msgs.push('rest-time conflicts (< 4.5 hrs between rounds)');
-    alert('Best draw found but has ' + msgs.join(' and ') + '. Review highlighted groups.');
+    ptToast('Best draw found but has ' + msgs.join(' and ') + '. Review highlighted groups.');
   }
 
   _ptTTBRender();
@@ -29549,10 +29566,10 @@ function ptTTBSave(){
     }).then(function(r){return r.json();}).then(function(d){
       if(d.ok){
         var msg = d.changed === 0 ? 'No changes detected.' : d.changed+' group'+(d.changed===1?'':'s')+' updated with new codes. Reprint the tee sheet for changed groups.';
-        alert(msg);
+        ptToast(msg);
         document.getElementById('ptTTBOv').remove();
-      } else { alert(d.error||'Save failed.'); if(btn){btn.disabled=false;btn.textContent='Save';} }
-    }).catch(function(){alert('Network error.');if(btn){btn.disabled=false;btn.textContent='Save';}});
+      } else { ptToast(d.error||'Save failed.'); if(btn){btn.disabled=false;btn.textContent='Save';} }
+    }).catch(function(){ptToast('Network error.');if(btn){btn.disabled=false;btn.textContent='Save';}});
   } else {
     // POST — fresh save, regenerate everything
     var slots=_ptTTB.slots.map(function(s){return{start_time:s.start_time,hole:s.hole,players:(s.players||[]).filter(Boolean)};}).filter(function(s){return s.players.length>0;});
@@ -29561,9 +29578,9 @@ function ptTTBSave(){
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
       body:JSON.stringify({mode:_ptTTB.mode,session:_ptTTB.session,slots:slots})
     }).then(function(r){return r.json();}).then(function(d){
-      if(d.ok){alert('Tee sheet saved! '+d.inserted+' groups assigned.');document.getElementById('ptTTBOv').remove();}
-      else{alert(d.error||'Save failed.');}
-    }).catch(function(){alert('Network error.');});
+      if(d.ok){ptToast('Tee sheet saved! '+d.inserted+' groups assigned.');document.getElementById('ptTTBOv').remove();}
+      else{ptToast(d.error||'Save failed.');}
+    }).catch(function(){ptToast('Network error.');});
   }
 }
 
@@ -29674,9 +29691,9 @@ function ptAddRound(eventId) {
       // Then open edit for the new round
       setTimeout(function(){ ptEditRound(eventId, d.round); }, 400);
     } else {
-      alert(d.error || 'Could not add round.');
+      ptToast(d.error || 'Could not add round.');
     }
-  }).catch(function(){ alert('Network error.'); });
+  }).catch(function(){ ptToast('Network error.'); });
 }
 
 function ptEditRound(eventId, round, evObj) {
@@ -29773,8 +29790,8 @@ function ptDeleteRound(eventId, roundId, overlay) {
   }).then(function(r){return r.json();})
   .then(function(d){
     if(d.ok){ if(overlay) overlay.remove(); loadOrgEventDetail(eventId); }
-    else { alert(d.error||'Delete failed.'); }
-  }).catch(function(){ alert('Network error.'); });
+    else { ptToast(d.error||'Delete failed.'); }
+  }).catch(function(){ ptToast('Network error.'); });
 }
 
 function ptEditEvent(eventId) {
@@ -29815,7 +29832,7 @@ function ptEditEvent(eventId) {
       inner.innerHTML = inp;
       document.getElementById('ptEditEvBtn').onclick = function(){ ptDoEditEvent(eventId, ov); };
       document.getElementById('ptEditEvCancel').onclick = function(){ ov.remove(); };
-    }).catch(function(){ alert('Could not load event.'); });
+    }).catch(function(){ ptToast('Could not load event.'); });
 }
 
 function ptEditEvCourseChanged() {
@@ -30115,7 +30132,7 @@ function ptPrintIndividualRoundReport(eventId, round) {
       + '</body></html>';
 
     _ptOpenPrintBlob(html, 'ptPrintFrame');
-  }).catch(function(e){ alert('Could not load round data.'); });
+  }).catch(function(e){ ptToast('Could not load round data.'); });
 }
 
 // ── Scramble Round Report ─────────────────────────────────────────────────────
@@ -30272,7 +30289,7 @@ function ptPrintScrambleRoundReport(eventId, round) {
       + '</body></html>';
 
     _ptOpenPrintBlob(html, 'ptPrintFrame');
-  }).catch(function(){ alert('Could not load round data.'); });
+  }).catch(function(){ ptToast('Could not load round data.'); });
 }
 
 // ── Team Day Report ───────────────────────────────────────────────────────────
@@ -30386,7 +30403,7 @@ function ptPrintTeamDayReport(eventId, round) {
       + '</body></html>';
 
     _ptOpenPrintBlob(html, 'ptPrintFrame');
-  }).catch(function(){ alert('Could not load round data.'); });
+  }).catch(function(){ ptToast('Could not load round data.'); });
 }
 
 // ── Team Overall Report ───────────────────────────────────────────────────────
@@ -30404,7 +30421,7 @@ function ptPrintTeamOverallReport(eventId) {
     var ev = results[0].event || {};
     var rounds = results[1].rounds || [];
     var groups = results[2].groups || [];
-    if (!rounds.length || !groups.length) { alert('No rounds or groups found.'); return; }
+    if (!rounds.length || !groups.length) { ptToast('No rounds or groups found.'); return; }
 
     // Fetch raw scores for every round alongside standings
     Promise.all([
@@ -30596,7 +30613,7 @@ function ptPrintTeamOverallReport(eventId) {
 
       _ptOpenPrintBlob(html, 'ptPrintFrame');
     });
-  }).catch(function(){ alert('Could not load event data.'); });
+  }).catch(function(){ ptToast('Could not load event data.'); });
 }
 
 // ── Individual Overall Leaderboard (Live Overlay) ─────────────────────────────
@@ -30750,7 +30767,7 @@ function _ptOpenPrintBlob(html, frameId) {
       doc.open(); doc.write(html); doc.close();
       setTimeout(function(){ try{frame.contentWindow.focus();frame.contentWindow.print();}catch(e){window.print();} }, 350);
     } catch(e) {
-      try{location.href=blobUrl;}catch(_){alert('Could not open report.');}
+      try{location.href=blobUrl;}catch(_){ptToast('Could not open report.');}
     }
     return;
   }
@@ -30771,9 +30788,9 @@ function ptOrgRecompute(eventId) {
   fetch(TOUR_API+'/api/events/'+eventId+'/recompute', {method:'POST', headers:{'Authorization':'Bearer '+G.orgToken}})
     .then(function(r){return r.json();})
     .then(function(d){
-      if(d.ok) alert('Leaderboard recomputed. Refresh Live Scores to see updated flags.');
-      else alert('Recompute failed: '+(d.error||'unknown error'));
-    }).catch(function(){ alert('Recompute failed — network error'); });
+      if(d.ok) ptToast('Leaderboard recomputed. Refresh Live Scores to see updated flags.');
+      else ptToast('Recompute failed: '+(d.error||'unknown error'));
+    }).catch(function(){ ptToast('Recompute failed — network error'); });
 }
 
 function ptPrintFinalResults(eventId) {
@@ -30927,13 +30944,13 @@ function ptPrintFinalResults(eventId) {
               var frame = document.getElementById('ptPrintFrame');
               if (!frame) { frame = document.createElement('iframe'); frame.id='ptPrintFrame'; frame.style.cssText='position:fixed;left:-9999px;top:0;width:1px;height:1px;border:none;visibility:hidden'; document.body.appendChild(frame); }
               try { var doc=frame.contentDocument||frame.contentWindow.document; doc.open(); doc.write(html); doc.close(); setTimeout(function(){ try{frame.contentWindow.focus();frame.contentWindow.print();}catch(e){window.print();} },350); }
-              catch(e){ try{location.href=blobUrl;}catch(_){alert('Could not open report.');} }
+              catch(e){ try{location.href=blobUrl;}catch(_){ptToast('Could not open report.');} }
               return;
             }
             setTimeout(function(){ URL.revokeObjectURL(blobUrl); }, 300000);
           });
         });
-    }).catch(function(){ alert('Could not load event data.'); });
+    }).catch(function(){ ptToast('Could not load event data.'); });
 }
 
 
@@ -31045,11 +31062,11 @@ function ptPrintRoundTeeSheet(eventId, round) {
       var frame=document.getElementById('ptPrintFrame');
       if(!frame){frame=document.createElement('iframe');frame.id='ptPrintFrame';frame.style.cssText='position:fixed;left:-9999px;top:0;width:1px;height:1px;border:none;visibility:hidden';document.body.appendChild(frame);}
       try{var doc=frame.contentDocument||frame.contentWindow.document;doc.open();doc.write(html);doc.close();setTimeout(function(){try{frame.contentWindow.focus();frame.contentWindow.print();}catch(e){window.print();}},350);}
-      catch(e){try{location.href=blobUrl;}catch(_){alert('Could not open print page.');}}
+      catch(e){try{location.href=blobUrl;}catch(_){ptToast('Could not open print page.');}}
       return;
     }
     setTimeout(function(){URL.revokeObjectURL(blobUrl);},300000);
-  }).catch(function(){alert('Could not load tee sheet data.');});
+  }).catch(function(){ptToast('Could not load tee sheet data.');});
 }
 
 function ptPrintTeeSheet(eventId) {
@@ -31116,12 +31133,12 @@ function ptPrintTeeSheet(eventId) {
           doc.open(); doc.write(html); doc.close();
           setTimeout(function(){ try{ frame.contentWindow.focus(); frame.contentWindow.print(); }catch(e){ window.print(); } }, 350);
         }catch(e){
-          try{ location.href = blobUrl; }catch(_){ alert('Could not open the print page.'); }
+          try{ location.href = blobUrl; }catch(_){ ptToast('Could not open the print page.'); }
         }
         return;
       }
       setTimeout(function(){ URL.revokeObjectURL(blobUrl); }, 300000);
-    }).catch(function(){alert('Could not load event data.');});
+    }).catch(function(){ptToast('Could not load event data.');});
 }
 
 function ptSetEvStatus(eventId, status) {
@@ -31196,11 +31213,11 @@ function ptDeleteEventExecute() {
     if (r.ok) {
       loadOrgEvents();
     } else {
-      r.json().then(function(d){ alert('Delete failed: ' + (d.error || r.status)); }).catch(function(){ alert('Delete failed (' + r.status + ')'); });
+      r.json().then(function(d){ ptToast('Delete failed: ' + (d.error || r.status)); }).catch(function(){ ptToast('Delete failed (' + r.status + ')'); });
     }
   }).catch(function() {
     var ov2 = document.getElementById('ptDelOv2'); if (ov2) ov2.remove();
-    alert('Network error — event was not deleted.');
+    ptToast('Network error — event was not deleted.');
   });
 }
 
@@ -31901,7 +31918,7 @@ function ptDrawResolveGcSearchFromInput() {
 
 function ptDrawResolveGcSearch(name) {
   var creds; try{creds=JSON.parse(localStorage.getItem('pards_gc')||'{}');}catch(e){creds={};}
-  if(!creds.username||!creds.password){alert('Enter Golf Canada credentials in Settings first.');return;}
+  if(!creds.username||!creds.password){ptToast('Enter Golf Canada credentials in Settings first.');return;}
   var el=document.getElementById('ptResolveResults');
   el.innerHTML='<div style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 0">Searching Golf Canada…</div>';
   _gcSearchGetToken().then(function(tok){
@@ -31937,13 +31954,13 @@ function ptDrawResolveGcPick(idx) {
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({name:name,handicap:hdcp,ghin:ghin})
   }).then(function(r){return r.json();}).then(function(d){
-    if(!d.player){alert(d.error||'Failed');return;}
+    if(!d.player){ptToast(d.error||'Failed');return;}
     _ptDrawImportRoster.push(d.player);
     var ov=document.getElementById('ptDrawResolveOv'); if(!ov)return;
     _ptDrawResolvedPlayers[ov._resolveKey]={roster_id:d.player.id,name:d.player.name};
     ov.remove();
     ptRenderDrawPreview(_ptDrawImportTeams);
-  }).catch(function(){alert('Network error');});
+  }).catch(function(){ptToast('Network error');});
 }
 
 
@@ -32000,7 +32017,7 @@ async function ptDrawImportMultiDay() {
   var ov = document.getElementById('ptDrawImportOv'); if (ov) ov.remove();
   var ov2 = document.getElementById('ptDAOv'); if (ov2) ov2.remove();
   loadOrgEventDetail(eventId);
-  if (failed.length) alert('Imported with errors. Failed: ' + failed.join(', '));
+  if (failed.length) ptToast('Imported with errors. Failed: ' + failed.join(', '));
 }
 
 async function ptCommitDrawImport() {
@@ -32074,7 +32091,7 @@ async function ptCommitDrawImport() {
   var _dOv = document.getElementById('ptDrawImportOv'); if(_dOv) _dOv.remove();
   var _aOv = document.getElementById('ptDAOv'); if(_aOv) _aOv.remove();
   if(failed.length){
-    alert(failed.length+' group'+(failed.length!==1?'s':'')+' failed to import:\n'+failed.join('\n')+'\n\nCheck for duplicate groups and try again.');
+    ptToast(failed.length+' group'+(failed.length!==1?'s':'')+' failed to import:\n'+failed.join('\n')+'\n\nCheck for duplicate groups and try again.');
   }
   loadOrgEventDetail(eventId);
 }
@@ -32529,7 +32546,7 @@ function ptDoEditGroup(eventId, groupId, overlay) {
           if(fd.results){
             var grpResult = fd.results.find(function(r){return r.id===groupId||r.id===String(groupId);});
             if(grpResult && grpResult.skipped){
-              alert('Course/tee saved. Note: handicap not updated — '+grpResult.reason);
+              ptToast('Course/tee saved. Note: handicap not updated — '+grpResult.reason);
             }
           }
           loadOrgEventDetail(eventId);
@@ -32558,8 +32575,8 @@ function ptSetGroupCaptain(eventId, groupId, rosterId, overlay) {
       // Close ALL open edit overlays then reload
       document.querySelectorAll('[style*="z-index:600"]').forEach(function(el){el.remove();});
       loadOrgEventDetail(eventId);
-    } else { alert(d.error||'Failed to set captain.'); }
-  }).catch(function(){ alert('Network error.'); });
+    } else { ptToast(d.error||'Failed to set captain.'); }
+  }).catch(function(){ ptToast('Network error.'); });
 }
 
 function ptDeleteGroup(eventId, groupId, overlay) {
@@ -32570,8 +32587,8 @@ function ptDeleteGroup(eventId, groupId, overlay) {
     headers:{'Authorization':'Bearer '+G.orgToken}
   }).then(function(r){return r.json();}).then(function(d){
     if(d.ok){if(overlay)overlay.remove();loadOrgEventDetail(eventId);}
-    else{alert(d.error||'Failed to delete group.');}
-  }).catch(function(){alert('Network error.');});
+    else{ptToast(d.error||'Failed to delete group.');}
+  }).catch(function(){ptToast('Network error.');});
 }
 
 // ── Tour Leaderboard Overlay (player-facing, event mode) ────────────────────
@@ -33468,23 +33485,23 @@ function ptAssignAddPlayer(rosterId,name){
     method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({roster_id:rosterId})
   }).then(function(r){return r.json();}).then(function(d){
-    if(d.error){alert(d.error);return;}
+    if(d.error){ptToast(d.error);return;}
     ptAssignLoadCurrentPlayers(_ptAssignGrpId);
-  }).catch(function(){alert('Network error');});
+  }).catch(function(){ptToast('Network error');});
 }
 
 function ptAssignRemovePlayer(rosterId){
   fetch(TOUR_API+'/api/groups/'+_ptAssignGrpId+'/roster/'+rosterId,{
     method:'DELETE',headers:{'Authorization':'Bearer '+G.orgToken}
   }).then(function(){ptAssignLoadCurrentPlayers(_ptAssignGrpId);})
-    .catch(function(){alert('Network error');});
+    .catch(function(){ptToast('Network error');});
 }
 
 function ptAssignGcSearch(){
   var name=(document.getElementById('ptAssignSearch').value||'').trim();
-  if(!name){alert('Enter a name to search Golf Canada.');return;}
+  if(!name){ptToast('Enter a name to search Golf Canada.');return;}
   var creds;try{creds=JSON.parse(localStorage.getItem('pards_gc')||'{}');}catch(e){creds={};}
-  if(!creds.username||!creds.password){alert('Enter Golf Canada credentials in Settings first.');return;}
+  if(!creds.username||!creds.password){ptToast('Enter Golf Canada credentials in Settings first.');return;}
   var el=document.getElementById('ptAssignResults');
   el.innerHTML='<div style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 0">Searching Golf Canada…</div>';
   _gcSearchGetToken().then(function(tok){
@@ -33512,9 +33529,9 @@ function ptAssignGcPick(name,handicap,ghin){
     method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({name:name,handicap:handicap,ghin:ghin})
   }).then(function(r){return r.json();}).then(function(d){
-    if(!d.player){alert(d.error||'Failed');return;}
+    if(!d.player){ptToast(d.error||'Failed');return;}
     ptAssignAddPlayer(d.player.id,d.player.name);
-  }).catch(function(){alert('Network error');});
+  }).catch(function(){ptToast('Network error');});
 }
 
 function showJoinEvent() {
@@ -34786,7 +34803,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v218.0';
+    const TOUR_VERSION     = 'pards-tour-v219.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
