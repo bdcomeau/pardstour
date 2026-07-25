@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v225.0 -->
+  <!-- pards-tour-v226.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -34013,30 +34013,28 @@ function doJoinGroup() {
       var _pairedPlayers = G._pairedPlayers || [];
       var _tee = (G.players[0] && G.players[0].deck) || _scTee;
       var _bh = '<div style="margin-bottom:6px">';
-      // Own team card
-      _bh += '<div style="background:rgba(100,220,180,.1);border:1.5px solid rgba(100,220,180,.3);border-radius:12px;padding:14px;margin-bottom:8px">';
-      _bh += '<div style="font-size:10px;font-weight:700;color:rgba(100,220,180,.6);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Scoring for</div>';
-      _bh += '<div style="font-size:17px;font-weight:900;color:#fff;margin-bottom:6px">'+_esc(_ownName)+'</div>';
-      if (_ownPlayers.length) {
-        _ownPlayers.forEach(function(p, i) {
+      // v226.0 — cross-scoring labels were inverted: the green "Scoring for" card
+      // showed the scorer's OWN team, contradicting the join card ("you are scoring
+      // for the opposing team"), the scorecard title, and the submission target.
+      // When paired: green card = PAIRED team (whose official card this is),
+      // gold card = your own team. Unpaired: unchanged single card.
+      function _bhTeamCard(label, teamName, players, big, withTee) {
+        var h = '<div style="background:'+(big?'rgba(100,220,180,.1)':'rgba(201,168,76,.08)')+';border:1.5px solid '+(big?'rgba(100,220,180,.3)':'rgba(201,168,76,.25)')+';border-radius:12px;padding:14px;margin-bottom:8px">';
+        h += '<div style="font-size:10px;font-weight:700;color:'+(big?'rgba(100,220,180,.6)':'rgba(201,168,76,.6)')+';text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">'+label+'</div>';
+        h += '<div style="font-size:17px;font-weight:900;color:'+(big?'#fff':'#c9a84c')+';margin-bottom:6px">'+_esc(teamName)+'</div>';
+        (players||[]).forEach(function(p, i) {
           var cap = i === 0 ? ' <span style="font-size:10px;color:#c9a84c">(C)</span>' : '';
-          _bh += '<div style="font-size:12px;color:rgba(255,255,255,.6);padding:2px 0">🏌️ '+_esc(p.name||p.player_name||'')+cap+'</div>';
+          h += '<div style="font-size:12px;color:rgba(255,255,255,'+(big?'.6':'.5')+');padding:2px 0">🏌️ '+_esc(p.name||p.player_name||'')+cap+'</div>';
         });
+        if (withTee) h += '<div style="margin-top:8px;font-size:11px;color:rgba(201,168,76,.7)">🏌 Tee: '+_esc(_tee)+'</div>';
+        h += '</div>';
+        return h;
       }
-      _bh += '<div style="margin-top:8px;font-size:11px;color:rgba(201,168,76,.7)">🏌 Tee: '+_esc(_tee)+'</div>';
-      _bh += '</div>';
-      // Paired team card (if two-team scramble)
       if (_pairedName) {
-        _bh += '<div style="background:rgba(201,168,76,.08);border:1.5px solid rgba(201,168,76,.25);border-radius:12px;padding:14px;margin-bottom:8px">';
-        _bh += '<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Playing against</div>';
-        _bh += '<div style="font-size:17px;font-weight:900;color:#c9a84c;margin-bottom:6px">'+_esc(_pairedName)+'</div>';
-        if (_pairedPlayers.length) {
-          _pairedPlayers.forEach(function(p, i) {
-            var cap = i === 0 ? ' <span style="font-size:10px;color:#c9a84c">(C)</span>' : '';
-            _bh += '<div style="font-size:12px;color:rgba(255,255,255,.5);padding:2px 0">🏌️ '+_esc(p.name||p.player_name||'')+cap+'</div>';
-          });
-        }
-        _bh += '</div>';
+        _bh += _bhTeamCard('\u26f3 Keeping official score for', _pairedName, _pairedPlayers, true, true);
+        _bh += _bhTeamCard('Your team \u2014 their scorer keeps your card', _ownName, _ownPlayers, false, false);
+      } else {
+        _bh += _bhTeamCard('Scoring for', _ownName, _ownPlayers, true, true);
       }
       _bh += '</div>';
       // v223.0 \u2014 the engine's Start Round path (showRoundSummary \u2192 _doStartRound)
@@ -34994,7 +34992,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v225.0';
+    const TOUR_VERSION     = 'pards-tour-v226.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
