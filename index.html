@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v215.0 -->
+  <!-- pards-tour-v216.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -26990,14 +26990,47 @@ window.ptSetRoundFormat = function(tripId, roundId, format, sel){
     method:'PATCH',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
     body:JSON.stringify({ format: format||null })
-  }).then(function(r){return r.json();}).then(function(){
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d && d.error){ if(sel){ sel.style.borderColor='rgba(231,76,60,.6)'; } alert(d.error); return; }
     if(sel){ sel.style.borderColor='rgba(168,213,181,.9)'; setTimeout(function(){ sel.style.borderColor='rgba(201,168,76,.3)'; }, 900); }
+    // v216.0: unlock / re-lock the tee-time builder for this round in place
+    _ptApplyTeeGate(roundId, format);
+    // keep the cached round in sync so a re-render agrees with the DOM
+    try {
+      (window._ptTripDetailRounds||[]).forEach(function(rr){ if(rr.id===roundId) rr.format = format||null; });
+    } catch(e) {}
   }).catch(function(){ if(sel){ sel.style.borderColor='rgba(231,76,60,.6)'; } });
+};
+
+// v216.0 — enable/disable a league round's "Set Up Tee Times" button in place.
+// Format must be chosen first: Match Play is player-vs-player, Best Ball needs
+// partners — the pairing shape depends on the format.
+window._ptApplyTeeGate = function(roundId, format) {
+  var btn  = document.getElementById('ptTeeBtn_'+roundId);
+  var gate = document.getElementById('ptTeeGate_'+roundId);
+  if(!btn) return; // round already has tee times — nothing gated
+  var locked = !(format||'');
+  btn.disabled = locked;
+  btn.style.cssText = 'width:100%;padding:14px;border-radius:12px;font-size:15px;font-weight:800;'
+    + (locked
+        ? 'background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.28);cursor:not-allowed'
+        : 'background:rgba(201,168,76,.15);border:1.5px solid rgba(201,168,76,.5);color:#c9a84c;cursor:pointer');
+  if(gate){
+    if(locked){
+      gate.style.display = 'block';
+      gate.innerHTML = '\ud83c\udff7 Choose a <strong style="color:#c9a84c">format</strong> above before building tee times \u2014 pairings depend on it.';
+      gate.style.cssText = 'background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.28);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:12px;color:rgba(255,255,255,.6);line-height:1.5';
+    } else {
+      gate.style.display = 'none';
+      gate.innerHTML = '';
+    }
+  }
 };
 
 function ptRenderTripDetail(trip, players, rounds) {
   var body = document.getElementById('ptTripDetailBody');
   var tripId = trip.id;
+  window._ptTripDetailRounds = rounds || []; // v216.0: format-gate keeps this in sync
   var _isLeague = !!(trip.league_id || window._ptTripDetailLeagueId);
   var _lbLabel = _isLeague ? 'League Leaderboard' : 'Trip Leaderboard';
 
@@ -27091,7 +27124,19 @@ function ptRenderTripDetail(trip, players, rounds) {
 
       if(!hasTimes){
         // STATE 1: No tee times — show Set Up button
-        html += '<button onclick="ptTripRoundManager('+tripId+','+r.id+')" style="width:100%;padding:14px;background:rgba(201,168,76,.15);border:1.5px solid rgba(201,168,76,.5);border-radius:12px;color:#c9a84c;font-size:15px;font-weight:800;cursor:pointer">\u2699\ufe0f Set Up Tee Times</button>'
+        // v216.0: league rounds must have a format chosen first — pairings depend
+        // on it (Match Play is player-vs-player, Best Ball needs partners, etc.)
+        var _fmtGated = _isLeague && !(r.format||'');
+        html += (_fmtGated
+            ? '<div id="ptTeeGate_'+r.id+'" style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.28);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:12px;color:rgba(255,255,255,.6);line-height:1.5">\ud83c\udff7 Choose a <strong style="color:#c9a84c">format</strong> above before building tee times \u2014 pairings depend on it.</div>'
+            : '<div id="ptTeeGate_'+r.id+'" style="display:none"></div>')
+          + '<button id="ptTeeBtn_'+r.id+'" data-tid="'+tripId+'" data-rid="'+r.id+'"'
+          + (_fmtGated ? ' disabled' : '')
+          + ' onclick="ptTripRoundManager('+tripId+','+r.id+')" style="width:100%;padding:14px;border-radius:12px;font-size:15px;font-weight:800;'
+          + (_fmtGated
+              ? 'background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.28);cursor:not-allowed'
+              : 'background:rgba(201,168,76,.15);border:1.5px solid rgba(201,168,76,.5);color:#c9a84c;cursor:pointer')
+          + '">\u2699\ufe0f Set Up Tee Times</button>'
           +'<div style="text-align:center;margin-top:8px">'
           +'<button onclick="ptDeleteTripRound('+tripId+','+r.id+')" style="background:none;border:none;color:rgba(255,100,100,.4);font-size:12px;cursor:pointer;padding:4px">🗑 Delete Round</button>'
           +'</div>';
@@ -27311,6 +27356,13 @@ window.ptTripRoundManager = function(tripId, roundId) {
     .then(function(r){return r.json();})
     .then(function(d){
       var round = (d.rounds||[]).find(function(r){return r.id===roundId;});
+      // v216.0: hard gate — a league round with no format must not reach the
+      // tee-time builder (pairings depend on the format).
+      if(window._ptTripDetailLeagueId && round && !(round.format||'')){
+        var _g = document.getElementById('ptTRMOv'); if(_g) _g.remove();
+        alert('Choose a format for this league round first.\n\nPairings depend on it \u2014 Match Play is player-vs-player, Best Ball needs partners.');
+        return;
+      }
       if(round && round.course_id){
         _ptTRM.course = { id:round.course_id, name:round.course_name||'Course' };
         if(round.tee_box_id){ _ptTRM.teeBox = { id:round.tee_box_id, name:round.tee_name||'Tee' }; }
@@ -34699,7 +34751,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v215.0';
+    const TOUR_VERSION     = 'pards-tour-v216.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
