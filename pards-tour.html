@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v214.0 -->
+  <!-- pards-tour-v215.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -1458,11 +1458,61 @@ input::placeholder{color:#bbb}
        EVENTS  (placeholder)
   ═══════════════════════════════════════════════ -->
   <div id="screen-events" class="tour-screen">
-    <div class="section-body">
-      <div class="placeholder-icon">🏆</div>
-      <div class="placeholder-title">Events</div>
-      <div class="placeholder-desc">Leagues, trips and tournaments. Full rethink coming in Phase 2.</div>
-      <div class="placeholder-tag">Phase 2 — Design TBD</div>
+    <div style="padding:0 18px calc(60px + env(safe-area-inset-bottom));max-width:520px;margin:0 auto;width:100%;box-sizing:border-box">
+
+      <div style="padding:18px 0 20px;display:flex;align-items:center;gap:12px">
+        <button onclick="showHome()" style="background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:8px;color:rgba(201,168,76,.9);font-size:12px;font-weight:800;cursor:pointer;padding:5px 10px;line-height:1.2;-webkit-tap-highlight-color:transparent;flex-shrink:0">&#8592; Home</button>
+        <div style="font-size:20px;font-weight:900;color:#c9a84c">&#127942; Events</div>
+      </div>
+
+      <!-- Resume card (rendered by ptRenderEventsTab when an event round is in progress) -->
+      <div id="ptEvResumeWrap"></div>
+
+      <!-- ── Join & Score card — element IDs are the v6.06 join-chain contract, DO NOT RENAME ── -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.22);border-radius:18px;padding:18px 16px;margin-bottom:18px">
+        <div style="font-size:11px;color:rgba(201,168,76,.75);font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">Join &amp; Score</div>
+        <div style="font-size:12.5px;color:rgba(255,255,255,.45);line-height:1.55;margin-bottom:14px">Enter the 6-character code from your organizer &mdash; works for event teams, tee-time foursomes, and trip or league rounds.</div>
+        <input id="ptJoinCode" type="text" maxlength="6" placeholder="ABC123" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" style="width:100%;box-sizing:border-box;padding:16px;border-radius:14px;border:2px solid rgba(201,168,76,.4);background:rgba(255,255,255,.06);color:#f5e6b8;font-size:30px;font-weight:900;outline:none;letter-spacing:9px;text-align:center;font-family:monospace;margin-bottom:12px">
+        <div id="ptJoinErr" style="display:none;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);border-radius:10px;padding:11px 14px;color:#e74c3c;font-size:13px;margin-bottom:12px;text-align:center"></div>
+        <button id="ptJoinLookupBtn" onclick="doJoinLookup()" style="width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent">Find Group</button>
+
+        <div id="ptJoinGroupInfo" style="display:none;background:rgba(255,255,255,.05);border-radius:16px;padding:18px 16px;margin-top:16px">
+          <div style="font-size:11px;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">You're joining</div>
+          <div id="ptJoinGrpName" style="font-size:21px;font-weight:900;color:#f5e6b8;margin-bottom:2px"></div>
+          <div id="ptJoinEvName" style="font-size:13px;color:#c9a84c;font-weight:700;margin-bottom:2px"></div>
+          <div id="ptJoinCrsName" style="font-size:12px;color:rgba(255,255,255,.35);margin-bottom:18px"></div>
+          <div id="ptJoinScrambleNote" style="display:none;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:11px 14px;font-size:12px;color:rgba(255,255,255,.6);line-height:1.5;margin-bottom:14px">&#127948;&#65039; <strong style="color:#c9a84c">Scramble format</strong> &mdash; you are scoring for the opposing team. The scorecard will show their team name. Enter your own name below so the organizer knows who submitted.</div>
+          <button id="ptJoinWatchBtn" onclick="doJoinWatchLive()" style="width:100%;padding:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;color:rgba(255,255,255,.55);font-size:14px;font-weight:700;cursor:pointer;margin-bottom:14px;-webkit-tap-highlight-color:transparent">&#128249; Just Watch the Leaderboard</button>
+          <div id="ptJoinPinStep" style="display:none">
+            <div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Team PIN</div>
+            <input id="ptJoinPin" type="tel" maxlength="4" placeholder="4-digit PIN" style="width:100%;box-sizing:border-box;padding:14px 16px;border-radius:12px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.06);color:#f5e6b8;font-size:28px;font-weight:900;outline:none;letter-spacing:8px;text-align:center;font-family:monospace;margin-bottom:12px">
+            <div id="ptJoinPinErr" style="display:none;color:#e74c3c;font-size:13px;margin-bottom:12px;text-align:center"></div>
+            <button onclick="doJoinValidatePin()" style="width:100%;padding:14px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;margin-bottom:8px;-webkit-tap-highlight-color:transparent">Confirm PIN</button>
+          </div>
+          <div id="ptJoinStatusWarn" style="display:none;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.3);border-radius:10px;padding:11px 14px;color:#e74c3c;font-size:13px;margin-bottom:10px;font-weight:600;text-align:center"></div>
+          <div id="ptJoinScoreBtn">
+            <button onclick="ptShowPinStep()" style="width:100%;padding:15px;background:linear-gradient(135deg,#1a5c3a,#2d8a5e);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent">Score for This Team &#8594;</button>
+          </div>
+          <div id="ptJoinScorerStep" style="display:none">
+            <div id="ptJoinTeamPlayers" style="margin-bottom:14px"></div>
+            <div id="ptJoinEventRules" style="display:none;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:12px 14px;margin-bottom:14px">
+              <div style="font-size:10px;font-weight:800;color:rgba(201,168,76,.7);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">&#128203; Event Rules</div>
+              <div id="ptJoinEventRulesText" style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.6;white-space:pre-wrap"></div>
+            </div>
+            <div id="ptJoinMeLabel" style="display:none;font-size:14px;color:#c9a84c;font-weight:700;margin-bottom:12px;text-align:center"></div>
+            <div id="ptJoinNameWrap" style="display:none">
+              <div id="ptJoinNameLabel" style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Your Name</div>
+              <input id="ptJoinPlayerName" type="text" placeholder="Your name" style="width:100%;box-sizing:border-box;padding:14px 16px;border-radius:12px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.06);color:#fff;font-size:16px;outline:none;margin-bottom:16px">
+            </div>
+            <input id="ptJoinHdcp" type="hidden" value="0">
+            <button onclick="ptEvDoJoinGroup()" style="width:100%;padding:15px;background:linear-gradient(135deg,#1a5c3a,#2d8a5e);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent">I&rsquo;ll Score &#8594;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- My Events history (rendered by ptRenderEventsTab) -->
+      <div id="ptEvMyEventsWrap"></div>
+
     </div>
   </div>
 
@@ -34454,8 +34504,202 @@ self.addEventListener('fetch',e=>{
   </script>
 
   <script>
+/* ═══════════════════════════════════════════════════════════════════════
+   EVENTS TAB (added v215.0) — player join / score / resume / history
+   ─────────────────────────────────────────────────────────────────────
+   Wrapper-only. ZERO engine edits. The join card in #screen-events feeds
+   the battle-tested v6.06 join chain that already lives in the wrapper:
+     doJoinLookup → doJoinRoundLookup → doJoinTripLookup
+     → doJoinGroup (team codes) / ptLaunchFoursomeRound (foursomes+trips)
+   This block adds:
+     • ptRenderEventsTab()  — resume card + My Events list, join card reset
+     • ptEvDoJoinGroup()    — doJoinGroup + history record + reveal golf screen
+     • ptLaunchFoursomeRound decorator — history record + reveal golf screen
+       (also fixes the latent v214 bug where launches left #screen-golf
+        inactive, so the scorecard booted invisibly under the home screen)
+     • My Events store in localStorage ('ptMyEvents', capped at 10)
+   Console tag: [pt-events]
+═══════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  var LS_KEY = 'ptMyEvents';
+
+  function _log() { try { console.log.apply(console, ['[pt-events]'].concat([].slice.call(arguments))); } catch (e) {} }
+  function _esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function _load() { try { var a = JSON.parse(localStorage.getItem(LS_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  function _save(list) { try { localStorage.setItem(LS_KEY, JSON.stringify(list.slice(0, 10))); } catch (e) {} }
+  function _goGolf() { try { if (typeof showSection === 'function') showSection('golf'); } catch (e) {} }
+
+  // ── My Events store ────────────────────────────────────────────────
+  window.ptEvRecord = function (entry) {
+    if (!entry || !entry.code) return;
+    var list = _load().filter(function (e) { return e.code !== entry.code; });
+    entry.ts = new Date().toISOString();
+    list.unshift(entry);
+    _save(list);
+  };
+
+  // ── Resume card ────────────────────────────────────────────────────
+  function _renderResume() {
+    var wrap = document.getElementById('ptEvResumeWrap');
+    if (!wrap) return;
+    var g = window.G || {};
+    var active = g.mode === 'event' && g.roundDate && !g.roundEnd;
+    if (!active) { wrap.innerHTML = ''; return; }
+    var tr = g._tournamentRound || {};
+    var evName = tr.event_name || (g.joinGroup && g.joinGroup.event_name) || 'Event round';
+    var grpName = (g.joinGroup && g.joinGroup.name) || (g.players && g.players[0] && g.players[0].name) || '';
+    var holes = 0;
+    try { ((g.scores && g.scores[0]) || []).forEach(function (s) { if (s != null) holes++; }); } catch (e) {}
+    var sub = (grpName ? _esc(grpName) + ' &middot; ' : '') + holes + ' hole' + (holes !== 1 ? 's' : '') + ' scored';
+    wrap.innerHTML =
+      '<div style="background:linear-gradient(135deg,rgba(201,168,76,.16),rgba(201,168,76,.06));border:1.5px solid rgba(201,168,76,.5);border-radius:18px;padding:18px 16px;margin-bottom:18px">'
+      + '<div style="font-size:11px;color:rgba(201,168,76,.75);font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">Round in progress</div>'
+      + '<div style="font-size:18px;font-weight:900;color:#f5e6b8;margin-bottom:2px">' + _esc(evName) + '</div>'
+      + '<div style="font-size:12.5px;color:rgba(255,255,255,.5);margin-bottom:14px">' + sub + '</div>'
+      + '<button onclick="ptEvResume()" style="width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent">&#9654; Continue Scoring</button>'
+      + '</div>';
+  }
+  window.ptEvResume = function () { _goGolf(); };
+
+  // ── My Events list ─────────────────────────────────────────────────
+  function _lbAvailable(e) { return !!(e.event_id || (e.trip_id && e.viewer_pin)); }
+  function _renderMyEvents() {
+    var wrap = document.getElementById('ptEvMyEventsWrap');
+    if (!wrap) return;
+    var list = _load();
+    if (!list.length) { wrap.innerHTML = ''; return; }
+    var h = '<div style="font-size:11px;color:rgba(255,255,255,.4);font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin:2px 0 10px">My Events</div>';
+    list.forEach(function (e, i) {
+      var icon = e.kind === 'trip' ? '&#129508;' : '&#127942;';
+      var when = (e.ts || '').slice(0, 10);
+      var meta = [];
+      if (e.group_name) meta.push(_esc(e.group_name));
+      meta.push('code ' + _esc(e.code));
+      if (when) meta.push(when);
+      h += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:14px;margin-bottom:10px">'
+        + '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">'
+        + '<div style="min-width:0">'
+        + '<div style="font-size:15px;font-weight:800;color:#f5e6b8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + icon + ' ' + _esc(e.event_name || 'Event') + '</div>'
+        + '<div style="font-size:11.5px;color:rgba(255,255,255,.4);margin-top:3px">' + meta.join(' &middot; ') + '</div>'
+        + '</div>'
+        + '<button onclick="ptEvForget(' + i + ')" style="background:none;border:none;color:rgba(255,255,255,.3);font-size:16px;cursor:pointer;padding:2px 4px;line-height:1;flex-shrink:0;-webkit-tap-highlight-color:transparent">&#10005;</button>'
+        + '</div>'
+        + '<div style="display:flex;gap:8px;margin-top:11px">'
+        + '<button onclick="ptEvRejoin(' + i + ')" style="flex:1;padding:11px 8px;background:rgba(45,138,94,.15);border:1.5px solid rgba(45,138,94,.5);border-radius:10px;color:#7fd4a8;font-size:13px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">&#9971; Score / Resume</button>'
+        + (_lbAvailable(e)
+          ? '<button onclick="ptEvOpenLb(' + i + ')" style="flex:1;padding:11px 8px;background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.35);border-radius:10px;color:#c9a84c;font-size:13px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">&#127942; Leaderboard</button>'
+          : '')
+        + '</div>'
+        + '</div>';
+    });
+    wrap.innerHTML = h;
+  }
+  window.ptEvRejoin = function (i) {
+    var e = _load()[i];
+    if (!e) return;
+    var ci = document.getElementById('ptJoinCode');
+    if (ci) ci.value = e.code;
+    _resetJoinCard();
+    try { doJoinLookup(); } catch (err) { _log('rejoin failed', err); }
+    try { window.scrollTo(0, 0); } catch (err) {}
+  };
+  window.ptEvOpenLb = function (i) {
+    var e = _load()[i];
+    if (!e) return;
+    try {
+      if (e.trip_id && e.viewer_pin) { ptShowTripLeaderboard(e.trip_id, e.viewer_pin); }
+      else if (e.event_id) { ptShowLeaderboard(e.event_id); }
+    } catch (err) { _log('leaderboard open failed', err); }
+  };
+  window.ptEvForget = function (i) {
+    var list = _load();
+    list.splice(i, 1);
+    _save(list);
+    _renderMyEvents();
+  };
+
+  // ── Join card reset (mirrors the old showJoinEvent() reset) ────────
+  function _resetJoinCard() {
+    var errEl = document.getElementById('ptJoinErr'); if (errEl) errEl.style.display = 'none';
+    var info = document.getElementById('ptJoinGroupInfo'); if (info) info.style.display = 'none';
+    var pinStep = document.getElementById('ptJoinPinStep'); if (pinStep) pinStep.style.display = 'none';
+    var scorerStep = document.getElementById('ptJoinScorerStep'); if (scorerStep) scorerStep.style.display = 'none';
+    var scoreBtn = document.getElementById('ptJoinScoreBtn');
+    if (scoreBtn) { scoreBtn.style.display = 'block'; var b = scoreBtn.querySelector('button'); if (b) b.textContent = 'Score for This Team →'; }
+    var watchBtn = document.getElementById('ptJoinWatchBtn'); if (watchBtn) watchBtn.style.display = 'none';
+    if (window.G) { G._joinMode = null; }
+  }
+
+  // ── Tab render (called by showSection('events')) ───────────────────
+  window.ptRenderEventsTab = function () {
+    var ci = document.getElementById('ptJoinCode'); if (ci) ci.value = '';
+    var ni = document.getElementById('ptJoinPlayerName'); if (ni) ni.value = '';
+    _resetJoinCard();
+    _renderResume();
+    _renderMyEvents();
+  };
+
+  // ── Team-code final step: doJoinGroup + record + reveal golf screen ─
+  window.ptEvDoJoinGroup = function () {
+    var before = (window.G && G.roundDate) || null;
+    try { doJoinGroup(); } catch (e) { _log('doJoinGroup failed', e); return; }
+    var g = window.G || {};
+    // Success test: doJoinGroup always stamps a fresh roundDate on success
+    // and early-returns (roundDate unchanged) on validation failure.
+    if (g.mode === 'event' && g.roundDate && g.roundDate !== before && g.joinGroup) {
+      window.ptEvRecord({
+        code: g.joinGroup.code,
+        kind: 'group',
+        event_id: g.joinGroup.event_id || null,
+        trip_id: null,
+        viewer_pin: null,
+        event_name: g.joinGroup.event_name || 'Event',
+        group_name: g.joinGroup.name || ''
+      });
+      _goGolf();
+    }
+  };
+
+  // ── Decorate ptLaunchFoursomeRound: record history + reveal golf ───
+  // Fixes latent v214 bug: launches activated engine screens inside an
+  // inactive #screen-golf, leaving the scorecard invisible behind home.
+  var _origLaunch = window.ptLaunchFoursomeRound;
+  if (typeof _origLaunch === 'function') {
+    window.ptLaunchFoursomeRound = function (foursomeData) {
+      var r = _origLaunch.apply(this, arguments);
+      try {
+        var f = (foursomeData && foursomeData.foursome) || {};
+        if (f.code) {
+          var vpin = f.viewer_pin || null;
+          // doJoinTripLookup stashes the raw join payload — viewer_pin will
+          // arrive there once Worker v2.33.0 returns it (graceful until then)
+          try {
+            var jt = window.G && G._joinTripData && G._joinTripData.foursome;
+            if (!vpin && jt && (jt.foursome_code === f.code || jt.code === f.code) && jt.viewer_pin) vpin = jt.viewer_pin;
+          } catch (e2) {}
+          window.ptEvRecord({
+            code: f.code,
+            kind: f.trip_id ? 'trip' : 'round',
+            event_id: f.event_id || null,
+            trip_id: f.trip_id || null,
+            viewer_pin: vpin,
+            event_name: f.event_name || f.trip_name || 'Round',
+            group_name: f.round_number ? ('Round ' + f.round_number) : ''
+          });
+        }
+        _goGolf();
+      } catch (e) { _log('launch decorate failed', e); }
+      return r;
+    };
+    _log('ptLaunchFoursomeRound decorated');
+  }
+})();
+  </script>
+
+  <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v214.0';
+    const TOUR_VERSION     = 'pards-tour-v215.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
@@ -34523,6 +34767,10 @@ self.addEventListener('fetch',e=>{
         const el = document.getElementById('screen-' + s);
         if (el) el.classList.toggle('active', s === id);
       });
+      // v215.0: Events tab renders its resume card + My Events on entry
+      if (id === 'events' && window.ptRenderEventsTab) {
+        try { window.ptRenderEventsTab(); } catch (e) {}
+      }
     }
 
     // Prevent overscroll bounce on screens that don't scroll
