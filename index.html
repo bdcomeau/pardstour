@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v213.0 -->
+  <!-- pards-tour-v214.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -34187,8 +34187,275 @@ self.addEventListener('fetch',e=>{
 
 
   <script>
+/* ═══════════════════════════════════════════════════════════════════════
+   SCORECARD OUTBOUND SYNC (added v214.0)
+   Ported from the proven v6.06 Tour scorer submit layer (pards-tour-6.06
+   Refernce.html) and re-attached to the real Pards Golf engine via
+   decorators. WRAPPER-ONLY: zero edits inside the golf engine island —
+   sync observes score changes through a saveG wrapper. Every network call
+   is guarded; any failure degrades to local-only scoring, never a broken
+   round.
+
+   Routing (derived per call — no persisted flag needed):
+     'trip'  → trips & leagues (trip_tee_times.foursome_code)
+               POST /api/trips/:tripId/rounds/:roundId/scores
+     'round' → event tee-time foursomes (tee_time_groups.code)
+               POST /api/scores/round
+     'group' → event group codes incl. scrambles + RBC cross-scoring
+               POST /api/scores
+     null    → plain Pards Golf round → never syncs
+   All three endpoints are idempotent per-hole upserts (verified in
+   Worker v2.32.0), so repeat sends and edits are always safe.
+   ═══════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  function _route() {
+    try {
+      if (typeof G === 'undefined' || !G || G.mode !== 'event') return null;
+      var tr = G._tournamentRound;
+      if (tr && tr.trip_id) return 'trip';
+      if (tr && tr.foursome_code && !(G.joinGroup && G.joinGroup.code === tr.foursome_code)) return 'round';
+      if (G._scoringForCode || (G.joinGroup && G.joinGroup.code)) return 'group';
+      return null;
+    } catch (e) { return null; }
+  }
+
+  function _active() {
+    try {
+      return !!(_route() && G.roundDate && G.roundDate !== 'pretee' &&
+                Array.isArray(G.scores) && G.scores.length);
+    } catch (e) { return false; }
+  }
+
+  // Trip stableford points — identical formula to the v6.06 submit layer
+  function _tripPts(p, hole1, gross) {
+    var par = (G.par && G.par[hole1 - 1]) || 4;
+    var playHdcp = p.playHdcp || 0;
+    var si = (G.si && G.si[hole1 - 1]) || hole1;
+    var strokes = playHdcp >= si ? (playHdcp >= si + 18 ? 2 : 1) : 0;
+    var diff = par - (gross - strokes);
+    return diff >= 2 ? 5 : diff === 1 ? 3 : diff === 0 ? 2 : diff === -1 ? 1 : 0;
+  }
+
+  // POST one player's holes ([{hole, gross_score}]) to the routed endpoint
+  function _post(pi, holes, keepalive) {
+    var route = _route();
+    if (!route || !holes.length) return Promise.resolve({ error: 'no-route' });
+    var tr = G._tournamentRound || {};
+    var p = (G.players && G.players[pi]) || {};
+    var url, body;
+    if (route === 'trip') {
+      if (!p._trip_player_id) return Promise.resolve({ error: 'no-trip-player-id' });
+      url = TOUR_API + '/api/trips/' + tr.trip_id + '/rounds/' + tr.round_id + '/scores';
+      body = {
+        foursome_code: tr.foursome_code,
+        trip_player_id: p._trip_player_id,
+        tee: p.deck || null,
+        scores: holes.map(function (s) {
+          return { hole: s.hole, gross_score: s.gross_score, stableford_pts: _tripPts(p, s.hole, s.gross_score) };
+        })
+      };
+    } else if (route === 'round') {
+      url = TOUR_API + '/api/scores/round';
+      body = {
+        group_code: tr.foursome_code,
+        player_name: p.name || G.playerName || 'Player',
+        handicap: p.hdcpIndex || p.idx || 0,
+        tee: p.deck || 'white',
+        scores: holes,
+        tee_time_id: tr.tee_time_id,
+        round_id: tr.round_id,
+        group_id: tr.group_id || p._group_id || null,
+        roster_id: p._roster_id || null
+      };
+    } else { // 'group' — v6.06 semantics preserved (incl. cross-scoring name rule)
+      var code = G._scoringForCode || (G.joinGroup && G.joinGroup.code);
+      if (!code) return Promise.resolve({ error: 'no-code' });
+      var pname = G._pairedGroup ? (G.playerName || p.name || '') : (p.name || G.playerName || '');
+      if (!pname) return Promise.resolve({ error: 'no-name' });
+      url = TOUR_API + '/api/scores';
+      body = {
+        group_code: code,
+        player_name: pname,
+        handicap: p.hdcpIndex || p.idx || 0,
+        tee: p.deck || 'white',
+        scores: holes
+      };
+    }
+    try {
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        keepalive: !!keepalive
+      }).then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d && d.error) { console.warn('[pt-sync] rejected:', d.error); return { error: d.error }; }
+          return d || { ok: true };
+        })
+        .catch(function (e) { console.warn('[pt-sync] failed:', e && e.message); return { error: String((e && e.message) || e) }; });
+    } catch (e) { return Promise.resolve({ error: String(e) }); }
+  }
+
+  // ── Live diff-sync: after every saveG, send changed holes (debounced) ──
+  var _snap = null, _timer = null, _lastFullAttempt = 0;
+
+  function _takeSnap() {
+    _snap = G.scores.map(function (r) { return (r || []).slice(); });
+  }
+  function _diffByPlayer() {
+    var byPi = {}, any = false;
+    for (var pi = 0; pi < G.scores.length; pi++) {
+      var row = G.scores[pi] || [];
+      for (var h = 0; h < 18; h++) {
+        var v = row[h];
+        if (v === null || v === undefined) continue;
+        var old = (_snap && _snap[pi]) ? _snap[pi][h] : null;
+        if (v !== old) { (byPi[pi] = byPi[pi] || []).push({ hole: h + 1, gross_score: v }); any = true; }
+      }
+    }
+    return any ? byPi : null;
+  }
+
+  function _flush(keepalive) {
+    if (!_active()) return;
+    var byPi = _diffByPlayer();
+    if (!byPi) { _checkComplete(); return; }
+    var prev = _snap;
+    _takeSnap(); // optimistic — rolled back on any failure so holes retry
+    var calls = Object.keys(byPi).map(function (pi) { return _post(Number(pi), byPi[pi], keepalive); });
+    Promise.all(calls).then(function (rs) {
+      var failed = rs.filter(function (r) { return !r || r.error; }).length;
+      if (failed) _snap = prev;
+      _checkComplete();
+    });
+  }
+  function _schedule() {
+    if (_timer) clearTimeout(_timer);
+    _timer = setTimeout(function () { _timer = null; try { _flush(false); } catch (e) {} }, 1800);
+  }
+  function _flushNow(keepalive) {
+    if (_timer) { clearTimeout(_timer); _timer = null; }
+    _flush(keepalive);
+  }
+
+  // ── Toast (v6.06 style) ────────────────────────────────────────────────
+  function _toast(msg, isErr, onTap) {
+    try {
+      var t = document.createElement('div');
+      t.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);' +
+        'background:' + (isErr ? '#7a2d2d' : '#2d6a4f') + ';color:#fff;padding:10px 22px;' +
+        'border-radius:20px;font-size:14px;font-weight:700;z-index:9999;' +
+        'box-shadow:0 4px 16px rgba(0,0,0,.4);cursor:' + (onTap ? 'pointer' : 'default');
+      t.textContent = msg;
+      if (onTap) t.onclick = function () { t.remove(); onTap(); };
+      document.body.appendChild(t);
+      setTimeout(function () { if (t.parentNode) t.remove(); }, isErr ? 6000 : 3000);
+    } catch (e) {}
+  }
+
+  // ── Full-round submit (ported near-verbatim from v6.06) ────────────────
+  window.ptSubmitTournamentScores = function (onDone) {
+    var route = _route();
+    if (!route) { if (onDone) onDone(false); return; }
+    var calls = [];
+    (G.players || []).forEach(function (_, pi) {
+      var arr = [];
+      (G.scores[pi] || []).forEach(function (s, h) {
+        if (s !== null && s !== undefined) arr.push({ hole: h + 1, gross_score: s });
+      });
+      if (arr.length) calls.push(_post(pi, arr, false));
+    });
+    if (!calls.length) { if (onDone) onDone(false); return; }
+    Promise.all(calls).then(function (rs) {
+      var ok = rs.every(function (r) { return r && !r.error; });
+      if (ok) {
+        _takeSnap();
+        var tr = G._tournamentRound || {};
+        if (tr.trip_id && tr.round_id && tr.foursome_code) {
+          try { sessionStorage.setItem('_ptScored_' + tr.round_id + '_' + tr.foursome_code, '1'); } catch (e) {}
+        }
+      }
+      if (onDone) onDone(ok);
+    });
+  };
+
+  // Manual single-hole push — parity with the old v6.06 API (debug/future UI)
+  window.ptSubmitScore = function (pi, hole1, val) {
+    if (val === null || val === undefined) return;
+    _post(pi, [{ hole: hole1, gross_score: val }], false);
+  };
+
+  // ── Auto full-submit once every hole is filled (ported v6.06) ──────────
+  function _checkComplete() {
+    try {
+      if (!_active() || G._tournamentSubmitted) return;
+      if (!G.players || !G.players.length) return;
+      var all = G.players.every(function (_, pi) {
+        return G.scores[pi] && G.scores[pi].length === 18 &&
+               G.scores[pi].every(function (s) { return s !== null; });
+      });
+      if (!all) return;
+      var now = Date.now();
+      if (now - _lastFullAttempt < 30000) return; // backoff — no hammering
+      _lastFullAttempt = now;
+      G._tournamentSubmitted = true; saveG();
+      var lbl = _route() === 'trip' ? 'leaderboard' : 'tournament';
+      window.ptSubmitTournamentScores(function (ok) {
+        if (ok) {
+          _toast('✓ Scores sent to ' + lbl);
+        } else {
+          G._tournamentSubmitted = false; saveG();
+          _toast('⚠️ Score send failed — tap to retry', true, function () {
+            _lastFullAttempt = 0; _checkComplete();
+          });
+        }
+      });
+    } catch (e) {}
+  }
+
+  // ── Decorators — attach to engine globals from the OUTSIDE ─────────────
+  var _oSaveG = window.saveG;
+  window.saveG = function () {
+    var r = _oSaveG.apply(this, arguments);
+    try { if (_active()) _schedule(); } catch (e) {}
+    return r;
+  };
+
+  // Fresh round from the scorecard: flush, then clear tour context so the
+  // new round can never leak scores into the old trip/event.
+  var _oNewRoundStep2 = window.newRoundStep2;
+  window.newRoundStep2 = function () {
+    try {
+      if (_active()) _flushNow(false);
+      G._tournamentRound = null;
+      G._tournamentSubmitted = false;
+      G._scoringForCode = null;
+      G._scoringForGroup = null;
+      G.joinGroup = null;
+      G.mode = 'local';
+      _snap = null;
+    } catch (e) {}
+    return _oNewRoundStep2.apply(this, arguments);
+  };
+
+  // Leaving the page mid-round: last-chance flush with keepalive
+  window.addEventListener('pagehide', function () {
+    try { if (_active() && _diffByPlayer()) _flushNow(true); } catch (e) {}
+  });
+
+  // Slow safety net: retries failed holes + resends after reload (snap
+  // starts empty, endpoints are idempotent upserts, so this is harmless).
+  setInterval(function () {
+    try { if (_active() && !_timer && _diffByPlayer()) _flush(false); } catch (e) {}
+  }, 45000);
+})();
+  </script>
+
+  <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v213.0';
+    const TOUR_VERSION     = 'pards-tour-v214.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
