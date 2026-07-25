@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v229.0 -->
+  <!-- pards-tour-v230.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -28510,7 +28510,13 @@ function _ptCloseOrgLive() {
   if (_ov) _ov.remove();
 }
 
-function ptOrgLiveScores(eventId) {
+// v230.0 — event format for the Live Scores view ('scramble' = gross:
+// gross+to-par display, no NET/hdcp/eligibility, countback ranking).
+// Declared with var — implicit globals broke the join flow once already (v222).
+var _ptOrgLiveFormat = null;
+
+function ptOrgLiveScores(eventId, evFormat) {
+  _ptOrgLiveFormat = evFormat || null;
   if (document.getElementById('ptOrgLiveOverlay')) return;
   var ov = document.createElement('div');
   ov.id = 'ptOrgLiveOverlay';
@@ -28543,6 +28549,7 @@ function ptOrgLiveScores(eventId) {
 function ptOrgRefreshLive(eventId) {
   var body = document.getElementById('ptOrgLiveBody');
   if (!body) return;
+  var _orgGross = (_ptOrgLiveFormat === 'scramble'); // v230.0 gross scramble
   fetch(TOUR_API + '/api/events/' + eventId + '/leaderboard', {
     headers: { 'Authorization': 'Bearer ' + G.orgToken }
   }).then(function(r){ return r.json(); }).then(function(lb) {
@@ -28590,14 +28597,15 @@ function ptOrgRefreshLive(eventId) {
           bP.forEach(function(p){if(p.holes&&p.holes[_h]!=null){bS+=p.holes[_h];bH=true;}});
           if(!aH&&!bH) continue;
           if(!aH) return 1; if(!bH) return -1;
-          if(aS!==bS) return bS-aS; // worse (higher) score sorts first (finishes higher)
+          if(aS!==bS) return aS-bS; // v230.0 — LOWER hole score wins the tiebreak (was inverted in the v6.06 port)
         }
         return 0;
       }
       orgEnriched.sort(function(a,b){
-        // Sort by net score when available, else by toPar
-        var aKey = a.netScore !== null ? a.netScore : a.toPar;
-        var bKey = b.netScore !== null ? b.netScore : b.toPar;
+        // Sort by net score when available, else by toPar.
+        // v230.0 — gross scramble ALWAYS ranks by to-par (net ignored).
+        var aKey = (_orgGross || a.netScore === null) ? a.toPar : a.netScore;
+        var bKey = (_orgGross || b.netScore === null) ? b.toPar : b.netScore;
         if(aKey!==null&&bKey!==null){
           if(aKey!==bKey) return aKey-bKey;
           var cb=_orgCountback(a,b); if(cb!==0) return cb;
@@ -28657,7 +28665,7 @@ function ptOrgRefreshLive(eventId) {
         h += '<div style="font-size:16px;min-width:24px;text-align:center">'+medal+'</div>';
         h += '<div style="flex:1;min-width:0">';
         h += '<div style="font-size:15px;font-weight:800;color:#f5e6b8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(row.group_name||'Group')+(holesPlayed>=18?' <span style="font-size:16px">✅</span>':'')+'</div>';
-        if (row.ineligible_reason) h += '<div style="font-size:9px;color:#e74c3c;font-weight:700;margin-top:2px">⚠️ Ineligible: '+row.ineligible_reason+'</div>';
+        if (row.ineligible_reason && !_orgGross) h += '<div style="font-size:9px;color:#e74c3c;font-weight:700;margin-top:2px">⚠️ Ineligible: '+row.ineligible_reason+'</div>';
         if (row.tee_violation) h += '<div style="font-size:9px;color:#e67e22;font-weight:700;margin-top:2px">⛳ '+row.tee_violation+'</div>';
         h += '<div style="display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap">';
         h += '<div style="font-size:11px;color:rgba(255,255,255,.4)">'+(holesPlayed>=18?'Finished':holesPlayed>0?('On hole '+currentHole):('Not started'))+'</div>';
@@ -28669,7 +28677,7 @@ function ptOrgRefreshLive(eventId) {
         var _eNet = enrichedItem.netScore;
         var _eTh  = enrichedItem.teamHdcp;
         h += '<div style="text-align:right;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:1px">';
-        if (_eNet !== null && holesPlayed > 0) {
+        if (_eNet !== null && holesPlayed > 0 && !_orgGross) {
           // NET primary
           var _netDisp = _eNet % 1 === 0 ? _eNet : _eNet.toFixed(1);
           var _netCol  = _eNet < 0 ? '#e74c3c' : _eNet === 0 ? '#2563eb' : 'rgba(255,255,255,.7)';
@@ -28732,8 +28740,10 @@ function ptOrgRefreshLive(eventId) {
             var ppToPar=(pHoles&&ppFor)?(pTot-ppFor):null;
             var ppL=ppToPar===null?'':(ppToPar<0?''+ppToPar:ppToPar===0?'E':'+'+ppToPar);
             var ppC=ppToPar===null?'rgba(255,255,255,.3)':ppToPar<0?'#e74c3c':ppToPar===0?'#2563eb':'rgba(255,255,255,.4)';
-            var frontRow=_liveRow(p,1,9,parArr,'F9');
-            var backRow=_liveRow(p,10,18,parArr,'B9');
+            // v230.0 — was passing raw detail.par (Worker returns none), so every
+            // chip hit the no-par gray branch. _orgParArr is the resolved course par.
+            var frontRow=_liveRow(p,1,9,_orgParArr||[],'F9');
+            var backRow=_liveRow(p,10,18,_orgParArr||[],'B9');
             h+='<div style="background:rgba(255,255,255,.06);border-radius:8px;padding:6px 4px 4px;margin-bottom:6px">';
 
             h+='<div style="display:flex;width:100%;gap:1px;margin-bottom:3px">'+frontRow+'</div>';
@@ -28778,7 +28788,7 @@ function loadOrgEventDetail(eventId) {
       html+='<button onclick="ptSetEvStatus('+ev.id+',\'active\')" style="flex:1;padding:12px;background:#4CAF50;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:900;cursor:pointer">▶ Go Live</button>';
     } else if(ev.status==='active'){
       html+='<button onclick="ptSetEvStatus('+ev.id+',\'complete\')" style="flex:1;padding:10px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer">✓ Mark Complete</button>';
-      if(ev.format!=='multi_day') html+='<button onclick="ptOrgLiveScores('+ev.id+')" style="flex:1;padding:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:#c9a84c;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer">📊 Live Scores</button>';
+      if(ev.format!=='multi_day') html+='<button onclick="ptOrgLiveScores('+ev.id+',\''+(ev.format||'')+'\')" style="flex:1;padding:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:#c9a84c;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer">📊 Live Scores</button>';
     }
     html+='</div>';
     // Archive / Unarchive — subtle secondary action
@@ -33193,6 +33203,8 @@ function _ptRenderStandings(standings, computed, eventId) {
   Promise.all(detailFetches).then(function(details) {
     var body2 = document.getElementById('ptLbBody');
     if (!body2) return;
+    // v230.0 — gross scramble: gross+to-par, no NET/hdcp/eligibility, to-par ranking
+    var _wlGross = (((G._watchEvent && G._watchEvent.format) || (G.joinGroup && G.joinGroup.format)) === 'scramble');
     // Build standings with to-par
     var enriched = standings.map(function(row, i) {
         var detail = details[i];
@@ -33240,14 +33252,15 @@ function _ptRenderStandings(standings, computed, eventId) {
         if (!aHas && !bHas) continue; // no score on this hole for either — shouldn't happen if finished
         if (!aHas) return 1;
         if (!bHas) return -1;
-        if (aSum !== bSum) return bSum - aSum; // worse (higher) score on this hole sorts first (finishes higher)
+        if (aSum !== bSum) return aSum - bSum; // v230.0 — LOWER hole score wins the tiebreak (was inverted in the v6.06 port)
       }
       return 0; // identical on every hole
     }
     // Sort: to-par ascending, then countback (finished teams only), then holes played desc
     enriched.sort(function(a,b){
-      var aKey = a.netScore !== null ? a.netScore : a.toPar;
-      var bKey = b.netScore !== null ? b.netScore : b.toPar;
+      // v230.0 — gross scramble ALWAYS ranks by to-par (net ignored)
+      var aKey = (_wlGross || a.netScore === null) ? a.toPar : a.netScore;
+      var bKey = (_wlGross || b.netScore === null) ? b.toPar : b.netScore;
       if (aKey !== null && bKey !== null) {
         if (aKey !== bKey) return aKey - bKey;
         var cb = _countback(a, b);
@@ -33292,17 +33305,20 @@ function _ptRenderStandings(standings, computed, eventId) {
         + '<div style="display:flex;align-items:center;gap:10px">'
         + '<div style="font-size:18px;min-width:26px;text-align:center">'+(typeof medal==='number'?'<span style="font-size:13px;font-weight:900;color:rgba(255,255,255,.4)">'+medal+'</span>':medal)+'</div>'
         + '<div style="flex:1;min-width:0">'
-        + '<div style="font-size:14px;font-weight:800;color:#f5e6b8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(row.group_name||'Group')+(isMyGroup?' <span style="font-size:10px;color:#c9a84c">(you)</span>':'')+(item.countbackWin?' <span style="font-size:9px;font-weight:900;color:rgba(201,168,76,.6);letter-spacing:.3px">C/B</span>':'')+'</div>'        +((row.ineligible_reason||item.detail.ineligible_reason)?'<div style="font-size:9px;color:#e74c3c;font-weight:700;margin-top:2px">⚠️ Ineligible: '+(row.ineligible_reason||item.detail.ineligible_reason)+'</div>':'')        +(row.tee_violation?'<div style="font-size:9px;color:#e67e22;font-weight:700;margin-top:2px">⛳ '+row.tee_violation+'</div>':'')
+        + '<div style="font-size:14px;font-weight:800;color:#f5e6b8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(row.group_name||'Group')+(isMyGroup?' <span style="font-size:10px;color:#c9a84c">(you)</span>':'')+(item.countbackWin?' <span style="font-size:9px;font-weight:900;color:rgba(201,168,76,.6);letter-spacing:.3px">C/B</span>':'')+'</div>'        +((!_wlGross && (row.ineligible_reason||item.detail.ineligible_reason))?'<div style="font-size:9px;color:#e74c3c;font-weight:700;margin-top:2px">⚠️ Ineligible: '+(row.ineligible_reason||item.detail.ineligible_reason)+'</div>':'')        +(row.tee_violation?'<div style="font-size:9px;color:#e67e22;font-weight:700;margin-top:2px">⛳ '+row.tee_violation+'</div>':'')
         + '<div style="margin-top:2px">'+holeInfo+'</div>'
         + '</div>'
         + '<div style="text-align:right;flex-shrink:0">'
-        + (item.netScore !== null && (row.holes_played||0) > 0
+        + (item.netScore !== null && (row.holes_played||0) > 0 && !_wlGross
             ? '<div style="font-size:10px;font-weight:700;color:rgba(168,213,181,.7);letter-spacing:.3px">NET</div>'
               + '<div style="font-size:24px;font-weight:900;color:#a8d5b5;font-family:monospace;line-height:1">'
                 + (item.netScore%1===0?item.netScore:item.netScore.toFixed(1)) + '</div>'
               + '<div style="font-size:9px;color:rgba(168,213,181,.45)">hdcp ' + item.teamHdcp.toFixed(1) + '</div>'
               + '<div style="font-size:9px;color:rgba(255,255,255,.3);margin-top:2px">gross ' + lbl.text + '</div>'
-            : '<div style="font-size:22px;font-weight:900;color:'+lbl.color+';font-family:monospace;line-height:1">'+lbl.text+'</div>'
+            : (_wlGross && row.total != null && (row.holes_played||0) > 0
+                ? '<div style="font-size:22px;font-weight:900;color:rgba(255,255,255,.85);font-family:monospace;line-height:1">'+row.total+'</div>'
+                  + '<div style="font-size:12px;font-weight:700;color:'+lbl.color+';font-family:monospace;margin-top:2px">'+lbl.text+'</div>'
+                : '<div style="font-size:22px;font-weight:900;color:'+lbl.color+';font-family:monospace;line-height:1">'+lbl.text+'</div>')
           )
         + '<div style="font-size:9px;color:rgba(255,255,255,.25);margin-top:2px">'+holesText+(holesText==='F'?'':' holes')+'</div>'
         + '</div>'
@@ -35279,7 +35295,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v229.0';
+    const TOUR_VERSION     = 'pards-tour-v230.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
