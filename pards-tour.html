@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v242.2 -->
+  <!-- pards-tour-v243.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -27217,6 +27217,7 @@ function ptShowTripDetail(tripId, leagueId) {
 }
 
 function ptLoadTripDetail(tripId) {
+  window._ptTripScoreAgg = {}; // v243.0: fresh score fetch on every detail open
   fetch(TOUR_API+'/api/trips/'+tripId, {
     headers:{'Authorization':'Bearer '+G.orgToken}
   }).then(_ptJson).then(_ptThrow).then(function(d){
@@ -27438,8 +27439,36 @@ function ptRenderTripDetail(trip, players, rounds) {
           var _when = _isShotgun ? ('⛳ Shotgun · Hole '+(tt.hole||1)) : (tt.start_time ? ('🕐 '+_pt12h(tt.start_time)) : '');
           // Store players by code so ptStartTripScoring can pre-populate setup screen
           if(_code) _ptTeeSheetPlayers[_code] = (tt.players||[]).map(function(p){return{name:p.name||p.player_name||'Player',roster_id:p.roster_id||null,current_index:p.current_index||0,playing_handicap:p.playing_handicap||0,trip_player_id:p.trip_player_id||p.id||null};});
-          var _isScored = false;
-          try{ _isScored = sessionStorage.getItem('_ptScored_'+r.id+'_'+_code)==='1'; }catch(e){}
+          // v243.0 — ⭐ per-player score lines on the pill
+          var _agg = (window._ptTripScoreAgg && window._ptTripScoreAgg[r.id]) || null;
+          var _plines = '', _lastTs = '', _anyScore = false;
+          var _allDone = !!(tt.players && tt.players.length);
+          (tt.players||[]).forEach(function(p){
+            var _pid = (p.trip_player_id != null) ? p.trip_player_id : p.id;
+            var _nm  = _esc(p.name||p.player_name||'Player');
+            var _a   = (_agg && _pid != null) ? _agg[_pid] : null;
+            if(_a && _a.holes > 0){
+              _anyScore = true;
+              if(_a.last > _lastTs) _lastTs = _a.last;
+              var _done = _a.holes >= 18;
+              if(!_done) _allDone = false;
+              _plines += '<div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12px;line-height:1.8">'
+                +'<span style="color:rgba(255,255,255,.75)">'+_nm+'</span>'
+                +'<span style="font-weight:800;white-space:nowrap;color:'+(_done?'#a8d5b5':'rgba(255,255,255,.6)')+'">'+_a.pts+' pts ('+_a.gross+')'+(_done?' \u2713':' \u00b7 '+_a.holes+'/18')+'</span>'
+                +'</div>';
+            } else {
+              _allDone = false;
+              _plines += '<div style="font-size:12px;color:rgba(255,255,255,.4);line-height:1.8">'+_nm+'</div>';
+            }
+          });
+          var _srvScored = _anyScore && _allDone; // every player in this pill has all 18 holes on the SERVER
+          var _scoreBlock = _anyScore
+            ? '<div style="border-top:1px solid rgba(255,255,255,.07);margin-top:8px;padding-top:6px">'+_plines
+              +(_lastTs?'<div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:4px;text-align:right">'+(_srvScored?'Submitted ':'Last update ')+_ptUtcToLocal(_lastTs)+'</div>':'')
+              +'</div>'
+            : '';
+          var _isScored = _srvScored; // v243.0: server data drives this on ANY device
+          try{ _isScored = _isScored || sessionStorage.getItem('_ptScored_'+r.id+'_'+_code)==='1'; }catch(e){}
 
           html += '<div style="background:rgba(0,0,0,.25);border-radius:12px;padding:14px;margin-bottom:10px">';
           if(_isScored){
@@ -27448,7 +27477,8 @@ function ptRenderTripDetail(trip, players, rounds) {
               +'<span style="font-size:14px;font-weight:800;color:#a8d5b5">Scores Submitted</span>'
               +'</div>'
               +(_when?'<div style="font-size:11px;font-weight:700;color:'+(_isShotgun?'rgba(168,213,181,.75)':'rgba(255,255,255,.45)')+';margin-bottom:8px">'+_when+'</div>':'')
-              +(_names?'<div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:10px">'+_names+'</div>':'')
+              +(_anyScore?'':(_names?'<div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:10px">'+_names+'</div>':''))
+              +(_scoreBlock?_scoreBlock.replace('margin-top:8px;padding-top:6px','margin-top:0;padding-top:0;border-top:none')+'<div style="height:10px"></div>':'')
               +'<button onclick="ptShowTripLeaderboard('+tripId+',\''+trip.viewer_pin+'\')" style="width:100%;padding:12px;background:rgba(100,180,255,.15);border:1.5px solid rgba(100,180,255,.4);border-radius:10px;color:rgba(100,180,255,1);font-size:14px;font-weight:800;cursor:pointer">📊 View '+_lbLabel+'</button>';
           } else {
             // Organizer console — code + tee time / shotgun hole + names (players score on their own devices via the code)
@@ -27459,7 +27489,8 @@ function ptRenderTripDetail(trip, players, rounds) {
               +'</div>'
               +(_when?'<div style="font-size:12px;font-weight:800;color:'+(_isShotgun?'#a8d5b5':'rgba(255,255,255,.75)')+';text-align:right;padding-top:4px;white-space:nowrap">'+_when+'</div>':'')
               +'</div>'
-              +(_names?'<div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.5">'+_names+'</div>':'');
+              +(_names?'<div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.5">'+_names+'</div>':'')
+              +_scoreBlock;
           }
           html += '</div>';
         });
@@ -27507,23 +27538,94 @@ function ptRenderTripDetail(trip, players, rounds) {
       return !(c && c.length && c[0] && c[0].foursome_code && c[0].foursome_code !== '\u2014');
     });
     if(!_miss.length) return;
-    var _got = false;
+    var _got = false, _fails = [];
     Promise.all(_miss.map(function(r){
       return fetch(TOUR_API+'/api/trips/'+tripId+'/rounds/'+r.id+'/tee-times',{headers:{'Authorization':'Bearer '+G.orgToken}})
-        .then(_ptJson)
+        .then(_ptJson).catch(_ptNetErr)
         .then(function(d2){
-          var tts = d2.tee_times||[];
+          // v243.0: the empty catch here hid a Worker bug for months (the
+          // ct.si 500 that surfaced as "Set Up Tee Times" on every cold
+          // client). A failed check now SAYS SO instead of inviting a
+          // destructive rebuild. 404 = genuinely empty, not a failure.
+          if(d2 && d2.error && d2._http !== 404){ _fails.push({rid:r.id, msg:d2.error}); return; }
+          var tts = (d2 && d2.tee_times)||[];
           if(tts.length){
             if(!window._ptTeeTimeCache) window._ptTeeTimeCache = {};
             window._ptTeeTimeCache[r.id] = tts;
             try { sessionStorage.setItem('_ptTTC_'+r.id, JSON.stringify(tts)); } catch(e) {}
             _got = true;
           }
-        }).catch(function(){});
+        });
     })).then(function(){
       if(_got && document.getElementById('ptTripDetailBody')) ptRenderTripDetail(trip, players, rounds);
+      _fails.forEach(function(f){
+        var g = document.getElementById('ptTeeGate_'+f.rid);
+        if(g){
+          g.style.display = '';
+          g.style.cssText += ';background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.35);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:12px;line-height:1.5';
+          g.innerHTML = '\u26a0\ufe0f <strong style="color:#ef9a9a">Couldn\u2019t check the server for saved tee times</strong>'
+            +'<div style="color:rgba(255,255,255,.55);margin:4px 0 8px">'+_ptEsc(f.msg)+'</div>'
+            +'<button onclick="ptLoadTripDetail('+tripId+')" style="padding:8px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">\u21bb Retry</button>';
+        }
+        var b = document.getElementById('ptTeeBtn_'+f.rid);
+        if(b){ b.disabled = true; b.style.opacity = '.35'; b.style.cursor = 'not-allowed'; }
+      });
     });
   })();
+
+  // v243.0 — ⭐ scores on the tee-time pill: piggyback a public scores GET
+  // per round that has tee times, aggregate per trip_player_id, re-render
+  // once when anything arrives. _ptTripScoreAgg[rid]: undefined = not
+  // fetched, null = in flight or failed (no refetch this open; the map is
+  // reset on every ptLoadTripDetail), object = ready.
+  (function(){
+    if(!window._ptTripScoreAgg) window._ptTripScoreAgg = {};
+    var _want = (rounds||[]).filter(function(r){
+      var c = window._ptTeeTimeCache && window._ptTeeTimeCache[r.id];
+      return c && c.length && window._ptTripScoreAgg[r.id] === undefined;
+    });
+    if(!_want.length) return;
+    var _any = false;
+    Promise.all(_want.map(function(r){
+      window._ptTripScoreAgg[r.id] = null;
+      return fetch(TOUR_API+'/api/trips/'+tripId+'/rounds/'+r.id+'/scores')
+        .then(_ptJson).catch(_ptNetErr)
+        .then(function(d){
+          if(d && d.error) return; // enhancement only — [pt-api] already warned
+          var agg = _ptAggTripScores(d && d.scores);
+          window._ptTripScoreAgg[r.id] = agg;
+          if(Object.keys(agg).length) _any = true;
+        });
+    })).then(function(){
+      if(_any && document.getElementById('ptTripDetailBody')) ptRenderTripDetail(trip, players, rounds);
+    });
+  })();
+}
+
+// v243.0 — per-player aggregation for the tee-pill score lines
+function _ptAggTripScores(scoreRows){
+  var by = {};
+  (scoreRows||[]).forEach(function(s){
+    var k = s.trip_player_id; if(k == null) return;
+    var a = by[k] || (by[k] = {pts:0, gross:0, holes:0, last:''});
+    a.gross += (s.gross_score||0);
+    a.pts   += (s.stableford_pts||0);
+    a.holes++;
+    if(s.updated_at && String(s.updated_at) > a.last) a.last = String(s.updated_at);
+  });
+  return by;
+}
+
+// v243.0 — D1 updated_at is UTC "YYYY-MM-DD HH:MM:SS"; show local h:mm AM/PM
+function _ptUtcToLocal(ts){
+  if(!ts) return '';
+  try{
+    var d = new Date(String(ts).replace(' ','T') + (String(ts).indexOf('Z')===-1 ? 'Z' : ''));
+    if(isNaN(d.getTime())) return '';
+    var h = d.getHours(), m = ('0'+d.getMinutes()).slice(-2);
+    var ap = h >= 12 ? 'PM' : 'AM', h12 = h % 12; if(h12===0) h12 = 12;
+    return h12 + ':' + m + ' ' + ap;
+  }catch(e){ return ''; }
 }
 window.ptRemoveTripPlayer = function(tripId, playerId) {
   if(!confirm('Remove this player from the trip?')) return;
@@ -28367,7 +28469,7 @@ window.ptShowTripTeeSheet = function(tripId, roundId, fallbackSlots) {
   if(ex) ex.remove();
   document.body.appendChild(ov);
 
-  // Check cache first — avoids GET which has CORS issues with Auth header
+  // Check cache first — instant paint; the server GET below is the fallback
   if(!window._ptTeeTimeCache) window._ptTeeTimeCache = {};
   if(!window._ptTeeTimeCache[roundId]){
     try { var _ss=sessionStorage.getItem('_ptTTC_'+roundId); if(_ss) window._ptTeeTimeCache[roundId]=JSON.parse(_ss); } catch(e) {}
@@ -28379,36 +28481,32 @@ window.ptShowTripTeeSheet = function(tripId, roundId, fallbackSlots) {
     return;
   }
 
-  // No cache — try GET (may fail due to CORS on some browsers)
+  // v243.0 — no cache: GET from the server via the shared _ptJson layer.
+  // (The old hand-rolled chain here predated v242's sweep and blamed its
+  // failures on a client CORS quirk — the real cause was the Worker's
+  // ct.si bug, fixed in v2.34.2. Failures now show the truth.)
   var _teeSheetUrl = TOUR_API+'/api/trips/'+tripId+'/rounds/'+roundId+'/tee-times';
   fetch(_teeSheetUrl, {
     headers:{'Authorization':'Bearer '+G.orgToken}
-  }).then(function(r){
-    if(r.status===404){ return {tee_times:[]}; }
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    return r.json();
-  }).then(function(d){
+  }).then(_ptJson).catch(_ptNetErr).then(function(d){
     var body = document.getElementById('ptTripTeeSheetBody');
     if(!body) return;
-    var times = Array.isArray(d) ? d : (d.tee_times||[]);
-    if(!times.length){
-      times = [];
+    if(d && d.error && d._http !== 404){
+      body.innerHTML='<div style="background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.35);border-radius:10px;padding:12px;font-size:13px;line-height:1.5;margin-bottom:14px">\u26a0\ufe0f <strong style="color:#ef9a9a">Couldn\u2019t load the tee sheet</strong><div style="color:rgba(255,255,255,.55);margin-top:4px">'+_ptEsc(d.error)+'</div></div>'
+        +'<button onclick="document.getElementById(\'ptTripTeeSheetOv\').remove();ptShowTripTeeSheet('+tripId+','+roundId+')" style="width:100%;padding:14px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.2);border-radius:12px;color:#fff;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px">\u21bb Retry</button>'
+        +'<button onclick="document.getElementById(\'ptTripTeeSheetOv\').remove();ptTripRoundManager('+tripId+','+roundId+')" style="width:100%;padding:12px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:12px;color:rgba(255,255,255,.45);font-size:13px;font-weight:700;cursor:pointer">⚙️ Manage Tee Times</button>';
+      return;
     }
+    var times = (d && d.tee_times) || [];
     if(!times.length){
       body.innerHTML='<div style="color:rgba(255,255,255,.3);padding:20px 0 16px">No tee times built yet for this round.</div>'        +'<button onclick="document.getElementById(\'ptTripTeeSheetOv\').remove();ptTripRoundManager('+tripId+','+roundId+')" style="width:100%;padding:14px;background:rgba(201,168,76,.15);border:1.5px solid rgba(201,168,76,.4);border-radius:12px;color:#c9a84c;font-size:15px;font-weight:800;cursor:pointer">⚙️ Build Tee Times</button>';
       return;
     }
+    // Seed the shared cache so the detail view benefits from this fetch too
+    if(!window._ptTeeTimeCache) window._ptTeeTimeCache = {};
+    window._ptTeeTimeCache[roundId] = times;
+    try { sessionStorage.setItem('_ptTTC_'+roundId, JSON.stringify(times)); } catch(e) {}
     _ptRenderTeeSheetTimes(body, times, tripId, roundId);
-  }).catch(function(err){
-    var body = document.getElementById('ptTripTeeSheetBody');
-    // Check cache one more time — may have been populated since
-    var _cached2 = window._ptTeeTimeCache && window._ptTeeTimeCache[roundId];
-    if(_cached2 && _cached2.length && body){
-      _ptRenderTeeSheetTimes(body, _cached2, tripId, roundId);
-      return;
-    }
-    if(body) body.innerHTML='<div style="color:rgba(255,255,255,.4);font-size:14px;padding:20px 0 16px">Tee times are saved. To see codes and start scoring, use ⚙️ Manage and re-save — codes will appear immediately.</div>'
-      +'<button onclick="document.getElementById(\'ptTripTeeSheetOv\').remove();ptTripRoundManager('+tripId+','+roundId+')" style="width:100%;padding:14px;background:rgba(201,168,76,.15);border:1.5px solid rgba(201,168,76,.4);border-radius:12px;color:#c9a84c;font-size:15px;font-weight:800;cursor:pointer">⚙️ Manage / Re-save</button>';
   });
 };
 
@@ -29003,6 +29101,7 @@ function ptOrgLiveScores(eventId, evFormat) {
   ptOrgRefreshLive(eventId);
   var _secs = 30;
   _ptOrgLiveTimer = setInterval(function() {
+    if (document.hidden) return; // v243.0: background tabs burned 24M D1 rows/day
     _secs--;
     var cd = document.getElementById('ptOrgLiveCd');
     if (cd) cd.textContent = '↻ ' + _secs + 's';
@@ -33710,6 +33809,7 @@ function ptShowLeaderboard(watchEventId, watchStandings) {
   }
   var _secs = 30;
   _ptLbTimer = setInterval(function() {
+    if (document.hidden) return; // v243.0: background tabs burned 24M D1 rows/day
     _secs--;
     var cd = document.getElementById('ptLbCountdown');
     if (cd) cd.textContent = '↻ ' + _secs + 's';
@@ -35957,7 +36057,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v242.2';
+    const TOUR_VERSION     = 'pards-tour-v243.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
@@ -35966,6 +36066,18 @@ self.addEventListener('fetch',e=>{
       const el = document.getElementById('tourVersionLabel');
       if (el) el.textContent = TOUR_VERSION.replace('pards-tour-', '');
     })();
+
+    // v243.0 — the silent auto-check used to arm _tourUpdateReady without
+    // repainting anything, so a stale install looked healthy until a manual
+    // tap. Painting is now a helper both paths share.
+    function _paintUpdateReady(newVer) {
+      const b = document.getElementById('tourUpdateBtn');
+      if (!b) return;
+      const lbl = b.querySelector('#tourVersionLabel');
+      if (lbl) lbl.textContent = '→ ' + newVer.replace('pards-tour-', '') + ' ✦';
+      b.style.borderColor = 'rgba(192,57,43,.9)';
+      b.style.background  = 'rgba(192,57,43,.3)';
+    }
 
     async function checkTourUpdate(btn) {
       if (_tourUpdateReady) {
@@ -35982,14 +36094,8 @@ self.addEventListener('fetch',e=>{
         const m    = text.match(/const TOUR_VERSION\s*=\s*'(pards-tour-v[\d.]+)'/);
         if (m && m[1] !== TOUR_VERSION) {
           _tourUpdateReady = true;
-          if (btn) {
-            btn.innerHTML = orig;
-            btn.disabled  = false;
-            const lbl = btn.querySelector('#tourVersionLabel');
-            if (lbl) lbl.textContent = '→ ' + m[1].replace('pards-tour-', '') + ' ✦';
-            btn.style.borderColor   = 'rgba(192,57,43,.9)';
-            btn.style.background    = 'rgba(192,57,43,.3)';
-          }
+          if (btn) { btn.innerHTML = orig; btn.disabled = false; }
+          _paintUpdateReady(m[1]); // v243.0: silent auto-check lights the button too
         } else {
           if (btn) { btn.innerHTML = orig; btn.disabled = false; }
         }
@@ -36097,184 +36203,6 @@ self.addEventListener('fetch',e=>{
     </div>
   </div>
 </div>
-
-
-<script>
-/* ═══════════════════════════════════════════════════════════════════
-   v242.1 DIAGNOSTIC BUILD — TEMPORARY, REMOVE BEFORE v243.0
-   Purpose: capture WHY the trip-detail tee-time backfill GET fails on
-   Bruce's iPhone. v242's backfill ends in `.catch(function(){})`, so a
-   fetch-level rejection (CORS / DNS / TLS / offline) leaves NO trace at
-   all; a non-2xx does warn via _ptJson but there is no way to read a
-   console on an iPhone from a Windows PC.
-   Self-contained: appended AFTER all six original script blocks, so
-   blocks 0-5 stay byte-identical. Touches nothing above.
-   ═══════════════════════════════════════════════════════════════════ */
-(function(){
-  var LOG = [], MAX = 300;
-  function stamp(){ var d=new Date(); return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+':'+('0'+d.getSeconds()).slice(-2); }
-  function push(tag, msg){
-    LOG.push(stamp()+' ['+tag+'] '+msg);
-    if(LOG.length>MAX) LOG.shift();
-    var b=document.getElementById('_ptDiagBody');
-    if(b){ b.textContent = LOG.join('\n'); b.scrollTop = b.scrollHeight; }
-    var dot=document.getElementById('_ptDiagDot');
-    if(dot && (tag==='ERR'||tag==='WARN'||tag==='FETCH-FAIL')) dot.style.background='#e74c3c';
-  }
-  window._ptDiagPush = push;
-
-  // ---- mirror console.warn / console.error -------------------------
-  ['warn','error'].forEach(function(k){
-    var orig = console[k];
-    console[k] = function(){
-      try{
-        var parts=[];
-        for(var i=0;i<arguments.length;i++){
-          var a=arguments[i];
-          if(a && a.stack) parts.push(String(a.message||a)+' | '+String(a.stack).split('\n')[0]);
-          else if(typeof a==='object'){ try{parts.push(JSON.stringify(a));}catch(e){parts.push(String(a));} }
-          else parts.push(String(a));
-        }
-        push(k==='warn'?'WARN':'ERR', parts.join(' '));
-      }catch(e){}
-      try{ orig.apply(console, arguments); }catch(e){}
-    };
-  });
-
-  window.addEventListener('error', function(e){
-    push('ERR','onerror: '+(e.message||'?')+' @ '+(e.filename||'?')+':'+(e.lineno||'?'));
-  });
-  window.addEventListener('unhandledrejection', function(e){
-    var r=e.reason; push('ERR','unhandled: '+((r&&(r.message||r))||'?'));
-  });
-
-  // ---- wrap fetch: this is the whole point -------------------------
-  var _f = window.fetch;
-  window.fetch = function(input, init){
-    var url = (typeof input==='string') ? input : (input && input.url) || String(input);
-    var short = String(url).replace(/^https?:\/\/[^/]+/,'');
-    var watch = short.indexOf('/tee-times')>-1 || short.indexOf('/api/trips/')>-1;
-    if(watch) push('FETCH','→ '+((init&&init.method)||'GET')+' '+short+(init&&init.headers&&(init.headers.Authorization||init.headers.authorization)?' [auth]':' [NO AUTH]'));
-    var t0 = Date.now();
-    return _f.apply(this, arguments).then(function(r){
-      if(watch) push(r.ok?'FETCH':'FETCH-FAIL','← '+r.status+' '+(r.statusText||'')+' '+short+' ('+(Date.now()-t0)+'ms)');
-      return r;
-    }, function(err){
-      // THE case v242 swallows entirely
-      push('FETCH-FAIL','✗ REJECTED '+short+' ('+(Date.now()-t0)+'ms) → '+((err&&err.name)||'?')+': '+((err&&err.message)||String(err)));
-      throw err;
-    });
-  };
-
-  // ---- environment snapshot ----------------------------------------
-  window.addEventListener('load', function(){
-    setTimeout(function(){
-      try{
-        push('ENV','ver='+(typeof TOUR_VERSION!=='undefined'?TOUR_VERSION:'?'));
-        push('ENV','ua='+navigator.userAgent);
-        push('ENV','standalone='+(window.navigator.standalone===true)+' online='+navigator.onLine);
-        var ss='ok'; try{ sessionStorage.setItem('_ptDiagT','1'); sessionStorage.removeItem('_ptDiagT'); }catch(e){ ss='BLOCKED: '+e.name; }
-        var ls='ok'; try{ localStorage.setItem('_ptDiagT','1'); localStorage.removeItem('_ptDiagT'); }catch(e){ ls='BLOCKED: '+e.name; }
-        push('ENV','sessionStorage='+ss+'  localStorage='+ls);
-        var tok = (typeof G!=='undefined' && G.orgToken) ? String(G.orgToken) : '';
-        push('ENV','orgToken='+(tok?('present len='+tok.length+' head='+tok.slice(0,6)):'*** MISSING ***'));
-        push('ENV','API='+(typeof TOUR_API!=='undefined'?TOUR_API:'?'));
-      }catch(e){ push('ERR','env snapshot: '+e.message); }
-    }, 1200);
-  });
-
-  // ---- on-screen panel ---------------------------------------------
-  function ui(){
-    if(document.getElementById('_ptDiagBtn')) return;
-    var btn = document.createElement('button');
-    btn.id='_ptDiagBtn';
-    btn.innerHTML='🐞<span id="_ptDiagDot" style="position:absolute;top:4px;right:4px;width:9px;height:9px;border-radius:50%;background:#2ecc71"></span>';
-    btn.style.cssText='position:fixed;bottom:14px;right:14px;z-index:2147483646;width:52px;height:52px;border-radius:50%;background:rgba(20,20,20,.92);border:2px solid #c9a84c;color:#fff;font-size:22px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent';
-    btn.onclick=function(){ var p=document.getElementById('_ptDiagPanel'); p.style.display = (p.style.display==='none'?'flex':'none');
-      var b=document.getElementById('_ptDiagBody'); if(b){ b.textContent=LOG.join('\n'); b.scrollTop=b.scrollHeight; }
-      var d=document.getElementById('_ptDiagDot'); if(d) d.style.background='#2ecc71'; };
-    var panel = document.createElement('div');
-    panel.id='_ptDiagPanel';
-    panel.style.cssText='display:none;position:fixed;inset:0;z-index:2147483645;background:#08120a;flex-direction:column;padding:14px 12px 12px';
-    panel.innerHTML =
-      '<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-shrink:0">'
-      +'<div style="font-size:15px;font-weight:800;color:#c9a84c;flex:1">🐞 Diagnostics v242.2</div>'
-      +'<button id="_ptDiagCopy" style="padding:8px 12px;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.5);color:#c9a84c;border-radius:8px;font-size:13px;font-weight:700">Copy</button>'
-      +'<button id="_ptDiagProbe" style="padding:8px 12px;background:rgba(100,180,255,.15);border:1px solid rgba(100,180,255,.5);color:#8ec9ff;border-radius:8px;font-size:13px;font-weight:700">Probe</button>'
-      +'<button id="_ptDiagClr" style="padding:8px 12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);border-radius:8px;font-size:13px;font-weight:700">Clear</button>'
-      +'<button id="_ptDiagX" style="padding:8px 12px;background:rgba(255,80,80,.15);border:1px solid rgba(255,80,80,.4);color:#ef9a9a;border-radius:8px;font-size:13px;font-weight:700">Close</button>'
-      +'</div>'
-      +'<textarea id="_ptDiagBody" readonly style="flex:1;width:100%;background:#000;color:#a8d5b5;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;line-height:1.45;white-space:pre;overflow:auto;-webkit-user-select:text;user-select:text"></textarea>'
-      +'<div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:8px;flex-shrink:0">Open the trip, then reopen this panel. Tap Copy and paste it to Claude.</div>';
-    document.body.appendChild(panel);
-    document.body.appendChild(btn);
-    document.getElementById('_ptDiagX').onclick=function(){ panel.style.display='none'; };
-    document.getElementById('_ptDiagClr').onclick=function(){ LOG.length=0; document.getElementById('_ptDiagBody').textContent=''; };
-    document.getElementById('_ptDiagProbe').onclick=function(){
-      var self=this; self.disabled=true; self.textContent='Running…';
-      var API = (typeof TOUR_API!=='undefined')?TOUR_API:'https://pards-tour-api.bdapple.workers.dev';
-      var tok = (typeof G!=='undefined' && G.orgToken)?G.orgToken:'';
-      push('PROBE','=== probe run start · token '+(tok?'present':'MISSING')+' ===');
-      function run(name, fn){
-        return function(){
-          var t0=Date.now();
-          return fn().then(function(r){
-            return r.text().then(function(t){
-              push('PROBE', name+' → RESOLVED '+r.status+' ('+(Date.now()-t0)+'ms) body['+t.length+'] '+t.slice(0,80).replace(/\s+/g,' '));
-            }, function(){ push('PROBE', name+' → RESOLVED '+r.status+' ('+(Date.now()-t0)+'ms) body unreadable'); });
-          }, function(e){
-            push('PROBE', name+' → ✗ REJECTED ('+(Date.now()-t0)+'ms) '+((e&&e.name)||'?')+': '+((e&&e.message)||String(e)));
-          });
-        };
-      }
-      function xhrProbe(name, url, auth){
-        return function(){
-          return new Promise(function(res){
-            var t0=Date.now();
-            try{
-              var x=new XMLHttpRequest();
-              x.open('GET', url, true);
-              if(auth) x.setRequestHeader('Authorization','Bearer '+tok);
-              x.onload=function(){ push('PROBE', name+' → XHR LOADED '+x.status+' ('+(Date.now()-t0)+'ms)'); res(); };
-              x.onerror=function(){ push('PROBE', name+' → ✗ XHR ERROR ('+(Date.now()-t0)+'ms)'); res(); };
-              x.ontimeout=function(){ push('PROBE', name+' → ✗ XHR TIMEOUT'); res(); };
-              x.send();
-            }catch(e){ push('PROBE', name+' → ✗ XHR THREW '+e.message); res(); }
-          });
-        };
-      }
-      var T = API+'/api/trips/34/rounds/68/tee-times';
-      var steps = [
-        run('P1 ctrl  event tee-times +auth      ', function(){ return fetch(API+'/api/rounds/19/tee-times',{headers:{'Authorization':'Bearer '+tok}}); }),
-        run('P2 ctrl  GET /api/trips/34 +auth    ', function(){ return fetch(API+'/api/trips/34',{headers:{'Authorization':'Bearer '+tok}}); }),
-        run('P3 FAIL? trip tee-times +auth       ', function(){ return fetch(T,{headers:{'Authorization':'Bearer '+tok}}); }),
-        run('P4 trip tee-times NO auth (no prefl)', function(){ return fetch(T); }),
-        run('P5 trip tee-times FAKE auth (prefl) ', function(){ return fetch(T,{headers:{'Authorization':'Bearer PROBEFAKE'}}); }),
-        run('P6 trip tee-times +auth ?cb= newURL ', function(){ return fetch(T+'?cb='+Date.now(),{headers:{'Authorization':'Bearer '+tok}}); }),
-        run('P7 trip SCORES public (no prefl)    ', function(){ return fetch(API+'/api/trips/34/rounds/68/scores'); }),
-        xhrProbe('P8 trip tee-times +auth via XHR    ', T, true),
-        run('P9 trip tee-times +auth no-store    ', function(){ return fetch(T,{cache:'no-store',headers:{'Authorization':'Bearer '+tok}}); })
-      ];
-      steps.reduce(function(p,s){ return p.then(s); }, Promise.resolve()).then(function(){
-        push('PROBE','=== probe run done ===');
-        self.disabled=false; self.textContent='Probe';
-        var b=document.getElementById('_ptDiagBody'); if(b){ b.textContent=LOG.join('\n'); b.scrollTop=b.scrollHeight; }
-      });
-    };
-    document.getElementById('_ptDiagCopy').onclick=function(){
-      var ta=document.getElementById('_ptDiagBody');
-      ta.removeAttribute('readonly'); ta.select(); ta.setSelectionRange(0,999999);
-      var ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
-      if(navigator.clipboard){ try{ navigator.clipboard.writeText(LOG.join('\n')); ok=true; }catch(e){} }
-      ta.setAttribute('readonly','readonly');
-      this.textContent = ok?'Copied ✓':'Select & copy';
-      var self=this; setTimeout(function(){ self.textContent='Copy'; },1500);
-    };
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', ui); else ui();
-  push('ENV','diagnostics armed');
-})();
-</script>
 
 </body>
 </html>
