@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v217.0 -->
+  <!-- pards-tour-v218.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -29293,8 +29293,10 @@ function _ptTTBRender() {
   var body=document.getElementById('ptTTBBody'); if(!body)return;
   var isScramble=_ptTTB.round.format==='scramble_stableford'||_ptTTB.round.format==='scramble';
   var isShotgun=_ptTTB.mode==='shotgun';
-  var aR={},aG={};
-  _ptTTB.slots.forEach(function(s){(s.players||[]).forEach(function(p){if(p&&p.roster_id)aR[p.roster_id]=true;if(p&&p.group_id)aG[p.group_id]=true;});});
+  var aR={},aG={},locR={},locG={};
+  _ptTTB.slots.forEach(function(s,_si){(s.players||[]).forEach(function(p){if(p&&p.roster_id){aR[p.roster_id]=true;locR[p.roster_id]=_si;}if(p&&p.group_id){aG[p.group_id]=true;locG[p.group_id]=_si;}});});
+  // v218.0: option tag shows WHERE someone already sits; picking them moves them here
+  function _slotTag(_si){ var s=_ptTTB.slots[_si]; return isShotgun?('Hole '+s.hole):(s.start_time||''); }
   // Build player pool from event groups only
   var _ttbPlayerPool = [];
   var _ttbSeen = {};
@@ -29330,10 +29332,10 @@ function _ptTTBRender() {
       h+='<div style="margin-bottom:5px"><select onchange="ptTTBAssign('+si+','+pi+',this)" style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.25);color:#fff;font-size:13px;outline:none">';
       if(isScramble){
         h+='<option value="">-- Select Team --</option>';
-        _ptTTB.groups.forEach(function(g){var taken=aG[g.id]&&!(assigned&&assigned.group_id===g.id);h+='<option value="g:'+g.id+'"'+(assigned&&assigned.group_id===g.id?' selected':'')+(taken?' disabled':'')+'>'+g.name+(taken?' [assigned]':'')+'</option>';});
+        _ptTTB.groups.forEach(function(g){var taken=aG[g.id]&&!(assigned&&assigned.group_id===g.id);h+='<option value="g:'+g.id+'"'+(assigned&&assigned.group_id===g.id?' selected':'')+'>'+g.name+(taken?' \u2192 '+_slotTag(locG[g.id]):'')+'</option>';});
       } else {
         h+='<option value="">-- Player '+(pi+1)+' --</option>';
-        _ttbPlayerPool.forEach(function(p){var taken=aR[p.id]&&!(assigned&&assigned.roster_id===p.id);var tag=p.group?' ['+p.group.name.replace(' Team','')+']':'';h+='<option value="r:'+p.id+'"'+(assigned&&assigned.roster_id===p.id?' selected':'')+(taken?' disabled':'')+'>'+p.name+tag+(taken?' [assigned]':'')+'</option>';});
+        _ttbPlayerPool.forEach(function(p){var taken=aR[p.id]&&!(assigned&&assigned.roster_id===p.id);var tag=p.group?' ['+p.group.name.replace(' Team','')+']':'';h+='<option value="r:'+p.id+'"'+(assigned&&assigned.roster_id===p.id?' selected':'')+'>'+p.name+tag+(taken?' \u2192 '+_slotTag(locR[p.id]):'')+'</option>';});
       }
       h+='</select></div>';
     }
@@ -29477,9 +29479,20 @@ function ptTTBAutoFill() {
 
 function ptTTBAssign(si,pi,sel){
   var val=sel.value;
+  // v218.0: move semantics — selecting a player/team already placed elsewhere
+  // relocates them here (their old slot frees up), instead of being blocked.
+  function _ptTTBUnassign(rid,gid){
+    _ptTTB.slots.forEach(function(s,osi){
+      (s.players||[]).forEach(function(p,opi){
+        if(!p) return;
+        if(osi===si&&opi===pi) return;
+        if((rid&&p.roster_id===rid)||(gid&&p.group_id===gid)) s.players[opi]=null;
+      });
+    });
+  }
   if(!val){_ptTTB.slots[si].players[pi]=null;}
-  else if(val.indexOf('r:')===0){var rid=parseInt(val.slice(2));var p=_ptTTB.roster.find(function(r){return r.id===rid;});_ptTTB.slots[si].players[pi]={roster_id:rid,name:p?p.name:'?',group_id:null};}
-  else if(val.indexOf('g:')===0){var gid=parseInt(val.slice(2));var g=_ptTTB.groups.find(function(g){return g.id===gid;});_ptTTB.slots[si].players[pi]={roster_id:null,group_id:gid,name:g?g.name:'?'};}
+  else if(val.indexOf('r:')===0){var rid=parseInt(val.slice(2));_ptTTBUnassign(rid,null);var p=_ptTTB.roster.find(function(r){return r.id===rid;});if(!p){_ptTTB.groups.some(function(g){var rp=(g.players||[]).find(function(x){return x.roster_id===rid;});if(rp){p={id:rid,name:rp.name};return true;}return false;});}_ptTTB.slots[si].players[pi]={roster_id:rid,name:p?p.name:'?',group_id:null};}
+  else if(val.indexOf('g:')===0){var gid=parseInt(val.slice(2));_ptTTBUnassign(null,gid);var g=_ptTTB.groups.find(function(g){return g.id===gid;});_ptTTB.slots[si].players[pi]={roster_id:null,group_id:gid,name:g?g.name:'?'};}
   _ptTTBRender();
 }
 
@@ -29594,7 +29607,7 @@ function ptRenderRounds(ev, rounds) {
       h += '<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px;margin-bottom:8px">';
       h += '<div style="display:flex;align-items:center;justify-content:space-between">';
       h += '<div style="flex:1">';
-      h += '<div style="font-size:13px;font-weight:800;color:#f5e6b8">Round '+r.round_number+' <span style="font-size:10px;font-weight:600;color:rgba(255,255,255,.35)">'+dateStr+'</span></div>';
+      h += '<div style="font-size:13px;font-weight:800;color:#f5e6b8">Round '+r.round_number+' <span style="font-size:10px;font-weight:600;color:rgba(255,255,255,.35)">'+dateStr+'</span><span id="ptRoundTT_'+r.id+'"></span></div>';
       h += '<div style="font-size:11px;color:rgba(201,168,76,.7);margin-top:2px">'+fmtLabel+'</div>';
       h += '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:1px">'+courseName+(r.tee?' · '+r.tee:'')+'</div>';
       h += '</div>';
@@ -29627,6 +29640,24 @@ function ptRenderRounds(ev, rounds) {
   }
   h += '</div>';
   el.innerHTML = h;
+  _ptRoundsTeeBadges(rounds);
+}
+
+// v218.0 — async tee-sheet status badge per round card ("are tee times set?")
+function _ptRoundsTeeBadges(rounds) {
+  (rounds||[]).forEach(function(r){
+    fetch(TOUR_API+'/api/rounds/'+r.id+'/tee-times', {headers:{'Authorization':'Bearer '+G.orgToken}})
+      .then(function(resp){return resp.json();})
+      .then(function(d){
+        var el=document.getElementById('ptRoundTT_'+r.id); if(!el) return;
+        var groups=(d.tee_times||[]).filter(function(t){return (t.players||[]).length>0;}).length;
+        if(groups>0){
+          el.innerHTML=' <span style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:8px;background:rgba(168,213,181,.14);border:1px solid rgba(168,213,181,.4);color:#a8d5b5;font-size:9.5px;font-weight:800;vertical-align:1px">\u26f3 '+groups+' group'+(groups===1?'':'s')+' set</span>';
+        } else {
+          el.innerHTML=' <span style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.3);font-size:9.5px;font-weight:700;vertical-align:1px">no tee sheet</span>';
+        }
+      }).catch(function(){ /* badge is best-effort */ });
+  });
 }
 
 function ptAddRound(eventId) {
@@ -34755,7 +34786,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v217.0';
+    const TOUR_VERSION     = 'pards-tour-v218.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
