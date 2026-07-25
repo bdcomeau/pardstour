@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v209.0 -->
+  <!-- pards-tour-v210.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -26638,7 +26638,6 @@ window.doCreateLeagueRound = function(leagueId) {
           var members = (lg.members||[]);
           if(!members.length){
             ptLoadLeagueDetail(leagueId);
-            ptShowTripDetail(tripId);
             return;
           }
           // POST each league member as a trip player (sequential, ignore duplicates)
@@ -26654,12 +26653,10 @@ window.doCreateLeagueRound = function(leagueId) {
         })
         .then(function(){
           ptLoadLeagueDetail(leagueId);
-          ptShowTripDetail(tripId);
         })
         .catch(function(){
-          // Even if member add fails, open the trip
+          // Even if member add fails, return to the league schedule
           ptLoadLeagueDetail(leagueId);
-          ptShowTripDetail(tripId);
         });
     } else {
       if(btn){ btn.disabled=false; btn.textContent='Create Round'; }
@@ -34134,7 +34131,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v209.0';
+    const TOUR_VERSION     = 'pards-tour-v210.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
