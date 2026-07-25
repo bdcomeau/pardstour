@@ -22225,7 +22225,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v6.00';
+const CURRENT_VERSION = 'pards-tour-v6.01';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -23577,7 +23577,8 @@ function loadOrgEvents() {
   });
 }
 
-function showCreateEventForm() {
+function showCreateEventForm(isLeague) {
+  if(isLeague) { ptShowCreateLeague(); return; }
   var ov = document.createElement('div');
   ov.id = 'ptCreateEventOv';
   ov.style.cssText = 'position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.75);display:flex;align-items:flex-end';
@@ -23630,7 +23631,11 @@ function showCreateEventForm() {
   function _resizeCreateEvSheet(){
     var vvh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
     var sheet = document.getElementById('ptCreateEvSheet');
-    if(sheet) sheet.style.maxHeight = Math.round(vvh * 0.92) + 'px';
+    if(sheet){
+      sheet.style.maxHeight = Math.round(vvh * 0.92) + 'px';
+      // Scroll to top so name field is always visible when keyboard opens
+      sheet.scrollTop = 0;
+    }
   }
   if(window.visualViewport) window.visualViewport.addEventListener('resize', _resizeCreateEvSheet);
   ov.addEventListener('remove', function(){ if(window.visualViewport) window.visualViewport.removeEventListener('resize', _resizeCreateEvSheet); });
@@ -31937,7 +31942,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v6.00';
+const CACHE='pards-tour-v6.01';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
@@ -32098,7 +32103,7 @@ self.addEventListener('fetch',e=>{
   <div id="ptOrgPaneLeagues" style="flex:1;overflow-y:auto;padding:16px 20px;padding-bottom:calc(100px + env(safe-area-inset-bottom));display:none;flex-direction:column">
     <div id="ptOrgLeagueList" style="flex:1"></div>
     <div style="padding-top:14px;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0">
-      <button onclick="showCreateEventForm()" style="width:100%;padding:15px;background:rgba(100,220,180,.15);border:1.5px solid rgba(100,220,180,.4);border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;color:rgba(100,220,180,.9);-webkit-tap-highlight-color:transparent">+ Create League Night</button>
+      <button onclick="showCreateEventForm(true)" style="width:100%;padding:15px;background:rgba(100,220,180,.15);border:1.5px solid rgba(100,220,180,.4);border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;color:rgba(100,220,180,.9);-webkit-tap-highlight-color:transparent">+ Create League Night</button>
     </div>
   </div>
   <div id="ptOrgPaneRoster" style="flex:1;overflow-y:auto;padding:16px 20px;padding-bottom:calc(100px + env(safe-area-inset-bottom));display:none;flex-direction:column">
