@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v210.0 -->
+  <!-- pards-tour-v211.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -26485,6 +26485,7 @@ function ptRenderLeagueDetail(league, members, rounds) {
   // Season schedule — cadence derived from existing round dates (lightweight; no stored field)
   html += '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Season Schedule</div>';
   var _cad = _ptLeagueCadence(rounds);
+  var _FMT = {stableford:'Individual Stableford', overall_skins:'Overall Skins', low_net:'Low Net', low_gross:'Low Gross', match_play:'Match Play', best_ball:'Best Ball'};
   if(_cad.weekday){
     html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:9px 12px">'
       + '<span style="font-size:14px">🔁</span>'
@@ -26499,6 +26500,7 @@ function ptRenderLeagueDetail(league, members, rounds) {
       var tag = '';
       if(r.round_date === _todayISO) tag = '<span style="font-size:10px;font-weight:800;color:#c9a84c;text-transform:uppercase;letter-spacing:.4px">● Today</span>';
       else if(r.round_date && r.round_date > _todayISO) tag = '<span style="font-size:10px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.4px">Upcoming</span>';
+      var fmtLabel = r.format ? (_FMT[r.format]||r.format) : null;
       html += '<div style="background:rgba(255,255,255,.04);border-radius:14px;padding:14px;margin-bottom:10px">'
         + '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">'
         +   '<div style="flex:0 0 auto;width:40px;height:40px;border-radius:10px;background:rgba(0,0,0,.3);display:flex;flex-direction:column;align-items:center;justify-content:center">'
@@ -26511,6 +26513,7 @@ function ptRenderLeagueDetail(league, members, rounds) {
         +   '</div>'
         +   (tag?'<div style="flex:0 0 auto">'+tag+'</div>':'')
         + '</div>'
+        + '<div style="margin-bottom:10px"><span style="display:inline-block;font-size:11px;font-weight:800;padding:4px 10px;border-radius:8px;'+(fmtLabel?'background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);color:#c9a84c':'background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.18);color:rgba(255,255,255,.4)')+'">🏷 '+(fmtLabel||'Format: TBD')+'</span></div>'
         + '<div style="display:flex;gap:8px">'
         +   '<button onclick="ptShowTripDetail('+r.trip_id+','+lid+')" style="flex:1;padding:10px;background:rgba(100,220,180,.12);border:1px solid rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,1);font-size:13px;font-weight:800;cursor:pointer">⚙️ Manage Round</button>'
         +   '<button onclick="ptShowLeagueLeaderboard('+lid+','+r.league_round_id+',\''+r.viewer_pin+'\',\''+dateStr+'\')" style="flex:1;padding:10px;background:rgba(100,220,180,.06);border:1px solid rgba(100,220,180,.2);border-radius:10px;color:rgba(100,220,180,.8);font-size:13px;font-weight:800;cursor:pointer">🏆 Leaderboard</button>'
@@ -26610,6 +26613,16 @@ window.ptCreateLeagueRoundUI = function(leagueId, presetDate) {
     +'<div style="font-size:15px;font-weight:800;color:rgba(100,220,180,1);margin-bottom:16px">Create Weekly Round</div>'
     +'<div style="margin-bottom:12px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Date</div>'
     +'<input id="ptLeagueRoundDate" type="date" value="'+_dateVal+'" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
+    +'<div style="margin-bottom:12px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Week Format</div>'
+    +'<select id="ptLeagueRoundFormat" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none">'
+    +'<option value="">Format: TBD (choose later)</option>'
+    +'<option value="stableford">Individual Stableford</option>'
+    +'<option value="overall_skins">Overall Skins (across all groups)</option>'
+    +'<option value="low_net">Low Net</option>'
+    +'<option value="low_gross">Low Gross</option>'
+    +'<option value="match_play">Match Play</option>'
+    +'<option value="best_ball">Best Ball</option>'
+    +'</select></div>'
     +'<div style="color:rgba(255,255,255,.35);font-size:12px;margin-bottom:18px">Creates a round linked to this league. Pick who is playing tonight and set up groups.</div>'
     +'<button onclick="doCreateLeagueRound('+leagueId+')" style="width:100%;padding:13px;background:rgba(100,220,180,.9);color:#0a1a0a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;margin-bottom:8px">Create Round</button>'
     +'<button onclick="document.getElementById(\'ptCreateLeagueRoundOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
@@ -26620,12 +26633,14 @@ window.ptCreateLeagueRoundUI = function(leagueId, presetDate) {
 
 window.doCreateLeagueRound = function(leagueId) {
   var date = document.getElementById('ptLeagueRoundDate').value||null;
+  var _fmtEl = document.getElementById('ptLeagueRoundFormat');
+  var format = _fmtEl ? (_fmtEl.value||null) : null;
   var btn = document.querySelector('#ptCreateLeagueRoundOv button[style*="rgba(100,220,180"]');
   if(btn){ btn.disabled=true; btn.textContent='Creating…'; }
   fetch(TOUR_API+'/api/leagues/'+leagueId+'/rounds', {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
-    body:JSON.stringify({round_date:date})
+    body:JSON.stringify({round_date:date, format:format})
   }).then(function(r){return r.json();}).then(function(d){
     if(d.trip){
       var tripId = d.trip.id;
@@ -34131,7 +34146,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v210.0';
+    const TOUR_VERSION     = 'pards-tour-v211.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
