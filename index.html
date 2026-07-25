@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v202.0 -->
+  <!-- pards-tour-v203.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -26030,24 +26030,24 @@ function showCreateEventForm(isLeague) {
     +PARDS_COURSES.map(function(x,xi){return '<div onclick="ptEvPickCourse(\''+x.id+'\')" id="ptEvCrs__'+x.id+'" style="padding:11px 16px;cursor:pointer;font-size:14px;color:rgba(255,255,255,.75);'+(xi<PARDS_COURSES.length-1?'border-bottom:1px solid rgba(255,255,255,.06)':'')+'">'+x.name+'</div>';}).join('')
     +'</div></div>'
     +'<div id="ptNewEvTeeDiv" style="margin-bottom:14px"></div>'
-    +'<div style="margin-bottom:20px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Format</div>'
+    +'<div style="margin-bottom:18px"><div style="font-size:11px;color:rgba(201,168,76,.7);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Single Event</div>'
     +'<div style="display:flex;gap:8px;margin-bottom:8px">'
     +'<button id="ptFmtStroke" onclick="ptSetFmt(\'stroke\')" style="flex:1;padding:11px;border-radius:10px;border:1.5px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.5);font-size:13px;font-weight:700;cursor:pointer">Stroke Play</button>'
     +'<button id="ptFmtScramble" onclick="ptSetFmt(\'scramble\')" style="flex:1;padding:11px;border-radius:10px;border:1.5px solid #c9a84c;background:rgba(201,168,76,.15);color:#c9a84c;font-size:13px;font-weight:700;cursor:pointer">\uD83C\uDFCC\uFE0F Scramble</button>'
     +'</div>'
-    +'<div id="ptScrambleSubFmt" style="display:flex;gap:6px;margin-bottom:8px;padding:10px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.2);border-radius:10px">'
+    +'<div id="ptScrambleSubFmt" style="display:flex;gap:6px;padding:10px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.2);border-radius:10px">'
     +'<button id="ptFmtScrambleGross" onclick="ptSetScrambleFmt(\'scramble\')" style="flex:1;padding:9px 6px;border-radius:8px;border:1.5px solid #c9a84c;background:rgba(201,168,76,.2);color:#c9a84c;font-size:12px;font-weight:700;cursor:pointer">Gross</button>'
     +'<button id="ptFmtScrambleStableford" onclick="ptSetScrambleFmt(\'scramble_stableford\')" style="flex:1;padding:9px 6px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer">Stableford</button>'
     +'<button id="ptFmtScrambleRbc" onclick="ptSetScrambleFmt(\'rbc_scramble\')" style="flex:1;padding:9px 6px;border-radius:8px;border:1px solid rgba(168,213,181,.25);background:transparent;color:rgba(168,213,181,.5);font-size:12px;font-weight:700;cursor:pointer">RBC</button>'
     +'</div>'
-    +'<button id="ptFmtMulti" onclick="ptSetFmt(\'multi_day\')" style="width:100%;margin-bottom:8px;padding:11px;border-radius:10px;border:1.5px solid rgba(255,200,100,.3);background:transparent;color:rgba(255,200,100,.6);font-size:13px;font-weight:700;cursor:pointer">\uD83C\uDFC6 Multi-Day Team Event</button>'
-    +'<button id="ptFmtTrip" onclick="ptSetFmt(\'trip\')" style="width:100%;margin-bottom:8px;padding:11px;border-radius:10px;border:1.5px solid rgba(100,180,255,.3);background:transparent;color:rgba(100,180,255,.6);font-size:13px;font-weight:700;cursor:pointer">\uD83C\uDF0D Golf Trip</button>'
-    +'<button id="ptFmtLeague" onclick="ptSetFmt(\'league\')" style="width:100%;padding:11px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:transparent;color:rgba(100,220,180,.6);font-size:13px;font-weight:700;cursor:pointer">\uD83C\uDFC5 League Night</button>'
+    +'</div>'
+    +'<div style="margin-bottom:18px"><div style="font-size:11px;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Or Choose an Event Type</div>'
+    +'<button id="ptFmtMulti" onclick="ptSetFmt(\'multi_day\')" style="width:100%;margin-bottom:8px;padding:12px;border-radius:10px;border:1.5px solid rgba(255,200,100,.3);background:transparent;color:rgba(255,200,100,.6);font-size:13px;font-weight:700;cursor:pointer;text-align:left">\uD83C\uDFC6 &nbsp;Multi-Day Team Event</button>'
+    +'<button id="ptFmtTrip" onclick="ptSetFmt(\'trip\')" style="width:100%;margin-bottom:8px;padding:12px;border-radius:10px;border:1.5px solid rgba(100,180,255,.3);background:transparent;color:rgba(100,180,255,.6);font-size:13px;font-weight:700;cursor:pointer;text-align:left">\uD83C\uDF0D &nbsp;Golf Trip</button>'
+    +'<button id="ptFmtLeague" onclick="ptSetFmt(\'league\')" style="width:100%;padding:12px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:transparent;color:rgba(100,220,180,.6);font-size:13px;font-weight:700;cursor:pointer;text-align:left">\uD83C\uDFC5 &nbsp;League Night</button>'
     +'</div>'
     +'<div id="ptTripFmtNote" style="display:none;margin-top:12px;padding:12px 14px;background:rgba(100,180,255,.08);border:1px solid rgba(100,180,255,.25);border-radius:10px;color:rgba(100,180,255,.85);font-size:13px;line-height:1.5">🌍 <strong>Golf Trip</strong> — multi-round individual event with weekly Stableford standings, per-round handicap pulls from Golf Canada, and Nassau money tracking. Courses and tee times are added round by round as you book them.</div>'
     +'<div id="ptLeagueFmtNote" style="display:none;margin-top:12px;padding:12px 14px;background:rgba(100,220,180,.08);border:1px solid rgba(100,220,180,.25);border-radius:10px;color:rgba(100,220,180,.85);font-size:13px;line-height:1.5">🏅 <strong>League Night</strong> — weekly stableford scoring, persistent member roster, round-by-round standings. Players are managed in the League dashboard.</div>'
-    +'<div style="margin-bottom:18px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Rules &amp; Notes <span style="font-weight:400;color:rgba(255,255,255,.3)">(shown to scorers after PIN entry)</span></div>'
-    +'<textarea id="ptNewEvRules" rows="3" placeholder="e.g. Scramble \u2014 each player must contribute 2 drives. 1 mulligan per side." style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:13px;outline:none;resize:vertical;line-height:1.5"></textarea></div>'
     +'<div style="margin-bottom:16px;padding:14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:12px;display:flex;align-items:center;justify-content:space-between">'
     +'<div><div style="font-size:13px;font-weight:800;color:#c9a84c">🎰 Include Pards Bets?</div><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">Parimutuel betting for this event</div></div>'
     +'<label style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0">'
@@ -33971,7 +33971,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v202.0';
+    const TOUR_VERSION     = 'pards-tour-v203.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
