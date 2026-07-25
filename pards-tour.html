@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v207.0 -->
+  <!-- pards-tour-v208.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -26426,6 +26426,29 @@ function ptLoadLeagueDetail(leagueId) {
     .catch(function(){ document.getElementById('ptLeagueDetailBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">Network error.</div>'; });
 }
 
+function _ptTodayISO(){
+  var d = new Date();
+  var y=d.getFullYear(), m=d.getMonth()+1, da=d.getDate();
+  return y+'-'+(m<10?'0':'')+m+'-'+(da<10?'0':'')+da;
+}
+
+// Derive a league's weekly cadence from its existing round dates (no stored field).
+// Returns {weekday: 'Tuesday'|null, nextISO, nextLabel}
+function _ptLeagueCadence(rounds){
+  var dated = (rounds||[]).filter(function(r){return r.round_date;})
+    .map(function(r){return r.round_date;}).sort();
+  if(!dated.length) return {weekday:null, nextISO:null, nextLabel:null};
+  var latest = dated[dated.length-1];
+  var wdIdx = new Date(latest+'T12:00:00').getDay();
+  var consistent = dated.every(function(iso){ return new Date(iso+'T12:00:00').getDay()===wdIdx; });
+  var WD = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var nd = new Date(latest+'T12:00:00'); nd.setDate(nd.getDate()+7);
+  var y=nd.getFullYear(), m=nd.getMonth()+1, da=nd.getDate();
+  var nextISO = y+'-'+(m<10?'0':'')+m+'-'+(da<10?'0':'')+da;
+  return { weekday: consistent?WD[wdIdx]:null, nextISO:nextISO, nextLabel: MON[nd.getMonth()]+' '+nd.getDate() };
+}
+
 function ptRenderLeagueDetail(league, members, rounds) {
   var body = document.getElementById('ptLeagueDetailBody');
   var lid = league.id;
@@ -26459,30 +26482,52 @@ function ptRenderLeagueDetail(league, members, rounds) {
   }
   html += '<button onclick="ptAddLeagueMemberUI('+lid+')" style="width:100%;padding:11px;background:rgba(100,220,180,.1);border:1.5px dashed rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,.7);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:24px">+ Add Members</button>';
 
-  // Rounds section
-  html += '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Weekly Rounds</div>';
+  // Season schedule — cadence derived from existing round dates (lightweight; no stored field)
+  html += '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Season Schedule</div>';
+  var _cad = _ptLeagueCadence(rounds);
+  if(_cad.weekday){
+    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:9px 12px">'
+      + '<span style="font-size:14px">🔁</span>'
+      + '<span style="font-size:12px;font-weight:800;color:#f5e6b8">Every '+_cad.weekday+'</span>'
+      + '</div>';
+  }
   if(rounds.length){
-    rounds.forEach(function(r){
+    var _sorted = rounds.slice().sort(function(a,b){ return (a.round_date||'').localeCompare(b.round_date||''); });
+    var _todayISO = _ptTodayISO();
+    _sorted.forEach(function(r, i){
       var dateStr = r.round_date ? ptFormatDate(r.round_date) : 'Date TBD';
-      html += '<div style="background:rgba(255,255,255,.04);border-radius:14px;padding:16px;margin-bottom:12px">'
-        +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">'
-        +'<div>'
-        +'<div style="font-size:15px;font-weight:900;color:#fff">'+dateStr+'</div>'
-        +(r.trip_name?'<div style="font-size:12px;color:rgba(255,255,255,.4)">'+_esc(r.trip_name)+'</div>':'')
-        +'</div>'
-        +'<div style="font-size:12px;color:rgba(100,220,180,.7);font-weight:700">'+(r.player_count||0)+' players</div>'
-        +'</div>'
-        +'<div style="display:flex;gap:8px">'
-        +'<button onclick="ptShowTripDetail('+r.trip_id+','+lid+')" style="flex:1;padding:10px;background:rgba(100,220,180,.12);border:1px solid rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,1);font-size:13px;font-weight:800;cursor:pointer">⚙️ Manage Round</button>'
-        +'<button onclick="ptShowLeagueLeaderboard('+lid+','+r.league_round_id+',\''+r.viewer_pin+'\',\''+dateStr+'\')" style="flex:1;padding:10px;background:rgba(100,220,180,.06);border:1px solid rgba(100,220,180,.2);border-radius:10px;color:rgba(100,220,180,.8);font-size:13px;font-weight:800;cursor:pointer">🏆 Leaderboard</button>'
-        +'</div>'
-        +'</div>';
+      var tag = '';
+      if(r.round_date === _todayISO) tag = '<span style="font-size:10px;font-weight:800;color:#c9a84c;text-transform:uppercase;letter-spacing:.4px">● Today</span>';
+      else if(r.round_date && r.round_date > _todayISO) tag = '<span style="font-size:10px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.4px">Upcoming</span>';
+      html += '<div style="background:rgba(255,255,255,.04);border-radius:14px;padding:14px;margin-bottom:10px">'
+        + '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">'
+        +   '<div style="flex:0 0 auto;width:40px;height:40px;border-radius:10px;background:rgba(0,0,0,.3);display:flex;flex-direction:column;align-items:center;justify-content:center">'
+        +     '<div style="font-size:8px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;line-height:1.2">Wk</div>'
+        +     '<div style="font-size:17px;font-weight:900;color:#f5e6b8;line-height:1">'+(i+1)+'</div>'
+        +   '</div>'
+        +   '<div style="flex:1;min-width:0">'
+        +     '<div style="font-size:15px;font-weight:900;color:#fff">'+dateStr+'</div>'
+        +     '<div style="font-size:12px;color:rgba(100,220,180,.7);font-weight:700">'+(r.player_count||0)+' players'+(r.trip_name?' · '+_esc(r.trip_name):'')+'</div>'
+        +   '</div>'
+        +   (tag?'<div style="flex:0 0 auto">'+tag+'</div>':'')
+        + '</div>'
+        + '<div style="display:flex;gap:8px">'
+        +   '<button onclick="ptShowTripDetail('+r.trip_id+','+lid+')" style="flex:1;padding:10px;background:rgba(100,220,180,.12);border:1px solid rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,1);font-size:13px;font-weight:800;cursor:pointer">⚙️ Manage Round</button>'
+        +   '<button onclick="ptShowLeagueLeaderboard('+lid+','+r.league_round_id+',\''+r.viewer_pin+'\',\''+dateStr+'\')" style="flex:1;padding:10px;background:rgba(100,220,180,.06);border:1px solid rgba(100,220,180,.2);border-radius:10px;color:rgba(100,220,180,.8);font-size:13px;font-weight:800;cursor:pointer">🏆 Leaderboard</button>'
+        + '</div>'
+        + '</div>';
     });
   } else {
-    html += '<div style="color:rgba(255,255,255,.3);font-size:13px;margin-bottom:12px">No rounds yet — create the first one below.</div>';
+    html += '<div style="color:rgba(255,255,255,.3);font-size:13px;margin-bottom:12px">No rounds yet — add the first one below.</div>';
   }
 
-  html += '<button onclick="ptCreateLeagueRoundUI('+lid+')" style="width:100%;padding:12px;background:rgba(100,220,180,.1);border:1.5px dashed rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,.7);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px">+ Create Weekly Round</button>';
+  // Add-week controls: one-tap next week (pre-filled), plus a custom-date fallback
+  if(_cad.nextISO){
+    html += '<button onclick="ptCreateLeagueRoundUI('+lid+',\''+_cad.nextISO+'\')" style="width:100%;padding:13px;background:rgba(100,220,180,.12);border:1.5px dashed rgba(100,220,180,.4);border-radius:12px;color:rgba(100,220,180,.9);font-size:14px;font-weight:800;cursor:pointer;margin-bottom:8px">+ Add next week ('+_cad.nextLabel+')</button>';
+    html += '<button onclick="ptCreateLeagueRoundUI('+lid+')" style="width:100%;padding:9px;background:none;border:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:8px">or pick a custom date</button>';
+  } else {
+    html += '<button onclick="ptCreateLeagueRoundUI('+lid+')" style="width:100%;padding:12px;background:rgba(100,220,180,.1);border:1.5px dashed rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,.7);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px">+ Create First Round</button>';
+  }
   html += '<button onclick="ptDeleteLeague('+lid+')" style="width:100%;margin-top:12px;padding:10px;background:none;border:1px solid rgba(180,30,30,.35);border-radius:10px;color:rgba(200,60,60,.6);font-size:12px;font-weight:700;cursor:pointer">🗑️ Delete League...</button>';
 
   body.innerHTML = html;
@@ -26554,16 +26599,17 @@ window.ptRemoveLeagueMember = function(leagueId, memberId) {
     .catch(function(){ alert('Network error.'); });
 };
 
-window.ptCreateLeagueRoundUI = function(leagueId) {
+window.ptCreateLeagueRoundUI = function(leagueId, presetDate) {
   var ov = document.createElement('div');
   ov.id = 'ptCreateLeagueRoundOv';
   ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.8);display:flex;align-items:flex-end';
   var today = new Date();
   var yy=today.getFullYear(), mm=String(today.getMonth()+1).padStart(2,'0'), dd=String(today.getDate()).padStart(2,'0');
+  var _dateVal = presetDate || (yy+'-'+mm+'-'+dd);
   ov.innerHTML = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;box-sizing:border-box">'
     +'<div style="font-size:15px;font-weight:800;color:rgba(100,220,180,1);margin-bottom:16px">Create Weekly Round</div>'
     +'<div style="margin-bottom:12px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Date</div>'
-    +'<input id="ptLeagueRoundDate" type="date" value="'+yy+'-'+mm+'-'+dd+'" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
+    +'<input id="ptLeagueRoundDate" type="date" value="'+_dateVal+'" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(100,220,180,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
     +'<div style="color:rgba(255,255,255,.35);font-size:12px;margin-bottom:18px">Creates a round linked to this league. Pick who is playing tonight and set up groups.</div>'
     +'<button onclick="doCreateLeagueRound('+leagueId+')" style="width:100%;padding:13px;background:rgba(100,220,180,.9);color:#0a1a0a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;margin-bottom:8px">Create Round</button>'
     +'<button onclick="document.getElementById(\'ptCreateLeagueRoundOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
@@ -34028,7 +34074,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v207.0';
+    const TOUR_VERSION     = 'pards-tour-v208.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
