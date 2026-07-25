@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v216.0 -->
+  <!-- pards-tour-v217.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -1491,7 +1491,7 @@ input::placeholder{color:#bbb}
           </div>
           <div id="ptJoinStatusWarn" style="display:none;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.3);border-radius:10px;padding:11px 14px;color:#e74c3c;font-size:13px;margin-bottom:10px;font-weight:600;text-align:center"></div>
           <div id="ptJoinScoreBtn">
-            <button onclick="ptShowPinStep()" style="width:100%;padding:15px;background:linear-gradient(135deg,#1a5c3a,#2d8a5e);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent">Score for This Team &#8594;</button>
+            <button onclick="doJoinValidatePin()" style="width:100%;padding:15px;background:linear-gradient(135deg,#1a5c3a,#2d8a5e);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent">Score for This Team &#8594;</button>
           </div>
           <div id="ptJoinScorerStep" style="display:none">
             <div id="ptJoinTeamPlayers" style="margin-bottom:14px"></div>
@@ -33221,20 +33221,24 @@ function doJoinWatchLive() {
 
 // ── Join PIN validation ───────────────────────────────────────
 function doJoinValidatePin() {
-  var pin=(document.getElementById('ptJoinPin').value||'').trim();
-  var errEl=document.getElementById('ptJoinPinErr'); errEl.style.display='none';
-  if(!pin||pin.length!==4){errEl.textContent='Enter the 4-digit team PIN.';errEl.style.display='block';return;}
+  // v217.0: team PIN retired — the 6-char code alone grants score entry.
+  // Worker v2.32 made score submission code-only and the organizer console
+  // stopped showing team PINs in v205/v206, so the challenge was unanswerable.
+  // A PIN typed into any legacy UI is still passed through as a header (harmless).
+  var pin=(function(){ var el=document.getElementById('ptJoinPin'); return el?(el.value||'').trim():''; })();
+  var errEl=document.getElementById('ptJoinErr')||document.getElementById('ptJoinPinErr'); errEl.style.display='none';
   var code=(document.getElementById('ptJoinCode').value||'').trim().toUpperCase();
-  var btn=document.querySelector('#ptJoinPinStep button');
+  var btn=document.querySelector('#ptJoinScoreBtn button')||document.querySelector('#ptJoinPinStep button');
+  var _btnLabel=btn?btn.textContent:'';
   if(btn){btn.disabled=true;btn.textContent='Checking…';}
 
   // Individual round foursome mode
   if (G._joinMode === 'foursome' && G._joinFoursome) {
-    fetch(TOUR_API+'/api/join-round/'+code, {headers:{'X-Team-Pin':pin}})
+    fetch(TOUR_API+'/api/join-round/'+code, pin?{headers:{'X-Team-Pin':pin}}:{})
       .then(function(r){return r.json();})
       .then(function(d){
-        if(btn){btn.disabled=false;btn.textContent='Confirm PIN';}
-        if(!d.pin_valid){errEl.textContent='Incorrect PIN.';errEl.style.display='block';return;}
+        if(btn){btn.disabled=false;btn.textContent=_btnLabel;}
+        if(d.error||!d.foursome){errEl.textContent=d.error||'Round not found.';errEl.style.display='block';return;}
         G._joinMode = null;
         // Check if scores already submitted for this foursome
         var existingScores = d.existing_scores || {};
@@ -33255,17 +33259,17 @@ function doJoinValidatePin() {
         // Launch Pards Golf for individual tournament round
         ptLaunchFoursomeRound(d);
       }).catch(function(){
-        if(btn){btn.disabled=false;btn.textContent='Confirm PIN';}
+        if(btn){btn.disabled=false;btn.textContent=_btnLabel;}
         errEl.textContent='Network error.';errEl.style.display='block';
       });
     return;
   }
 
-  fetch(TOUR_API+'/api/join/'+code,{headers:{'X-Team-Pin':pin}})
+  fetch(TOUR_API+'/api/join/'+code, pin?{headers:{'X-Team-Pin':pin}}:{})
     .then(function(r){return r.json();})
     .then(function(d){
-      if(btn){btn.disabled=false;btn.textContent='Confirm PIN';}
-      if(!d.pin_valid){errEl.textContent='Incorrect PIN — check with your organizer.';errEl.style.display='block';return;}
+      if(btn){btn.disabled=false;btn.textContent=_btnLabel;}
+      if(d.error||!d.group){errEl.textContent=d.error||'Group not found.';errEl.style.display='block';return;}
       // Item 9: check for existing scorecard before proceeding
       // In cross-scoring, check the PAIRED group's scores (that's where they're submitted)
       // d.paired_group is from THIS PIN response — G._pairedGroup not set yet at this point
@@ -33362,7 +33366,7 @@ function doJoinValidatePin() {
           }).catch(function(){ _ptProceedToScorer(); });
       } else { _ptProceedToScorer(); }
     }).catch(function(){
-      if(btn){btn.disabled=false;btn.textContent='Confirm PIN';}
+      if(btn){btn.disabled=false;btn.textContent=_btnLabel;}
       errEl.textContent='Network error.';errEl.style.display='block';
     });
 }
@@ -33576,9 +33580,9 @@ function doJoinRoundLookup(code, btn, errEl) {
         if(scoreBtn) { scoreBtn.style.display='block'; var _sb=scoreBtn.querySelector('button'); if(_sb) _sb.textContent='Score This Round →'; }
         // Mark as foursome mode
         G._joinMode = 'foursome';
-        // Show PIN step directly
+        // v217.0: PIN retired — the Score This Round button proceeds directly
         var pinStep=document.getElementById('ptJoinPinStep');
-        if(pinStep) pinStep.style.display='block';
+        if(pinStep) pinStep.style.display='none';
       } else {
         // Not an event round — try trip tee time code
         doJoinTripLookup(code, btn, errEl);
@@ -34751,7 +34755,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v216.0';
+    const TOUR_VERSION     = 'pards-tour-v217.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
