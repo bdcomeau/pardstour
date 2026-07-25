@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v233.0 -->
+  <!-- pards-tour-v234.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -29472,11 +29472,14 @@ function ptTTBGenerate() {
     var t=_ptTTB.session==='morning'?'08:00':'13:00';
     holes.forEach(function(h){slots.push({start_time:t,hole:h,players:Array(n).fill(null)});});
   }
-  _ptTTB.slots=slots;_ptTTBRender();
+  _ptTTB.slots=slots;_ptTTB._moving=null;_ptTTBRender();
 }
 
 function _ptTTBRender() {
   var body=document.getElementById('ptTTBBody'); if(!body)return;
+  // v234.0: tap-tap move state — drop a stale selection (spot emptied or slots regenerated)
+  var mv=_ptTTB._moving;
+  if(mv&&!(_ptTTB.slots[mv.si]&&_ptTTB.slots[mv.si].players&&_ptTTB.slots[mv.si].players[mv.pi]))mv=_ptTTB._moving=null;
   var isScramble=_ptTTB.round.format==='scramble_stableford'||_ptTTB.round.format==='scramble';
   var isShotgun=_ptTTB.mode==='shotgun';
   var aR={},aG={},locR={},locG={};
@@ -29489,7 +29492,14 @@ function _ptTTBRender() {
   _ptTTB.groups.forEach(function(g){ (g.players||[]).forEach(function(rp){ if(rp.roster_id && !_ttbSeen[rp.roster_id]){ _ttbSeen[rp.roster_id]=true; _ttbPlayerPool.push({id:rp.roster_id,name:rp.name,group:g}); } }); });
   var aC=isScramble?Object.keys(aG).length:Object.keys(aR).length, tC=isScramble?_ptTTB.groups.length:_ttbPlayerPool.length;
   var fC=_ptTTB.slots.filter(function(s){return(s.players||[]).some(Boolean);}).length;
-  var h='<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:10px 14px;margin-bottom:14px">';
+  var h='';
+  if(mv){
+    var _mvp=_ptTTB.slots[mv.si].players[mv.pi];
+    h+='<div id="ptTTBMoveBar" style="position:sticky;top:0;z-index:20;background:#1a3a2a;border:1.5px solid #c9a84c;border-radius:10px;padding:10px 14px;margin-bottom:10px;box-shadow:0 4px 12px rgba(0,0,0,.4)">';
+    h+='<div style="font-size:12.5px;color:#f5e6b8;line-height:1.45"><b style="color:#c9a84c">Moving '+_mvp.name+'</b> \u2014 tap a spot to place, a player to swap, or tap them again to cancel.</div>';
+    h+='</div>';
+  }
+  h+='<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:10px 14px;margin-bottom:14px">';
   h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
   h+='<div style="font-size:12px;color:rgba(201,168,76,.7)">'+fC+'/'+_ptTTB.slots.length+' slots</div>';
   h+='<div style="font-size:12px;color:rgba(201,168,76,.7)">'+aC+'/'+tC+' '+(isScramble?'teams':'players')+'</div>';
@@ -29500,7 +29510,7 @@ function _ptTTBRender() {
   h+='<button onclick="ptTTBClearAll()" style="padding:9px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer">Clear</button>';
   h+='</div>';
   // v232.0 — discoverability: the v218 move semantics were invisible
-  h+='<div style="font-size:10.5px;color:rgba(255,255,255,.38);margin-top:8px;line-height:1.5">\ud83d\udca1 To move someone, tap any slot and pick them \u2014 players already placed show \u201c\u2192 time\u201d and jump here; their old spot frees up.</div>';
+  h+='<div style="font-size:10.5px;color:rgba(255,255,255,.38);margin-top:8px;line-height:1.5">\ud83d\udca1 Tap a player to pick them up, then tap another player to swap or an empty spot to move them. Tap an empty spot to add someone.</div>';
   h+='</div>';
   _ptTTB.slots.forEach(function(slot,si){
     var w=_ptTTBCheckWarnings(slot,si),hasST=w.some(function(x){return x.type==='same_team';}),hasRP=w.some(function(x){return x.type==='repeat';});
@@ -29515,17 +29525,17 @@ function _ptTTBRender() {
     else if(hasRest)h+='<div style="font-size:10px;color:#9b59b6;font-weight:700">&#9888; &lt;4.5hr rest</div>';
     h+='</div>';
     var n=isScramble?1:4;
+    // v234.0: tap-tap chips (selects retired) — chip = assigned, dashed = empty
     for(var pi=0;pi<n;pi++){
       var assigned=slot.players[pi];
-      h+='<div style="margin-bottom:5px"><select onchange="ptTTBAssign('+si+','+pi+',this)" style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.25);color:#fff;font-size:13px;outline:none">';
-      if(isScramble){
-        h+='<option value="">-- Select Team --</option>';
-        _ptTTB.groups.forEach(function(g){var taken=aG[g.id]&&!(assigned&&assigned.group_id===g.id);h+='<option value="g:'+g.id+'"'+(assigned&&assigned.group_id===g.id?' selected':'')+'>'+g.name+(taken?' \u2192 '+_slotTag(locG[g.id]):'')+'</option>';});
+      if(assigned){
+        var isMv=mv&&mv.si===si&&mv.pi===pi;
+        var tag='';
+        if(!isScramble&&assigned.roster_id){var _cg=_ttbPlayerPool.find(function(p){return p.id===assigned.roster_id;});if(_cg&&_cg.group)tag=' <span style="color:rgba(255,255,255,.45);font-weight:600">['+_cg.group.name.replace(' Team','')+']</span>';}
+        h+='<div style="margin-bottom:5px"><button onclick="ptTTBChipTap('+si+','+pi+')" style="width:100%;text-align:left;padding:10px 12px;border-radius:8px;border:1.5px solid '+(isMv?'#c9a84c':'rgba(255,255,255,.12)')+';background:'+(isMv?'rgba(201,168,76,.22)':'rgba(0,0,0,.25)')+';color:#fff;font-size:13px;font-weight:700;cursor:pointer">'+assigned.name+tag+'</button></div>';
       } else {
-        h+='<option value="">-- Player '+(pi+1)+' --</option>';
-        _ttbPlayerPool.forEach(function(p){var taken=aR[p.id]&&!(assigned&&assigned.roster_id===p.id);var tag=p.group?' ['+p.group.name.replace(' Team','')+']':'';h+='<option value="r:'+p.id+'"'+(assigned&&assigned.roster_id===p.id?' selected':'')+'>'+p.name+tag+(taken?' \u2192 '+_slotTag(locR[p.id]):'')+'</option>';});
+        h+='<div style="margin-bottom:5px"><button onclick="ptTTBSpotTap('+si+','+pi+')" style="width:100%;padding:10px 12px;border-radius:8px;border:1.5px dashed rgba(255,255,255,.2);background:none;color:rgba(255,255,255,.35);font-size:13px;font-weight:600;cursor:pointer">'+(mv?'\u2b07 place here':'+ add '+(isScramble?'team':'player'))+'</button></div>';
       }
-      h+='</select></div>';
     }
     h+='</div>';
   });
@@ -29544,10 +29554,12 @@ function _ptTTBRender() {
 
 function ptTTBClearAll() {
   _ptTTB.slots.forEach(function(s){ s.players = s.players.map(function(){return null;}); });
+  _ptTTB._moving=null;
   _ptTTBRender();
 }
 
 function ptTTBAutoFill() {
+  _ptTTB._moving=null;
   var isScramble = _ptTTB.round.format === 'scramble_stableford' || _ptTTB.round.format === 'scramble';
 
   if (isScramble) {
@@ -29682,6 +29694,67 @@ function ptTTBAssign(si,pi,sel){
   else if(val.indexOf('r:')===0){var rid=parseInt(val.slice(2));_ptTTBUnassign(rid,null);var p=_ptTTB.roster.find(function(r){return r.id===rid;});if(!p){_ptTTB.groups.some(function(g){var rp=(g.players||[]).find(function(x){return x.roster_id===rid;});if(rp){p={id:rid,name:rp.name};return true;}return false;});}_ptTTB.slots[si].players[pi]={roster_id:rid,name:p?p.name:'?',group_id:null};}
   else if(val.indexOf('g:')===0){var gid=parseInt(val.slice(2));_ptTTBUnassign(null,gid);var g=_ptTTB.groups.find(function(g){return g.id===gid;});_ptTTB.slots[si].players[pi]={roster_id:null,group_id:gid,name:g?g.name:'?'};}
   _ptTTBRender();
+}
+
+
+// v234.0 — tap-tap move & swap. Tap a chip to pick it up; tap an empty spot to
+// move, another chip to swap, or the same chip to cancel. Empty spot with no
+// selection opens a bottom-sheet picker (reuses ptTTBAssign move semantics).
+function ptTTBChipTap(si,pi){
+  var mv=_ptTTB._moving;
+  if(!mv){_ptTTB._moving={si:si,pi:pi};_ptTTBRender();return;}
+  if(mv.si===si&&mv.pi===pi){_ptTTB._moving=null;_ptTTBRender();return;}
+  var a=_ptTTB.slots[mv.si].players[mv.pi];
+  _ptTTB.slots[mv.si].players[mv.pi]=_ptTTB.slots[si].players[pi]||null;
+  _ptTTB.slots[si].players[pi]=a;
+  _ptTTB._moving=null;
+  _ptTTBRender();
+}
+function ptTTBSpotTap(si,pi){
+  var mv=_ptTTB._moving;
+  if(mv){
+    _ptTTB.slots[si].players[pi]=_ptTTB.slots[mv.si].players[mv.pi];
+    _ptTTB.slots[mv.si].players[mv.pi]=null;
+    _ptTTB._moving=null;
+    _ptTTBRender();
+    return;
+  }
+  ptTTBShowPicker(si,pi);
+}
+function _ptTTBClosePicker(){var el=document.getElementById('ptTTBPicker');if(el)el.remove();}
+function ptTTBPickerPick(si,pi,val){_ptTTBClosePicker();ptTTBAssign(si,pi,{value:val});}
+function ptTTBShowPicker(si,pi){
+  _ptTTBClosePicker();
+  var isScramble=_ptTTB.round.format==='scramble_stableford'||_ptTTB.round.format==='scramble';
+  var isShotgun=_ptTTB.mode==='shotgun';
+  function _slotTag(_si){var s=_ptTTB.slots[_si];return isShotgun?('Hole '+s.hole):(s.start_time||'');}
+  var locR={},locG={};
+  _ptTTB.slots.forEach(function(s,_si){(s.players||[]).forEach(function(p){if(!p)return;if(p.roster_id)locR[p.roster_id]=_si;if(p.group_id)locG[p.group_id]=_si;});});
+  var slot=_ptTTB.slots[si];
+  var items=[];
+  if(isScramble){
+    _ptTTB.groups.forEach(function(g){items.push({val:'g:'+g.id,name:g.name,tag:'',placed:locG[g.id]!=null?_slotTag(locG[g.id]):null});});
+  } else {
+    var seen={};
+    _ptTTB.groups.forEach(function(g){(g.players||[]).forEach(function(rp){if(!rp.roster_id||seen[rp.roster_id])return;seen[rp.roster_id]=true;items.push({val:'r:'+rp.roster_id,name:rp.name,tag:' ['+g.name.replace(' Team','')+']',placed:locR[rp.roster_id]!=null?_slotTag(locR[rp.roster_id]):null});});});
+  }
+  var un=items.filter(function(x){return !x.placed;}),pl=items.filter(function(x){return x.placed;});
+  var ov=document.createElement('div');
+  ov.id='ptTTBPicker';
+  ov.style.cssText='position:fixed;inset:0;z-index:720;background:rgba(0,0,0,.6);display:flex;flex-direction:column;justify-content:flex-end';
+  ov.onclick=function(e){if(e.target===ov)_ptTTBClosePicker();};
+  var hh='<div style="background:#0f1f14;border-top:1.5px solid rgba(201,168,76,.35);border-radius:16px 16px 0 0;max-height:65vh;display:flex;flex-direction:column">';
+  hh+='<div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px;flex-shrink:0">';
+  hh+='<div style="font-size:14px;font-weight:800;color:#c9a84c">Add to '+(isShotgun?'Hole '+slot.hole:slot.start_time)+'</div>';
+  hh+='<button onclick="_ptTTBClosePicker()" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;padding:0">\u2715</button></div>';
+  hh+='<div style="overflow-y:auto;padding:0 14px 20px">';
+  function row(x){return '<button onclick="ptTTBPickerPick('+si+','+pi+',\''+x.val+'\')" style="width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:11px 12px;margin-bottom:6px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;font-size:13.5px;font-weight:700;cursor:pointer"><span>'+x.name+'<span style="color:rgba(255,255,255,.45);font-weight:600">'+x.tag+'</span></span>'+(x.placed?'<span style="color:rgba(201,168,76,.7);font-size:11.5px;font-weight:600">\u2192 '+x.placed+'</span>':'')+'</button>';}
+  if(un.length){hh+='<div style="font-size:10.5px;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin:6px 4px 8px">Unassigned</div>';un.forEach(function(x){hh+=row(x);});}
+  if(pl.length){hh+='<div style="font-size:10.5px;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin:12px 4px 8px">Placed \u2014 picking moves them here</div>';pl.forEach(function(x){hh+=row(x);});}
+  if(!un.length&&!pl.length)hh+='<div style="color:rgba(255,255,255,.4);font-size:13px;text-align:center;padding:20px 0">No '+(isScramble?'teams':'players')+' in this event yet.</div>';
+  hh+='</div></div>';
+  ov.innerHTML=hh;
+  document.body.appendChild(ov);
 }
 
 function _ptTTBCheckWarnings(slot,si){
@@ -35193,7 +35266,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v233.0';
+    const TOUR_VERSION     = 'pards-tour-v234.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
