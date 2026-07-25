@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v234.0 -->
+  <!-- pards-tour-v235.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -27244,13 +27244,13 @@ function ptRenderTripDetail(trip, players, rounds) {
         +(r.date?ptFormatDate(r.date)+' \xb7 '+courseLine:courseLine)
         +'</div>';
 
-      if(_isLeague){ html += _ptRoundFormatSelect(tripId, r.id, r.format||''); }
+      html += _ptRoundFormatSelect(tripId, r.id, r.format||''); // v235.0: trips too — every day can play a different format
 
       if(!hasTimes){
         // STATE 1: No tee times — show Set Up button
         // v216.0: league rounds must have a format chosen first — pairings depend
         // on it (Match Play is player-vs-player, Best Ball needs partners, etc.)
-        var _fmtGated = _isLeague && !(r.format||'');
+        var _fmtGated = !(r.format||''); // v235.0: trips gated too
         html += (_fmtGated
             ? '<div id="ptTeeGate_'+r.id+'" style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.28);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:12px;color:rgba(255,255,255,.6);line-height:1.5">\ud83c\udff7 Choose a <strong style="color:#c9a84c">format</strong> above before building tee times \u2014 pairings depend on it.</div>'
             : '<div id="ptTeeGate_'+r.id+'" style="display:none"></div>')
@@ -27397,6 +27397,13 @@ window.ptAddTripPlayerById = function(tripId, rosterId, btn) {
 };
 
 window.ptAddTripRoundUI = function(tripId, startDate) {
+  // v235.0: every trip day can play a different format — capture it at creation.
+  // Trips default to stableford; leagues keep the v216 deliberate-choice TBD.
+  var _isLg = !!window._ptTripDetailLeagueId;
+  var _fmtList = [['stableford','Individual Stableford'],['overall_skins','Overall Skins'],['low_net','Low Net'],['low_gross','Low Gross'],['match_play','Match Play'],['best_ball','Best Ball']];
+  if(_isLg) _fmtList.unshift(['','Format: TBD']);
+  var _def = _isLg ? '' : 'stableford';
+  var _fmtOpts = _fmtList.map(function(x){return '<option value="'+x[0]+'"'+(x[0]===_def?' selected':'')+'>'+x[1]+'</option>';}).join('');
   var _span = window._ptTripSpan || null;
   var _minmax = _span ? (' min="'+_span.start+'" max="'+_span.end+'"') : '';
   if(!startDate && _span) startDate = _span.start;
@@ -27409,6 +27416,8 @@ window.ptAddTripRoundUI = function(tripId, startDate) {
     +'<input id="ptTripRoundDate" type="date" value="'+( startDate||'')+'"'+_minmax+' style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
     +'<div style="margin-bottom:16px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Label <span style="font-weight:400;color:rgba(255,255,255,.3)">(optional)</span></div>'
     +'<input id="ptTripRoundLabel" type="text" placeholder="e.g. TPC Scottsdale — Day 2" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
+    +'<div style="margin-bottom:16px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Format</div>'
+    +'<select id="ptTripRoundFormat" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none;cursor:pointer">'+_fmtOpts+'</select></div>'
     +'<div style="color:rgba(255,255,255,.35);font-size:12px;margin-bottom:16px">Course and tee times can be assigned later once you book.</div>'
     +'<button onclick="doAddTripRound('+tripId+')" style="width:100%;padding:13px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;margin-bottom:8px">Add Round</button>'
     +'<button onclick="document.getElementById(\'ptAddTripRoundOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
@@ -27420,14 +27429,27 @@ window.ptAddTripRoundUI = function(tripId, startDate) {
 window.doAddTripRound = function(tripId) {
   var date  = document.getElementById('ptTripRoundDate').value||null;
   var label = (document.getElementById('ptTripRoundLabel').value||'').trim()||null;
+  var _fSel = document.getElementById('ptTripRoundFormat');
+  var fmt   = _fSel ? (_fSel.value||null) : null;
   fetch(TOUR_API+'/api/trips/'+tripId+'/rounds', {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
-    body:JSON.stringify({date:date, label:label})
+    body:JSON.stringify({date:date, label:label, format:fmt})
   }).then(function(r){return r.json();}).then(function(d){
     if(d.round){
       var ov=document.getElementById('ptAddTripRoundOv'); if(ov) ov.remove();
-      ptLoadTripDetail(tripId);
+      // v235.0: Worker v2.33 POST ignores format — persist via PATCH (which
+      // honors it). Reload either way; a failed PATCH just renders TBD (gated).
+      if(fmt && !d.round.format){
+        fetch(TOUR_API+'/api/trips/'+tripId+'/rounds/'+d.round.id, {
+          method:'PATCH',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
+          body:JSON.stringify({format:fmt})
+        }).then(function(r){return r.json();}).catch(function(){})
+          .then(function(){ ptLoadTripDetail(tripId); });
+      } else {
+        ptLoadTripDetail(tripId);
+      }
     } else {
       ptToast(d.error||'Failed to add round.');
     }
@@ -27482,9 +27504,9 @@ window.ptTripRoundManager = function(tripId, roundId) {
       var round = (d.rounds||[]).find(function(r){return r.id===roundId;});
       // v216.0: hard gate — a league round with no format must not reach the
       // tee-time builder (pairings depend on the format).
-      if(window._ptTripDetailLeagueId && round && !(round.format||'')){
+      if(round && !(round.format||'')){
         var _g = document.getElementById('ptTRMOv'); if(_g) _g.remove();
-        ptToast('Choose a format for this league round first.\n\nPairings depend on it \u2014 Match Play is player-vs-player, Best Ball needs partners.');
+        ptToast('Choose a format for this round first.\n\nScoring and pairings depend on it \u2014 pick it on the round card.');
         return;
       }
       if(round && round.course_id){
@@ -28061,13 +28083,18 @@ window.ptStartTripScoring = function(code, tripId, roundId) {
 
       // Build foursomeData shape that ptLaunchFoursomeRound expects (individual format)
       var ft = d.foursome||{};
+      // v235.0: per-round format — trip-detail cache first (organizer console
+      // path), then whatever the Worker returned, then the stableford default.
+      var _rFmt = null;
+      try { var _rr=(window._ptTripDetailRounds||[]).find(function(x){return x.id===(ft.trip_round_id||roundId);}); if(_rr) _rFmt = _rr.format||null; } catch(e){}
+      _rFmt = _rFmt || ft.format || 'stableford';
       // Use API players — handleJoinTrip returns full roster from trip_tee_time_players JOIN roster.
       var players = d.players||[];
       var foursomeData = {
         foursome: {
           id:           ft.id,
           code:         ft.foursome_code||code,
-          format:       'individual_stableford',
+          format:       _rFmt,
           course_id:    ft.course_id||(ft.course_name?(function(){var _c=PARDS_COURSES.find(function(c){return c.name===ft.course_name;});return _c?_c.id:null;})():null)||null,
           tee:          ft.tee_name||ft.tee||null,
           hole:         ft.hole||1,
@@ -33997,7 +34024,7 @@ function doJoinTripLookup(code, btn, errEl) {
         var foursomeData = {
           foursome: {
             id: ft.id, code: ft.code||ft.foursome_code||code,
-            format: 'individual_stableford',
+            format: ft.format || 'stableford',
             course_id: ft.course_id||null,
             tee: ft.tee_name||null,
             hole: ft.hole||1,
@@ -34556,6 +34583,7 @@ function ptLaunchFoursomeRound(foursomeData) {
     tee_time_id:   foursome.id,
     player_roster_ids: players.map(function(p){ return p.roster_id; }),
     trip_id:       foursome.trip_id || null,
+    format:        foursome.format || null, // v235.0: per-round trip/league format
   };
 
   // ── Set up G state — mirrors doJoinGroup ─────────────────
@@ -35266,7 +35294,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v234.0';
+    const TOUR_VERSION     = 'pards-tour-v235.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
