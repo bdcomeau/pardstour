@@ -12286,7 +12286,7 @@ function renderCard() {
       } else if(isCurrentRoundSaved() && !(G._editingHistoryIdx >= 0)){
         const _intlActive2 = Object.keys(G.internationals||{}).length>0;
         const _intlNote = _intlActive2 ? ' 🌍 International matches settled — see Games → Nassau for results.' : '';
-        html += `<div class="save-round-done"><div style="font-size:17px;font-weight:800;margin-bottom:10px">🏆 Round Complete — Saved ✓</div><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button onclick="newRound()" style="background:#1a3a2a;color:#c9a84c;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;flex:1;min-width:120px">👇 Start New Round</button><button onclick="viewAndShareResults()" style="background:#1a3a2a;color:#c9a84c;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;flex:1;min-width:120px">📜 View & Share Results</button></div>${_intlNote?'<div style="font-size:10px;margin-top:8px;opacity:.7">'+_intlNote+'</div>':''}</div>`;
+        html += `<div class="save-round-done"><div style="font-size:17px;font-weight:800;margin-bottom:10px">🏆 Round Complete — Saved ✓</div><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button onclick="newRound()" style="background:#1a3a2a;color:#c9a84c;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;flex:1;min-width:120px">👇 Start New Round</button><button onclick="viewAndShareResults()" style="background:#1a3a2a;color:#c9a84c;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;flex:1;min-width:120px">📜 View & Share Results</button></div>${_intlNote?'<div style="font-size:10px;margin-top:8px;opacity:.7">'+_intlNote+'</div>':''}<div style="margin-top:12px"><button onclick="showHome()" style="width:100%;padding:11px;background:rgba(26,42,10,.4);color:rgba(201,168,76,.9);border:1.5px solid rgba(201,168,76,.4);border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">← Back to Pards Tour</button></div></div>`;
       }
 
       // ── Manual-advance confirm button ──
@@ -22261,7 +22261,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v6.05';
+const CURRENT_VERSION = 'pards-tour-v6.06';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -32014,7 +32014,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v6.05';
+const CACHE='pards-tour-v6.06';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
