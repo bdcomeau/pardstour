@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v230.0 -->
+  <!-- pards-tour-v231.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -25119,6 +25119,8 @@ function ptDoAbandon() {
   G._scoringForGroup = null;
   G._scoringForCode = null;
   G._refScores = null;
+  G._refScoresCode = null;                          // v231.0 — abandon forgets the ref card
+  try { localStorage.removeItem('pt_ref_backup'); } catch (e) {}
   G._teeShots = {};
   G._refTeeShots = {};
   G._ownPlayers = [];
@@ -25159,6 +25161,7 @@ function _ptGolfHome() {
   G._scoringForCode = null;
   G._scoringForGroup = null;
   G._refScores = Array(18).fill(null);
+  G._refScoresCode = null; // v231.0 — re-join restores the ref card from pt_ref_backup
   G.scorecardOnly = false;
   G.scores = [];
   G.players = [];
@@ -25204,6 +25207,7 @@ function showMyRound() {
   G._scoringForCode = null;
   G._scoringForGroup = null;
   G._refScores = Array(18).fill(null);
+  G._refScoresCode = null; // v231.0 — re-join restores the ref card from pt_ref_backup
   G.scorecardOnly = false;
   G.scores = [];
   G.players = [];
@@ -28483,6 +28487,10 @@ var _ptOrigDoStartRound = window._doStartRound;
 if (typeof _ptOrigDoStartRound === 'function') {
   window._doStartRound = function() {
     var _stash = G._ptEventResumeScores || null;
+    // v231.0 — capture the ref card BEFORE the engine runs: the stash block's
+    // saveG below fires the ref mirror while G.scores[1] is still the engine's
+    // fresh nulls, which would wipe G._refScores before the re-seed reads it.
+    var _refStash = Array.isArray(G._refScores) ? G._refScores.slice() : null;
     var r = _ptOrigDoStartRound.apply(this, arguments);
     try {
       if (_stash && G.mode === 'event' && G.roundDate && G.scores && G.scores[0]) {
@@ -28499,6 +28507,19 @@ if (typeof _ptOrigDoStartRound === 'function') {
         try { if (typeof updateHoleHeader === 'function') updateHoleHeader(); } catch(e3) {}
       }
     } catch(e) { console.error('[pt] resume re-apply failed', e); }
+    // v231.0 — re-seed the 📝 reference player's card after the engine's score
+    // reset (fresh start AND resume): ref scores persist in G._refScores.
+    try {
+      if (G.mode === 'event' && G.scrambleMode && G._pairedGroup && G.roundDate &&
+          G.players && G.players.length === 2) {
+        if (!Array.isArray(G.scores[1])) G.scores[1] = Array(18).fill(null);
+        if (Array.isArray(_refStash)) {
+          for (var _rj = 0; _rj < 18; _rj++) { if (_refStash[_rj] != null) G.scores[1][_rj] = _refStash[_rj]; }
+        }
+        saveG();
+        try { if (typeof renderCard === 'function') renderCard(); } catch(e5) {}
+      }
+    } catch(e4) { console.error('[pt-ref] ref re-seed failed', e4); }
     G._ptEventResumeScores = null;
     return r;
   };
@@ -33985,8 +34006,17 @@ function doJoinGroup() {
     // own-team scores already entered, any other join starts clean.
     if (!Array.isArray(G._refScores) || G._refScores.length !== 18 ||
         G._refScoresCode !== G.joinGroup.code) {
-      G._refScores   = Array(18).fill(null);
-      G._refTeeShots = {};
+      // v231.0 — an app reload wipes everything inside G (engine boot-order
+      // bug, see handoff): recover the ref card from the wrapper's own backup
+      // key when it belongs to this same join code.
+      var _rb = null;
+      try { _rb = JSON.parse(localStorage.getItem('pt_ref_backup') || 'null'); } catch (eRB) {}
+      if (_rb && _rb.code === G.joinGroup.code && Array.isArray(_rb.scores) && _rb.scores.length === 18) {
+        G._refScores = _rb.scores.slice();
+      } else {
+        G._refScores   = Array(18).fill(null);
+        G._refTeeShots = {};
+      }
     }
     G._refScoresCode = G.joinGroup.code;
     if (!G._teeShots)    G._teeShots    = {};
@@ -34022,6 +34052,26 @@ function doJoinGroup() {
       typicalScore: 0,
     }];
     G.scores = [Array(18).fill(null)];
+    // v231.0 — cross-scoring: the scorer's OWN team becomes player 2 on the
+    // engine wheel ("📝" prefix marks the reference card). Scores seed from
+    // G._refScores (the code-keyed persistence store, v229) so resume keeps
+    // own-team holes. [pt-sync] skips pi>0 (block 3 _refPi) — never submitted.
+    if (G._pairedGroup) {
+      G.n = 2;
+      G.players.push({
+        name:         '\ud83d\udcdd ' + (G.joinGroup.name || 'Your Team'),
+        idx:          0,
+        hdcpIndex:    0,
+        hdcpBaseline: 0,
+        deck:         _scTee,
+        playHdcp:     0,
+        strokes:      Array(18).fill(0),
+        golfId:       '',
+        typicalScore: 0,
+      });
+      G.scores.push((Array.isArray(G._refScores) && G._refScores.length === 18)
+        ? G._refScores.slice() : Array(18).fill(null));
+    }
     // Pre-populate if resuming
     if (window._ptResumeHoles) {
       Object.keys(window._ptResumeHoles).forEach(function(hKey) {
@@ -34044,7 +34094,7 @@ function doJoinGroup() {
     // If stableford scramble, pre-activate stableford game
     if (_sfmt === 'stableford') {
       var _sPts = { ace:8, albatross:6, eagle:4, birdie:3, par:2, bogey:1, double:0 };
-      G.stablefordGames = [{ players:[0], points:_sPts, betPerPoint:0, _tournament:true }];
+      G.stablefordGames = [{ players:(G._pairedGroup ? [0,1] : [0]), points:_sPts, betPerPoint:0, _tournament:true }]; // v231.0 — ref slot included when paired (engine needs >=2)
     }
 
     // Set up tournament context for score submission (event endpoint)
@@ -34083,8 +34133,16 @@ function doJoinGroup() {
       var _sel = document.getElementById('startHoleSel'); if (_sel) _sel.value = String(_sh);
       var _ph = document.getElementById('pillHole'); if (_ph) _ph.textContent = 'Hole ' + _sh;
     })();
-    // Sync player count pill — scramble always 1 scoring slot
-    (function(){ var _pp = document.getElementById('pillPlayers'); if (_pp) _pp.textContent = '1'; })();
+    // Sync player count pill (v231.0 — 2 slots when cross-scoring: official + 📝 ref)
+    (function(){ var _pp = document.getElementById('pillPlayers'); if (_pp) _pp.textContent = String(G.n || 1); })();
+    // v231.0 — with the reference player aboard (G.n===2) the engine's start
+    // validation demands a betting game unless Score Keep Only is on. Flip the
+    // engine's own hidden input — except stableford, whose pre-activated game
+    // satisfies the gate and must survive (scorecardOnly wipes all games).
+    (function(){
+      var _so = document.getElementById('scorecardOnly');
+      if (_so && G.n === 2 && _sfmt !== 'stableford') _so.value = '1';
+    })();
     // Scramble: replace player rows with locked team banner
     (function(){
       var _container = document.getElementById('playerInputs');
@@ -34129,6 +34187,15 @@ function doJoinGroup() {
            + '<input type="hidden" id="phAdj0" value="0">'
            + '<input type="hidden" id="gid0" value="">'
            + '<input type="hidden" id="deck0" value="'+_esc(G.players[0].deck || _tee)+'">';
+      // v231.0 — second mirror set for the 📝 reference player (engine's
+      // _doStartRound loops i<G.n reading pn{i}/ph{i}/phAdj{i}/gid{i}/deck{i})
+      if (G._pairedGroup && G.players[1]) {
+        _bh += '<input type="hidden" id="pn1" value="'+_esc(G.players[1].name)+'">'
+             + '<input type="hidden" id="ph1" value="0">'
+             + '<input type="hidden" id="phAdj1" value="0">'
+             + '<input type="hidden" id="gid1" value="">'
+             + '<input type="hidden" id="deck1" value="'+_esc(G.players[1].deck || _tee)+'">';
+      }
       _container.innerHTML = _bh;
     })();
     try { renderCoursePicker(); } catch(e) {}
@@ -34558,222 +34625,36 @@ function ptLaunchFoursomeRound(foursomeData) {
 }
 
 
-/* ══════════════════════════════════════════════════════
-   ⭐ REFERENCE SCORECARD (v229.0) — WRAPPER-ONLY, ENGINE UNTOUCHED
-   In cross-scoring the scorer keeps the PAIRED team's OFFICIAL card
-   (G.scores → synced by [pt-sync]); their OWN team has no card at all.
-   This floating panel tracks own-team gross in G._refScores.
-
-   NEVER SYNCED BY CONSTRUCTION: the [pt-sync] layer diffs G.scores only
-   and has no knowledge of _refScores — there is no submit path to remove.
-   G._refScores rides along inside G, so saveG/loadG persist it for free.
-
-   v6.06 solved this ENGINE-side (score tabs + an engine-drawn badge). Our
-   clean island engine has zero scrambleMode/_refScores awareness, so this
-   lives entirely outside it: one fixed element, no engine edits, and no
-   explicit destroy hooks — _refOn() gates on live round state, so the
-   existing reset points (_ptGolfHome / showMyRound / ptDoAbandon) tear it
-   down for free on the next tick.
-   ══════════════════════════════════════════════════════ */
+/* ⭐ REFERENCE SCORECARD v2 (v231.0) — the own team now rides the ENGINE WHEEL
+   as player 2 (G.players[1] "📝 <team>" / G.scores[1]) during cross-scoring;
+   the v229 floating panel is retired (Bruce: hard to use, no missed-hole edit —
+   the wheel gives editing + navigation natively). NEVER SYNCED: [pt-sync]'s
+   _refPi gate (block 3) skips pi>0 in every submit path. This mirror keeps
+   G._refScores — the code-keyed resume store (v229) — in step with the wheel;
+   it runs BEFORE the engine's write so the same save persists it. */
 (function () {
   'use strict';
-
-  var ID       = 'ptRefCardPanel';
-  var expanded = false;
-
-  function _refOn() {
-    try {
-      if (typeof G === 'undefined' || !G) return false;
-      if (G.mode !== 'event' || !G.scrambleMode || !G._pairedGroup) return false;
-      if (!G.roundDate || G.roundDate === 'pretee') return false;
-      var sc = document.getElementById('screen-score');
-      return !!(sc && sc.classList.contains('active'));
-    } catch (e) { return false; }
-  }
-
-  function _refArr() {
-    if (!Array.isArray(G._refScores) || G._refScores.length !== 18) {
-      G._refScores = Array(18).fill(null);
-    }
-    return G._refScores;
-  }
-
-  function _refTot() {
-    var a = _refArr(), par = G.par || [], strokes = 0, p = 0, holes = 0;
-    for (var i = 0; i < 18; i++) {
-      if (a[i] != null) { strokes += a[i]; p += (par[i] || 4); holes++; }
-    }
-    return { strokes: strokes, vsPar: strokes - p, holes: holes };
-  }
-
-  function _vp(v) { return v === 0 ? 'E' : (v > 0 ? '+' + v : '' + v); }
-
-  function _rEsc(x) {
-    return String(x == null ? '' : x)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  }
-
-  function _ownTeamName() {
-    return (G.joinGroup && G.joinGroup.name) || 'Your Team';
-  }
-
-  // Relative-to-par label, matching the engine's vocabulary.
-  function _lbl(d) {
-    return d <= -3 ? 'Alb' : d === -2 ? 'Eagle' : d === -1 ? 'Birdie'
-         : d === 0 ? 'Par'  : d === 1  ? 'Bogey' : d === 2 ? 'Dbl' : 'Tpl+';
-  }
-  function _bg(d) {
-    return d <= -2 ? '#8e44ad' : d === -1 ? '#e74c3c' : d === 0 ? '#2563eb'
-         : d === 1 ? 'rgba(200,200,200,.22)' : 'rgba(30,30,30,.85)';
-  }
-
-  // ── Public: set / clear one hole on the REFERENCE card ──────────────
-  // Deliberately does NOT touch G.scores, so the official card and the sync
-  // layer are untouched. saveG() persists G._refScores and re-renders here.
-  window._ptRefSet = function (val) {
-    try {
-      var a = _refArr(), h = G.hole || 0;
-      if (h < 0 || h > 17) return;
-      if (val != null && (val < 1 || val > 15)) return;
-      a[h] = (a[h] === val) ? null : val;   // tap the active score again to clear
-      saveG();
-      window._ptRefRender();
-    } catch (e) { console.error('[pt-ref] set failed', e); }
-  };
-
-  window._ptRefClear = function () {
-    try {
-      var a = _refArr(), h = G.hole || 0;
-      if (h >= 0 && h <= 17) a[h] = null;
-      saveG();
-      window._ptRefRender();
-    } catch (e) {}
-  };
-
-  window._ptRefToggle = function () {
-    expanded = !expanded;
-    window._ptRefRender();
-  };
-
-  function _buildCollapsed(t) {
-    return '<button onclick="_ptRefToggle()" style="display:flex;align-items:center;gap:9px;'
-      + 'background:linear-gradient(135deg,#16304a,#102539);border:1.5px solid rgba(100,180,255,.55);'
-      + 'border-radius:24px;padding:9px 15px;cursor:pointer;-webkit-tap-highlight-color:transparent;'
-      + 'box-shadow:0 4px 16px rgba(0,0,0,.45);max-width:74vw">'
-      + '<span style="font-size:13px">📝</span>'
-      + '<span style="font-size:12px;font-weight:800;color:#aad4ff;white-space:nowrap;overflow:hidden;'
-      + 'text-overflow:ellipsis;max-width:38vw">' + _rEsc(_ownTeamName()) + '</span>'
-      + '<span style="font-size:13px;font-weight:900;color:#fff;white-space:nowrap">'
-      + (t.holes ? _vp(t.vsPar) : '—') + '</span>'
-      + '</button>';
-  }
-
-  function _buildExpanded(t) {
-    var h    = G.hole || 0;
-    var par  = (G.par && G.par[h] != null) ? G.par[h] : 4;
-    var cur  = _refArr()[h];
-    var name = _ownTeamName();
-
-    var html = '<div style="background:linear-gradient(160deg,#16304a,#0d1c2b);'
-      + 'border:1.5px solid rgba(100,180,255,.5);border-radius:16px;padding:14px;'
-      + 'box-shadow:0 8px 30px rgba(0,0,0,.6)">';
-
-    // Header
-    html += '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px">'
-      + '<div style="min-width:0">'
-      + '<div style="font-size:10px;font-weight:700;color:rgba(100,180,255,.65);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">📝 Reference card — your team</div>'
-      + '<div style="font-size:15px;font-weight:900;color:#aad4ff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + _rEsc(name) + '</div>'
-      + '</div>'
-      + '<button onclick="_ptRefToggle()" style="background:none;border:none;color:rgba(255,255,255,.45);font-size:20px;cursor:pointer;padding:0 2px;line-height:1;-webkit-tap-highlight-color:transparent">✕</button>'
-      + '</div>';
-
-    // Hole + par
-    html += '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:9px">'
-      + '<div style="font-size:14px;font-weight:900;color:#fff">Hole ' + (h + 1) + '</div>'
-      + '<div style="font-size:11px;color:rgba(255,255,255,.35);font-weight:700">Par ' + par + '</div>'
-      + '</div>';
-
-    // Score buttons: par-2 .. par+3, clamped to a legal gross score
-    html += '<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px">';
-    for (var d = -2; d <= 3; d++) {
-      var v = par + d;
-      if (v < 1 || v > 15) continue;
-      var sel = (cur === v);
-      html += '<button onclick="_ptRefSet(' + v + ')" style="flex:1 1 0;min-width:46px;padding:8px 2px;'
-        + 'border-radius:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;'
-        + 'background:' + (sel ? _bg(d) : 'rgba(255,255,255,.05)') + ';'
-        + 'border:' + (sel ? '1.5px solid rgba(255,255,255,.8)' : '1px solid rgba(255,255,255,.13)') + ';'
-        + 'color:' + (sel ? '#fff' : 'rgba(255,255,255,.55)') + '">'
-        + '<div style="font-size:16px;font-weight:900;line-height:1.1">' + v + '</div>'
-        + '<div style="font-size:8px;font-weight:700;letter-spacing:.2px;opacity:.75;margin-top:2px">' + _lbl(d) + '</div>'
-        + '</button>';
-    }
-    html += '</div>';
-
-    // RBC tee-shot picker for the OWN team (writes G._refTeeShots)
-    if (G.scrambleFormat === 'rbc') {
-      try { html += ptRbcBuildTeeShotPicker(h + 1, true); } catch (e) {}
-    }
-
-    // Footer: running total + clear
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;'
-      + 'margin-top:10px;padding-top:10px;border-top:1px solid rgba(100,180,255,.18)">'
-      + '<div>'
-      + '<div style="font-size:9px;color:rgba(255,255,255,.3);font-weight:700;text-transform:uppercase;letter-spacing:.4px">'
-      + t.holes + ' hole' + (t.holes === 1 ? '' : 's') + ' · local only</div>'
-      + '<div style="font-size:18px;font-weight:900;color:#aad4ff;margin-top:1px">'
-      + (t.holes ? t.strokes + ' <span style="font-size:12px;color:rgba(255,255,255,.5)">(' + _vp(t.vsPar) + ')</span>' : '—')
-      + '</div>'
-      + '</div>'
-      + (cur != null
-          ? '<button onclick="_ptRefClear()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);'
-            + 'border-radius:9px;padding:7px 12px;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;'
-            + '-webkit-tap-highlight-color:transparent">Clear hole</button>'
-          : '')
-      + '</div>';
-
-    html += '</div>';
-    return html;
-  }
-
-  // ── Render / tear down ─────────────────────────────────────
-  window._ptRefRender = function () {
-    var el = document.getElementById(ID);
-    try {
-      if (!_refOn()) { if (el) el.remove(); expanded = false; return; }
-      if (!el) {
-        el = document.createElement('div');
-        el.id = ID;
-        // z-index 500 + bottom 80px is the app's established floating-control
-        // convention (see #betsFloatBack et al): above #roundBar (202), below
-        // overlays (600) and ptToast (99999).
-        el.style.cssText = 'position:fixed;right:16px;bottom:calc(80px + env(safe-area-inset-bottom));'
-          + 'z-index:500;box-sizing:border-box;display:flex;justify-content:flex-end';
-        document.body.appendChild(el);
-      }
-      el.style.left = expanded ? '16px' : 'auto';
-      el.innerHTML  = expanded ? _buildExpanded(_refTot()) : _buildCollapsed(_refTot());
-    } catch (e) { console.error('[pt-ref] render failed', e); }
-  };
-
-  // Engine saves on every score entry and hole change — chain onto saveG the
-  // same way [pt-sync] does, so the pill always reflects the live hole.
   var _oSaveGRef = window.saveG;
   if (typeof _oSaveGRef === 'function') {
     window.saveG = function () {
-      var r = _oSaveGRef.apply(this, arguments);
-      try { window._ptRefRender(); } catch (e) {}
-      return r;
+      try {
+        if (typeof G !== 'undefined' && G && G.mode === 'event' && G.scrambleMode &&
+            G._pairedGroup && Array.isArray(G.scores) && Array.isArray(G.scores[1])) {
+          G._refScores = G.scores[1].slice();
+          // Reload-proof: pards_G dies at boot (engine initSetup saveG runs
+          // before the restore IIFE — see handoff), so the ref card keeps its
+          // own key, restored at join when the code matches.
+          try {
+            localStorage.setItem('pt_ref_backup', JSON.stringify({
+              code: G._refScoresCode || (G.joinGroup && G.joinGroup.code) || null,
+              scores: G._refScores
+            }));
+          } catch (e2) {}
+        }
+      } catch (e) {}
+      return _oSaveGRef.apply(this, arguments);
     };
   }
-
-  // Fallback: catches hole changes and screen transitions that don't saveG.
-  setInterval(function () {
-    try {
-      if (_refOn() || document.getElementById(ID)) window._ptRefRender();
-    } catch (e) {}
-  }, 1000);
 })();
 
 </script>
@@ -34942,12 +34823,19 @@ self.addEventListener('fetch',e=>{
   // ── Live diff-sync: after every saveG, send changed holes (debounced) ──
   var _snap = null, _timer = null, _lastFullAttempt = 0;
 
+  // v231.0 — cross-scoring 📝 reference player (pi>0): LOCAL ONLY. Skipped by
+  // every submit path so own-team scores never reach the event.
+  function _refPi(pi) {
+    try { return pi > 0 && !!(G.scrambleMode && G._pairedGroup); } catch (e) { return false; }
+  }
+
   function _takeSnap() {
     _snap = G.scores.map(function (r) { return (r || []).slice(); });
   }
   function _diffByPlayer() {
     var byPi = {}, any = false;
     for (var pi = 0; pi < G.scores.length; pi++) {
+      if (_refPi(pi)) continue; // v231.0 — reference player never syncs
       var row = G.scores[pi] || [];
       for (var h = 0; h < 18; h++) {
         var v = row[h];
@@ -35002,6 +34890,7 @@ self.addEventListener('fetch',e=>{
     if (!route) { if (onDone) onDone(false); return; }
     var calls = [];
     (G.players || []).forEach(function (_, pi) {
+      if (_refPi(pi)) return; // v231.0 — reference player never syncs
       var arr = [];
       (G.scores[pi] || []).forEach(function (s, h) {
         if (s !== null && s !== undefined) arr.push({ hole: h + 1, gross_score: s });
@@ -35034,6 +34923,7 @@ self.addEventListener('fetch',e=>{
       if (!_active() || G._tournamentSubmitted) return;
       if (!G.players || !G.players.length) return;
       var all = G.players.every(function (_, pi) {
+        if (_refPi(pi)) return true; // v231.0 — ref card never gates the auto-submit
         return G.scores[pi] && G.scores[pi].length === 18 &&
                G.scores[pi].every(function (s) { return s !== null; });
       });
@@ -35295,7 +35185,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v230.0';
+    const TOUR_VERSION     = 'pards-tour-v231.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
