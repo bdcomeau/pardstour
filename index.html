@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v219.0 -->
+  <!-- pards-tour-v220.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -26075,14 +26075,18 @@ function loadOrgEvents() {
     if (visible.length || archived.length) {
       if (trips.length) html += '<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.8px;margin:12px 0 8px">Events</div>';
       html += visible.map(function(ev){
-        var sc = ev.status==='active'?'#4CAF50':ev.status==='complete'?'#888':ev.status==='archived'?'rgba(255,255,255,.2)':'#c9a84c';
-        var label = ev.status==='archived'?'\uD83D\uDCE6 Archived':ev.status.toUpperCase();
-        return '<div onclick="loadOrgEventDetail('+ev.id+')" style="background:'+(ev.status==='archived'?'rgba(255,255,255,.03)':'rgba(255,255,255,.06)')+';border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;-webkit-tap-highlight-color:transparent'+(ev.status==='archived'?';opacity:.6':'')+'">'
-          +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">'
-          +'<div style="font-size:15px;font-weight:800;color:#f5e6b8">'+ev.name+'</div>'
-          +'<div style="font-size:11px;font-weight:700;color:'+sc+';text-transform:uppercase;letter-spacing:.5px">'+label+'</div>'
+        // v220.0 — status chip (pill) + async readiness badge + Activate slot
+        var _st  = ev.status || 'draft';
+        var _chip = _ptEvChip(_st);
+        return '<div style="background:'+(_st==='archived'?'rgba(255,255,255,.03)':'rgba(255,255,255,.06)')+';border-radius:12px;padding:14px 16px;margin-bottom:10px'+(_st==='archived'?';opacity:.6':'')+'">'
+          +'<div onclick="loadOrgEventDetail('+ev.id+')" style="cursor:pointer;-webkit-tap-highlight-color:transparent">'
+          +'<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px">'
+          +'<div style="font-size:15px;font-weight:800;color:#f5e6b8;flex:1;min-width:0">'+_esc(ev.name)+'</div>'
+          +_chip
           +'</div>'
-          +'<div style="font-size:12px;color:rgba(255,255,255,.4)">'+ev.date+(ev.course_name?' \xb7 '+ev.course_name:'')+'</div>'
+          +'<div style="font-size:12px;color:rgba(255,255,255,.4)">'+ev.date+(ev.course_name?' \xb7 '+_esc(ev.course_name):'')+'<span id="ptEvTT_'+ev.id+'"></span></div>'
+          +'</div>'
+          +'<div id="ptEvAct_'+ev.id+'"></div>'
           +'</div>';
       }).join('');
       if (archived.length) {
@@ -26092,9 +26096,106 @@ function loadOrgEvents() {
     }
     if (!html) html = '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">No events yet \u2014 tap Create below.</div>';
     list.innerHTML = html;
+    _ptEventCardBadges(visible);
   }).catch(function(){
     list.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:20px;text-align:center">Failed to load events.</div>';
   });
+}
+
+// ============ v220.0 — EVENT LIST CARD STATUS + ACTIVATION ============
+// Roadmap item 1. Scoring silently requires events.status='active'; a draft event
+// with a finished tee sheet looks ready but rejects every score. Surface both the
+// status and a one-tap Activate right on the list card.
+
+// Status pill markup for an event/league card.
+function _ptEvChip(st) {
+  var m = {
+    active:   {bg:'rgba(76,175,80,.16)',  bd:'rgba(76,175,80,.55)',  fg:'#7ed389', tx:'\u25cf LIVE'},
+    complete: {bg:'rgba(255,255,255,.06)',bd:'rgba(255,255,255,.16)',fg:'rgba(255,255,255,.45)', tx:'\u2713 COMPLETE'},
+    archived: {bg:'rgba(255,255,255,.03)',bd:'rgba(255,255,255,.10)',fg:'rgba(255,255,255,.3)',  tx:'\uD83D\uDCE6 ARCHIVED'},
+    draft:    {bg:'rgba(201,168,76,.14)', bd:'rgba(201,168,76,.5)',  fg:'#c9a84c', tx:'DRAFT'}
+  };
+  var c = m[st] || {bg:'rgba(255,255,255,.06)',bd:'rgba(255,255,255,.16)',fg:'rgba(255,255,255,.45)',tx:String(st||'').toUpperCase()};
+  return '<span style="flex-shrink:0;display:inline-block;padding:2px 9px;border-radius:9px;background:'+c.bg+';border:1px solid '+c.bd
+    + ';color:'+c.fg+';font-size:9.5px;font-weight:800;letter-spacing:.6px;white-space:nowrap">'+c.tx+'</span>';
+}
+
+// Best-effort readiness probe per card. Two shapes of event exist:
+//   rounds > 0  -> foursomes live in tee_times (multi-day / round-based events)
+//   rounds == 0 -> foursomes live in the groups table (scramble / RBC events)
+// Only draft + active events are probed; complete/archived need no readiness.
+function _ptEventCardBadges(events) {
+  (events||[]).forEach(function(ev){
+    var st = ev.status || 'draft';
+    if (st !== 'draft' && st !== 'active') return;
+    var H = {'Authorization':'Bearer '+G.orgToken};
+    fetch(TOUR_API+'/api/events/'+ev.id+'/rounds',{headers:H})
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(rd){
+        var rounds = (rd && rd.rounds) || [];
+        if (rounds.length) {
+          return Promise.all(rounds.map(function(r){
+            return fetch(TOUR_API+'/api/rounds/'+r.id+'/tee-times',{headers:H})
+              .then(function(resp){
+                if (resp.status===404) return {tee_times:[]};   // 404 == genuinely empty
+                if (!resp.ok) throw new Error('HTTP '+resp.status);
+                return resp.json();
+              });
+          })).then(function(all){
+            var n = 0;
+            all.forEach(function(d){
+              n += (((d && d.tee_times) || []).filter(function(t){ return (t.players||[]).length > 0; })).length;
+            });
+            return {mode:'rounds', n:n, rounds:rounds.length};
+          });
+        }
+        return fetch(TOUR_API+'/api/events/'+ev.id,{headers:H})
+          .then(function(resp){ if(!resp.ok) throw new Error('HTTP '+resp.status); return resp.json(); })
+          .then(function(d){ return {mode:'groups', n:(((d&&d.groups)||[]).length), rounds:0}; });
+      })
+      .then(function(res){ _ptEvCardPaint(ev, res); })
+      .catch(function(){ /* badges are best-effort — card still works without them */ });
+  });
+}
+
+function _ptEvCardPaint(ev, res) {
+  if (!res) return;
+  var n  = res.n || 0;
+  var st = ev.status || 'draft';
+  var el = document.getElementById('ptEvTT_'+ev.id);
+  if (el) {
+    if (n > 0) {
+      el.innerHTML = ' <span style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:8px;background:rgba(168,213,181,.14);border:1px solid rgba(168,213,181,.4);color:#a8d5b5;font-size:9.5px;font-weight:800;vertical-align:1px">\u26f3 '+n+' group'+(n===1?'':'s')+' set</span>';
+    } else {
+      el.innerHTML = ' <span style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.3);font-size:9.5px;font-weight:700;vertical-align:1px">'+(res.mode==='rounds'?'no tee sheet':'no groups yet')+'</span>';
+    }
+  }
+  var act = document.getElementById('ptEvAct_'+ev.id);
+  if (!act) return;
+  if (st === 'draft' && n > 0) {
+    act.innerHTML = '<button onclick="event.stopPropagation();ptActivateEventFromList('+ev.id+')" style="width:100%;margin-top:10px;padding:11px;background:#4CAF50;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent">\u25b6 Activate Event</button>'
+      + '<div style="font-size:10px;color:rgba(255,255,255,.32);text-align:center;margin-top:5px;line-height:1.4">Tee sheet is set \u2014 but players can\u2019t enter scores until you activate.</div>';
+  } else {
+    act.innerHTML = '';
+  }
+}
+
+// Activate straight from the list. Unlike ptSetEvStatus this refreshes the LIST
+// (not the detail view) and surfaces real server errors instead of swallowing them.
+function ptActivateEventFromList(eventId) {
+  fetch(TOUR_API+'/api/events/'+eventId,{
+    method:'PATCH',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
+    body:JSON.stringify({status:'active'})
+  }).then(function(r){
+    if(!r.ok){ return r.text().then(function(t){ throw new Error('HTTP '+r.status+(t?': '+t:'')); }); }
+    // Same side-effect Go Live performs in the detail view (RBC handicap finalize).
+    fetch(TOUR_API+'/api/events/'+eventId+'/finalize-handicaps',{
+      method:'POST', headers:{'Authorization':'Bearer '+G.orgToken}
+    }).catch(function(){});
+    ptToast('\u25cf Event is live \u2014 players can enter scores now.');
+    loadOrgEvents();
+  }).catch(function(e){ ptToast('Could not activate event: '+(e.message||e)); });
 }
 
 function showCreateEventForm(isLeague) {
@@ -34803,7 +34904,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v219.0';
+    const TOUR_VERSION     = 'pards-tour-v220.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
