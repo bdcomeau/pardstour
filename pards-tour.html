@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v227.0 -->
+  <!-- pards-tour-v228.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -33566,7 +33566,22 @@ function doJoinValidatePin() {
               var _btnResume = document.createElement('button');
               _btnResume.style.cssText = 'width:100%;padding:14px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;margin-bottom:10px';
               _btnResume.textContent = '▶ Resume Scoring';
-              _btnResume.addEventListener('click', function(){ wOv.remove(); window._ptResumeHoles = _exHoles; _ptProceedToScorer(); });
+              _btnResume.addEventListener('click', function(){
+                wOv.remove(); window._ptResumeHoles = _exHoles; _ptProceedToScorer();
+                // v228.0 \u2014 resume fast-path: when the scorer's name is already known
+                // (Me contact prefill), auto-run the two remaining taps (I'll Score \u2192
+                // Start Round) so Resume lands DIRECTLY on the scorecard at the first
+                // unscored hole. Falls back to the manual scorer step if no name.
+                try {
+                  var _ni = document.getElementById('ptJoinPlayerName');
+                  if (_ni && _ni.value.trim()) {
+                    ptEvDoJoinGroup();
+                    if (G.mode === 'event' && G.roundDate && G.roundDate !== 'pretee') {
+                      showRoundSummary();
+                    }
+                  }
+                } catch(e) { console.error('[pt] resume fast-path failed', e); }
+              });
               var _btnFresh = document.createElement('button');
               _btnFresh.style.cssText = 'width:100%;padding:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:12px;font-size:14px;font-weight:700;color:rgba(255,255,255,.5);cursor:pointer;margin-bottom:10px';
               _btnFresh.textContent = 'Start Fresh (overwrite)';
@@ -35001,7 +35016,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v227.0';
+    const TOUR_VERSION     = 'pards-tour-v228.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
