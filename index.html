@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v206.0 -->
+  <!-- pards-tour-v207.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -26817,6 +26817,21 @@ function ptLoadTripDetail(tripId) {
   });
 }
 
+function _ptTripDays(startISO, endISO){
+  if(!startISO || !endISO) return [];
+  var s = new Date(startISO+'T12:00:00'), e = new Date(endISO+'T12:00:00');
+  if(isNaN(s.getTime()) || isNaN(e.getTime()) || e < s) return [];
+  var out = [], cur = new Date(s), guard = 0;
+  var wds = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  while(cur <= e && guard < 60){
+    var y = cur.getFullYear(), m = cur.getMonth()+1, d = cur.getDate();
+    var iso = y+'-'+(m<10?'0':'')+m+'-'+(d<10?'0':'')+d;
+    out.push({iso:iso, wd:wds[cur.getDay()], dn:d});
+    cur.setDate(cur.getDate()+1); guard++;
+  }
+  return out;
+}
+
 function ptRenderTripDetail(trip, players, rounds) {
   var body = document.getElementById('ptTripDetailBody');
   var tripId = trip.id;
@@ -26826,6 +26841,10 @@ function ptRenderTripDetail(trip, players, rounds) {
   // Update overlay title based on context
   var _titleEl = document.getElementById('ptTripDetailTitle');
   if(_titleEl) _titleEl.textContent = _isLeague ? '🏅 League' : '🌍 Trip';
+
+  // Stash trip span so Add-Round can constrain its date picker to the trip's days
+  window._ptTripSpan = (trip.start_date && trip.end_date) ? {start:trip.start_date, end:trip.end_date} : null;
+  var _multiDay = !_isLeague && trip.start_date && trip.end_date && trip.start_date !== trip.end_date;
 
   // Header card
   var html = '<div style="background:rgba(100,180,255,.08);border:1.5px solid rgba(100,180,255,.2);border-radius:16px;padding:18px;margin-bottom:20px">'
@@ -26860,6 +26879,32 @@ function ptRenderTripDetail(trip, players, rounds) {
   // Rounds section
   html += '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Rounds</div>';
 
+  // Itinerary day strip — multi-day trips only. Tap a day: jump to its round, or add one on an empty day.
+  if(_multiDay){
+    var _days = _ptTripDays(trip.start_date, trip.end_date);
+    var _dayRound = {};
+    rounds.forEach(function(r){ if(r.date && !(r.date in _dayRound)) _dayRound[r.date] = r.id; });
+    if(_days.length){
+      html += '<div style="display:flex;gap:6px;overflow-x:auto;padding:2px 2px 14px;-webkit-overflow-scrolling:touch">';
+      _days.forEach(function(day){
+        var rid = _dayRound[day.iso];
+        var has = rid !== undefined;
+        var oc = has
+          ? "var el=document.getElementById('ptRoundCard_"+rid+"');if(el)el.scrollIntoView({behavior:'smooth',block:'center'})"
+          : "ptAddTripRoundUI("+tripId+",'"+day.iso+"')";
+        html += '<button onclick="'+oc+'" title="'+(has?'Go to round':'Add a round')+'" style="flex:0 0 auto;width:54px;padding:8px 0 7px;border-radius:11px;'
+          + 'background:'+(has?'rgba(201,168,76,.14)':'rgba(255,255,255,.03)')+';'
+          + 'border:1.5px solid '+(has?'rgba(201,168,76,.5)':'rgba(255,255,255,.07)')+';'
+          + 'text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent">'
+          + '<div style="font-size:9px;font-weight:700;text-transform:uppercase;color:'+(has?'rgba(201,168,76,.9)':'rgba(255,255,255,.35)')+'">'+day.wd+'</div>'
+          + '<div style="font-size:18px;font-weight:900;margin:1px 0 3px;color:'+(has?'#f5e6b8':'rgba(255,255,255,.75)')+'">'+day.dn+'</div>'
+          + '<div style="width:5px;height:5px;border-radius:50%;margin:0 auto;background:'+(has?'#c9a84c':'rgba(255,255,255,.12)')+'"></div>'
+          + '</button>';
+      });
+      html += '</div>';
+    }
+  }
+
   if(rounds.length){
     rounds.forEach(function(r){
       // Load tee time cache (memory + sessionStorage fallback)
@@ -26870,7 +26915,7 @@ function ptRenderTripDetail(trip, players, rounds) {
       var hasTimes = _cache && _cache.length && _cache[0].foursome_code && _cache[0].foursome_code !== '\u2014';
       var courseLine = r.course_name ? '\u26f3 '+_esc(r.course_name)+(r.tee_name?' \xb7 '+_esc(r.tee_name):'') : 'Course TBD';
 
-      html += '<div style="background:rgba(255,255,255,.04);border-radius:14px;padding:16px;margin-bottom:16px">'
+      html += '<div id="ptRoundCard_'+r.id+'" style="background:rgba(255,255,255,.04);border-radius:14px;padding:16px;margin-bottom:16px;scroll-margin-top:80px">'
         +'<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px">'
         +'<div style="font-size:16px;font-weight:900;color:#fff">Round '+r.round_number+(r.label?' \u2014 '+_esc(r.label):'')+'</div>'
         +(r.status==='active'?'<div style="font-size:11px;font-weight:700;color:#c9a84c;text-transform:uppercase;padding-top:2px">\u25cf ACTIVE</div>':'')
@@ -27009,13 +27054,16 @@ window.ptAddTripPlayerById = function(tripId, rosterId, btn) {
 };
 
 window.ptAddTripRoundUI = function(tripId, startDate) {
+  var _span = window._ptTripSpan || null;
+  var _minmax = _span ? (' min="'+_span.start+'" max="'+_span.end+'"') : '';
+  if(!startDate && _span) startDate = _span.start;
   var ov = document.createElement('div');
   ov.id = 'ptAddTripRoundOv';
   ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.8);display:flex;align-items:flex-end';
   ov.innerHTML = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:20px 20px 40px;width:100%;box-sizing:border-box">'
     +'<div style="font-size:15px;font-weight:800;color:#c9a84c;margin-bottom:16px">Add Round</div>'
     +'<div style="margin-bottom:12px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Date</div>'
-    +'<input id="ptTripRoundDate" type="date" value="'+( startDate||'')+'" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
+    +'<input id="ptTripRoundDate" type="date" value="'+( startDate||'')+'"'+_minmax+' style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
     +'<div style="margin-bottom:16px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Label <span style="font-weight:400;color:rgba(255,255,255,.3)">(optional)</span></div>'
     +'<input id="ptTripRoundLabel" type="text" placeholder="e.g. TPC Scottsdale — Day 2" style="width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none"></div>'
     +'<div style="color:rgba(255,255,255,.35);font-size:12px;margin-bottom:16px">Course and tee times can be assigned later once you book.</div>'
@@ -33980,7 +34028,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v206.0';
+    const TOUR_VERSION     = 'pards-tour-v207.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
