@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v242.1 -->
+  <!-- pards-tour-v242.2 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -35957,7 +35957,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v242.1';
+    const TOUR_VERSION     = 'pards-tour-v242.2';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
@@ -36198,8 +36198,9 @@ self.addEventListener('fetch',e=>{
     panel.style.cssText='display:none;position:fixed;inset:0;z-index:2147483645;background:#08120a;flex-direction:column;padding:14px 12px 12px';
     panel.innerHTML =
       '<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-shrink:0">'
-      +'<div style="font-size:15px;font-weight:800;color:#c9a84c;flex:1">🐞 Diagnostics v242.1</div>'
+      +'<div style="font-size:15px;font-weight:800;color:#c9a84c;flex:1">🐞 Diagnostics v242.2</div>'
       +'<button id="_ptDiagCopy" style="padding:8px 12px;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.5);color:#c9a84c;border-radius:8px;font-size:13px;font-weight:700">Copy</button>'
+      +'<button id="_ptDiagProbe" style="padding:8px 12px;background:rgba(100,180,255,.15);border:1px solid rgba(100,180,255,.5);color:#8ec9ff;border-radius:8px;font-size:13px;font-weight:700">Probe</button>'
       +'<button id="_ptDiagClr" style="padding:8px 12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);border-radius:8px;font-size:13px;font-weight:700">Clear</button>'
       +'<button id="_ptDiagX" style="padding:8px 12px;background:rgba(255,80,80,.15);border:1px solid rgba(255,80,80,.4);color:#ef9a9a;border-radius:8px;font-size:13px;font-weight:700">Close</button>'
       +'</div>'
@@ -36209,6 +36210,57 @@ self.addEventListener('fetch',e=>{
     document.body.appendChild(btn);
     document.getElementById('_ptDiagX').onclick=function(){ panel.style.display='none'; };
     document.getElementById('_ptDiagClr').onclick=function(){ LOG.length=0; document.getElementById('_ptDiagBody').textContent=''; };
+    document.getElementById('_ptDiagProbe').onclick=function(){
+      var self=this; self.disabled=true; self.textContent='Running…';
+      var API = (typeof TOUR_API!=='undefined')?TOUR_API:'https://pards-tour-api.bdapple.workers.dev';
+      var tok = (typeof G!=='undefined' && G.orgToken)?G.orgToken:'';
+      push('PROBE','=== probe run start · token '+(tok?'present':'MISSING')+' ===');
+      function run(name, fn){
+        return function(){
+          var t0=Date.now();
+          return fn().then(function(r){
+            return r.text().then(function(t){
+              push('PROBE', name+' → RESOLVED '+r.status+' ('+(Date.now()-t0)+'ms) body['+t.length+'] '+t.slice(0,80).replace(/\s+/g,' '));
+            }, function(){ push('PROBE', name+' → RESOLVED '+r.status+' ('+(Date.now()-t0)+'ms) body unreadable'); });
+          }, function(e){
+            push('PROBE', name+' → ✗ REJECTED ('+(Date.now()-t0)+'ms) '+((e&&e.name)||'?')+': '+((e&&e.message)||String(e)));
+          });
+        };
+      }
+      function xhrProbe(name, url, auth){
+        return function(){
+          return new Promise(function(res){
+            var t0=Date.now();
+            try{
+              var x=new XMLHttpRequest();
+              x.open('GET', url, true);
+              if(auth) x.setRequestHeader('Authorization','Bearer '+tok);
+              x.onload=function(){ push('PROBE', name+' → XHR LOADED '+x.status+' ('+(Date.now()-t0)+'ms)'); res(); };
+              x.onerror=function(){ push('PROBE', name+' → ✗ XHR ERROR ('+(Date.now()-t0)+'ms)'); res(); };
+              x.ontimeout=function(){ push('PROBE', name+' → ✗ XHR TIMEOUT'); res(); };
+              x.send();
+            }catch(e){ push('PROBE', name+' → ✗ XHR THREW '+e.message); res(); }
+          });
+        };
+      }
+      var T = API+'/api/trips/34/rounds/68/tee-times';
+      var steps = [
+        run('P1 ctrl  event tee-times +auth      ', function(){ return fetch(API+'/api/rounds/19/tee-times',{headers:{'Authorization':'Bearer '+tok}}); }),
+        run('P2 ctrl  GET /api/trips/34 +auth    ', function(){ return fetch(API+'/api/trips/34',{headers:{'Authorization':'Bearer '+tok}}); }),
+        run('P3 FAIL? trip tee-times +auth       ', function(){ return fetch(T,{headers:{'Authorization':'Bearer '+tok}}); }),
+        run('P4 trip tee-times NO auth (no prefl)', function(){ return fetch(T); }),
+        run('P5 trip tee-times FAKE auth (prefl) ', function(){ return fetch(T,{headers:{'Authorization':'Bearer PROBEFAKE'}}); }),
+        run('P6 trip tee-times +auth ?cb= newURL ', function(){ return fetch(T+'?cb='+Date.now(),{headers:{'Authorization':'Bearer '+tok}}); }),
+        run('P7 trip SCORES public (no prefl)    ', function(){ return fetch(API+'/api/trips/34/rounds/68/scores'); }),
+        xhrProbe('P8 trip tee-times +auth via XHR    ', T, true),
+        run('P9 trip tee-times +auth no-store    ', function(){ return fetch(T,{cache:'no-store',headers:{'Authorization':'Bearer '+tok}}); })
+      ];
+      steps.reduce(function(p,s){ return p.then(s); }, Promise.resolve()).then(function(){
+        push('PROBE','=== probe run done ===');
+        self.disabled=false; self.textContent='Probe';
+        var b=document.getElementById('_ptDiagBody'); if(b){ b.textContent=LOG.join('\n'); b.scrollTop=b.scrollHeight; }
+      });
+    };
     document.getElementById('_ptDiagCopy').onclick=function(){
       var ta=document.getElementById('_ptDiagBody');
       ta.removeAttribute('readonly'); ta.select(); ta.setSelectionRange(0,999999);
