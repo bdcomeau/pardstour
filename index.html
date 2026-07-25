@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v242.0 -->
+  <!-- pards-tour-v242.1 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -35957,7 +35957,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v242.0';
+    const TOUR_VERSION     = 'pards-tour-v242.1';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
@@ -36098,6 +36098,131 @@ self.addEventListener('fetch',e=>{
   </div>
 </div>
 
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   v242.1 DIAGNOSTIC BUILD — TEMPORARY, REMOVE BEFORE v243.0
+   Purpose: capture WHY the trip-detail tee-time backfill GET fails on
+   Bruce's iPhone. v242's backfill ends in `.catch(function(){})`, so a
+   fetch-level rejection (CORS / DNS / TLS / offline) leaves NO trace at
+   all; a non-2xx does warn via _ptJson but there is no way to read a
+   console on an iPhone from a Windows PC.
+   Self-contained: appended AFTER all six original script blocks, so
+   blocks 0-5 stay byte-identical. Touches nothing above.
+   ═══════════════════════════════════════════════════════════════════ */
+(function(){
+  var LOG = [], MAX = 300;
+  function stamp(){ var d=new Date(); return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+':'+('0'+d.getSeconds()).slice(-2); }
+  function push(tag, msg){
+    LOG.push(stamp()+' ['+tag+'] '+msg);
+    if(LOG.length>MAX) LOG.shift();
+    var b=document.getElementById('_ptDiagBody');
+    if(b){ b.textContent = LOG.join('\n'); b.scrollTop = b.scrollHeight; }
+    var dot=document.getElementById('_ptDiagDot');
+    if(dot && (tag==='ERR'||tag==='WARN'||tag==='FETCH-FAIL')) dot.style.background='#e74c3c';
+  }
+  window._ptDiagPush = push;
+
+  // ---- mirror console.warn / console.error -------------------------
+  ['warn','error'].forEach(function(k){
+    var orig = console[k];
+    console[k] = function(){
+      try{
+        var parts=[];
+        for(var i=0;i<arguments.length;i++){
+          var a=arguments[i];
+          if(a && a.stack) parts.push(String(a.message||a)+' | '+String(a.stack).split('\n')[0]);
+          else if(typeof a==='object'){ try{parts.push(JSON.stringify(a));}catch(e){parts.push(String(a));} }
+          else parts.push(String(a));
+        }
+        push(k==='warn'?'WARN':'ERR', parts.join(' '));
+      }catch(e){}
+      try{ orig.apply(console, arguments); }catch(e){}
+    };
+  });
+
+  window.addEventListener('error', function(e){
+    push('ERR','onerror: '+(e.message||'?')+' @ '+(e.filename||'?')+':'+(e.lineno||'?'));
+  });
+  window.addEventListener('unhandledrejection', function(e){
+    var r=e.reason; push('ERR','unhandled: '+((r&&(r.message||r))||'?'));
+  });
+
+  // ---- wrap fetch: this is the whole point -------------------------
+  var _f = window.fetch;
+  window.fetch = function(input, init){
+    var url = (typeof input==='string') ? input : (input && input.url) || String(input);
+    var short = String(url).replace(/^https?:\/\/[^/]+/,'');
+    var watch = short.indexOf('/tee-times')>-1 || short.indexOf('/api/trips/')>-1;
+    if(watch) push('FETCH','→ '+((init&&init.method)||'GET')+' '+short+(init&&init.headers&&(init.headers.Authorization||init.headers.authorization)?' [auth]':' [NO AUTH]'));
+    var t0 = Date.now();
+    return _f.apply(this, arguments).then(function(r){
+      if(watch) push(r.ok?'FETCH':'FETCH-FAIL','← '+r.status+' '+(r.statusText||'')+' '+short+' ('+(Date.now()-t0)+'ms)');
+      return r;
+    }, function(err){
+      // THE case v242 swallows entirely
+      push('FETCH-FAIL','✗ REJECTED '+short+' ('+(Date.now()-t0)+'ms) → '+((err&&err.name)||'?')+': '+((err&&err.message)||String(err)));
+      throw err;
+    });
+  };
+
+  // ---- environment snapshot ----------------------------------------
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      try{
+        push('ENV','ver='+(typeof TOUR_VERSION!=='undefined'?TOUR_VERSION:'?'));
+        push('ENV','ua='+navigator.userAgent);
+        push('ENV','standalone='+(window.navigator.standalone===true)+' online='+navigator.onLine);
+        var ss='ok'; try{ sessionStorage.setItem('_ptDiagT','1'); sessionStorage.removeItem('_ptDiagT'); }catch(e){ ss='BLOCKED: '+e.name; }
+        var ls='ok'; try{ localStorage.setItem('_ptDiagT','1'); localStorage.removeItem('_ptDiagT'); }catch(e){ ls='BLOCKED: '+e.name; }
+        push('ENV','sessionStorage='+ss+'  localStorage='+ls);
+        var tok = (typeof G!=='undefined' && G.orgToken) ? String(G.orgToken) : '';
+        push('ENV','orgToken='+(tok?('present len='+tok.length+' head='+tok.slice(0,6)):'*** MISSING ***'));
+        push('ENV','API='+(typeof TOUR_API!=='undefined'?TOUR_API:'?'));
+      }catch(e){ push('ERR','env snapshot: '+e.message); }
+    }, 1200);
+  });
+
+  // ---- on-screen panel ---------------------------------------------
+  function ui(){
+    if(document.getElementById('_ptDiagBtn')) return;
+    var btn = document.createElement('button');
+    btn.id='_ptDiagBtn';
+    btn.innerHTML='🐞<span id="_ptDiagDot" style="position:absolute;top:4px;right:4px;width:9px;height:9px;border-radius:50%;background:#2ecc71"></span>';
+    btn.style.cssText='position:fixed;bottom:14px;right:14px;z-index:2147483646;width:52px;height:52px;border-radius:50%;background:rgba(20,20,20,.92);border:2px solid #c9a84c;color:#fff;font-size:22px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent';
+    btn.onclick=function(){ var p=document.getElementById('_ptDiagPanel'); p.style.display = (p.style.display==='none'?'flex':'none');
+      var b=document.getElementById('_ptDiagBody'); if(b){ b.textContent=LOG.join('\n'); b.scrollTop=b.scrollHeight; }
+      var d=document.getElementById('_ptDiagDot'); if(d) d.style.background='#2ecc71'; };
+    var panel = document.createElement('div');
+    panel.id='_ptDiagPanel';
+    panel.style.cssText='display:none;position:fixed;inset:0;z-index:2147483645;background:#08120a;flex-direction:column;padding:14px 12px 12px';
+    panel.innerHTML =
+      '<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-shrink:0">'
+      +'<div style="font-size:15px;font-weight:800;color:#c9a84c;flex:1">🐞 Diagnostics v242.1</div>'
+      +'<button id="_ptDiagCopy" style="padding:8px 12px;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.5);color:#c9a84c;border-radius:8px;font-size:13px;font-weight:700">Copy</button>'
+      +'<button id="_ptDiagClr" style="padding:8px 12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);border-radius:8px;font-size:13px;font-weight:700">Clear</button>'
+      +'<button id="_ptDiagX" style="padding:8px 12px;background:rgba(255,80,80,.15);border:1px solid rgba(255,80,80,.4);color:#ef9a9a;border-radius:8px;font-size:13px;font-weight:700">Close</button>'
+      +'</div>'
+      +'<textarea id="_ptDiagBody" readonly style="flex:1;width:100%;background:#000;color:#a8d5b5;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;line-height:1.45;white-space:pre;overflow:auto;-webkit-user-select:text;user-select:text"></textarea>'
+      +'<div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:8px;flex-shrink:0">Open the trip, then reopen this panel. Tap Copy and paste it to Claude.</div>';
+    document.body.appendChild(panel);
+    document.body.appendChild(btn);
+    document.getElementById('_ptDiagX').onclick=function(){ panel.style.display='none'; };
+    document.getElementById('_ptDiagClr').onclick=function(){ LOG.length=0; document.getElementById('_ptDiagBody').textContent=''; };
+    document.getElementById('_ptDiagCopy').onclick=function(){
+      var ta=document.getElementById('_ptDiagBody');
+      ta.removeAttribute('readonly'); ta.select(); ta.setSelectionRange(0,999999);
+      var ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
+      if(navigator.clipboard){ try{ navigator.clipboard.writeText(LOG.join('\n')); ok=true; }catch(e){} }
+      ta.setAttribute('readonly','readonly');
+      this.textContent = ok?'Copied ✓':'Select & copy';
+      var self=this; setTimeout(function(){ self.textContent='Copy'; },1500);
+    };
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', ui); else ui();
+  push('ENV','diagnostics armed');
+})();
+</script>
 
 </body>
 </html>
