@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v203.0 -->
+  <!-- pards-tour-v204.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -28311,29 +28311,21 @@ function loadOrgEventDetail(eventId) {
         +'</div>':'')
       +'<div style="display:flex;gap:8px">';
     if(ev.status==='draft'){
-      html+='<button onclick="ptSetEvStatus('+ev.id+',\'active\')" style="flex:1;padding:10px;background:#4CAF50;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer">▶ Go Live</button>';
+      html+='<button onclick="ptSetEvStatus('+ev.id+',\'active\')" style="flex:1;padding:12px;background:#4CAF50;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:900;cursor:pointer">▶ Go Live</button>';
     } else if(ev.status==='active'){
-      html+='<button onclick="ptSetEvStatus('+ev.id+',\'complete\')" style="flex:1;padding:10px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer">Mark Complete</button>';
+      html+='<button onclick="ptSetEvStatus('+ev.id+',\'complete\')" style="flex:1;padding:10px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer">✓ Mark Complete</button>';
       if(ev.format!=='multi_day') html+='<button onclick="ptOrgLiveScores('+ev.id+')" style="flex:1;padding:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:#c9a84c;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer">📊 Live Scores</button>';
     }
     html+='</div>';
-    // Archive / Unarchive
+    // Archive / Unarchive — subtle secondary action
     if(ev.status==='archived'){
       html+='<button onclick="ptSetEvStatus('+ev.id+',\'complete\')" style="width:100%;margin-top:8px;padding:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.5);font-size:13px;font-weight:700;cursor:pointer">📤 Unarchive Event</button>';
     } else {
-      html+='<button onclick="ptSetEvStatus('+ev.id+',\'archived\')" style="width:100%;margin-top:8px;padding:10px;background:none;border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.3);font-size:12px;font-weight:700;cursor:pointer">📦 Archive Event</button>';
-    if(ev.format!=='multi_day'){
-      html+='<button onclick="ptPrintTeeSheet('+ev.id+')" style="width:100%;margin-top:8px;padding:10px;background:none;border:1px solid rgba(201,168,76,.25);border-radius:10px;color:rgba(201,168,76,.6);font-size:12px;font-weight:700;cursor:pointer">🖨️ Print Tee Sheet</button>';
-      html+='<button onclick="ptPrintFinalResults('+ev.id+')" style="width:100%;margin-top:8px;padding:10px;background:rgba(168,213,181,.08);border:1px solid rgba(168,213,181,.35);border-radius:10px;color:#a8d5b5;font-size:12px;font-weight:700;cursor:pointer">&#127942; Final Results Report</button>';
+      html+='<button onclick="ptSetEvStatus('+ev.id+',\'archived\')" style="width:100%;margin-top:8px;padding:9px;background:none;border:1px solid rgba(255,255,255,.08);border-radius:10px;color:rgba(255,255,255,.22);font-size:11px;font-weight:700;cursor:pointer">📦 Archive Event</button>';
     }
-    html+='<button onclick="ptOrgRecompute('+ev.id+')" style="width:100%;margin-top:8px;padding:10px;background:none;border:1px solid rgba(201,168,76,.25);border-radius:10px;color:rgba(201,168,76,.6);font-size:12px;font-weight:700;cursor:pointer">&#x21BB; Recompute Leaderboard</button>';
-    if(ev.format==='multi_day'){
-      html+='<button onclick="ptShowMultiDayLeaderboard('+ev.id+')" style="width:100%;margin-top:8px;padding:12px;background:rgba(201,168,76,.15);border:1.5px solid rgba(201,168,76,.4);border-radius:10px;color:#c9a84c;font-size:13px;font-weight:800;cursor:pointer">🏆 View Multi-Day Leaderboard</button>';
-      html+='<button onclick="ptShowReportsMenu('+ev.id+')" style="width:100%;margin-top:8px;padding:12px;background:rgba(168,213,181,.1);border:1.5px solid rgba(168,213,181,.3);border-radius:10px;color:#a8d5b5;font-size:13px;font-weight:800;cursor:pointer">📊 Reports</button>';
-    }
-    }
+    // Delete — destructive, always at bottom of card
     _ptDelEvId = ev.id; _ptDelEvName = ev.name || '';
-    html+='<button onclick="ptDeleteEvent(_ptDelEvId,_ptDelEvName)" style="width:100%;margin-top:16px;padding:10px;background:none;border:1px solid rgba(180,30,30,.35);border-radius:10px;color:rgba(200,60,60,.6);font-size:12px;font-weight:700;cursor:pointer">🗑️ Delete Event...</button>';
+    html+='<button onclick="ptDeleteEvent(_ptDelEvId,_ptDelEvName)" style="width:100%;margin-top:6px;padding:9px;background:none;border:1px solid rgba(180,30,30,.28);border-radius:10px;color:rgba(200,60,60,.45);font-size:11px;font-weight:700;cursor:pointer">🗑️ Delete Event...</button>';
     // Pards Bets section
     var _evConfig = {};
     try { _evConfig = ev.config ? (typeof ev.config === 'object' ? ev.config : JSON.parse(ev.config)) : {}; } catch(e) {}
@@ -29305,6 +29297,24 @@ function ptRenderRounds(ev, rounds) {
       h += '</div>';
       h += '</div>';
     });
+  }
+  // Utility actions — gated on rounds existing; context is correct here
+  if (rounds.length > 0) {
+    h += '<div style="margin-top:12px;border-top:1px solid rgba(255,255,255,.06);padding-top:12px">';
+    if (ev.format !== 'multi_day') {
+      h += '<div style="display:flex;gap:6px;margin-bottom:6px">';
+      h += '<button onclick="ptPrintTeeSheet('+ev.id+')" style="flex:1;padding:9px;background:none;border:1px solid rgba(201,168,76,.22);border-radius:9px;color:rgba(201,168,76,.6);font-size:11px;font-weight:700;cursor:pointer">🖨️ Print Tee Sheet</button>';
+      h += '<button onclick="ptOrgRecompute('+ev.id+')" style="flex:1;padding:9px;background:none;border:1px solid rgba(201,168,76,.22);border-radius:9px;color:rgba(201,168,76,.6);font-size:11px;font-weight:700;cursor:pointer">↻ Recompute</button>';
+      h += '</div>';
+      h += '<button onclick="ptPrintFinalResults('+ev.id+')" style="width:100%;padding:10px;background:rgba(168,213,181,.08);border:1px solid rgba(168,213,181,.28);border-radius:9px;color:#a8d5b5;font-size:12px;font-weight:700;cursor:pointer">🏆 Final Results Report</button>';
+    } else {
+      h += '<button onclick="ptOrgRecompute('+ev.id+')" style="width:100%;margin-bottom:6px;padding:9px;background:none;border:1px solid rgba(201,168,76,.22);border-radius:9px;color:rgba(201,168,76,.6);font-size:11px;font-weight:700;cursor:pointer">↻ Recompute Leaderboard</button>';
+      h += '<div style="display:flex;gap:6px">';
+      h += '<button onclick="ptShowMultiDayLeaderboard('+ev.id+')" style="flex:1;padding:10px;background:rgba(201,168,76,.12);border:1.5px solid rgba(201,168,76,.35);border-radius:9px;color:#c9a84c;font-size:12px;font-weight:800;cursor:pointer">🏆 Multi-Day Standings</button>';
+      h += '<button onclick="ptShowReportsMenu('+ev.id+')" style="flex:1;padding:10px;background:rgba(168,213,181,.08);border:1.5px solid rgba(168,213,181,.22);border-radius:9px;color:#a8d5b5;font-size:12px;font-weight:800;cursor:pointer">📊 Reports</button>';
+      h += '</div>';
+    }
+    h += '</div>';
   }
   h += '</div>';
   el.innerHTML = h;
@@ -33971,7 +33981,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v203.0';
+    const TOUR_VERSION     = 'pards-tour-v204.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
