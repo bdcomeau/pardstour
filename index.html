@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v205.0 -->
+  <!-- pards-tour-v206.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -26785,7 +26785,7 @@ window.ptDeleteTrip = function(tripId, ev) {
     method:'DELETE',
     headers:{'Authorization':'Bearer '+G.orgToken}
   }).then(function(r){return r.json();}).then(function(d){
-    if(d.ok||d.deleted){ loadOrgEvents(); }
+    if(d.ok||d.deleted){ var _ov=document.getElementById('ptTripDetailOv'); if(_ov) _ov.remove(); loadOrgEvents(); }
     else { alert(d.error||'Delete failed.'); }
   }).catch(function(){ alert('Network error.'); });
 };
@@ -26835,7 +26835,6 @@ function ptRenderTripDetail(trip, players, rounds) {
     +'<div style="margin-top:12px;display:flex;gap:8px">'
     +'<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;text-align:center;flex:1"><div style="font-size:22px;font-weight:900;color:#fff">'+players.length+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase">Players</div></div>'
     +'<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;text-align:center;flex:1"><div style="font-size:22px;font-weight:900;color:#fff">'+rounds.length+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase">Rounds</div></div>'
-    +(_isLeague?'':'<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;text-align:center;flex:1"><div style="font-size:14px;font-weight:900;color:rgba(100,180,255,.9)">'+trip.viewer_pin+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase">Watch Live PIN</div></div>')
     +'</div>'
     +'</div>';
 
@@ -26905,26 +26904,13 @@ function ptRenderTripDetail(trip, players, rounds) {
               +'</div>'
               +(_names?'<div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:10px">'+_names+'</div>':'')
               +'<button onclick="ptShowTripLeaderboard('+tripId+',\''+trip.viewer_pin+'\')" style="width:100%;padding:12px;background:rgba(100,180,255,.15);border:1.5px solid rgba(100,180,255,.4);border-radius:10px;color:rgba(100,180,255,1);font-size:14px;font-weight:800;cursor:pointer">📊 View '+_lbLabel+'</button>';
-          } else if(_isLeague){
-            // League organizer console — code + names only (players score on their own devices)
+          } else {
+            // Organizer console — foursome code + names only (players score on their own devices via the code)
             html += '<div style="margin-bottom:'+(_names?'10px':'0')+'">'
               +'<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Foursome Code</div>'
               +'<div style="font-size:26px;font-weight:900;color:#c9a84c;letter-spacing:3px">'+_code+'</div>'
               +'</div>'
               +(_names?'<div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.5">'+_names+'</div>':'');
-          } else {
-            html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">'
-              +'<div>'
-              +'<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Foursome Code</div>'
-              +'<div style="font-size:26px;font-weight:900;color:#c9a84c;letter-spacing:3px">'+_code+'</div>'
-              +'</div>'
-              +'<div style="text-align:right">'
-              +'<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">PIN</div>'
-              +'<div style="font-size:22px;font-weight:900;color:rgba(255,255,255,.8)">'+_pin+'</div>'
-              +'</div>'
-              +'</div>'
-              +(_names?'<div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:12px;line-height:1.5">'+_names+'</div>':'')
-              +'<button onclick="ptStartTripScoring(\''+_code+'\','+tripId+','+r.id+')" style="width:100%;padding:14px;background:rgba(168,213,181,.15);border:1.5px solid rgba(168,213,181,.5);border-radius:10px;color:#a8d5b5;font-size:15px;font-weight:800;cursor:pointer">\u25b6 Score This Group</button>';
           }
           html += '</div>';
         });
@@ -26946,9 +26932,13 @@ function ptRenderTripDetail(trip, players, rounds) {
   // Overall leaderboard — always at bottom
   html += '<div style="border-top:1px solid rgba(255,255,255,.08);padding-top:16px">'
     +'<button onclick="ptShowTripLeaderboard('+tripId+',\''+trip.viewer_pin+'\')" style="width:100%;padding:14px;background:rgba(100,180,255,.12);border:1.5px solid rgba(100,180,255,.35);border-radius:12px;color:rgba(100,180,255,1);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px">🏆 Overall '+_lbLabel+'</button>'
-    +'<button onclick="ptShowTripNassau('+tripId+')" style="width:100%;padding:12px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:12px;color:rgba(201,168,76,.85);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:10px">💰 Nassau Ledger</button>'
     +'<button onclick="ptShowTripRoundReport('+tripId+')" style="width:100%;padding:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:rgba(255,255,255,.5);font-size:13px;font-weight:700;cursor:pointer">📋 Round Reports</button>'
     +'</div>';
+
+  // Delete Trip — real trips only (league rounds delete via the league; each round has its own delete)
+  if(!_isLeague){
+    html += '<button onclick="ptDeleteTrip('+tripId+')" style="width:100%;margin-top:16px;padding:10px;background:none;border:1px solid rgba(180,30,30,.35);border-radius:10px;color:rgba(200,60,60,.6);font-size:12px;font-weight:700;cursor:pointer">🗑️ Delete Trip...</button>';
+  }
 
   body.innerHTML = html;
 }
@@ -27594,7 +27584,7 @@ function _ptRenderTeeSheetTimes(body, times, tripId, roundId) {
     var h = '';
     times.forEach(function(tt){
       var players = tt.players||[];
-      h += '<div style="background:rgba(255,255,255,.04);border-radius:14px;padding:16px;margin-bottom:12px">'        +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'        +'<div>'        +'<div style="font-size:15px;font-weight:800;color:#fff">'+(tt.start_time||'TBD')+'<span style="font-size:12px;font-weight:600;color:rgba(255,255,255,.4);margin-left:8px">Hole '+(tt.hole||1)+'</span></div>'        +'</div>'        +'</div>'        +'<div style="background:rgba(0,0,0,.25);border-radius:10px;padding:12px;margin-bottom:12px">'        +'<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Foursome Code</div>'        +'<div style="font-size:28px;font-weight:900;color:#c9a84c;letter-spacing:3px">'+(tt.foursome_code||'—')+'</div>'        +'<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-top:6px;margin-bottom:2px">PIN</div>'        +'<div style="font-size:22px;font-weight:900;color:rgba(255,255,255,.7)">'+(tt.foursome_pin||tt.pin||'—')+'</div>'        +'</div>';
+      h += '<div style="background:rgba(255,255,255,.04);border-radius:14px;padding:16px;margin-bottom:12px">'        +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'        +'<div>'        +'<div style="font-size:15px;font-weight:800;color:#fff">'+(tt.start_time||'TBD')+'<span style="font-size:12px;font-weight:600;color:rgba(255,255,255,.4);margin-left:8px">Hole '+(tt.hole||1)+'</span></div>'        +'</div>'        +'</div>'        +'<div style="background:rgba(0,0,0,.25);border-radius:10px;padding:12px;margin-bottom:12px">'        +'<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Foursome Code</div>'        +'<div style="font-size:28px;font-weight:900;color:#c9a84c;letter-spacing:3px">'+(tt.foursome_code||'—')+'</div>'        +'</div>';
       if(players.length){
         h += '<div style="margin-bottom:12px">';
         players.forEach(function(p){
@@ -27607,7 +27597,7 @@ function _ptRenderTeeSheetTimes(body, times, tripId, roundId) {
       // Store players in lookup by code so onclick doesn't need to pass JSON inline
       if(_hasCode) _ptTeeSheetPlayers[_code] = players.map(function(p){return{name:p.name||p.player_name||'Player',roster_id:p.roster_id||null,current_index:p.current_index||0,playing_handicap:p.playing_handicap||0,trip_player_id:p.trip_player_id||p.id||null};})
       h += (_hasCode
-        ? '<button onclick="ptStartTripScoring(\''+_esc(_code)+'\','+tripId+','+roundId+')" style="width:100%;padding:13px;background:rgba(168,213,181,.15);border:1.5px solid rgba(168,213,181,.5);border-radius:12px;color:#a8d5b5;font-size:14px;font-weight:800;cursor:pointer">▶ Score This Group</button>'
+        ? ''
         : '<button onclick="document.getElementById(\'ptTripTeeSheetOv\').remove();ptShowTripTeeSheet('+tripId+','+roundId+')" style="width:100%;padding:13px;background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.3);border-radius:12px;color:#c9a84c;font-size:14px;font-weight:800;cursor:pointer">🔄 Refresh to Load Codes</button>'
       )+'</div>';
     });
@@ -33990,7 +33980,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v205.0';
+    const TOUR_VERSION     = 'pards-tour-v206.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
