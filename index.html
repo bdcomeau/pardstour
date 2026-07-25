@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v204.0 -->
+  <!-- pards-tour-v205.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -26820,10 +26820,12 @@ function ptLoadTripDetail(tripId) {
 function ptRenderTripDetail(trip, players, rounds) {
   var body = document.getElementById('ptTripDetailBody');
   var tripId = trip.id;
+  var _isLeague = !!(trip.league_id || window._ptTripDetailLeagueId);
+  var _lbLabel = _isLeague ? 'League Leaderboard' : 'Trip Leaderboard';
 
   // Update overlay title based on context
   var _titleEl = document.getElementById('ptTripDetailTitle');
-  if(_titleEl) _titleEl.textContent = (trip.league_id || window._ptTripDetailLeagueId) ? '🏅 League' : '🌍 Trip';
+  if(_titleEl) _titleEl.textContent = _isLeague ? '🏅 League' : '🌍 Trip';
 
   // Header card
   var html = '<div style="background:rgba(100,180,255,.08);border:1.5px solid rgba(100,180,255,.2);border-radius:16px;padding:18px;margin-bottom:20px">'
@@ -26833,7 +26835,7 @@ function ptRenderTripDetail(trip, players, rounds) {
     +'<div style="margin-top:12px;display:flex;gap:8px">'
     +'<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;text-align:center;flex:1"><div style="font-size:22px;font-weight:900;color:#fff">'+players.length+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase">Players</div></div>'
     +'<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;text-align:center;flex:1"><div style="font-size:22px;font-weight:900;color:#fff">'+rounds.length+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase">Rounds</div></div>'
-    +'<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;text-align:center;flex:1"><div style="font-size:14px;font-weight:900;color:rgba(100,180,255,.9)">'+trip.viewer_pin+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase">Watch Live PIN</div></div>'
+    +(_isLeague?'':'<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;text-align:center;flex:1"><div style="font-size:14px;font-weight:900;color:rgba(100,180,255,.9)">'+trip.viewer_pin+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase">Watch Live PIN</div></div>')
     +'</div>'
     +'</div>';
 
@@ -26902,7 +26904,14 @@ function ptRenderTripDetail(trip, players, rounds) {
               +'<span style="font-size:14px;font-weight:800;color:#a8d5b5">Scores Submitted</span>'
               +'</div>'
               +(_names?'<div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:10px">'+_names+'</div>':'')
-              +'<button onclick="ptShowTripLeaderboard('+tripId+',\''+trip.viewer_pin+'\')" style="width:100%;padding:12px;background:rgba(100,180,255,.15);border:1.5px solid rgba(100,180,255,.4);border-radius:10px;color:rgba(100,180,255,1);font-size:14px;font-weight:800;cursor:pointer">📊 View Trip Leaderboard</button>';
+              +'<button onclick="ptShowTripLeaderboard('+tripId+',\''+trip.viewer_pin+'\')" style="width:100%;padding:12px;background:rgba(100,180,255,.15);border:1.5px solid rgba(100,180,255,.4);border-radius:10px;color:rgba(100,180,255,1);font-size:14px;font-weight:800;cursor:pointer">📊 View '+_lbLabel+'</button>';
+          } else if(_isLeague){
+            // League organizer console — code + names only (players score on their own devices)
+            html += '<div style="margin-bottom:'+(_names?'10px':'0')+'">'
+              +'<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Foursome Code</div>'
+              +'<div style="font-size:26px;font-weight:900;color:#c9a84c;letter-spacing:3px">'+_code+'</div>'
+              +'</div>'
+              +(_names?'<div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.5">'+_names+'</div>':'');
           } else {
             html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">'
               +'<div>'
@@ -26936,7 +26945,7 @@ function ptRenderTripDetail(trip, players, rounds) {
 
   // Overall leaderboard — always at bottom
   html += '<div style="border-top:1px solid rgba(255,255,255,.08);padding-top:16px">'
-    +'<button onclick="ptShowTripLeaderboard('+tripId+',\''+trip.viewer_pin+'\')" style="width:100%;padding:14px;background:rgba(100,180,255,.12);border:1.5px solid rgba(100,180,255,.35);border-radius:12px;color:rgba(100,180,255,1);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px">🏆 Overall Trip Leaderboard</button>'
+    +'<button onclick="ptShowTripLeaderboard('+tripId+',\''+trip.viewer_pin+'\')" style="width:100%;padding:14px;background:rgba(100,180,255,.12);border:1.5px solid rgba(100,180,255,.35);border-radius:12px;color:rgba(100,180,255,1);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px">🏆 Overall '+_lbLabel+'</button>'
     +'<button onclick="ptShowTripNassau('+tripId+')" style="width:100%;padding:12px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:12px;color:rgba(201,168,76,.85);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:10px">💰 Nassau Ledger</button>'
     +'<button onclick="ptShowTripRoundReport('+tripId+')" style="width:100%;padding:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:rgba(255,255,255,.5);font-size:13px;font-weight:700;cursor:pointer">📋 Round Reports</button>'
     +'</div>';
@@ -33981,7 +33990,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v204.0';
+    const TOUR_VERSION     = 'pards-tour-v205.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
