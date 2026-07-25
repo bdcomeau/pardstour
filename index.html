@@ -12257,9 +12257,9 @@ function renderCard() {
     : G.scores[0] !== null && G.scores[0][h] !== null;
   var refReady = !G._pairedGroup || (G._refScores && G._refScores[h] !== null);
 
-  if (roundDone) {
-    if (G.mode === 'event') {
-      // Event/league/tournament round — show submit + back to home
+  // Round-complete / save buttons
+  if (G.mode === 'event') {
+    if (roundDone) {
       var _trBtn = G._tournamentRound
         ? '<div id="ptTrSubmitStatus" style="font-size:11px;color:rgba(255,255,255,.35);text-align:center;margin-bottom:4px">'+(G._tournamentSubmitted?'\u2713 Scores submitted':'\ud83d\udce4 Tap to send scores to tournament')+'</div>'
           +'<button onclick="ptResubmitTournamentScores()" id="ptTrSubmitBtn" style="width:100%;padding:12px;background:rgba(168,213,181,.1);border:1.5px solid rgba(168,213,181,.3);border-radius:14px;font-size:13px;font-weight:700;color:#a8d5b5;cursor:pointer">'+(G._tournamentSubmitted?'\u2713 Scores Sent':'\ud83d\udce4 Send Scores to Tournament')+'</button>'
@@ -12268,14 +12268,44 @@ function renderCard() {
         +_trBtn
         +'<button onclick="_ptHomeOrSubmit()" style="width:100%;padding:12px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:14px;font-size:14px;font-weight:700;color:rgba(255,255,255,.7);cursor:pointer">\u2302 Back to Home</button>'
         +'</div>';
+    } else if (officialReady && refReady) {
+      var btnLbl = playIdx>=17 ? '\u2713 Complete Round' : '\u2713 Confirm \u0026 Next Hole \u2192';
+      html += '<div style="padding:6px 0 16px">'
+        +'<button onclick="confirmNextHole()" style="width:100%;padding:14px;background:linear-gradient(135deg,#c9a84c,#b8860b);color:#1a3a2a;border:none;border-radius:14px;font-size:15px;font-weight:900;cursor:pointer">'+btnLbl+'</button>'
+        +'</div>';
     }
-    // G.mode === 'local': Pards Golf handles its own round-complete UX
-  } else if (officialReady && refReady) {
-    var btnLbl = playIdx>=17 ? '\u2713 Complete Round' : '\u2713 Confirm \u0026 Next Hole \u2192';
-    html += '<div style="padding:6px 0 16px">'
-      +'<button onclick="confirmNextHole()" style="width:100%;padding:14px;background:linear-gradient(135deg,#c9a84c,#b8860b);color:#1a3a2a;border:none;border-radius:14px;font-size:15px;font-weight:900;cursor:pointer">'+btnLbl+'</button>'
-      +'</div>';
+  } else {
+    // Local Pards Golf round
+      if(G._editingHistoryIdx !== undefined && G._editingHistoryIdx >= 0){
+        html += `<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:4px">
+          <button class="save-round-btn" onclick="updateHistoryRound()" style="background:#1a3a2a;border:2px solid #c9a84c;color:#c9a84c;margin-bottom:0">💾 Update History</button>
+          <button class="save-round-btn" onclick="discardHistoryEdit()" style="background:#F8F3EB;border:1.5px solid #ccc;color:#888;margin-bottom:0">↩ Discard Changes</button>
+        </div>`;
+      } else if(isRoundComplete() && !isCurrentRoundSaved()){
+        html += `<button class="save-round-btn" onclick="manualSaveRound()">💾 Save Round</button>`;
+      } else if(isCurrentRoundSaved() && !(G._editingHistoryIdx >= 0)){
+        const _intlActive2 = Object.keys(G.internationals||{}).length>0;
+        const _intlNote = _intlActive2 ? ' 🌍 International matches settled — see Games → Nassau for results.' : '';
+        html += `<div class="save-round-done"><div style="font-size:17px;font-weight:800;margin-bottom:10px">🏆 Round Complete — Saved ✓</div><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button onclick="newRound()" style="background:#1a3a2a;color:#c9a84c;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;flex:1;min-width:120px">👇 Start New Round</button><button onclick="viewAndShareResults()" style="background:#1a3a2a;color:#c9a84c;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;flex:1;min-width:120px">📜 View & Share Results</button></div>${_intlNote?'<div style="font-size:10px;margin-top:8px;opacity:.7">'+_intlNote+'</div>':''}</div>`;
+      }
+
+      // ── Manual-advance confirm button ──
+      if(!isRoundComplete()){
+        const allIn=!G.players.some((_,pi)=>G.scores[pi][G.hole]===null);
+        if(allIn && playOrderIdx(G.hole)<17){
+          html+='<button onclick="confirmNextHole()" style="width:100%;padding:14px;'
+            +'margin-bottom:8px;background:#c9a84c;color:#1a3a2a;font-size:16px;'
+            +'font-weight:800;border:none;border-radius:12px;cursor:pointer">'+('&#10003; Confirm &amp; Next Hole &#8594;')+'</button>';
+        }
+        if(allIn && playOrderIdx(G.hole)===17){
+          html+='<button onclick="completeRound()" style="width:100%;padding:14px;'
+            +'margin-bottom:8px;background:#c9a84c;color:#1a3a2a;font-size:16px;'
+            +'font-weight:800;border:none;border-radius:12px;cursor:pointer">&#10003; Complete Round &#127942;</button>';
+        }
+      }
+
   }
+
 
   sbody.innerHTML = html;
   } catch(e) {
@@ -22231,7 +22261,7 @@ _showOnboarding();
 /* ═══════════════════════════════════════════════
    VERSION POLLING + UPDATE BANNER
 ═══════════════════════════════════════════════ */
-const CURRENT_VERSION = 'pards-tour-v6.04';
+const CURRENT_VERSION = 'pards-tour-v6.05';
 // Stamp all version labels as soon as the constant is available
 (()=>{
   const v = CURRENT_VERSION.replace('pards-','');
@@ -31984,7 +32014,7 @@ showHome();
 // Inline service worker for PWA offline support
 if('serviceWorker' in navigator && !location.protocol.startsWith('blob')){
   const swCode=`
-const CACHE='pards-tour-v6.04';
+const CACHE='pards-tour-v6.05';
 self.addEventListener('install',e=>{
   e.waitUntil(
     caches.open(CACHE).then(c=>c.addAll(['./','pards-tour-help.html','gc_id.jpg']))
