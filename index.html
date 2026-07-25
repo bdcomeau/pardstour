@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v236.0 -->
+  <!-- pards-tour-v237.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -26071,12 +26071,26 @@ function loadOrgEvents() {
           +'<div onclick="ptShowTripDetail('+t.id+')" style="flex:1;cursor:pointer;-webkit-tap-highlight-color:transparent">'
           +'<div style="font-size:15px;font-weight:800;color:rgba(100,180,255,.95)">\uD83C\uDF0D '+_esc(t.name)+'</div>'
           +(t.destination?'<div style="font-size:12px;color:rgba(255,255,255,.4)">\uD83D\uDCCD '+_esc(t.destination)+'</div>':'')
-          +'<div style="font-size:11px;font-weight:700;color:rgba(100,180,255,.5);margin-top:3px">'+(t.round_count||0)+' round'+(t.round_count!==1?'s':'')+'</div>'
+          +'<div id="ptTripRC_'+t.id+'" style="font-size:11px;font-weight:700;color:rgba(100,180,255,.5);margin-top:3px">'+(t.round_count!=null?(t.round_count+' round'+(t.round_count===1?'':'s')):'\u2026')+'</div>'
           +'</div>'
           +'<button onclick="ptDeleteTrip('+t.id+',event)" style="background:none;border:none;color:rgba(255,100,100,.5);font-size:20px;cursor:pointer;padding:4px;flex-shrink:0">&#x1F5D1;</button>'
           +'</div>'
           +'</div>';
       }).join('');
+      // v237.0 — handleListTrips returns no round_count (Worker wishlist);
+      // patch the real count in per trip after render. Lists are small.
+      setTimeout(function(){
+        trips.forEach(function(t){
+          if (t.round_count != null) return;
+          fetch(TOUR_API+'/api/trips/'+t.id+'/rounds',{headers:{'Authorization':'Bearer '+G.orgToken}})
+            .then(function(r){return r.json();})
+            .then(function(d2){
+              var el=document.getElementById('ptTripRC_'+t.id); if(!el) return;
+              var nR=(d2.rounds||[]).length;
+              el.textContent = nR+' round'+(nR===1?'':'s');
+            }).catch(function(){ var el=document.getElementById('ptTripRC_'+t.id); if(el) el.textContent=''; });
+        });
+      }, 50);
     }
     if (visible.length || archived.length) {
       if (trips.length) html += '<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.8px;margin:12px 0 8px">Events</div>';
@@ -28519,6 +28533,23 @@ if (typeof _ptOrigDoStartRound === 'function') {
     // fresh nulls, which would wipe G._refScores before the re-seed reads it.
     var _refStash = Array.isArray(G._refScores) ? G._refScores.slice() : null;
     var r = _ptOrigDoStartRound.apply(this, arguments);
+    // v237.0 — re-attach wrapper player metadata the engine start dropped.
+    // ROOT CAUSE of the first live trip round syncing ZERO holes: the trip
+    // sync route hard-requires p._trip_player_id, which died here. Index-
+    // aligned — the hidden-input mirrors preserve player order.
+    try {
+      var _tm = G._tournamentRound && G._tournamentRound._player_meta;
+      if (_tm && G.mode === 'event' && G.players && G.players.length) {
+        G.players.forEach(function(pl, i) {
+          var m = _tm[i]; if (!m || !pl) return;
+          if (pl._trip_player_id == null) pl._trip_player_id = m.trip_player_id;
+          if (pl._roster_id == null) pl._roster_id = m.roster_id;
+          if (pl._group_id == null) pl._group_id = m.group_id;
+          if (pl._team_name == null && m.team_name != null) pl._team_name = m.team_name;
+        });
+        saveG();
+      }
+    } catch(eM) { console.error('[pt] player-meta re-attach failed', eM); }
     try {
       if (_stash && G.mode === 'event' && G.roundDate && G.scores && G.scores[0]) {
         for (var i = 0; i < 18; i++) { if (_stash[i] != null) G.scores[0][i] = _stash[i]; }
@@ -34625,6 +34656,10 @@ function ptLaunchFoursomeRound(foursomeData) {
     player_roster_ids: players.map(function(p){ return p.roster_id; }),
     trip_id:       foursome.trip_id || null,
     format:        foursome.format || null, // v235.0: per-round trip/league format
+    // v237.0: index-aligned wrapper metadata — the engine's _doStartRound
+    // rebuilds G.players from the setup inputs and drops _trip_player_id/
+    // _roster_id/_group_id. The decorator re-attaches from this stash.
+    _player_meta:  players.map(function(p){ return { trip_player_id: p._trip_player_id||null, roster_id: p.roster_id||null, group_id: p.group_id||null, team_name: p.team_name||null }; }),
   };
 
   // ── Set up G state — mirrors doJoinGroup ─────────────────
@@ -35335,7 +35370,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v236.0';
+    const TOUR_VERSION     = 'pards-tour-v237.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
