@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v222.0 -->
+  <!-- pards-tour-v223.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -28474,6 +28474,27 @@ window.ptNassauRemovePair = function(tripId, rKey, idx) {
 // player, _ptCloseOrgLive() threw ReferenceError, which killed doJoinGroup()
 // mid-flight via _ptHideAll() and made "I'll Score" silently do nothing.
 var _ptOrgLiveTimer = null;
+
+// v223.0 \u2014 the engine's _doStartRound resets G.scores to nulls. When a player
+// resumes an event round (server scores pre-loaded at join), re-apply the stash
+// after the engine start finishes. Gated on the explicit stash flag so a later
+// NORMAL round can never inherit event scores; the flag is always cleared.
+var _ptOrigDoStartRound = window._doStartRound;
+if (typeof _ptOrigDoStartRound === 'function') {
+  window._doStartRound = function() {
+    var _stash = G._ptEventResumeScores || null;
+    var r = _ptOrigDoStartRound.apply(this, arguments);
+    try {
+      if (_stash && G.mode === 'event' && G.roundDate && G.scores && G.scores[0]) {
+        for (var i = 0; i < 18; i++) { if (_stash[i] != null) G.scores[0][i] = _stash[i]; }
+        saveG();
+      }
+    } catch(e) { console.error('[pt] resume re-apply failed', e); }
+    G._ptEventResumeScores = null;
+    return r;
+  };
+}
+
 function _ptCloseOrgLive() {
   if (_ptOrgLiveTimer) { clearInterval(_ptOrgLiveTimer); _ptOrgLiveTimer = null; }
   var _ov = document.getElementById('ptOrgLiveOverlay');
@@ -33910,6 +33931,7 @@ function doJoinGroup() {
         if (hIdx >= 0 && hIdx < 18 && val) G.scores[0][hIdx] = val;
       });
       window._ptResumeHoles = null;
+      G._ptEventResumeScores = G.scores[0].slice(); // v223.0 \u2014 survives _doStartRound's score reset
     }
 
     G.startHole = G.joinGroup.start_hole || 1;
@@ -34000,6 +34022,16 @@ function doJoinGroup() {
         _bh += '</div>';
       }
       _bh += '</div>';
+      // v223.0 \u2014 the engine's Start Round path (showRoundSummary \u2192 _doStartRound)
+      // reads pn0/ph0/phAdj0/gid0/deck0. Replacing the player rows with this
+      // banner destroyed those inputs \u2192 null deref \u2192 dead Start Round button.
+      // Provide hidden mirrors of G.players[0] so the engine's own validated
+      // start path runs untouched (island stays an island).
+      _bh += '<input type="hidden" id="pn0" value="'+_esc(G.players[0].name)+'">'
+           + '<input type="hidden" id="ph0" value="0">'
+           + '<input type="hidden" id="phAdj0" value="0">'
+           + '<input type="hidden" id="gid0" value="">'
+           + '<input type="hidden" id="deck0" value="'+_esc(G.players[0].deck || _tee)+'">';
       _container.innerHTML = _bh;
     })();
     try { renderCoursePicker(); } catch(e) {}
@@ -34067,6 +34099,7 @@ function doJoinGroup() {
       if (hIdx >= 0 && hIdx < 18 && val) G.scores[0][hIdx] = val;
     });
     window._ptResumeHoles = null;
+    G._ptEventResumeScores = G.scores[0].slice(); // v223.0 \u2014 survives _doStartRound's score reset
   }
   G.startHole = G.joinGroup.start_hole || 1;
   G.hole = G.startHole - 1;
@@ -34944,7 +34977,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v222.0';
+    const TOUR_VERSION     = 'pards-tour-v223.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
