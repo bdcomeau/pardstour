@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v224.0 -->
+  <!-- pards-tour-v225.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -32729,8 +32729,12 @@ function ptSetGroupCaptain(eventId, groupId, rosterId, overlay) {
   }).then(function(r){return r.json();})
   .then(function(d){
     if(d.ok){
-      // Close ALL open edit overlays then reload
-      document.querySelectorAll('[style*="z-index:600"]').forEach(function(el){el.remove();});
+      // v225.0 — the old close-all selector '[style*="z-index:600"]' never matched:
+      // Chrome serializes cssText as 'z-index: 600' (with a space), so the edit
+      // sheet stayed open showing the stale captain — change worked, cue invisible.
+      if (overlay) overlay.remove();
+      document.querySelectorAll('[style*="z-index:600"],[style*="z-index: 600"]').forEach(function(el){el.remove();});
+      ptToast(d.captain_name ? '\u2713 ' + d.captain_name + ' is now captain \u2014 team renamed \u201c' + d.captain_name + ' Team\u201d' : '\u2713 Captain updated');
       loadOrgEventDetail(eventId);
     } else { ptToast(d.error||'Failed to set captain.'); }
   }).catch(function(){ ptToast('Network error.'); });
@@ -34990,7 +34994,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v224.0';
+    const TOUR_VERSION     = 'pards-tour-v225.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
