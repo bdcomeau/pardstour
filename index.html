@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v237.0 -->
+  <!-- pards-tour-v238.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -28550,6 +28550,27 @@ if (typeof _ptOrigDoStartRound === 'function') {
         saveG();
       }
     } catch(eM) { console.error('[pt] player-meta re-attach failed', eM); }
+    // v238.0 — restore ALL foursome cards after the engine's score wipe and
+    // land on the scorer's first unscored hole (the v223/v227 stash only
+    // covered the single-card event path — trip foursome resume showed a
+    // blank card at hole 1).
+    try {
+      var _fs = G._ptFoursomeResumeScores;
+      if (_fs && G.mode === 'event' && G.roundDate && Array.isArray(G.scores)) {
+        for (var _fp = 0; _fp < _fs.length && _fp < G.scores.length; _fp++) {
+          for (var _fh = 0; _fh < 18; _fh++) { if (_fs[_fp][_fh] != null) G.scores[_fp][_fh] = _fs[_fp][_fh]; }
+        }
+        var _fsh = (G.startHole || 1) - 1;
+        for (var _fk = 0; _fk < 18; _fk++) {
+          var _fhi = (_fsh + _fk) % 18;
+          if (G.scores[0][_fhi] == null) { G.hole = _fhi; break; }
+        }
+        G._ptFoursomeResumeScores = null;
+        saveG();
+        try { if (typeof renderCard === 'function') renderCard(); } catch(eF2) {}
+        try { if (typeof updateHoleHeader === 'function') updateHoleHeader(); } catch(eF3) {}
+      }
+    } catch(eF) { console.error('[pt] foursome resume re-apply failed', eF); }
     try {
       if (_stash && G.mode === 'event' && G.roundDate && G.scores && G.scores[0]) {
         for (var i = 0; i < 18; i++) { if (_stash[i] != null) G.scores[0][i] = _stash[i]; }
@@ -34716,14 +34737,22 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   // ── Scores ───────────────────────────────────────────────
   G.scores = players.map(function() { return Array(18).fill(null); });
-  // Pre-populate existing scores
+  // Pre-populate existing scores.
+  // v238.0: TRIP existing_scores are keyed by trip_player_id (handleJoinTrip);
+  // EVENT ones by roster_id (handleJoinRound). Try both — the roster_id-only
+  // lookup left every trip resume blank.
   players.forEach(function(p, pi) {
-    var ex = (foursomeData.existing_scores || {})[p.roster_id] || {};
+    var _es = foursomeData.existing_scores || {};
+    var ex = (p.roster_id != null ? _es[p.roster_id] : null) || (p._trip_player_id != null ? _es[p._trip_player_id] : null) || {};
     Object.keys(ex).forEach(function(hKey) {
       var hIdx = parseInt(hKey) - 1;
       if (hIdx >= 0 && hIdx < 18) G.scores[pi][hIdx] = ex[hKey];
     });
   });
+  // v238.0: stash ALL cards for the _doStartRound decorator — the engine start
+  // wipes every card, and the v223 single-card stash only covered scores[0].
+  G._ptFoursomeResumeScores = G.scores.some(function(r){ return r.some(function(s){ return s != null; }); })
+    ? G.scores.map(function(r){ return r.slice(); }) : null;
 
   G.startHole  = foursome.hole || 1;
   G.hole       = G.startHole - 1;
@@ -35370,7 +35399,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v237.0';
+    const TOUR_VERSION     = 'pards-tour-v238.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
