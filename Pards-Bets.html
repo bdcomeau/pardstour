@@ -207,7 +207,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.5</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.6</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -1665,7 +1665,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.5';
+const APP_VERSION = 'v20.6';
 
 function checkForUpdate() {
   // Fetch the live index.html and look for the version string
@@ -4425,10 +4425,32 @@ function _d1BootRender() {
   if (_d1Mode) _d1ApplyUILock();
 }
 
+// v20.6 — the loading state used to be written INTO #content, which is the
+// entire app: every card, tab pane, tote bar and the reset slider. Clearing it
+// destroyed the markup, and _d1BootRender() then looked those elements up and
+// died on the first unguarded `.style` — surfacing as
+// "Failed to load race — Cannot read properties of null (reading 'style')".
+// It failed this way every time, for everyone, which is why Pards Bets has
+// never once completed a D1 boot. The loading and error states are now a
+// separate overlay; #content is never touched.
+function _d1Overlay(html) {
+  var ov = document.getElementById('_d1BootOv');
+  if (!ov) {
+    ov = document.createElement('div');
+    ov.id = '_d1BootOv';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:9998;background:#101A13;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;text-align:center;padding:24px';
+    document.body.appendChild(ov);
+  }
+  ov.innerHTML = html;
+  return ov;
+}
+function _d1OverlayClear() {
+  var ov = document.getElementById('_d1BootOv');
+  if (ov) ov.remove();
+}
+
 async function _d1BootLoad() {
-  // Show loading state
-  const content = document.getElementById('content');
-  if (content) content.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:16px"><div style="font-size:32px">🎰</div><div style="color:#D4A843;font-size:16px;font-weight:700">Loading race from Pards Tour…</div></div>';
+  _d1Overlay('<div style="font-size:32px">\ud83c\udfb0</div><div style="color:#D4A843;font-size:16px;font-weight:700">Loading race from Pards Tour\u2026</div>');
   try {
     const resp = await fetch(TOUR_API + '/api/bets/races/' + _d1RaceId, {
       headers: { 'Authorization': 'Bearer ' + _d1Token }
@@ -4501,13 +4523,17 @@ async function _d1BootLoad() {
     root.events = [fakeEv];
     root.activeEventId = fakeEv.id;
     state.nextTicketNum = fakeEv.nextTicketNum;
-    // Restore content
-    if (content) content.innerHTML = '';
+    // #content was never touched — just drop the overlay and render.
+    _d1OverlayClear();
     _d1BootRender();
     // Go straight to entry tab
     showTab('entry');
   } catch(e) {
-    if (content) content.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:16px"><div style="font-size:32px">⚠️</div><div style="color:#e74c3c;font-size:15px;font-weight:700">Failed to load race</div><div style="color:rgba(255,255,255,.5);font-size:13px">' + e.message + '</div></div>';
+    _d1Overlay('<div style="font-size:32px">\u26a0\ufe0f</div>'
+      + '<div style="color:#e74c3c;font-size:15px;font-weight:700">Failed to load race</div>'
+      + '<div style="color:rgba(255,255,255,.5);font-size:13px;max-width:420px">' + (e && e.message ? e.message : String(e)) + '</div>'
+      + '<button onclick="location.reload()" style="margin-top:8px;padding:10px 22px;background:rgba(212,168,67,.15);border:1px solid rgba(212,168,67,.5);border-radius:10px;color:#D4A843;font-size:13px;font-weight:800;cursor:pointer">Retry</button>');
+    console.error('_d1BootLoad failed:', e);
   }
 }
 
