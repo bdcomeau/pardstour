@@ -207,7 +207,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.6</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.7</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -1665,7 +1665,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.6';
+const APP_VERSION = 'v20.7';
 
 function checkForUpdate() {
   // Fetch the live index.html and look for the version string
@@ -4409,9 +4409,15 @@ if (_d1Mode) {
 }
 
 function _d1BootRender() {
-  // Check for updates after 3 seconds, then every 5 minutes
-  setTimeout(checkForUpdate, 3000);
-  setInterval(checkForUpdate, 5 * 60 * 1000);
+  // v20.7 — the update check polls /last-call-invitational/index.html, a
+  // SEPARATE and stale copy of this app (v20.4). In D1 mode that copy is
+  // always older than what Pards Tour serves, so the banner permanently
+  // offered a DOWNGRADE to the very build whose boot destroys the app DOM.
+  // A race opened from Pards Tour is versioned by that repo — never self-check.
+  if (!_d1Mode) {
+    setTimeout(checkForUpdate, 3000);
+    setInterval(checkForUpdate, 5 * 60 * 1000);
+  }
   const _tnEl = document.getElementById('tournament-name');
   if (_tnEl) _tnEl.value = state.tournamentName || '';
   updatePayoutModeUI();
@@ -4486,7 +4492,11 @@ async function _d1BootLoad() {
     state.bets = (d.wagers || []).map(function(w) {
       var isField = w.is_field === 1 || w.is_field === true;
       return {
-        id: w.id, bettorId: w.bettor_id,
+        // v20.7 — bettorId was left as a NUMBER while state.bettors[].id is a
+        // String, so every wager row rendered its owner as "?". Same class of
+        // bug as the teamId one fixed in v20.5 — this one just showed up in the
+        // name column instead of the payout. One id type everywhere.
+        id: w.id, bettorId: String(w.bettor_id),
         teamId: isField ? 'FIELD' : String(w.team_id),
         type: w.type, amount: w.amount,
         unitAmount: isField ? w.unit_amount : undefined,
