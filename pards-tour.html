@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v244.1 -->
+  <!-- pards-tour-v245.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -27324,6 +27324,8 @@ function ptRenderTripDetail(trip, players, rounds) {
     +'<div style="font-size:20px;font-weight:900;color:#fff;margin-bottom:4px">'+_esc(trip.name)+'</div>'
     +(trip.destination?'<div style="font-size:13px;color:rgba(100,180,255,.8);margin-bottom:4px">\u{1F4CD} '+_esc(trip.destination)+'</div>':'')
     +(trip.start_date?'<div style="font-size:13px;color:rgba(255,255,255,.5)">'+ptFormatDate(trip.start_date)+(trip.end_date?' \u2013 '+ptFormatDate(trip.end_date):'')+'</div>':'')
+    // v245.0 — trip_code is now the shareable Watch Live code (Worker v2.35.0)
+    +(trip.trip_code&&!_isLeague?'<div style="margin-top:12px"><div style="font-size:10px;color:rgba(255,255,255,.35);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Trip Code (share to Watch Live)</div><div style="font-size:26px;font-weight:900;color:#c9a84c;letter-spacing:6px;font-family:monospace">'+_esc(trip.trip_code)+'</div></div>':'')
     +'<div style="margin-top:12px;display:flex;gap:8px">'
     +'<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;text-align:center;flex:1"><div style="font-size:22px;font-weight:900;color:#fff">'+players.length+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase">Players</div></div>'
     +'<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;text-align:center;flex:1"><div style="font-size:22px;font-weight:900;color:#fff">'+rounds.length+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase">Rounds</div></div>'
@@ -28720,7 +28722,10 @@ window.ptShowTripLeaderboard = function(tripId, pin) {
     +'<div id="ptTripLbBody" style="color:rgba(255,255,255,.4);font-size:14px">Loading…</div>'
     +'</div>';
   document.body.appendChild(ov);
-  fetch(TOUR_API+'/api/trips/'+tripId+'/leaderboard?pin='+encodeURIComponent(pin))
+  // v245.0 — credential can be the 4-digit viewer PIN or the 6-char trip_code
+  var _cred = String(pin==null?'':pin);
+  var _q = /^[0-9]{4}$/.test(_cred) ? 'pin='+encodeURIComponent(_cred) : 'code='+encodeURIComponent(_cred);
+  fetch(TOUR_API+'/api/trips/'+tripId+'/leaderboard?'+_q)
     .then(_ptJson).then(function(d){
       if(d.error){ document.getElementById('ptTripLbBody').innerHTML='<div style="color:#e74c3c">'+d.error+'</div>'; return; }
     if(!d.standings||!d.standings.length){ document.getElementById('ptTripLbBody').innerHTML='<div style="color:rgba(255,255,255,.4)">No scores yet. Make sure rounds are active and scores submitted.</div>'; return; }
@@ -28751,13 +28756,15 @@ function ptRenderTripLeaderboard(d) {
 
   if (!standings.length) { el.innerHTML = html+'<div style="color:rgba(255,255,255,.3)">No scores yet.</div>'; return; }
 
+  // ── Overall Standings ── (v245.0: section label; gross under each round chip)
+  html += '<div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">Overall Standings</div>';
+
   // Tie-aware ranks
   var ranks = [];
   standings.forEach(function(p, i) {
     if (i === 0) { ranks.push(1); return; }
     ranks.push(standings[i-1].total_pts === p.total_pts ? ranks[i-1] : i+1);
   });
-
   standings.forEach(function(p, i) {
     var rank = ranks[i];
     var medal = rank===1?'\uD83E\uDD47':rank===2?'\uD83E\uDD48':rank===3?'\uD83E\uDD49':'';
@@ -28774,19 +28781,23 @@ function ptRenderTripLeaderboard(d) {
     (p.rounds||[]).forEach(function(r) {
       html += '<div style="flex:1;background:rgba(0,0,0,.3);border-radius:6px;padding:6px 4px;text-align:center">'
         + '<div style="font-size:10px;color:rgba(255,255,255,.35);margin-bottom:2px">R'+r.round_number+'</div>'
-        + '<div style="font-size:14px;font-weight:800;color:'+(r.pts!=null?'#c9a84c':'rgba(255,255,255,.2)')+'\">'+(r.pts!=null?r.pts:'\u2014')+'</div>'
+        + '<div style="font-size:14px;font-weight:800;color:'+(r.pts!=null?'#c9a84c':'rgba(255,255,255,.2)')+'">'+(r.pts!=null?r.pts:'\u2014')+'</div>'
+        + (r.gross!=null?'<div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:1px">'+r.gross+(r.holes<18?' \u00b7 '+r.holes+'/18':'')+'</div>':'')
         + '</div>';
     });
     html += '</div>'
       + '<div id="'+rowId+'" style="display:none;margin-top:10px;border-top:1px solid rgba(255,255,255,.07);padding-top:10px">';
     (p.rounds||[]).forEach(function(r) {
-      if (r.pts == null && (!r.holes || !Object.keys(r.holes||{}).length)) return;
+      // v245.0 — Worker v2.35.0 sends hole_scores (map) + pars; the old r.holes
+      // was a COUNT, which is why the hole grid never rendered before.
+      var _hs = r.hole_scores || null;
+      if (r.pts == null && (!_hs || !Object.keys(_hs).length)) return;
       html += '<div style="margin-bottom:10px">'
         + '<div style="font-size:11px;color:rgba(100,180,255,.6);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px">Round '+r.round_number+(r.course_name?' \u00b7 '+_esc(r.course_name):'')+'</div>';
-      if (r.holes && Object.keys(r.holes).length) {
+      if (_hs && Object.keys(_hs).length) {
         html += '<div style="display:flex;flex-wrap:wrap;gap:3px">';
         for (var h = 1; h <= 18; h++) {
-          var sc = r.holes[h] != null ? r.holes[h] : null;
+          var sc = _hs[h] != null ? _hs[h] : null;
           var par = (r.pars && r.pars[h-1]) || 4;
           var diff = sc !== null ? par - sc : null;
           var pts = diff === null ? null : (diff >= 2 ? 4 : diff === 1 ? 3 : diff === 0 ? 2 : diff === -1 ? 1 : 0);
@@ -28797,14 +28808,44 @@ function ptRenderTripLeaderboard(d) {
             + '<div style="font-size:11px;font-weight:800;color:'+ptsCol+'">'+(sc!==null?sc:'\u00b7')+'</div>'
             + '</div>';
         }
-        html += '</div><div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:4px">Gross \u00b7 '+r.pts+' pts</div>';
+        html += '</div><div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:4px">Gross '+(r.gross!=null?r.gross:'\u2014')+' \u00b7 '+r.pts+' pts'+(r.holes<18?' \u00b7 '+r.holes+'/18 holes':'')+'</div>';
       } else if (r.pts != null) {
-        html += '<div style="font-size:12px;color:rgba(255,255,255,.3)">'+r.pts+' pts — hole detail not available</div>';
+        html += '<div style="font-size:12px;color:rgba(255,255,255,.3)">'+r.pts+' pts \u2014 hole detail not available</div>';
       }
       html += '</div>';
     });
     html += '</div></div>';
   });
+
+  // ── v245.0: Round-by-Round listing — per round, every player\'s course/gross/pts ──
+  if (rounds.length) {
+    html += '<div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;margin:18px 0 8px">Round by Round</div>';
+    rounds.forEach(function(rd) {
+      var rows = [];
+      standings.forEach(function(p) {
+        var r = (p.rounds||[]).filter(function(x){ return x.round_number === rd.round_number; })[0];
+        if (r && r.pts != null) rows.push({ name: p.name, gross: r.gross, pts: r.pts, holes: r.holes });
+      });
+      rows.sort(function(a,b){ return b.pts - a.pts || (a.gross||999) - (b.gross||999); });
+      html += '<div style="background:rgba(255,255,255,.04);border-radius:12px;padding:14px;margin-bottom:8px">'
+        + '<div style="font-size:13px;font-weight:800;color:#f5e6b8;margin-bottom:2px">Round '+rd.round_number+(rd.course_name?' \u00b7 '+_esc(rd.course_name):'')+'</div>'
+        + (rd.date?'<div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:8px">'+_esc(rd.date)+(rd.tee_name?' \u00b7 '+_esc(rd.tee_name)+' tees':'')+'</div>':'<div style="margin-bottom:8px"></div>');
+      if (!rows.length) {
+        html += '<div style="font-size:12px;color:rgba(255,255,255,.25)">No scores yet.</div>';
+      } else {
+        html += '<div style="display:flex;font-size:10px;color:rgba(255,255,255,.35);font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:0 2px 4px">'
+          + '<div style="flex:1">Player</div><div style="width:52px;text-align:right">Gross</div><div style="width:52px;text-align:right">Pts</div></div>';
+        rows.forEach(function(r, i) {
+          html += '<div style="display:flex;align-items:center;padding:7px 2px;'+(i<rows.length-1?'border-bottom:1px solid rgba(255,255,255,.06)':'')+'">'
+            + '<div style="flex:1;font-size:13px;font-weight:700;color:#fff">'+_esc(r.name)+(r.holes<18?' <span style="font-size:10px;color:rgba(255,255,255,.35)">('+r.holes+'/18)</span>':'')+'</div>'
+            + '<div style="width:52px;text-align:right;font-size:13px;color:rgba(255,255,255,.6)">'+(r.gross!=null?r.gross:'\u2014')+'</div>'
+            + '<div style="width:52px;text-align:right;font-size:14px;font-weight:900;color:'+(i===0?'#c9a84c':'rgba(100,180,255,.9)')+'">'+r.pts+'</div>'
+            + '</div>';
+        });
+      }
+      html += '</div>';
+    });
+  }
   el.innerHTML = html;
 }
 
@@ -34260,8 +34301,8 @@ function showWatchLive() {
     '<div style="padding:20px 0 28px;display:flex;align-items:center;gap:12px;flex-shrink:0">'
     +'<button onclick="this.closest(\'[style*=fixed]\').remove()" style="background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:8px;color:rgba(201,168,76,.9);font-size:12px;font-weight:800;cursor:pointer;padding:5px 10px;line-height:1.2;-webkit-tap-highlight-color:transparent;flex-shrink:0">← Pards Tour</button>'
     +'<div style="font-size:19px;font-weight:800;color:#c9a84c">Watch Live</div></div>'
-    +'<div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:24px;line-height:1.6">Enter a 6-character event code, or a 4-digit trip viewer PIN from your organizer.</div>'
-    +'<div style="margin-bottom:16px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Event Code or Trip PIN</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:24px;line-height:1.6">Enter a 6-character event or trip code, or a 4-digit trip viewer PIN.</div>'
+    +'<div style="margin-bottom:16px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Event / Trip Code or PIN</div>'
     +'<input id="ptWatchCode" type="text" maxlength="6" placeholder="ABC123 or 1234" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" style="width:100%;box-sizing:border-box;padding:14px 16px;border-radius:12px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.06);color:#f5e6b8;font-size:24px;font-weight:900;outline:none;letter-spacing:6px;text-align:center;font-family:monospace"></div>'
     +'<div id="ptWatchErr" style="display:none;color:#e74c3c;font-size:13px;margin-bottom:12px;text-align:center"></div>'
     +'<button onclick="doWatchLive(this.closest(\'[style*=fixed]\'))" style="width:100%;padding:16px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent">Watch Leaderboard →</button>';
@@ -34291,7 +34332,13 @@ function doWatchLive(ov) {
   fetch(TOUR_API+'/api/events/watch',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event_code:code})})
     .then(_ptJson)
     .then(function(d){
-      if(d.error){errEl.textContent=d.error==='Incorrect PIN'?'Incorrect PIN.':(d.error||'Not found.');errEl.style.display='block';return;}
+      if(d.error){
+        // v245.0 — 404 here means "not an event code": fall through to the trip
+        // watch-code lookup. Any OTHER failure is terminal (v243.1 lesson —
+        // never let a real error cascade and masquerade as "not found").
+        if(d._http===404){ doWatchTripCode(code, ov, errEl); return; }
+        errEl.textContent=d.error==='Incorrect PIN'?'Incorrect PIN.':(d.error||'Not found.');errEl.style.display='block';return;
+      }
       if(ov)ov.remove();
       G._watchEvent=d.event;
       if(d.event.format==='multi_day'){
@@ -34300,6 +34347,21 @@ function doWatchLive(ov) {
         ptShowLeaderboard(d.event.id,d.standings);
       }
     }).catch(function(){errEl.textContent='Network error.';errEl.style.display='block';});
+}
+
+// v245.0 — stage 2 of the Watch cascade: 6-char code as trip_code
+// (Worker v2.35.0 GET /api/trips/watch/:code; leaderboard auth via ?code=)
+function doWatchTripCode(code, ov, errEl) {
+  fetch(TOUR_API+'/api/trips/watch/'+encodeURIComponent(code))
+    .then(_ptJson)
+    .then(function(d){
+      if(d.error||!d.trip_id){
+        errEl.textContent = (d && d._http===404) ? 'Nothing found for that code.' : ((d&&d.error)||'Not found.');
+        errEl.style.display='block'; return;
+      }
+      if(ov) ov.remove();
+      ptShowTripLeaderboard(d.trip_id, code);
+    }).catch(function(){ errEl.textContent='Network error.'; errEl.style.display='block'; });
 }
 
 // ── Join overlay helpers ─────────────────────────────────────
@@ -36097,7 +36159,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v244.1';
+    const TOUR_VERSION     = 'pards-tour-v245.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
