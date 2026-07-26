@@ -207,7 +207,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.4</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.5</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -1665,7 +1665,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.4';
+const APP_VERSION = 'v20.5';
 
 function checkForUpdate() {
   // Fetch the live index.html and look for the version string
@@ -3398,8 +3398,17 @@ function confirmCash() {
   save();
   // D1 mode: push wagers to worker
   if (_d1Mode) {
-    var d1Wagers = betsToAdd.map(function(b){ return { team_id: b.teamId, type: b.type, amount: b.amount }; });
-    d1SubmitWagers(bettorId, d1Wagers, ticketRef);
+    // v20.5 — a Field wager carries no single runner: send the flag plus the
+    // unit and runner count so D1 can store it and the tote can rebuild it.
+    var d1Wagers = betsToAdd.map(function(b){
+      if (b.teamId === 'FIELD') {
+        return { team_id: null, is_field: 1, type: b.type, amount: b.amount,
+                 unit_amount: b.unitAmount || (b.fieldTeamCount > 0 ? b.amount / b.fieldTeamCount : b.amount),
+                 field_team_count: b.fieldTeamCount || (state.teams || []).length };
+      }
+      return { team_id: Number(b.teamId), is_field: 0, type: b.type, amount: b.amount };
+    });
+    d1SubmitWagers(Number(bettorId), d1Wagers, ticketRef);
   }
   updateTote();
   updateHeader();
@@ -4433,18 +4442,33 @@ async function _d1BootLoad() {
     state.handlePct      = d.race.house_pct || 0;
     state.handleMode     = 'pct';
     // Map teams
+    // v20.5 — String ids: the entry grid stores select values (Strings) and
+    // placements are stringified below. Mixing Number ids here is what broke
+    // covers(). One type everywhere.
     state.teams = (d.teams || []).map(function(t) {
-      return { id: t.id, name: t.name, _d1Id: t.id };
+      return { id: String(t.id), name: t.name, _d1Id: t.id };
     });
     // Map bettors
     state.bettors = (d.bettors || []).map(function(b) {
-      return { id: b.id, name: b.name, _d1Id: b.id };
+      return { id: String(b.id), name: b.name, _d1Id: b.id };
     });
     // Map wagers
+    // v20.5 — two bugs lived in this mapping.
+    //  (a) Field wagers came back as team_id null and lost their unit/count, so
+    //      payAmt() and covers() could not treat them as field bets at all.
+    //  (b) teamId came back as a NUMBER while placements below are Strings and
+    //      freshly-entered bets carry the select's String value. covers() does
+    //      `bet.teamId === placements[pos]`, and 5 === '5' is false — so after
+    //      any reload EVERY payout computed as zero. Enter-and-settle in one
+    //      sitting worked; reopening the race silently paid nobody.
     state.bets = (d.wagers || []).map(function(w) {
+      var isField = w.is_field === 1 || w.is_field === true;
       return {
-        id: w.id, bettorId: w.bettor_id, teamId: w.team_id,
+        id: w.id, bettorId: w.bettor_id,
+        teamId: isField ? 'FIELD' : String(w.team_id),
         type: w.type, amount: w.amount,
+        unitAmount: isField ? w.unit_amount : undefined,
+        fieldTeamCount: isField ? w.field_team_count : undefined,
         ticketRef: w.ticket_ref || null, _d1Id: w.id
       };
     });
@@ -4514,27 +4538,58 @@ function save() {
 }
 
 // D1 mode: submit a bettor's wager batch to worker
+// v20.5 — this used to swallow every failure into console.error. On a live
+// money night that meant: ticket printed, cash in the box, NOTHING in D1, and
+// no way to know until settlement came up short. Failures are now impossible
+// to miss.
+function _d1Alarm(what, detail) {
+  console.error(what, detail);
+  var ov = document.createElement('div');
+  ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:24px';
+  ov.innerHTML = '<div style="background:#2a0f0f;border:2px solid #e74c3c;border-radius:14px;padding:22px 20px;max-width:420px;text-align:center">'
+    + '<div style="font-size:34px;margin-bottom:8px">\u26a0\ufe0f</div>'
+    + '<div style="font-size:17px;font-weight:900;color:#e74c3c;margin-bottom:8px">NOT SAVED TO PARDS TOUR</div>'
+    + '<div style="font-size:13.5px;color:#f0d8d8;line-height:1.55;margin-bottom:14px">' + what
+    + '<br><br><span style="font-size:11.5px;color:#c0a0a0">' + (detail || '') + '</span></div>'
+    + '<div style="font-size:12px;color:#f5e6b8;line-height:1.5;margin-bottom:14px">The bet is showing on this device only. Do not hand over the ticket \u2014 re-enter it once the connection is back.</div>'
+    + '<button onclick="this.closest(\'div[style*=fixed]\').remove()" style="width:100%;padding:12px;background:#e74c3c;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:900;cursor:pointer">I understand</button>'
+    + '</div>';
+  document.body.appendChild(ov);
+}
+
 async function d1SubmitWagers(bettorId, wagerBatch, ticketRef) {
   if (!_d1Mode) return;
   try {
-    await fetch(TOUR_API + '/api/bets/races/' + _d1RaceId + '/wagers', {
+    const resp = await fetch(TOUR_API + '/api/bets/races/' + _d1RaceId + '/wagers', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _d1Token },
       body: JSON.stringify({ bettor_id: bettorId, ticket_ref: ticketRef, wagers: wagerBatch })
     });
-  } catch(e) { console.error('d1SubmitWagers error:', e); }
+    const d = await resp.json().catch(function(){ return {}; });
+    if (!resp.ok || !d.ok) {
+      _d1Alarm('Ticket ' + (ticketRef || '') + ' did not save.', (d && d.error) ? d.error : ('HTTP ' + resp.status));
+      return false;
+    }
+    return true;
+  } catch(e) {
+    _d1Alarm('Ticket ' + (ticketRef || '') + ' did not save.', (e && e.message) || 'Network error');
+    return false;
+  }
 }
 
 // D1 mode: set placements
 async function d1SetPlaces(p1, p2, p3) {
   if (!_d1Mode) return;
   try {
-    await fetch(TOUR_API + '/api/bets/races/' + _d1RaceId + '/places', {
+    const resp = await fetch(TOUR_API + '/api/bets/races/' + _d1RaceId + '/places', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _d1Token },
       body: JSON.stringify({ p1: p1, p2: p2, p3: p3 })
     });
-  } catch(e) { console.error('d1SetPlaces error:', e); }
+    const d = await resp.json().catch(function(){ return {}; });
+    if (!resp.ok || !d.ok) { _d1Alarm('Placements did not save.', (d && d.error) ? d.error : ('HTTP ' + resp.status)); return false; }
+    return true;
+  } catch(e) { _d1Alarm('Placements did not save.', (e && e.message) || 'Network error'); return false; }
 }
 
 // ─── Service Worker Registration ──────────────────────────────────────────────
