@@ -210,7 +210,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.11</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.12</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -1668,7 +1668,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.11';
+const APP_VERSION = 'v20.12';
 
 // v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
 // The badge was a SECOND hardcoded literal in the markup (the span at the top of
@@ -4488,6 +4488,7 @@ async function importBets(input) {
 
   const rows = await parseFileToRows(file);
   let added = 0, errors = [];
+  const _importSlips = [];   // v20.12 — one entry per CSV row, for the D1 push
 
   rows.forEach((row, i) => {
     const lineNum   = i + 1;
@@ -4527,16 +4528,66 @@ async function importBets(input) {
       }
     }
 
+    // v20.12 — one CSV row = one paper slip = one ticket ref, exactly like the
+    // manual entry flow. Imported rows used to carry NO ref unless the CSV
+    // supplied one, so they printed as ref-less wagers on the sheet.
+    const ticketRef = ticketRaw || genTicketRef();
+
+    // v20.12 — a Field row's amount is the PER-RUNNER unit, matching the entry
+    // grid, and the stored bet carries unit + runner count. Imported field bets
+    // used to store the raw amount with neither, and payAmt() then counted the
+    // FULL amount as winning stake — a $40 imported field bet paid like $40 on
+    // the winner instead of $1 per runner.
+    const isFieldBet = team.id === 'FIELD';
+    const nTeams = (state.teams || []).length;
+    const storedAmount = isFieldBet && nTeams > 0 ? amountRaw * nTeams : amountRaw;
+
+    const slipBets = [];
     betTypes.forEach(t => {
-      state.bets.push({ id: uid(), bettorId: bettor.id, teamId: team.id, type: t,
-                        amount: amountRaw, locked: !!ticketRaw,
-                        ticketRef: ticketRaw || undefined,
-                        combo: betTypes.length > 1 ? comboType : null, comboGroupId });
+      const bet = { id: uid(), bettorId: bettor.id, teamId: team.id, type: t,
+                    amount: storedAmount,
+                    unitAmount: isFieldBet ? amountRaw : undefined,
+                    fieldTeamCount: isFieldBet && nTeams > 0 ? nTeams : undefined,
+                    locked: true, ticketRef,
+                    combo: betTypes.length > 1 ? comboType : null, comboGroupId };
+      state.bets.push(bet);
+      slipBets.push(bet);
     });
+    _importSlips.push({ bettorId: bettor.id, ticketRef, bets: slipBets });
     added++;
   });
 
   save(); renderWagers(); updateTote(); updateHeader();
+
+  // v20.12 — PUSH THE IMPORT TO D1. importBets stopped at save(), and in D1
+  // mode save() is deliberately a no-op — so every imported bet lived only in
+  // this page's memory and D1 recorded NOTHING. No alarm fired because no save
+  // was ever attempted: the one failure mode _d1Alarm cannot see. Slips go up
+  // sequentially through the same d1SubmitWagers path as manual entry, the
+  // status line counts them, and success is only reported when D1 has them all.
+  if (_d1Mode && _importSlips.length) {
+    const syncEl = document.getElementById('import-bets-msg');
+    if (syncEl) { syncEl.style.display = ''; syncEl.style.background = '#D4A84320'; syncEl.style.color = '#D4A843'; }
+    let synced = 0; const failed = [];
+    for (const slip of _importSlips) {
+      if (syncEl) syncEl.textContent = '⏳ Saving to Pards Tour… ' + (synced + failed.length + 1) + ' of ' + _importSlips.length + ' — do not leave this page';
+      const d1Wagers = slip.bets.map(function(b){
+        if (b.teamId === 'FIELD') {
+          return { team_id: null, is_field: 1, type: b.type, amount: b.amount,
+                   unit_amount: b.unitAmount, field_team_count: b.fieldTeamCount };
+        }
+        return { team_id: Number(b.teamId), is_field: 0, type: b.type, amount: b.amount };
+      });
+      const okd1 = await d1SubmitWagers(Number(slip.bettorId), d1Wagers, slip.ticketRef, true);
+      if (okd1 === false) failed.push(slip.ticketRef); else synced++;
+    }
+    if (failed.length) {
+      errors.push(failed.length + ' slip(s) did NOT reach Pards Tour: ' + failed.join(', ') + ' — re-enter those');
+      _d1Alarm(failed.length + ' of ' + _importSlips.length + ' imported slips did not save.',
+               'Failed tickets: ' + failed.join(', '));
+    }
+    if (syncEl) syncEl.textContent = '';
+  }
 
   const msgEl = document.getElementById('import-bets-msg');
   if (!msgEl) return;
@@ -4551,7 +4602,10 @@ async function importBets(input) {
   } else {
     msgEl.style.background = '#3DB86E20';
     msgEl.style.color = '#3DB86E';
-    msgEl.textContent = '✓ Imported ' + added + ' bet(s)';
+    // v20.12 — in D1 mode "imported" only means anything if D1 has them, and
+    // by this line the sync loop above has finished with zero failures.
+    msgEl.textContent = _d1Mode ? ('✓ Imported ' + added + ' slip(s) — all saved to Pards Tour')
+                                : ('✓ Imported ' + added + ' bet(s)');
   }
   setTimeout(() => { msgEl.style.display = 'none'; }, 6000);
   input.value = '';
@@ -4771,7 +4825,7 @@ function _d1Alarm(what, detail) {
   document.body.appendChild(ov);
 }
 
-async function d1SubmitWagers(bettorId, wagerBatch, ticketRef) {
+async function d1SubmitWagers(bettorId, wagerBatch, ticketRef, quiet) {
   if (!_d1Mode) return;
   try {
     const resp = await fetch(TOUR_API + '/api/bets/races/' + _d1RaceId + '/wagers', {
@@ -4781,12 +4835,14 @@ async function d1SubmitWagers(bettorId, wagerBatch, ticketRef) {
     });
     const d = await resp.json().catch(function(){ return {}; });
     if (!resp.ok || !d.ok) {
-      _d1Alarm('Ticket ' + (ticketRef || '') + ' did not save.', (d && d.error) ? d.error : ('HTTP ' + resp.status));
+      // v20.12 — quiet: the bulk-import loop collects failures and raises ONE
+      // alarm at the end instead of one modal per failed slip.
+      if (!quiet) _d1Alarm('Ticket ' + (ticketRef || '') + ' did not save.', (d && d.error) ? d.error : ('HTTP ' + resp.status));
       return false;
     }
     return true;
   } catch(e) {
-    _d1Alarm('Ticket ' + (ticketRef || '') + ' did not save.', (e && e.message) || 'Network error');
+    if (!quiet) _d1Alarm('Ticket ' + (ticketRef || '') + ' did not save.', (e && e.message) || 'Network error');
     return false;
   }
 }
