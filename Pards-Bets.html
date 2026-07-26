@@ -210,7 +210,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.8</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.10</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -1669,6 +1669,18 @@ function updatePayoutModeUI() {
 
 
 const APP_VERSION = 'v20.10';
+
+// v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
+// The badge was a SECOND hardcoded literal in the markup (the span at the top of
+// the body) with no link to APP_VERSION, so it had to be bumped by hand in
+// lockstep and silently read "v20.8" on the v20.10 build — the one number Bruce
+// looks at to confirm what is deployed. The client enforces "exactly 2 version
+// stamps"; the tote had no such rule, so this removes the second stamp instead
+// of relying on remembering it. The literal above is now just the pre-JS paint.
+(function _stampVersionBadge() {
+  var el = document.getElementById('header-version');
+  if (el) el.textContent = APP_VERSION;
+})();
 
 function checkForUpdate() {
   // Fetch the live index.html and look for the version string
