@@ -32447,17 +32447,12 @@ function ptPrintMdOverallReport(eventId) {
         + '.rd-total{font-weight:700;font-size:10px}'
         + '.sec-hdr{margin:16px 0 6px;font-size:12px;font-weight:900;color:#1a5c3a;border-left:4px solid #c9a84c;padding-left:8px;text-transform:uppercase;letter-spacing:.5px}'
         + '.sec-hdr span{color:#888;font-weight:600;text-transform:none;letter-spacing:0}'
-        + '.circle{display:inline-block;border-radius:50%;border:1.5px solid #1a5276;width:17px;height:17px;line-height:14px;text-align:center;font-size:9px}'
+        + '.chip{display:inline-block;min-width:18px;height:18px;line-height:18px;border-radius:4px;font-size:10px;font-weight:900;text-align:center;padding:0 1px}'
         + '.si-row td{background:#f0ede6;font-size:9px;color:#888;font-weight:700;border-bottom:2px solid #c9a84c}'
         + '.par-row td{background:#e8f5ee;font-size:9px;color:#1a5c3a;font-weight:700;border-bottom:2px solid #2d6a4f}'
-        + '.pts4{color:#8B0000;font-weight:900}'
-        + '.pts3{color:#1a5c3a;font-weight:900}'
-        + '.pts2{color:#1a5276;font-weight:700}'
-        + '.pts1{color:#666}'
-        + '.pts0{color:#ccc}'
         + '.footer{margin-top:12px;font-size:9px;color:#aaa;border-top:1px solid #e0d8c8;padding-top:6px;display:flex;justify-content:space-between}'
         + '#ptRptBar{position:fixed;top:0;left:0;right:0;background:#1a3a2a;padding:7px 16px;display:flex;align-items:center;justify-content:space-between;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}'
-        + '@media print{@page{size:letter landscape;margin:8mm}body{padding:0}#ptRptBar{display:none!important}.rpt-hdr,.pts-total,.circle,.sec-hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact}tbody{break-inside:avoid}}';
+        + '@media print{@page{size:letter landscape;margin:8mm}body{padding:0}#ptRptBar{display:none!important}.rpt-hdr,.pts-total,.chip,.sec-hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact}tbody{break-inside:avoid}}';
 
       // Per-line round columns, then combined totals — fixed display order
       var rdCols = [{ key: 'gross', label: 'Gross' }];
@@ -32482,17 +32477,19 @@ function ptPrintMdOverallReport(eventId) {
         + totCols.map(function(c){ return '<td>' + (c.key === 'gross' ? totalPar * allRounds.length : '') + '</td>'; }).join('')
         + '</tr>';
 
+      // Chips coloured by the REAL scoring-strip mapping (_ptScoreCellColor):
+      // ace purple, eagle+ orange, birdie red, par blue, bogey grey, double
+      // black, triple+ black/gold — the report and the scorecard strip can
+      // never disagree. Stroke received = gold ring around the chip.
       function lineCells(line) {
         var cells = '';
         for (var i = 0; i < 18; i++) {
           var gross = line.grossArr[i];
           var ptsInfo = line.ptsArr[i];
           if (gross == null) { cells += '<td style="color:#ddd">—</td>'; continue; }
-          var band = showPts
-            ? (ptsInfo ? ptsInfo.pts : 2)
-            : Math.max(0, Math.min(4, 2 + ((ptsInfo ? ptsInfo.par : 4) - gross)));
+          var cc = _ptScoreCellColor(gross, ptsInfo ? ptsInfo.par : null);
           var hasStroke = showStrokes && ptsInfo && ptsInfo.strokes > 0;
-          cells += '<td class="pts' + band + '">' + (hasStroke ? '<span class="circle">' + gross + '</span>' : gross) + '</td>';
+          cells += '<td><span class="chip" style="background:' + cc.bg + ';color:' + (cc.bg === 'transparent' ? '#1a1a1a' : cc.color) + (hasStroke ? ';box-shadow:0 0 0 2px #c9a84c' : '') + '">' + gross + '</span></td>';
         }
         return cells;
       }
@@ -32539,9 +32536,8 @@ function ptPrintMdOverallReport(eventId) {
           + buildTable(sec.rows);
       }).join('');
 
-      var legend = showPts
-        ? '<span style="color:#8B0000;font-weight:700">Eagle(4)</span><span style="color:#1a5c3a;font-weight:700">Birdie(3)</span><span style="color:#1a5276;font-weight:700">Par(2)</span><span>Bogey(1)</span><span style="color:#ccc">Dbl+(0)</span>'
-        : '<span style="color:#8B0000;font-weight:700">Eagle</span><span style="color:#1a5c3a;font-weight:700">Birdie</span><span style="color:#1a5276;font-weight:700">Par</span><span>Bogey</span><span style="color:#ccc">Dbl+</span>';
+      var legend = [['Ace','#8e44ad','#fff'],['Eagle+','#e67e22','#fff'],['Birdie','#e74c3c','#fff'],['Par','#2563eb','#fff'],['Bogey','#dde0e3','#1a1a1a'],['Double','#1a1a1a','#fff'],['Triple+','#1a1a1a','#c9a84c']]
+        .map(function(x){ return '<span class="chip" style="background:' + x[1] + ';color:' + x[2] + ';padding:0 6px">' + x[0] + '</span>'; }).join('');
 
       var scoringLabel = ptScoringLabel(cfg);
       var sortNote = primary === 'stableford' ? 'Ranked by total Stableford points · high wins'
@@ -32569,7 +32565,7 @@ function ptPrintMdOverallReport(eventId) {
         + '</div></div>'
         + tables
         + '<div style="margin-top:10px;font-size:9px;color:#888;display:flex;gap:16px;flex-wrap:wrap">'
-        + (showStrokes ? '<span>⭕ = stroke received on hole</span>' : '')
+        + (showStrokes ? '<span><span class="chip" style="background:#2563eb;color:#fff;box-shadow:0 0 0 2px #c9a84c">4</span> gold ring = stroke received on hole</span>' : '')
         + legend
         + '</div>'
         + '<div class="footer"><span>Pards Tour — pards.golf · ' + sortNote + '</span><span>Printed ' + new Date().toLocaleString() + '</span></div>'
