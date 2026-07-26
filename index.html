@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v247.2 -->
+  <!-- pards-tour-v247.3 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -25427,8 +25427,8 @@ function ptOrgDoForgot(btn){
     .then(function(d){btn.disabled=false;btn.textContent='Send Reset Link';
       msg.textContent=d.ok?'Reset link sent — check your email.':(d.error||'Not found.');
       msg.style.color=d.ok?'#4CAF50':'#e74c3c';msg.style.display='block';})
-    .catch(function(){btn.disabled=false;btn.textContent='Send Reset Link';
-      msg.textContent='Network error.';msg.style.color='#e74c3c';msg.style.display='block';});
+    .catch(function(_e){btn.disabled=false;btn.textContent='Send Reset Link';
+      msg.textContent=_ptMsg(_e,'Network error — check connection.');msg.style.color='#e74c3c';msg.style.display='block';});
 }
 
 // ── Passkey / Face ID ────────────────────────────────────────
@@ -25724,7 +25724,7 @@ window.ptToggleBuddy = function(id) {
         ? 'Buddies need Worker v2.34 \u2014 deploy it first.'
         : ((d && d.error) || 'Could not update buddy flag.'));
     }
-  }).catch(function(){ ptToast('Network error updating buddy flag.'); });
+  }).catch(function(_e){ ptToast(_ptEsc(_ptMsg(_e,'Network error updating buddy flag.'))); });
 };
 
 function ptRenderRosterList(players) {
@@ -25848,14 +25848,14 @@ function ptSaveRosterPlayer(playerId, overlay) {
       }
     }
     else { btn.disabled=false; btn.textContent='Save'; errEl.textContent=d.error||'Failed.'; errEl.style.display='block'; }
-  }).catch(function() { btn.disabled=false; btn.textContent='Save'; errEl.textContent='Network error.'; errEl.style.display='block'; });
+  }).catch(function(_e) { btn.disabled=false; btn.textContent='Save'; errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block'; });
 }
 
 function ptDeleteRosterPlayer(playerId, overlay) {
   if (!confirm('Remove this player from your roster?')) return;
   fetch(TOUR_API + '/api/roster/' + playerId, { method: 'DELETE', headers: { 'Authorization': 'Bearer ' + G.orgToken } })
     .then(function(){ if (overlay) overlay.remove(); ptLoadRoster(); })
-    .catch(function(){ ptToast('Network error.'); });
+    .catch(function(_e){ ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.'))); });
 }
 
 // ── Golf Canada name search for roster Add Player ─────────────
@@ -26076,9 +26076,9 @@ function ptDoImport(overlay) {
       btn.disabled=false; btn.textContent='Retry';
       errEl.textContent=d.error||'Import failed.'; errEl.style.display='block';
     }
-  }).catch(function() {
+  }).catch(function(_e) {
     btn.disabled=false; btn.textContent='Retry';
-    errEl.textContent='Network error.'; errEl.style.display='block';
+    errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block';
   });
 }
 
@@ -26505,9 +26505,9 @@ function doCreateEvent() {
       btn.disabled=false; btn.textContent='Create Event';
       errEl.textContent=d.error||'Failed.'; errEl.style.display='block';
     }
-  }).catch(function(){
+  }).catch(function(_e){
     btn.disabled=false; btn.textContent='Create Event';
-    errEl.textContent='Network error.'; errEl.style.display='block';
+    errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block';
   });
 }
 
@@ -26552,7 +26552,7 @@ function ptEnablePardsBets(eventId) {
   ptPatchEvConfig(eventId, { pards_bets: true }).then(function(d) {
     if (d.event || d.ok) { loadOrgEventDetail(eventId); }
     else { ptToast(d.error || 'Could not enable Pards Bets.'); }
-  }).catch(function(){ ptToast('Network error.'); });
+  }).catch(function(_e){ ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.'))); });
 }
 
 function ptBetsCreateRaces(eventId) {
@@ -26729,9 +26729,9 @@ function doCreateLeague() {
       if(btn){ btn.disabled=false; btn.textContent='Create League'; }
       errEl.textContent=d.error||'Failed.'; errEl.style.display='block';
     }
-  }).catch(function(){
+  }).catch(function(_e){
     if(btn){ btn.disabled=false; btn.textContent='Create League'; }
-    errEl.textContent='Network error.'; errEl.style.display='block';
+    errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block';
   });
 }
 
@@ -26757,7 +26757,7 @@ function ptLoadLeagueDetail(leagueId) {
       if(d.error){ document.getElementById('ptLeagueDetailBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">'+_esc(d.error)+'</div>'; return; }
       ptRenderLeagueDetail(d.league, d.members||[], d.rounds||[]);
     })
-    .catch(function(){ document.getElementById('ptLeagueDetailBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">Network error.</div>'; });
+    .catch(function(_e){ document.getElementById('ptLeagueDetailBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">'+_ptEsc(_ptMsg(_e,'Network error — check connection.'))+'</div>'; });
 }
 
 function _ptTodayISO(){
@@ -26928,9 +26928,9 @@ window.ptAddLeagueMemberById = function(leagueId, rosterId, btn) {
       if(btn){ btn.disabled=false; btn.textContent='Add'; }
       ptToast(d.error||'Could not add member.');
     }
-  }).catch(function(){
+  }).catch(function(_e){
     if(btn){ btn.disabled=false; btn.textContent='Add'; }
-    ptToast('Network error.');
+    ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.')));
   });
 };
 
@@ -27033,9 +27033,9 @@ window.doCreateLeagueRound = function(leagueId) {
       if(btn){ btn.disabled=false; btn.textContent='Create Round'; }
       ptToast(d.error||'Failed to create round.');
     }
-  }).catch(function(){
+  }).catch(function(_e){
     if(btn){ btn.disabled=false; btn.textContent='Create Round'; }
-    ptToast('Network error.');
+    ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.')));
   });
 };
 
@@ -27057,7 +27057,7 @@ function ptShowLeagueLeaderboard(leagueId, roundId, pin, roundName) {
   }).then(_ptJson).then(function(d){
     if(d.error){ document.getElementById('ptLeagueLbBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">'+_esc(d.error)+'</div>'; return; }
     ptRenderLeagueLeaderboard(d);
-  }).catch(function(){ document.getElementById('ptLeagueLbBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">Network error.</div>'; });
+  }).catch(function(_e){ document.getElementById('ptLeagueLbBody').innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">'+_ptEsc(_ptMsg(_e,'Network error — check connection.'))+'</div>'; });
 }
 
 function ptRenderLeagueLeaderboard(d) {
@@ -27186,9 +27186,9 @@ function doCreateTrip() {
       btn.disabled=false; btn.textContent='Create Trip';
       errEl.textContent=d.error||'Failed.'; errEl.style.display='block';
     }
-  }).catch(function(){
+  }).catch(function(_e){
     btn.disabled=false; btn.textContent='Create Trip';
-    errEl.textContent='Network error.'; errEl.style.display='block';
+    errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block';
   });
 }
 
@@ -27201,7 +27201,7 @@ window.ptDeleteTrip = function(tripId, ev) {
   }).then(_ptJson).then(function(d){
     if(d.ok||d.deleted){ var _ov=document.getElementById('ptTripDetailOv'); if(_ov) _ov.remove(); loadOrgEvents(); }
     else { ptToast(d.error||'Delete failed.'); }
-  }).catch(function(){ ptToast('Network error.'); });
+  }).catch(function(_e){ ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.'))); });
 };
 
 function ptShowTripDetail(tripId, leagueId) {
@@ -27695,9 +27695,9 @@ window.ptAddTripPlayerById = function(tripId, rosterId, btn) {
       if(btn){ btn.disabled=false; btn.textContent='Add'; }
       ptToast(d.error||'Could not add player.');
     }
-  }).catch(function(){
+  }).catch(function(_e){
     if(btn){ btn.disabled=false; btn.textContent='Add'; }
-    ptToast('Network error.');
+    ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.')));
   });
 };
 
@@ -28602,8 +28602,8 @@ window.ptStartTripScoring = function(code, tripId, roundId) {
         existing_scores: d.existing_scores||[],
       };
       ptLaunchFoursomeRound(foursomeData);
-    }).catch(function(){
-      ptToast('Network error joining round.');
+    }).catch(function(_e){
+      ptToast(_ptEsc(_ptMsg(_e,'Network error joining round.')));
       if(btn){btn.disabled=false;btn.textContent='▶ Score This Group';}
     });
 };
@@ -30378,7 +30378,7 @@ function ptOpenScoringSettings(eventId) {
       ov.addEventListener('click', function(e){ if (e.target === ov) ov.remove(); });
       document.body.appendChild(ov);
     })
-    .catch(function(){ ptToast('Network error.'); });
+    .catch(function(_e){ ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.'))); });
 }
 
 function ptScSetRule(rule) {
@@ -30413,7 +30413,7 @@ function ptSaveScoringSettings(eventId, thenFlights) {
       if (thenFlights && rule) { ptOpenFlightEditor(eventId); }
       else { ptToast('Scoring settings saved.'); if (typeof loadOrgEventDetail === 'function') loadOrgEventDetail(eventId); }
     })
-    .catch(function(){ if (errEl) { errEl.textContent = 'Network error.'; errEl.style.display = 'block'; } });
+    .catch(function(_e){ if (errEl) { errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block'; } });
 }
 
 // ── Flight editor (organizer) ── auto-assign by rule; any manual move wins.
@@ -30448,7 +30448,7 @@ function ptOpenFlightEditor(eventId) {
       document.body.appendChild(ov);
       ptFERender();
     })
-    .catch(function(){ ptToast('Network error.'); });
+    .catch(function(_e){ ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.'))); });
 }
 
 function ptFERender() {
@@ -30517,7 +30517,7 @@ function ptSaveFlights() {
         if (typeof loadOrgEventDetail === 'function') loadOrgEventDetail(fe.eventId);
       } else { ptToast(d.error || 'Save failed.'); }
     })
-    .catch(function(){ ptToast('Network error.'); });
+    .catch(function(_e){ ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.'))); });
 }
 
 // ── Rounds Management ────────────────────────────────────────
@@ -30987,18 +30987,20 @@ function ptTTBSave(){
         ptToast(msg);
         document.getElementById('ptTTBOv').remove();
       } else { ptToast(d.error||'Save failed.'); if(btn){btn.disabled=false;btn.textContent='Save';} }
-    }).catch(function(){ptToast('Network error.');if(btn){btn.disabled=false;btn.textContent='Save';}});
+    }).catch(function(_e){ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.')));if(btn){btn.disabled=false;btn.textContent='Save';}});
   } else {
     // POST — fresh save, regenerate everything
     var slots=_ptTTB.slots.map(function(s){return{start_time:s.start_time,hole:s.hole,players:(s.players||[]).filter(Boolean)};}).filter(function(s){return s.players.length>0;});
+    var btn = document.querySelector('#ptTTBFooter button:last-child');
+    if(btn){btn.disabled=true;btn.textContent='Saving…';}   // v247.3 — double-tap here used to regenerate every foursome code twice
     fetch(TOUR_API+'/api/rounds/'+_ptTTB.round.id+'/tee-times',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
       body:JSON.stringify({mode:_ptTTB.mode,session:_ptTTB.session,slots:slots})
     }).then(_ptJson).then(function(d){
       if(d.ok){ptToast('Tee sheet saved! '+d.inserted+' groups assigned.');document.getElementById('ptTTBOv').remove();}
-      else{ptToast(d.error||'Save failed.');}
-    }).catch(function(){ptToast('Network error.');});
+      else{ptToast(d.error||'Save failed.');if(btn){btn.disabled=false;btn.textContent='Save';}}
+    }).catch(function(_e){ ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.'))); if(btn){btn.disabled=false;btn.textContent='Save';} });
   }
 }
 
@@ -31119,7 +31121,7 @@ function ptAddRound(eventId) {
     } else {
       ptToast(d.error || 'Could not add round.');
     }
-  }).catch(function(){ ptToast('Network error.'); });
+  }).catch(function(_e){ ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.'))); });
 }
 
 function ptEditRound(eventId, round, evObj) {
@@ -31202,9 +31204,9 @@ function ptDoEditRound(eventId, roundId, overlay) {
   .then(function(d){
     if(d.round){ if(overlay) overlay.remove(); loadOrgEventDetail(eventId); }
     else { btn.disabled=false; btn.textContent='Save Round'; errEl.textContent=d.error||'Failed.'; errEl.style.display='block'; }
-  }).catch(function(){
+  }).catch(function(_e){
     btn.disabled=false; btn.textContent='Save Round';
-    errEl.textContent='Network error.'; errEl.style.display='block';
+    errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block';
   });
 }
 
@@ -31294,9 +31296,9 @@ function ptDoEditEvent(eventId, overlay) {
       btn.disabled=false; btn.textContent='Save Changes';
       errEl.textContent = d.error||'Failed.'; errEl.style.display='block';
     }
-  }).catch(function(){
+  }).catch(function(_e){
     btn.disabled=false; btn.textContent='Save Changes';
-    errEl.textContent='Network error.'; errEl.style.display='block';
+    errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block';
   });
 }
 
@@ -32794,8 +32796,9 @@ function ptShowRbcImport(eventId, evObj) {
   fetch(TOUR_API + '/api/roster?limit=500', {
     headers: { 'Authorization': 'Bearer ' + G.orgToken }
   }).then(_ptJson).then(function(d){
+    if (d && d.error) { ptToast('Roster did not load for import matching — ' + d.error); return; }
     _ptRbcImportRoster = d.players || [];
-  }).catch(function(){});
+  }).catch(function(_e){ ptToast(_ptEsc(_ptMsg(_e,'Roster did not load for import matching.'))); });
 }
 
 function ptHandleRbcFile(input) {
@@ -33447,7 +33450,7 @@ function ptDrawResolveGcPick(idx) {
     _ptDrawResolvedPlayers[ov._resolveKey]={roster_id:d.player.id,name:d.player.name};
     ov.remove();
     ptRenderDrawPreview(_ptDrawImportTeams);
-  }).catch(function(){ptToast('Network error');});
+  }).catch(function(_e){ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.')));});
 }
 
 
@@ -34080,9 +34083,9 @@ function ptDoAddGroup(eventId, overlay) {
   }).then(_ptJson).then(function(d){
     if(d.group){if(overlay)overlay.remove();loadOrgEventDetail(eventId);}
     else{btn.disabled=false;btn.textContent='Add Group';errEl.textContent=d.error||'Failed.';errEl.style.display='block';}
-  }).catch(function(){
+  }).catch(function(_e){
     btn.disabled=false;btn.textContent='Add Group';
-    errEl.textContent='Network error.';errEl.style.display='block';
+    errEl.textContent=_ptMsg(_e,'Network error — check connection.');errEl.style.display='block';
   });
 }
 
@@ -34186,9 +34189,9 @@ function ptDoEditGroup(eventId, groupId, overlay) {
     } else {
       btn.disabled=false;btn.textContent='Save Changes';errEl.textContent=d.error||'Failed.';errEl.style.display='block';
     }
-  }).catch(function(){
+  }).catch(function(_e){
     btn.disabled=false;btn.textContent='Save Changes';
-    errEl.textContent='Network error.';errEl.style.display='block';
+    errEl.textContent=_ptMsg(_e,'Network error — check connection.');errEl.style.display='block';
   });
 }
 
@@ -34898,7 +34901,7 @@ function doWatchLive(ov) {
         if(d.error||!d.trip_id){ errEl.textContent='Trip not found for that PIN.'; errEl.style.display='block'; return; }
         if(ov) ov.remove();
         ptShowTripLeaderboard(d.trip_id, code);
-      }).catch(function(){ errEl.textContent='Network error.'; errEl.style.display='block'; });
+      }).catch(function(_e){ errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block'; });
     return;
   }
 
@@ -34921,7 +34924,7 @@ function doWatchLive(ov) {
       } else {
         ptShowLeaderboard(d.event.id,d.standings);
       }
-    }).catch(function(){errEl.textContent='Network error.';errEl.style.display='block';});
+    }).catch(function(_e){ errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block'; });
 }
 
 // v245.0 — stage 2 of the Watch cascade: 6-char code as trip_code
@@ -34940,7 +34943,7 @@ function doWatchTripCode(code, ov, errEl) {
       }
       if(ov) ov.remove();
       ptShowTripLeaderboard(d.trip_id, code);
-    }).catch(function(){ errEl.textContent='Network error.'; errEl.style.display='block'; });
+    }).catch(function(_e){ errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block'; });
 }
 
 // v246.0 - stage 3 (final) of the Watch cascade: 6-char code as leagues.watch_code
@@ -34959,7 +34962,7 @@ function doWatchLeagueCode(code, ov, errEl) {
       }
       if(ov) ov.remove();
       ptShowLeagueSeason(d.league_id, code);
-    }).catch(function(){ errEl.textContent='Network error.'; errEl.style.display='block'; });
+    }).catch(function(_e){ errEl.textContent=_ptMsg(_e,'Network error — check connection.'); errEl.style.display='block'; });
 }
 
 // ── Join overlay helpers ─────────────────────────────────────
@@ -35020,9 +35023,9 @@ function doJoinValidatePin() {
         }
         // Launch Pards Golf for individual tournament round
         ptLaunchFoursomeRound(d);
-      }).catch(function(){
+      }).catch(function(_e){
         if(btn){btn.disabled=false;btn.textContent=_btnLabel;}
-        errEl.textContent='Network error.';errEl.style.display='block';
+        errEl.textContent=_ptMsg(_e,'Network error — check connection.');errEl.style.display='block';
       });
     return;
   }
@@ -35142,9 +35145,9 @@ function doJoinValidatePin() {
             } else { _ptProceedToScorer(); }
           }).catch(function(){ _ptProceedToScorer(); });
       } else { _ptProceedToScorer(); }
-    }).catch(function(){
+    }).catch(function(_e){
       if(btn){btn.disabled=false;btn.textContent=_btnLabel;}
-      errEl.textContent='Network error.';errEl.style.display='block';
+      errEl.textContent=_ptMsg(_e,'Network error — check connection.');errEl.style.display='block';
     });
 }
 
@@ -35262,7 +35265,7 @@ function ptAssignGcPick(name,handicap,ghin){
   }).then(_ptJson).then(function(d){
     if(!d.player){ptToast(d.error||'Failed');return;}
     ptAssignAddPlayer(d.player.id,d.player.name);
-  }).catch(function(){ptToast('Network error');});
+  }).catch(function(_e){ptToast(_ptEsc(_ptMsg(_e,'Network error — check connection.')));});
 }
 
 // v242.0 (roadmap #2) — the 013208 incident. A lookup that failed left the
@@ -35461,19 +35464,18 @@ async function ptRefreshGroupHandicaps(d, code){
     }).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
       .then(function(j){ if(!j.access_token) throw new Error('no token'); return j.access_token; });
 
-    var fresh = [];
-    for(var i=0; i<targets.length; i++){
-      var p = targets[i].p, gid = targets[i].gid;
-      try{
-        var rec = await _ptFetchT(base+'/handicap?cardId='+encodeURIComponent(gid), {
-          headers:{ 'Authorization':'Bearer '+token }
-        }).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-          .then(function(j){ return Array.isArray(j.data) ? j.data[0] : j; });
-        if(rec && rec.handicapValue !== undefined && rec.handicapValue !== null){
-          fresh.push({ trip_player_id: p.trip_player_id, handicap: Number(rec.handicapValue) });
-        }
-      }catch(e){ /* this player keeps their stored value */ }
-    }
+    // v247.3 — fetch all players in PARALLEL: the join now waits ~one 3s
+    // timeout total instead of 3s per player. A failed player just keeps
+    // their stored value; the rest still refresh.
+    var fresh = (await Promise.all(targets.map(function(t){
+      return _ptFetchT(base+'/handicap?cardId='+encodeURIComponent(t.gid), {
+        headers:{ 'Authorization':'Bearer '+token }
+      }).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+        .then(function(j){ var rec = Array.isArray(j.data) ? j.data[0] : j;
+          return (rec && rec.handicapValue !== undefined && rec.handicapValue !== null)
+            ? { trip_player_id: t.p.trip_player_id, handicap: Number(rec.handicapValue) } : null; })
+        .catch(function(){ return null; /* this player keeps their stored value */ });
+    }))).filter(Boolean);
     if(!fresh.length) return;
 
     var out = await _ptFetchT(
@@ -35537,9 +35539,18 @@ function doJoinTripLookup(code, btn, errEl) {
         // Auto-launch trip scoring — v247.1: handicaps lock at code entry.
         // ptRefreshGroupHandicaps ALWAYS resolves; scoring is never blocked on
         // Golf Canada. On any failure the stored values in `d` stand.
-        if(btn){ btn.disabled = true; btn.textContent = 'Updating handicaps…'; }
+        if(btn){ btn.disabled = true; }
+        var _hcpStatus = document.getElementById('ptJoinHcpStatus');
+        if(!_hcpStatus && btn && btn.parentNode){
+          _hcpStatus = document.createElement('div');
+          _hcpStatus.id = 'ptJoinHcpStatus';
+          _hcpStatus.style.cssText = 'margin-top:10px;text-align:center;font-size:13px;color:#c9a84c;font-weight:600';
+          btn.parentNode.insertBefore(_hcpStatus, btn.nextSibling);
+        }
+        if(_hcpStatus){ _hcpStatus.textContent = '\ud83c\udf41 Updating handicaps\u2026'; _hcpStatus.style.display = 'block'; }
         ptRefreshGroupHandicaps(d, code).then(function(){
         if(btn){ btn.disabled = false; btn.textContent = 'Find Group'; }
+        if(_hcpStatus){ _hcpStatus.style.display = 'none'; }
         var ft = d.foursome;
         var players = d.players||[];
         var foursomeData = {
@@ -36858,7 +36869,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v247.2';
+    const TOUR_VERSION     = 'pards-tour-v247.3';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
