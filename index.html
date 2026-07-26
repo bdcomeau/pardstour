@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v243.0 -->
+  <!-- pards-tour-v243.1 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -34661,9 +34661,17 @@ function doJoinLookup() {
   _ptJoinResetCard();
   btn.disabled=true;btn.textContent='Looking up…';
   fetch(TOUR_API+'/api/join/'+code)
-    .then(_ptJson).then(_ptThrow)
+    .then(_ptJson).catch(_ptNetErr)
     .then(function(d){
       btn.disabled=false;btn.textContent='Find Group';
+      // v243.1 — v242's _ptThrow here BROKE the lookup chain: a trip or
+      // foursome code 404s at this stage BY DESIGN and must fall through to
+      // the next lookup. Only non-404 failures are terminal.
+      if(d && d.error && d._http !== 404){
+        _ptJoinResetCard();
+        errEl.textContent=_ptEsc(d.error);errEl.style.display='block';
+        return;
+      }
       if(d.group){
         G.joinGroup=d.group;
         document.getElementById('ptJoinGrpName').textContent=d.group.name||'';
@@ -34712,9 +34720,14 @@ function doJoinLookup() {
 function doJoinRoundLookup(code, btn, errEl) {
   // Try the individual round foursome endpoint
   fetch(TOUR_API+'/api/join-round/'+code)
-    .then(_ptJson).then(_ptThrow)
+    .then(_ptJson).catch(_ptNetErr)
     .then(function(d){
       btn.disabled=false; btn.textContent='Find Group';
+      if(d && d.error && d._http !== 404){
+        _ptJoinResetCard();
+        errEl.textContent=_ptEsc(d.error); errEl.style.display='block';
+        return;
+      }
       if (d.foursome) {
         G._joinFoursome = d;
         document.getElementById('ptJoinGrpName').textContent = 'Round '+d.foursome.round_number+' Foursome';
@@ -34743,9 +34756,14 @@ function doJoinRoundLookup(code, btn, errEl) {
 
 function doJoinTripLookup(code, btn, errEl) {
   fetch(TOUR_API+'/api/join-trip/'+code)
-    .then(_ptJson).then(_ptThrow)
+    .then(_ptJson).catch(_ptNetErr)
     .then(function(d){
       btn.disabled=false; btn.textContent='Find Group';
+      if(d && d.error && d._http !== 404){
+        _ptJoinResetCard();
+        errEl.textContent=_ptEsc(d.error); errEl.style.display='block';
+        return;
+      }
       if(d.foursome){
         // Store trip join data and launch scoring directly
         G._joinTripData = d;
@@ -35451,6 +35469,34 @@ function ptLaunchFoursomeRound(foursomeData) {
   (function(){ var _sel=document.getElementById('startHoleSel'); if(_sel) _sel.value=String(G.startHole||1); var _ph=document.getElementById('pillHole'); if(_ph) _ph.textContent='Hole '+(G.startHole||1); })();
   // Ensure Pards Tour back button is visible
   (function(){ var _ptb=document.getElementById('ptTourBackBtn'); if(_ptb) _ptb.style.display='block'; })();
+  // v243.1 — resume cue: a resumed round used to land on the setup screen
+  // looking exactly like a fresh one; the only hint was that Start Golf
+  // silently restored the cards. Pure wrapper overlay on top of the setup
+  // screen — the engine is never touched.
+  (function(){
+    var _ex = document.getElementById('ptResumeCue'); if(_ex) _ex.remove();
+    var _rs = G._ptFoursomeResumeScores;
+    if(!_rs || !_rs.length) return;
+    var _sh = foursome.hole || 1, _n = 0, _resume = null;
+    for (var k = 0; k < 18; k++) {
+      var h = (_sh - 1 + k) % 18, any = false, all = true;
+      for (var p = 0; p < _rs.length; p++) { if (_rs[p][h] != null) any = true; else all = false; }
+      if (any) _n++;
+      if (!all && _resume === null) _resume = h + 1;
+    }
+    if (_resume === null) _resume = _sh;
+    var ov = document.createElement('div');
+    ov.id = 'ptResumeCue';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:24px';
+    ov.innerHTML = '<div style="background:#12240f;border:1.5px solid rgba(201,168,76,.55);border-radius:16px;padding:22px 20px;max-width:340px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.6)">'
+      +'<div style="font-size:34px;margin-bottom:8px">\u26f3</div>'
+      +'<div style="font-size:17px;font-weight:900;color:#f5e6b8;margin-bottom:8px">Round in Progress</div>'
+      +'<div style="font-size:14px;color:rgba(255,255,255,.78);line-height:1.55;margin-bottom:16px">'+_n+' of 18 holes already have scores.<br>Tap <strong style="color:#c9a84c">Start Golf</strong> below \u2014 your cards restore automatically. Next unscored hole: <strong style="color:#c9a84c">hole '+_resume+'</strong>.</div>'
+      +'<button onclick="document.getElementById(\'ptResumeCue\').remove()" style="width:100%;padding:13px;background:rgba(201,168,76,.2);border:1.5px solid rgba(201,168,76,.6);border-radius:12px;color:#c9a84c;font-size:15px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">Got it</button>'
+      +'</div>';
+    ov.addEventListener('click', function(e){ if (e.target === ov) ov.remove(); });
+    document.body.appendChild(ov);
+  })();
   G.roundDate = _savedDate;
   // Re-assert players from source — guards against any saveG/loadG clobber between setup
   G.n = players.length;
@@ -36057,7 +36103,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v243.0';
+    const TOUR_VERSION     = 'pards-tour-v243.1';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
