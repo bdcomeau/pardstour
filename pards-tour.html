@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v248.2 -->
+  <!-- pards-tour-v248.3 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -30249,6 +30249,13 @@ function ptScoringModes(cfg) {
   return ['stableford', 'gross', 'net'].filter(function(x){ return m.indexOf(x) !== -1; });
 }
 
+// v248.3 — one label source for every surface that NAMES an event's scoring:
+// Reports menu, print-report title, leaderboard mode tabs. Before v248.3 each
+// of those hardcoded the word "Stableford", so a gross/net event still
+// announced itself as stableford everywhere outside the standings block.
+function ptModeLabel(m) { return m === 'stableford' ? 'Stableford' : (m === 'gross' ? 'Gross' : 'Net'); }
+function ptScoringLabel(cfg) { return ptScoringModes(cfg).map(ptModeLabel).join(' + '); }
+
 // v248.0 — individual multi-day events. The player pool for a
 // {roster_mode:'individual'} event lives in config.event_roster as a snapshot
 // taken from the Roster when the organizer saves the Players picker:
@@ -30396,6 +30403,23 @@ function ptEffectiveFlight(cfg, p) {
   return ptAutoFlightName(ptFlightValueFor(p, cfg.flight_rule), cfg.flight_rule);
 }
 
+// v248.3 — Overall first, then one section per bracket in bracket order, then
+// Unflighted. ONE implementation, shared by the standings block, the live
+// Individual Leaderboard and the print reports: the v246.1 lesson was that a
+// second copy of a partition is where the off-by-one bracket bug hides. Empty
+// brackets are omitted; every row lands in exactly one non-Overall section.
+function ptFlightSections(cfg, rows) {
+  var sections = [{ name: null, rows: rows }];
+  if (!cfg || !cfg.flight_rule) return sections;
+  (PT_FLIGHT_BRACKETS[cfg.flight_rule] || []).forEach(function(b) {
+    var fr = rows.filter(function(p){ return ptEffectiveFlight(cfg, p) === b.name; });
+    if (fr.length) sections.push({ name: b.name, rows: fr });
+  });
+  var unf = rows.filter(function(p){ return !ptEffectiveFlight(cfg, p); });
+  if (unf.length) sections.push({ name: 'Unflighted', rows: unf });
+  return sections;
+}
+
 // Fetch all individual-round scores and compute every mode per player at once.
 function ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg) {
   var playerMap = {};
@@ -30468,7 +30492,7 @@ function ptRenderMdIndividual() {
     ih += '<div style="display:flex;gap:6px;margin-bottom:10px">';
     st.modes.forEach(function(m) {
       var on = m === mode;
-      var lbl = m === 'stableford' ? 'Stableford' : (m === 'gross' ? 'Gross' : 'Net');
+      var lbl = ptModeLabel(m);                                 // v248.3 — shared
       ih += '<button onclick="ptMdSetMode(\'' + m + '\')" style="flex:1;padding:8px;border-radius:9px;border:1.5px solid rgba(168,213,181,' + (on ? '.6' : '.2') + ');background:' + (on ? 'rgba(168,213,181,.15)' : 'none') + ';color:' + (on ? '#a8d5b5' : 'rgba(168,213,181,.5)') + ';font-size:12px;font-weight:800;cursor:pointer">' + lbl + '</button>';
     });
     ih += '</div>';
@@ -30478,15 +30502,7 @@ function ptRenderMdIndividual() {
     wrap.innerHTML = ih;
     return;
   }
-  var sections = [{ name: null, rows: st.rows }];
-  if (st.cfg.flight_rule) {
-    (PT_FLIGHT_BRACKETS[st.cfg.flight_rule] || []).forEach(function(b) {
-      var fr = st.rows.filter(function(p){ return ptEffectiveFlight(st.cfg, p) === b.name; });
-      if (fr.length) sections.push({ name: b.name, rows: fr });
-    });
-    var unf = st.rows.filter(function(p){ return !ptEffectiveFlight(st.cfg, p); });
-    if (unf.length) sections.push({ name: 'Unflighted', rows: unf });
-  }
+  var sections = ptFlightSections(st.cfg, st.rows);            // v248.3 — shared
   sections.forEach(function(sec) {
     if (sec.name) ih += '<div style="margin-top:14px;margin-bottom:6px;font-size:11px;font-weight:800;color:rgba(201,168,76,.75);text-transform:uppercase;letter-spacing:.5px">\u26f3 ' + sec.name + ' <span style="color:rgba(255,255,255,.25);font-weight:600">(' + sec.rows.length + ')</span></div>';
     ih += '<div style="display:grid;grid-template-columns:1fr' + ' auto'.repeat(nR) + ' auto;gap:4px;margin-bottom:8px;padding:0 4px">';
@@ -31520,7 +31536,9 @@ function ptShowReportsMenu(eventId) {
   ]).then(function(results) {
     var rounds = results[0].rounds || [];
     var ev = results[1].event || {};
-    var _indR = ptIsIndividualEvent(ptEvCfg(ev));                        // v248.0
+    var _evCfg = ptEvCfg(ev);                                            // v248.3
+    var _indR = ptIsIndividualEvent(_evCfg);                             // v248.0
+    var _indLbl = 'Individual ' + ptScoringLabel(_evCfg);                // v248.3
 
     var ov = document.createElement('div');
     ov.id = 'ptReportsOv';
@@ -31540,13 +31558,13 @@ function ptShowReportsMenu(eventId) {
       h += '<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">Per-Round Reports</div>';
       rounds.forEach(function(r) {
         var label = 'Round ' + r.round_number;
-        var fmtLabel = r.format === 'individual_stableford' ? 'Individual Stableford'
+        var fmtLabel = r.format === 'individual_stableford' ? _indLbl
           : r.format === 'scramble_stableford' ? 'Scramble Stableford'
           : r.format === 'scramble' ? 'Scramble'
           : (r.format || '');
         if (r.format === 'individual_stableford') {
           h += '<button onclick="ptPrintIndividualRoundReport('+eventId+','+JSON.stringify(r).replace(/"/g,'&quot;')+')" style="display:block;width:100%;text-align:left;margin-bottom:6px;padding:11px 14px;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:10px;color:#ddd;font-size:13px;cursor:pointer">'
-            + '<span style="font-weight:800;color:#c9a84c">'+label+'</span> &mdash; Individual Stableford'
+            + '<span style="font-weight:800;color:#c9a84c">'+label+'</span> &mdash; '+_indLbl
             + '</button>';
           if (!_indR) h += '<button onclick="ptPrintTeamDayReport('+eventId+','+JSON.stringify(r).replace(/"/g,'&quot;')+')" style="display:block;width:100%;text-align:left;margin-bottom:6px;padding:11px 14px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.12);border-radius:10px;color:rgba(255,255,255,.6);font-size:13px;cursor:pointer">'
             + '<span style="font-weight:800;color:rgba(201,168,76,.7)">'+label+'</span> &mdash; Team Totals'
@@ -31592,11 +31610,23 @@ function ptPrintIndividualRoundReport(eventId, round) {
     var scores = results[1].scores || [];
     var groups = results[2].groups || [];
 
-    // Build player roster map: roster_id -> {name, handicap, team_name}
+    // v248.3 — the report now follows the event's OWN scoring setup instead of
+    // always printing stableford: columns, sort key, title and flight sections
+    // all come from config.scoring_modes / config.flight_rule.
+    var cfg = ptEvCfg(ev);
+    var modes = ptScoringModes(cfg);
+    var primary = modes[0];
+    var showPts = modes.indexOf('stableford') !== -1;
+    var showNet = modes.indexOf('net') !== -1;
+    // A circled number means "stroke received here" — only meaningful when a
+    // handicap actually moves the result (net or stableford), never for gross.
+    var showStrokes = showNet || showPts;
+
+    // Build player roster map: roster_id -> {name, handicap, age, team_name}
     // v248.0 — via ptEventPool so individual events resolve handicaps too
     var playerMap = {};
-    ptEventPool(ptEvCfg(ev), groups).forEach(function(p) {
-      playerMap[String(p.roster_id)] = { name: p.name, handicap: p.handicap || 0, team_name: p.team || '' };
+    ptEventPool(cfg, groups).forEach(function(p) {
+      playerMap[String(p.roster_id)] = { name: p.name, handicap: p.handicap || 0, age: p.age, team_name: p.team || '' };
     });
 
     // Group scores by player (roster_id or player_name)
@@ -31612,11 +31642,11 @@ function ptPrintIndividualRoundReport(eventId, round) {
     var pars = ptGetHolePars(round.course_id, round.tee) || Array(18).fill(4);
     var teeData = ptResolveCourse(round.course_id, round.tee);
 
-    // Build player rows with stableford calculation
+    // Build player rows — every mode computed, the enabled ones displayed
     var playerRows = Object.keys(byPlayer).map(function(key) {
       var pd = byPlayer[key];
       var pInfo = pd.roster_id ? (playerMap[String(pd.roster_id)] || {}) : {};
-      var name = pInfo.name || pd.player_name || '—';
+      var name = pInfo.name || pd.player_name || '\u2014';
       var teamName = pInfo.team_name || '';
       var hdcpIdx = pInfo.handicap || 0;
       var courseHdcp = Math.round(ptCalcCourseHandicap(hdcpIdx, teeData.slope, teeData.rating, teeData.par));
@@ -31637,20 +31667,21 @@ function ptPrintIndividualRoundReport(eventId, round) {
         if (courseHdcp < 0) strokes = Math.ceil(courseHdcp / 18) - (holeSI <= (Math.abs(courseHdcp) % 18) ? 1 : 0);
         var net = gross - strokes;
         var diff = holePar - net;
-        var pts = ptStablefordPts(diff, gross); // v247.2 — unified tour scale
+        var pts = ptStablefordPts(diff, gross); // v247.2 \u2014 unified tour scale
         grossArr[hIdx] = gross;
-        ptsArr[hIdx] = { pts: pts, strokes: strokes };
+        ptsArr[hIdx] = { pts: pts, strokes: strokes, par: holePar };
         totalGross += gross;
         totalPts += pts;
         holesPlayed++;
       }
-      return { name: name, teamName: teamName, hdcpIdx: hdcpIdx, courseHdcp: courseHdcp, grossArr: grossArr, ptsArr: ptsArr, totalGross: totalGross, totalPts: totalPts, holesPlayed: holesPlayed };
-    });
-
-    // Sort by totalPts desc, holesPlayed desc
-    playerRows.sort(function(a, b) {
-      if (b.totalPts !== a.totalPts) return b.totalPts - a.totalPts;
-      return b.holesPlayed - a.holesPlayed;
+      // pts/gross/net/holes are the field names ptMdSortRows + ptMdKey expect —
+      // the report and the on-screen standings are then provably the same order.
+      return { roster_id: pd.roster_id, name: name, teamName: teamName, team: teamName,
+               hdcpIdx: hdcpIdx, handicap: hdcpIdx, age: pInfo.age, courseHdcp: courseHdcp,
+               grossArr: grossArr, ptsArr: ptsArr,
+               totalGross: totalGross, totalPts: totalPts, totalNet: totalGross - courseHdcp,
+               pts: totalPts, gross: totalGross, net: totalGross - courseHdcp, holes: holesPlayed,
+               holesPlayed: holesPlayed };
     });
 
     // Build HTML
@@ -31669,7 +31700,7 @@ function ptPrintIndividualRoundReport(eventId, round) {
       + '.rpt-hdr h1{font-size:18px;font-weight:900;margin-bottom:4px;color:#c9a84c}'
       + '.meta{font-size:11px;color:rgba(245,230,184,.7);line-height:1.9}'
       + '.meta span{margin-right:16px}'
-      + 'table{width:100%;border-collapse:collapse;font-size:10px}'
+      + 'table{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:6px}'
       + 'thead th{background:#1a3a2a;color:#c9a84c;padding:5px 4px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;text-align:center;white-space:nowrap}'
       + 'thead th.left{text-align:left}'
       + 'td{padding:5px 4px;border-bottom:1px solid #e8e0cc;text-align:center;vertical-align:middle;white-space:nowrap}'
@@ -31681,6 +31712,8 @@ function ptPrintIndividualRoundReport(eventId, round) {
       + '.hdcp{color:#555;font-size:9px}'
       + '.pts-total{font-weight:900;font-size:13px;color:#1a5c3a;background:#e8f5ee}'
       + '.gross-total{font-weight:700}'
+      + '.sec-hdr{margin:16px 0 6px;font-size:12px;font-weight:900;color:#1a5c3a;border-left:4px solid #c9a84c;padding-left:8px;text-transform:uppercase;letter-spacing:.5px}'
+      + '.sec-hdr span{color:#888;font-weight:600;text-transform:none;letter-spacing:0}'
       + '.circle{display:inline-block;border-radius:50%;border:1.5px solid #1a5276;width:17px;height:17px;line-height:14px;text-align:center;font-size:9px}'
       + '.si-row td{background:#f0ede6;font-size:9px;color:#888;font-weight:700;border-bottom:2px solid #c9a84c}'
       + '.par-row td{background:#e8f5ee;font-size:9px;color:#1a5c3a;font-weight:700;border-bottom:2px solid #2d6a4f}'
@@ -31692,75 +31725,111 @@ function ptPrintIndividualRoundReport(eventId, round) {
       + '.pts0{color:#ccc}'
       + '.footer{margin-top:12px;font-size:9px;color:#aaa;border-top:1px solid #e0d8c8;padding-top:6px;display:flex;justify-content:space-between}'
       + '#ptRptBar{position:fixed;top:0;left:0;right:0;background:#1a3a2a;padding:7px 16px;display:flex;align-items:center;justify-content:space-between;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)}'
-      + '@media print{@page{size:letter landscape;margin:8mm}body{padding:0}#ptRptBar{display:none!important}.rpt-hdr,.pts-total,.circle{-webkit-print-color-adjust:exact;print-color-adjust:exact}}';
+      + '@media print{@page{size:letter landscape;margin:8mm}body{padding:0}#ptRptBar{display:none!important}.rpt-hdr,.pts-total,.circle,.sec-hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact}tbody{break-inside:avoid}}';
 
-    // Table header row
+    // Trailing total columns, in the fixed display order, primary highlighted
+    var totalCols = [{ key: 'gross', label: 'Gross' }];
+    if (showNet)  totalCols.push({ key: 'net',  label: 'Net' });
+    if (showPts)  totalCols.push({ key: 'pts',  label: 'Pts' });
+    var padCols = totalCols.map(function(){ return '<td></td>'; }).join('');
+
+    // Table header rows
     var holeHeaders = '';
-    for (var i = 1; i <= 18; i++) {
-      holeHeaders += '<th>' + i + '</th>';
-    }
+    for (var i = 1; i <= 18; i++) holeHeaders += '<th>' + i + '</th>';
     var thRow = '<tr><th class="left" style="width:24px">Pos</th><th class="left" style="min-width:100px">Player</th><th>Hdcp</th>'
       + holeHeaders
-      + '<th>Gross</th><th>Pts</th></tr>';
+      + totalCols.map(function(c){ return '<th>' + c.label + '</th>'; }).join('')
+      + '</tr>';
 
-    // SI header row
     var siCells = '';
     for (var i = 0; i < 18; i++) siCells += '<td>' + (si[i] || '?') + '</td>';
-    var siRow = '<tr class="si-row"><td></td><td class="left">SI</td><td></td>' + siCells + '<td></td><td></td></tr>';
+    var siRow = '<tr class="si-row"><td></td><td class="left">SI</td><td></td>' + siCells + padCols + '</tr>';
 
-    // Par header row
     var parCells = '';
     var totalPar = 0;
     for (var i = 0; i < 18; i++) { parCells += '<td>' + (pars[i] || 4) + '</td>'; totalPar += (pars[i] || 4); }
-    var parRow = '<tr class="par-row"><td></td><td class="left">Par</td><td></td>' + parCells + '<td>' + totalPar + '</td><td></td></tr>';
+    var parRow = '<tr class="par-row"><td></td><td class="left">Par</td><td></td>' + parCells
+      + totalCols.map(function(c){ return '<td>' + (c.key === 'gross' ? totalPar : '') + '</td>'; }).join('')
+      + '</tr>';
 
-    // Player rows
-    var bodyRows = playerRows.map(function(pr, idx) {
-      var cells = '';
-      for (var i = 0; i < 18; i++) {
-        var gross = pr.grossArr[i];
-        var ptsInfo = pr.ptsArr[i];
-        if (gross == null) { cells += '<td style="color:#ddd">—</td>'; continue; }
-        var hasStroke = ptsInfo && ptsInfo.strokes > 0;
-        var ptsClass = ptsInfo ? ('pts' + ptsInfo.pts) : 'pts2';
-        var cellContent = hasStroke ? '<span class="circle">' + gross + '</span>' : gross;
-        cells += '<td class="' + ptsClass + '">' + cellContent + '</td>';
-      }
-      var isTop = idx < 3;
-      return '<tr>'
-        + '<td class="pos">' + (idx + 1) + '</td>'
-        + '<td class="left"><div class="player-name">' + pr.name + '</div><div class="team-name">' + pr.teamName + '</div></td>'
-        + '<td class="hdcp">' + pr.hdcpIdx + '<br><span style="font-size:8px;color:#aaa">CH:' + pr.courseHdcp + '</span></td>'
-        + cells
-        + '<td class="gross-total">' + (pr.holesPlayed > 0 ? pr.totalGross : '—') + '</td>'
-        + '<td class="pts-total">' + (pr.holesPlayed > 0 ? pr.totalPts : '—') + '</td>'
-        + '</tr>';
+    function buildTable(rows) {
+      var sorted = ptMdSortRows(rows, primary);          // v248.3 \u2014 same comparator as the screen
+      var ranks = [];
+      sorted.forEach(function(p, i) {
+        ranks[i] = (i > 0 && ptMdKey(sorted[i-1], primary) === ptMdKey(p, primary) && sorted[i-1].holes === p.holes) ? ranks[i-1] : i + 1;
+      });
+      var bodyRows = sorted.map(function(pr, idx) {
+        var cells = '';
+        for (var i = 0; i < 18; i++) {
+          var gross = pr.grossArr[i];
+          var ptsInfo = pr.ptsArr[i];
+          if (gross == null) { cells += '<td style="color:#ddd">\u2014</td>'; continue; }
+          // Colour the hole the way this event is being scored: by stableford
+          // points when stableford is on, otherwise by plain gross-to-par.
+          var band = showPts
+            ? (ptsInfo ? ptsInfo.pts : 2)
+            : Math.max(0, Math.min(4, 2 + ((ptsInfo ? ptsInfo.par : 4) - gross)));
+          var hasStroke = showStrokes && ptsInfo && ptsInfo.strokes > 0;
+          cells += '<td class="pts' + band + '">' + (hasStroke ? '<span class="circle">' + gross + '</span>' : gross) + '</td>';
+        }
+        return '<tr>'
+          + '<td class="pos">' + ranks[idx] + '</td>'
+          + '<td class="left"><div class="player-name">' + pr.name + '</div><div class="team-name">' + pr.teamName + '</div></td>'
+          + '<td class="hdcp">' + pr.hdcpIdx + '<br><span style="font-size:8px;color:#aaa">CH:' + pr.courseHdcp + '</span></td>'
+          + cells
+          + totalCols.map(function(c) {
+              var v = c.key === 'gross' ? pr.totalGross : (c.key === 'net' ? pr.totalNet : pr.totalPts);
+              return '<td class="' + (c.key === primary ? 'pts-total' : 'gross-total') + '">' + (pr.holesPlayed > 0 ? v : '\u2014') + '</td>';
+            }).join('')
+          + '</tr>';
+      }).join('');
+      return '<table><thead>' + thRow + siRow + parRow + '</thead><tbody>' + bodyRows + '</tbody></table>';
+    }
+
+    // Overall first, then one table per flight (v248.3 \u2014 shared partition)
+    var tables = ptFlightSections(cfg, playerRows).map(function(sec) {
+      return (sec.name ? '<div class="sec-hdr">\u26f3 ' + sec.name + ' <span>(' + sec.rows.length + ')</span></div>' : '')
+        + buildTable(sec.rows);
     }).join('');
 
+    var legend = showPts
+      ? '<span style="color:#8B0000;font-weight:700">Eagle(4)</span>'
+        + '<span style="color:#1a5c3a;font-weight:700">Birdie(3)</span>'
+        + '<span style="color:#1a5276;font-weight:700">Par(2)</span>'
+        + '<span>Bogey(1)</span>'
+        + '<span style="color:#ccc">Dbl+(0)</span>'
+      : '<span style="color:#8B0000;font-weight:700">Eagle</span>'
+        + '<span style="color:#1a5c3a;font-weight:700">Birdie</span>'
+        + '<span style="color:#1a5276;font-weight:700">Par</span>'
+        + '<span>Bogey</span>'
+        + '<span style="color:#ccc">Dbl+</span>';
+
+    var scoringLabel = ptScoringLabel(cfg);
+    var sortNote = primary === 'stableford' ? 'Ranked by Stableford points \u00b7 high wins'
+      : (primary === 'gross' ? 'Ranked by gross strokes \u00b7 low wins'
+                             : 'Ranked by net (gross \u2212 full course handicap) \u00b7 low wins');
+
     var html = '<!DOCTYPE html><html><head><meta charset="utf-8">'
-      + '<title>Round ' + round.round_number + ' — Individual Report</title>'
+      + '<title>Round ' + round.round_number + ' \u2014 Individual Report</title>'
       + '<style>' + css + '</style></head><body>'
       + '<div id="ptRptBar">'
-      + '<span style="color:#c9a84c;font-weight:800;font-size:13px">' + ev.name + ' — Round ' + round.round_number + ' Individual</span>'
-      + '<button onclick="window.print()" style="background:#c9a84c;color:#1a3a2a;border:none;border-radius:8px;padding:6px 16px;font-size:12px;font-weight:800;cursor:pointer">🖨 Print / Save PDF</button>'
+      + '<span style="color:#c9a84c;font-weight:800;font-size:13px">' + ev.name + ' \u2014 Round ' + round.round_number + ' Individual</span>'
+      + '<button onclick="window.print()" style="background:#c9a84c;color:#1a3a2a;border:none;border-radius:8px;padding:6px 16px;font-size:12px;font-weight:800;cursor:pointer">\ud83d\udda8 Print / Save PDF</button>'
       + '</div>'
       + '<div style="height:40px"></div>'
-      + '<div class="rpt-hdr"><h1>' + ev.name + ' — Round ' + round.round_number + ' Individual Stableford</h1>'
+      + '<div class="rpt-hdr"><h1>' + ev.name + ' \u2014 Round ' + round.round_number + ' Individual ' + scoringLabel + '</h1>'
       + '<div class="meta">'
-      + (dateStr ? '<span>📅 ' + dateStr + '</span>' : '')
-      + (courseName ? '<span>⛳ ' + courseName + '</span>' : '')
-      + (teeInfo ? '<span>🎯 ' + teeInfo + '</span>' : '')
+      + (dateStr ? '<span>\ud83d\udcc5 ' + dateStr + '</span>' : '')
+      + (courseName ? '<span>\u26f3 ' + courseName + '</span>' : '')
+      + (teeInfo ? '<span>\ud83c\udfaf ' + teeInfo + '</span>' : '')
+      + (cfg.flight_rule ? '<span>\ud83c\udff3\ufe0f ' + (cfg.flight_rule === 'age' ? 'Age' : 'Handicap') + ' flights</span>' : '')
       + '</div></div>'
-      + '<table><thead>' + thRow + siRow + parRow + '</thead><tbody>' + bodyRows + '</tbody></table>'
+      + tables
       + '<div style="margin-top:10px;font-size:9px;color:#888;display:flex;gap:16px;flex-wrap:wrap">'
-      + '<span>⭕ = stroke received on hole</span>'
-      + '<span style="color:#8B0000;font-weight:700">Eagle(4)</span>'
-      + '<span style="color:#1a5c3a;font-weight:700">Birdie(3)</span>'
-      + '<span style="color:#1a5276;font-weight:700">Par(2)</span>'
-      + '<span>Bogey(1)</span>'
-      + '<span style="color:#ccc">Dbl+(0)</span>'
+      + (showStrokes ? '<span>\u2b55 = stroke received on hole</span>' : '')
+      + legend
       + '</div>'
-      + '<div class="footer"><span>Pards Tour — pards.golf</span><span>Printed ' + new Date().toLocaleString() + '</span></div>'
+      + '<div class="footer"><span>Pards Tour \u2014 pards.golf \u00b7 ' + sortNote + '</span><span>Printed ' + new Date().toLocaleString() + '</span></div>'
       + '</body></html>';
 
     _ptOpenPrintBlob(html, 'ptPrintFrame');
@@ -32252,6 +32321,70 @@ function ptPrintTeamOverallReport(eventId) {
 
 // ── Individual Overall Leaderboard (Live Overlay) ─────────────────────────────
 
+function ptIndivLbSetMode(m) {
+  if (G._indivLb) { G._indivLb.mode = m; ptRenderIndivLb(); }
+}
+
+// v248.3 — renders G._indivLb with the SAME helpers the standings block uses
+// (ptMdSortRows / ptMdKey / ptFlightSections / ptModeLabel), so the two
+// surfaces cannot disagree about order, ties or flight membership.
+function ptRenderIndivLb() {
+  var st = G._indivLb, body = document.getElementById('ptIndivLbBody');
+  if (!st || !body) return;
+  var mode = st.mode, nR = st.rounds.length;
+  var h = '';
+  if (st.modes.length > 1) {
+    h += '<div style="display:flex;gap:6px;margin-bottom:12px">';
+    st.modes.forEach(function(m) {
+      var on = m === mode;
+      h += '<button onclick="ptIndivLbSetMode(\'' + m + '\')" style="flex:1;padding:9px;border-radius:9px;border:1.5px solid rgba(201,168,76,' + (on ? '.7' : '.2') + ');background:' + (on ? 'rgba(201,168,76,.15)' : 'none') + ';color:' + (on ? '#c9a84c' : 'rgba(201,168,76,.5)') + ';font-size:12px;font-weight:800;cursor:pointer">' + ptModeLabel(m) + '</button>';
+    });
+    h += '</div>';
+  }
+  if (!st.rows.length) {
+    body.innerHTML = '<div style="color:rgba(255,255,255,.35);text-align:center;padding:40px 0;font-size:14px">No scores yet.</div>';
+    return;
+  }
+  ptFlightSections(st.cfg, st.rows).forEach(function(sec) {
+    if (sec.name) h += '<div style="margin-top:18px;margin-bottom:8px;font-size:11px;font-weight:800;color:rgba(201,168,76,.75);text-transform:uppercase;letter-spacing:.5px">\u26f3 ' + sec.name + ' <span style="color:rgba(255,255,255,.25);font-weight:600">(' + sec.rows.length + ')</span></div>';
+    h += '<div style="display:grid;grid-template-columns:28px 1fr' + ' auto'.repeat(nR) + ' auto;gap:4px;margin-bottom:8px;padding:0 4px;align-items:center">';
+    h += '<div style="font-size:9px;color:rgba(255,255,255,.3);font-weight:700;text-transform:uppercase">#</div>';
+    h += '<div style="font-size:9px;color:rgba(255,255,255,.3);font-weight:700;text-transform:uppercase">Player</div>';
+    st.rounds.forEach(function(r) {
+      h += '<div style="font-size:9px;color:rgba(201,168,76,.6);font-weight:700;text-align:center;min-width:30px">R' + r.round_number + '</div>';
+    });
+    h += '<div style="font-size:9px;color:rgba(201,168,76,.9);font-weight:700;text-align:center;min-width:36px">TOT</div>';
+    h += '</div>';
+    var sorted = ptMdSortRows(sec.rows, mode);
+    var ranks = [];
+    sorted.forEach(function(p, i) {
+      ranks[i] = (i > 0 && ptMdKey(sorted[i-1], mode) === ptMdKey(p, mode) && sorted[i-1].holes === p.holes) ? ranks[i-1] : i + 1;
+    });
+    sorted.forEach(function(pr, idx) {
+      var rk = ranks[idx];
+      var isTop = rk === 1;
+      var medal = rk === 1 ? '\ud83e\udd47' : rk === 2 ? '\ud83e\udd48' : rk === 3 ? '\ud83e\udd49' : String(rk);
+      h += '<div style="display:grid;grid-template-columns:28px 1fr' + ' auto'.repeat(nR) + ' auto;gap:4px;align-items:center;padding:10px;background:' + (isTop ? 'rgba(201,168,76,.12)' : 'rgba(255,255,255,.04)') + ';border:1px solid ' + (isTop ? 'rgba(201,168,76,.3)' : 'rgba(255,255,255,.06)') + ';border-radius:10px;margin-bottom:6px">';
+      h += '<div style="font-size:' + (rk < 4 ? '16' : '12') + 'px;text-align:center">' + medal + '</div>';
+      h += '<div><div style="font-size:13px;font-weight:800;color:' + (isTop ? '#f5e6b8' : '#ddd') + '">' + pr.name + '</div><div style="font-size:10px;color:rgba(255,255,255,.4)">' + pr.team + (mode === 'net' && pr.handicap != null ? (pr.team ? ' \u00b7 ' : '') + 'hcp ' + pr.handicap : '') + '</div></div>';
+      st.rounds.forEach(function(r) {
+        var rd = pr.rounds[r.round_number];
+        var v = rd ? (mode === 'stableford' ? rd.pts : (mode === 'gross' ? rd.gross : rd.net)) : null;
+        h += '<div style="text-align:center;min-width:30px;font-size:13px;font-weight:700;color:' + (v != null ? 'rgba(255,255,255,.7)' : 'rgba(255,255,255,.2)') + '">' + (v != null ? v : '\u2014') + '</div>';
+      });
+      h += '<div style="text-align:center;min-width:36px;font-size:16px;font-weight:900;color:' + (isTop ? '#c9a84c' : '#aaa') + '">' + ptMdKey(pr, mode) + '</div>';
+      h += '</div>';
+    });
+  });
+  var foot = mode === 'stableford' ? 'Net Stableford \u00b7 high wins' : (mode === 'gross' ? 'Gross \u00b7 total strokes, low wins' : 'Net \u00b7 gross \u2212 full course handicap, low wins');
+  h += '<div style="margin-top:16px;font-size:10px;color:rgba(255,255,255,.2);text-align:center">' + foot + ' \u00b7 Individual rounds only</div>';
+  body.innerHTML = h;
+}
+
+// v248.3 — was a second, stableford-only copy of the standings aggregation:
+// it ignored config.scoring_modes and config.flight_rule entirely, so a
+// gross/net flighted club championship still showed points here. It now
+// shares ptBuildMdIndividual with the standings block.
 function ptShowIndividualLeaderboard(eventId) {
   var headers = {};
   if (G.orgToken) headers['Authorization'] = 'Bearer ' + G.orgToken;
@@ -32265,7 +32398,7 @@ function ptShowIndividualLeaderboard(eventId) {
     + '<div style="width:32px"></div>'
     + '</div>'
     + '<div id="ptIndivLbBody" style="flex:1;overflow-y:auto;padding:16px 16px 40px">'
-    + '<div style="color:rgba(255,255,255,.4);text-align:center;padding:40px 0;font-size:14px">Loading…</div>'
+    + '<div style="color:rgba(255,255,255,.4);text-align:center;padding:40px 0;font-size:14px">Loading\u2026</div>'
     + '</div>';
   document.body.appendChild(ov);
 
@@ -32278,7 +32411,7 @@ function ptShowIndividualLeaderboard(eventId) {
   ]).then(function(results) {
     var rounds = results[0].rounds || [];
     var groups = results[1].groups || [];
-    var evCfg2 = results[2] || {};
+    var cfg = results[2] || {};
     var body = document.getElementById('ptIndivLbBody');
     if (!body) return;
 
@@ -32286,99 +32419,15 @@ function ptShowIndividualLeaderboard(eventId) {
       body.innerHTML = '<div style="color:rgba(255,255,255,.35);text-align:center;padding:40px 0;font-size:14px">No rounds set up yet.</div>';
       return;
     }
-
-    // Build player map: roster_id -> {name, team_name, handicap}
-    // v248.0 — via ptEventPool so individual events resolve names + handicaps
-    var playerMap = {};
-    ptEventPool(evCfg2, groups).forEach(function(p) {
-      playerMap[String(p.roster_id)] = { name: p.name, team_name: p.team || '', handicap: p.handicap || 0 };
-    });
-
-    // Fetch scores for all individual rounds
     var indivRounds = rounds.filter(function(r){ return r.format === 'individual_stableford'; });
     if (!indivRounds.length) {
-      body.innerHTML = '<div style="color:rgba(255,255,255,.35);text-align:center;padding:40px 0;font-size:14px">No individual stableford rounds yet.</div>';
+      body.innerHTML = '<div style="color:rgba(255,255,255,.35);text-align:center;padding:40px 0;font-size:14px">No individual rounds yet.</div>';
       return;
     }
 
-    var roundPromises = indivRounds.map(function(r) {
-      return fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers })
-        .then(_ptJson)
-        .then(function(d){ return { round: r, scores: d.scores || [] }; })
-        .catch(function(){ return { round: r, scores: [] }; });
-    });
-
-    Promise.all(roundPromises).then(function(roundResults) {
-      // Aggregate per player: round_number -> pts
-      var playerTotals = {};
-
-      roundResults.forEach(function(rr) {
-        var r = rr.round;
-        var byPlayer = {};
-        rr.scores.forEach(function(s) {
-          var key = s.roster_id ? 'r'+s.roster_id : 'n'+s.player_name;
-          if (!byPlayer[key]) byPlayer[key] = { roster_id: s.roster_id, player_name: s.player_name, holes: {} };
-          byPlayer[key].holes[s.hole] = s.gross_score;
-        });
-
-        Object.keys(byPlayer).forEach(function(key) {
-          var pd = byPlayer[key];
-          var pInfo = pd.roster_id ? (playerMap[String(pd.roster_id)] || {}) : {};
-          var hdcpIdx = pInfo.handicap || 0;
-          var grossArr = Object.keys(pd.holes).map(function(h){ return {hole:parseInt(h), gross_score:pd.holes[h]}; });
-          var result = ptCalcStablefordPoints(grossArr, r.course_id, r.tee, hdcpIdx);
-          if (result.holes_played === 0) return;
-
-          if (!playerTotals[key]) {
-            playerTotals[key] = {
-              roster_id: pd.roster_id,
-              player_name: pd.player_name,
-              name: pInfo.name || pd.player_name || '—',
-              team_name: pInfo.team_name || '',
-              rounds: {},
-              total: 0
-            };
-          }
-          playerTotals[key].rounds[r.round_number] = result.total_points;
-          playerTotals[key].total += result.total_points;
-        });
-      });
-
-      var playerRows = Object.values(playerTotals);
-      playerRows.sort(function(a, b){ return b.total - a.total; });
-
-      if (!playerRows.length) {
-        body.innerHTML = '<div style="color:rgba(255,255,255,.35);text-align:center;padding:40px 0;font-size:14px">No scores yet.</div>';
-        return;
-      }
-
-      var h = '';
-      // Header
-      h += '<div style="display:grid;grid-template-columns:28px 1fr' + ' auto'.repeat(indivRounds.length) + ' auto;gap:4px;margin-bottom:8px;padding:0 4px;align-items:center">';
-      h += '<div style="font-size:9px;color:rgba(255,255,255,.3);font-weight:700;text-transform:uppercase">#</div>';
-      h += '<div style="font-size:9px;color:rgba(255,255,255,.3);font-weight:700;text-transform:uppercase">Player</div>';
-      indivRounds.forEach(function(r) {
-        h += '<div style="font-size:9px;color:rgba(201,168,76,.6);font-weight:700;text-align:center;min-width:30px">R' + r.round_number + '</div>';
-      });
-      h += '<div style="font-size:9px;color:rgba(201,168,76,.9);font-weight:700;text-align:center;min-width:36px">TOT</div>';
-      h += '</div>';
-
-      playerRows.forEach(function(pr, idx) {
-        var isTop = idx === 0;
-        var medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '';
-        h += '<div style="display:grid;grid-template-columns:28px 1fr' + ' auto'.repeat(indivRounds.length) + ' auto;gap:4px;align-items:center;padding:10px;background:' + (isTop ? 'rgba(201,168,76,.12)' : 'rgba(255,255,255,.04)') + ';border:1px solid ' + (isTop ? 'rgba(201,168,76,.3)' : 'rgba(255,255,255,.06)') + ';border-radius:10px;margin-bottom:6px">';
-        h += '<div style="font-size:' + (idx < 3 ? '16' : '12') + 'px;text-align:center">' + (medal || (idx+1)) + '</div>';
-        h += '<div><div style="font-size:13px;font-weight:800;color:' + (isTop ? '#f5e6b8' : '#ddd') + '">' + pr.name + '</div><div style="font-size:10px;color:rgba(255,255,255,.4)">' + pr.team_name + '</div></div>';
-        indivRounds.forEach(function(r) {
-          var pts = pr.rounds[r.round_number];
-          h += '<div style="text-align:center;min-width:30px;font-size:13px;font-weight:700;color:' + (pts != null ? 'rgba(255,255,255,.7)' : 'rgba(255,255,255,.2)') + '">' + (pts != null ? pts : '—') + '</div>';
-        });
-        h += '<div style="text-align:center;min-width:36px;font-size:16px;font-weight:900;color:' + (isTop ? '#c9a84c' : '#aaa') + '">' + pr.total + '</div>';
-        h += '</div>';
-      });
-
-      h += '<div style="margin-top:16px;font-size:10px;color:rgba(255,255,255,.2);text-align:center">Net Stableford · Individual rounds only</div>';
-      body.innerHTML = h;
+    return ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg).then(function(st) {
+      G._indivLb = st;
+      ptRenderIndivLb();
     });
   }).catch(function() {
     var body = document.getElementById('ptIndivLbBody');
@@ -37079,7 +37128,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v248.2';
+    const TOUR_VERSION     = 'pards-tour-v248.3';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
