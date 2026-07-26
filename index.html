@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v250.1 -->
+  <!-- pards-tour-v250.2 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -37288,11 +37288,16 @@ self.addEventListener('fetch',e=>{
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
         keepalive: !!keepalive
-      }).then(function (r) { return r.json(); })
-        .then(function (d) {
-          if (d && d.error) { console.warn('[pt-sync] rejected:', d.error); return { error: d.error }; }
+      }).then(function (r) {
+        return r.json().then(function (d) {
+          if (d && d.error) {
+            console.warn('[pt-sync] rejected:', d.error);
+            if (r.status === 409) _syncHalt(d.error); // v250.2 — 409 means NEVER, not "try later"
+            return { error: d.error, _http: r.status };
+          }
           return d || { ok: true };
-        })
+        });
+      })
         .catch(function (e) { console.warn('[pt-sync] failed:', e && e.message); return { error: String((e && e.message) || e) }; });
     } catch (e) { return Promise.resolve({ error: String(e) }); }
   }
@@ -37325,7 +37330,7 @@ self.addEventListener('fetch',e=>{
   }
 
   function _flush(keepalive) {
-    if (!_active()) return;
+    if (_halted || !_active()) return; // v250.2 — no retries while the server says never
     var byPi = _diffByPlayer();
     if (!byPi) { _checkComplete(); return; }
     var prev = _snap;
@@ -37338,6 +37343,7 @@ self.addEventListener('fetch',e=>{
     });
   }
   function _schedule() {
+    if (_halted) return; // v250.2
     if (_timer) clearTimeout(_timer);
     _timer = setTimeout(function () { _timer = null; try { _flush(false); } catch (e) {} }, 1800);
   }
@@ -37361,8 +37367,58 @@ self.addEventListener('fetch',e=>{
     } catch (e) {}
   }
 
+  /* ── v250.2 — HTTP 409 = the server said NEVER, not "try later" ─────────
+     Found live by Bruce: a foursome code on an ARCHIVED event handed out a
+     fully scored card (worker join never checked event status pre-v2.51.0),
+     then every save 409'd "Event is not active" — the retry loop re-toasted
+     "Score send failed" every 30–45s with no way out. Worker v2.51.0 blocks
+     that join at the code screen; THIS covers every remaining way onto a
+     card the server will refuse (Continue Scoring resume, My Events rejoin,
+     a round re-locked mid-correction) and any future 409. One persistent
+     banner, retries stop, "Try again" makes exactly one fresh attempt. */
+  var _halted = null, _haltKey = null;
+  function _ctxKey() {
+    try {
+      var tr = G._tournamentRound || {};
+      return [G.mode, tr.trip_id, tr.round_id, tr.foursome_code, G._scoringForCode,
+              (G.joinGroup && G.joinGroup.code)].join('|');
+    } catch (e) { return ''; }
+  }
+  function _syncHalt(msg) {
+    _halted = String(msg || 'Scores are not being accepted.');
+    _haltKey = _ctxKey();
+    try {
+      var b = document.getElementById('ptSyncHaltBanner');
+      if (!b) {
+        b = document.createElement('div');
+        b.id = 'ptSyncHaltBanner';
+        b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9998;background:#7a2d2d;color:#fff;' +
+          'padding:12px 14px;font-size:13.5px;font-weight:700;line-height:1.45;' +
+          'box-shadow:0 2px 14px rgba(0,0,0,.45);display:flex;align-items:center;gap:10px';
+        b.innerHTML = '<div style="flex:1;min-width:0"><span id="ptSyncHaltMsg"></span>'
+          + '<span style="display:block;font-size:11.5px;font-weight:600;opacity:.85;margin-top:2px">Your scores are NOT being saved to the event.</span></div>'
+          + '<button id="ptSyncHaltRetry" style="flex-shrink:0;padding:8px 14px;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.5);border-radius:10px;color:#fff;font-size:12.5px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">Try again</button>';
+        document.body.appendChild(b);
+        var rb = b.querySelector('#ptSyncHaltRetry');
+        if (rb) rb.onclick = function () { _syncRetry(); };
+      }
+      var m = document.getElementById('ptSyncHaltMsg');
+      if (m) m.textContent = '\u26d4 ' + _halted;
+    } catch (e) {}
+  }
+  function _syncClear() {
+    _halted = null; _haltKey = null;
+    try { var b = document.getElementById('ptSyncHaltBanner'); if (b) b.remove(); } catch (e) {}
+  }
+  function _syncRetry() {
+    _syncClear();      // banner down; a fresh 409 puts it straight back
+    _snap = null;      // resend the whole card — endpoints are idempotent upserts
+    _flushNow(false);
+  }
+
   // ── Full-round submit (ported near-verbatim from v6.06) ────────────────
   window.ptSubmitTournamentScores = function (onDone) {
+    if (_halted) { if (onDone) onDone(false); return; } // v250.2
     var route = _route();
     if (!route) { if (onDone) onDone(false); return; }
     var calls = [];
@@ -37397,6 +37453,7 @@ self.addEventListener('fetch',e=>{
   // ── Auto full-submit once every hole is filled (ported v6.06) ──────────
   function _checkComplete() {
     try {
+      if (_halted) return; // v250.2
       if (!_active() || G._tournamentSubmitted) return;
       if (!G.players || !G.players.length) return;
       var all = G.players.every(function (_, pi) {
@@ -37415,9 +37472,9 @@ self.addEventListener('fetch',e=>{
           _toast('✓ Scores sent to ' + lbl);
         } else {
           G._tournamentSubmitted = false; saveG();
-          _toast('⚠️ Score send failed — tap to retry', true, function () {
+          if (!_halted) _toast('⚠️ Score send failed — tap to retry', true, function () {
             _lastFullAttempt = 0; _checkComplete();
-          });
+          }); // v250.2 — when halted, the persistent banner owns the failure; no toast spam
         }
       });
     } catch (e) {}
@@ -37427,7 +37484,10 @@ self.addEventListener('fetch',e=>{
   var _oSaveG = window.saveG;
   window.saveG = function () {
     var r = _oSaveG.apply(this, arguments);
-    try { if (_active()) _schedule(); } catch (e) {}
+    try {
+      if (_halted && _ctxKey() !== _haltKey) _syncClear(); // v250.2 — halt belongs to ONE round
+      if (_active()) _schedule();
+    } catch (e) {}
     return r;
   };
 
@@ -37444,6 +37504,7 @@ self.addEventListener('fetch',e=>{
       G.joinGroup = null;
       G.mode = 'local';
       _snap = null;
+      _syncClear(); // v250.2
     } catch (e) {}
     return _oNewRoundStep2.apply(this, arguments);
   };
@@ -37456,7 +37517,7 @@ self.addEventListener('fetch',e=>{
   // Slow safety net: retries failed holes + resends after reload (snap
   // starts empty, endpoints are idempotent upserts, so this is harmless).
   setInterval(function () {
-    try { if (_active() && !_timer && _diffByPlayer()) _flush(false); } catch (e) {}
+    try { if (!_halted && _active() && !_timer && _diffByPlayer()) _flush(false); } catch (e) {} // v250.2 halt gate
   }, 45000);
 })();
   </script>
@@ -37668,7 +37729,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v250.1';
+    const TOUR_VERSION     = 'pards-tour-v250.2';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
