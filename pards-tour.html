@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v248.6 -->
+  <!-- pards-tour-v248.7 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -26544,6 +26544,7 @@ function ptBetsLoadRaces(eventId, tripId, _tries) {
     // container instead of abandoning the load.
     _tries = (_tries || 0) + 1;
     if (_tries <= 40) setTimeout(function(){ ptBetsLoadRaces(eventId, tripId, _tries); }, 100);
+    else console.error('ptBetsLoadRaces: container ' + containerId + ' never appeared after 40 tries — races not loaded'); // v248.7
     return;
   }
   var url = TOUR_API + '/api/bets/races?' + (eventId ? 'event_id='+eventId : 'trip_id='+tripId);
@@ -26553,6 +26554,7 @@ function ptBetsLoadRaces(eventId, tripId, _tries) {
       var races = d.races || [];
       if (!races.length) {
         el.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,.3);text-align:center;padding:8px 0">No races set up yet</div>';
+        (G._ptBetsListCache = G._ptBetsListCache || {})[containerId] = el.innerHTML; // v248.7
         return;
       }
       // v248.6 — an event used to have exactly one race, so a flat list printing
@@ -26576,6 +26578,10 @@ function ptBetsLoadRaces(eventId, tripId, _tries) {
         html += inGroup.map(function(r) { return _ptBetsRaceRow(r, eventId, tripId); }).join('');
       });
       el.innerHTML = html;
+      // v248.7 — remember the rendered list so a detail re-render can seed
+      // from it instead of regressing to the spinner. Error states are NOT
+      // cached — a stale success beats a pinned failure, never the reverse.
+      (G._ptBetsListCache = G._ptBetsListCache || {})[containerId] = html;
     })
     .catch(function(_e) {
       // v248.5 — always terminal, and always recoverable without a page reload.
@@ -26979,7 +26985,16 @@ function ptRenderLeagueDetail(league, members, rounds) {
   html += '<button onclick="ptShowLeagueSeason('+lid+','+(league.watch_code?"'"+_esc(league.watch_code)+"'":'null')+')" style="width:100%;padding:14px;background:rgba(100,180,255,.12);border:1.5px solid rgba(100,180,255,.35);border-radius:12px;color:rgba(100,180,255,1);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:20px">\uD83C\uDFC6 Season Standings &amp; All Weeks</button>';
 
   // Members section
-  html += '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Roster</div>';
+  // v248.7 — collapsed by default (Bruce: the roster eats the whole screen on
+  // open). Header carries the count; tap to expand. Same accordion pattern as
+  // the event Rules block. + Add Members lives INSIDE the collapse — if you
+  // are managing the roster you have it open anyway.
+  var _secOpen_lgRoster = !!((G._ptOpenSections||{}).lgRoster) || !members.length; // v248.7 — survives re-renders; empty roster stays open so onboarding isn't hidden
+  html += '<div onclick="_ptSecToggle(\'lgRoster\')" style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer;-webkit-tap-highlight-color:transparent">'
+    +'<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px">Roster \u00b7 <span style="color:rgba(100,220,180,.85)">'+members.length+' Player'+(members.length===1?'':'s')+' Active</span></div>'
+    +'<span id="ptSecArw_lgRoster" style="font-size:10px;color:rgba(255,255,255,.35)">'+(_secOpen_lgRoster?'\u25bc':'\u25b6')+'</span>'
+    +'</div>';
+  html += '<div id="ptSecBody_lgRoster" style="display:'+(_secOpen_lgRoster?'block':'none')+'">';
   if(members.length){
     html += '<div style="background:rgba(255,255,255,.04);border-radius:12px;margin-bottom:8px;overflow:hidden">';
     members.forEach(function(m,i){
@@ -26996,6 +27011,7 @@ function ptRenderLeagueDetail(league, members, rounds) {
     html += '<div style="color:rgba(255,255,255,.3);font-size:13px;margin-bottom:8px">No members yet — add your regular players below.</div>';
   }
   html += '<button onclick="ptAddLeagueMemberUI('+lid+')" style="width:100%;padding:11px;background:rgba(100,220,180,.1);border:1.5px dashed rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,.7);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:24px">+ Add Members</button>';
+  html += '</div>'; // v248.7 — end roster collapse
 
   // Season schedule — cadence derived from existing round dates (lightweight; no stored field)
   html += '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Season Schedule</div>';
@@ -27493,6 +27509,60 @@ window._ptApplyTeeGate = function(roundId, format) {
   }
 };
 
+// v248.7 — COLLAPSIBLE SECTIONS (Bruce: rosters and round cards eat the whole
+// screen on open). Two rules make these safe:
+//   1. State lives in G, NOT in the DOM. ptRenderTripDetail is re-called
+//      asynchronously when the tee-time caches and the score aggregates land
+//      (see the two re-render calls below it) — an accordion whose state lived
+//      only in style.display would snap shut seconds after you opened it.
+//   2. Everything defaults CLOSED. Bruce's call: collapsed until tapped.
+function _ptSecToggle(key, forceOpen) {
+  var b = document.getElementById('ptSecBody_' + key);
+  var a = document.getElementById('ptSecArw_' + key);
+  if (!b) return;
+  var open = b.style.display !== 'none';
+  var next = (forceOpen === true) ? true : !open;
+  b.style.display = next ? 'block' : 'none';
+  if (a) a.textContent = next ? '\u25bc' : '\u25b6';
+  (G._ptOpenSections = G._ptOpenSections || {})[key] = next;
+}
+
+function _ptTripRoundToggle(rid, forceOpen) {
+  var b = document.getElementById('ptRoundBody_' + rid);
+  var a = document.getElementById('ptRoundArw_' + rid);
+  if (!b) return;
+  var open = b.style.display !== 'none';
+  var next = (forceOpen === true) ? true : !open;
+  b.style.display = next ? 'block' : 'none';
+  if (a) a.textContent = next ? '\u25bc' : '\u25b6';
+  (G._ptOpenTripRounds = G._ptOpenTripRounds || {})[rid] = next;
+}
+
+// The one-line state a collapsed round card shows. Mirrors the per-pill
+// submitted rule used inside the card (every player 18 holes on the server,
+// with the same sessionStorage fallback), so the header can never say
+// "all scores in" while an expanded card shows an unfinished pill.
+function _ptTripRoundSummary(rid, cache, agg, hasTimes) {
+  if (!hasTimes || !cache || !cache.length) return { sub: 0, tot: 0, label: '\u25cb no tee times', color: 'rgba(255,255,255,.35)' };
+  var sub = 0;
+  cache.forEach(function(tt) {
+    var ps = tt.players || [];
+    if (!ps.length) return; // a code with no players can never be "in"
+    var all = true;
+    ps.forEach(function(p) {
+      var pid = (p.trip_player_id != null) ? p.trip_player_id : p.id;
+      var a = (agg && pid != null) ? agg[pid] : null;
+      if (!(a && a.holes >= 18)) all = false;
+    });
+    if (!all) { try { if (sessionStorage.getItem('_ptScored_' + rid + '_' + (tt.foursome_code || '')) === '1') all = true; } catch (e) {} }
+    if (all) sub++;
+  });
+  var tot = cache.length;
+  if (tot > 0 && sub >= tot) return { sub: sub, tot: tot, label: '\u2705 all scores in', color: '#a8d5b5' };
+  if (sub > 0) return { sub: sub, tot: tot, label: '\u23f3 ' + sub + '/' + tot + ' submitted', color: '#c9a84c' };
+  return { sub: 0, tot: tot, label: '\u25cb no scores yet', color: 'rgba(255,255,255,.35)' };
+}
+
 function ptRenderTripDetail(trip, players, rounds) {
   var body = document.getElementById('ptTripDetailBody');
   var tripId = trip.id;
@@ -27522,7 +27592,14 @@ function ptRenderTripDetail(trip, players, rounds) {
     +'</div>';
 
   // Players section
-  html += '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Players</div>';
+  // v248.7 — collapsed by default, same as the league roster and for the same
+  // reason: on a 12-player trip this list pushed the rounds off the screen.
+  var _secOpen_tripPlayers = !!((G._ptOpenSections||{}).tripPlayers) || !players.length; // v248.7 — survives re-renders; empty list stays open so onboarding isn't hidden
+  html += '<div onclick="_ptSecToggle(\'tripPlayers\')" style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer;-webkit-tap-highlight-color:transparent">'
+    +'<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px">Players \u00b7 <span style="color:rgba(100,180,255,.85)">'+players.length+' Player'+(players.length===1?'':'s')+' Active</span></div>'
+    +'<span id="ptSecArw_tripPlayers" style="font-size:10px;color:rgba(255,255,255,.35)">'+(_secOpen_tripPlayers?'\u25bc':'\u25b6')+'</span>'
+    +'</div>';
+  html += '<div id="ptSecBody_tripPlayers" style="display:'+(_secOpen_tripPlayers?'block':'none')+'">';
   if(players.length){
     html += '<div style="background:rgba(255,255,255,.04);border-radius:12px;margin-bottom:8px;overflow:hidden">';
     players.forEach(function(p,i){
@@ -27539,6 +27616,7 @@ function ptRenderTripDetail(trip, players, rounds) {
     html += '<div style="color:rgba(255,255,255,.3);font-size:13px;margin-bottom:8px">No players added yet.</div>';
   }
   html += '<button onclick="ptAddTripPlayerUI('+tripId+')" style="width:100%;padding:11px;background:rgba(100,180,255,.1);border:1.5px dashed rgba(100,180,255,.3);border-radius:10px;color:rgba(100,180,255,.7);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:24px">+ Add Players</button>';
+  html += '</div>'; // v248.7 — end players collapse
 
   // Rounds section
   html += '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Rounds</div>';
@@ -27554,7 +27632,7 @@ function ptRenderTripDetail(trip, players, rounds) {
         var rid = _dayRound[day.iso];
         var has = rid !== undefined;
         var oc = has
-          ? "var el=document.getElementById('ptRoundCard_"+rid+"');if(el)el.scrollIntoView({behavior:'smooth',block:'center'})"
+          ? "_ptTripRoundToggle("+rid+",true);var el=document.getElementById('ptRoundCard_"+rid+"');if(el)el.scrollIntoView({behavior:'smooth',block:'center'})"
           : "ptAddTripRoundUI("+tripId+",'"+day.iso+"')";
         html += '<button onclick="'+oc+'" title="'+(has?'Go to round':'Add a round')+'" style="flex:0 0 auto;width:54px;padding:8px 0 7px;border-radius:11px;'
           + 'background:'+(has?'rgba(201,168,76,.14)':'rgba(255,255,255,.03)')+';'
@@ -27579,14 +27657,30 @@ function ptRenderTripDetail(trip, players, rounds) {
       var hasTimes = _cache && _cache.length && _cache[0].foursome_code && _cache[0].foursome_code !== '\u2014';
       var courseLine = r.course_name ? '\u26f3 '+_esc(r.course_name)+(r.tee_name?' \xb7 '+_esc(r.tee_name):'') : 'Course TBD';
 
+      // v248.7 — collapsible round card. Header (round + date + one-line
+      // scoring state) always shows; the body — format select, foursome
+      // cards, manage row — renders inside ptRoundBody_<id>, closed unless
+      // this round is in G._ptOpenTripRounds (state survives the async
+      // re-renders that land when tee caches / score aggregates arrive).
+      var _rsum = _ptTripRoundSummary(r.id, _cache, (window._ptTripScoreAgg && window._ptTripScoreAgg[r.id]) || null, hasTimes);
+      var _rOpen = !!((G._ptOpenTripRounds || {})[r.id]);
       html += '<div id="ptRoundCard_'+r.id+'" style="background:rgba(255,255,255,.04);border-radius:14px;padding:16px;margin-bottom:16px;scroll-margin-top:80px">'
+        +'<div onclick="_ptTripRoundToggle('+r.id+')" style="cursor:pointer;-webkit-tap-highlight-color:transparent">'
         +'<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px">'
         +'<div style="font-size:16px;font-weight:900;color:#fff">Round '+r.round_number+(r.label?' \u2014 '+_esc(r.label):'')+'</div>'
+        +'<div style="display:flex;align-items:center;gap:8px">'
         +(r.status==='active'?'<div style="font-size:11px;font-weight:700;color:#c9a84c;text-transform:uppercase;padding-top:2px">\u25cf ACTIVE</div>':'')
+        +'<span id="ptRoundArw_'+r.id+'" style="font-size:10px;color:rgba(255,255,255,.35);padding-top:3px">'+(_rOpen?'\u25bc':'\u25b6')+'</span>'
         +'</div>'
-        +'<div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:12px">'
-        +(r.date?ptFormatDate(r.date)+' \xb7 '+courseLine:courseLine)
-        +'</div>';
+        +'</div>'
+        +'<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">'
+        +'<div style="font-size:12px;color:rgba(255,255,255,.45)">'
+        +(r.date?ptFormatDate(r.date)+' \u00b7 '+courseLine:courseLine)
+        +'</div>'
+        +'<div style="font-size:11px;font-weight:800;white-space:nowrap;color:'+_rsum.color+'">'+_rsum.label+'</div>'
+        +'</div>'
+        +'</div>'
+        +'<div id="ptRoundBody_'+r.id+'" style="display:'+(_rOpen?'block':'none')+';margin-top:12px">';
 
       html += _ptRoundFormatSelect(tripId, r.id, r.format||''); // v235.0: trips too — every day can play a different format
 
@@ -27682,7 +27776,7 @@ function ptRenderTripDetail(trip, players, rounds) {
           +'<button onclick="ptDeleteTripRound('+tripId+','+r.id+')" style="padding:8px 12px;background:rgba(255,100,100,.05);border:1px solid rgba(255,100,100,.15);color:rgba(255,100,100,.4);border-radius:8px;font-size:11px;cursor:pointer">🗑</button>'
           +'</div>';
       }
-      html += '</div>';
+      html += '</div></div>'; // v248.7 — close round body, then card
     });
   } else {
     html += '<div style="color:rgba(255,255,255,.3);font-size:13px;margin-bottom:12px">No rounds yet. Add your first round below.</div>';
@@ -29785,7 +29879,16 @@ function loadOrgEventDetail(eventId) {
     if (_evConfig.pards_bets) {
       html+='<div style="margin-top:16px;padding:14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:12px">'
         +'<div style="font-size:12px;font-weight:800;color:#c9a84c;margin-bottom:10px">🎰 Pards Bets</div>'
-        +'<div id="ptBetsRaceList_'+ev.id+'" style="margin-bottom:10px"><div style="font-size:12px;color:rgba(255,255,255,.35)">Loading races…</div></div>'
+        +'<div id="ptBetsRaceList_'+ev.id+'" style="margin-bottom:10px">'
+        // v248.7 — seed from the cache when we have one. loadOrgEventDetail
+        // renders TWICE on a groups event (immediately, then again when the
+        // per-group score fetches and the tee-time map land). The second render
+        // rebuilt this container from this very string — wiping an
+        // already-loaded races list back to "Loading races…" forever, because
+        // nothing rescheduled the load. The cache removes the flash; the
+        // explicit reloads after each late render (below) keep it fresh.
+        +(((G._ptBetsListCache||{})['ptBetsRaceList_'+ev.id])||'<div style="font-size:12px;color:rgba(255,255,255,.35)">Loading races…</div>')
+        +'</div>'
         +'<button onclick="ptBetsCreateRaces('+ev.id+')" style="width:100%;padding:10px;background:rgba(201,168,76,.12);border:1.5px dashed rgba(201,168,76,.4);border-radius:10px;color:#c9a84c;font-size:13px;font-weight:700;cursor:pointer">+ Set Up Betting Races</button>'
         +'</div>';
       setTimeout(function(){ ptBetsLoadRaces(ev.id, null); }, 100);
@@ -29847,6 +29950,8 @@ function loadOrgEventDetail(eventId) {
               }).join('');
               list.innerHTML=html+_indBody2+_footInd;
               ptLoadRounds(ev);
+              if(_evConfig.pards_bets) ptBetsLoadRaces(ev.id, null); // v248.7 — this render just replaced the races container
+
             });
           }).catch(function(){ /* badges are best-effort */ });
       }
@@ -29970,6 +30075,8 @@ function loadOrgEventDetail(eventId) {
         scoreData.forEach(function(s){byGrp[s.group_id]=s;});
         list.innerHTML=html+groups.map(function(g){return _renderGroupCard(g,byGrp[g.id]);}).join('')+_footerHtml;
         ptLoadRounds(ev);
+        if(_evConfig.pards_bets) ptBetsLoadRaces(ev.id, null); // v248.7 — this render just replaced the races container (the "Loading races… forever" bug)
+
       });
     } else {
       html+='<div style="color:rgba(255,255,255,.3);font-size:13px;text-align:center;padding:12px">No groups yet.</div>';
@@ -37478,7 +37585,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v248.6';
+    const TOUR_VERSION     = 'pards-tour-v248.7';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
