@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v248.3 -->
+  <!-- pards-tour-v248.4 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -30137,6 +30137,7 @@ function ptRefreshMultiDayLeaderboard(eventId) {
     var rounds = results[0].rounds || [];
     var groups = results[1].groups || [];
     var evCfg  = results[2] || {};
+    _ptLbStamp(eventId, null);                                        // v248.4
 
     if (!rounds.length) {
       body.innerHTML = '<div style="color:rgba(255,255,255,.35);text-align:center;padding:40px 0;font-size:14px">No rounds set up yet.</div>';
@@ -30455,7 +30456,10 @@ function ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg) {
         grossArr.forEach(function(x){ gross += x.gross_score; });
         var td = ptResolveCourse(rr.round.course_id, rr.round.tee);
         var chcp = Math.round(ptCalcCourseHandicap(pl.handicap || 0, td.slope, td.rating, td.par));
-        pl.rounds[rr.round.round_number] = { pts: stbl.total_points, gross: gross, net: gross - chcp, holes: stbl.holes_played, chcp: chcp };
+        var byHole = {};                                            // v248.4
+        grossArr.forEach(function(x){ byHole[x.hole] = x.gross_score; });
+        pl.rounds[rr.round.round_number] = { pts: stbl.total_points, gross: gross, net: gross - chcp, holes: stbl.holes_played, chcp: chcp,
+                                             byHole: byHole, round: rr.round };
         pl.pts += stbl.total_points; pl.gross += gross; pl.net += gross - chcp; pl.holes += stbl.holes_played;
       });
     });
@@ -30519,7 +30523,7 @@ function ptRenderMdIndividual() {
       var rk = ranks[idx];
       var isTop = rk === 1;
       var medal = rk === 1 ? '\ud83e\udd47' : rk === 2 ? '\ud83e\udd48' : rk === 3 ? '\ud83e\udd49' : rk + '.';
-      ih += '<div style="display:grid;grid-template-columns:1fr' + ' auto'.repeat(nR) + ' auto;gap:4px;align-items:center;padding:9px 10px;background:' + (isTop ? 'rgba(168,213,181,.08)' : 'rgba(255,255,255,.03)') + ';border:1px solid ' + (isTop ? 'rgba(168,213,181,.2)' : 'rgba(255,255,255,.05)') + ';border-radius:10px;margin-bottom:5px">';
+      ih += '<div onclick="ptShowPlayerCard(\'_mdIndiv\',' + JSON.stringify(String(pr.roster_id)) + ')" style="display:grid;grid-template-columns:1fr' + ' auto'.repeat(nR) + ' auto;gap:4px;align-items:center;padding:9px 10px;background:' + (isTop ? 'rgba(168,213,181,.08)' : 'rgba(255,255,255,.03)') + ';border:1px solid ' + (isTop ? 'rgba(168,213,181,.2)' : 'rgba(255,255,255,.05)') + ';border-radius:10px;margin-bottom:5px;cursor:pointer;-webkit-tap-highlight-color:transparent">';
       ih += '<div><div style="font-size:13px;font-weight:800;color:' + (isTop ? '#a8d5b5' : '#ccc') + '">' + medal + ' ' + pr.name + '</div><div style="font-size:10px;color:rgba(255,255,255,.3)">' + pr.team + (mode === 'net' && pr.handicap != null ? ' \u00b7 hcp ' + pr.handicap : '') + '</div></div>';
       st.rounds.forEach(function(r) {
         var rd = pr.rounds[r.round_number];
@@ -30531,7 +30535,7 @@ function ptRenderMdIndividual() {
     });
   });
   var foot = mode === 'stableford' ? 'Net Stableford \u00b7 high wins' : (mode === 'gross' ? 'Gross \u00b7 total strokes, low wins' : 'Net \u00b7 gross \u2212 full course handicap, low wins');
-  ih += '<div style="margin-top:12px;margin-bottom:8px;font-size:10px;color:rgba(255,255,255,.2);text-align:center">' + foot + ' \u00b7 Individual rounds only</div>';
+  ih += '<div style="margin-top:12px;margin-bottom:8px;font-size:10px;color:rgba(255,255,255,.2);text-align:center">' + foot + ' \u00b7 Tap a player for their card</div>';
   wrap.innerHTML = ih;
 }
 
@@ -31237,10 +31241,11 @@ function ptRenderRounds(ev, rounds) {
       var courseName = course ? course.name : (r.course_id || '—');
       var fmtLabel = (ptIsIndividualEvent(ptEvCfg(ev)) && r.format==='individual_stableford') ? 'Individual stroke play' : (formatLabels[r.format] || r.format || '—'); // v248.1
       var dateStr = r.date ? ptFormatDate(r.date, r.course_id, {weekday:'short',month:'short',day:'numeric'}) : 'No date';
+      var progBadge = ptRoundProgressBadge(r);                          // v248.4
       h += '<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px;margin-bottom:8px">';
       h += '<div style="display:flex;align-items:center;justify-content:space-between">';
       h += '<div style="flex:1">';
-      h += '<div style="font-size:13px;font-weight:800;color:#f5e6b8">Round '+r.round_number+' <span style="font-size:10px;font-weight:600;color:rgba(255,255,255,.35)">'+dateStr+'</span>'+(r.status==='locked'?' <span style="display:inline-block;padding:1px 7px;border-radius:8px;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.4);color:#e74c3c;font-size:9.5px;font-weight:800;vertical-align:1px">\ud83d\udd12 scoring locked</span>':'')+'<span id="ptRoundTT_'+r.id+'"></span></div>'; // v248.2
+      h += '<div style="font-size:13px;font-weight:800;color:#f5e6b8">Round '+r.round_number+' <span style="font-size:10px;font-weight:600;color:rgba(255,255,255,.35)">'+dateStr+'</span>'+(r.status==='locked'?' <span style="display:inline-block;padding:1px 7px;border-radius:8px;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.4);color:#e74c3c;font-size:9.5px;font-weight:800;vertical-align:1px">\ud83d\udd12 scoring locked</span>':'')+progBadge+'<span id="ptRoundTT_'+r.id+'"></span></div>'; // v248.2 + v248.4 progress
       h += '<div style="font-size:11px;color:rgba(201,168,76,.7);margin-top:2px">'+fmtLabel+'</div>';
       h += '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:1px">'+courseName+(r.tee?' · '+r.tee:'')+'</div>';
       h += '</div>';
@@ -31248,7 +31253,7 @@ function ptRenderRounds(ev, rounds) {
       h += '<button onclick="ptEditRound('+ev.id+','+JSON.stringify(r).replace(/"/g,'&quot;')+','+JSON.stringify(ev).replace(/"/g,'&quot;')+')" style="padding:5px 10px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:8px;color:#c9a84c;font-size:11px;font-weight:700;cursor:pointer">&#9998; Edit</button>';
       h += '<button onclick="ptOpenTeeTimeBuilder('+ev.id+','+JSON.stringify(r).replace(/"/g,'&quot;')+')" style="padding:5px 10px;background:rgba(100,180,255,.1);border:1px solid rgba(100,180,255,.3);border-radius:8px;color:rgba(100,180,255,.9);font-size:11px;font-weight:700;cursor:pointer">&#128336; Tee Times</button>';
       h += '<button onclick="ptPrintRoundTeeSheet('+ev.id+','+JSON.stringify(r).replace(/"/g,'&quot;')+')" style="padding:5px 10px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:8px;color:rgba(201,168,76,.7);font-size:11px;font-weight:700;cursor:pointer">&#128438; Print Sheet</button>';
-      h += '<button onclick="ptToggleRoundLock('+ev.id+','+r.id+',\''+(r.status==='locked'?'active':'locked')+'\')" style="padding:5px 10px;background:'+(r.status==='locked'?'rgba(231,76,60,.12)':'rgba(255,255,255,.04)')+';border:1px solid '+(r.status==='locked'?'rgba(231,76,60,.4)':'rgba(255,255,255,.15)')+';border-radius:8px;color:'+(r.status==='locked'?'#e74c3c':'rgba(255,255,255,.5)')+';font-size:11px;font-weight:700;cursor:pointer">'+(r.status==='locked'?'\ud83d\udd13 Unlock':'\ud83d\udd12 Lock')+'</button>'; // v248.2
+      h += '<button onclick="ptRoundLockClick('+ev.id+','+r.id+','+r.round_number+',\''+(r.status==='locked'?'active':'locked')+'\')" style="padding:5px 10px;background:'+(r.status==='locked'?'rgba(231,76,60,.12)':'rgba(255,255,255,.04)')+';border:1px solid '+(r.status==='locked'?'rgba(231,76,60,.4)':'rgba(255,255,255,.15)')+';border-radius:8px;color:'+(r.status==='locked'?'#e74c3c':'rgba(255,255,255,.5)')+';font-size:11px;font-weight:700;cursor:pointer">'+(r.status==='locked'?'\ud83d\udd13 Unlock':'\ud83d\udd12 Lock')+'</button>'; // v248.2
       h += '</div>';
       h += '</div>';
       h += '</div>';
@@ -31324,6 +31329,50 @@ function ptAddRound(eventId) {
 // v248.2 — per-round scoring lock (worker v2.45.0 rejects foursome-code
 // submits for locked rounds). Correction flow for post-round penalties:
 // Unlock → enter the foursome code → fix the score → Relock.
+// v248.4 — "is this round finished?" at a glance. Counts come from worker
+// v2.46.0 and are only populated for individual_stableford rounds (a scramble
+// round's scores key off groups.id, which cannot be joined to tee_times
+// safely) — those return null and fall through to the existing groups badge.
+// Complete = EVERY player in the round's field has all 18 holes, per Bruce.
+function ptRoundProgressBadge(r) {
+  var field = r.field_players, done = r.complete_players, some = r.scoring_players;
+  if (field == null || done == null) return '';           // not an individual round
+  var pill = function(bg, br, col, txt) {
+    return ' <span style="display:inline-block;padding:1px 7px;border-radius:8px;background:' + bg
+      + ';border:1px solid ' + br + ';color:' + col
+      + ';font-size:9.5px;font-weight:800;vertical-align:1px">' + txt + '</span>';
+  };
+  if (!field) return '';                                   // no tee sheet yet
+  if (done >= field) return pill('rgba(46,204,113,.12)', 'rgba(46,204,113,.45)', '#2ecc71', '\u2705 scoring complete');
+  if (!some)         return pill('rgba(255,255,255,.04)', 'rgba(255,255,255,.15)', 'rgba(255,255,255,.4)', '\u25cb no scores yet');
+  return pill('rgba(201,168,76,.12)', 'rgba(201,168,76,.4)', '#c9a84c', '\u23f3 ' + done + '/' + field + ' complete');
+}
+
+// v248.4 — Bruce asked where a score gets fixed after a lock. Unlocking now
+// states the whole sequence up front instead of leaving it in a handoff doc.
+function ptRoundLockClick(eventId, roundId, roundNumber, next) {
+  if (next !== 'active') { ptToggleRoundLock(eventId, roundId, next); return; }
+  var ov = document.createElement('div');
+  ov.id = 'ptUnlockOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:24px';
+  ov.innerHTML = '<div style="background:#12240f;border:1.5px solid rgba(201,168,76,.55);border-radius:16px;padding:22px 20px;max-width:360px;box-shadow:0 10px 40px rgba(0,0,0,.6)">'
+    + '<div style="font-size:17px;font-weight:900;color:#f5e6b8;margin-bottom:10px;text-align:center">\ud83d\udd13 Unlock Round ' + roundNumber + '?</div>'
+    + '<div style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:16px">'
+    + 'To correct a score:<br>'
+    + '<span style="color:#c9a84c;font-weight:800">1.</span> Unlock this round<br>'
+    + '<span style="color:#c9a84c;font-weight:800">2.</span> Enter that group\'s foursome code<br>'
+    + '<span style="color:#c9a84c;font-weight:800">3.</span> Fix the score on the card<br>'
+    + '<span style="color:#c9a84c;font-weight:800">4.</span> Lock the round again'
+    + '<div style="margin-top:10px;font-size:11.5px;color:rgba(255,255,255,.4)">While unlocked, anyone holding a printed code can score this round.</div>'
+    + '</div>'
+    + '<div style="display:flex;gap:8px">'
+    + '<button onclick="document.getElementById(\'ptUnlockOv\').remove()" style="flex:1;padding:12px;background:none;border:1.5px solid rgba(255,255,255,.2);border-radius:12px;color:rgba(255,255,255,.6);font-size:14px;font-weight:700;cursor:pointer">Cancel</button>'
+    + '<button onclick="document.getElementById(\'ptUnlockOv\').remove();ptToggleRoundLock(' + eventId + ',' + roundId + ',\'active\')" style="flex:1;padding:12px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:14px;font-weight:900;cursor:pointer">\ud83d\udd13 Unlock</button>'
+    + '</div></div>';
+  ov.addEventListener('click', function(e){ if (e.target === ov) ov.remove(); });
+  document.body.appendChild(ov);
+}
+
 function ptToggleRoundLock(eventId, roundId, next){
   fetch(TOUR_API+'/api/rounds/'+roundId, {
     method:'PATCH',
@@ -32364,7 +32413,7 @@ function ptRenderIndivLb() {
       var rk = ranks[idx];
       var isTop = rk === 1;
       var medal = rk === 1 ? '\ud83e\udd47' : rk === 2 ? '\ud83e\udd48' : rk === 3 ? '\ud83e\udd49' : String(rk);
-      h += '<div style="display:grid;grid-template-columns:28px 1fr' + ' auto'.repeat(nR) + ' auto;gap:4px;align-items:center;padding:10px;background:' + (isTop ? 'rgba(201,168,76,.12)' : 'rgba(255,255,255,.04)') + ';border:1px solid ' + (isTop ? 'rgba(201,168,76,.3)' : 'rgba(255,255,255,.06)') + ';border-radius:10px;margin-bottom:6px">';
+      h += '<div onclick="ptShowPlayerCard(\'_indivLb\',' + JSON.stringify(String(pr.roster_id)) + ')" style="display:grid;grid-template-columns:28px 1fr' + ' auto'.repeat(nR) + ' auto;gap:4px;align-items:center;padding:10px;background:' + (isTop ? 'rgba(201,168,76,.12)' : 'rgba(255,255,255,.04)') + ';border:1px solid ' + (isTop ? 'rgba(201,168,76,.3)' : 'rgba(255,255,255,.06)') + ';border-radius:10px;margin-bottom:6px;cursor:pointer;-webkit-tap-highlight-color:transparent">';
       h += '<div style="font-size:' + (rk < 4 ? '16' : '12') + 'px;text-align:center">' + medal + '</div>';
       h += '<div><div style="font-size:13px;font-weight:800;color:' + (isTop ? '#f5e6b8' : '#ddd') + '">' + pr.name + '</div><div style="font-size:10px;color:rgba(255,255,255,.4)">' + pr.team + (mode === 'net' && pr.handicap != null ? (pr.team ? ' \u00b7 ' : '') + 'hcp ' + pr.handicap : '') + '</div></div>';
       st.rounds.forEach(function(r) {
@@ -32377,8 +32426,111 @@ function ptRenderIndivLb() {
     });
   });
   var foot = mode === 'stableford' ? 'Net Stableford \u00b7 high wins' : (mode === 'gross' ? 'Gross \u00b7 total strokes, low wins' : 'Net \u00b7 gross \u2212 full course handicap, low wins');
-  h += '<div style="margin-top:16px;font-size:10px;color:rgba(255,255,255,.2);text-align:center">' + foot + ' \u00b7 Individual rounds only</div>';
+  h += '<div style="margin-top:16px;font-size:10px;color:rgba(255,255,255,.2);text-align:center">' + foot + ' \u00b7 Tap a player for their card</div>';
   body.innerHTML = h;
+}
+
+// v248.4 — Bruce: "where are the cards?" and "player cards should be clickable
+// and bring up their hole-by-hole detail". Reads whichever standings state is
+// already loaded (G._indivLb from the live leaderboard, G._mdIndiv from the
+// event screen) — no fetch, no new endpoint: ptBuildMdIndividual now carries
+// each round's per-hole grosses. Read-only by design; corrections still go
+// unlock -> foursome code -> fix -> relock.
+function ptShowPlayerCard(stateKey, rosterId) {
+  var st = G[stateKey];
+  if (!st) return;
+  var pr = null;
+  st.rows.forEach(function(r){ if (String(r.roster_id) === String(rosterId)) pr = r; });
+  if (!pr) return;
+  var modes = st.modes || ['stableford'];
+  var ex = document.getElementById('ptPlayerCardOv'); if (ex) ex.remove();
+
+  var body = '';
+  st.rounds.forEach(function(r) {
+    var rd = pr.rounds[r.round_number];
+    var pars = ptGetHolePars(r.course_id, r.tee) || Array(18).fill(4);
+    var si   = ptGetSI(r.course_id, r.tee) || Array.from({length:18}, function(_,i){ return i+1; });
+    body += '<div style="margin-top:14px;margin-bottom:6px;display:flex;align-items:baseline;justify-content:space-between">'
+      + '<div style="font-size:12px;font-weight:900;color:#c9a84c">Round ' + r.round_number
+      + (r.date ? ' <span style="font-size:10px;font-weight:600;color:rgba(255,255,255,.35)">' + ptFormatDate(r.date, r.course_id, {weekday:'short',month:'short',day:'numeric'}) + '</span>' : '') + '</div>'
+      + '<div style="font-size:10px;color:rgba(255,255,255,.35)">' + (rd ? 'CH ' + rd.chcp : '') + '</div>'
+      + '</div>';
+    if (!rd) {
+      body += '<div style="font-size:12px;color:rgba(255,255,255,.25);padding:8px 0">No scores recorded.</div>';
+      return;
+    }
+    var rowFor = function(lo, hi, label) {
+      var cells = '', sub = 0, subPar = 0;
+      for (var hh = lo; hh <= hi; hh++) {
+        var g = rd.byHole[hh];
+        var par = pars[hh-1] || 4;
+        subPar += par;
+        var col = 'rgba(255,255,255,.25)';
+        if (g != null) {
+          sub += g;
+          var d = g - par;
+          col = d <= -2 ? '#e74c3c' : d === -1 ? '#2ecc71' : d === 0 ? '#f5e6b8' : d === 1 ? 'rgba(255,255,255,.6)' : 'rgba(255,255,255,.3)';
+        }
+        var chcp = rd.chcp || 0;
+        var strokes = Math.floor(chcp / 18) + ((si[hh-1] || hh) <= (chcp % 18) ? 1 : 0);
+        cells += '<div style="text-align:center;font-size:12px;font-weight:800;color:' + col + ';position:relative">'
+          + (g != null ? g : '\u00b7')
+          + (strokes > 0 && g != null ? '<span style="position:absolute;top:-3px;right:2px;font-size:7px;color:#c9a84c">\u2022</span>' : '')
+          + '</div>';
+      }
+      var n = hi - lo + 1;
+      return '<div style="display:grid;grid-template-columns:22px repeat(' + n + ',1fr) 30px;gap:2px;align-items:center;margin-bottom:3px">'
+        + '<div style="font-size:8px;color:rgba(255,255,255,.3);font-weight:700">' + label + '</div>'
+        + cells
+        + '<div style="text-align:center;font-size:12px;font-weight:900;color:#a8d5b5">' + (sub || '\u2014') + '</div></div>';
+    };
+    var hdrFor = function(lo, hi) {
+      var c = '';
+      for (var hh = lo; hh <= hi; hh++) c += '<div style="text-align:center;font-size:8px;color:rgba(201,168,76,.55);font-weight:700">' + hh + '</div>';
+      var n = hi - lo + 1;
+      return '<div style="display:grid;grid-template-columns:22px repeat(' + n + ',1fr) 30px;gap:2px;margin-bottom:2px">'
+        + '<div></div>' + c + '<div style="text-align:center;font-size:8px;color:rgba(168,213,181,.7);font-weight:700">' + (lo === 1 ? 'OUT' : 'IN') + '</div></div>';
+    };
+    var parFor = function(lo, hi) {
+      var c = '', tot = 0;
+      for (var hh = lo; hh <= hi; hh++) { var pv = pars[hh-1] || 4; tot += pv; c += '<div style="text-align:center;font-size:8px;color:rgba(255,255,255,.28)">' + pv + '</div>'; }
+      var n = hi - lo + 1;
+      return '<div style="display:grid;grid-template-columns:22px repeat(' + n + ',1fr) 30px;gap:2px;margin-bottom:4px">'
+        + '<div style="font-size:8px;color:rgba(255,255,255,.25);font-weight:700">PAR</div>' + c
+        + '<div style="text-align:center;font-size:8px;color:rgba(255,255,255,.28)">' + tot + '</div></div>';
+    };
+    body += hdrFor(1,9) + parFor(1,9) + rowFor(1,9,'') + hdrFor(10,18) + parFor(10,18) + rowFor(10,18,'');
+    var bits = [];
+    if (modes.indexOf('gross') !== -1 || modes.indexOf('net') !== -1 || modes.indexOf('stableford') !== -1) {
+      bits.push('Gross <strong style="color:#f5e6b8">' + rd.gross + '</strong>');
+      if (modes.indexOf('net') !== -1) bits.push('Net <strong style="color:#f5e6b8">' + rd.net + '</strong>');
+      if (modes.indexOf('stableford') !== -1) bits.push('Pts <strong style="color:#f5e6b8">' + rd.pts + '</strong>');
+    }
+    body += '<div style="font-size:11px;color:rgba(255,255,255,.5);text-align:right;margin-top:2px">' + bits.join(' \u00b7 ')
+      + (rd.holes < 18 ? ' <span style="color:#e74c3c">\u00b7 ' + rd.holes + '/18 holes</span>' : '') + '</div>';
+  });
+
+  var totBits = [];
+  if (modes.indexOf('gross') !== -1) totBits.push('Gross ' + pr.gross);
+  if (modes.indexOf('net') !== -1) totBits.push('Net ' + pr.net);
+  if (modes.indexOf('stableford') !== -1) totBits.push('Pts ' + pr.pts);
+
+  var ov = document.createElement('div');
+  ov.id = 'ptPlayerCardOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.8);display:flex;align-items:flex-end;justify-content:center;overflow-y:auto';
+  ov.innerHTML = '<div style="background:#12240f;border-radius:18px 18px 0 0;padding:20px 16px 40px;width:100%;max-width:520px;box-sizing:border-box">'
+    + '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2px">'
+    + '<div><div style="font-size:17px;font-weight:900;color:#f5e6b8">' + pr.name + '</div>'
+    + '<div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">' + (pr.team ? pr.team + ' \u00b7 ' : '')
+    + (pr.handicap != null ? 'hcp ' + pr.handicap : '') + (pr.age != null ? ' \u00b7 age ' + pr.age : '') + '</div></div>'
+    + '<button onclick="document.getElementById(\'ptPlayerCardOv\').remove()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;padding:0 4px">\u2715</button>'
+    + '</div>'
+    + '<div style="font-size:12px;font-weight:800;color:#a8d5b5;margin-bottom:4px">' + totBits.join(' \u00b7 ') + '</div>'
+    + body
+    + '<div style="margin-top:14px;font-size:9.5px;color:rgba(255,255,255,.25);text-align:center">\u2022 = stroke received \u00b7 read-only \u2014 corrections go through the organizer</div>'
+    + '</div>';
+  ov.addEventListener('click', function(e){ if (e.target === ov) ov.remove(); });
+  document.body.appendChild(ov);
 }
 
 // v248.3 — was a second, stableford-only copy of the standings aggregation:
@@ -34658,8 +34810,10 @@ function ptShowLeaderboard(watchEventId, watchStandings) {
   inner.style.cssText = 'display:flex;flex-direction:column;height:100%;min-height:0';
   inner.innerHTML =
     '<div style="display:flex;align-items:center;justify-content:space-between;padding:20px 16px 12px;border-bottom:1px solid rgba(201,168,76,.2);flex-shrink:0">'
-    + '<div style="font-size:18px;font-weight:900;color:#c9a84c">🏆 Leaderboard</div>'
-    + '<div style="display:flex;align-items:center;gap:10px">'
+    + '<div style="flex:1;min-width:0"><div style="font-size:18px;font-weight:900;color:#c9a84c">🏆 Leaderboard</div>'
+    + '<div id="ptLbEvName" style="font-size:12.5px;font-weight:800;color:#f5e6b8;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></div>'
+    + '<div id="ptLbAsOf" style="font-size:10px;color:rgba(255,255,255,.35);margin-top:1px"></div></div>'
+    + '<div style="display:flex;align-items:center;gap:10px;flex-shrink:0">'
     + '<div id="ptLbCountdown" style="font-size:11px;color:rgba(255,255,255,.3);font-weight:600">↻ 30s</div>'
     + '<button onclick="_ptCloseLb()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;padding:4px 8px;-webkit-tap-highlight-color:transparent">✕</button>'
     + '</div>'
@@ -34672,6 +34826,7 @@ function ptShowLeaderboard(watchEventId, watchStandings) {
     + '</div>';
   ov.appendChild(inner);
   document.body.appendChild(ov);
+  _ptLbStamp(eventId, null);                                          // v248.4
   if (watchStandings) {
     _ptRenderStandings(watchStandings, null, eventId);
   } else {
@@ -34685,6 +34840,28 @@ function ptShowLeaderboard(watchEventId, watchStandings) {
     if (cd) cd.textContent = '↻ ' + _secs + 's';
     if (_secs <= 0) { _secs = 30; ptRefreshLeaderboard(eventId); }
   }, 1000);
+}
+
+// v248.4 — Bruce: Watch Live needs to say WHICH event it is and HOW FRESH the
+// numbers are. A screenshotted leaderboard with no event and no timestamp is
+// unreadable a day later. `computed` is the worker's computed_at when it sends
+// one; otherwise we stamp the moment the data landed on this device.
+function _ptLbStamp(eventId, computed) {
+  var nm = document.getElementById('ptLbEvName');
+  if (nm) {
+    var evName = (G._watchEvent && G._watchEvent.id == eventId && G._watchEvent.name)
+      || (G.joinGroup && G.joinGroup.event_id == eventId && G.joinGroup.event_name)
+      || (G._mdIndiv && G._mdIndiv.evName)
+      || '';
+    if (evName) nm.textContent = evName;
+  }
+  var el = document.getElementById('ptLbAsOf');
+  if (!el) return;
+  var d = null;
+  if (computed) { var t = new Date(computed); if (!isNaN(t.getTime())) d = t; }
+  if (!d) d = new Date();
+  el.textContent = 'as of ' + d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })
+    + ' \u00b7 ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
 }
 
 // ── Leaderboard helpers ───────────────────────────────────────────────────────
@@ -35068,6 +35245,7 @@ function ptRefreshLeaderboard(eventId) {
       if (!body) return;
       var standings = d.standings || [];
       var computed = d.computed_at || '';
+      _ptLbStamp(eventId, computed);                                  // v248.4
       _ptRenderStandings(standings, computed, eventId);
     }).catch(function(_e){
       if (body) body.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:40px 0;font-size:13px">'+_ptEsc(_ptMsg(_e,'Failed to load scores.'))+'</div>';
@@ -35637,6 +35815,23 @@ function doJoinRoundLookup(code, btn, errEl) {
     .then(_ptJson).catch(_ptNetErr)
     .then(function(d){
       btn.disabled=false; btn.textContent='Find Group';
+      // v248.4 — a locked round now stops HERE. Worker v2.46.0 answers the
+      // code lookup with 409 {locked:true} instead of handing back a foursome,
+      // so there is no card, no Score button and no "Round in Progress" cue
+      // telling the golfer to carry on. Before this, the lock only bit at
+      // submit — after 18 holes had been re-entered.
+      if (d && d.locked) {
+        _ptJoinResetCard();
+        errEl.innerHTML = '<div style="background:rgba(231,76,60,.1);border:1.5px solid rgba(231,76,60,.45);border-radius:12px;padding:16px 14px;text-align:center">'
+          + '<div style="font-size:30px;margin-bottom:6px">\ud83d\udd12</div>'
+          + '<div style="font-size:15px;font-weight:900;color:#e74c3c;letter-spacing:.5px;margin-bottom:6px">SCORING IS LOCKED</div>'
+          + '<div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.5">'
+          + (d.round_number ? 'Round ' + d.round_number + ' ' : 'This round ')
+          + 'is closed for scoring.<br>See the organizer if a score needs changing.</div>'
+          + '</div>';
+        errEl.style.display='block';
+        return;
+      }
       if(d && d.error && d._http !== 404){
         _ptJoinResetCard();
         errEl.textContent=_ptEsc(d.error); errEl.style.display='block';
@@ -37128,7 +37323,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v248.3';
+    const TOUR_VERSION     = 'pards-tour-v248.4';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
