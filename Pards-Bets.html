@@ -513,7 +513,7 @@
             </div>
             <div style="font-size:10px;color:#7A9E89;margin-bottom:10px;line-height:1.6;">
               4 columns: <strong style="color:#EDE8DC;">Bettor Name · Team Name · Type (W P S WP WPS) · Amount</strong><br/>
-              Optional 5th column: <strong style="color:#EDE8DC;">Ticket # (e.g. LCI-2025-0001)</strong>
+              Optional 5th column: <strong style="color:#EDE8DC;">Ticket # (e.g. R4G-007)</strong>
             </div>
             <input type="file" id="import-bets-file" accept=".csv,.txt,.tsv" style="width:100%;color:#D4A843;font-size:13px;padding:8px 0;" onchange="importBets(this)" />
             <div id="import-bets-msg" style="display:none;font-size:12px;text-align:center;padding:6px;border-radius:6px;margin-top:6px;"></div>
@@ -1483,7 +1483,7 @@ function prepareCashLabels() {
         '</div>' +
       '</div>' +
 
-      '<div class="footer">' + esc(evName) + ' &middot; Texas Scramble &middot; Parimutuel Betting</div>' +
+      '<div class="footer">' + esc(evName) + ' &middot; ' + esc(_sheetSub(new Date().getFullYear())) + '</div>' +
     '</div>';
   }).join('');
 
@@ -1633,7 +1633,7 @@ function prepareCashLabels() {
         '<span style="font-size:20px;font-weight:900;color:#1a7a3a;">' + fmt(sorted.reduce(function(s,p){ return s + p.totalPayout; }, 0)) + '</span>' +
       '</div>' +
       printRows +
-      '<div style="margin-top:30px;font-size:11px;color:#aaa;text-align:center;">' + esc(evName) + ' · Texas Scramble · Parimutuel Betting</div>' +
+      '<div style="margin-top:30px;font-size:11px;color:#aaa;text-align:center;">' + esc(evName) + ' · ' + esc(_sheetSub(new Date().getFullYear())) + '</div>' +
       '</body></html>';
 
     preview.style.display = '';
@@ -1668,7 +1668,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.8';
+const APP_VERSION = 'v20.10';
 
 function checkForUpdate() {
   // Fetch the live index.html and look for the version string
@@ -2715,7 +2715,8 @@ function printTicket() {
         '<span>TOTAL COLLECTED</span><span>' + fmt(totalWagered) + '</span>' +
       '</div>' +
       '<div style="margin-top:12px;font-size:9px;color:#999;text-align:center;border-top:1px solid #eee;padding-top:8px;">' +
-        'Good luck! &middot; ' + esc(state.tournamentName) + ' &middot; Texas Scramble' +
+        'Good luck! &middot; ' + esc(state.tournamentName) +
+        (raceDescriptor() ? ' &middot; ' + esc(raceDescriptor()) : '') +
       '</div>' +
     '</div>';
 
@@ -2816,7 +2817,7 @@ function printFullReport() {
   const ev = activeEvent();
   const evName = ev ? ev.name : (state.tournamentName || 'Last Call Invitational');
   const now = new Date().toLocaleString('en-CA', { dateStyle:'long', timeStyle:'short' });
-  const { betResults, pools, net, houseRetained, totalCollected, totalPayout, mode } = calcPayouts();
+  const { betResults, pools, net, houseRetained, houseTake, unclaimedTotal, unclaimedPools, roundingResidue, totalCollected, totalPayout, mode } = calcPayouts();
   const placements = ev ? ev.placements : state.placements;
   const p1 = teamName(placements.p1), p2 = teamName(placements.p2), p3 = teamName(placements.p3);
 
@@ -2918,9 +2919,20 @@ function printFullReport() {
     '<h2>📊 Pool Summary</h2>' +
     '<div class="stat-grid">' +
       '<div class="stat"><div class="stat-label">Total Collected</div><div class="stat-val" style="color:#8F6E2A;">$' + totalCollected + '</div></div>' +
-      '<div class="stat"><div class="stat-label">House Retained</div><div class="stat-val" style="color:#c0392b;">$' + houseRetained + '</div></div>' +
+      '<div class="stat"><div class="stat-label">House Take</div><div class="stat-val" style="color:' + (houseTake>0?'#c0392b':'#556') + ';">$' + houseTake + '</div></div>' +
       '<div class="stat"><div class="stat-label">Total Paid Out</div><div class="stat-val" style="color:#1a7a3a;">$' + totalPayout + '</div></div>' +
     '</div>' +
+    // v20.9 — unclaimed pool and rounding get their own row on the paper trail,
+    // and the row states which pool went unclaimed and why.
+    ((unclaimedTotal > 0 || roundingResidue > 0) ?
+      '<div class="stat-grid">' +
+        (unclaimedTotal > 0 ?
+          '<div class="stat" style="grid-column:span 2;"><div class="stat-label">Unclaimed Pool (retained)</div>' +
+          '<div class="stat-val" style="color:#b8860b;">$' + unclaimedTotal + '</div>' +
+          '<div style="font-size:10px;color:#888;margin-top:3px;">' + esc(unclaimedPoolNames(unclaimedPools)) + ' &mdash; ' + esc(unclaimedLabel(unclaimedPools)) + '</div></div>' : '') +
+        (roundingResidue > 0 ?
+          '<div class="stat"><div class="stat-label">Rounding</div><div class="stat-val" style="color:#556;">$' + roundingResidue + '</div></div>' : '') +
+      '</div>' : '') +
     '<div class="stat-grid">' +
       '<div class="stat"><div class="stat-label">Win Pool (net)</div><div class="stat-val" style="color:#1a7a3a;">$' + net.win + '</div></div>' +
       '<div class="stat"><div class="stat-label">Place Pool (net)</div><div class="stat-val" style="color:#2255AA;">$' + net.place + '</div></div>' +
@@ -2945,7 +2957,7 @@ function printFullReport() {
     '<h2>📋 All Bets by Bettor (A–Z)</h2>' +
     bettorSections +
 
-    '<div style="margin-top:30px;font-size:10px;color:#aaa;text-align:center;border-top:1px solid #eee;padding-top:10px;">' + esc(evName) + ' · Texas Scramble · Parimutuel Betting · ' + now + '</div>' +
+    '<div style="margin-top:30px;font-size:10px;color:#aaa;text-align:center;border-top:1px solid #eee;padding-top:10px;">' + esc(evName) + ' · ' + esc(_sheetSub(new Date().getFullYear())) + ' · ' + now + '</div>' +
     '</body></html>';
 
   const _html2 = injectPrintButton(html, '🖨 Print / Share Full Report');
@@ -3100,12 +3112,79 @@ function buildReceiptHTML(td) {
     '</body></html>';
 }
 
+// ─── RACE IDENTITY (v20.10) ──────────────────────────────────────────────────
+// Every ticket ref used to be LCI-<year>-<0001> from a PER-RACE counter, so all
+// nine races on event 49 minted LCI-2026-0001 and a paper slip could not be tied
+// to a board. The race identity now lives in the PREFIX, which makes refs unique
+// across races with no shared counter and no coordination.
+//
+//   R4G-007  =  Round 4 · Groups (team) · ticket 7
+//   OVP-012  =  Overall  · Players (individual) · ticket 12
+//
+// P/G not I/T on purpose: a handwritten I reads as 1 and a T reads as 7, and
+// these get scrawled at a bar at night. P and G collide with no digit. They also
+// map 1:1 onto the runner_mode column, so the prefix is derived from data rather
+// than invented. OV not OA because a handwritten O in OA reads as zero.
+//
+// Source of truth is the worker payload (v2.50.0 sends `round`); NOTHING here
+// parses race_label, so renaming a label can never mislabel a sheet or a ticket.
+function _raceMeta() {
+  if (typeof _d1Race === 'undefined' || !_d1Race || !_d1Race.race) return null;
+  return { race: _d1Race.race, round: _d1Race.round || null };
+}
+function _isPlayerRace() {
+  const m = _raceMeta();
+  return m ? m.race.runner_mode === 'players' : false;
+}
+// The noun for a runner on THIS race — the betting sheet printed "TEAM NAME"
+// over 40 individual player names before this existed.
+function runnerNoun(plural) {
+  const m = _raceMeta();
+  if (!m) return plural ? 'Teams' : 'Team';
+  return _isPlayerRace() ? (plural ? 'Players' : 'Player')
+                         : (plural ? 'Groups'  : 'Group');
+}
+function raceCode() {
+  const m = _raceMeta();
+  if (!m) return 'TK';                       // standalone/local mode: one race, no collision
+  const shape = _isPlayerRace() ? 'P' : 'G';
+  const rn    = m.round ? m.round.round_number : null;
+  return (rn != null ? 'R' + rn : 'OV') + shape;
+}
+// Honest format line. A Team bet on an individual_stableford round is NOT a
+// scramble — that was the hardcoded lie. It also surfaces the tournament rule
+// (a group scores its four players summed), which appeared on no screen before.
+function _formatLabel() {
+  const m = _raceMeta();
+  if (!m || !m.round) return '';
+  if (/scramble/i.test(m.round.format || '')) return 'Scramble';
+  if (/stableford/i.test(m.round.format || '')) {
+    return _isPlayerRace() ? 'Stableford' : 'Stableford, 4-player total';
+  }
+  return String(m.round.format || '').replace(/_/g, ' ');
+}
+// e.g. "Individual — 40 Players · R4 · Stableford" / "Team — 10 Groups · Overall"
+function raceDescriptor() {
+  const m = _raceMeta();
+  if (!m) return '';
+  const n     = (state.teams || []).length;
+  const shape = (_isPlayerRace() ? 'Individual' : 'Team') + ' — ' + n + ' ' + runnerNoun(n !== 1);
+  if (!m.round) return shape + ' \u00b7 Overall';
+  const f = _formatLabel();
+  return shape + ' \u00b7 R' + m.round.round_number + (f ? ' \u00b7 ' + f : '');
+}
+// Sub-header for printed sheets: race descriptor when known, never a hardcoded
+// format. Falls back to just the year rather than asserting something false.
+function _sheetSub(year) {
+  const d = raceDescriptor();
+  return (d ? d + ' \u00b7 ' : '') + year + ' \u00b7 Parimutuel Betting';
+}
+
 // ─── ENTRY SHEET ─────────────────────────────────────────────────────────────
 // Generates a unique ticket reference number for the active event
 function genTicketRef() {
   const ev   = activeEvent();
-  if (!ev) return 'LCI-' + new Date().getFullYear() + '-0001';
-  const year = new Date(ev.createdAt || Date.now()).getFullYear();
+  if (!ev) return raceCode() + '-001';
   if (!ev.nextTicketNum) ev.nextTicketNum = 1;
 
   // Get all existing ticket refs for this event to guarantee uniqueness
@@ -3113,8 +3192,8 @@ function genTicketRef() {
 
   let num, ref, attempts = 0;
   do {
-    num = String(ev.nextTicketNum).padStart(4, '0');
-    ref = 'LCI-' + year + '-' + num;
+    num = String(ev.nextTicketNum).padStart(3, '0');
+    ref = raceCode() + '-' + num;
     ev.nextTicketNum++;
     attempts++;
   } while (usedRefs.has(ref) && attempts < 10000);
@@ -3176,8 +3255,7 @@ function loadEntrySheet() {
   const refEl  = document.getElementById('entry-ticket-ref');
   const ev = activeEvent();
   const nextNum = ev ? (ev.nextTicketNum || 1) : 1;
-  const _year1 = new Date(ev ? (ev.createdAt || Date.now()) : Date.now()).getFullYear();
-  const ticketStr = 'LCI-' + _year1 + '-' + String(nextNum).padStart(4,'0');
+  const ticketStr = raceCode() + '-' + String(nextNum).padStart(3,'0');
   if (refEl) refEl.textContent = ticketStr;
   if (tickHero) tickHero.style.display = '';
 
@@ -3425,8 +3503,7 @@ function confirmCash() {
   const ev2 = activeEvent();
   const nextNum2 = ev2 ? (ev2.nextTicketNum || 1) : 1;
   const refEl = document.getElementById('entry-ticket-ref');
-  const _year2 = new Date(ev2 ? (ev2.createdAt || Date.now()) : Date.now()).getFullYear();
-  if (refEl) refEl.textContent = 'LCI-' + _year2 + '-' + String(nextNum2).padStart(4,'0');
+  if (refEl) refEl.textContent = raceCode() + '-' + String(nextNum2).padStart(3,'0');
 
   // Show ticket number prominently so operator can write it on the paper sheet
   showTicketConfirmation(ticketRef, bettor, grand, bettorId);
@@ -3554,18 +3631,18 @@ function printBettingSheet() {
       '<div class="header-row">' +
         '<div class="title-block">' +
           '<div class="ev-name">' + esc(evName) + '</div>' +
-          '<div class="ev-sub">Texas Scramble &middot; ' + year + ' &middot; Parimutuel Betting</div>' +
+          '<div class="ev-sub">' + esc(_sheetSub(year)) + '</div>' +
         '</div>' +
         '<div class="bettor-block">' +
           '<div class="bettor-label">Bettor Name</div>' +
           '<div class="bettor-box"></div>' +
           '<div class="bettor-label" style="margin-top:6px;">Ticket #</div>' +
-          '<div class="bettor-box ticket-box"><span class="ticket-prefix">LCI-</span></div>' +
+          '<div class="bettor-box ticket-box"><span class="ticket-prefix">' + esc(raceCode()) + '-</span></div>' +
         '</div>' +
       '</div>' +
       '<table>' +
         '<thead><tr>' +
-          '<th class="th-team">TEAM NAME</th>' +
+          '<th class="th-team">' + esc(runnerNoun(false).toUpperCase()) + ' NAME</th>' +
           '<th class="th-win">WIN $</th>' +
           '<th class="th-place">PLACE $</th>' +
           '<th class="th-show">SHOW $</th>' +
@@ -3761,6 +3838,21 @@ function setPlacement(pos, val) {
 }
 
 // ─── RESULTS ─────────────────────────────────────────────────────────────────
+// v20.9 — phrasing for an unclaimed pool. Says WHICH pool died and WHY, because
+// "House Retained" on a 0% race is the thing that confused us for two sessions.
+function unclaimedLabel(arr) {
+  if (!arr || !arr.length) return '';
+  return arr.map(function(n) {
+    return n === 'win'   ? 'no win bets on the winner'
+         : n === 'place' ? 'no place bets on the top 2'
+         :                 'no show bets on the top 3';
+  }).join(' · ');
+}
+function unclaimedPoolNames(arr) {
+  if (!arr || !arr.length) return '';
+  return arr.map(function(n){ return n.charAt(0).toUpperCase()+n.slice(1); }).join(' + ') + (arr.length>1 ? ' pools' : ' pool');
+}
+
 // Parimutuel payout rules:
 //   WIN pool  → 100% to 1st-place bettors
 //   PLACE pool → 50% to 1st-place bettors, 50% to 2nd-place bettors
@@ -3825,6 +3917,26 @@ function calcPayouts() {
 
   // CORRECT FORMULA: payout = (bet / winning_stake) × net_pool
   // i.e. your proportional share of the net pool — stake is NOT returned separately
+
+  // ── UNCLAIMED POOLS (v20.9) ───────────────────────────────────────────────
+  // A pool with zero winning stake has no claimant: nobody bet a position that
+  // finished. That money is NOT a house take — house_pct can be 0 and this
+  // still happens (event 49 test: $20 show pool, 0% house, reported as
+  // "House Retained 74.1%"). Tracked separately so it can be labelled honestly.
+  // Only meaningful once all three placements are in; before that the race is
+  // merely unsettled, not unclaimed.
+  // A pool is only "unclaimed" if it HAS money AND has no winning stake. A pool
+  // nobody bet into at all is empty, not unclaimed — flagging it would print
+  // "no place bets on the top 2" for a place pool that never existed.
+  const _settled   = !!(p1 && p2 && p3);
+  const _deadWin   = _settled && net.win   > 0 && winStake === 0;
+  const _deadPlace = _settled && net.place > 0 && (pl1Stake + pl2Stake) === 0;
+  const _deadShow  = _settled && net.show  > 0 && (sh1Stake + sh2Stake + sh3Stake) === 0;
+  const unclaimedPools = [];
+  if (_deadWin)   unclaimedPools.push('win');
+  if (_deadPlace) unclaimedPools.push('place');
+  if (_deadShow)  unclaimedPools.push('show');
+  const unclaimedTotal = (_deadWin ? net.win : 0) + (_deadPlace ? net.place : 0) + (_deadShow ? net.show : 0);
 
   let betResults;
 
@@ -3911,7 +4023,15 @@ function calcPayouts() {
   // House retains the take PLUS any cents left over from dollar rounding
   const houseRetained = Math.round((totalCollected - totalPayout) * 100) / 100;
 
-  return { betResults: scaledResults, pools, net, houseRetained, totalCollected, totalPayout, mode, handleMode: _handleMode, handleFlat: _handleFlat, handlePct: _handlePct };
+  // ── DECOMPOSITION (v20.9) ─────────────────────────────────────────────────
+  // houseRetained is a residual: totalCollected - totalPayout. It lumps three
+  // unrelated things under one label. Split them. Residue is derived as the
+  // remainder rather than computed independently, so the three parts sum to
+  // houseRetained EXACTLY and the books-balanced check can never drift.
+  const houseTake       = Math.round(houseAmt * 100) / 100;
+  const roundingResidue = Math.round((houseRetained - houseTake - unclaimedTotal) * 100) / 100;
+
+  return { betResults: scaledResults, pools, net, houseRetained, houseTake, unclaimedTotal, unclaimedPools, roundingResidue, totalCollected, totalPayout, mode, handleMode: _handleMode, handleFlat: _handleFlat, handlePct: _handlePct };
 }
 
 function renderResults() {
@@ -3947,18 +4067,29 @@ function renderResults() {
   content.style.display = ready ? 'flex' : 'none';
   if (content.style.display === 'flex') { content.style.flexDirection = 'column'; content.style.gap = '16px'; }
 
-  const { betResults, pools, net, houseRetained, totalCollected, totalPayout } = calcPayouts();
+  const { betResults, pools, net, houseRetained, houseTake, unclaimedTotal, unclaimedPools, roundingResidue, totalCollected, totalPayout } = calcPayouts();
   const balanced = Math.abs(totalCollected - totalPayout - houseRetained) < 0.02;
 
   // House take live summary
   const houseSumEl = document.getElementById('house-take-summary');
   if (houseSumEl) {
-    if (houseRetained > 0) {
-      const pct = totalCollected > 0 ? (houseRetained/totalCollected*100).toFixed(1) : '0';
-      houseSumEl.innerHTML = 'Retaining <strong style="color:#E05252;">' + fmt(houseRetained) + '</strong> from ' + fmt(totalCollected) + ' total (' + pct + '%) · Net payout pool: <strong style="color:#3DB86E;">' + fmt(totalPayout) + '</strong>';
+    // v20.9 — three separate clauses. A 0% house race must never claim a
+    // "house take" just because a pool went unclaimed or a dollar was floored.
+    const parts = [];
+    if (houseTake > 0) {
+      const hpct = totalCollected > 0 ? (houseTake/totalCollected*100).toFixed(1) : '0';
+      parts.push('House take <strong style="color:#E05252;">' + fmt(houseTake) + '</strong> (' + hpct + '%)');
     } else {
-      houseSumEl.innerHTML = 'House take: <strong style="color:#7A9E89;">$0.00</strong> · Full ' + fmt(totalCollected) + ' paid out to winners';
+      parts.push('House take <strong style="color:#7A9E89;">$0.00</strong>');
     }
+    if (unclaimedTotal > 0) {
+      parts.push('Unclaimed pool (retained) <strong style="color:#E0A252;">' + fmt(unclaimedTotal) + '</strong> <span style="color:#7A9E89;">&mdash; ' + unclaimedLabel(unclaimedPools) + '</span>');
+    }
+    if (roundingResidue > 0) {
+      parts.push('Rounding <strong style="color:#8FA89B;">' + fmt(roundingResidue) + '</strong>');
+    }
+    parts.push('Paid out <strong style="color:#3DB86E;">' + fmt(totalPayout) + '</strong> of ' + fmt(totalCollected));
+    houseSumEl.innerHTML = parts.join(' · ');
   }
 
   const medals = ['🥇','🥈','🥉'];
@@ -3977,14 +4108,21 @@ function renderResults() {
       '</div>';
     }).join('');
 
-  document.getElementById('pool-grid').innerHTML = [
+  // v20.9 — "House Retained" split into its three real components. Unclaimed
+  // and Rounding cells only appear when non-zero, so a clean race stays clean.
+  const poolCells = [
     ['Total Collected',  totalCollected,  '#D4A843'],
-    ['House Retained',   houseRetained,   '#E05252'],
+    ['House Take',       houseTake,       houseTake > 0 ? '#E05252' : '#7A9E89'],
+  ];
+  if (unclaimedTotal > 0) poolCells.push(['Unclaimed Pool (retained)', unclaimedTotal, '#E0A252']);
+  if (roundingResidue > 0) poolCells.push(['Rounding', roundingResidue, '#8FA89B']);
+  poolCells.push(
     ['Win Pool (net)',   net.win,         '#3DB86E'],
     ['Place Pool (net)', net.place,       '#5AAEDD'],
     ['Show Pool (net)',  net.show,        '#B07FDE'],
-    ['Total Paid Out',   totalPayout,     '#3DB86E'],
-  ].map(function(item) {
+    ['Total Paid Out',   totalPayout,     '#3DB86E']
+  );
+  document.getElementById('pool-grid').innerHTML = poolCells.map(function(item) {
     return '<div class="pool-cell"><div class="pool-cell-label">' + item[0] + '</div><div class="pool-cell-val" style="color:' + item[2] + ';">' + fmt(item[1]) + '</div></div>';
   }).join('');
 
@@ -4056,6 +4194,10 @@ function renderResults() {
   renderResults._totalCollected = totalCollected;
   renderResults._totalPayout    = totalPayout;
   renderResults._houseRetained  = houseRetained;
+  renderResults._houseTake      = houseTake;
+  renderResults._unclaimedTotal = unclaimedTotal;
+  renderResults._unclaimedPools = unclaimedPools;
+  renderResults._roundingResid  = roundingResidue;
   renderResults._balanced       = balanced;
 
   // Update recon header with counts
@@ -4175,13 +4317,18 @@ function _renderReconList() {
   const tc  = renderResults._totalCollected || 0;
   const tp  = renderResults._totalPayout    || 0;
   const hr  = renderResults._houseRetained  || 0;
+  const hTake = renderResults._houseTake      || 0;
+  const hUncl = renderResults._unclaimedTotal || 0;
+  const hRnd  = renderResults._roundingResid  || 0;
   const bal = renderResults._balanced;
   const totEl = document.getElementById('recon-totals');
   const balEl = document.getElementById('recon-balance');
   if (totEl) totEl.innerHTML =
     '<div>Collected: <strong style="color:#EDE8DC;">' + fmt(tc) + '</strong></div>' +
     '<div>Paid out: <strong style="color:#3DB86E;">' + fmt(tp) + '</strong></div>' +
-    '<div>House: <strong style="color:#E05252;">' + fmt(hr) + '</strong></div>';
+    '<div>House take: <strong style="color:' + (hTake>0?'#E05252':'#7A9E89') + ';">' + fmt(hTake) + '</strong></div>' +
+    (hUncl > 0 ? '<div>Unclaimed: <strong style="color:#E0A252;">' + fmt(hUncl) + '</strong></div>' : '') +
+    (hRnd  > 0 ? '<div>Rounding: <strong style="color:#8FA89B;">' + fmt(hRnd)  + '</strong></div>' : '');
   if (balEl) balEl.innerHTML = bal
     ? '<span style="color:#3DB86E;">✓ BALANCED</span>'
     : '<span style="color:#E05252;">⚠ CHECK</span>';
