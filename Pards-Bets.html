@@ -210,7 +210,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.10</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.11</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -1668,7 +1668,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.10';
+const APP_VERSION = 'v20.11';
 
 // v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
 // The badge was a SECOND hardcoded literal in the markup (the span at the top of
@@ -2825,6 +2825,19 @@ function shareTicket() {
   }
 }
 
+// v20.11 — EVERY MONEY VALUE ON THE PAPER TRAIL GOES THROUGH fmt().
+//
+// printFullReport built all 14 of its money cells by raw concatenation
+// ('$' + totalCollected) and called fmt() exactly zero times, while the live
+// screen used fmt() throughout. That is why the same settled race showed "$30"
+// on the printed report and "$30.00" on screen.
+//
+// Cosmetic on whole-dollar wagers. Not cosmetic otherwise: the wager amount is
+// read with parseFloat and has no integer constraint, so a $2.50 ticket is
+// enterable, and a fuzz over quarter-dollar amounts produced report cells
+// reading "$110.5" and "$67.5". This is the one artifact that gets printed and
+// handed to people at the bar, so it is the last place a half-formatted number
+// should appear. Asserted site-by-site in t/test-v2011-report-fmt.mjs.
 function printFullReport() {
   const ev = activeEvent();
   const evName = ev ? ev.name : (state.tournamentName || 'Last Call Invitational');
@@ -2850,7 +2863,7 @@ function printFullReport() {
     return '<tr>' +
       '<td style="padding:6px 10px;border-bottom:1px solid #eee;">' + medal + ' ' + esc(name) + '</td>' +
       '<td style="padding:6px 10px;border-bottom:1px solid #eee;">' + e[1].bets.map(function(b){ return b.type.toUpperCase()+' '+esc(teamName(b.teamId)); }).join(', ') + '</td>' +
-      '<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right;font-weight:700;color:#1a7a3a;">$' + e[1].payout + '</td>' +
+      '<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right;font-weight:700;color:#1a7a3a;">' + fmt(e[1].payout) + '</td>' +
     '</tr>';
   }).join('');
 
@@ -2894,15 +2907,15 @@ function printFullReport() {
       return '<tr style="background:' + (win?'#f0fff4':'') + '">' +
         '<td style="padding:4px 8px;border-bottom:1px solid #eee;">' + esc(teamName(b.teamId)) + '</td>' +
         '<td style="padding:4px 8px;border-bottom:1px solid #eee;font-weight:700;">' + b.type.toUpperCase() + '</td>' +
-        '<td style="padding:4px 8px;border-bottom:1px solid #eee;text-align:right;">$' + b.amount + '</td>' +
-        '<td style="padding:4px 8px;border-bottom:1px solid #eee;text-align:right;font-weight:700;color:' + (win?'#1a7a3a':'#999') + ';">' + (win?'$'+b.payout:'—') + '</td>' +
+        '<td style="padding:4px 8px;border-bottom:1px solid #eee;text-align:right;">' + fmt(b.amount) + '</td>' +
+        '<td style="padding:4px 8px;border-bottom:1px solid #eee;text-align:right;font-weight:700;color:' + (win?'#1a7a3a':'#999') + ';">' + (win?fmt(b.payout):'—') + '</td>' +
         '<td style="padding:4px 8px;border-bottom:1px solid #eee;font-size:10px;color:#999;">' + (b.ticketRef||'') + '</td>' +
       '</tr>';
     }).join('');
     return '<div style="margin-bottom:20px;break-inside:avoid;">' +
       '<div style="background:#f9f6ee;border:1px solid #d4a843;border-radius:6px 6px 0 0;padding:8px 12px;display:flex;justify-content:space-between;align-items:baseline;">' +
         '<span style="font-weight:700;font-size:14px;">' + esc(name) + '</span>' +
-        '<span style="font-size:12px;color:#555;">Wagered: $' + s.wagered + ' · Payout: <strong style="color:' + (s.payout>0?'#1a7a3a':'#999') + '">$' + s.payout + '</strong> · Net: <strong style="color:' + (netGain>=0?'#1a7a3a':'#c0392b') + '">' + (netGain>=0?'+':'-') + '$' + Math.abs(netGain) + '</strong></span>' +
+        '<span style="font-size:12px;color:#555;">Wagered: ' + fmt(s.wagered) + ' · Payout: <strong style="color:' + (s.payout>0?'#1a7a3a':'#999') + '">' + fmt(s.payout) + '</strong> · Net: <strong style="color:' + (netGain>=0?'#1a7a3a':'#c0392b') + '">' + (netGain>=0?'+':'-') + fmt(Math.abs(netGain)) + '</strong></span>' +
       '</div>' +
       '<table style="width:100%;border-collapse:collapse;border:1px solid #d4a843;border-top:none;font-size:12px;">' +
         '<thead><tr style="background:#f0ebe0;"><th style="padding:4px 8px;text-align:left;font-size:10px;color:#888;">TEAM</th><th style="padding:4px 8px;text-align:left;font-size:10px;color:#888;">TYPE</th><th style="padding:4px 8px;text-align:right;font-size:10px;color:#888;">BET</th><th style="padding:4px 8px;text-align:right;font-size:10px;color:#888;">PAYOUT</th><th style="padding:4px 8px;text-align:left;font-size:10px;color:#888;">TICKET</th></tr></thead>' +
@@ -2930,9 +2943,9 @@ function printFullReport() {
 
     '<h2>📊 Pool Summary</h2>' +
     '<div class="stat-grid">' +
-      '<div class="stat"><div class="stat-label">Total Collected</div><div class="stat-val" style="color:#8F6E2A;">$' + totalCollected + '</div></div>' +
-      '<div class="stat"><div class="stat-label">House Take</div><div class="stat-val" style="color:' + (houseTake>0?'#c0392b':'#556') + ';">$' + houseTake + '</div></div>' +
-      '<div class="stat"><div class="stat-label">Total Paid Out</div><div class="stat-val" style="color:#1a7a3a;">$' + totalPayout + '</div></div>' +
+      '<div class="stat"><div class="stat-label">Total Collected</div><div class="stat-val" style="color:#8F6E2A;">' + fmt(totalCollected) + '</div></div>' +
+      '<div class="stat"><div class="stat-label">House Take</div><div class="stat-val" style="color:' + (houseTake>0?'#c0392b':'#556') + ';">' + fmt(houseTake) + '</div></div>' +
+      '<div class="stat"><div class="stat-label">Total Paid Out</div><div class="stat-val" style="color:#1a7a3a;">' + fmt(totalPayout) + '</div></div>' +
     '</div>' +
     // v20.9 — unclaimed pool and rounding get their own row on the paper trail,
     // and the row states which pool went unclaimed and why.
@@ -2940,15 +2953,15 @@ function printFullReport() {
       '<div class="stat-grid">' +
         (unclaimedTotal > 0 ?
           '<div class="stat" style="grid-column:span 2;"><div class="stat-label">Unclaimed Pool (retained)</div>' +
-          '<div class="stat-val" style="color:#b8860b;">$' + unclaimedTotal + '</div>' +
+          '<div class="stat-val" style="color:#b8860b;">' + fmt(unclaimedTotal) + '</div>' +
           '<div style="font-size:10px;color:#888;margin-top:3px;">' + esc(unclaimedPoolNames(unclaimedPools)) + ' &mdash; ' + esc(unclaimedLabel(unclaimedPools)) + '</div></div>' : '') +
         (roundingResidue > 0 ?
-          '<div class="stat"><div class="stat-label">Rounding</div><div class="stat-val" style="color:#556;">$' + roundingResidue + '</div></div>' : '') +
+          '<div class="stat"><div class="stat-label">Rounding</div><div class="stat-val" style="color:#556;">' + fmt(roundingResidue) + '</div></div>' : '') +
       '</div>' : '') +
     '<div class="stat-grid">' +
-      '<div class="stat"><div class="stat-label">Win Pool (net)</div><div class="stat-val" style="color:#1a7a3a;">$' + net.win + '</div></div>' +
-      '<div class="stat"><div class="stat-label">Place Pool (net)</div><div class="stat-val" style="color:#2255AA;">$' + net.place + '</div></div>' +
-      '<div class="stat"><div class="stat-label">Show Pool (net)</div><div class="stat-val" style="color:#6633AA;">$' + net.show + '</div></div>' +
+      '<div class="stat"><div class="stat-label">Win Pool (net)</div><div class="stat-val" style="color:#1a7a3a;">' + fmt(net.win) + '</div></div>' +
+      '<div class="stat"><div class="stat-label">Place Pool (net)</div><div class="stat-val" style="color:#2255AA;">' + fmt(net.place) + '</div></div>' +
+      '<div class="stat"><div class="stat-label">Show Pool (net)</div><div class="stat-val" style="color:#6633AA;">' + fmt(net.show) + '</div></div>' +
     '</div>' +
 
     '<h2>🏆 Final Standings &amp; Winning Pools</h2>' +
