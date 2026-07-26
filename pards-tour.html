@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v250.0 -->
+  <!-- pards-tour-v250.1 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -28405,7 +28405,7 @@ function _ptTRMRenderTeeBuilder() {
     _ptTRM.slots.forEach(function(slot, si){
       var _mode = _ptTRM.mode || 'tee';
       var filled = (slot.players||[]).filter(Boolean).length;
-      var canDrop = !!_mv && filled < 4;
+      var canDrop = !!_mv && filled < 5;   // v250.1 — fivesomes
       var borderCol = canDrop ? 'rgba(201,168,76,.35)' : 'rgba(255,255,255,.08)';
       h += '<div style="background:rgba(255,255,255,.04);border:1.5px solid '+borderCol+';border-radius:10px;padding:10px 12px;margin-bottom:8px">'
         + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">'
@@ -28421,9 +28421,14 @@ function _ptTRMRenderTeeBuilder() {
           + '<button onclick="ptTRMRemovePlayer('+si+','+p.trip_player_id+')" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;padding:0;line-height:1;-webkit-tap-highlight-color:transparent">×</button>'
           + '</div>';
       });
-      if(filled < 4){
+      if(filled < 5){
+        // v250.1 — the fifth spot reads "+ 5th player" in amber so a fivesome
+        // is always a deliberate act, never an accidental tap on a full-looking
+        // group. Below four it is the same "+ add player" it always was.
         if(_mv){
           h += '<button onclick="ptTRMSpotTap('+si+')" style="padding:5px 12px;border-radius:16px;border:1.5px dashed #c9a84c;background:rgba(201,168,76,.1);color:#c9a84c;font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">⬇ place here</button>';
+        } else if(filled === 4){
+          h += '<button onclick="ptTRMSpotTap('+si+')" style="padding:5px 12px;border-radius:16px;border:1.5px dashed rgba(230,162,82,.5);background:rgba(230,162,82,.07);color:rgba(230,162,82,.75);font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">+ 5th player</button>';
         } else {
           h += '<button onclick="ptTRMSpotTap('+si+')" style="padding:5px 12px;border-radius:16px;border:1.5px dashed rgba(255,255,255,.18);background:none;color:rgba(255,255,255,.35);font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">+ add player</button>';
         }
@@ -28530,12 +28535,19 @@ function _ptTRMSlotLabel(si){
   return _pt12h(slot.start_time||'') || (slot.start_time||'');
 }
 
-// First free position in a slot (or -1 when full at 4)
+// First free position in a slot (or -1 when full).
+// v250.1 — full means FIVE, not four: the Derrick allows fivesomes and Bruce's
+// Friday league needs them. Slots still GENERATE with four positions and the
+// group-count default still packs by four — the fifth spot only exists when an
+// organizer deliberately places a fifth player, so nothing changes for a
+// foursome sheet. The rest of the stack was already ready: Vegas takes 4 or 5,
+// the join path maps every player in the slot, and handleSaveTripTeeTimes
+// loops players.length with no cap.
 function _ptTRMFreePos(si){
   var slot = _ptTRM.slots[si]; if(!slot) return -1;
   slot.players = slot.players || [];
   for(var i=0;i<slot.players.length;i++){ if(!slot.players[i]) return i; }
-  if(slot.players.filter(Boolean).length >= 4) return -1;
+  if(slot.players.filter(Boolean).length >= 5) return -1;
   slot.players.push(null);
   return slot.players.length - 1;
 }
@@ -37656,7 +37668,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v250.0';
+    const TOUR_VERSION     = 'pards-tour-v250.1';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
