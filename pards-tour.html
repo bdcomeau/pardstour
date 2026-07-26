@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v243.1 -->
+  <!-- pards-tour-v244.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -759,7 +759,7 @@ input::placeholder{color:#bbb}
         </div>
         <div class="tile-chevron">›</div>
       </div>
-      <div class="tile" onclick="showSection('watch')">
+      <div class="tile" onclick="showWatchLive()">
         <div class="tile-icon">📺</div>
         <div class="tile-text">
           <div class="tile-label">Watch Live</div>
@@ -1517,17 +1517,7 @@ input::placeholder{color:#bbb}
   </div>
 
 
-  <!-- ═══════════════════════════════════════════════
-       WATCH LIVE  (placeholder)
-  ═══════════════════════════════════════════════ -->
-  <div id="screen-watch" class="tour-screen">
-    <div class="section-body">
-      <div class="placeholder-icon">📺</div>
-      <div class="placeholder-title">Watch Live</div>
-      <div class="placeholder-desc">Enter a PIN to follow any active group's scorecard in real time.</div>
-      <div class="placeholder-tag">Phase 3 — PIN Flow TBD</div>
-    </div>
-  </div>
+  <!-- Watch Live placeholder removed v244.0 — tile now calls showWatchLive() directly -->
 
 
   <!-- ═══════════════════════════════════════════════
@@ -36103,7 +36093,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v243.1';
+    const TOUR_VERSION     = 'pards-tour-v244.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
@@ -36160,7 +36150,7 @@ self.addEventListener('fetch',e=>{
     // (button lights up via _tourUpdateReady flag on next manual tap)
 
     // ─── Tour Router ───────────────────────────────────────────
-    const TOUR_SECTIONS = ['home', 'golf', 'events', 'watch', 'admin'];
+    const TOUR_SECTIONS = ['home', 'golf', 'events', 'admin']; // v244.0: 'watch' retired — tile calls showWatchLive()
 
     function showHome() {
       // Dismiss any organizer overlays (login/dashboard) when returning to tour home
