@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v244.0 -->
+  <!-- pards-tour-v244.1 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -29485,6 +29485,7 @@ function loadOrgEventDetail(eventId) {
       }
       // Render immediately with no scoring status, then overlay scoring data async
       list.innerHTML=html+groups.map(function(g){return _renderGroupCard(g,null);}).join('')+_footerHtml;
+      ev._ptGroupCount = groups.length; // v244.1 — rounds section needs this for the utility-action gate
       ptLoadRounds(ev);
       Promise.all([Promise.all(_scorePromises), _ttPromise]).then(function(res2){
         var scoreData=res2[0]; _ttMap=res2[1];
@@ -30454,8 +30455,11 @@ function ptRenderRounds(ev, rounds) {
       h += '</div>';
     });
   }
-  // Utility actions — gated on rounds existing; context is correct here
-  if (rounds.length > 0) {
+  // Utility actions — v244.1: gate on rounds OR groups. Zero-round events
+  // (scramble/RBC) keep foursomes in the groups table (v220 structural note);
+  // ptPrintTeeSheet + ptPrintFinalResults are already groups-based, so the old
+  // rounds-only gate hid a working Print Tee Sheet from every scramble event.
+  if (rounds.length > 0 || (ev._ptGroupCount || 0) > 0) {
     h += '<div style="margin-top:12px;border-top:1px solid rgba(255,255,255,.06);padding-top:12px">';
     if (ev.format !== 'multi_day') {
       h += '<div style="display:flex;gap:6px;margin-bottom:6px">';
@@ -36093,7 +36097,7 @@ self.addEventListener('fetch',e=>{
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v244.0';
+    const TOUR_VERSION     = 'pards-tour-v244.1';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
