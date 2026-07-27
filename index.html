@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v268.0 -->
+  <!-- pards-tour-v269.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -6892,6 +6892,62 @@ async function gcGetToken(cfg){
   _gcToken=data.access_token;
   _gcTokenExp=now + ((data.expires_in||3600)*1000);
   return _gcToken;
+}
+
+// ── Golf Canada score post (v269.0) ──
+// Rides the existing gc-proxy rails: POST {worker}/score/create with the same
+// Bearer token as the handicap flow. Returns { status, text } with the RAW
+// golfnet response — caller surfaces it. Network errors resolve (status 0),
+// never throw: a GC post must never block round flow.
+async function gcPostScore(payload){
+  const cfg = gcConfig();
+  if(!cfg || !cfg.worker || !cfg.username) throw new Error('Not logged in to Golf Canada');
+  const token = await gcGetToken(cfg);
+  try{
+    const res = await fetch(cfg.worker.replace(/\/+$/,'')+'/score/create',{
+      method:'POST',
+      headers:{'Content-Type':'application/json', Authorization:'Bearer '+token},
+      body:JSON.stringify(payload)
+    });
+    const text = await res.text();
+    return { status: res.status, text };
+  }catch(e){
+    return { status: 0, text: String(e && e.message || e) };
+  }
+}
+
+// TEMP (v269.0): one-shot GC score-post validation test — Bruce's account only.
+// Remove this function + its Backup-screen accordion once /score/create is validated.
+async function gcScorePostTest(){
+  // Derrick-only gate (Bruce): GC score posting is restricted to derrick-gwc for now.
+  if((G.courseId||'derrick-gwc')!=='derrick-gwc'){ alert('Golf Canada posting is only enabled for the Derrick Golf & Winter Club for now.'); return; }
+  if(!confirm('Post TEST score to Golf Canada?\n\nDerrick Deck 2 \u00b7 gross 85 \u00b7 dated yesterday\nCard \u2022\u2022\u20221968 (Bruce)\n\nThis hits the LIVE handicap record \u2014 delete the score on golfcanada.ca afterwards.')) return;
+  const el = document.getElementById('gcTestResult');
+  if(el){ el.style.display='block'; el.textContent='Posting\u2026'; }
+  const d = new Date(); d.setDate(d.getDate()-1);
+  const dateIso = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'T14:00:00Z';
+  const payload = {
+    date: dateIso,
+    golfCanadaCardId: '5130031968',
+    courseId: 18662,
+    teeId: 51226,
+    gender: 'Male',
+    holesPlayed: 'EighteenHoles',
+    scaleTypeId: 'EighteenHole',
+    gross: 85,
+    adjScore: 85,
+    isHoleByHole: false,
+    isManualEntry: true,
+    isTrackingStats: false,
+    overrideDuplicateCheck: false
+  };
+  let r;
+  try{ r = await gcPostScore(payload); }
+  catch(e){ r = { status:'ERR', text: String(e && e.message || e) }; }
+  const raw = 'HTTP '+r.status+'\n'+(r.text || '(empty body)');
+  try{ console.log('[GC score test]', payload, raw); }catch(e){}
+  if(el){ el.textContent = raw; }
+  else { alert(raw.slice(0, 1500)); }
 }
 
 /* ═══════════════════════════════════════════════
@@ -16497,6 +16553,23 @@ function renderBackup(){
       <div id="nassauImportResult" style="display:none;font-size:12px;font-weight:600;margin-top:8px;text-align:center"></div>
     </div>
   </div>`;
+  // TEMP (v269.0): GC score-post test accordion — remove with gcScorePostTest()
+  // Derrick-only gate (Bruce): score posting is enabled ONLY for derrick-gwc for now.
+  if((G.courseId||'derrick-gwc')==='derrick-gwc'){
+  html+=`<div style="margin-bottom:14px;border:1px solid rgba(255,255,255,.25);border-radius:10px;overflow:hidden">
+    <div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.querySelector('.gct-arrow').textContent=this.nextElementSibling.style.display==='block'?'\u25b2':'\u25bc'" style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;background:rgba(255,255,255,.08)">
+      <span style="font-size:13px;font-weight:600;color:rgba(255,255,255,.6)">\ud83e\uddea Dev: Golf Canada Score Post Test</span>
+      <span class="gct-arrow" style="font-size:11px;color:rgba(255,255,255,.5)">\u25bc</span>
+    </div>
+    <div style="display:none;padding:12px 14px;background:rgba(0,0,0,.15)">
+      <div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:10px;line-height:1.7">
+        Posts one <b>test score</b> (Derrick Deck 2, gross 85, dated yesterday) to <b>Bruce's</b> Golf Canada record and shows the raw response. <b style="color:#e74c3c">Live handicap record \u2014 delete the score on golfcanada.ca after checking.</b>
+      </div>
+      <button onclick="gcScorePostTest()" style="display:block;width:100%;background:#6b3a1f;color:#fff;border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;box-sizing:border-box">\ud83e\uddea Post Test Score (85)</button>
+      <pre id="gcTestResult" style="display:none;margin-top:10px;padding:10px;background:rgba(0,0,0,.35);border-radius:8px;font-size:11px;line-height:1.5;color:#9fe8b8;white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto"></pre>
+    </div>
+  </div>`;
+  }
   html+=`<div style="font-size:11px;color:rgba(255,255,255,.45);text-align:center;line-height:1.6;padding:0 8px">Export opens the share sheet — save to Files, iCloud Drive, or email. A backup in iCloud is accessible from all your devices. This is the <b>only</b> way to recover your data if the app is ever deleted or reinstalled.</div>`;
   html+='</div>';
   el.innerHTML=html;
@@ -39621,7 +39694,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v268.0';
+    const TOUR_VERSION     = 'pards-tour-v269.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
