@@ -210,7 +210,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.14</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.15</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -1668,7 +1668,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.14';
+const APP_VERSION = 'v20.15';
 
 // v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
 // The badge was a SECOND hardcoded literal in the markup (the span at the top of
@@ -2293,6 +2293,58 @@ function addBet() {
   save(); renderWagers(); updateTote(); updateHeader();
 }
 
+// v20.15 — STYLED VOID DIALOGS. The triple-confirm ceremony ran on native
+// confirm()/alert() — browser-chrome grey boxes ("bdcomeau.github.io says")
+// in the middle of a gold-and-green app. ptConfirm/ptNotice are the in-app
+// replacements: promise-based (removeBet has been async since v20.13), same
+// overlay pattern as _d1Alarm, danger variant for the point of no return.
+// The CEREMONY is unchanged — still three explicit yeses for a locked ticket.
+function ptConfirm(opts) {
+  opts = opts || {};
+  return new Promise(function(resolve) {
+    var accent = opts.danger ? '#e74c3c' : '#D4A843';
+    var ov = document.createElement('div');
+    ov.style.cssText = 'position:fixed;inset:0;z-index:99990;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:22px;';
+    ov.innerHTML =
+      '<div style="background:#0F1A14;border:2px solid ' + accent + ';border-radius:16px;padding:22px 20px;max-width:430px;width:100%;box-shadow:0 18px 60px rgba(0,0,0,.65);">' +
+        (opts.step ? '<div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#7A9E89;margin-bottom:6px;">CONFIRMATION ' + opts.step + '</div>' : '') +
+        '<div style="font-family:Barlow Condensed,sans-serif;font-size:23px;font-weight:900;letter-spacing:1px;color:' + accent + ';margin-bottom:10px;">' + (opts.title || 'Confirm') + '</div>' +
+        '<div style="font-size:13.5px;color:#EDE8DC;line-height:1.6;margin-bottom:18px;">' + (opts.html || '') + '</div>' +
+        '<div style="display:flex;gap:10px;">' +
+          '<button data-ptc="0" style="flex:1;padding:13px;background:transparent;border:1px solid #3A5244;border-radius:10px;color:#B9C8BE;font-size:14px;font-weight:800;cursor:pointer;">' + (opts.cancelLabel || 'Cancel') + '</button>' +
+          '<button data-ptc="1" style="flex:1;padding:13px;background:' + accent + ';border:none;border-radius:10px;color:' + (opts.danger ? '#fff' : '#14210F') + ';font-size:14px;font-weight:900;cursor:pointer;">' + (opts.okLabel || 'OK') + '</button>' +
+        '</div>' +
+      '</div>';
+    ov.addEventListener('click', function(e) {
+      var t = e.target;
+      var v = t && t.getAttribute ? t.getAttribute('data-ptc') : null;
+      if (v !== null && v !== undefined) { ov.remove(); resolve(v === '1'); }
+      else if (t === ov) { ov.remove(); resolve(false); }
+    });
+    document.body.appendChild(ov);
+  });
+}
+function ptNotice(opts) {
+  opts = opts || {};
+  return new Promise(function(resolve) {
+    var accent = opts.accent || '#3DB86E';
+    var ov = document.createElement('div');
+    ov.style.cssText = 'position:fixed;inset:0;z-index:99990;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:22px;';
+    ov.innerHTML =
+      '<div style="background:#0F1A14;border:2px solid ' + accent + ';border-radius:16px;padding:22px 20px;max-width:430px;width:100%;text-align:center;box-shadow:0 18px 60px rgba(0,0,0,.65);">' +
+        (opts.icon ? '<div style="font-size:34px;margin-bottom:8px;">' + opts.icon + '</div>' : '') +
+        '<div style="font-family:Barlow Condensed,sans-serif;font-size:23px;font-weight:900;letter-spacing:1px;color:' + accent + ';margin-bottom:10px;">' + (opts.title || '') + '</div>' +
+        '<div style="font-size:13.5px;color:#EDE8DC;line-height:1.6;margin-bottom:18px;">' + (opts.html || '') + '</div>' +
+        '<button data-ptc="1" style="width:100%;padding:13px;background:' + accent + ';border:none;border-radius:10px;color:#14210F;font-size:14px;font-weight:900;cursor:pointer;">' + (opts.okLabel || 'Done') + '</button>' +
+      '</div>';
+    ov.addEventListener('click', function(e) {
+      var t = e.target;
+      if ((t && t.getAttribute && t.getAttribute('data-ptc')) || t === ov) { ov.remove(); resolve(); }
+    });
+    document.body.appendChild(ov);
+  });
+}
+
 async function removeBet(id) {
   const bet = state.bets.find(b => b.id === id);
   if (!bet) return;
@@ -2306,32 +2358,30 @@ async function removeBet(id) {
     const bettorName  = bettor ? bettor.name : '?';
 
     // Confirmation 1
-    if (!confirm(
-      '🔒 LOCKED TICKET\n\n' +
-      'This bet belongs to ticket ' + bet.ticketRef + ' for ' + bettorName + '.\n\n' +
-      'Deleting ANY bet on this ticket will VOID THE ENTIRE TICKET\n' +
-      'and remove ALL ' + ticketBets.length + ' bets (' + fmt(ticketTotal) + ' total).\n\n' +
-      'The bettor will need to submit a new sheet.\n\n' +
-      'Do you want to proceed?'
-    )) return;
+    if (!await ptConfirm({
+      step: '1 OF 3', title: '🔒 Locked Ticket',
+      html: 'This bet belongs to ticket <b style="color:#D4A843;">' + esc(bet.ticketRef) + '</b> for <b>' + esc(bettorName) + '</b>.' +
+            '<br><br>Deleting any bet on this ticket will <b>void the entire ticket</b> — all <b>' + ticketBets.length + ' bets (' + fmt(ticketTotal) + ' total)</b>.' +
+            '<br><br>The bettor will need to submit a new sheet.',
+      okLabel: 'Proceed', cancelLabel: 'Keep Ticket'
+    })) return;
 
     // Confirmation 2
-    if (!confirm(
-      '⚠️ SECOND CONFIRMATION\n\n' +
-      'You are about to void ticket ' + bet.ticketRef + '.\n\n' +
-      'This will delete ' + ticketBets.length + ' bets totalling ' + fmt(ticketTotal) + '.\n\n' +
-      'This action cannot be undone.\n\n' +
-      'Are you absolutely sure?'
-    )) return;
+    if (!await ptConfirm({
+      step: '2 OF 3', title: '⚠️ Are You Sure?',
+      html: 'You are about to void ticket <b style="color:#D4A843;">' + esc(bet.ticketRef) + '</b>.' +
+            '<br><br>This will delete <b>' + ticketBets.length + ' bets totalling ' + fmt(ticketTotal) + '</b>.' +
+            '<br><br><b>This action cannot be undone.</b>',
+      okLabel: "I'm Sure", cancelLabel: 'Cancel'
+    })) return;
 
     // Confirmation 3 — final override
-    if (!confirm(
-      '🚨 FINAL OVERRIDE — CONFIRMATION 3 OF 3\n\n' +
-      'Ticket ' + bet.ticketRef + ' for ' + bettorName + '\n' +
-      'will be permanently voided.\n\n' +
-      'Type OK to confirm you accept full responsibility\n' +
-      'and that the cash for this ticket has been returned.'
-    )) return;
+    if (!await ptConfirm({
+      step: '3 OF 3', danger: true, title: '🚨 Final Override',
+      html: 'Ticket <b style="color:#fff;">' + esc(bet.ticketRef) + '</b> for <b>' + esc(bettorName) + '</b> will be <b>permanently voided</b>.' +
+            '<br><br>Confirm you accept full responsibility and that the <b>cash for this ticket has been returned</b>.',
+      okLabel: 'Void Ticket', cancelLabel: 'Cancel'
+    })) return;
 
     // Void the entire ticket — v20.13: D1 FIRST. In D1 mode the slip lives in
     // the system of record; local state follows only a SUCCESSFUL D1 delete,
@@ -2348,16 +2398,21 @@ async function removeBet(id) {
     // Refresh entry tickets if visible
     const entryBettor = document.getElementById('entry-bettor');
     if (entryBettor && entryBettor.value) renderEntryTickets(entryBettor.value);
-    alert('Ticket ' + bet.ticketRef + ' has been voided. All ' + ticketBets.length + ' bets removed.');
+    ptNotice({
+      icon: '✓', title: 'Ticket Voided',
+      html: 'Ticket <b style="color:#D4A843;">' + esc(bet.ticketRef) + '</b> has been voided.<br>All ' + ticketBets.length + ' bets removed' + (_d1Mode ? ' — deleted from Pards Tour.' : '.'),
+      okLabel: 'Done'
+    });
     return;
   }
 
   // ── UNLOCKED BET — standard single confirmation ───────────────────────────
-  const msg = 'Delete this bet?\n\nBettor: ' + (bettor ? bettor.name : '?') +
-    '\nTeam: ' + tName +
-    '\nType: ' + (bet.combo || bet.type).toUpperCase() +
-    '\nAmount: ' + fmt(bet.amount);
-  if (!confirm(msg)) return;
+  if (!await ptConfirm({
+    title: 'Delete This Bet?',
+    html: '<b>' + esc(bettor ? bettor.name : '?') + '</b> · ' + esc(tName) +
+          '<br>' + esc((bet.combo || bet.type).toUpperCase()) + ' — <b>' + fmt(bet.amount) + '</b>',
+    okLabel: 'Delete', cancelLabel: 'Keep'
+  })) return;
   if (bet.comboGroupId) {
     state.bets = state.bets.filter(b => b.comboGroupId !== bet.comboGroupId);
   } else {
