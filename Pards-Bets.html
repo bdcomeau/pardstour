@@ -210,7 +210,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.13</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.14</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -1668,7 +1668,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.13';
+const APP_VERSION = 'v20.14';
 
 // v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
 // The badge was a SECOND hardcoded literal in the markup (the span at the top of
@@ -4733,7 +4733,12 @@ async function _d1BootLoad() {
         // String, so every wager row rendered its owner as "?". Same class of
         // bug as the teamId one fixed in v20.5 — this one just showed up in the
         // name column instead of the payout. One id type everywhere.
-        id: w.id, bettorId: String(w.bettor_id),
+        // v20.14 — id: String(w.id). The THIRD String-vs-Number id bug in this
+        // mapping (v20.5 teamId, v20.7 bettorId). removeBet's onclick passes a
+        // quoted STRING; find(b => b.id === id) against a numeric id matched
+        // nothing, so the 🔒 void button silently did NOTHING on every
+        // D1-loaded wager. One id type everywhere — that comment is LAW.
+        id: String(w.id), bettorId: String(w.bettor_id),
         teamId: isField ? 'FIELD' : String(w.team_id),
         type: w.type, amount: w.amount,
         unitAmount: isField ? w.unit_amount : undefined,
