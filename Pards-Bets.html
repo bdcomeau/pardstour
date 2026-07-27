@@ -210,7 +210,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.15</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.16</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -1668,7 +1668,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.15';
+const APP_VERSION = 'v20.16';
 
 // v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
 // The badge was a SECOND hardcoded literal in the markup (the span at the top of
@@ -4952,13 +4952,12 @@ async function d1SetPlaces(p1, p2, p3) {
   } catch(e) { _d1Alarm('Placements did not save.', (e && e.message) || 'Network error'); return false; }
 }
 
-// ─── Service Worker Registration ──────────────────────────────────────────────
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/last-call-invitational/sw.js')
-      .catch(function(e) { console.log('SW registration failed:', e); });
-  });
-}
+// ─── Service Worker Registration — REMOVED (v20.16) ──────────────────────────
+// It registered /last-call-invitational/sw.js — a path from the old Last Call
+// site that 404s under /pardstour/ — so it failed silently on every load since
+// the beginning. Deliberate delete (Bruce, July 27 2026). applyUpdate()'s
+// unregister-and-clear sweep stays as belt-and-suspenders for any browser that
+// ever held a SW from elsewhere.
 </script>
 </body>
 </html>
