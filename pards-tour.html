@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v260.0 -->
+  <!-- pards-tour-v261.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -37936,7 +37936,14 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   // Reset all games
   G.n = players.length;
-  G.scorecardOnly = false; // allow side games
+  // v261.0 (Bruce, Jul 27 2026) — tournament cards launch SCORES-ONLY.
+  // The engine's money games never feed a tournament number: the outbound
+  // sync layer computes its own stableford_pts (_tripPts) and the worker
+  // recomputes or verifies server-side. The pre-activated game only made
+  // every trip/league/foursome launch arrive with Money Games armed.
+  // The setup toggle still works if the group wants side action — but
+  // nothing is switched on FOR them. (Scrambles were already scores-only.)
+  G.scorecardOnly = true;
   G.teamGames = []; G.singleGames = []; G.sixPointGames = [];
   G.stablefordGames = []; G.skinsGames = []; G.vegasGames = [];
   G.matchCards = { enabled:false, opponents:[] };
@@ -37972,16 +37979,11 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   _refreshCourseShims(); // sets G.par, G.si from active course
 
-  // ── Pre-activate Stableford with all 4 players ────────────
-  // Tournament stableford points — v247.5: the standard ramp, matching worker
-  // v2.43.0's max(0, 2 + diff) so the in-engine card agrees with the leaderboard.
-  var tournamentPts = { fourUnder:6, albatross:5, eagle:4, birdie:3, par:2, bogey:1, double:0 };
-  G.stablefordGames = [{
-    players:     players.map(function(_,i){ return i; }), // all player indices
-    points:      tournamentPts,
-    betPerPoint: 0, // no money in tournament stableford
-    _tournament: true,
-  }];
+  // v261.0 — the v247.5 pre-activated tournament Stableford game is GONE.
+  // It existed so the in-engine card mirrored the leaderboard, but it also
+  // armed Money Games on every launch. Live points now live on the Results
+  // screens only; no game is created here. (doJoinGroup's _sPts twin for the
+  // paired group-code path is deliberately untouched — separate decision.)
 
   // ── Scores ───────────────────────────────────────────────
   G.scores = players.map(function() { return Array(18).fill(null); });
@@ -38035,6 +38037,19 @@ function ptLaunchFoursomeRound(foursomeData) {
   _ptHideAll();
   document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById('screen-setup').classList.add('active');
+  // v261.0 — sync the Scores Only segment + hidden input to the launch state.
+  // setScorecardMode persists to localStorage (the player's PERSONAL default
+  // for casual rounds); a tournament launch must not clobber that, so the
+  // pref is saved and put back around the call.
+  (function(){
+    var _pref = null;
+    try { _pref = localStorage.getItem('pards_pref_scoreOnly'); } catch(_) {}
+    try { setScorecardMode(true); } catch(_) {}
+    try {
+      if (_pref === null) localStorage.removeItem('pards_pref_scoreOnly');
+      else localStorage.setItem('pards_pref_scoreOnly', _pref);
+    } catch(_) {}
+  })();
   var hdr = document.querySelector('.hdr'); if (hdr) hdr.style.display='';
   var hb = document.getElementById('ptHomeBtn'); if (hb) hb.style.display='block';
   // Sync start hole dropdown to G.startHole (set from foursome.hole)
@@ -39007,7 +39022,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v260.0';
+    const TOUR_VERSION     = 'pards-tour-v261.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
