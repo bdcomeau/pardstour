@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v282.0 -->
+  <!-- pards-tour-v283.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -30510,6 +30510,16 @@ function _ptLgHoleGrid(e) {
   return html;
 }
 
+// v283.0 — "Current Handicap [X.X]" name-strip badge, shared by BOTH Overall
+// Reports (Bruce's wording/format). Display only: the value is the server's
+// current_index ?? handicap; hidden when absent (older worker / no index).
+function _hdcpBadge(v) {
+  var n = Number(v);
+  if (v == null || !isFinite(n)) return '';
+  var t = n < 0 ? '+' + Math.abs(n).toFixed(1) : n.toFixed(1);
+  return '<span class="chdcp">Current Handicap [' + t + ']</span>';
+}
+
 // ── v262.0: Trip Overall Report — printable, club-championship format ────────
 // (Bruce, July 27 2026: "Trips needs an overall report that can be printed —
 // much like the derrick club championship — with that amount of detail.")
@@ -30544,7 +30554,7 @@ function ptPrintTripOverallReport() {
       if (r.holes > 0) { totGross += (r.gross||0); played++; }
       return r;
     });
-    return { name: p.name, total_pts: p.total_pts||0, gross: totGross, played: played, lines: lines };
+    return { name: p.name, hdcp: (p.handicap != null ? p.handicap : null), total_pts: p.total_pts||0, gross: totGross, played: played, lines: lines }; // v283.0 — worker v2.62.0 additive field; null on older workers (fail-soft)
   });
   rows.sort(function(a,b){ return b.total_pts - a.total_pts || a.gross - b.gross || a.name.localeCompare(b.name); });
   var ranks = [];
@@ -30569,6 +30579,7 @@ function ptPrintTripOverallReport() {
     + '.name-strip .rk{display:inline-block;min-width:20px;font-size:13px;font-weight:900;color:#f5e6b8}'
     + '.name-strip .nm{font-size:12px;font-weight:900;margin-right:8px}'
     + '.name-strip .part{font-size:9px;color:#ffd9d0;font-weight:700;margin-right:8px}'
+    + '.name-strip .chdcp{font-size:9px;color:#bfe3cf;font-weight:700;margin-right:8px}'
     + '.name-strip .tots{float:right;font-size:10px;font-weight:700}'
     + '.name-strip .tp{color:#f5d97a;font-size:13px;font-weight:900}'
     + '.rd-cell{border-bottom:1px solid #d8d0bc}'
@@ -30610,6 +30621,7 @@ function ptPrintTripOverallReport() {
   var bodies = rows.map(function(p, idx) {
     var strip = '<tr class="name-strip"><td colspan="' + NCOLS + '">'
       + '<span class="rk">' + ranks[idx] + '</span> <span class="nm">' + _esc(p.name) + '</span>'
+      + _hdcpBadge(p.hdcp)
       + (p.played < nR ? '<span class="part">' + p.played + ' of ' + nR + ' rounds</span>' : '')
       + '<span class="tots">Tot Gross <span class="gross-total">' + (p.played ? p.gross : '—') + '</span>'
       + ' &nbsp;·&nbsp; Tot Pts <span class="tp">' + p.total_pts + '</span></span>'
@@ -30712,7 +30724,9 @@ function ptPrintLeagueOverallReport() {
       var won = (w.winners || []).some(function(x){ return x.roster_id === p.roster_id; });
       return { e: e, w: w, won: won };
     });
-    return { p: p, lines: lines };
+    var hdcp = null; // v283.0 — latest played week's index (server field, display only)
+    for (var li = 0; li < lines.length; li++) if (lines[li].e && lines[li].e.handicap != null) hdcp = lines[li].e.handicap;
+    return { p: p, lines: lines, hdcp: hdcp };
   });
 
   var css = '*{box-sizing:border-box;margin:0;padding:0}'
@@ -30730,6 +30744,7 @@ function ptPrintLeagueOverallReport() {
     + '.name-strip .rk{display:inline-block;min-width:20px;font-size:13px;font-weight:900;color:#f5e6b8}'
     + '.name-strip .nm{font-size:12px;font-weight:900;margin-right:8px}'
     + '.name-strip .part{font-size:9px;color:#ffd9d0;font-weight:700;margin-right:8px}'
+    + '.name-strip .chdcp{font-size:9px;color:#bfe3cf;font-weight:700;margin-right:8px}'
     + '.name-strip .tots{float:right;font-size:10px;font-weight:700}'
     + '.name-strip .tp{color:#f5d97a;font-size:13px;font-weight:900}'
     + '.rd-cell{border-bottom:1px solid #d8d0bc}'
@@ -30773,6 +30788,7 @@ function ptPrintLeagueOverallReport() {
     var p = row.p;
     var strip = '<tr class="name-strip"><td colspan="' + NCOLS + '">'
       + '<span class="rk">' + p.rank + '</span> <span class="nm">' + _esc(p.name) + '</span>'
+      + _hdcpBadge(row.hdcp)
       + '<span class="part">' + p.weeks_played + ' of ' + nW + ' week' + (nW === 1 ? '' : 's')
       + (p.wins ? ' · 🏆 ' + p.wins + (p.wins === 1 ? ' win' : ' wins') : '') + '</span>'
       + '<span class="tots">Tot Gross <span class="gross-total">' + (p.weeks_played ? p.total_gross : '—') + '</span>'
@@ -40243,7 +40259,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v282.0';
+    const TOUR_VERSION     = 'pards-tour-v283.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
