@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v265.0 -->
+  <!-- pards-tour-v266.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -29868,6 +29868,12 @@ window.ptShowTripRoundReport = function(tripId) {
 };
 
 window.ptShowTripLeaderboard = function(tripId, pin) {
+  // v266.0 — the live ticker's watch-surface context: while #ptTripLbOv is in
+  // the DOM the ticker block polls this trip and rides the overlay's bottom.
+  // The nudge below gives the strip its first paint right away — the ticker's
+  // own 10s arm tick then takes over the steady 60s cadence.
+  try { window._ptWatchTickerCtx = { trip_id: tripId, cred: String(pin == null ? '' : pin) }; } catch (e) {}
+  try { setTimeout(function(){ if (window.ptTicker) window.ptTicker.refresh(); }, 800); } catch (e) {}
   var ov = document.createElement('div');
   ov.id = 'ptTripLbOv';
   ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:#0d1f0d;overflow-y:auto';
@@ -38927,6 +38933,13 @@ function ptLaunchFoursomeRound(foursomeData) {
             event_name: f.event_name || f.trip_name || 'Round',
             group_name: f.round_number ? ('Round ' + f.round_number) : ''
           });
+          // v266.0 — trip & league live ticker credential: the leaderboard
+          // poll needs trip_id + viewer PIN during the round. Stashed on G
+          // (and saved) so a reload mid-round keeps the ticker alive.
+          if (f.trip_id && vpin) {
+            G._tripWatchCred = { trip_id: f.trip_id, cred: vpin };
+            try { if (typeof saveG === 'function') saveG(); } catch (e4) {}
+          }
         }
         _goGolf();
       } catch (e) { _log('launch decorate failed', e); }
@@ -38961,6 +38974,31 @@ function ptLaunchFoursomeRound(foursomeData) {
    Z-order: strip 250 (over #roundBar's 202, under overlays at 400+);
    popup 9500 (under the v250.2 halt banner's 9998 — scores-not-saving
    always outranks the scoreboard).
+   ─────────────────────────────────────────────────────────────────────
+   v266.0 — TRIP & LEAGUE MODE (Bruce, July 27 2026). The SAME block now
+   also runs during trip/league individual rounds (scorer's phone) and on
+   the trip Watch Live overlay — per-PLAYER, GROSS only, format-blind:
+   nothing to do with any game. EXTENDED, never forked: every scramble
+   function above/below is untouched; trip mode lives in the _t* layer and
+   every shared entry point (_poll/_render/_openPopup/_hideForRound, the
+   decorators, the 10s arm tick) branches to it only when _tripCtx() says
+   a trip context is live — which is impossible during a scramble.
+     • Shows ONLY when the round has 2+ tee times (worker v2.60.0 sends
+       tee_times per round + tee_time_id/start_time per player).
+     • Strip order: tee-time order (Bruce's call). Tap → gross leaderboard
+       popup, best first. Watch mode lifts the strip to z 750 (over the
+       #ptTripLbOv overlay's 700); _disarm restores 250.
+     • MOMENT lines: new holes are diffed between polls — birdies, eagles,
+       albatrosses, aces get rotating fun phrasings, shown once each
+       (dedupe player+hole+kind), riding ~5 cycles before falling back to
+       status lines. First poll of a round seeds silently — a resumed card
+       never floods the strip.
+     • Data: GET /api/trips/:id/leaderboard?pin=|code= — the credential is
+       stashed at launch (G._tripWatchCred, from the join payload's
+       viewer_pin) or by ptShowTripLeaderboard (window._ptWatchTickerCtx).
+       League game days are hidden trips, so league nights ride the same
+       path. No worker payload is computed client-side: gross straight off
+       hole_scores, to-par from the EXACT holes played (shotgun-safe).
    Console tag: [pt-ticker]
 ═══════════════════════════════════════════════════════════════════════ */
 (function () {
@@ -39065,7 +39103,11 @@ function ptLaunchFoursomeRound(foursomeData) {
     return s;
   }
   function _hideForRound() {
-    try { G._tickerHiddenFor = _code(); if (typeof saveG === 'function') saveG(); } catch (e) {}
+    try {
+      var tc = _tripCtx(); // v266.0 — null in scramble mode, so that path is unchanged
+      if (tc && tc.kind === 'watch') { _tWatchHiddenFor = tc.tripId; }
+      else { G._tickerHiddenFor = tc ? tc.code : _code(); if (typeof saveG === 'function') saveG(); }
+    } catch (e) {}
     _render();
     _log('hidden for this round');
   }
@@ -39086,6 +39128,8 @@ function ptLaunchFoursomeRound(foursomeData) {
   }
 
   function _render() {
+    var _tc = _tripCtx(); // v266.0
+    if (_tc) { _tRender(_tc); return; }
     var s = document.getElementById('ptTickerStrip');
     var bar = _bar();
     var on = _active() && bar && _standings && _standings.length &&
@@ -39112,6 +39156,8 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   // ── Popup ──────────────────────────────────────────────────────────
   function _openPopup() {
+    var _tc = _tripCtx(); // v266.0
+    if (_tc) { _tOpenPopup(_tc); return; }
     _closePopup();
     if (!_standings) return;
     var mine = G.joinGroup && G.joinGroup.id;
@@ -39162,8 +39208,314 @@ function ptLaunchFoursomeRound(foursomeData) {
   }
   function _closePopup() { try { var p = document.getElementById('ptTickerPopup'); if (p) p.remove(); } catch (e) {} }
 
+  /* ═══ v266.0 TRIP & LEAGUE LAYER — everything below is NEW; nothing
+     above it changed behavior for scrambles. Per-player, GROSS only. ═══ */
+  var _tData = null;            // last trip leaderboard payload
+  var _tStale = false;
+  var _tDead = false, _tDeadKey = null; // 401/404/409 — off until the key changes
+  var _tWatchHiddenFor = null;  // ✕ on the watch surface — session-scoped, not in G
+  var _tPrevHoles = null;       // trip_player_id → hole map from the previous poll
+  var _tPrevKey = null;         // which round the snapshot belongs to
+  var _tMoments = [];           // {key,text,cycle} — the fun lines
+  var _tSeen = {};              // moment dedupe: player+hole+kind shows ONCE
+  var _tCycle = 0;
+  var MOMENT_CYCLES = 5;        // a moment rides ~5 polls, then status lines only
+
+  function _tripCtx() {
+    try {
+      // Watch surface first — when the overlay is up it covers the scorecard.
+      var ov = document.getElementById('ptTripLbOv');
+      var wc = (typeof window !== 'undefined' && window._ptWatchTickerCtx) || null;
+      if (ov && wc && wc.trip_id && wc.cred != null && wc.cred !== '' &&
+          _tWatchHiddenFor !== wc.trip_id &&
+          !(_tDead && _tDeadKey === 'watch:' + wc.trip_id)) {
+        return { kind: 'watch', tripId: wc.trip_id, cred: String(wc.cred), code: null, roundNumber: null };
+      }
+      // Scorer's phone: a live trip/league individual round. _active() is the
+      // scramble gate — if it says scramble, this layer stands down, always.
+      var tr = G._tournamentRound;
+      var cred = G._tripWatchCred;
+      if (!_active() && G.mode === 'event' && tr && tr.trip_id && !G.roundEnd &&
+          cred && cred.trip_id === tr.trip_id && cred.cred != null && cred.cred !== '' &&
+          G._tickerHiddenFor !== tr.foursome_code &&
+          !(_tDead && _tDeadKey === 'score:' + tr.foursome_code)) {
+        return { kind: 'score', tripId: tr.trip_id, cred: String(cred.cred),
+                 code: tr.foursome_code, roundNumber: tr.round_number != null ? tr.round_number : null };
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  function _tRoundFor(p, rn) {
+    var rs = (p && p.rounds) || [];
+    for (var i = 0; i < rs.length; i++) if (rs[i].round_number === rn) return rs[i];
+    return null;
+  }
+  function _tAnyScores(rn) {
+    var st = (_tData && _tData.standings) || [];
+    for (var i = 0; i < st.length; i++) {
+      var r = _tRoundFor(st[i], rn);
+      if (r && r.holes > 0) return true;
+    }
+    return false;
+  }
+  // Which round the ticker covers: the scorer's own round, or (watch) the
+  // latest ACTIVE round that anyone has scores in.
+  function _tRound(tc) {
+    if (!_tData || !_tData.rounds) return null;
+    var rounds = _tData.rounds, i, r, best = null;
+    if (tc.kind === 'score' && tc.roundNumber != null) {
+      for (i = 0; i < rounds.length; i++) if (rounds[i].round_number === tc.roundNumber) return rounds[i];
+      return null;
+    }
+    for (i = 0; i < rounds.length; i++) {
+      r = rounds[i];
+      if (r.status !== 'active') continue;
+      if (!_tAnyScores(r.round_number)) continue;
+      if (!best || r.round_number > best.round_number) best = r;
+    }
+    return best;
+  }
+
+  // Gross to-par from the EXACT holes played (shotgun-safe), using the
+  // player's OWN pars (their tee) — all straight from the worker payload.
+  function _tToPar(r) {
+    if (!r || !r.hole_scores || !r.pars) return null;
+    var ks = Object.keys(r.hole_scores);
+    if (!ks.length) return null;
+    var par = 0, gross = 0;
+    for (var i = 0; i < ks.length; i++) {
+      var h = Number(ks[i]);
+      if (!(h >= 1 && h <= 18)) return null;
+      par += r.pars[h - 1];
+      gross += r.hole_scores[h];
+    }
+    return gross - par;
+  }
+  function _tOwnIds() {
+    var ids = {};
+    try {
+      var meta = (G._tournamentRound && G._tournamentRound._player_meta) || [];
+      for (var i = 0; i < meta.length; i++)
+        if (meta[i] && meta[i].trip_player_id != null) ids[meta[i].trip_player_id] = 1;
+    } catch (e) {}
+    return ids;
+  }
+  // Rows for the round, in TEE-TIME ORDER (Bruce's call): start_time, then
+  // tee_time_id, then name. Players with no tee time AND no scores are not
+  // in this round and stay out entirely.
+  function _tRows(tc, rn) {
+    var st = (_tData && _tData.standings) || [];
+    var own = tc.kind === 'score' ? _tOwnIds() : {};
+    var rows = [];
+    for (var i = 0; i < st.length; i++) {
+      var p = st[i], r = _tRoundFor(p, rn);
+      if (!r) continue;
+      if (r.tee_time_id == null && !r.holes) continue;
+      rows.push({ pid: p.trip_player_id, name: p.name, tp: _tToPar(r), thru: r.holes || 0,
+                  gross: r.gross != null ? r.gross : null, own: !!own[p.trip_player_id],
+                  tt: r.tee_time_id, st: r.start_time || null });
+    }
+    rows.sort(function (a, b) {
+      var as = a.st || '~', bs = b.st || '~';
+      if (as !== bs) return as < bs ? -1 : 1;
+      var at = a.tt == null ? 1e9 : a.tt, bt = b.tt == null ? 1e9 : b.tt;
+      if (at !== bt) return at - bt;
+      return a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
+    });
+    return rows;
+  }
+
+  // ── Moments — Bruce: "something fun — use your imagination" ────────
+  var _T_TMPL = {
+    birdie: [
+      ' a big birdie on the {h} to go to {tp}',
+      ' rolls in a birdie at the {h} — {tp} for the day',
+      ' birdie on the {h}! now {tp}',
+      ' picks one up at the {h} — {tp}'
+    ],
+    eagle: [
+      ' just eagled the {h} — {tp} for the day!',
+      ' 🦅 EAGLE on the {h}! {tp}',
+      ' makes eagle at the {h} — {tp}!'
+    ],
+    albatross: [' ALBATROSS on the {h}!! {tp} — someone frame that scorecard'],
+    ace: [' 🎯 ACE on the {h}!! A hole-in-one!', ' HOLE-IN-ONE at the {h}!!']
+  };
+  function _tOrd(n) {
+    var v = n % 100, sfx = (v >= 11 && v <= 13) ? 'th' : ({1:'st',2:'nd',3:'rd'})[n % 10] || 'th';
+    return n + sfx;
+  }
+  // Diff hole sets between polls. First poll of a round SEEDS silently — a
+  // resumed card must never flood the strip with old birdies. Template pick
+  // is (pid*7+hole)%len — deterministic (testable) but varied across the field.
+  function _tDetectMoments(tc) {
+    var meta = _tRound(tc);
+    if (!meta) return;
+    var rn = meta.round_number;
+    var pk = (tc.kind === 'watch' ? 'watch:' + tc.tripId : 'score:' + tc.code) + ':r' + rn;
+    var st = (_tData && _tData.standings) || [];
+    var cur = {}, i;
+    for (i = 0; i < st.length; i++) {
+      var p = st[i], r = _tRoundFor(p, rn);
+      cur[p.trip_player_id] = (r && r.hole_scores) || {};
+    }
+    if (_tPrevKey !== pk) { _tPrevKey = pk; _tPrevHoles = cur; _tMoments = []; _tSeen = {}; return; }
+    for (i = 0; i < st.length; i++) {
+      var p2 = st[i], r2 = _tRoundFor(p2, rn);
+      if (!r2 || !r2.hole_scores || !r2.pars) continue;
+      var prev = (_tPrevHoles && _tPrevHoles[p2.trip_player_id]) || {};
+      var tp = _tToPar(r2);
+      var hs = Object.keys(r2.hole_scores);
+      for (var j = 0; j < hs.length; j++) {
+        var h = Number(hs[j]);
+        if (prev[h] != null) continue;
+        var gross = r2.hole_scores[h], par = r2.pars[h - 1];
+        var d = gross - par;
+        var kind = gross === 1 ? 'ace' : (d <= -3 ? 'albatross' : d === -2 ? 'eagle' : d === -1 ? 'birdie' : null);
+        if (!kind) continue;
+        var mk = p2.trip_player_id + ':' + h + ':' + kind;
+        if (_tSeen[mk]) continue;
+        _tSeen[mk] = 1;
+        var tl = _T_TMPL[kind];
+        var txt = tl[(p2.trip_player_id * 7 + h) % tl.length]
+          .replace('{h}', _tOrd(h)).replace('{tp}', _fmtToPar(tp));
+        _tMoments.push({ key: mk, text: _esc(p2.name) + txt, cycle: _tCycle });
+      }
+    }
+    _tPrevHoles = cur;
+    var keep = [];
+    for (i = 0; i < _tMoments.length; i++)
+      if (_tCycle - _tMoments[i].cycle < MOMENT_CYCLES) keep.push(_tMoments[i]);
+    _tMoments = keep;
+  }
+
+  // ── Trip render — same strip element, moments first then tee-time order ──
+  function _tRender(tc) {
+    var s = document.getElementById('ptTickerStrip');
+    var meta = _tRound(tc);
+    var anchored = tc.kind === 'watch' ? !!document.getElementById('ptTripLbOv') : !!_bar();
+    var rows = meta ? _tRows(tc, meta.round_number) : [];
+    var scored = false;
+    for (var i = 0; i < rows.length; i++) if (rows[i].thru > 0) { scored = true; break; }
+    // Bruce's condition: multiple tee times or no ticker. An old worker sends
+    // no tee_times field → gate fails → this mode simply never shows.
+    var on = anchored && meta && meta.tee_times >= 2 && scored;
+    if (!on) { if (s) s.style.display = 'none'; return; }
+    s = _strip();
+    var parts = [];
+    for (i = 0; i < _tMoments.length; i++)
+      parts.push('<span style="color:#f5d97a;padding:0 10px">🔥 ' + _tMoments[i].text + '</span><span style="opacity:.35">•</span>');
+    for (i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      if (!r.thru) continue;
+      parts.push('<span style="' + (r.own ? 'color:#f5d97a;text-shadow:0 0 6px rgba(201,168,76,.4);' : '') + 'padding:0 10px">' +
+        '⛳ ' + _esc(r.name) + ' <span style="font-weight:900">' + _fmtToPar(r.tp) + '</span>' +
+        ' <span style="opacity:.65;font-weight:600">thru ' + r.thru + '</span></span>' +
+        '<span style="opacity:.35">•</span>');
+    }
+    var track = s.querySelector('.ptt-track');
+    var copy = '<span class="ptt-copy">' + parts.join('') + '</span>';
+    var next = copy + copy;
+    if (track.innerHTML !== next) {
+      track.innerHTML = next;
+      try {
+        var w = track.scrollWidth / 2 || 600;
+        track.style.animationDuration = Math.min(90, Math.max(14, w / 42)) + 's';
+      } catch (e) {}
+    }
+    if (tc.kind === 'watch') {
+      s.style.zIndex = '750'; // over #ptTripLbOv (700), under popup 9500 / halt 9998
+      s.style.bottom = '0px';
+    } else {
+      s.style.zIndex = '250';
+      var bar = _bar();
+      try { s.style.bottom = ((bar && bar.offsetHeight) || 0) + 'px'; } catch (e) { s.style.bottom = '0px'; }
+    }
+    s.style.opacity = _tStale ? '.55' : '1';
+    s.style.display = 'block';
+  }
+
+  // ── Trip popup — the LEADERBOARD (Bruce): best first, no-score last ──
+  function _tOpenPopup(tc) {
+    _closePopup();
+    var meta = _tRound(tc);
+    if (!meta || !_tData) return;
+    var rows = _tRows(tc, meta.round_number);
+    var lb = rows.slice().sort(function (a, b) {
+      if (!!b.thru !== !!a.thru) return b.thru ? 1 : -1;
+      if (a.tp !== null && b.tp !== null && a.tp !== b.tp) return a.tp - b.tp;
+      if (b.thru !== a.thru) return b.thru - a.thru;
+      return a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
+    });
+    var trs = '';
+    for (var i = 0; i < lb.length; i++) {
+      var r = lb[i];
+      trs += '<tr style="' + (r.own ? 'background:rgba(201,168,76,.12);' : '') + 'border-bottom:1px solid rgba(255,255,255,.06)">' +
+        '<td style="padding:8px 10px;font-weight:' + (r.own ? '900' : '700') + ';color:' + (r.own ? '#f5d97a' : '#e8dcb8') + '">' + _esc(r.name) + '</td>' +
+        '<td style="padding:8px 6px;text-align:center;font-weight:900;color:#fff">' + (r.thru ? _fmtToPar(r.tp) : '—') + '</td>' +
+        '<td style="padding:8px 6px;text-align:center;opacity:.7">' + (r.thru || '—') + '</td>' +
+        '<td style="padding:8px 6px;text-align:center;opacity:.7">' + (r.thru && r.gross != null ? r.gross : '—') + '</td>' +
+        '</tr>';
+    }
+    var title = ((_tData.trip && _tData.trip.name) || 'Live') + ' · R' + meta.round_number;
+    var ov = document.createElement('div');
+    ov.id = 'ptTickerPopup';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:9500;background:rgba(0,0,0,.72);display:flex;align-items:flex-end;justify-content:center';
+    ov.innerHTML =
+      '<div style="background:#152418;border-radius:18px 18px 0 0;width:100%;max-width:520px;max-height:78vh;overflow-y:auto;' +
+      'padding:14px 8px max(24px,calc(12px + env(safe-area-inset-bottom))) 8px;box-shadow:0 -8px 28px rgba(0,0,0,.5)">' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;padding:0 8px 10px">' +
+      '<div style="font-size:15px;font-weight:900;color:#f5e6b8">⛳ ' + _esc(title) + '</div>' +
+      '<div id="ptTickerPopupX" style="color:rgba(255,255,255,.5);font-size:18px;padding:2px 10px;cursor:pointer">✕</div></div>' +
+      '<div style="padding:0 8px 8px;font-size:10px;color:rgba(255,255,255,.35)">Live gross — nothing to do with any game</div>' +
+      '<table style="width:100%;border-collapse:collapse;font-size:13px;color:#e8dcb8">' +
+      '<tr style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:rgba(201,168,76,.7)">' +
+      '<td style="padding:4px 10px">Player</td><td style="padding:4px 6px;text-align:center">To par</td>' +
+      '<td style="padding:4px 6px;text-align:center">Thru</td><td style="padding:4px 6px;text-align:center">Gross</td></tr>' + trs + '</table>' +
+      '<div style="text-align:center;font-size:10px;color:rgba(255,255,255,' + (_tStale ? '.25' : '.45') + ');padding-top:10px">' +
+      (_tStale ? 'connection lost — showing last known scores' : 'updates about every minute') + '</div></div>';
+    ov.onclick = function (ev) {
+      var t = ev && ev.target;
+      if (t === ov || (t && t.id === 'ptTickerPopupX')) _closePopup();
+    };
+    document.body.appendChild(ov);
+  }
+
+  // ── Trip polling — same cadence, same keep-last-data manners ───────
+  function _tPoll(tc) {
+    if (typeof document.hidden !== 'undefined' && document.hidden) return Promise.resolve();
+    var q = /^[0-9]{4}$/.test(tc.cred) ? 'pin=' + encodeURIComponent(tc.cred) : 'code=' + encodeURIComponent(tc.cred);
+    var key = tc.kind === 'watch' ? 'watch:' + tc.tripId : 'score:' + tc.code;
+    return fetch(TOUR_API + '/api/trips/' + tc.tripId + '/leaderboard?' + q)
+      .then(function (r) {
+        return r.json().then(function (d) {
+          if (r.status === 401 || r.status === 404 || r.status === 409) { _tDie(key, 'HTTP ' + r.status); return; }
+          if (!d || d.error || !d.standings) { _tStale = true; _render(); return; } // transient — keep last data
+          _tData = d;
+          _tStale = false;
+          _tCycle++;
+          try { _tDetectMoments(tc); } catch (e) {}
+          _render();
+        });
+      }).catch(function (e) { _tStale = true; _render(); _log('trip poll failed (keeping last data):', e && e.message); });
+  }
+  function _tDie(key, why) {
+    _tDead = true; _tDeadKey = key;
+    _render();
+    _log('trip ticker off:', why);
+  }
+  function _tArm() {
+    if (_pollTimer || !_tripCtx()) return;
+    _log('armed (trip/league)');
+    _poll();
+    _pollTimer = setInterval(_poll, POLL_MS);
+  }
+
   // ── Polling ────────────────────────────────────────────────────────
   function _poll() {
+    var _tc = _tripCtx(); // v266.0
+    if (_tc) return _tPoll(_tc);
     if (!_active()) { _render(); return Promise.resolve(); }
     if (typeof document.hidden !== 'undefined' && document.hidden) return Promise.resolve();
     var code = _code();
@@ -39202,19 +39554,25 @@ function ptLaunchFoursomeRound(foursomeData) {
     if (_pollTimer) { clearInterval(_pollTimer); _pollTimer = null; }
     _closePopup();
     var s = document.getElementById('ptTickerStrip');
-    if (s) s.style.display = 'none';
+    if (s) { s.style.display = 'none'; s.style.zIndex = '250'; } // v266.0: undo watch-mode z bump
   }
   function _teardown() {
     _disarm();
     _standings = null; _computedAt = null; _stale = false;
     _dead = false; _deadCode = null;
+    _tData = null; _tStale = false; _tDead = false; _tDeadKey = null;      // v266.0
+    _tPrevHoles = null; _tPrevKey = null; _tMoments = []; _tSeen = {}; _tCycle = 0;
   }
 
   // Slow arm-check: joins/resumes have no single entry point, saveG does
   // fire during scoring but not necessarily at boot — this 10s tick only
   // arms/disarms and repositions, it never touches the network itself.
   _armTimer = setInterval(function () {
-    try { if (_active()) { _arm(); _render(); } else if (_pollTimer) { _disarm(); } } catch (e) {}
+    try {
+      if (_active()) { _arm(); _render(); }
+      else if (_tripCtx()) { _tArm(); _render(); }                         // v266.0
+      else if (_pollTimer) { _disarm(); }
+    } catch (e) {}
   }, 10000);
 
   // ── Decorators — attach from the OUTSIDE, sync-layer pattern ───────
@@ -39225,6 +39583,9 @@ function ptLaunchFoursomeRound(foursomeData) {
       if (_active()) {
         _arm();
         // our own score is on its way — refresh once after it lands
+        if (!_saveTimer) _saveTimer = setTimeout(function () { _saveTimer = null; _poll(); }, SAVE_REFRESH_MS);
+      } else if (_tripCtx()) {                                             // v266.0 — trip/league scoring
+        _tArm();
         if (!_saveTimer) _saveTimer = setTimeout(function () { _saveTimer = null; _poll(); }, SAVE_REFRESH_MS);
       } else if (_pollTimer) { _disarm(); }
     } catch (e) {}
@@ -39252,7 +39613,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v265.0';
+    const TOUR_VERSION     = 'pards-tour-v266.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
