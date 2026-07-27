@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v278.0 -->
+  <!-- pards-tour-v279.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -7046,15 +7046,48 @@ function gcPostButtonHtml(){
   }catch(e){ return ''; }
 }
 
-// The action. Create → store returned score id → later taps become UPDATE.
-async function gcPostOrUpdateMyScore(){
+// The action — house-style modal flow (v279.0; native confirm/alert replaced).
+function gcModalClose(){ const o=document.getElementById('gcPostModal'); if(o) o.remove(); }
+function gcModalShow(inner){
+  gcModalClose();
+  const o=document.createElement('div');
+  o.className='export-overlay'; o.id='gcPostModal';
+  o.innerHTML='<div style="background:#F8F3EB;border-radius:14px;padding:20px;max-width:320px;width:100%;text-align:center">'+inner+'</div>';
+  document.body.appendChild(o);
+  o.addEventListener('click', function(e){ if(e.target===o) o.remove(); });
+}
+function gcPostOrUpdateMyScore(){
   try{
     const ctx = gcMyPostContext();
-    if(!ctx){ alert('Golf Canada posting is unavailable for this round.'); return; }
+    if(!ctx){ gcModalShow('<div style="font-size:28px;margin-bottom:6px">\u26f3</div><div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:14px">Golf Canada posting is unavailable for this round.</div><button onclick="gcModalClose()" style="width:100%;padding:12px;background:#eee;color:#666;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer">Close</button>'); return; }
+    const rec = _gcPostedGet()[_gcPostedKey()];
+    const updating = !!(rec && rec.id);
+    const d = G.roundDate ? new Date(G.roundDate) : new Date();
+    const dateLbl = d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+    gcModalShow(
+      '<div style="font-size:28px;margin-bottom:6px">\u26f3</div>'
+      +'<div style="font-size:16px;font-weight:800;color:var(--ink);margin-bottom:10px">'+(updating?'Update Score on Golf Canada?':'Post Score to Golf Canada?')+'</div>'
+      +'<div style="background:#fff;border:1px solid #e5ddcf;border-radius:10px;padding:12px;margin-bottom:10px">'
+      +  '<div style="font-size:30px;font-weight:800;color:#1a3a2a;line-height:1">'+ctx.gross+'</div>'
+      +  '<div style="font-size:11px;color:#888;margin-top:4px">gross \u00b7 hole-by-hole</div>'
+      +'</div>'
+      +'<div style="font-size:13px;font-weight:700;color:var(--ink)">'+GC_DERRICK.courseName+'</div>'
+      +'<div style="font-size:12px;color:#666;margin-top:2px">'+ctx.p.deck+' \u00b7 '+ctx.tee.rating+' / '+ctx.tee.slope+' \u00b7 '+dateLbl+'</div>'
+      +'<div style="font-size:11px;color:#888;margin-top:2px;margin-bottom:14px">'+ctx.p.name+' \u00b7 card \u2022\u2022\u2022'+ctx.gid.slice(-4)+'</div>'
+      +(updating?'<div style="font-size:11px;color:#b26a00;margin-bottom:12px">This replaces the score already posted for this round.</div>':'')
+      +'<button onclick="gcModalConfirmTapped()" style="width:100%;padding:13px;background:#2d6a4f;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;margin-bottom:8px">'+(updating?'\u26f3 Update Score':'\u26f3 Post Score')+'</button>'
+      +'<button onclick="gcModalClose()" style="width:100%;padding:11px;background:#eee;color:#666;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer">Cancel</button>'
+    );
+  }catch(e){ try{ gcModalClose(); }catch(_){} alert('Golf Canada error: '+String(e && e.message || e)); }
+}
+async function gcModalConfirmTapped(){
+  try{
+    const ctx = gcMyPostContext();
+    if(!ctx){ gcModalClose(); return; }
     const map = _gcPostedGet();
     const rec = map[_gcPostedKey()];
     const updating = !!(rec && rec.id);
-    if(!confirm((updating?'UPDATE your score on':'Post your score to')+' Golf Canada?\n\n'+GC_DERRICK.courseName+' \u00b7 '+ctx.p.deck+'\nGross '+ctx.gross+' \u00b7 hole-by-hole\nCard \u2022\u2022\u2022'+ctx.gid.slice(-4))) return;
+    gcModalShow('<div style="font-size:28px;margin-bottom:8px">\u23f3</div><div style="font-size:14px;font-weight:700;color:var(--ink)">'+(updating?'Updating on':'Posting to')+' Golf Canada\u2026</div>');
     const payload = gcRoundPayload(ctx, updating ? rec.id : null);
     const r = updating ? await gcUpdateScore(payload) : await gcPostScore(payload);
     try{ console.log('[GC round '+(updating?'update':'post')+']', payload, r.status, r.text); }catch(e){}
@@ -7068,13 +7101,26 @@ async function gcPostOrUpdateMyScore(){
       }
       map[_gcPostedKey()] = { id: id, gross: ctx.gross, at: new Date().toISOString() };
       _gcPostedSet(map);
-      alert('\u2713 '+(updating?'Updated on':'Posted to')+' Golf Canada'+(id?' \u2014 score id '+id:''));
+      gcModalShow(
+        '<div style="font-size:28px;margin-bottom:6px">\u2705</div>'
+        +'<div style="font-size:16px;font-weight:800;color:var(--ink);margin-bottom:6px">'+(updating?'Updated on':'Posted to')+' Golf Canada</div>'
+        +'<div style="font-size:13px;color:#666;margin-bottom:4px">Gross '+ctx.gross+' \u00b7 '+ctx.p.deck+'</div>'
+        +(id?'<div style="font-size:11px;color:#aaa;margin-bottom:14px">score id '+id+'</div>':'<div style="margin-bottom:14px"></div>')
+        +'<button onclick="gcModalClose()" style="width:100%;padding:12px;background:var(--gold);color:var(--gd);border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer">\ud83c\udfc6 Done</button>'
+      );
       try{ renderCard(); }catch(e){}
     } else {
-      alert('Golf Canada '+(updating?'update':'post')+' failed \u2014 HTTP '+r.status+'\n\n'+String(r.text||'').slice(0,600));
+      gcModalShow(
+        '<div style="font-size:28px;margin-bottom:6px">\u26a0\ufe0f</div>'
+        +'<div style="font-size:15px;font-weight:800;color:var(--ink);margin-bottom:8px">Golf Canada '+(updating?'update':'post')+' failed</div>'
+        +'<div style="font-size:11px;color:#888;margin-bottom:10px">HTTP '+r.status+'</div>'
+        +'<div style="font-size:11px;color:#c0392b;text-align:left;background:#fff;border-radius:8px;padding:10px;max-height:140px;overflow:auto;word-break:break-word;margin-bottom:12px">'+String(r.text||'(empty)').slice(0,600).replace(/</g,'&lt;')+'</div>'
+        +'<div style="font-size:11px;color:#888;margin-bottom:12px">Your round is saved either way \u2014 you can try again from this screen.</div>'
+        +'<button onclick="gcModalClose()" style="width:100%;padding:12px;background:#eee;color:#666;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer">Close</button>'
+      );
     }
   }catch(e){
-    alert('Golf Canada error: '+String(e && e.message || e));   // fail-soft: never blocks the round
+    gcModalShow('<div style="font-size:28px;margin-bottom:6px">\u26a0\ufe0f</div><div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px">Golf Canada error</div><div style="font-size:12px;color:#c0392b;margin-bottom:14px">'+String(e && e.message || e).replace(/</g,'&lt;')+'</div><button onclick="gcModalClose()" style="width:100%;padding:12px;background:#eee;color:#666;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer">Close</button>');
   }
 }
 
@@ -40014,7 +40060,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v278.0';
+    const TOUR_VERSION     = 'pards-tour-v279.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
