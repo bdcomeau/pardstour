@@ -210,7 +210,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.12</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.13</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -1668,7 +1668,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.12';
+const APP_VERSION = 'v20.13';
 
 // v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
 // The badge was a SECOND hardcoded literal in the markup (the span at the top of
@@ -2293,7 +2293,7 @@ function addBet() {
   save(); renderWagers(); updateTote(); updateHeader();
 }
 
-function removeBet(id) {
+async function removeBet(id) {
   const bet = state.bets.find(b => b.id === id);
   if (!bet) return;
   const bettor = bettorById(bet.bettorId);
@@ -2333,7 +2333,15 @@ function removeBet(id) {
       'and that the cash for this ticket has been returned.'
     )) return;
 
-    // Void the entire ticket
+    // Void the entire ticket — v20.13: D1 FIRST. In D1 mode the slip lives in
+    // the system of record; local state follows only a SUCCESSFUL D1 delete,
+    // so the screen can never show a void D1 didn't perform. On failure the
+    // alarm names the reason (409 = race already settled — payouts are final)
+    // and the ticket stays on screen, still matching D1.
+    if (_d1Mode) {
+      const okD1 = await d1VoidTicket(bet.ticketRef);
+      if (!okD1) return;
+    }
     state.bets = state.bets.filter(b => b.ticketRef !== bet.ticketRef);
     syncRootFromState();
     save(); renderWagers(); updateTote(); updateHeader();
@@ -4843,6 +4851,28 @@ async function d1SubmitWagers(bettorId, wagerBatch, ticketRef, quiet) {
     return true;
   } catch(e) {
     if (!quiet) _d1Alarm('Ticket ' + (ticketRef || '') + ' did not save.', (e && e.message) || 'Network error');
+    return false;
+  }
+}
+
+// v20.13 — the D1 half of the void ceremony. Whole-ticket only, mirroring
+// the paper reality: a slip is voided as a unit and the bettor resubmits.
+// Worker refuses with 409 once the race is settled (payouts final).
+async function d1VoidTicket(ticketRef) {
+  if (!_d1Mode) return true;   // local-only mode: nothing to void in D1
+  try {
+    const resp = await fetch(TOUR_API + '/api/bets/races/' + _d1RaceId + '/wagers?ticket_ref=' + encodeURIComponent(ticketRef), {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + _d1Token }
+    });
+    const d = await resp.json().catch(function(){ return {}; });
+    if (!resp.ok || !d.ok) {
+      _d1Alarm('Ticket ' + ticketRef + ' was NOT voided.', (d && d.error) ? d.error : ('HTTP ' + resp.status));
+      return false;
+    }
+    return true;
+  } catch(e) {
+    _d1Alarm('Ticket ' + ticketRef + ' was NOT voided.', (e && e.message) || 'Network error');
     return false;
   }
 }
