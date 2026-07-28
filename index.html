@@ -25684,8 +25684,32 @@ function ptAbandonCancel() {
   if (wrap2) wrap2.style.display = 'none';
 }
 
+// v303.0 - Bruce: resumed an MMG card and every REFERENCE-row score was gone,
+// forcing re-entry (the engine will not advance a hole with a blank row).
+// Root cause: the ref card lived in ONE localStorage key, 'pt_ref_backup',
+// code-stamped and rejected on mismatch. Ref rows are LOCAL ONLY (never
+// synced - [pt-sync] _refPi skips pi>0), so that key is their only home, and
+// joining any other group overwrites it. Smoke-testing several MMG teams in a
+// row therefore wiped the ref card of every team but the last. ONE key
+// builder: _ptRefKey = THE ref-card storage key (code-scoped). Legacy
+// 'pt_ref_backup' is still READ as a fallback so a round in flight across
+// this upgrade keeps its rows.
+function _ptRefKey(code) { return 'pt_ref_' + String(code || ''); }
+// Keep the code-scoped keys from growing without bound on a testing device.
+function _ptRefPrune(keepCode) {
+  try {
+    var ks = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      var k = localStorage.key(i);
+      if (k && k.indexOf('pt_ref_') === 0 && k !== _ptRefKey(keepCode)) ks.push(k);
+    }
+    while (ks.length > 12) { try { localStorage.removeItem(ks.shift()); } catch (eP2) {} }
+  } catch (eP) {}
+}
+
 function ptDoAbandon() {
   ptClosePauseSheet();
+  try { localStorage.removeItem(_ptRefKey(G.joinGroup && G.joinGroup.code)); } catch (eRk) {}
   // Wipe event state
   G.mode = 'local';
   G.joinGroup = null;
@@ -39522,7 +39546,10 @@ function doJoinGroup() {
       // 📝 ref rows seed from pt_ref_backup (mmg shape {code, scores, scores2})
       // so an app reload keeps the own-pair holes (pards_G dies at boot).
       var _mgRb = null;
-      try { _mgRb = JSON.parse(localStorage.getItem('pt_ref_backup') || 'null'); } catch (eR2) {}
+      try {                                                              // v303.0 - code-scoped key first, legacy single key as fallback
+        _mgRb = JSON.parse(localStorage.getItem(_ptRefKey(G.joinGroup.code)) || 'null');
+        if (!_mgRb) _mgRb = JSON.parse(localStorage.getItem('pt_ref_backup') || 'null');
+      } catch (eR2) {}
       var _mgRbOk = _mgRb && _mgRb.code === G.joinGroup.code;
       _mgOwn.forEach(function(_, ri) {
         var arr = _mgRbOk ? (ri === 0 ? _mgRb.scores : _mgRb.scores2) : null;
@@ -39630,7 +39657,10 @@ function doJoinGroup() {
       // bug, see handoff): recover the ref card from the wrapper's own backup
       // key when it belongs to this same join code.
       var _rb = null;
-      try { _rb = JSON.parse(localStorage.getItem('pt_ref_backup') || 'null'); } catch (eRB) {}
+      try {                                                              // v303.0 - code-scoped key first, legacy single key as fallback
+        _rb = JSON.parse(localStorage.getItem(_ptRefKey(G.joinGroup.code)) || 'null');
+        if (!_rb) _rb = JSON.parse(localStorage.getItem('pt_ref_backup') || 'null');
+      } catch (eRB) {}
       if (_rb && _rb.code === G.joinGroup.code && Array.isArray(_rb.scores) && _rb.scores.length === 18) {
         G._refScores = _rb.scores.slice();
       } else {
@@ -40327,21 +40357,28 @@ function ptLaunchFoursomeRound(foursomeData) {
           // before the restore IIFE — see handoff), so the ref card keeps its
           // own key, restored at join when the code matches.
           try {
-            localStorage.setItem('pt_ref_backup', JSON.stringify({
-              code: G._refScoresCode || (G.joinGroup && G.joinGroup.code) || null,
-              scores: G._refScores
-            }));
+            var _rkS = G._refScoresCode || (G.joinGroup && G.joinGroup.code) || null;
+            localStorage.setItem(                                        // v303.0 - code-scoped so another group's join cannot clobber this card
+              (typeof _ptRefKey === 'function' ? _ptRefKey(_rkS) : 'pt_ref_backup'),
+              JSON.stringify({ code: _rkS, scores: G._refScores })
+            );
+            if (typeof _ptRefPrune === 'function') _ptRefPrune(_rkS);
           } catch (e2) {}
         } else if (typeof G !== 'undefined' && G && G.mode === 'event' && G.mmgMode &&
                    G._pairedGroup && Array.isArray(G.scores) && G.scores.length >= 4) {
           // v287.0 — MMG: the own pair rides slots 2–3 (📝 ref, never synced).
           // Same reload-proof key, additive shape {code, scores, scores2}.
           try {
-            localStorage.setItem('pt_ref_backup', JSON.stringify({
-              code: G._refScoresCode || (G.joinGroup && G.joinGroup.code) || null,
-              scores:  Array.isArray(G.scores[2]) ? G.scores[2].slice() : null,
-              scores2: Array.isArray(G.scores[3]) ? G.scores[3].slice() : null
-            }));
+            var _rkM = G._refScoresCode || (G.joinGroup && G.joinGroup.code) || null;
+            localStorage.setItem(                                        // v303.0 - code-scoped (see _ptRefKey)
+              (typeof _ptRefKey === 'function' ? _ptRefKey(_rkM) : 'pt_ref_backup'),
+              JSON.stringify({
+                code: _rkM,
+                scores:  Array.isArray(G.scores[2]) ? G.scores[2].slice() : null,
+                scores2: Array.isArray(G.scores[3]) ? G.scores[3].slice() : null
+              })
+            );
+            if (typeof _ptRefPrune === 'function') _ptRefPrune(_rkM);
           } catch (e3) {}
         }
       } catch (e) {}
