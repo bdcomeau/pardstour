@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v294.0 -->
+  <!-- pards-tour-v295.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -31432,6 +31432,17 @@ function ptOrgRefreshLive(eventId) {
   }).then(_ptJson).then(_ptThrow).then(function(lb) {
     if (!body) return;
     var standings = lb.standings || [];
+    if (_ptOrgLiveFormat === 'mmg') {                                     // v295.0 — Bruce (organizer tab, live): "group name instead of the
+      // actual member and guest names". Cached mmg rows carry name/thru/
+      // combined_* — map to this view's scramble-shaped fields. Worker
+      // order (pts desc, tie-aware ranks) is authoritative.
+      standings = standings.map(function(mr){
+        return { group_id: mr.group_id, group_name: mr.name, holes_played: mr.thru || 0,
+                 total: mr.combined_gross || 0, start_hole: mr.start_hole || 1,
+                 mmg_pts: mr.combined_pts || 0, mmg_rank: mr.rank != null ? mr.rank : null,
+                 start_unit: mr.start_unit || null };
+      });
+    }
     var computed  = lb.computed_at || '';
     if (!standings.length) {
       body.innerHTML = '<div style="color:rgba(255,255,255,.3);text-align:center;padding:40px 0;font-size:14px">No scores yet.</div>';
@@ -31479,6 +31490,7 @@ function ptOrgRefreshLive(eventId) {
         return 0;
       }
       orgEnriched.sort(function(a,b){
+        if (_ptOrgLiveFormat === 'mmg') return 0;                          // v295.0 — worker order (pts desc) authoritative
         // Sort by net score when available, else by toPar.
         // v230.0 — gross scramble ALWAYS ranks by to-par (net ignored).
         var aKey = (_orgGross || a.netScore === null) ? a.toPar : a.netScore;
@@ -31498,6 +31510,7 @@ function ptOrgRefreshLive(eventId) {
         var row = enrichedItem.row;
         var detail = enrichedItem.detail;
         var pos = idx + 1;
+        if (_ptOrgLiveFormat === 'mmg' && row.mmg_rank != null) pos = row.mmg_rank; // v295.0 — tie-aware server rank
         var medal = pos===1?'🥇':pos===2?'🥈':pos===3?'🥉':pos+'';
         // detail from enrichedItem above
         var players = _ptSortPlayers(detail.players || []);
@@ -31546,7 +31559,7 @@ function ptOrgRefreshLive(eventId) {
         if (row.tee_violation) h += '<div style="font-size:9px;color:#e67e22;font-weight:700;margin-top:2px">⛳ '+row.tee_violation+'</div>';
         h += '<div style="display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap">';
         h += '<div style="font-size:11px;color:rgba(255,255,255,.4)">'+(holesPlayed>=18?'Finished':holesPlayed>0?('On hole '+currentHole):('Not started'))+'</div>';
-        h += '<div style="font-size:11px;font-weight:700;color:rgba(201,168,76,.8);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.4);border-radius:10px;padding:1px 8px">&#9675; Started hole '+startHole+'</div>';
+        h += '<div style="font-size:11px;font-weight:700;color:rgba(201,168,76,.8);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.4);border-radius:10px;padding:1px 8px">&#9675; Started hole '+startHole+(row.start_unit?' \u00b7 Unit '+row.start_unit:'')+'</div>';
         h += '</div>';
         if(scorer) h += '<div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:3px">&#9998; Score kept by <strong>'+scorer+'</strong></div>';
         h += '</div>';
@@ -31554,7 +31567,11 @@ function ptOrgRefreshLive(eventId) {
         var _eNet = enrichedItem.netScore;
         var _eTh  = enrichedItem.teamHdcp;
         h += '<div style="text-align:right;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:1px">';
-        if (_eNet !== null && holesPlayed > 0 && !_orgGross) {
+        if (_ptOrgLiveFormat === 'mmg') {                                 // v295.0 — combined net stableford: PTS primary
+          h += '<div style="font-size:11px;font-weight:700;color:rgba(168,213,181,.7);letter-spacing:.3px">PTS</div>';
+          h += '<div style="font-size:28px;font-weight:900;color:#a8d5b5;font-family:monospace;line-height:1">'+(row.mmg_pts||0)+'</div>';
+          h += '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:3px">gross '+((row.total!=null&&holesPlayed>0)?row.total:'--')+'</div>';
+        } else if (_eNet !== null && holesPlayed > 0 && !_orgGross) {
           // NET primary
           var _netDisp = _eNet % 1 === 0 ? _eNet : _eNet.toFixed(1);
           var _netCol  = _eNet < 0 ? '#e74c3c' : _eNet === 0 ? '#2563eb' : 'rgba(255,255,255,.7)';
@@ -41703,7 +41720,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v294.0';
+    const TOUR_VERSION     = 'pards-tour-v295.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
