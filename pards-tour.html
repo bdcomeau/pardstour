@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v303.1 -->
+  <!-- pards-tour-v304.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -40764,10 +40764,120 @@ function ptLaunchFoursomeRound(foursomeData) {
     _tourExitTeardown();
     return _oNewRoundStep2.apply(this, arguments);
   };
+  // v304.0 - Bruce: an MMG card resumed from History came back as a plain
+  // LOCAL round. buildRoundSnapshot() (16281) captures scores/players/games
+  // but NO event context - no mode, joinGroup, mmgMode, _pairedGroup or
+  // _tournamentRound - and resumeRound() (18347) restores none of them.
+  // jsdom repro on v303.1: 7 of 16 checks fail after Save & Pause -> resume.
+  // Consequences, worst first:
+  //   1. _route() above returns null whenever G.mode !== 'event', so EVERY
+  //      score entered after the resume silently never reaches D1.
+  //   2. The ticker's own _active() dies (needs mode + mmgMode + joinGroup.code).
+  //   3. The ref-card backup guard (mode + mmgMode + _pairedGroup) goes false,
+  //      so new reference rows stop being persisted - Bruce's "ref rows going
+  //      stale mid-round", official holes 4-11 against ref holes 4-7.
+  // NOTE what this is NOT: G.startHole already survives the round trip intact
+  // (snapshot stores it, resumeRound restores it - proven in the repro). The
+  // separate start-hole bug is NOT caused by this and is still open.
+  // Fix = carry the context through the snapshot as ONE _tour object and put
+  // it back on resume. Snapshots written before v304.0 have no _tour and
+  // resume exactly as they do today.
+  // ORDERING TRAP: the v302.0 saveAndEndRound decorator runs _tourExitTeardown
+  // BEFORE the engine body, and the engine body calls savePartialRoundToHistory
+  // on its FIRST line - so by snapshot time the context is already nulled.
+  // _ptTourStash is filled by that decorator before teardown and consumed by
+  // the buildRoundSnapshot decorator, then always cleared so a later local
+  // round can never inherit it.
+  var _ptTourStash = null;
+  function _ptTourCapture() {
+    try {
+      if (typeof G === 'undefined' || !G || G.mode !== 'event') return null;
+      return {
+        joinGroup:       G.joinGroup || null,
+        pairedGroup:     G._pairedGroup || null,
+        pairedPlayers:   G._pairedPlayers || [],
+        scoringForCode:  G._scoringForCode || null,
+        scoringForGroup: G._scoringForGroup || null,
+        tournamentRound: G._tournamentRound || null,
+        mmgMode:         !!G.mmgMode,
+        scrambleMode:    !!G.scrambleMode,
+        scrambleFormat:  G.scrambleFormat || null,
+        pairedTeam:      G.pairedTeam || null,
+        refScores:       Array.isArray(G._refScores) ? G._refScores.slice() : null,
+        refScoresCode:   G._refScoresCode || null
+      };
+    } catch (e) { return null; }
+  }
+  var _oBuildRoundSnapshot = window.buildRoundSnapshot;
+  if (typeof _oBuildRoundSnapshot === 'function') {
+    window.buildRoundSnapshot = function () {
+      var snap = _oBuildRoundSnapshot.apply(this, arguments);
+      try {
+        var t = _ptTourCapture() || _ptTourStash;
+        if (t && snap) snap._tour = t;
+      } catch (e) {}
+      return snap;
+    };
+  }
+  var _oResumeRound = window.resumeRound;
+  if (typeof _oResumeRound === 'function') {
+    window.resumeRound = function (i) {
+      // Read the record BEFORE the engine runs - resumeRound splices it out
+      // of History on its way through.
+      var t = null;
+      try {
+        var _h = (typeof loadHistory === 'function') ? loadHistory() : null;
+        if (_h && _h[i] && _h[i]._tour) t = _h[i]._tour;
+      } catch (e) {}
+      var r = _oResumeRound.apply(this, arguments);
+      try {
+        if (t) {
+          G.mode                 = 'event';
+          G.joinGroup            = t.joinGroup || null;
+          G._pairedGroup         = t.pairedGroup || null;
+          G._pairedPlayers       = t.pairedPlayers || [];
+          G._scoringForCode      = t.scoringForCode || null;
+          G._scoringForGroup     = t.scoringForGroup || null;
+          G._tournamentRound     = t.tournamentRound || null;
+          G._tournamentSubmitted = false;
+          G.mmgMode              = !!t.mmgMode;
+          G.scrambleMode         = !!t.scrambleMode;
+          G.scrambleFormat       = t.scrambleFormat || null;
+          G.pairedTeam           = t.pairedTeam || null;
+          if (Array.isArray(t.refScores)) G._refScores = t.refScores.slice();
+          G._refScoresCode       = t.refScoresCode || null;
+          // The GROUP's start hole outranks the snapshot's copy (standing
+          // rule: group start_hole wins whenever mode === 'event'). If they
+          // disagree the snapshot is stale - re-pin it, then re-land on the
+          // first unscored hole in the CORRECTED play order, because the
+          // engine just computed its landing hole from the stale value.
+          var _sh = parseInt(t.joinGroup && t.joinGroup.start_hole, 10);
+          if (_sh > 0 && _sh <= 18 && G.startHole !== _sh) {
+            G.startHole = _sh;
+            try {
+              var _ord = [], _k;
+              for (_k = 0; _k < 18; _k++) _ord.push((((_sh - 1 + _k) % 18) + 18) % 18);
+              var _fu;
+              for (_k = 0; _k < _ord.length; _k++) {
+                if (G.scores[0][_ord[_k]] === null) { _fu = _ord[_k]; break; }
+              }
+              G.hole = (_fu === undefined) ? _ord[0] : _fu;
+            } catch (eH) {}
+          }
+          saveG();
+          try { if (typeof renderCard === 'function') renderCard(); } catch (eR) {}
+        }
+      } catch (e) {}
+      return r;
+    };
+  }
+
   var _oSaveAndEnd = window.saveAndEndRound;
   window.saveAndEndRound = function () {
+    _ptTourStash = _ptTourCapture();   // v304.0 - BEFORE teardown nulls it
     _tourExitTeardown();
-    return _oSaveAndEnd.apply(this, arguments);
+    try { return _oSaveAndEnd.apply(this, arguments); }
+    finally { _ptTourStash = null; }   // never leaks into a later local round
   };
   var _oAbandonRound = window.abandonRound;
   window.abandonRound = function () {
@@ -41912,7 +42022,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v303.1';
+    const TOUR_VERSION     = 'pards-tour-v304.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
