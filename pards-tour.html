@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v301.0 -->
+  <!-- pards-tour-v302.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -31798,6 +31798,18 @@ function loadOrgEventDetail(eventId) {
       }
     } else if(groups.length){
       groups.forEach(function(g){ _ptGroupCache[String(g.id)]=g; });
+      // v302.0 - Bruce: MMG Score Now reverse logic. Tapping Score Now on a
+      // team's card must enter THAT team's scorecard - but a join scores the
+      // team the joined group POINTS AT (scores_for_group_id). So on an mmg
+      // event the pill for team X joins with the code of the group that
+      // keeps X's card (the one whose scores_for_group_id === X.id). No
+      // scorer found (incomplete rotation) falls back to X's own code - the
+      // join screen states truthfully who you'd score for either way.
+      var _mmgScorerOf = null;
+      if (ev.format === 'mmg') {
+        _mmgScorerOf = {};
+        groups.forEach(function(gg){ if (gg.scores_for_group_id) _mmgScorerOf[gg.scores_for_group_id] = gg; });
+      }
       var _scorePromises = groups.map(function(g){
         return fetch(TOUR_API+'/api/scores/group/'+g.id,{headers:{'Authorization':'Bearer '+G.orgToken}})
           .then(_ptJson)
@@ -31879,7 +31891,7 @@ function loadOrgEventDetail(eventId) {
           +'<div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px">'
           +(_mr?'':'<div style="font-size:24px;font-weight:900;color:#c9a84c;letter-spacing:4px;font-family:monospace">'+g.code+'</div>'
           +'<div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:4px">join code</div>'
-          +'<button onclick="ptOrgScoreNow(\''+g.code+'\')" style="margin-top:2px;padding:5px 10px;background:rgba(168,213,181,.12);border:1px solid rgba(168,213,181,.4);border-radius:8px;color:#a8d5b5;font-size:11px;font-weight:700;cursor:pointer">&#9654; Score Now</button>')
+          +'<button onclick="ptOrgScoreNow(\''+((_mmgScorerOf&&_mmgScorerOf[g.id])?_mmgScorerOf[g.id].code:g.code)+'\')" style="margin-top:2px;padding:5px 10px;background:rgba(168,213,181,.12);border:1px solid rgba(168,213,181,.4);border-radius:8px;color:#a8d5b5;font-size:11px;font-weight:700;cursor:pointer">&#9654; Score Now</button>')
           +'<button onclick="ptEditGroup('+ev.id+','+g.id+')" style="margin-top:4px;padding:5px 10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);border-radius:8px;color:#c9a84c;font-size:11px;font-weight:700;cursor:pointer">&#9998; Edit</button>'
           +'<button onclick="ptAssignGroupRoster('+ev.id+','+g.id+')" style="margin-top:4px;padding:5px 10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer">👥 Players</button>'
           +'</div>'
@@ -40639,21 +40651,44 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   // Fresh round from the scorecard: flush, then clear tour context so the
   // new round can never leak scores into the old trip/event.
-  var _oNewRoundStep2 = window.newRoundStep2;
-  window.newRoundStep2 = function () {
+  // v302.0 - Bruce: Save & Pause (and Hold-to-Abandon) from the End Round
+  // Early overlay stranded him on a setup screen with no header and no
+  // bottom menu, with the wrapper's event state still live. The engine's
+  // saveAndEndRound/abandonRound land on screen-setup + syncBottomBars but
+  // never clear the inline display:none the tournament launch put on
+  // .hdr/#setupBar (the v300 class, two more exit paths). ONE teardown
+  // shared by all three engine-exit decorators; effectively a no-op for
+  // plain local rounds (chrome-back gated on _tournamentRound, the rest
+  // already at defaults).
+  var _tourExitTeardown = function () {
     try {
       if (_active()) _flushNow(false);
-      if (G._tournamentRound && typeof _ptTourCardChromeBack === 'function') _ptTourCardChromeBack(); // v294.0 — un-strand tournament-card exits
+      if (G._tournamentRound && typeof _ptTourCardChromeBack === 'function') _ptTourCardChromeBack(); // v294.0 - un-strand tournament-card exits
       G._tournamentRound = null;
       G._tournamentSubmitted = false;
       G._scoringForCode = null;
       G._scoringForGroup = null;
       G.joinGroup = null;
       G.mode = 'local';
+      G.scrambleMode = false; G.mmgMode = false; G.scrambleFormat = null; G.pairedTeam = null; // v302.0 - scoring-mode flags must not survive an exit
       _snap = null;
       _syncClear(); // v250.2
     } catch (e) {}
+  };
+  var _oNewRoundStep2 = window.newRoundStep2;
+  window.newRoundStep2 = function () {
+    _tourExitTeardown();
     return _oNewRoundStep2.apply(this, arguments);
+  };
+  var _oSaveAndEnd = window.saveAndEndRound;
+  window.saveAndEndRound = function () {
+    _tourExitTeardown();
+    return _oSaveAndEnd.apply(this, arguments);
+  };
+  var _oAbandonRound = window.abandonRound;
+  window.abandonRound = function () {
+    _tourExitTeardown();
+    return _oAbandonRound.apply(this, arguments);
   };
 
   // Leaving the page mid-round: last-chance flush with keepalive
@@ -41765,6 +41800,18 @@ function ptLaunchFoursomeRound(foursomeData) {
     try { _teardown(); } catch (e) {}
     return _oNewRoundStep2.apply(this, arguments);
   };
+  // v302.0 - Save & Pause / Abandon exits need the same ticker teardown as
+  // New Round, or the strip lingers on the setup screen until a dead poll.
+  var _oTkSaveEnd = window.saveAndEndRound;
+  window.saveAndEndRound = function () {
+    try { _teardown(); } catch (e) {}
+    return _oTkSaveEnd.apply(this, arguments);
+  };
+  var _oTkAbandon = window.abandonRound;
+  window.abandonRound = function () {
+    try { _teardown(); } catch (e) {}
+    return _oTkAbandon.apply(this, arguments);
+  };
 
   window.addEventListener('pagehide', function () {
     try { if (_pollTimer) { clearInterval(_pollTimer); _pollTimer = null; } } catch (e) {}
@@ -41781,7 +41828,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v301.0';
+    const TOUR_VERSION     = 'pards-tour-v302.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
