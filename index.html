@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v318.0 -->
+  <!-- pards-tour-v319.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -16435,6 +16435,82 @@ function buildRoundSnapshot(){
   };
 }
 
+/* ── DECK COMPACTION (v319.0) ───────────────────────────────────────────────
+   THE BUG THIS FIXES. A 2.4 MB backup would not restore on iPhone: Safari
+   threw QuotaExceededError and the app reported "Could not read backup", which
+   blamed the file for a full disk.
+
+   Measured on a real 237-contact export: deckByCourse was 1,002,998 of the
+   1,063,452 characters in contacts — 62% of the whole backup. Every contact
+   carried a deck for all ~131 courses, and there were only THIRTEEN distinct
+   maps among 237 contacts; 137 of them were byte-identical.
+
+   ⭐ IT WAS NEVER PLAYER DATA. migrateDecksFromDerrick() derived each value
+   from (that contact's Derrick deck) x (course) via bestFitTeeForCourse, and
+   contactDeckForCourse() ALREADY DERIVES THE SAME VALUE AT READ TIME when the
+   key is absent. The stored copy was a cache of a pure function, persisted per
+   player, per course, forever.
+
+   ⭐ WHY THE COMPACTION IS PROVABLY SAFE, AND WHY IT IS NOT JUST "DROP THEM
+   ALL". contactDeckForCourse has one branch the writer does not: if
+   defaultDeck happens to be a literal tee name at that course, it wins. So a
+   stored value and a derived value CAN legitimately differ. Rather than reason
+   about which, this removes the entry and ASKS THE READER what it would return.
+   Equal -> the entry was dead weight, drop it. Different -> it is a real choice
+   (or a stale one the player is used to seeing), keep it byte for byte.
+   On Bruce's export that kept 3,900 entries and dropped 27,890 — 83%.
+
+   ⭐ AND THE RE-INFLATERS HAD TO DIE OR THIS WOULD ALL COME BACK.
+   migrateDecksFromDerrick() ran on EVERY boot and backfilled every gap, so
+   compaction alone would have been undone by the next page load. See its body.
+
+   derrick-gwc is never dropped: it is the ANCHOR the derivation reads. */
+function _deckDerivedSame(contact, courseId, storedVal){
+  // Ask the real reader what it returns with this entry absent.
+  try{
+    const probe = {};
+    for(const k in contact) if(k!=='deckByCourse') probe[k]=contact[k];
+    probe.deckByCourse = {};
+    for(const k in (contact.deckByCourse||{})) if(k!==courseId) probe.deckByCourse[k]=contact.deckByCourse[k];
+    return contactDeckForCourse(probe, courseId) === storedVal;
+  }catch(e){ return false; }   // never drop on doubt
+}
+
+function compactDeckByCourse(contacts){
+  if(!Array.isArray(contacts)) return contacts;
+  return contacts.map(function(c){
+    if(!c || !c.deckByCourse) return c;
+    const out={}; let dropped=0;
+    for(const cid in c.deckByCourse){
+      const v=c.deckByCourse[cid];
+      if(cid==='derrick-gwc'){ out[cid]=v; continue; }        // the anchor — always
+      if(_deckDerivedSame(c, cid, v)) { dropped++; continue; } // redundant
+      out[cid]=v;                                             // a real choice
+    }
+    if(!dropped) return c;
+    const n={}; for(const k in c) n[k]=c[k];
+    n.deckByCourse=out; return n;
+  });
+}
+
+// One-time pass over what is already on this device. Idempotent — running it
+// twice is a no-op, because the second pass finds nothing redundant left.
+function compactStoredContactsOnce(){
+  const FLAG='pards_deck_compacted_v319';
+  try{ if(localStorage.getItem(FLAG)) return; }catch(e){ return; }
+  try{
+    const raw=localStorage.getItem('pards_contacts')||'[]';
+    const before=raw.length;
+    const compacted=compactDeckByCourse(JSON.parse(raw));
+    const out=JSON.stringify(compacted);
+    if(out.length<before) localStorage.setItem('pards_contacts', out);
+    localStorage.setItem(FLAG,'1');
+    // Stale duplicate of the fat shape — it is refreshed on the next saved
+    // round anyway, and leaving it holds the space this just freed.
+    try{ localStorage.removeItem('pards_autobackup'); }catch(e){}
+  }catch(e){ /* leave the data alone if anything is off */ }
+}
+
 // ── Automatic backup resiliency ─────────────────────────────────────────────
 // Layer 1: a silent redundant safety copy kept inside the app's own storage,
 //          refreshed after every saved round. Survives data corruption / accidental
@@ -16446,7 +16522,7 @@ function buildBackupPayload(){
   return {
     version:1,
     exportDate:new Date().toISOString(),
-    contacts:     loadContacts(),
+    contacts:     compactDeckByCourse(loadContacts()),   // v319.0 — slim shape
     history:      loadHistory(),
     currentRound: (() => { try{ return JSON.parse(ls('pards_G')||'null'); }catch(e){return null;} })(),
     sideBets:     (() => { try{ return JSON.parse(ls('pards_sideBets_backup')||'null'); }catch(e){return null;} })(),
@@ -16897,7 +16973,9 @@ function importData(){
         // re-initialises from the freshly restored localStorage data
         setTimeout(()=>{ window.scrollTo(0,0); window.location.reload(); }, 1500);
       } catch(err){
-        showImportResult('⚠️ Could not read backup: '+err.message,true);
+        // v319.0 — a full disk is not a bad file. Saying "could not read" for a
+        // failed WRITE sent Bruce hunting a corrupt export for an hour.
+        showImportResult((err && err._pdQuota ? '\u26a0\ufe0f ' : '\u26a0\ufe0f Could not read backup: ')+err.message,true);
       }
     };
     reader.readAsText(file);
@@ -16906,36 +16984,81 @@ function importData(){
 }
 
 // Shared restore logic — used by both the web <input> picker and the native picker below.
+/* ⭐ v319.0 — THIS USED TO BE ABLE TO HALF-RESTORE YOU.
+   It wrote seven keys in a row with no transaction. When Safari hit its quota
+   partway down that list, the throw escaped, the caller printed an error and
+   the reload never happened — leaving restored CONTACTS (written first, and
+   the biggest) sitting on top of OLD HISTORY, with nothing on screen saying so.
+   A restore that fails must leave the device exactly as it was.
+
+   Three changes, in the order they matter:
+     1. RECLAIM FIRST. pards_autobackup is a duplicate of everything, refreshed
+        after every saved round and — as of v319.0 — still not read by anything.
+        It is pure competition for the space the restore needs. Drop it before
+        asking for room, not after failing.
+     2. SLIM THE PAYLOAD. Old backup files carry the fat deckByCourse shape.
+        Compact on the way IN as well as on the way out, so a file exported by
+        an older build still restores. Backwards compatibility is the point.
+     3. ALL OR NOTHING. Snapshot every key first, write, and on ANY failure put
+        the snapshot back before rethrowing. */
 function applyBackupPayload(jsonText){
   const payload=JSON.parse(jsonText);
   if(!payload.version) throw new Error('Not a Pards Golf backup file.');
-  let msg=[];
+
+  // 1 — reclaim before asking for room.
+  try{ localStorage.removeItem('pards_autobackup'); }catch(e){}
+  try{ localStorage.removeItem('pards_autobackupAt'); }catch(e){}
+
+  // 2 — build the full write list up front, slimmed. Nothing is written yet.
+  const writes=[]; const msg=[];
   if(Array.isArray(payload.contacts)){
-    localStorage.setItem('pards_contacts', JSON.stringify(payload.contacts));
+    const slim=compactDeckByCourse(payload.contacts);
+    writes.push(['pards_contacts', JSON.stringify(slim)]);
     msg.push(payload.contacts.length+' player contacts');
   }
   if(Array.isArray(payload.history)){
-    localStorage.setItem('pards_history', JSON.stringify(payload.history));
+    writes.push(['pards_history', JSON.stringify(payload.history)]);
     msg.push(payload.history.length+' rounds of history');
   }
-  if(payload.currentRound){
-    localStorage.setItem('pards_G', JSON.stringify(payload.currentRound));
-    msg.push('current round');
-  }
-  if(payload.sideBets){
-    localStorage.setItem('pards_sideBets_backup', JSON.stringify(payload.sideBets));
-    msg.push('side bets');
-  }
-  if(payload.gc){
-    localStorage.setItem('pards_gc', payload.gc);
-  }
-  if(payload.prefScoreOnly){
-    localStorage.setItem('pards_pref_scoreOnly', payload.prefScoreOnly);
-  }
-  if(payload.setupState){
-    localStorage.setItem('pards_setup_state', payload.setupState);
+  if(payload.currentRound){ writes.push(['pards_G', JSON.stringify(payload.currentRound)]); msg.push('current round'); }
+  if(payload.sideBets){ writes.push(['pards_sideBets_backup', JSON.stringify(payload.sideBets)]); msg.push('side bets'); }
+  if(payload.gc){ writes.push(['pards_gc', payload.gc]); }
+  if(payload.prefScoreOnly){ writes.push(['pards_pref_scoreOnly', payload.prefScoreOnly]); }
+  if(payload.setupState){ writes.push(['pards_setup_state', payload.setupState]); }
+
+  // 3 — snapshot, write, roll back on any failure.
+  const prior={};
+  writes.forEach(function(w){ try{ prior[w[0]]=localStorage.getItem(w[0]); }catch(e){ prior[w[0]]=null; } });
+  let done=0;
+  try{
+    for(let i=0;i<writes.length;i++){ localStorage.setItem(writes[i][0], writes[i][1]); done++; }
+  }catch(err){
+    // Put it back EXACTLY as it was, including keys that did not exist before.
+    for(let i=0;i<done;i++){
+      const k=writes[i][0];
+      try{ if(prior[k]===null) localStorage.removeItem(k); else localStorage.setItem(k, prior[k]); }catch(e){}
+    }
+    const need=writes.reduce(function(a,w){ return a+w[1].length; },0);
+    const e2=new Error(_pdIsQuotaError(err)
+      ? ('There is not enough room on this device. The backup needs about '
+         + Math.round(need*2/1024/1024*10)/10 + ' MB and the browser is full. '
+         + 'Nothing was changed \u2014 your existing data is intact.')
+      : (err && err.message ? err.message : String(err)));
+    e2._pdQuota=_pdIsQuotaError(err);
+    e2._pdRolledBack=true;
+    throw e2;
   }
   return msg;
+}
+
+// Safari says "The quota has been exceeded."; Chrome throws QuotaExceededError
+// with a different message; Firefox uses NS_ERROR_DOM_QUOTA_REACHED (code 1014).
+// Match on all three rather than on one browser's wording.
+function _pdIsQuotaError(e){
+  if(!e) return false;
+  if(e.name==='QuotaExceededError' || e.name==='NS_ERROR_DOM_QUOTA_REACHED') return true;
+  if(e.code===22 || e.code===1014) return true;
+  return /quota/i.test(e.message||'');
 }
 
 // Native (Capacitor) import path — requires a file-picker plugin (e.g.
@@ -16957,7 +17080,7 @@ async function importDataNative(){
     renderHistory();
     setTimeout(()=>{ window.scrollTo(0,0); window.location.reload(); }, 1500);
   } catch(err){
-    showImportResult('⚠️ Could not read backup: '+err.message,true);
+    showImportResult((err && err._pdQuota ? '\u26a0\ufe0f ' : '\u26a0\ufe0f Could not read backup: ')+err.message,true);
   }
 }
 
@@ -24349,55 +24472,32 @@ function bestFitTeeForCourse(course, refSlope, refYards){
 // once per browser via its own localStorage flag, then never again — after this,
 // migrateDecksFromDerrick() below resumes its normal never-overwrite behavior so
 // manually chosen tee preferences are preserved going forward.
+/* ⭐ v319.0 — RETIRED with migrateDecksFromDerrick(), same reasoning.
+   This one was worse: it OVERWROTE every non-Derrick entry on every contact in
+   one pass. Its own flag (pards_deck_target_recalc_v1261) is left set on
+   devices that already ran it; the compaction pass undoes its output. */
 function forceRecalcDeckTargetsOnce(){
-  const FLAG = 'pards_deck_target_recalc_v1261';
-  try{ if(localStorage.getItem(FLAG)) return; }catch(e){ return; }
-  try{
-    const contacts = JSON.parse(localStorage.getItem('pards_contacts')||'[]');
-    if(!contacts.length){ localStorage.setItem(FLAG,'1'); return; }
-    const derrick = PARDS_COURSES.find(c=>c.id==='derrick-gwc');
-    if(!derrick){ localStorage.setItem(FLAG,'1'); return; }
-    contacts.forEach(contact=>{
-      if(!contact.deckByCourse) contact.deckByCourse = {};
-      const derrickDeck = contact.deckByCourse['derrick-gwc'] || contact.defaultDeck || 'Deck 2';
-      const target = DERRICK_DECK_TARGETS[derrickDeck] || DERRICK_DECK_TARGETS['Deck 2'];
-      PARDS_COURSES.forEach(course=>{
-        if(course.id==='derrick-gwc') return; // never touch Derrick itself
-        const best = bestFitTeeForCourse(course, target.slope, target.yards);
-        contact.deckByCourse[course.id] = best.name; // overwrite, this run only
-      });
-    });
-    localStorage.setItem('pards_contacts', JSON.stringify(contacts));
-    localStorage.setItem(FLAG,'1');  }catch(e){ console.warn('One-time deck recalc failed',e); }
+  /* intentionally does nothing — see migrateDecksFromDerrick(). */
 }
 
+/* ⭐ v319.0 — RETIRED, DELIBERATELY NOT DELETED.
+   This ran on EVERY page load and wrote contacts x courses derived deck values
+   into localStorage: 237 x ~131 = ~31,000 entries, 1,002,998 characters, 62% of
+   a 2.4 MB backup. It is what made a restore impossible on iPhone.
+
+   Every value it wrote is one contactDeckForCourse() computes on demand from
+   the same DERRICK_DECK_TARGETS and the same bestFitTeeForCourse. The cache was
+   never needed; only its cost was real.
+
+   ⭐ IT IS KEPT AS A NAMED NO-OP ON PURPOSE. Deleting it outright would leave
+   the call site at boot and the seeding path looking like an oversight, and the
+   next person to notice contacts have no cross-course decks would "fix" it by
+   writing this function again. The explanation has to live where the code was.
+
+   If a genuinely new fallback is ever needed, it belongs in
+   contactDeckForCourse — the READER — never in a writer. */
 function migrateDecksFromDerrick(){
-  // Runs on every load — safe to re-run because the per-course check below
-  // ("if(contact.deckByCourse[course.id]) return") never overwrites an existing
-  // value. This lets newly-added/seeded contacts get their cross-course tee
-  // equivalents backfilled automatically, not just on first-ever run.
-  try{
-    const contacts = JSON.parse(localStorage.getItem('pards_contacts')||'[]');
-    if(!contacts.length){ return; }
-    const derrick = PARDS_COURSES.find(c=>c.id==='derrick-gwc');
-    if(!derrick){ return; }
-    let changed = false;
-    contacts.forEach(contact=>{
-      if(!contact.deckByCourse) contact.deckByCourse = {};
-      // Determine Derrick deck: deckByCourse['derrick-gwc'] → defaultDeck → 'Deck 2'
-      const derrickDeck = contact.deckByCourse['derrick-gwc'] || contact.defaultDeck || 'Deck 2';
-      const target = DERRICK_DECK_TARGETS[derrickDeck] || DERRICK_DECK_TARGETS['Deck 2'];
-      // Backfill every other course
-      PARDS_COURSES.forEach(course=>{
-        if(course.id==='derrick-gwc') return; // skip Derrick itself
-        if(contact.deckByCourse[course.id]) return; // already set — don't overwrite
-        const best = bestFitTeeForCourse(course, target.slope, target.yards);
-        contact.deckByCourse[course.id] = best.name;
-        changed = true;
-      });
-    });
-    if(changed) localStorage.setItem('pards_contacts', JSON.stringify(contacts));
-  }catch(e){ console.warn('Deck migration failed',e); }
+  /* intentionally does nothing — see above. Decks derive at read time. */
 }
 
 
@@ -24970,7 +25070,7 @@ function _showOnboarding(){
   _verEls.forEach(function(el){ try{ el.textContent = CURRENT_VERSION; }catch(e){} });
 }
 
-seedContactsIfEmpty();forceRecalcDeckTargetsOnce();migrateDecksFromDerrick();renderAllPairOptions();initSetup();startNamesPoll();restoreSideBetsBackupIfNeeded();expireSideBetsIfNeeded();syncSideBetsButtons();
+seedContactsIfEmpty();compactStoredContactsOnce();renderAllPairOptions();initSetup();startNamesPoll();restoreSideBetsBackupIfNeeded();expireSideBetsIfNeeded();syncSideBetsButtons();
 _showOnboarding();
 
 // ── Restore saved round on launch ──
@@ -43488,7 +43588,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v318.0';
+    const TOUR_VERSION     = 'pards-tour-v319.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
