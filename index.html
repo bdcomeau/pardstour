@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v326.2 -->
+  <!-- pards-tour-v326.3 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -6467,7 +6467,18 @@ function _updateCourseDetail(){
 }
 function _refreshHeaderSub(){
   const el = document.getElementById('hdrCourseSub');
-  if(el) el.textContent = activeCourse().name;
+  if(!el) return;
+  // ⭐ v326.3 — while a saved round is on screen the header must follow the SNAPSHOT's
+  // course, not the live G. openHistoryDetail restores live G before the screen shows and a
+  // later golf-setup render can call this, so guard here rather than relying on call order.
+  var det=document.getElementById('screen-history-detail');
+  if(det && det.classList.contains('active') && typeof _historySnapshot!=='undefined' && _historySnapshot){
+    var nm='';
+    if(typeof PARDS_COURSES!=='undefined'){ for(var i=0;i<PARDS_COURSES.length;i++){ if(PARDS_COURSES[i].id===_historySnapshot.courseId){ nm=PARDS_COURSES[i].name; break; } } }
+    el.textContent = nm || activeCourse().name;
+    return;
+  }
+  el.textContent = activeCourse().name;
 }
 function onCoursePicked(){
   // Legacy path — in case anything still calls this. Real picking now goes through pickCourse().
@@ -44706,7 +44717,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v326.2';
+    const TOUR_VERSION     = 'pards-tour-v326.3';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
@@ -44828,13 +44839,43 @@ function ptLaunchFoursomeRound(foursomeData) {
       } else { fb(); }
     }
 
+    // ⭐ v326.3 — the Last Round card must be the last round the ME PLAYER actually
+    // played a Pards Golf game: NOT an event (events never write to pards_history),
+    // NOT a team Match-Cards companion (isMatchCards), NOT a paused/side-bets row, and
+    // it must contain Me — scored by MY row, not slot 0. Mirrors the career-stats filter.
+    function _ptMatchMe(players, me){
+      if(!players || !me) return -1;
+      var gid=(me.golfId||'').trim();
+      if(gid){ for(var i=0;i<players.length;i++){ if(players[i] && (String(players[i].golfId||'').trim()===gid)) return i; } }
+      var nm=(me.name||'').trim().toLowerCase();
+      if(nm){ for(var j=0;j<players.length;j++){ if(players[j] && String(players[j].name||'').trim().toLowerCase()===nm) return j; } }
+      return -1;
+    }
+    function _ptLastMeRound(){
+      var me=(typeof loadContacts==='function') ? loadContacts().find(function(c){return c.me;}) : null;
+      if(!me) return null;
+      var hist=(typeof loadHistory==='function') ? loadHistory() : [];
+      for(var i=0;i<hist.length;i++){
+        var r=hist[i];
+        if(!r || r.isSideBets || r.isMatchCards || r.paused) continue;
+        if(!r.courseId || !r.players || !r.scores) continue;
+        var mi=_ptMatchMe(r.players, me);
+        if(mi<0) continue;
+        var row=r.scores[mi]||[];
+        var played=false; for(var h=0;h<row.length;h++){ if((Number(row[h])||0)>0){ played=true; break; } }
+        if(!played) continue;
+        return { r:r, idx:i, meIdx:mi };
+      }
+      return null;
+    }
+
     function ptRenderLastRound(){
       var box=document.getElementById('pthLast'); if(!box) return;
-      var hist=(typeof loadHistory==='function') ? loadHistory() : [];
-      var r=null; for(var i=0;i<hist.length;i++){ if(hist[i] && !hist[i].isSideBets){ r=hist[i]; break; } }
-      if(!r){ box.style.display='none'; return; }
+      var found=_ptLastMeRound();
+      if(!found){ box.style.display='none'; return; }
       box.style.display='';
-      var scores=r.scores||[], par=r.par||[], pIdx=0;
+      var r=found.r, pIdx=found.meIdx;
+      var scores=r.scores||[], par=r.par||[];
       var row=scores[pIdx]||[];
       var gross=0, playedPar=0, holes=0;
       for(var h=0; h<row.length; h++){
@@ -44861,8 +44902,8 @@ function ptLaunchFoursomeRound(foursomeData) {
     }
 
     function ptOpenLastRound(){
-      var hist=(typeof loadHistory==='function') ? loadHistory() : [];
-      var idx=-1; for(var i=0;i<hist.length;i++){ if(hist[i] && !hist[i].isSideBets){ idx=i; break; } }
+      var found=_ptLastMeRound();
+      var idx=found ? found.idx : -1;
       // ⭐ openHistoryDetail flips the GOLF app's INTERNAL .screen to screen-history-detail,
       // which lives inside #screen-golf. From the tour home only #screen-home is the active
       // tour-screen, so we must activate the golf section FIRST or the detail renders unseen.
