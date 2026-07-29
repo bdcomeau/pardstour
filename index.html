@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v323.0 -->
+  <!-- pards-tour-v324.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -28761,23 +28761,75 @@ window.ptLoadGameDay = function(leagueId, leagueRoundId) {
     var week = _rounds.findIndex(function(r){ return r.league_round_id === leagueRoundId; }) + 1;
     return fetch(TOUR_API+'/api/trips/'+gd.trip_id, H).then(_ptJson).then(_ptThrow).then(function(td){
       var round = (td.rounds||[])[0] || null; // a game day is round 1, always
-      var after = function(teeTimes){
+      var after = function(teeTimes, standings){
         ptRenderGameDay({
           leagueId: leagueId, leagueRoundId: leagueRoundId, week: week,
           league: ld.league, members: ld.members||[], gd: gd,
           trip: td.trip, players: td.players||[], round: round,
-          teeTimes: teeTimes||[]
+          teeTimes: teeTimes||[], standings: standings||null
         });
       };
-      if(!round) return after([]);
+      if(!round) return after([], null);
+      // v324.0 (Bruce, s20) — the tee sheet now says how far each group has got.
+      // The scoring state is NOT on the tee-times endpoint, so it comes from the
+      // round leaderboard, which already carries a full hole_gross[18] per
+      // trip_player_id. No worker change was needed for this.
+      //
+      // FAIL-SOFT, DELIBERATELY. This is a second network call on a page that
+      // already renders without it. A leaderboard that 404s, 401s on a missing
+      // viewer_pin, or simply times out must leave the tee sheet exactly as it
+      // was — the codes and the Score Now buttons are what the organizer is
+      // standing on the first tee to read. Progress is a nicety; the codes are not.
+      var _lbFetch = gd.viewer_pin
+        ? fetch(TOUR_API+'/api/leagues/'+leagueId+'/rounds/'+leagueRoundId+'/leaderboard?pin='+encodeURIComponent(gd.viewer_pin), H)
+            .then(_ptJson).then(function(lb){ return (lb && !lb.error && lb.standings) || null; })
+            .catch(function(){ return null; })
+        : Promise.resolve(null);
       return fetch(TOUR_API+'/api/trips/'+gd.trip_id+'/rounds/'+round.id+'/tee-times', H)
-        .then(_ptJson).then(function(tt){ after((tt&&tt.tee_times)||[]); })
-        .catch(function(){ after([]); });
+        .then(_ptJson).then(function(tt){
+          return _lbFetch.then(function(st){ after((tt&&tt.tee_times)||[], st); });
+        })
+        .catch(function(){ after([], null); });
     });
   }).catch(function(e){ fail(_ptMsg(e, 'Network error — check connection.')); });
 };
 
 var _PT_GD_FMT = {stableford:'Individual Stableford', overall_skins:'Overall Skins', low_net:'Low Net', low_gross:'Low Gross', match_play:'Match Play', best_ball:'Best Ball'};
+
+// v324.0 (Bruce, s20) — how far a group has got, as ONE number.
+//
+// A hole counts only when EVERY player in the group has a score on it. Bruce
+// chose that over "anyone has scored it", and it is the honest reading: a group
+// moves as a unit, and a hole where three of four are entered is a hole still
+// being written down, not a hole that is done. The looser rule would show 18 of
+// 18 while a man was missing six holes — which is exactly the shape of bug this
+// project keeps finding.
+//
+// Returns null when there is nothing to say — no leaderboard, no players, or
+// nobody has touched the group yet. The caller renders nothing on null rather
+// than a "0 of 18" badge on a sheet that has not been played.
+function _ptGroupProgress(tt, standings) {
+  if (!standings || !standings.length) return null;
+  var ids = (tt.players || []).map(function (p) { return p.trip_player_id; }).filter(function (x) { return x != null; });
+  if (!ids.length) return null;
+  var byTp = {};
+  standings.forEach(function (st) { if (st && st.trip_player_id != null) byTp[st.trip_player_id] = st.hole_gross || []; });
+  // Every player in the group must be ON the board, or "all scored" is a claim
+  // about people we have no row for. Bail rather than overstate.
+  for (var i = 0; i < ids.length; i++) if (!byTp[ids[i]]) return null;
+  var done = 0, any = 0;
+  for (var h = 0; h < 18; h++) {
+    var all = true, some = false;
+    for (var j = 0; j < ids.length; j++) {
+      var g = byTp[ids[j]][h];
+      if (g == null) all = false; else some = true;
+    }
+    if (all) done++;
+    if (some) any++;
+  }
+  if (!any) return null;
+  return { done: done, complete: done === 18 };
+}
 
 // One numbered step per thing Bruce listed, in the order he listed them:
 // date, course, tee, format, players, tee times. A step that is done shows
@@ -28942,9 +28994,14 @@ function ptRenderGameDay(c) {
       var names = (tt.players||[]).map(function(p){ return _esc(p.name||''); }).join(', ');
       var code = tt.foursome_code || '';
       var pin  = tt.foursome_pin || tt.pin || '';
+      var prog = _ptGroupProgress(tt, c.standings);
+      var progBadge = !prog ? ''
+        : prog.complete
+          ? '<span style="display:inline-block;margin-left:8px;padding:2px 8px;border-radius:20px;background:rgba(100,220,180,.14);border:1px solid rgba(100,220,180,.35);color:#a8d5b5;font-size:10px;font-weight:800;letter-spacing:.3px;vertical-align:middle">\u2713 Complete</span>'
+          : '<span style="display:inline-block;margin-left:8px;padding:2px 8px;border-radius:20px;background:rgba(255,180,90,.12);border:1px solid rgba(255,180,90,.32);color:rgba(255,190,110,.95);font-size:10px;font-weight:800;letter-spacing:.3px;vertical-align:middle">'+prog.done+' of 18 scored</span>';
       tsheet += '<div style="background:rgba(0,0,0,.22);border-radius:10px;padding:11px 12px;margin-bottom:8px">'
         + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px">'
-        +   '<div style="font-size:13px;font-weight:800;color:#c9a84c">'+when+'</div>'
+        +   '<div style="font-size:13px;font-weight:800;color:#c9a84c">'+when+progBadge+'</div>'
         +   (code?'<div style="font-size:15px;font-weight:900;color:#f5e6b8;font-family:monospace;letter-spacing:2px">'+_esc(code)+(pin?' <span style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px">PIN '+_esc(String(pin))+'</span>':'')+'</div>':'')
         + '</div>'
         + '<div style="font-size:12px;color:rgba(255,255,255,.55);line-height:1.5">'+(names||'<span style="color:rgba(255,255,255,.25)">empty</span>')+'</div>'
@@ -29320,7 +29377,27 @@ function ptRenderLeagueLeaderboard(d) {
       +'<div style="font-size:14px;font-weight:900;'+rankColor+'">'+p.rank+'</div>'
       +'<div>'
         +'<div style="font-size:14px;font-weight:800;color:#fff">'+_esc(p.name)+'</div>'
-        +(p.tee_name?'<div style="font-size:10px;color:rgba(255,255,255,.35)">'+_esc(p.tee_name)+'</div>':'')
+        + (function(){
+            // v324.0 (Bruce, s20) — gross and net on the collapsed row. They were
+            // only visible after tapping a player open, and only for the ONE row
+            // expanded by default, so the board that decides Low Gross and Low Net
+            // never showed the numbers those two cards are ranking.
+            //
+            // A SECOND LINE, NOT TWO MORE COLUMNS. The grid is already six columns
+            // in 390px; two more would crush PLAYER to nothing on a phone. This
+            // reuses the tee line, which is the same visual weight and is already
+            // there on every row.
+            //
+            // net fail-softs: an older worker sends no total_net, and a player who
+            // has not finished has no meaningful 18-hole total. Neither renders a
+            // blank or a zero — the segment is simply absent.
+            var bits = [];
+            if (p.tee_name) bits.push(_esc(p.tee_name));
+            if (p.total_gross != null) bits.push('<span style="color:rgba(255,255,255,.55)">' + p.total_gross + '</span> gross');
+            if (p.total_net != null)   bits.push('<span style="color:rgba(160,240,210,.85)">' + p.total_net + '</span> net');
+            if (p.holes_played != null && p.holes_played > 0 && p.holes_played < 18) bits.push('<span style="color:rgba(255,180,90,.8)">thru ' + p.holes_played + '</span>');
+            return bits.length ? '<div style="font-size:10px;color:rgba(255,255,255,.35)">' + bits.join(' \u00b7 ') + '</div>' : '';
+          }())
       +'</div>'
       +'<div style="font-size:13px;color:rgba(255,255,255,.5);text-align:center;padding-top:1px">'+(p.handicap!=null?p.handicap:'')+'</div>'
       +'<div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.7);text-align:center">'+(p.holes_played>=9?p.f9_pts:'—')+'</div>'
@@ -31715,6 +31792,32 @@ function _ptBarnesTeamName(d, t) {
   return (tm && tm.name) ? tm.name : t;
 }
 
+// v324.0 (Bruce, s20) — every player line on this board says which team the man
+// plays for. The board was colour-coded by team already, but colour alone is not
+// a label: it needs a legend to decode, it fails for anyone colour-blind, and it
+// does not survive a screenshot pasted into a text message.
+//
+// Keyed off teams[t].roster_ids, NOT off lineup. lineup holds only the twelve
+// MATCH players, and the money pots include everyone who teed it up — Kellerman
+// played week 14, is on team B's roster, and is in no match. A lineup lookup
+// would have left him blank on the one list he actually appears in.
+function _ptBarnesTeamOf(d, rosterId) {
+  if (rosterId == null) return null;
+  var tms = d.teams || {};
+  for (var i = 0; i < 3; i++) {
+    var t = ['A', 'B', 'C'][i], tm = tms[t];
+    if (tm && (tm.roster_ids || []).indexOf(rosterId) >= 0) return t;
+  }
+  return null;
+}
+
+// The grey secondary tag. Returns '' when the man is on no team, so a guest or a
+// roster gap renders as a bare name rather than as the string "null".
+function _ptBarnesTeamTag(d, rosterId) {
+  var t = _ptBarnesTeamOf(d, rosterId);
+  return t ? ' \u00b7 ' + _ptEsc(_ptBarnesTeamName(d, t)) : '';
+}
+
 function _ptBarnesMoney(n) {
   var v = Number(n || 0);
   return '$' + (Math.round(v * 100) % 100 === 0 ? v.toFixed(0) : v.toFixed(2));
@@ -31934,7 +32037,7 @@ function ptRenderLeagueBarnes(d) {
   (d.matches || []).forEach(function (m, mi) {
     var names = function (side) {
       if (!side.length) return '<span style="color:rgba(255,255,255,.25)">—</span>';
-      return side.map(function (p) { return _ptEsc(p.name) + '<span style="color:rgba(255,255,255,.3);font-weight:400"> ' + p.ch + '</span>'; }).join('<br>');
+      return side.map(function (p) { return _ptEsc(p.name) + '<span style="color:rgba(255,255,255,.3);font-weight:400">' + _ptBarnesTeamTag(d, p.roster_id) + ' \u00b7 ' + p.ch + '</span>'; }).join('<br>');
     };
     html += '<div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px 13px;margin-bottom:8px">'
       + '<div style="font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Foursome ' + _ptEsc(String(m.foursome)) + ' · ' + _ptEsc(m.type) + '</div>'
@@ -31981,7 +32084,7 @@ function ptRenderLeagueBarnes(d) {
     var potCard = function (title, p, sub) {
       var w = p.winners || [];
       var who = w.length
-        ? w.map(function (x) { return _ptEsc(typeof x === 'string' ? _ptBarnesTeamName(d, x) : x.name); }).join(' · ')
+        ? w.map(function (x) { return typeof x === 'string' ? _ptEsc(_ptBarnesTeamName(d, x)) : _ptEsc(x.name) + '<span style="color:rgba(255,255,255,.4);font-weight:400">' + _ptBarnesTeamTag(d, x.roster_id) + '</span>'; }).join(' \u00b7 ')
         : '<span style="color:rgba(255,255,255,.25)">not yet decided</span>';
       return '<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.22);border-radius:12px;padding:12px 13px;margin-bottom:7px">'
         + '<div style="display:flex;align-items:center">'
@@ -32031,7 +32134,7 @@ function ptRenderLeagueBarnes(d) {
       + '<th style="padding:6px 6px">Fr</th><th style="padding:6px 6px">Bk</th><th style="padding:6px 10px">Tot</th></tr>';
     sf.forEach(function (p) {
       html += '<tr style="border-top:1px solid rgba(255,255,255,.05)">'
-        + '<td style="padding:7px 10px;color:#fff;font-weight:700">' + _ptEsc(p.name) + (p.holes_played < 18 ? '<span style="color:rgba(224,160,95,.7);font-weight:400"> · ' + p.holes_played + ' holes</span>' : '') + '</td>'
+        + '<td style="padding:7px 10px;color:#fff;font-weight:700">' + _ptEsc(p.name) + '<span style="color:rgba(255,255,255,.35);font-weight:400">' + _ptBarnesTeamTag(d, p.roster_id) + '</span>' + (p.holes_played < 18 ? '<span style="color:rgba(224,160,95,.7);font-weight:400"> \u00b7 ' + p.holes_played + ' holes</span>' : '') + '</td>'
         + '<td style="padding:7px 6px;text-align:center;color:rgba(255,255,255,.45)">' + p.ch + '</td>'
         + '<td style="padding:7px 6px;text-align:center;color:rgba(255,255,255,.75)">' + p.front_pts + '</td>'
         + '<td style="padding:7px 6px;text-align:center;color:rgba(255,255,255,.75)">' + p.back_pts + '</td>'
@@ -44071,7 +44174,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v323.0';
+    const TOUR_VERSION     = 'pards-tour-v324.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
