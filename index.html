@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v316.0 -->
+  <!-- pards-tour-v317.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -27779,7 +27779,12 @@ function ptRenderLeagueDetail(league, members, rounds) {
   var _bOn = false;
   try { var _lc = typeof league.config === 'string' ? JSON.parse(league.config||'{}') : (league.config||{}); _bOn = !!(_lc.barnes && _lc.barnes.on); } catch(_e) { _bOn = false; }
   if (_bOn) {
-    html += '<button onclick="ptShowLeagueBarnes('+lid+')" style="width:100%;padding:14px;background:rgba(224,122,95,.12);border:1.5px solid rgba(224,122,95,.35);border-radius:12px;color:rgba(224,122,95,1);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:20px">\u26F3 Barnes Week &amp; Year Long</button>';
+    html += '<button onclick="ptShowLeagueBarnes('+lid+')" style="width:100%;padding:14px;background:rgba(224,122,95,.12);border:1.5px solid rgba(224,122,95,.35);border-radius:12px;color:rgba(224,122,95,1);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:8px">\u26F3 Barnes Week &amp; Year Long</button>';
+    // v317.0 — setup sits behind the SAME _bOn gate as the board. Turning
+    // Barnes on for a brand-new league is still an API/D1 job; this screen
+    // configures a league that already has the format switched on. Named in
+    // the handoff rather than left as a surprise.
+    html += '<button onclick="ptShowBarnesSetup('+lid+')" style="width:100%;padding:11px;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;color:rgba(255,255,255,.55);font-size:13px;font-weight:800;cursor:pointer;margin-bottom:20px">\u2699\ufe0f Barnes Setup</button>';
   }
 
   // Members section
@@ -31496,6 +31501,447 @@ function ptRenderLeagueBarnes(d) {
 
   el.innerHTML = html;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BARNES SETUP (v317.0) — the write side of the Barnes board.
+
+   BLOCKED UNTIL NOW, DELIBERATELY. c316.0 §2 recorded that no worker endpoint
+   wrote leagues.config or league_rounds.config, and that a settings screen
+   posting to a route that does not exist "looks finished and silently
+   discards input". So it was not built. Worker v2.68.1 added the two writers
+   and made a PARTIAL save safe; v2.68.2 made league detail return
+   round_config so a week can be EDITED rather than blind-overwritten.
+
+   THREE RULES THIS SCREEN OBEYS:
+
+   1. SEND ONLY WHAT CHANGED. v2.68.1 merges one level deep into `barnes` and
+      `barnes_week`, so {barnes_week:{game:…}} keeps the lineup. Sending a
+      whole config back would work too — and would silently clobber anything
+      this screen does not know about, which is exactly how the old shallow
+      merge destroyed things. Partial is not an optimisation here; it is the
+      safety property.
+
+   2. BUT SEND teams AND lineup WHOLE. The merge is ONE level. `teams` and
+      `lineup` are replaced entire, and the worker's validators require them
+      complete — 3 teams of 6, A/B/C of 4. A half-built roster must never
+      merge into a whole-looking one.
+
+   3. ⭐ THE GAME KEY IS NEVER TYPED AND NEVER A NUMBER. Session 13 nearly
+      seeded "game": 1 because the spec, the tee sheet and Bruce all say
+      "Game 1". The worker matches on '1v1_nassau'. The picker below is the
+      only source of that value and it carries the string key, so the number
+      can never be reintroduced by hand.
+
+   NOT BUILT IN THIS PASS: the starts editor (the advisory starts counter on
+   the board is still read-only). Named here rather than left implicit.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+// The three legal games, keyed exactly as BARNES_GAMES in the worker.
+// ⭐ These strings are the contract. Do not "tidy" them into 1/2/3.
+var _PT_BS_GAMES = [
+  { key: '1v1_nassau',   label: '1v1 Nassau',    blurb: 'Four singles matches, one per slot pair.' },
+  { key: '2v2_highlow',  label: '2v2 High-Low',  blurb: 'Two pairs. Low ball and high ball each hole.' },
+  { key: '2v2_bestball', label: '2v2 Best Ball', blurb: 'Two pairs. Best ball of the pair each hole.' }
+];
+
+function _ptBSCfg() { return (G._ptBS && G._ptBS.cfg) || {}; }
+function _ptBSBarnes() { return _ptBSCfg().barnes || {}; }
+
+function _ptBSParse(raw) {
+  try { return typeof raw === 'string' ? JSON.parse(raw || '{}') : (raw || {}); }
+  catch (_e) { return {}; }
+}
+
+window.ptShowBarnesSetup = function (leagueId) {
+  var ov = document.getElementById('ptBSOv');
+  if (ov) ov.remove();
+  ov = document.createElement('div');
+  ov.id = 'ptBSOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:710;background:#0d1f0d;overflow-y:auto';
+  ov.innerHTML = '<div style="padding:20px 20px 80px">'
+    + '<div style="display:flex;align-items:center;margin-bottom:18px">'
+    + '<button onclick="document.getElementById(\'ptBSOv\').remove()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;padding:0;margin-right:12px">←</button>'
+    + '<div style="font-size:17px;font-weight:800;color:rgba(224,122,95,1)">⚙️ Barnes Setup</div>'
+    + '</div>'
+    + '<div id="ptBSBody" style="color:rgba(255,255,255,.4);font-size:14px">Loading…</div>'
+    + '</div>';
+  document.body.appendChild(ov);
+
+  fetch(TOUR_API + '/api/leagues/' + leagueId, { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
+    .then(_ptJson).then(_ptThrow).then(function (d) {
+      var cfg = _ptBSParse((d.league || {}).config);
+      var b = cfg.barnes || {};
+      // assign: roster_id -> 'A'|'B'|'C'. Seeded from the stored rosters so
+      // the screen opens on what is actually saved, never on a blank slate.
+      var assign = {};
+      (b.teams || []).forEach(function (tm) {
+        (tm.roster_ids || []).forEach(function (rid) { assign[Number(rid)] = tm.id; });
+      });
+      var names = {};
+      ['A', 'B', 'C'].forEach(function (t, i) {
+        var tm = (b.teams || [])[i];
+        names[t] = (tm && tm.name) ? tm.name : '';
+      });
+      G._ptBS = {
+        leagueId: leagueId,
+        league: d.league || {},
+        members: d.members || [],
+        rounds: d.rounds || [],
+        cfg: cfg,
+        assign: assign,
+        names: names,
+        tab: 'teams',
+        roundId: null,
+        game: null,
+        lineup: null,
+        game0: null,
+        lineup0: null
+      };
+      _ptBSRender();
+    }).catch(function (e) {
+      var el = document.getElementById('ptBSBody');
+      if (el) el.innerHTML = '<div style="color:#e74c3c">' + _ptEsc(_ptMsg(e, 'Could not load the league.')) + '</div>';
+    });
+};
+
+function _ptBSRender() {
+  var el = document.getElementById('ptBSBody');
+  if (!el || !G._ptBS) return;
+  var bs = G._ptBS;
+  var b = _ptBSBarnes();
+
+  var html = '<div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:2px">' + _ptEsc(bs.league.name || 'League') + '</div>';
+
+  // On/off. Turning it OFF hides the board AND this screen, so say so before
+  // the tap, not after — there is no way back in from the league page.
+  html += '<div style="display:flex;align-items:center;background:rgba(255,255,255,.04);border-radius:12px;padding:12px 14px;margin:12px 0 16px">'
+    + '<div style="flex:1"><div style="font-size:13px;font-weight:800;color:#fff">Barnes format</div>'
+    + '<div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">' + (b.on
+      ? 'On. The board and this screen are reachable from the league page.'
+      : 'Off. Turning it on adds the board button to the league page.') + '</div></div>'
+    + '<button onclick="ptBSToggle()" style="padding:8px 14px;border-radius:9px;border:1.5px solid ' + (b.on ? 'rgba(224,122,95,.5)' : 'rgba(255,255,255,.18)') + ';background:' + (b.on ? 'rgba(224,122,95,.15)' : 'rgba(255,255,255,.05)') + ';color:' + (b.on ? 'rgba(224,122,95,1)' : 'rgba(255,255,255,.5)') + ';font-size:13px;font-weight:800;cursor:pointer">' + (b.on ? 'On' : 'Off') + '</button>'
+    + '</div>';
+
+  var tab = function (id, label) {
+    var on = bs.tab === id;
+    return '<button onclick="ptBSTab(\'' + id + '\')" style="flex:1;padding:10px;border-radius:10px;border:1.5px solid ' + (on ? 'rgba(224,122,95,.4)' : 'rgba(255,255,255,.1)') + ';background:' + (on ? 'rgba(224,122,95,.12)' : 'transparent') + ';color:' + (on ? 'rgba(224,122,95,1)' : 'rgba(255,255,255,.5)') + ';font-size:13px;font-weight:800;cursor:pointer">' + label + '</button>';
+  };
+  html += '<div style="display:flex;gap:8px;margin-bottom:16px">' + tab('teams', 'Teams') + tab('week', 'This Week') + '</div>';
+
+  html += bs.tab === 'teams' ? _ptBSTeams() : _ptBSWeek();
+  el.innerHTML = html;
+}
+
+window.ptBSTab = function (t) { if (G._ptBS) { G._ptBS.tab = t; _ptBSRender(); } };
+
+/* ── Teams ──────────────────────────────────────────────────────────────── */
+
+function _ptBSCount(t) {
+  var a = G._ptBS.assign, n = 0;
+  for (var k in a) { if (a[k] === t) n++; }
+  return n;
+}
+function _ptBSIds(t) {
+  // Object key order is insertion order for integer-like keys in JS, which is
+  // NOT the order the organizer clicked. Teams have no slot order (only the
+  // weekly lineup does), so numeric order is fine and stable.
+  var a = G._ptBS.assign, out = [];
+  for (var k in a) { if (a[k] === t) out.push(Number(k)); }
+  return out.sort(function (x, y) { return x - y; });
+}
+
+function _ptBSTeams() {
+  var bs = G._ptBS;
+  var html = '<div style="font-size:11px;color:rgba(255,255,255,.35);line-height:1.55;margin-bottom:12px">'
+    + 'Three teams of six. Every player must land on exactly one team — the weekly lineup of four is picked from these six.</div>';
+
+  ['A', 'B', 'C'].forEach(function (t) {
+    var n = _ptBSCount(t);
+    html += '<div style="display:flex;align-items:center;background:rgba(255,255,255,.04);border-radius:11px;padding:10px 12px;margin-bottom:7px">'
+      + '<div style="width:8px;height:26px;border-radius:3px;background:' + _PT_BARNES_TEAMCOL[t] + ';margin-right:11px"></div>'
+      + '<input id="ptBSName' + t + '" value="' + _ptEsc(bs.names[t] || '') + '" placeholder="Team ' + t + '" oninput="ptBSName(\'' + t + '\',this.value)" style="flex:1;background:transparent;border:none;color:#fff;font-size:14px;font-weight:800;outline:none;min-width:0">'
+      + '<div style="font-size:13px;font-weight:900;color:' + (n === 6 ? 'rgba(100,220,180,.9)' : '#e0a05f') + ';white-space:nowrap">' + n + '/6</div>'
+      + '</div>';
+  });
+
+  html += '<div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;margin:18px 0 8px">League members (' + bs.members.length + ')</div>';
+
+  bs.members.forEach(function (m) {
+    var rid = Number(m.roster_id);
+    var cur = bs.assign[rid] || null;
+    html += '<div style="display:flex;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)">'
+      + '<div style="flex:1;font-size:13px;color:' + (cur ? '#fff' : 'rgba(255,255,255,.5)') + ';font-weight:' + (cur ? '700' : '400') + ';min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + _ptEsc(m.name || ('#' + rid)) + '</div>'
+      + '<div style="display:flex;gap:4px">';
+    ['A', 'B', 'C'].forEach(function (t) {
+      var on = cur === t;
+      var full = !on && _ptBSCount(t) >= 6;
+      html += '<button onclick="ptBSAssign(' + rid + ',\'' + t + '\')"' + (full ? ' disabled' : '')
+        + ' style="width:30px;height:30px;border-radius:8px;border:1.5px solid ' + (on ? _PT_BARNES_TEAMCOL[t] : 'rgba(255,255,255,' + (full ? '.05' : '.14') + ')')
+        + ';background:' + (on ? _PT_BARNES_TEAMCOL[t] : 'transparent')
+        + ';color:' + (on ? '#0d1f0d' : 'rgba(255,255,255,' + (full ? '.15' : '.45') + ')')
+        + ';font-size:12px;font-weight:900;cursor:' + (full ? 'default' : 'pointer') + ';padding:0">' + t + '</button>';
+    });
+    html += '</div></div>';
+  });
+
+  var ready = _ptBSCount('A') === 6 && _ptBSCount('B') === 6 && _ptBSCount('C') === 6;
+  html += '<button onclick="ptBSSaveTeams()"' + (ready ? '' : ' disabled')
+    + ' style="width:100%;padding:14px;margin-top:16px;border-radius:12px;border:1.5px solid ' + (ready ? 'rgba(100,220,180,.4)' : 'rgba(255,255,255,.08)')
+    + ';background:' + (ready ? 'rgba(100,220,180,.14)' : 'rgba(255,255,255,.03)')
+    + ';color:' + (ready ? 'rgba(100,220,180,1)' : 'rgba(255,255,255,.2)')
+    + ';font-size:15px;font-weight:800;cursor:' + (ready ? 'pointer' : 'default') + '">'
+    + (ready ? 'Save teams' : 'Assign all three teams of six') + '</button>';
+
+  // Saying WHY the button is dead beats a dead button.
+  if (!ready) {
+    html += '<div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-top:8px">A ' + _ptBSCount('A') + '/6 · B ' + _ptBSCount('B') + '/6 · C ' + _ptBSCount('C') + '/6</div>';
+  }
+  return html;
+}
+
+window.ptBSName = function (t, v) { if (G._ptBS) G._ptBS.names[t] = v; };
+
+window.ptBSAssign = function (rid, t) {
+  var bs = G._ptBS; if (!bs) return;
+  rid = Number(rid);
+  if (bs.assign[rid] === t) { delete bs.assign[rid]; }
+  else {
+    if (_ptBSCount(t) >= 6) { ptToast('Team ' + t + ' already has six'); return; }
+    bs.assign[rid] = t;
+  }
+  // A roster change invalidates any lineup built from the old roster.
+  bs.lineup = null;
+  _ptBSRender();
+};
+
+window.ptBSSaveTeams = function () {
+  var bs = G._ptBS; if (!bs) return;
+  var teams = ['A', 'B', 'C'].map(function (t) {
+    return { id: t, name: (bs.names[t] || '').trim() || ('Team ' + t), roster_ids: _ptBSIds(t) };
+  });
+  // Belt and braces: the worker validates this too, but a 400 bounced off a
+  // full-screen sheet reads like the app broke.
+  var bad = teams.filter(function (tm) { return tm.roster_ids.length !== 6; });
+  if (bad.length) { ptToast('Each team needs exactly six players'); return; }
+
+  // ⭐ PARTIAL patch — only `barnes.teams` and nothing else. stake, carry_in,
+  // halve, tie and the rest are untouched by the deep merge (worker v2.68.1).
+  // `teams` itself goes WHOLE: the merge is one level and the validator
+  // requires three complete rosters.
+  _ptBSPatchLeague({ teams: teams }, 'Teams saved');
+};
+
+window.ptBSToggle = function () {
+  var b = _ptBSBarnes();
+  // ⭐ This exact patch — {barnes:{on:…}} — is the one that destroyed teams,
+  // stake and carry_in under v2.68.0's shallow merge. It is safe from v2.68.1.
+  _ptBSPatchLeague({ on: !b.on }, !b.on ? 'Barnes on' : 'Barnes off');
+};
+
+function _ptBSPatchLeague(barnesPatch, okMsg) {
+  var bs = G._ptBS; if (!bs) return;
+  fetch(TOUR_API + '/api/leagues/' + bs.leagueId + '/config', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+    body: JSON.stringify({ barnes: barnesPatch })
+  }).then(_ptJson).then(_ptThrow).then(function (r) {
+    // The route returns the merged config — adopt it rather than guessing
+    // what the server did with the patch.
+    bs.cfg = r.config || bs.cfg;
+    var b = bs.cfg.barnes || {};
+    var assign = {};
+    (b.teams || []).forEach(function (tm) {
+      (tm.roster_ids || []).forEach(function (rid) { assign[Number(rid)] = tm.id; });
+    });
+    bs.assign = assign;
+    ['A', 'B', 'C'].forEach(function (t, i) {
+      var tm = (b.teams || [])[i];
+      bs.names[t] = (tm && tm.name) ? tm.name : '';
+    });
+    ptToast(okMsg);
+    // Advisory warnings from the worker are worth surfacing — they are how an
+    // organizer learns the board will refuse before game night, not after.
+    (r.warnings || []).forEach(function (wmsg) { ptToast(wmsg); });
+    _ptBSRender();
+    if (document.getElementById('ptLeagueDetailBody')) ptLoadLeagueDetail(bs.leagueId);
+  }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not save')); });
+}
+
+/* ── This Week ──────────────────────────────────────────────────────────── */
+
+function _ptBSWeek() {
+  var bs = G._ptBS;
+  var b = _ptBSBarnes();
+  if (!b.teams || b.teams.length !== 3) {
+    return '<div style="background:rgba(224,160,95,.08);border:1.5px solid rgba(224,160,95,.3);border-radius:12px;padding:15px;font-size:13px;color:rgba(255,255,255,.6);line-height:1.6">Set the three teams first — the weekly lineup is picked from them.</div>';
+  }
+
+  // ⭐ WORKER-VERSION GUARD. round_config arrives from worker v2.68.2 onward.
+  // On v2.68.1 the key is absent entirely — not null, ABSENT — so `in`
+  // distinguishes "this week has no game" from "this worker cannot tell me".
+  // Without this the screen would report every configured week as unset,
+  // which is a lie that looks like data loss. Saving would still merge safely;
+  // the DISPLAY is what breaks, and a wrong display during week-14 validation
+  // is worse than a missing feature.
+  var _stale = bs.rounds.length && !bs.rounds.some(function (r) { return 'round_config' in r; });
+  var html = '';
+  if (_stale) {
+    html += '<div style="background:rgba(224,160,95,.08);border:1.5px solid rgba(224,160,95,.3);border-radius:12px;padding:14px;margin-bottom:14px;font-size:12px;color:rgba(255,255,255,.6);line-height:1.6">'
+      + '<strong style="color:#e0a05f">This worker is older than v2.68.2.</strong> It does not send each week\'s saved setup, so the games and lineups below will read as unset even where they are not. <strong>Saving still merges correctly</strong> — but check the board before trusting what this tab shows.</div>';
+  }
+  html += '<div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">Game day</div>';
+  if (!bs.rounds.length) {
+    return html + '<div style="color:rgba(255,255,255,.35);font-size:13px">No game days yet. Add one on the league page.</div>';
+  }
+
+  bs.rounds.forEach(function (r) {
+    var on = bs.roundId === r.league_round_id;
+    var rc = _ptBSParse(r.round_config);
+    var bw = rc.barnes_week || {};
+    var g = _PT_BS_GAMES.filter(function (x) { return x.key === bw.game; })[0];
+    html += '<button onclick="ptBSPickWeek(' + r.league_round_id + ')" style="width:100%;text-align:left;display:flex;align-items:center;padding:11px 13px;margin-bottom:6px;border-radius:11px;border:1.5px solid ' + (on ? 'rgba(224,122,95,.45)' : 'rgba(255,255,255,.08)') + ';background:' + (on ? 'rgba(224,122,95,.1)' : 'rgba(255,255,255,.03)') + ';cursor:pointer">'
+      + '<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:800;color:#fff">' + _ptEsc(_ptLgDate(r.round_date)) + '</div>'
+      + '<div style="font-size:11px;color:' + (g ? 'rgba(100,220,180,.7)' : 'rgba(255,255,255,.3)') + ';margin-top:2px">' + (g ? _ptEsc(g.label) + (bw.lineup ? ' · lineup set' : ' · no lineup') : (_stale ? 'not readable on this worker' : 'no game chosen')) + '</div></div>'
+      + '<div style="color:rgba(255,255,255,.25);font-size:16px">' + (on ? '▾' : '›') + '</div>'
+      + '</button>';
+  });
+
+  if (!bs.roundId) return html;
+
+  // ── the picked week ──────────────────────────────────────────────────────
+  html += '<div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;margin:20px 0 8px">Game</div>';
+  _PT_BS_GAMES.forEach(function (g) {
+    var on = bs.game === g.key;
+    html += '<button onclick="ptBSSetGame(\'' + g.key + '\')" style="width:100%;text-align:left;padding:12px 13px;margin-bottom:6px;border-radius:11px;border:1.5px solid ' + (on ? 'rgba(224,122,95,.5)' : 'rgba(255,255,255,.08)') + ';background:' + (on ? 'rgba(224,122,95,.12)' : 'rgba(255,255,255,.03)') + ';cursor:pointer">'
+      + '<div style="font-size:14px;font-weight:800;color:' + (on ? 'rgba(224,122,95,1)' : '#fff') + '">' + g.label + '</div>'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">' + g.blurb + '</div>'
+      + '</button>';
+  });
+
+  html += '<div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;margin:20px 0 4px">Lineup</div>'
+    + '<div style="font-size:11px;color:rgba(255,255,255,.35);line-height:1.55;margin-bottom:10px">Four per team, <strong>in slot order</strong> — tap to add, tap again to remove. Slot order decides the matches: A1 v B1, A2 v B2, C1 v A3, C2 v A4, B3 v C3, B4 v C4.</div>';
+
+  ['A', 'B', 'C'].forEach(function (t) {
+    var tm = (b.teams || []).filter(function (x) { return x.id === t; })[0] || { roster_ids: [] };
+    var picked = (bs.lineup && bs.lineup[t]) || [];
+    html += '<div style="background:rgba(255,255,255,.04);border-radius:11px;padding:11px 12px;margin-bottom:7px">'
+      + '<div style="display:flex;align-items:center;margin-bottom:7px">'
+      + '<div style="width:8px;height:18px;border-radius:3px;background:' + _PT_BARNES_TEAMCOL[t] + ';margin-right:9px"></div>'
+      + '<div style="flex:1;font-size:13px;font-weight:800;color:' + _PT_BARNES_TEAMCOL[t] + '">' + _ptEsc(_ptBSTeamLabel(t)) + '</div>'
+      + '<div style="font-size:12px;font-weight:900;color:' + (picked.length === 4 ? 'rgba(100,220,180,.9)' : '#e0a05f') + '">' + picked.length + '/4</div>'
+      + '</div>';
+    (tm.roster_ids || []).forEach(function (rid) {
+      rid = Number(rid);
+      var slot = picked.indexOf(rid);
+      html += '<div onclick="ptBSSlot(\'' + t + '\',' + rid + ')" style="display:flex;align-items:center;padding:6px 0;cursor:pointer">'
+        + '<div style="width:22px;height:22px;border-radius:6px;margin-right:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;'
+        + (slot > -1 ? 'background:' + _PT_BARNES_TEAMCOL[t] + ';color:#0d1f0d' : 'border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.2)') + '">'
+        + (slot > -1 ? (slot + 1) : '·') + '</div>'
+        + '<div style="flex:1;font-size:13px;color:' + (slot > -1 ? '#fff' : 'rgba(255,255,255,.45)') + ';font-weight:' + (slot > -1 ? '700' : '400') + '">' + _ptEsc(_ptBSMemberName(rid)) + '</div>'
+        + '</div>';
+    });
+    html += '</div>';
+  });
+
+  var gameDirty = bs.game !== bs.game0;
+  var lineupDirty = JSON.stringify(bs.lineup) !== JSON.stringify(bs.lineup0);
+  var lineupOk = !!bs.lineup && ['A', 'B', 'C'].every(function (t) { return (bs.lineup[t] || []).length === 4; });
+  var canSave = (gameDirty && bs.game) || (lineupDirty && lineupOk);
+
+  html += '<button onclick="ptBSSaveWeek()"' + (canSave ? '' : ' disabled')
+    + ' style="width:100%;padding:14px;margin-top:14px;border-radius:12px;border:1.5px solid ' + (canSave ? 'rgba(100,220,180,.4)' : 'rgba(255,255,255,.08)')
+    + ';background:' + (canSave ? 'rgba(100,220,180,.14)' : 'rgba(255,255,255,.03)')
+    + ';color:' + (canSave ? 'rgba(100,220,180,1)' : 'rgba(255,255,255,.2)')
+    + ';font-size:15px;font-weight:800;cursor:' + (canSave ? 'pointer' : 'default') + '">'
+    + (canSave ? 'Save this week' : (gameDirty || lineupDirty ? 'Finish the lineup — four per team' : 'Nothing changed')) + '</button>';
+
+  // Name exactly what will be sent. The partial patch IS the safety property,
+  // so it should be visible rather than implied.
+  if (canSave) {
+    var parts = [];
+    if (gameDirty && bs.game) parts.push('game');
+    if (lineupDirty && lineupOk) parts.push('lineup');
+    html += '<div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-top:8px">Sends ' + parts.join(' + ') + ' only — everything else on this week is left alone.</div>';
+  }
+  return html;
+}
+
+function _ptBSTeamLabel(t) {
+  var tm = (_ptBSBarnes().teams || []).filter(function (x) { return x.id === t; })[0];
+  return (tm && tm.name) ? tm.name : t;
+}
+function _ptBSMemberName(rid) {
+  var m = (G._ptBS.members || []).filter(function (x) { return Number(x.roster_id) === Number(rid); })[0];
+  return (m && m.name) ? m.name : ('#' + rid);
+}
+
+window.ptBSPickWeek = function (roundId) {
+  var bs = G._ptBS; if (!bs) return;
+  if (bs.roundId === roundId) { bs.roundId = null; _ptBSRender(); return; }
+  var r = bs.rounds.filter(function (x) { return x.league_round_id === roundId; })[0] || {};
+  var bw = (_ptBSParse(r.round_config).barnes_week) || {};
+  bs.roundId = roundId;
+  bs.game = bw.game || null;
+  bs.lineup = bw.lineup ? JSON.parse(JSON.stringify(bw.lineup)) : null;
+  // Baselines for the dirty check — this is what "send only what changed" is
+  // measured against.
+  bs.game0 = bs.game;
+  bs.lineup0 = bs.lineup ? JSON.parse(JSON.stringify(bs.lineup)) : null;
+  _ptBSRender();
+};
+
+window.ptBSSetGame = function (key) {
+  var bs = G._ptBS; if (!bs) return;
+  // ⭐ key comes from _PT_BS_GAMES, never from a field. It is a string.
+  bs.game = (bs.game === key) ? null : key;
+  _ptBSRender();
+};
+
+window.ptBSSlot = function (t, rid) {
+  var bs = G._ptBS; if (!bs) return;
+  rid = Number(rid);
+  if (!bs.lineup) bs.lineup = { A: [], B: [], C: [] };
+  ['A', 'B', 'C'].forEach(function (k) { if (!bs.lineup[k]) bs.lineup[k] = []; });
+  var arr = bs.lineup[t];
+  var i = arr.indexOf(rid);
+  if (i > -1) arr.splice(i, 1);
+  else if (arr.length >= 4) { ptToast('Four per team — remove one first'); return; }
+  else arr.push(rid);          // click order IS slot order
+  _ptBSRender();
+};
+
+window.ptBSSaveWeek = function () {
+  var bs = G._ptBS; if (!bs || !bs.roundId) return;
+  var patch = {};
+  if (bs.game !== bs.game0 && bs.game) patch.game = bs.game;
+  var lineupOk = !!bs.lineup && ['A', 'B', 'C'].every(function (t) { return (bs.lineup[t] || []).length === 4; });
+  if (JSON.stringify(bs.lineup) !== JSON.stringify(bs.lineup0) && lineupOk) patch.lineup = bs.lineup;
+  if (!Object.keys(patch).length) { ptToast('Nothing to save'); return; }
+
+  // ⭐ PARTIAL. Under v2.68.0's shallow merge, sending {game} alone would have
+  // dropped the lineup. v2.68.1 merges one level, so this is now the SAFE
+  // shape as well as the small one. `lineup` still goes whole.
+  fetch(TOUR_API + '/api/leagues/' + bs.leagueId + '/rounds/' + bs.roundId + '/config', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+    body: JSON.stringify({ barnes_week: patch })
+  }).then(_ptJson).then(_ptThrow).then(function (r) {
+    var merged = (r.config || {}).barnes_week || {};
+    // Adopt the server's merged result, and write it back into the cached
+    // round so the list re-renders from truth rather than from optimism.
+    bs.rounds.forEach(function (x) {
+      if (x.league_round_id === bs.roundId) x.round_config = JSON.stringify(r.config || {});
+    });
+    bs.game = merged.game || null;
+    bs.lineup = merged.lineup ? JSON.parse(JSON.stringify(merged.lineup)) : null;
+    bs.game0 = bs.game;
+    bs.lineup0 = bs.lineup ? JSON.parse(JSON.stringify(bs.lineup)) : null;
+    ptToast('Week saved');
+    (r.warnings || []).forEach(function (wmsg) { ptToast(wmsg); });
+    _ptBSRender();
+  }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not save this week')); });
+};
+
 
 window.ptShowLeagueSeason = function(leagueId, code) {
   var ov = document.createElement('div');
@@ -42831,7 +43277,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v316.0';
+    const TOUR_VERSION     = 'pards-tour-v317.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
