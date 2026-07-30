@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!-- ⭐⭐⭐ THIS IS THE TEMPLATE. golfnet-harvest.html is GENERATED from it by
+     gen-harvest.mjs, which reads PARDS_COURSES straight out of the shipped
+     client. Do NOT hand-edit golfnet-harvest.html — regenerate it after any
+     registry change or the embedded copy goes stale.
+     Two placeholders below: the compact course array, and the count of
+     DISTINCT golfNetIds. Rebuilt s33 from the s32 output and
+     PROVEN by regenerating it byte-identically — see gen-harvest.mjs §verify. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pards Golf — GolfNet teeId Harvest</title>
+<style>
+  :root{
+    --green-deep:#1a3a2a; --green-abyss:#0d1f15; --gold:#c9a84c; --gold-bright:#e8c96b;
+    --ink:#1a1a1a; --wash:#FEF9F1; --line:rgba(201,168,76,.28);
+    --ok:#27ae60; --warn:#e67e22; --bad:#e74c3c; --dim:#8a8f8b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+       background:linear-gradient(160deg,var(--green-deep),var(--green-abyss));
+       background-attachment:fixed;color:#e9e6df;min-height:100vh}
+  header{padding:22px 20px 16px;border-bottom:1px solid var(--line)}
+  h1{margin:0;font-size:20px;color:var(--gold);letter-spacing:.4px}
+  header p{margin:6px 0 0;color:#b9c3bb;font-size:13px;max-width:820px}
+  main{max-width:1180px;margin:0 auto;padding:20px}
+  .card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;margin-bottom:16px}
+  .card h2{margin:0 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:1.1px;color:var(--gold)}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+  .field{display:flex;flex-direction:column;gap:5px;flex:1 1 200px}
+  .field label{font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:#a8b3ab}
+  input{padding:9px 11px;border-radius:8px;border:1px solid var(--gold);background:#fff;color:var(--ink);font-size:14px}
+  input:focus{outline:2px solid var(--gold-bright);outline-offset:1px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
+  button{padding:10px 18px;border-radius:8px;border:1px solid var(--gold);cursor:pointer;
+         font-size:14px;font-weight:600;background:var(--green-deep);color:var(--gold);transition:.15s}
+  button:hover:not(:disabled){background:var(--gold);color:var(--green-deep)}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  button.gold{background:var(--gold);color:var(--green-deep)}
+  button.gold:hover:not(:disabled){background:var(--gold-bright)}
+  button.ghost{background:transparent;color:#cfd6d0;border-color:rgba(255,255,255,.25)}
+  .note{margin-top:9px;font-size:12.5px;min-height:17px}
+  .note.ok{color:var(--ok)} .note.err{color:var(--bad)} .note.dim{color:var(--dim)}
+  .bar{height:9px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden;margin:12px 0 8px}
+  .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-bright));transition:width .2s}
+  .stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+  .stat{background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.09);border-radius:9px;
+        padding:8px 13px;min-width:96px}
+  .stat b{display:block;font-size:19px;line-height:1.2}
+  .stat span{font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:#9aa69e}
+  .stat.ok b{color:var(--ok)} .stat.warn b{color:var(--warn)} .stat.bad b{color:var(--bad)}
+  .stat.gold b{color:var(--gold-bright)}
+  .log{max-height:460px;overflow:auto;border:1px solid rgba(255,255,255,.1);border-radius:9px;margin-top:12px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th{position:sticky;top:0;background:#14291d;color:var(--gold);text-align:left;padding:8px 10px;
+     font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;z-index:1}
+  td{padding:6px 10px;border-top:1px solid rgba(255,255,255,.06);vertical-align:top}
+  tr.CLEAN td:first-child{border-left:3px solid var(--ok)}
+  tr.PARTIAL td:first-child{border-left:3px solid var(--warn)}
+  tr.FAILED td:first-child,tr.ERROR td:first-child{border-left:3px solid var(--bad)}
+  .tag{display:inline-block;padding:1px 7px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.4px}
+  .tag.CLEAN{background:rgba(39,174,96,.18);color:#6ee7a0}
+  .tag.PARTIAL{background:rgba(230,126,34,.18);color:#f5b878}
+  .tag.FAILED,.tag.ERROR{background:rgba(231,76,60,.18);color:#f5948b}
+  .dimtxt{color:var(--dim)}
+  code{background:rgba(0,0,0,.3);padding:1px 5px;border-radius:4px;font-size:12px}
+  .warnbox{background:rgba(230,126,34,.1);border:1px solid rgba(230,126,34,.4);border-radius:9px;
+           padding:11px 14px;font-size:13px;margin-bottom:14px}
+  .warnbox b{color:#f5b878}
+</style>
+</head>
+<body>
+<header>
+  <h1>Pards Golf — GolfNet teeId Harvest</h1>
+  <p>Fetches every course in <code>PARDS_COURSES</code> from Golf Canada via your gc-proxy worker, matches each
+     app tee to its GolfNet tee on <b>rating + slope</b>, and collects the missing <code>teeId</code>.
+     It also audits every <code>golfNetId</code> — a mapping that can't match its own tees is wrong.
+     Credentials stay in this browser; nothing is sent anywhere but your own worker.</p>
+</header>
+
+<main>
+  <div class="card">
+    <h2>1 · Golf Canada credentials</h2>
+    <div class="row">
+      <div class="field" style="flex:1 1 300px"><label>Cloudflare Worker URL</label>
+        <input id="workerUrl" class="mono" value="https://gc-proxy.bdapple.workers.dev"></div>
+      <div class="field"><label>Username</label><input id="gcUser" autocomplete="username"></div>
+      <div class="field"><label>Password</label><input id="gcPass" type="password" autocomplete="current-password"></div>
+      <button onclick="saveAndTest()">Save &amp; Test</button>
+      <button class="ghost" onclick="clearCreds()">Clear</button>
+    </div>
+    <div class="note dim" id="credNote">Shares the saved login with your GolfNet Course Lookup page.</div>
+  </div>
+
+  <div class="card">
+    <h2>2 · Run the harvest</h2>
+    <div class="warnbox">
+      <b>__LOOKUPS__ lookups — every mapped course now has its own GolfNet ID.</b> The 15 wrong mappings are corrected and the
+      12 shared IDs are gone. This run re-verifies all of them and picks up the tees still missing an ID.
+      Throttled to be polite; expect roughly 2 minutes. Safe to re-run.
+    </div>
+    <div class="row">
+      <button class="gold" id="btnRun" onclick="runHarvest()">▶ Run Harvest</button>
+      <button class="ghost" id="btnStop" onclick="STOP=true" disabled>Stop</button>
+      <button id="btnDl" onclick="downloadJSON()" disabled>⬇️ Download Harvest JSON</button>
+      <button id="btnCopy" onclick="copyJSON()" disabled>Copy JSON</button>
+    </div>
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="note dim" id="runNote">Idle.</div>
+    <div class="stats" id="stats"></div>
+    <div class="log"><table>
+      <thead><tr><th style="width:190px">App course</th><th style="width:80px">GolfNet</th>
+        <th style="width:88px">Status</th><th style="width:74px">Tees</th><th>Detail</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table></div>
+  </div>
+</main>
+
+<script>
+const REGISTRY = __REGISTRY__;
+const SK = 'pards_gc';
+let _tok=null,_tokExp=0,STOP=false,RESULT=null;
+
+function loadCreds(){ try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch(e){return{}} }
+function saveCreds(c){ try{localStorage.setItem(SK,JSON.stringify(c))}catch(e){} }
+function wBase(){ return (document.getElementById('workerUrl').value||loadCreds().worker||'').replace(/\/+$/,''); }
+function credNote(m,k){const e=document.getElementById('credNote');e.textContent=m;e.className='note '+(k||'dim');}
+function runNote(m,k){const e=document.getElementById('runNote');e.textContent=m;e.className='note '+(k||'dim');}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const c=loadCreds();
+  if(c.worker)   document.getElementById('workerUrl').value=c.worker;
+  if(c.username) document.getElementById('gcUser').value=c.username;
+  if(c.password) document.getElementById('gcPass').value=c.password;
+  if(c.username&&c.password) credNote('Saved login found — you can go straight to Run Harvest.','ok');
+});
+
+async function getToken(){
+  const now=Date.now();
+  if(_tok&&now<_tokExp-10000) return _tok;
+  const c=loadCreds();
+  const w=wBase()||c.worker;
+  if(!w||!c.username||!c.password) throw new Error('No credentials saved.');
+  const r=await fetch(w+'/token',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username:c.username,password:c.password})});
+  if(!r.ok) throw new Error('Login failed ('+r.status+'): '+(await r.text()).slice(0,110));
+  const d=await r.json();
+  if(!d.access_token) throw new Error('No token returned.');
+  _tok=d.access_token;_tokExp=now+((d.expires_in||3600)*1000);
+  return _tok;
+}
+
+async function saveAndTest(){
+  const w=document.getElementById('workerUrl').value.trim();
+  const u=document.getElementById('gcUser').value.trim();
+  const p=document.getElementById('gcPass').value;
+  if(!w||!u||!p){credNote('Fill in all three fields.','err');return;}
+  saveCreds({...loadCreds(),worker:w,username:u,password:p});
+  _tok=null;_tokExp=0;credNote('Testing…','dim');
+  try{ await getToken(); credNote('✓ Login successful — credentials saved.','ok'); }
+  catch(e){ credNote('✗ '+e.message,'err'); }
+}
+function clearCreds(){
+  try{localStorage.removeItem(SK)}catch(e){}
+  _tok=null;_tokExp=0;
+  document.getElementById('gcUser').value='';document.getElementById('gcPass').value='';
+  credNote('Cleared.','dim');
+}
+
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+async function fetchCourse(gnId){
+  const tok=await getToken();
+  const r=await fetch(wBase()+'/course/get?courseId='+encodeURIComponent(gnId),
+      {headers:{Authorization:'Bearer '+tok}});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  const d=await r.json();
+  if(!d||!d.id) throw new Error('empty payload');
+  return d;
+}
+
+// join one app course against a GolfNet payload, on rating+slope, Mens tees only
+function joinCourse(app, gn){
+  const mens=(gn.tees||[]).filter(t=>t.type==='Mens');
+  const tees=app.t.map(([name,rating,slope])=>{
+    const cands=mens.filter(g=>g.rating===rating && g.slope===slope);
+    if(cands.length===1)
+      return {name,rating,slope,teeId:cands[0].id,gnName:cands[0].name,
+              nameMatch:cands[0].name===name,ambiguous:false};
+    return {name,rating,slope,teeId:null,gnName:null,nameMatch:false,ambiguous:cands.length>1,
+            candidates:cands.map(c=>({id:c.id,name:c.name}))};
+  });
+  const hit=tees.filter(t=>t.teeId!=null).length;
+  const status = hit===tees.length ? 'CLEAN' : hit===0 ? 'FAILED' : 'PARTIAL';
+  return {status,hit,total:tees.length,tees};
+}
+
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function addRow(app,gn,res){
+  const tb=document.getElementById('tbody');
+  const tr=document.createElement('tr');
+  tr.className=res.status;
+  let detail;
+  if(res.status==='ERROR') detail='<span class="dimtxt">'+esc(res.error)+'</span>';
+  else{
+    const bits=[];
+    bits.push('<span class="dimtxt">'+esc(gn&&gn.name||'')+'</span>');
+    const misses=res.tees.filter(t=>t.teeId==null);
+    if(misses.length) bits.push('unmatched: '+misses.map(t=>esc(t.name)+' ('+t.rating+'/'+t.slope+')'
+        +(t.ambiguous?' <b>ambiguous</b>':'')).join(', '));
+    const rn=res.tees.filter(t=>t.teeId!=null&&!t.nameMatch);
+    if(rn.length) bits.push('<span class="dimtxt">name differs: '
+        +rn.map(t=>esc(t.name)+'→'+esc(t.gnName)).join(', ')+'</span>');
+    detail=bits.join('<br>');
+  }
+  tr.innerHTML='<td>'+esc(app.n)+'<br><span class="dimtxt">'+esc(app.l||'')+'</span></td>'
+    +'<td class="mono">'+esc(app.g)+'</td>'
+    +'<td><span class="tag '+res.status+'">'+res.status+'</span></td>'
+    +'<td class="mono">'+(res.status==='ERROR'?'—':res.hit+'/'+res.total)+'</td>'
+    +'<td>'+detail+'</td>';
+  tb.appendChild(tr);
+  tb.parentElement.parentElement.scrollTop=tb.parentElement.parentElement.scrollHeight;
+}
+
+function renderStats(s){
+  document.getElementById('stats').innerHTML=
+     '<div class="stat gold"><b>'+s.teeIds+'</b><span>teeIds found</span></div>'
+    +'<div class="stat ok"><b>'+s.clean+'</b><span>clean courses</span></div>'
+    +'<div class="stat warn"><b>'+s.partial+'</b><span>partial</span></div>'
+    +'<div class="stat bad"><b>'+(s.failed+s.error)+'</b><span>failed</span></div>'
+    +'<div class="stat"><b>'+s.done+'/'+s.totalCourses+'</b><span>courses</span></div>';
+}
+
+async function runHarvest(){
+  const c=loadCreds();
+  if(!c.username||!c.password){credNote('Save your login first.','err');return;}
+  STOP=false;RESULT=null;
+  document.getElementById('tbody').innerHTML='';
+  ['btnRun','btnDl','btnCopy'].forEach(i=>document.getElementById(i).disabled=true);
+  document.getElementById('btnStop').disabled=false;
+
+  const mapped=REGISTRY.filter(c=>c.g!=null);
+  const byId=new Map();
+  mapped.forEach(c=>{ if(!byId.has(c.g)) byId.set(c.g,[]); byId.get(c.g).push(c); });
+  const ids=[...byId.keys()];
+
+  const out=[], s={clean:0,partial:0,failed:0,error:0,teeIds:0,done:0,totalCourses:mapped.length};
+  runNote('Signing in…');
+  try{ await getToken(); }catch(e){ runNote('✗ '+e.message,'err');
+    document.getElementById('btnRun').disabled=false;document.getElementById('btnStop').disabled=true;return; }
+
+  for(let i=0;i<ids.length;i++){
+    if(STOP){runNote('Stopped after '+i+' of '+ids.length+' lookups.','err');break;}
+    const gnId=ids[i], apps=byId.get(gnId);
+    runNote('['+(i+1)+'/'+ids.length+'] GolfNet '+gnId+' — '+apps.map(a=>a.n).join(' / '));
+    let gn=null,err=null;
+    for(let attempt=0;attempt<2&&!gn;attempt++){
+      try{ gn=await fetchCourse(gnId); }
+      catch(e){ err=e.message; if(attempt===0) await sleep(700); }
+    }
+    for(const app of apps){
+      let res;
+      if(!gn){ res={status:'ERROR',error:err,hit:0,total:app.t.length,tees:[]}; s.error++; }
+      else{
+        res=joinCourse(app,gn);
+        s[res.status.toLowerCase()]++;
+        s.teeIds+=res.hit;
+      }
+      s.done++;
+      addRow(app,gn,res);
+      out.push({
+        id:app.i, name:app.n, location:app.l, golfNetId:app.g,
+        gnId: gn?gn.id:null, gnName: gn?gn.name:null,
+        gnCity: gn?[gn.city,gn.region].filter(Boolean).join(' '):null,
+        idMatches: gn? gn.id===app.g : null,
+        status:res.status, matched:res.hit, total:res.total,
+        error:res.error||null,
+        tees:res.tees,
+        gnTees: gn?(gn.tees||[]).map(t=>({id:t.id,name:t.name,type:t.type,rating:t.rating,slope:t.slope,
+                  par:t.par,yardage:t.yardage,frontRating:t.frontRating,backRating:t.backRating,
+                  frontSlope:t.frontSlope,backSlope:t.backSlope})):[]
+      });
+    }
+    document.getElementById('barFill').style.width=((i+1)/ids.length*100).toFixed(1)+'%';
+    renderStats(s);
+    await sleep(220);
+  }
+
+  const unmapped=REGISTRY.filter(c=>c.g==null).map(c=>({id:c.i,name:c.n,location:c.l,tees:c.t.length}));
+  RESULT={ tool:'golfnet-harvest', generatedAt:new Date().toISOString(),
+           summary:{...s, lookups:ids.length, coursesWithoutGolfNetId:unmapped.length},
+           unmapped, courses:out };
+  if(!STOP) runNote('✓ Done — '+s.teeIds+' teeIds across '+s.done+' courses. '
+      +s.clean+' clean, '+s.partial+' partial, '+(s.failed+s.error)+' failed.','ok');
+  ['btnRun','btnDl','btnCopy'].forEach(i=>document.getElementById(i).disabled=false);
+  document.getElementById('btnStop').disabled=true;
+}
+
+function downloadJSON(){
+  if(!RESULT)return;
+  const b=new Blob([JSON.stringify(RESULT,null,1)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download='golfnet-harvest.json';a.click();
+  URL.revokeObjectURL(a.href);
+  runNote('✓ Saved golfnet-harvest.json','ok');
+}
+function copyJSON(){
+  if(!RESULT)return;
+  navigator.clipboard.writeText(JSON.stringify(RESULT,null,1))
+    .then(()=>runNote('✓ Copied to clipboard.','ok'));
+}
+</script>
+</body>
+</html>
