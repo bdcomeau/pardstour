@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pards Golf — GolfNet ID Finder</title>
+<style>
+  :root{
+    --green-deep:#1a3a2a; --green-abyss:#0d1f15; --gold:#c9a84c; --gold-bright:#e8c96b;
+    --ink:#1a1a1a; --wash:#FEF9F1; --line:rgba(201,168,76,.28);
+    --ok:#27ae60; --warn:#e67e22; --bad:#e74c3c; --dim:#8a8f8b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+       background:linear-gradient(160deg,var(--green-deep),var(--green-abyss));
+       background-attachment:fixed;color:#e9e6df;min-height:100vh}
+  header{padding:22px 20px 16px;border-bottom:1px solid var(--line)}
+  h1{margin:0;font-size:20px;color:var(--gold);letter-spacing:.4px}
+  header p{margin:6px 0 0;color:#b9c3bb;font-size:13px;max-width:820px}
+  main{max-width:1180px;margin:0 auto;padding:20px}
+  .card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;margin-bottom:16px}
+  .card h2{margin:0 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:1.1px;color:var(--gold)}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+  .field{display:flex;flex-direction:column;gap:5px;flex:1 1 200px}
+  .field label{font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:#a8b3ab}
+  input{padding:9px 11px;border-radius:8px;border:1px solid var(--gold);background:#fff;color:var(--ink);font-size:14px}
+  input:focus{outline:2px solid var(--gold-bright);outline-offset:1px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
+  button{padding:10px 18px;border-radius:8px;border:1px solid var(--gold);cursor:pointer;
+         font-size:14px;font-weight:600;background:var(--green-deep);color:var(--gold);transition:.15s}
+  button:hover:not(:disabled){background:var(--gold);color:var(--green-deep)}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  button.gold{background:var(--gold);color:var(--green-deep)}
+  button.gold:hover:not(:disabled){background:var(--gold-bright)}
+  button.ghost{background:transparent;color:#cfd6d0;border-color:rgba(255,255,255,.25)}
+  .note{margin-top:9px;font-size:12.5px;min-height:17px}
+  .note.ok{color:var(--ok)} .note.err{color:var(--bad)} .note.dim{color:var(--dim)}
+  .bar{height:9px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden;margin:12px 0 8px}
+  .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-bright));transition:width .2s}
+  .stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+  .stat{background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.09);border-radius:9px;
+        padding:8px 13px;min-width:96px}
+  .stat b{display:block;font-size:19px;line-height:1.2}
+  .stat span{font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:#9aa69e}
+  .stat.ok b{color:var(--ok)} .stat.warn b{color:var(--warn)} .stat.bad b{color:var(--bad)}
+  .stat.gold b{color:var(--gold-bright)}
+  .log{max-height:460px;overflow:auto;border:1px solid rgba(255,255,255,.1);border-radius:9px;margin-top:12px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th{position:sticky;top:0;background:#14291d;color:var(--gold);text-align:left;padding:8px 10px;
+     font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;z-index:1}
+  td{padding:6px 10px;border-top:1px solid rgba(255,255,255,.06);vertical-align:top}
+  tr.CLEAN td:first-child{border-left:3px solid var(--ok)}
+  tr.PARTIAL td:first-child{border-left:3px solid var(--warn)}
+  tr.FAILED td:first-child,tr.ERROR td:first-child{border-left:3px solid var(--bad)}
+  .tag{display:inline-block;padding:1px 7px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.4px}
+  .tag.CLEAN{background:rgba(39,174,96,.18);color:#6ee7a0}
+  .tag.PARTIAL{background:rgba(230,126,34,.18);color:#f5b878}
+  .tag.FAILED,.tag.ERROR{background:rgba(231,76,60,.18);color:#f5948b}
+  .dimtxt{color:var(--dim)}
+  code{background:rgba(0,0,0,.3);padding:1px 5px;border-radius:4px;font-size:12px}
+  .warnbox{background:rgba(230,126,34,.1);border:1px solid rgba(230,126,34,.4);border-radius:9px;
+           padding:11px 14px;font-size:13px;margin-bottom:14px}
+  .warnbox b{color:#f5b878}
+
+  tr.CONFIRMED td:first-child{border-left:3px solid var(--ok)}
+  tr.RE-RATED td:first-child,tr.LIKELY td:first-child{border-left:3px solid var(--gold)}
+  tr.REVIEW td:first-child{border-left:3px solid var(--warn)}
+  tr.NONE td:first-child{border-left:3px solid var(--bad)}
+  .tag.CONFIRMED{background:rgba(39,174,96,.18);color:#6ee7a0}
+  .tag.RE-RATED,.tag.LIKELY{background:rgba(201,168,76,.18);color:#e8c96b}
+  .tag.REVIEW{background:rgba(230,126,34,.18);color:#f5b878}
+  .tag.NONE{background:rgba(231,76,60,.18);color:#f5948b}
+</style>
+
+</head>
+<body>
+<header>
+  <h1>Pards Golf — GolfNet ID Finder</h1>
+  <p>Fifteen courses in <code>PARDS_COURSES</code> carry a <b>wrong</b> <code>golfNetId</code> — it fetches a
+     different golf course. This searches Golf Canada by name, pulls every candidate, and confirms a match only
+     when the candidate's own tee list <b>reproduces your rating and slope rows</b>. Nothing is proposed on a
+     name resemblance alone.</p>
+</header>
+
+<main>
+  <div class="card">
+    <h2>1 · Golf Canada credentials</h2>
+    <div class="row">
+      <div class="field" style="flex:1 1 300px"><label>Cloudflare Worker URL</label>
+        <input id="workerUrl" class="mono" value="https://gc-proxy.bdapple.workers.dev"></div>
+      <div class="field"><label>Username</label><input id="gcUser" autocomplete="username"></div>
+      <div class="field"><label>Password</label><input id="gcPass" type="password" autocomplete="current-password"></div>
+      <button onclick="saveAndTest()">Save &amp; Test</button>
+      <button class="ghost" onclick="clearCreds()">Clear</button>
+    </div>
+    <div class="note dim" id="credNote">Shares the saved login with your GolfNet Course Lookup page.</div>
+  </div>
+
+  <div class="card">
+    <h2>2 · Find the correct IDs</h2>
+    <div class="warnbox">
+      <b>15 courses, each searched by name.</b> Every candidate returned is fetched in full and tested against
+      your own rating/slope rows. A candidate is only marked <b>CONFIRMED</b> when it matches <i>every</i> tee you
+      have. Expect a couple of minutes.
+    </div>
+    <div class="row">
+      <button class="gold" id="btnRun" onclick="runFinder()">▶ Find IDs</button>
+      <button class="ghost" id="btnStop" onclick="STOP=true" disabled>Stop</button>
+      <button id="btnDl" onclick="downloadJSON()" disabled>⬇️ Download Findings JSON</button>
+      <button id="btnCopy" onclick="copyJSON()" disabled>Copy JSON</button>
+    </div>
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="note dim" id="runNote">Idle.</div>
+    <div class="stats" id="stats"></div>
+    <div class="log"><table>
+      <thead><tr><th style="width:200px">Course</th><th style="width:96px">Verdict</th>
+        <th style="width:82px">New ID</th><th style="width:74px">Tees</th><th>Candidates tested</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table></div>
+  </div>
+</main>
+
+<script>
+const BROKEN = [{"i":"troon-north-monument","n":"Troon North — Monument","l":"Scottsdale, AZ","bad":15337,"kw":"Troon North","t":[["Black",73.3,148],["Gold",72.1,139],["Silver",69.8,132],["Copper",68.5,127],["Jade/Copper",66.7,123],["Jade",65,119]]},{"i":"kierland-ironwood-acacia","n":"Kierland — Ironwood/Acacia","l":"Scottsdale, AZ","bad":16260,"kw":"Kierland","t":[["Cinder",72.8,127],["Copper",69.3,122],["Indigo",67.2,114],["Turquoise",66.3,111],["Lava",63.6,106]]},{"i":"kierland-mesquite-ironwood","n":"Kierland — Ironwood/Mesquite","l":"Scottsdale, AZ","bad":16260,"kw":"Kierland","t":[["Cinder",73.1,127],["Copper",69.7,123],["Indigo",67.2,113],["Turquoise",65.6,109],["Lava",63.7,105],["Junior",57,91]]},{"i":"trestle-creek-gc","n":"Trestle Creek Golf Resort","l":"Entwistle, AB","bad":18759,"kw":"Trestle Creek","t":[["Copper",75.3,136],["Copper/Black",73.6,132],["Black",72.6,131],["Black/Blue",71.7,127],["Blue",70.9,125],["Blue/White",69.8,122],["White",68.7,120],["White/Burgundy",66.8,118]]},{"i":"picture-butte-homestead-harvest","n":"Picture Butte — Homestead/Harvest","l":"Picture Butte, AB","bad":19937,"kw":"Picture Butte","t":[["Copper",71.5,131],["Blue",69.4,126],["White",65.6,117]]},{"i":"picture-butte-heritage-homestead","n":"Picture Butte — Heritage/Homestead","l":"Picture Butte, AB","bad":19937,"kw":"Picture Butte","t":[["Copper",71,128],["Blue",69,123],["White",66.1,114]]},{"i":"palm-valley-championship","n":"Palm Valley CC — Championship","l":"Palm Desert, CA","bad":10953,"kw":"Palm Valley","t":[["Championship (Blue)",71.8,128],["Players (Blue/White)",70.6,125],["White",70,123],["Masters (Silver/White)",68.1,119],["Silver",67.2,116],["Gold",65.9,112]]},{"i":"indian-ridge-grove","n":"Indian Ridge CC — Grove","l":"Palm Desert, CA","bad":7179,"kw":"Indian Ridge","t":[["Gold",73.9,140],["Black",72.3,136],["Blue",70.7,131],["Blue/White",69.5,128],["White",68.8,125],["White/Green",67,118],["Green",66.2,115],["Red",63.7,108],["Yellow",62.2,103]]},{"i":"pgawest-citrus","n":"PGA West — The Citrus Club","l":"La Quinta, CA","bad":11327,"kw":"PGA West","t":[["Black",74.3,135],["Blue",72.8,131],["Blue/White",71.7,128],["White",70.9,126],["White/Silver",69.5,123],["Silver",68.3,119],["Gold",65.6,112],["Red",64.6,109],["Red/Orange",62.6,104],["Orange",61.4,101]]},{"i":"desert-willow-mountain-view","n":"Desert Willow — Mountain View","l":"Palm Desert, CA","bad":3851,"kw":"Desert Willow","t":[["Black",73,132],["Purple",71.2,128],["Purple/White",70.3,126],["White",69.4,124],["White/Tan",68.1,121],["Tan",66.6,117],["Tan/Green",70.9,130],["Green",64,110]]},{"i":"glencoe-bridges-bridges","n":"The Glencoe Golf & Country Club — Bridges/Bridges","l":"Calgary, AB","bad":5646,"kw":"Glencoe","t":[["Black",73.6,138],["Black / Blue Combo",73,136],["Blue",72.6,131],["Blue / White Combo",71.4,130],["White",69.8,124],["White / Gold Combo",67,118],["Gold",65.8,116],["Green",61.2,109]]},{"i":"copper-point-ridge","n":"Copper Point — Ridge Course","l":"Invermere, BC","bad":17928,"kw":"Copper Point","t":[["Black",64,109],["Blue",61.5,106],["White",59.4,101],["Copper",57.6,95]]},{"i":"lakes-palm-mountain","n":"The Lakes CC — Palm & Mountain","l":"Palm Desert, CA","bad":33625,"kw":"Lakes Country Club","t":[["Black",72.4,130],["Gold",70.4,126],["Green",68.7,121],["Silver",67.9,118],["Red",66.2,113],["Bronze",64.8,110],["Tee it Forward",60.9,101]]},{"i":"lakes-mountain-lake","n":"The Lakes CC — Mountain & Lake","l":"Palm Desert, CA","bad":33625,"kw":"Lakes Country Club","t":[["Black",72.1,129],["Gold",70.1,124],["Green",68,119],["Silver",67.4,117],["Red",65.7,112],["Bronze",64.4,109],["Tee it Forward",60.5,93]]},{"i":"desert-springs-valley","n":"Desert Springs — Valley Course","l":"Palm Desert, CA","bad":9111,"kw":"Desert Springs","t":[["Black",71.9,130],["Black/Blue",70.3,126],["Blue",69.1,123],["Blue/White",67,117],["White",65.7,114]]}];
+const SK = 'pards_gc';
+let _tok=null,_tokExp=0,STOP=false,RESULT=null;
+
+function loadCreds(){ try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch(e){return{}} }
+function saveCreds(c){ try{localStorage.setItem(SK,JSON.stringify(c))}catch(e){} }
+function wBase(){ return (document.getElementById('workerUrl').value||loadCreds().worker||'').replace(/\/+$/,''); }
+function credNote(m,k){const e=document.getElementById('credNote');e.textContent=m;e.className='note '+(k||'dim');}
+function runNote(m,k){const e=document.getElementById('runNote');e.textContent=m;e.className='note '+(k||'dim');}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// GolfNet appends " Combo" and the odd stray tab. Normalise before comparing a tee name.
+function norm(s){ return String(s||'').replace(/\s+/g,' ').trim().replace(/\s*combo\s*/ig,' ')
+                        .replace(/\s+/g,' ').trim().toLowerCase(); }
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const c=loadCreds();
+  if(c.worker)   document.getElementById('workerUrl').value=c.worker;
+  if(c.username) document.getElementById('gcUser').value=c.username;
+  if(c.password) document.getElementById('gcPass').value=c.password;
+  if(c.username&&c.password) credNote('Saved login found — you can go straight to Find IDs.','ok');
+});
+
+async function getToken(){
+  const now=Date.now();
+  if(_tok&&now<_tokExp-10000) return _tok;
+  const c=loadCreds(); const w=wBase()||c.worker;
+  if(!w||!c.username||!c.password) throw new Error('No credentials saved.');
+  const r=await fetch(w+'/token',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username:c.username,password:c.password})});
+  if(!r.ok) throw new Error('Login failed ('+r.status+'): '+(await r.text()).slice(0,110));
+  const d=await r.json();
+  if(!d.access_token) throw new Error('No token returned.');
+  _tok=d.access_token;_tokExp=now+((d.expires_in||3600)*1000);
+  return _tok;
+}
+async function saveAndTest(){
+  const w=document.getElementById('workerUrl').value.trim();
+  const u=document.getElementById('gcUser').value.trim();
+  const p=document.getElementById('gcPass').value;
+  if(!w||!u||!p){credNote('Fill in all three fields.','err');return;}
+  saveCreds({...loadCreds(),worker:w,username:u,password:p});
+  _tok=null;_tokExp=0;credNote('Testing…','dim');
+  try{ await getToken(); credNote('✓ Login successful — credentials saved.','ok'); }
+  catch(e){ credNote('✗ '+e.message,'err'); }
+}
+function clearCreds(){
+  try{localStorage.removeItem(SK)}catch(e){}
+  _tok=null;_tokExp=0;
+  document.getElementById('gcUser').value='';document.getElementById('gcPass').value='';
+  credNote('Cleared.','dim');
+}
+
+async function searchByKeyword(kw){
+  const tok=await getToken();
+  const p=new URLSearchParams({keywords:kw,skip:'0',take:'25'});
+  const r=await fetch(wBase()+'/course/getByKeywords?'+p,{headers:{Authorization:'Bearer '+tok}});
+  if(!r.ok) throw new Error('search HTTP '+r.status);
+  const d=await r.json();
+  return (d && (d.data||d)) || [];
+}
+async function getCourse(id){
+  const tok=await getToken();
+  const r=await fetch(wBase()+'/course/get?courseId='+encodeURIComponent(id),{headers:{Authorization:'Bearer '+tok}});
+  if(!r.ok) throw new Error('get HTTP '+r.status);
+  const d=await r.json();
+  if(!d||!d.id) throw new Error('empty payload');
+  return d;
+}
+
+/** Score one GolfNet payload against one app course. */
+function score(app, gn){
+  const mens=(gn.tees||[]).filter(t=>t.type==='Mens');
+  let rs=0, nm=0;
+  const tees=app.t.map(([name,rating,slope])=>{
+    const byRS=mens.filter(g=>g.rating===rating && g.slope===slope);
+    const byNM=mens.filter(g=>norm(g.name)===norm(name));
+    if(byRS.length===1) rs++;
+    if(byNM.length===1) nm++;
+    const pick = byRS.length===1 ? byRS[0] : (byNM.length===1 ? byNM[0] : null);
+    return {name,rating,slope,
+            teeId: pick?pick.id:null,
+            gnName: pick?pick.name:null,
+            gnRating: pick?pick.rating:null,
+            gnSlope: pick?pick.slope:null,
+            via: byRS.length===1 ? 'rating+slope' : (byNM.length===1 ? 'name' : null)};
+  });
+  return {rs, nm, total:app.t.length, tees,
+          gnId:gn.id, gnName:gn.name, gnCity:[gn.city,gn.region].filter(Boolean).join(' '),
+          mensCount:mens.length};
+}
+
+function verdictOf(best, app){
+  if(!best) return 'NONE';
+  if(best.rs === best.total) return 'CONFIRMED';      // every tee reproduced on rating+slope
+  if(best.nm === best.total) return 'RE-RATED';       // same tee names, numbers have moved
+  return 'REVIEW';                                    // not proven — a human picks
+}
+
+function addRow(app,res){
+  const tb=document.getElementById('tbody');
+  const tr=document.createElement('tr');
+  tr.className=res.verdict;
+  const b=res.best;
+  tr.innerHTML='<td>'+esc(app.n)+'<br><span class="dimtxt">'+esc(app.l||'')
+      +' · was <code>'+app.bad+'</code></span></td>'
+    +'<td><span class="tag '+res.verdict+'">'+res.verdict+'</span></td>'
+    +'<td class="mono">'+(b?b.gnId:'—')+'</td>'
+    +'<td class="mono">'+(b?(Math.max(b.rs,b.nm)+'/'+b.total):'—')+'</td>'
+    +'<td>'+(b?'<b>'+esc(b.gnName)+'</b> <span class="dimtxt">('+esc(b.gnCity)+')</span> — '
+             +b.rs+' by rating+slope, '+b.nm+' by name<br>':'')
+    +'<span class="dimtxt">'+res.tried.map(t=>esc(t.gnName)+' #'+t.gnId+' ['+t.rs+'/'+t.nm+']').join(' · ')+'</span></td>';
+  tb.appendChild(tr);
+  const log=tb.parentElement.parentElement; log.scrollTop=log.scrollHeight;
+}
+
+function renderStats(s){
+  document.getElementById('stats').innerHTML=
+     '<div class="stat ok"><b>'+s.CONFIRMED+'</b><span>confirmed</span></div>'
+    +'<div class="stat gold"><b>'+s['RE-RATED']+'</b><span>re-rated</span></div>'
+    +'<div class="stat warn"><b>'+s.REVIEW+'</b><span>needs review</span></div>'
+    +'<div class="stat bad"><b>'+s.NONE+'</b><span>not found</span></div>'
+    +'<div class="stat"><b>'+s.done+'/'+BROKEN.length+'</b><span>courses</span></div>';
+}
+
+async function runFinder(){
+  const c=loadCreds();
+  if(!c.username||!c.password){credNote('Save your login first.','err');return;}
+  STOP=false;RESULT=null;
+  document.getElementById('tbody').innerHTML='';
+  ['btnRun','btnDl','btnCopy'].forEach(i=>document.getElementById(i).disabled=true);
+  document.getElementById('btnStop').disabled=false;
+
+  const s={CONFIRMED:0,'RE-RATED':0,REVIEW:0,NONE:0,done:0};
+  const out=[]; const cache=new Map();
+  runNote('Signing in…');
+  try{ await getToken(); }catch(e){ runNote('✗ '+e.message,'err');
+    document.getElementById('btnRun').disabled=false;document.getElementById('btnStop').disabled=true;return; }
+
+  for(let i=0;i<BROKEN.length;i++){
+    if(STOP){runNote('Stopped after '+i+' of '+BROKEN.length+'.','err');break;}
+    const app=BROKEN[i];
+    runNote('['+(i+1)+'/'+BROKEN.length+'] searching "'+app.kw+'" for '+app.n);
+    let hits=[], err=null;
+    try{ hits=await searchByKeyword(app.kw); }catch(e){ err=e.message; }
+    const tried=[];
+    for(const h of (hits||[]).slice(0,12)){
+      if(STOP) break;
+      const cid = h.id!=null ? h.id : h.courseId;
+      if(cid==null) continue;
+      let gn=cache.get(cid);
+      if(!gn){
+        try{ gn=await getCourse(cid); cache.set(cid,gn); }catch(e){ continue; }
+        await sleep(180);
+      }
+      tried.push(score(app,gn));
+    }
+    tried.sort((a,b)=> (b.rs-a.rs) || (b.nm-a.nm) || (b.mensCount-a.mensCount));
+    const best=tried[0]||null;
+    const verdict = err && !tried.length ? 'NONE' : verdictOf(best,app);
+    s[verdict]++; s.done++;
+    const res={verdict,best,tried,error:err};
+    addRow(app,res);
+    out.push({id:app.i,name:app.n,location:app.l,oldGolfNetId:app.bad,keyword:app.kw,
+              verdict, newGolfNetId: best&&verdict!=='NONE'&&verdict!=='REVIEW' ? best.gnId : null,
+              gnName:best?best.gnName:null, gnCity:best?best.gnCity:null,
+              matchedByRatingSlope:best?best.rs:0, matchedByName:best?best.nm:0, total:app.t.length,
+              tees:best?best.tees:[], error:err,
+              candidates:tried.map(t=>({gnId:t.gnId,gnName:t.gnName,gnCity:t.gnCity,rs:t.rs,nm:t.nm,mens:t.mensCount}))});
+    document.getElementById('barFill').style.width=((i+1)/BROKEN.length*100).toFixed(1)+'%';
+    renderStats(s);
+  }
+
+  RESULT={tool:'golfnet-id-finder',generatedAt:new Date().toISOString(),summary:s,courses:out};
+  if(!STOP) runNote('✓ Done — '+s.CONFIRMED+' confirmed, '+s['RE-RATED']+' re-rated, '
+      +s.REVIEW+' need review, '+s.NONE+' not found.','ok');
+  ['btnRun','btnDl','btnCopy'].forEach(i=>document.getElementById(i).disabled=false);
+  document.getElementById('btnStop').disabled=true;
+}
+
+function downloadJSON(){
+  if(!RESULT)return;
+  const b=new Blob([JSON.stringify(RESULT,null,1)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download='golfnet-ids.json';a.click();
+  URL.revokeObjectURL(a.href);
+  runNote('✓ Saved golfnet-ids.json','ok');
+}
+function copyJSON(){
+  if(!RESULT)return;
+  navigator.clipboard.writeText(JSON.stringify(RESULT,null,1)).then(()=>runNote('✓ Copied.','ok'));
+}
+</script>
+
+</body>
+</html>

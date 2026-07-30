@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pards Golf — GolfNet teeId Harvest</title>
+<style>
+  :root{
+    --green-deep:#1a3a2a; --green-abyss:#0d1f15; --gold:#c9a84c; --gold-bright:#e8c96b;
+    --ink:#1a1a1a; --wash:#FEF9F1; --line:rgba(201,168,76,.28);
+    --ok:#27ae60; --warn:#e67e22; --bad:#e74c3c; --dim:#8a8f8b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+       background:linear-gradient(160deg,var(--green-deep),var(--green-abyss));
+       background-attachment:fixed;color:#e9e6df;min-height:100vh}
+  header{padding:22px 20px 16px;border-bottom:1px solid var(--line)}
+  h1{margin:0;font-size:20px;color:var(--gold);letter-spacing:.4px}
+  header p{margin:6px 0 0;color:#b9c3bb;font-size:13px;max-width:820px}
+  main{max-width:1180px;margin:0 auto;padding:20px}
+  .card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;margin-bottom:16px}
+  .card h2{margin:0 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:1.1px;color:var(--gold)}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+  .field{display:flex;flex-direction:column;gap:5px;flex:1 1 200px}
+  .field label{font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:#a8b3ab}
+  input{padding:9px 11px;border-radius:8px;border:1px solid var(--gold);background:#fff;color:var(--ink);font-size:14px}
+  input:focus{outline:2px solid var(--gold-bright);outline-offset:1px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
+  button{padding:10px 18px;border-radius:8px;border:1px solid var(--gold);cursor:pointer;
+         font-size:14px;font-weight:600;background:var(--green-deep);color:var(--gold);transition:.15s}
+  button:hover:not(:disabled){background:var(--gold);color:var(--green-deep)}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  button.gold{background:var(--gold);color:var(--green-deep)}
+  button.gold:hover:not(:disabled){background:var(--gold-bright)}
+  button.ghost{background:transparent;color:#cfd6d0;border-color:rgba(255,255,255,.25)}
+  .note{margin-top:9px;font-size:12.5px;min-height:17px}
+  .note.ok{color:var(--ok)} .note.err{color:var(--bad)} .note.dim{color:var(--dim)}
+  .bar{height:9px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden;margin:12px 0 8px}
+  .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-bright));transition:width .2s}
+  .stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+  .stat{background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.09);border-radius:9px;
+        padding:8px 13px;min-width:96px}
+  .stat b{display:block;font-size:19px;line-height:1.2}
+  .stat span{font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:#9aa69e}
+  .stat.ok b{color:var(--ok)} .stat.warn b{color:var(--warn)} .stat.bad b{color:var(--bad)}
+  .stat.gold b{color:var(--gold-bright)}
+  .log{max-height:460px;overflow:auto;border:1px solid rgba(255,255,255,.1);border-radius:9px;margin-top:12px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th{position:sticky;top:0;background:#14291d;color:var(--gold);text-align:left;padding:8px 10px;
+     font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;z-index:1}
+  td{padding:6px 10px;border-top:1px solid rgba(255,255,255,.06);vertical-align:top}
+  tr.CLEAN td:first-child{border-left:3px solid var(--ok)}
+  tr.PARTIAL td:first-child{border-left:3px solid var(--warn)}
+  tr.FAILED td:first-child,tr.ERROR td:first-child{border-left:3px solid var(--bad)}
+  .tag{display:inline-block;padding:1px 7px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.4px}
+  .tag.CLEAN{background:rgba(39,174,96,.18);color:#6ee7a0}
+  .tag.PARTIAL{background:rgba(230,126,34,.18);color:#f5b878}
+  .tag.FAILED,.tag.ERROR{background:rgba(231,76,60,.18);color:#f5948b}
+  .dimtxt{color:var(--dim)}
+  code{background:rgba(0,0,0,.3);padding:1px 5px;border-radius:4px;font-size:12px}
+  .warnbox{background:rgba(230,126,34,.1);border:1px solid rgba(230,126,34,.4);border-radius:9px;
+           padding:11px 14px;font-size:13px;margin-bottom:14px}
+  .warnbox b{color:#f5b878}
+</style>
+</head>
+<body>
+<header>
+  <h1>Pards Golf — GolfNet teeId Harvest</h1>
+  <p>Fetches every course in <code>PARDS_COURSES</code> from Golf Canada via your gc-proxy worker, matches each
+     app tee to its GolfNet tee on <b>rating + slope</b>, and collects the missing <code>teeId</code>.
+     It also audits every <code>golfNetId</code> — a mapping that can't match its own tees is wrong.
+     Credentials stay in this browser; nothing is sent anywhere but your own worker.</p>
+</header>
+
+<main>
+  <div class="card">
+    <h2>1 · Golf Canada credentials</h2>
+    <div class="row">
+      <div class="field" style="flex:1 1 300px"><label>Cloudflare Worker URL</label>
+        <input id="workerUrl" class="mono" value="https://gc-proxy.bdapple.workers.dev"></div>
+      <div class="field"><label>Username</label><input id="gcUser" autocomplete="username"></div>
+      <div class="field"><label>Password</label><input id="gcPass" type="password" autocomplete="current-password"></div>
+      <button onclick="saveAndTest()">Save &amp; Test</button>
+      <button class="ghost" onclick="clearCreds()">Clear</button>
+    </div>
+    <div class="note dim" id="credNote">Shares the saved login with your GolfNet Course Lookup page.</div>
+  </div>
+
+  <div class="card">
+    <h2>2 · Run the harvest</h2>
+    <div class="warnbox">
+      <b>131 lookups — every mapped course now has its own GolfNet ID.</b> The 15 wrong mappings are corrected and the
+      12 shared IDs are gone. This run re-verifies all of them and picks up the tees still missing an ID.
+      Throttled to be polite; expect roughly 2 minutes. Safe to re-run.
+    </div>
+    <div class="row">
+      <button class="gold" id="btnRun" onclick="runHarvest()">▶ Run Harvest</button>
+      <button class="ghost" id="btnStop" onclick="STOP=true" disabled>Stop</button>
+      <button id="btnDl" onclick="downloadJSON()" disabled>⬇️ Download Harvest JSON</button>
+      <button id="btnCopy" onclick="copyJSON()" disabled>Copy JSON</button>
+    </div>
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="note dim" id="runNote">Idle.</div>
+    <div class="stats" id="stats"></div>
+    <div class="log"><table>
+      <thead><tr><th style="width:190px">App course</th><th style="width:80px">GolfNet</th>
+        <th style="width:88px">Status</th><th style="width:74px">Tees</th><th>Detail</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table></div>
+  </div>
+</main>
+
+<script>
+const REGISTRY = [{"i":"derrick-gwc","g":18662,"n":"Derrick Golf & Winter Club","l":"Edmonton, AB","t":[["Deck 1",70.9,121],["Deck 1-2 Combo",70.2,120],["Deck 2",69.6,119],["Deck 2-3 Combo",68.2,118],["Deck 3",67.1,117],["Deck 3-4 Combo",65.1,109],["Deck 4",64.1,109],["Family Tee",59.7,101]]},{"i":"jasper-park-lodge","g":18566,"n":"Jasper Park Lodge Golf Club","l":"Jasper, AB","t":[["Black",71.6,124],["Heritage",70.6,121],["Blue",70.2,120],["White",68.6,116],["Red",65.9,111]]},{"i":"troon-north-monument","g":15336,"n":"Troon North — Monument","l":"Scottsdale, AZ","t":[["Black",73.3,148],["Gold",72.1,139],["Silver",69.8,132],["Copper",68.5,127],["Jade/Copper",66.7,123],["Jade",65,119]]},{"i":"troon-north-pinnacle","g":15337,"n":"Troon North — Pinnacle","l":"Scottsdale, AZ","t":[["Black",73.2,147],["Gold",71.8,140],["Silver",69.8,131],["Copper",68.1,126],["Copper/Jade",65.7,122],["Jade",64.3,116]]},{"i":"kierland-ironwood-acacia","g":16261,"n":"Kierland — Ironwood/Acacia","l":"Scottsdale, AZ","t":[["Cinder",72.8,127],["Copper",69.3,122],["Indigo",67.2,114],["Turquoise",66.3,111],["Lava",63.6,106]]},{"i":"kierland-mesquite-ironwood","g":16262,"n":"Kierland — Ironwood/Mesquite","l":"Scottsdale, AZ","t":[["Cinder",73.1,127],["Copper",69.7,123],["Indigo",67.2,113],["Turquoise",65.6,109],["Lava",63.7,105],["Junior",57,91]]},{"i":"kierland-acacia-mesquite","g":16260,"n":"Kierland — Acacia/Mesquite","l":"Scottsdale, AZ","t":[["Cinder",72.5,127],["Copper",69.2,124],["Indigo",66.9,114],["Turquoise",65.7,110],["Lava",63.1,106]]},{"i":"blackhawk-gc","g":20013,"n":"Blackhawk Golf Club","l":"Spruce Grove, AB","t":[["Black",73.5,140],["Silver",71.8,137],["Silver/Blue",70.1,134],["Blue",69.1,132],["Blue/White",67.4,124],["White",65.1,113]]},{"i":"cougar-creek-gc","g":19682,"n":"Cougar Creek Golf Resort","l":"Carvel, AB","t":[["Gold",73.2,136],["Blue",71.8,131],["Blue/White",70.2,129],["White",68.8,126],["Red",65,111]]},{"i":"trestle-creek-gc","g":33226,"n":"Trestle Creek Golf Resort","l":"Entwistle, AB","t":[["Copper",75.3,136],["Copper/Black",73.6,132],["Black",72.6,131],["Black/Blue",71.7,127],["Blue",70.9,125],["Blue/White",69.8,122],["White",68.7,120],["White/Burgundy",66.8,118]]},{"i":"tower-ranch-gc","g":21108,"n":"Tower Ranch Golf & Country Club","l":"Kelowna, BC","t":[["Gold",74.3,133],["Blue",72.1,128],["Blue/White",71,126],["White",69.6,123],["Red",66.2,114]]},{"i":"okanagan-bear","g":18823,"n":"The Okanagan Golf Club — Bear Course","l":"Kelowna, BC","t":[["Gold",72.3,137],["Black",70.2,130],["Black/Silver",68.5,127],["Silver",66.9,115],["Red",64.3,111]]},{"i":"okanagan-quail","g":18824,"n":"The Okanagan Golf Club — Quail Course","l":"Kelowna, BC","t":[["Gold",72.1,134],["Black",69.3,128],["Black/Silver",67.7,122],["Silver",66.4,115],["Red",62.5,109]]},{"i":"harvest-gc","g":18945,"n":"Harvest Golf Club","l":"Kelowna, BC","t":[["Black",73.7,131],["Blue/Black",72.4,127],["Blue",71.2,123],["White/Blue",70,123],["White",68.6,120],["White/Green",67.4,114],["Green",66.2,106]]},{"i":"rise-gc","g":22748,"n":"The Rise Resort","l":"Vernon, BC","t":[["Boom Boom",71,140],["Back",70,134],["Combo",69.2,132],["Regular",67.9,130],["Intermediate",65.4,112],["Forward",62.3,106],["Social",58.3,102]]},{"i":"predator-ridge-predator","g":18835,"n":"Predator Ridge Golf Resort Predator Course","l":"Vernon, BC","t":[["Black",74.4,134],["Blue",71.8,130],["White/Blue",70,129],["White",68.3,129],["White/Lavender",66.8,123],["Lavender",65.9,118]]},{"i":"predator-ridge-ridge","g":18837,"n":"Predator Ridge Golf Resort Ridge Course","l":"Vernon, BC","t":[["Black",73.8,137],["Blue",71.6,134],["Blue/White",70.6,131],["White",69.5,126],["White/Lavender",66.4,113],["Lavender",64.4,104]]},{"i":"bear-mountain-mountain","g":17982,"n":"Bear Mountain Resort — Mountain Course","t":[["Golden",73.5,152],["Grizzly",71.2,145],["Grizzly/Black",70.1,136],["Black",69.3,132],["Panda (B/S)",69,124],["Spirit",67,124],["Spirit/Cinnamon",64.6,119],["Cinnamon",63.4,113]]},{"i":"bear-mountain-valley","g":23240,"n":"Bear Mountain Resort — Valley Course","t":[["Golden",73.5,140],["Grizzly",71.1,139],["Grizzly/Black",69.6,137],["Black",69.3,134],["Panda (B/S)",68.3,129],["Spirit",67,123],["Spirit/Cinnamon",64.8,113],["Cinnamon",63.5,103]]},{"i":"edmonton-cc","g":18598,"n":"Edmonton Country Club","l":"Edmonton, AB","t":[["Black",72.9,131],["Hagen",72,128],["Silver",71.4,126],["Thompson",70.6,124],["Blue",69.8,122],["Brinkworth",68.2,122],["White",67,120],["DuMaurier",65.9,116],["Green",64.7,114]]},{"i":"glendale-gcc","g":18692,"n":"Glendale Golf & Country Club","l":"Edmonton, AB","t":[["Black",74.9,139],["Black/Silver",73.6,136],["Silver",72,133],["Silver/Tan",70.5,130],["Tan",69.4,127],["Tan/Purple",68,121],["Purple",66.4,115],["Green",64.6,107]]},{"i":"royal-mayfair","g":18671,"n":"Royal Mayfair Golf Club","l":"Edmonton, AB","t":[["Gold",72.8,131],["Gold/Blue",71.8,130],["Royal (Blue/Gold)",71.7,129],["Blue",70.6,129],["White/Blue",69.3,129],["White",68.3,127],["Red/White",67,124],["Red",65.9,122]]},{"i":"edmonton-petroleum","g":18607,"n":"Edmonton Petroleum Golf & Country Club","l":"Edmonton, AB","t":[["Black",73.6,133],["Blue",71.4,124],["Blue/White",70.4,118],["White",68.9,114],["Green",67.6,111],["Green/Gold",65.8,107],["Gold",64.4,105]]},{"i":"windermere-gcc","g":19767,"n":"Windermere Golf and Country Club","l":"Edmonton, AB","t":[["Gold",72,130],["Gold/Black",71.1,129],["Black",70.4,127],["Black/White",68.9,126],["White",68.2,123],["White/Blue",66.8,115],["Blue",65.7,118],["Blue/Green",65.1,116],["Green",63.8,114],["Red",60.7,106]]},{"i":"mill-woods-gc","g":20005,"n":"Mill Woods Golf Club","l":"Edmonton, AB","t":[["Blue",72.6,123],["White",70.3,120],["Red",68.1,116]]},{"i":"river-ridge-gc","g":19773,"n":"River Ridge Golf Club","l":"Edmonton, AB","t":[["Blue",70.8,120],["Blue/White",69.7,118],["White",68.5,117],["Yellow",64.7,108],["Red",64.3,100]]},{"i":"picture-butte-heritage-harvest","g":19937,"n":"Picture Butte — Heritage/Harvest","l":"Picture Butte, AB","t":[["Copper",72.5,135],["Blue",70.4,130],["White",66.5,119]]},{"i":"picture-butte-homestead-harvest","g":19936,"n":"Picture Butte — Homestead/Harvest","l":"Picture Butte, AB","t":[["Copper",71.5,131],["Blue",69.4,126],["White",65.6,117]]},{"i":"picture-butte-heritage-homestead","g":18590,"n":"Picture Butte — Heritage/Homestead","l":"Picture Butte, AB","t":[["Copper",71,128],["Blue",69,123],["White",66.1,114]]},{"i":"palm-valley-challenge","g":10953,"n":"Palm Valley CC — Challenge","l":"Palm Desert, CA","t":[["Blue",62.4,107],["White",61.1,103],["Gold",59.3,98]]},{"i":"palm-valley-championship","g":10954,"n":"Palm Valley CC — Championship","l":"Palm Desert, CA","t":[["Championship (Blue)",71.8,128],["Players (Blue/White)",70.8,126],["White",70,123],["Masters (Silver/White)",68.1,119],["Silver",67.2,116],["Gold",65.9,112]]},{"i":"indian-ridge-arroyo","g":7179,"n":"Indian Ridge CC — Arroyo","l":"Palm Desert, CA","t":[["Gold",73.5,137],["Black",72.3,134],["Blue",70.5,128],["Blue/White",69.5,125],["White",68.6,122],["White/Green",67.3,118],["Green",66.2,113],["Red",63.9,106],["Yellow",62.6,103]]},{"i":"indian-ridge-grove","g":7178,"n":"Indian Ridge CC — Grove","l":"Palm Desert, CA","t":[["Gold",73.9,140],["Black",72.3,136],["Blue",70.7,131],["Blue/White",69.5,128],["White",68.8,125],["White/Green",67,118],["Green",66.2,115],["Red",63.7,108],["Yellow",62.2,103]]},{"i":"pgawest-tpc-stadium","g":11294,"n":"PGA West — TPC Stadium Course","l":"La Quinta, CA","t":[["Black",75.8,148],["Blue",73.1,140],["Blue/White",71.2,136],["White",70.2,133],["White/Gold",69,129],["Gold",67.9,125],["Gold/Red",66.4,120],["Red",65.1,115],["Silver",60.9,106]]},{"i":"pgawest-citrus","g":7819,"n":"PGA West — The Citrus Club","l":"La Quinta, CA","t":[["Black",74.3,135],["Blue",72.8,131],["Blue/White",71.7,128],["White",70.9,126],["White/Silver",69.5,123],["Silver",68.3,119],["Gold",65.6,112],["Red",64.6,109],["Red/Orange",62.6,104],["Orange",61.4,101]]},{"i":"pgawest-mountain","g":7821,"n":"PGA West — Mountain","l":"La Quinta, CA","t":[["Black",72.8,135],["Black/White",71.8,132],["White",70.8,129],["White/Silver",70,126],["Silver",64,110],["Gold",66,116],["Red",64.2,110],["Orange",59,97]]},{"i":"pgawest-dunes","g":34231,"n":"PGA West — Dunes","l":"La Quinta, CA","t":[["Black",72.3,134],["Black/White",71.7,132],["White",70.5,128],["White/Silver",69.8,126],["Silver",68.7,123],["Gold",66.4,116],["Red",64.2,110],["Orange",60.1,99]]},{"i":"pgawest-nicklaus-tournament","g":11292,"n":"PGA West — Nicklaus Tournament","l":"La Quinta, CA","t":[["Black",75.3,143],["Blue",72.2,134],["Combo",70.7,130],["White",70,128],["Gold",68.1,122],["Gold/Red",66.5,117]]},{"i":"pgawest-greg-norman","g":11290,"n":"PGA West — Greg Norman","l":"La Quinta, CA","t":[["Black",75.1,139],["Blue",72.8,133],["White",70.6,126],["Gold",68.4,120],["Silver",59.7,98]]},{"i":"pgawest-nicklaus-private","g":11291,"n":"PGA West — Nicklaus Private","l":"La Quinta, CA","t":[["Black",74.5,145],["Blue",71.7,138],["White",68.5,129],["Gold",66.7,123],["Red",64.3,116],["Silver",59,100]]},{"i":"pgawest-arnold-palmer","g":11289,"n":"PGA West — Arnold Palmer","l":"La Quinta, CA","t":[["Black",73.9,141],["Blue",71.6,134],["Blue/White",70.3,129],["White",69.5,128],["Gold",67.3,121],["Gold/Red",66.2,118],["Red",65.3,115],["Silver",59.6,101]]},{"i":"pgawest-weiskopf","g":11293,"n":"PGA West — Tom Weiskopf","l":"La Quinta, CA","t":[["Black",74,130],["Blue",71.5,124],["White",69.1,118],["Gold",67.5,114],["Red",66.3,111],["Silver",61.4,100]]},{"i":"banff-springs-rundle-sulphur","g":19824,"n":"Banff Springs — Rundle/Sulphur","l":"Banff, AB","t":[["Black",72.6,131],["Black/White",70.6,128],["White",69.7,126],["White/Gold",68,123],["Gold",65.6,117],["Red",61.8,99]]},{"i":"banff-springs-rundle-tunnel","g":18712,"n":"Banff Springs — Rundle/Tunnel","l":"Banff, AB","t":[["Black",71,129],["White",68.4,125],["Gold",65.1,115],["Red",61.9,95]]},{"i":"banff-springs-sulphur-tunnel","g":18711,"n":"Banff Springs — Sulphur/Tunnel","l":"Banff, AB","t":[["Black",72,133],["White",69.5,127],["Gold",66.1,116],["Red",62.1,96]]},{"i":"banff-springs-tunnel","g":19825,"n":"Banff Springs — The Tunnel","l":"Banff, AB","t":[["Black",70.4,130],["White",68.2,125],["Gold",65.6,114],["Gold/Red",63.4,105],["Red",61.8,99]]},{"i":"desert-willow-firecliff","g":3851,"n":"Desert Willow — Firecliff","l":"Palm Desert, CA","t":[["Black",74.1,141],["Purple",72.1,136],["Purple/White",71,132],["White",69.9,128],["White/Tan",68.7,124],["Tan",67.5,120],["Tan/Green",66.1,116],["Green",65,112]]},{"i":"desert-willow-mountain-view","g":3852,"n":"Desert Willow — Mountain View","l":"Palm Desert, CA","t":[["Black",73,132],["Purple",71.2,128],["Purple/White",70.3,126],["White",69.4,124],["White/Tan",68.1,121],["Tan",66.6,117],["Tan/Green",70.9,130],["Green",64,110]]},{"i":"shadow-ridge-gc","g":5646,"n":"Shadow Ridge Golf Club","l":"Palm Desert, CA","t":[["Black",73.9,136],["Green",71.9,131],["Gold",69.6,125],["Combo",67.4,120],["White",65.1,114]]},{"i":"highlands-gc","g":18552,"n":"Highlands Golf Club","l":"Edmonton, AB","t":[["Black",70.7,126],["Black/White",69.4,124],["White",68.8,123],["White/Blue",67.5,120],["Blue",66.2,116]]},{"i":"glencoe-bridges-bridges","g":25872,"n":"The Glencoe Golf & Country Club — Bridges/Bridges","l":"Calgary, AB","t":[["Black",73.6,138],["Black / Blue Combo",73,136],["Blue",72.6,131],["Blue / White Combo",71.4,130],["White",69.8,124],["White / Gold Combo",67,118],["Gold",65.8,116],["Green",61.2,109]]},{"i":"glencoe-bridges-slopes","g":20286,"n":"The Glencoe Golf & Country Club — Bridges/Slopes","l":"Calgary, AB","t":[["Black",71.4,134],["Black/Blue Combo",70.6,132],["Blue",69.9,126],["Blue/White Combo",68.7,125],["White",67.5,121],["White/Gold Combo",65.9,117],["Gold",64.3,113],["Green",60.7,105]]},{"i":"glencoe-forest","g":23223,"n":"The Glencoe Golf & Country Club — Forest","l":"Calgary, AB","t":[["Championship Red",76.7,145],["Black",74.8,142],["Black/Blue",73.1,142],["Blue",72.4,138],["Blue/White",71.5,136],["White",70.5,133],["White/Gold",68.9,130],["Gold",68,128],["Silver",62.4,117],["Green",60.3,91]]},{"i":"stewart-creek","g":20129,"n":"Stewart Creek Golf & Country Club","l":"Canmore, AB","t":[["Black",74.2,143],["Blue",72.4,138],["Blue/White",71.1,139],["White",69.8,135],["White/Gold",68.7,131],["Gold",67.6,128],["Gold/Red",65.9,124],["Red",64.2,118]]},{"i":"kananaskis-kidd","g":18673,"n":"Kananaskis — Mount Kidd","l":"Kananaskis, AB","t":[["Black",73.7,140],["Red",71.2,136],["Blue",68.8,132],["White",66.2,123],["Orange",63,113],["Gold",58.6,95]]},{"i":"kananaskis-lorette","g":18674,"n":"Kananaskis — Mount Lorette","l":"Kananaskis, AB","t":[["Black",74.6,139],["Red",72.4,135],["Blue",70.4,130],["White",66.6,118],["Orange",63,110],["Gold",59.7,105]]},{"i":"silvertip-gc","g":17928,"n":"Silvertip Golf Resort","l":"Canmore, AB","t":[["Tournament",74.6,150],["Professional",71.7,147],["Championship",70.2,142],["SilverTip",68.3,140],["Forward",63.4,135]]},{"i":"pinnacle-peak-cc","g":11616,"n":"Pinnacle Peak Country Club","l":"Scottsdale, AZ","t":[["Championship Black",74,132],["Black/Blue",72.4,127],["Blue",71.6,126],["Blue/White",70.2,125],["White",69.2,123],["White/Green",67.8,122],["Green",66.8,120],["Green/Gold",64.6,114],["Gold",63.5,112]]},{"i":"mesa-cc","g":9431,"n":"Mesa Country Club","l":"Mesa, AZ","t":[["Black",73.9,136],["Black/Blue",73.3,134],["Blue",72.9,133],["Blue/White",71.7,131],["White",70.7,128],["White/Gold",69.7,126],["Gold",68.4,123],["Red",67.5,118],["Red/Teal",67.1,117]]},{"i":"las-sendas-gc","g":8270,"n":"Las Sendas Golf Club","l":"Mesa, AZ","t":[["Silver",73.3,141],["Black",72.2,137],["Gold",71.1,130],["Gold/Blue",70.2,127],["Blue",69.6,125],["Blue/White",67.6,122],["White",66.7,119],["Copper",65.2,113]]},{"i":"copper-point-the-point","g":17992,"n":"Copper Point — The Point","l":"Invermere, BC","t":[["Black",72.6,130],["Blue",71.4,128],["Green",68.8,126],["White",66.5,118],["White/Copper",63.9,113],["Copper",61.8,105]]},{"i":"copper-point-ridge","g":23237,"n":"Copper Point — Ridge Course","l":"Invermere, BC","t":[["Black",64,109],["Blue",61.5,106],["White",59.4,101],["Copper",57.6,95]]},{"i":"eagle-ranch-gc","g":17816,"n":"Eagle Ranch Golf Course","l":"Invermere, BC","t":[["Black",71.8,140],["Blue",69.7,134],["White",67.4,130],["Red",64.4,112]]},{"i":"greywolf-gc","g":19784,"n":"Greywolf Golf Course","l":"Panorama, BC","t":[["Grey",73.6,142],["Black",71.5,141],["Blue",69.2,132],["Gold (Combo)",66.4,126],["White",63.9,115],["Green",61.8,111]]},{"i":"springs-course","g":18774,"n":"The Springs Course","l":"Radium Hot Springs, BC","t":[["Black",72.1,128],["Blue",70.3,123],["Blue/White",69.4,120],["White",68,118],["Green",66.3,113],["Green/Gold",64.7,108],["Gold",63.7,107]]},{"i":"radium-course","g":18773,"n":"Radium Resort","l":"Radium Hot Springs, BC","t":[["Black",68.7,117],["Blue",67.7,116],["Blue/White",67.1,111],["White",66.4,109],["White/Green",65.3,105],["Green",64.9,102]]},{"i":"fairmont-mountainside","g":19791,"n":"Mountainside at Fairmont Hot Springs","l":"Fairmont Hot Springs, BC","t":[["Black",71.4,120],["Blue",69.6,119],["White",64.4,106]]},{"i":"fairmont-riverside","g":18807,"n":"Riverside at Fairmont Hot Springs","l":"Fairmont Hot Springs, BC","t":[["Black",69.7,132],["Black/Blue",68.3,129],["Blue",67.3,124],["White",64.4,107]]},{"i":"royal-colwood-gc","g":18880,"n":"Royal Colwood Golf Club","l":"Victoria, BC","t":[["Gold",72.6,130],["Macan",70.6,129],["Blue",69.1,127],["White",67.9,122],["White/Green",67,118],["Green",65.4,115],["Royal/Green",62.5,102],["Royal",61.1,95]]},{"i":"capilano-gcc","g":18845,"n":"Capilano Golf & Country Club","l":"West Vancouver, BC","t":[["Gold",73,130],["Gold/Blue",71.7,128],["Blue",71.3,128],["Blue/White",70.8,125],["White",70.3,125],["White/Silver",67.7,122],["Silver",67,119],["Green",64.5,115],["Family",55.4,94]]},{"i":"chateau-whistler-gc","g":18899,"n":"Chateau Whistler Golf Club","l":"Whistler, BC","t":[["Gold",72,142],["Blue",70.1,137],["Fairmont",68.8,133],["White",67.7,125],["Red",65,121]]},{"i":"nicklaus-north-gc","g":18883,"n":"Nicklaus North Golf Club","l":"Whistler, BC","t":[["Gold",73,138],["Gold/Blue",71.3,136],["Blue",70.3,130],["White",68.3,126],["White/Green",67.3,122],["Green",66.1,113],["Green/Red",64.6,111],["Red",62.8,106]]},{"i":"trickle-creek-gc","g":18759,"n":"Trickle Creek Golf Resort","l":"Kimberley, BC","t":[["Black",73.9,131],["Black/Blue",72.6,132],["Blue",71.2,126],["Blue/White",69.4,119],["White",67.4,117],["White/Green",66.3,114],["Green",64.9,112]]},{"i":"willow-park-gcc","g":18713,"n":"Willow Park Golf & Country Club","l":"Calgary, AB","t":[["Black",70.9,129],["Blue",69.5,126],["Blue/White",68.2,123],["White",67.5,119],["White/Gold",65.7,114],["Gold",64.3,106],["Gold/Silver",63.2,104],["Silver",62.3,102]]},{"i":"boulders-north","g":1459,"n":"Boulders Golf Club — North Course","l":"Carefree, AZ","t":[["Black",73.3,140],["Blue",72.6,139],["Blue/White",71.1,134],["White",70.1,131],["White/Copper",69,126],["Copper",68.3,123],["Gold",66,116]]},{"i":"boulders-south","g":1460,"n":"Boulders Golf Club — South Course","l":"Carefree, AZ","t":[["Black",72.9,142],["Blue",71.8,142],["Blue/White",70.8,137],["White",69.9,135],["White/Copper",68.7,125],["Copper",67.6,120],["Gold",65.4,115]]},{"i":"boulders-fn-bs","g":32786,"n":"Boulders Golf Club — Front N/Back S","l":"Carefree, AZ","t":[["Blue",71.4,138],["Blue/White",70.4,134],["White",69.5,132],["White/Copper",69,124],["Copper",68.1,120],["Gold",65.7,114]]},{"i":"boulders-fs-fn","g":32788,"n":"Boulders Golf Club — Front S/Front N","l":"Carefree, AZ","t":[["Blue",71.4,139],["Blue/White",70.2,134],["White",69.6,132],["White/Copper",68.5,125],["Copper",67.5,122],["Gold",66.1,116]]},{"i":"boulders-fs-bn","g":32787,"n":"Boulders Golf Club — Front S/Back N","l":"Carefree, AZ","t":[["Blue",73,143],["Blue/White",71.5,137],["White",70.5,134],["White/Copper",68.7,127],["Copper",67.8,122],["Gold",65.7,117]]},{"i":"boulders-bs-bn","g":32785,"n":"Boulders Golf Club — Back S/Back N","l":"Carefree, AZ","t":[["Blue",73,142],["Blue/White",71.7,137],["White",70.4,134],["White/Copper",69.2,126],["Copper",68.4,121],["Gold",65.3,115]]},{"i":"mickelson-national-gc","g":33931,"n":"Mickelson National Golf Club","l":"Calgary, AB","t":[["Deck 1",75.3,143],["Hybrid 1/2",73.8,138],["Deck 2",72.8,133],["Deck 3",71.3,129],["Hybrid 3/4",69.8,127],["Deck 4",69.2,124],["Deck 5",66.9,117],["Hybrid 5/6",64.6,112],["Deck 6",63.1,108],["Deck 7",59.2,99],["Deck 8",56,92]]},{"i":"canyon-meadows-gc","g":18587,"n":"Canyon Meadows Golf & Country Club","l":"Calgary, AB","t":[["Black",74.1,138],["Grey",72.5,132],["Blue",71,130],["White",69.3,127],["Green",68.4,120],["Purple",66.3,114],["Gold",64.1,112],["Red",61.3,106]]},{"i":"eagle-mountain-gc","g":5590,"n":"Eagle Mountain Golf Club","l":"Fountain Hills, AZ","t":[["Gold",71.4,134],["Green",69.1,127],["Green/White",68,124],["White",67,120]]},{"i":"phoenician-gc","g":11327,"n":"The Phoenician Golf Club","l":"Scottsdale, AZ","t":[["Players",70.5,128],["Member",69.4,125],["Phoenician",68,122],["Canyon",64.7,112],["Jokake",61,100]]},{"i":"longbow-gc","g":8733,"n":"Longbow Golf Club","l":"Mesa, AZ","t":[["Black",73.3,136],["Green",70.6,129],["Green/White",69,124],["White",67.5,121],["White/Red",66.3,117],["Red",65.1,113]]},{"i":"lookout-mountain-gc","g":11769,"n":"Lookout Mountain Golf Club","l":"Phoenix, AZ","t":[["Blue",70.4,131],["Blue/White",68.6,127],["White",67.6,124],["Gold",65.5,115]]},{"i":"lakes-palm-mountain","g":33624,"n":"The Lakes CC — Palm & Mountain","l":"Palm Desert, CA","t":[["Black",72.4,130],["Gold",70.4,126],["Green",68.7,121],["Silver",67.9,118],["Red",66.2,113],["Bronze",64.8,110],["Tee it Forward",60.9,101]]},{"i":"lakes-mountain-lake","g":33626,"n":"The Lakes CC — Mountain & Lake","l":"Palm Desert, CA","t":[["Black",72.1,129],["Gold",70.1,124],["Green",68,119],["Silver",67.4,117],["Red",65.7,112],["Bronze",64.4,109],["Tee it Forward",60.5,93]]},{"i":"lakes-lake-palm","g":33625,"n":"The Lakes CC — Lake & Palm","l":"Palm Desert, CA","t":[["Black",71.1,129],["Gold",69.3,125],["Green",67.5,120],["Silver",66.3,116],["Red",64.9,111],["Bronze",63.4,107],["Tee it Forward",59.5,98]]},{"i":"desert-springs-palm","g":9111,"n":"Desert Springs — Palm Course","l":"Palm Desert, CA","t":[["Black",72.7,132],["Black/Blue",71.6,129],["Blue",70.9,127],["Blue/White",70.3,125],["White",66.9,124],["Red",66.8,117]]},{"i":"desert-springs-valley","g":9112,"n":"Desert Springs — Valley Course","l":"Palm Desert, CA","t":[["Black",71.9,130],["Black/Blue",70.3,126],["Blue",69.1,123],["Blue/White",67,117],["White",65.7,114]]},{"i":"gallaghers-canyon","g":18934,"n":"Gallaghers Canyon — Canyon Course","l":"Kelowna, BC","t":[["Tour",72.8,136],["Canyon/Tour",72.2,136],["Canyon",71.5,132],["Canyon/Mountain",70.6,126],["Mountain",70,125],["Mountain/Ponderosa",68.9,122],["Ponderosa",67.7,116],["Ponderosa/Sunset",65.3,111],["Sunset",61.9,105]]},{"i":"gallaghers-pinnacle","g":18935,"n":"Gallaghers Canyon — Pinnacle Course","l":"Kelowna, BC","t":[["Blue",60.4,105],["White/Blue",60,102],["White",59.5,99]]},{"i":"cabot-links","g":32291,"n":"Cabot Links","l":"Inverness, NS","t":[["Black",72.8,132],["Green",70.9,125],["Silver",68.4,123],["Hybrid",66.9,114],["Orange",63.3,106]]},{"i":"cabot-cliffs","g":null,"n":"Cabot Cliffs","l":"Inverness, NS","t":[["Black",74.3,144],["Green",72.5,142],["Silver",71.5,136],["Silver/Orange",68.6,129],["Orange",66.5,118],["Blue",62.5,106]]},{"i":"highlands-links","g":19124,"n":"Cape Breton Highlands Links","l":"Ingonish, NS","t":[["Blue",73.5,144],["White Long",72,140],["White",71.5,138],["White/Yellow",69.2,133],["Yellow",66.8,126]]},{"i":"crowbush-cove","g":19156,"n":"Links at Crowbush Cove","l":"West St. Peters, PEI","t":[["Black",74.9,155],["Gold",73.6,146],["White",71.3,138],["Green",67.7,127],["Red",65,120]]},{"i":"royal-montreal-blue","g":19277,"n":"Royal Montreal Golf Club — Blue Course","l":"Île-Bizard, QC","t":[["Black",76.6,142],["Gold",75.4,141],["Blue",74.1,139],["White",72.2,133],["White-Red",69.5,132],["Red",68,128],["Red-Yellow",66.8,121],["Yellow",65.7,119]]},{"i":"royal-montreal-dixie","g":19278,"n":"Royal Montreal Golf Club — Dixie Course","l":"Île-Bizard, QC","t":[["Blue",71.8,136],["White",70.8,131],["Red",67.8,124],["Yellow",65.8,116],["Dixie 2",61.4,108],["Dixie 1",55.8,93]]},{"i":"royal-montreal-red","g":19279,"n":"Royal Montreal Golf Club — Red Course","l":"Île-Bizard, QC","t":[["Gold",73.1,132],["Blue",71.9,130],["White",71.4,127],["White-Red",69.1,127],["Red",67.2,126],["Red-Yellow",65.8,120],["Yellow",64.7,114]]},{"i":"makena-gc","g":8942,"n":"Makena Golf and Beach Club","l":"Makena, HI","t":[["Outrigger",74.7,138],["Mauka I",72.5,134],["Mauka I Composite",71.4,132],["Mauka II",70.8,131],["Mauka III",68.9,122],["Mauka Composite II",67.3,118],["Mauka IV",66,115]]},{"i":"wailea-blue","g":15890,"n":"Wailea Golf Club — Blue Course","l":"Wailea, HI","t":[["Tsunami Black",70.7,130],["White/Gold Combo",70.5,128],["Wipeout White",69.2,126],["Shore Break Gold",63.4,112]]},{"i":"wailea-emerald","g":15891,"n":"Wailea Golf Club — Emerald Course","l":"Wailea, HI","t":[["Emerald",72.8,134],["Blue",70.8,129],["Combo",69.8,128],["White",68.5,120],["Red",65.4,118]]},{"i":"wailea-gold","g":15892,"n":"Wailea Golf Club — Gold Course","l":"Wailea, HI","t":[["Gold",74.5,135],["Blue",72.1,136],["Combo",70.8,134],["White",70,130],["Red",65.7,120]]},{"i":"bandon-bandon-dunes","g":623,"n":"Bandon Dunes — Bandon Dunes Course","l":"Bandon, OR","t":[["Tournament",75.9,145],["Black",73.5,143],["Green",71.1,133],["Gold",69.1,124]]},{"i":"bandon-pacific-dunes","g":624,"n":"Bandon Dunes — Pacific Dunes","l":"Bandon, OR","t":[["Black",73.2,143],["Green",70.8,135],["Gold",68.9,131]]},{"i":"bandon-old-macdonald","g":24921,"n":"Bandon Dunes — Old MacDonald","l":"Bandon, OR","t":[["Black",74.4,134],["Green",71.4,127],["Gold",67.8,117],["Orange",65.1,112],["Royal Blue",62.6,104]]},{"i":"bandon-trails","g":19964,"n":"Bandon Dunes — Bandon Trails","l":"Bandon, OR","t":[["Black",74.9,136],["Green",72,137],["Gold",69.6,132]]},{"i":"bandon-sheep-ranch","g":33954,"n":"Bandon Dunes — Sheep Ranch","l":"Bandon, OR","t":[["Black",71.9,121],["Green",70,116],["Gold",67.9,109],["Royal Blue",61,97]]},{"i":"pinehurst-no1","g":24070,"n":"Pinehurst — No. 1","l":"Pinehurst, NC","t":[["Blue",68.4,118],["White",67.4,113],["Green",65.5,109],["Red",64.1,107]]},{"i":"pinehurst-no2","g":24071,"n":"Pinehurst — No. 2","l":"Pinehurst, NC","t":[["US Open",77.9,149],["Blue",75.4,143],["Ross",73.6,141],["White",72,139],["Tufts",70.3,136],["Green",69.1,135],["Red",66.8,128]]},{"i":"pinehurst-no3","g":24072,"n":"Pinehurst — No. 3","l":"Pinehurst, NC","t":[["White",66.1,123],["Green",64.8,118],["Red",63,109],["Yellow",60.4,105]]},{"i":"pinehurst-no4","g":24073,"n":"Pinehurst — No. 4","l":"Pinehurst, NC","t":[["Gold",74.9,138],["Blue",73.7,135],["White",70.8,131],["Green",68.5,123],["Red",65.4,116]]},{"i":"pinehurst-no5","g":24074,"n":"Pinehurst — No. 5","l":"Pinehurst, NC","t":[["Gold",73.1,135],["Blue",72,132],["White",69.8,126],["Green",67.4,119],["Red",64.9,112]]},{"i":"pinehurst-no6","g":24075,"n":"Pinehurst — No. 6","l":"Pinehurst, NC","t":[["Gold",74.7,139],["Blue",72.6,134],["White",70.7,125],["Green",68.3,120]]},{"i":"pinehurst-no7","g":24076,"n":"Pinehurst — No. 7","l":"Pinehurst, NC","t":[["Gold",75.5,149],["Blue",73.7,140],["Jones",72.2,134],["White",71.6,130],["Fairwoods",70.5,126],["Green",68.7,121]]},{"i":"pinehurst-no8","g":24069,"n":"Pinehurst — No. 8","l":"Pinehurst, NC","t":[["Gold",74.1,137],["Blue",72.3,131],["White",70.3,128],["Centennial (White/Green)",68.8,124],["Green",68,121]]},{"i":"pinehurst-no9","g":33049,"n":"Pinehurst — No. 9","l":"Pinehurst, NC","t":[["Gold",74.2,135],["Blue",71.6,134],["White",69.6,125],["Green",67.2,110],["Red",64.3,108]]},{"i":"pinehurst-no10","g":34440,"n":"Pinehurst — No. 10","l":"Pinehurst, NC","t":[["Blue",74.1,142],["Blue/White Hybrid",72.7,139],["White",71.5,137],["White/Green Hybrid",69.9,134],["Green",68.2,129],["Green/Red Hybrid",65.6,122],["Red",64.3,117]]},{"i":"reynolds-great-waters","g":5844,"n":"Reynolds Lake Oconee — Great Waters","l":"Greensboro, GA","t":[["One",74,140],["Two",72,135],["Tournament",71.3,133],["Three",69.7,131],["Four",67.8,124]]},{"i":"reynolds-national-cove-ridge","g":25248,"n":"Reynolds Lake Oconee — National Club (Cove/Ridge)","l":"Greensboro, GA","t":[["#1",73.9,141],["#2",71.8,137],["Tournament",71,134],["#3",70,128],["#4",68.6,125]]},{"i":"reynolds-preserve","g":23684,"n":"Reynolds Lake Oconee — The Preserve","l":"Greensboro, GA","t":[["#1",72.2,133],["#2",70.4,127],["Tournament",69.5,126],["#3",68.4,122],["#4",65.5,111]]},{"i":"reynolds-national-bluff-cove","g":25247,"n":"Reynolds Lake Oconee — National Club (Bluff/Cove)","l":"Greensboro, GA","t":[["#1",74,139],["#2",72,138],["Tournament",71,136],["#3",70,132],["#4",68.6,128],["Mixed",67.5,127]]},{"i":"reynolds-national-ridge-bluff","g":12394,"n":"Reynolds Lake Oconee — National Club (Ridge/Bluff)","l":"Greensboro, GA","t":[["Gold",73.6,138],["Blue",71.4,133],["Tournament",71,131],["White",69.7,126],["Green",68.2,123]]},{"i":"reynolds-richland","g":35020,"n":"Reynolds Lake Oconee — Richland","l":"Greensboro, GA","t":[["I",74,140],["I/II",72.4,137],["II",71.5,134],["II/III",70.3,131],["III",69.5,129],["III/IV",67.9,126],["IV",66.9,124],["IV/V",65.2,120],["V",64.1,118]]},{"i":"reynolds-creek-club","g":25246,"n":"Reynolds Lake Oconee — The Creek Club","l":"Greensboro, GA","t":[["One",72.8,137],["One/Three",70.2,130],["Three",69.1,127],["Three/Four",67.3,121],["Four",65.7,115]]},{"i":"reynolds-landing","g":25280,"n":"Reynolds Lake Oconee — The Landing","l":"Greensboro, GA","t":[["One",74.4,138],["Two",71.4,131],["Three",69.4,126],["Four",67.8,122]]},{"i":"reynolds-oconee-club","g":17459,"n":"Reynolds Lake Oconee — The Oconee Club","l":"Greensboro, GA","t":[["#0",75.2,141],["#1",73.8,139],["#2",72.8,136],["Tournament",71.4,134],["#3",70.5,130],["#4",67.5,121],["Mixed",65.4,117],["#5",65,115],["Forward 2",60.9,109]]},{"i":"redtail-landing","g":17961,"n":"RedTail Landing Golf Club","t":[["Black",74.4,132],["Blue",71.7,125],["White",70.1,121],["White/Green",69.1,117],["Green",68,114],["Gold",64.6,99],["Orange",59.5,88]]},{"i":"jagare-ridge-gc","g":17926,"n":"Jagare Ridge Golf Club","t":[["Black",70.5,128],["Blue",68.9,123],["White",66.6,117],["Red",63.1,110]]},{"i":"northern-bear-gc","g":17943,"n":"Northern Bear Golf Club","l":"Sherwood Park, AB","t":[["Black",75.1,137],["Gold",73.2,131],["Blue",72.3,128],["Blue/White Combo",70.6,123],["White",69.6,121],["White/Red Combo",67,117],["Red",65.4,113]]},{"i":"windermere-valley","g":18726,"n":"Windermere Valley Golf Course","l":"Windermere, BC","t":[["White",63,99],["Red",62,94]]}];
+const SK = 'pards_gc';
+let _tok=null,_tokExp=0,STOP=false,RESULT=null;
+
+function loadCreds(){ try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch(e){return{}} }
+function saveCreds(c){ try{localStorage.setItem(SK,JSON.stringify(c))}catch(e){} }
+function wBase(){ return (document.getElementById('workerUrl').value||loadCreds().worker||'').replace(/\/+$/,''); }
+function credNote(m,k){const e=document.getElementById('credNote');e.textContent=m;e.className='note '+(k||'dim');}
+function runNote(m,k){const e=document.getElementById('runNote');e.textContent=m;e.className='note '+(k||'dim');}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const c=loadCreds();
+  if(c.worker)   document.getElementById('workerUrl').value=c.worker;
+  if(c.username) document.getElementById('gcUser').value=c.username;
+  if(c.password) document.getElementById('gcPass').value=c.password;
+  if(c.username&&c.password) credNote('Saved login found — you can go straight to Run Harvest.','ok');
+});
+
+async function getToken(){
+  const now=Date.now();
+  if(_tok&&now<_tokExp-10000) return _tok;
+  const c=loadCreds();
+  const w=wBase()||c.worker;
+  if(!w||!c.username||!c.password) throw new Error('No credentials saved.');
+  const r=await fetch(w+'/token',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username:c.username,password:c.password})});
+  if(!r.ok) throw new Error('Login failed ('+r.status+'): '+(await r.text()).slice(0,110));
+  const d=await r.json();
+  if(!d.access_token) throw new Error('No token returned.');
+  _tok=d.access_token;_tokExp=now+((d.expires_in||3600)*1000);
+  return _tok;
+}
+
+async function saveAndTest(){
+  const w=document.getElementById('workerUrl').value.trim();
+  const u=document.getElementById('gcUser').value.trim();
+  const p=document.getElementById('gcPass').value;
+  if(!w||!u||!p){credNote('Fill in all three fields.','err');return;}
+  saveCreds({...loadCreds(),worker:w,username:u,password:p});
+  _tok=null;_tokExp=0;credNote('Testing…','dim');
+  try{ await getToken(); credNote('✓ Login successful — credentials saved.','ok'); }
+  catch(e){ credNote('✗ '+e.message,'err'); }
+}
+function clearCreds(){
+  try{localStorage.removeItem(SK)}catch(e){}
+  _tok=null;_tokExp=0;
+  document.getElementById('gcUser').value='';document.getElementById('gcPass').value='';
+  credNote('Cleared.','dim');
+}
+
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+async function fetchCourse(gnId){
+  const tok=await getToken();
+  const r=await fetch(wBase()+'/course/get?courseId='+encodeURIComponent(gnId),
+      {headers:{Authorization:'Bearer '+tok}});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  const d=await r.json();
+  if(!d||!d.id) throw new Error('empty payload');
+  return d;
+}
+
+// join one app course against a GolfNet payload, on rating+slope, Mens tees only
+function joinCourse(app, gn){
+  const mens=(gn.tees||[]).filter(t=>t.type==='Mens');
+  const tees=app.t.map(([name,rating,slope])=>{
+    const cands=mens.filter(g=>g.rating===rating && g.slope===slope);
+    if(cands.length===1)
+      return {name,rating,slope,teeId:cands[0].id,gnName:cands[0].name,
+              nameMatch:cands[0].name===name,ambiguous:false};
+    return {name,rating,slope,teeId:null,gnName:null,nameMatch:false,ambiguous:cands.length>1,
+            candidates:cands.map(c=>({id:c.id,name:c.name}))};
+  });
+  const hit=tees.filter(t=>t.teeId!=null).length;
+  const status = hit===tees.length ? 'CLEAN' : hit===0 ? 'FAILED' : 'PARTIAL';
+  return {status,hit,total:tees.length,tees};
+}
+
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function addRow(app,gn,res){
+  const tb=document.getElementById('tbody');
+  const tr=document.createElement('tr');
+  tr.className=res.status;
+  let detail;
+  if(res.status==='ERROR') detail='<span class="dimtxt">'+esc(res.error)+'</span>';
+  else{
+    const bits=[];
+    bits.push('<span class="dimtxt">'+esc(gn&&gn.name||'')+'</span>');
+    const misses=res.tees.filter(t=>t.teeId==null);
+    if(misses.length) bits.push('unmatched: '+misses.map(t=>esc(t.name)+' ('+t.rating+'/'+t.slope+')'
+        +(t.ambiguous?' <b>ambiguous</b>':'')).join(', '));
+    const rn=res.tees.filter(t=>t.teeId!=null&&!t.nameMatch);
+    if(rn.length) bits.push('<span class="dimtxt">name differs: '
+        +rn.map(t=>esc(t.name)+'→'+esc(t.gnName)).join(', ')+'</span>');
+    detail=bits.join('<br>');
+  }
+  tr.innerHTML='<td>'+esc(app.n)+'<br><span class="dimtxt">'+esc(app.l||'')+'</span></td>'
+    +'<td class="mono">'+esc(app.g)+'</td>'
+    +'<td><span class="tag '+res.status+'">'+res.status+'</span></td>'
+    +'<td class="mono">'+(res.status==='ERROR'?'—':res.hit+'/'+res.total)+'</td>'
+    +'<td>'+detail+'</td>';
+  tb.appendChild(tr);
+  tb.parentElement.parentElement.scrollTop=tb.parentElement.parentElement.scrollHeight;
+}
+
+function renderStats(s){
+  document.getElementById('stats').innerHTML=
+     '<div class="stat gold"><b>'+s.teeIds+'</b><span>teeIds found</span></div>'
+    +'<div class="stat ok"><b>'+s.clean+'</b><span>clean courses</span></div>'
+    +'<div class="stat warn"><b>'+s.partial+'</b><span>partial</span></div>'
+    +'<div class="stat bad"><b>'+(s.failed+s.error)+'</b><span>failed</span></div>'
+    +'<div class="stat"><b>'+s.done+'/'+s.totalCourses+'</b><span>courses</span></div>';
+}
+
+async function runHarvest(){
+  const c=loadCreds();
+  if(!c.username||!c.password){credNote('Save your login first.','err');return;}
+  STOP=false;RESULT=null;
+  document.getElementById('tbody').innerHTML='';
+  ['btnRun','btnDl','btnCopy'].forEach(i=>document.getElementById(i).disabled=true);
+  document.getElementById('btnStop').disabled=false;
+
+  const mapped=REGISTRY.filter(c=>c.g!=null);
+  const byId=new Map();
+  mapped.forEach(c=>{ if(!byId.has(c.g)) byId.set(c.g,[]); byId.get(c.g).push(c); });
+  const ids=[...byId.keys()];
+
+  const out=[], s={clean:0,partial:0,failed:0,error:0,teeIds:0,done:0,totalCourses:mapped.length};
+  runNote('Signing in…');
+  try{ await getToken(); }catch(e){ runNote('✗ '+e.message,'err');
+    document.getElementById('btnRun').disabled=false;document.getElementById('btnStop').disabled=true;return; }
+
+  for(let i=0;i<ids.length;i++){
+    if(STOP){runNote('Stopped after '+i+' of '+ids.length+' lookups.','err');break;}
+    const gnId=ids[i], apps=byId.get(gnId);
+    runNote('['+(i+1)+'/'+ids.length+'] GolfNet '+gnId+' — '+apps.map(a=>a.n).join(' / '));
+    let gn=null,err=null;
+    for(let attempt=0;attempt<2&&!gn;attempt++){
+      try{ gn=await fetchCourse(gnId); }
+      catch(e){ err=e.message; if(attempt===0) await sleep(700); }
+    }
+    for(const app of apps){
+      let res;
+      if(!gn){ res={status:'ERROR',error:err,hit:0,total:app.t.length,tees:[]}; s.error++; }
+      else{
+        res=joinCourse(app,gn);
+        s[res.status.toLowerCase()]++;
+        s.teeIds+=res.hit;
+      }
+      s.done++;
+      addRow(app,gn,res);
+      out.push({
+        id:app.i, name:app.n, location:app.l, golfNetId:app.g,
+        gnId: gn?gn.id:null, gnName: gn?gn.name:null,
+        gnCity: gn?[gn.city,gn.region].filter(Boolean).join(' '):null,
+        idMatches: gn? gn.id===app.g : null,
+        status:res.status, matched:res.hit, total:res.total,
+        error:res.error||null,
+        tees:res.tees,
+        gnTees: gn?(gn.tees||[]).map(t=>({id:t.id,name:t.name,type:t.type,rating:t.rating,slope:t.slope,
+                  par:t.par,yardage:t.yardage,frontRating:t.frontRating,backRating:t.backRating,
+                  frontSlope:t.frontSlope,backSlope:t.backSlope})):[]
+      });
+    }
+    document.getElementById('barFill').style.width=((i+1)/ids.length*100).toFixed(1)+'%';
+    renderStats(s);
+    await sleep(220);
+  }
+
+  const unmapped=REGISTRY.filter(c=>c.g==null).map(c=>({id:c.i,name:c.n,location:c.l,tees:c.t.length}));
+  RESULT={ tool:'golfnet-harvest', generatedAt:new Date().toISOString(),
+           summary:{...s, lookups:ids.length, coursesWithoutGolfNetId:unmapped.length},
+           unmapped, courses:out };
+  if(!STOP) runNote('✓ Done — '+s.teeIds+' teeIds across '+s.done+' courses. '
+      +s.clean+' clean, '+s.partial+' partial, '+(s.failed+s.error)+' failed.','ok');
+  ['btnRun','btnDl','btnCopy'].forEach(i=>document.getElementById(i).disabled=false);
+  document.getElementById('btnStop').disabled=true;
+}
+
+function downloadJSON(){
+  if(!RESULT)return;
+  const b=new Blob([JSON.stringify(RESULT,null,1)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download='golfnet-harvest.json';a.click();
+  URL.revokeObjectURL(a.href);
+  runNote('✓ Saved golfnet-harvest.json','ok');
+}
+function copyJSON(){
+  if(!RESULT)return;
+  navigator.clipboard.writeText(JSON.stringify(RESULT,null,1))
+    .then(()=>runNote('✓ Copied to clipboard.','ok'));
+}
+</script>
+</body>
+</html>
