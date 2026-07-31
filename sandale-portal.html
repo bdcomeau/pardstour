@@ -249,6 +249,12 @@ td.sc{font-weight:900;font-size:17px;font-variant-numeric:tabular-nums}
       <button data-b="gross">Gross</button>
       <button data-b="high">High score</button>
     </div>
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
+      <button id="btnrefresh" style="flex:0 0 auto;padding:8px 15px;border-radius:9px;font-size:12px;
+        font-weight:800;letter-spacing:.04em;background:rgba(255,255,255,.10);color:#fff;
+        border:1px solid rgba(255,255,255,.22)">&#8635; Refresh</button>
+      <div id="refnote" class="note" style="margin:0;flex:1 1 auto;text-align:left"></div>
+    </div>
     <div id="boardnote" class="note" style="margin-top:0"></div>
     <div id="boardwrap"></div>
   </div>
@@ -485,7 +491,7 @@ function callaway(holeScores){
 var FIRST='Dave Lisa Bruce Karen Tyler Sandra Mike Joanne Rick Cheryl Greg Tanya Doug Patti Wayne Colleen Scott Brenda Jeff Marlene Kyle Dana Trevor Shannon Ron Angie Craig Nicole Barry Lorraine Chad Heather Dean Tracy Neil Robin Glen Wendy Curtis Michelle'.split(' ');
 var LAST='Comeau Leicht Goplin Somers Kowalchuk Beaudry Nakamura Fontaine Osei Vandenberg Prashad Mercier Halvorsen Dube Cardinal Whitecalf Bergeron Lindqvist Amaro Tessier'.split(' ');
 
-var S={ groups:[], me:null, hole:1, board:'net', pane:'entry' };
+var S={ groups:[], me:null, hole:1, board:'net', pane:'entry', mycode:null };
 
 function rnd(seed){ var x=Math.sin(seed)*10000; return x-Math.floor(x); }
 
@@ -839,6 +845,7 @@ $('btnjoin').addEventListener('click', function(){
        2026-07-31 (four POSTs, four 400s) and reproduced by repro-postwrite §2/§3/§4.
        Stamp the code the scorer actually typed onto the group they joined. */
     S.groups[gi].code = code;
+    S.mycode          = code;   /* s42 — survives a refresh, via rejoinAfterRefresh */
   }
   $('entryerr').innerHTML='';
   S.me=gi;
@@ -913,7 +920,7 @@ function liveNote(msg, good){
 
 function loadLive(){
   if(typeof fetch!=='function'){ S.live=false; return; }   /* jsdom/no-fetch: stay on sample data */
-  fetch(CFG.API+'/api/events/watch', {
+  return fetch(CFG.API+'/api/events/watch', {
     method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify({ event_code: CFG.EVENT_CODE })
   }).then(function(r){ return r.json(); })
@@ -921,6 +928,7 @@ function loadLive(){
       if(!d || !d.standings || !d.standings.length) throw new Error('no standings');
       S.groups = buildLive(d.standings);
       S.live   = true;
+      rejoinAfterRefresh();   /* s42 — MUST run before any render; see the function comment */
       renderTicker();
       renderSponsors();     /* s41: impcount lives HERE, not in renderTicker — the sponsor
                                rate-card number would otherwise keep showing the sample field */
@@ -931,6 +939,21 @@ function loadLive(){
       S.live = false;
       liveNote('\u26a0 Could not reach the scoring server. Showing SAMPLE data, not the real field.', false);
     });
+}
+
+/* ⭐⭐⭐ s42 — A REFRESH MUST NOT UN-JOIN THE SCORER.
+   loadLive() REPLACES S.groups wholesale. That throws away the code stamped onto the
+   joined group at entry — and that code is the only reason writing works at all (see the
+   btnjoin handler). buildLive() also re-sorts by start hole, so a stale S.me index can
+   point at a DIFFERENT group if the field changed between loads, which brief §7 says
+   must be expected. Re-resolve by the code the scorer actually typed: it is the one
+   stable identifier we hold. Gated by repro-postwrite §7. */
+function rejoinAfterRefresh(){
+  if(!S.mycode) return;                 /* a watcher never joined — nothing to restore */
+  var gi=findGroup(S.mycode);
+  if(gi<0) return;                      /* their group left the field: leave S.me alone */
+  S.groups[gi].code = S.mycode;
+  S.me = gi;
 }
 
 /* Typed code -> group. Real codes are not in the watch payload yet, so this
@@ -950,6 +973,25 @@ function findGroup(code){
   }
   return -1;
 }
+
+/* ⭐⭐ s42 — THE BOARD IS A SNAPSHOT TAKEN AT PAGE LOAD. This is the only way to pull a
+   new one, and it is user-initiated ON PURPOSE. An auto-refresh across a 30-group field
+   reads ~2,300 D1 rows per tick, and the free tier fails CLOSED (brief §2) — a board that
+   refreshes itself is the exact shape of the outage that brief predicted. A button keeps
+   the read volume bounded by how often somebody actually wants to know. */
+$('btnrefresh').addEventListener('click', function(){
+  var b=$('btnrefresh'); if(b.disabled) return;
+  b.disabled=true; $('refnote').textContent='Refreshing\u2026';
+  var done=function(){
+    b.disabled=false;
+    renderBoard();
+    $('refnote').textContent = S.live
+      ? ('Updated '+new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'}))
+      : '\u26a0 Could not reach the server \u2014 showing the last standings loaded.';
+  };
+  var p=loadLive();
+  if(p && typeof p.then==='function') p.then(done, done); else done();
+});
 
 /* ---------- boot ---------- */
 S.groups=buildDemo();   /* instant fallback so the screen is never blank */
