@@ -238,6 +238,7 @@ td.sc{font-weight:900;font-size:17px;font-variant-numeric:tabular-nums}
         <button id="hnext">›</button>
       </div>
     </div>
+    <div id="writenote"></div>
     <div id="players"></div>
     <div class="note" id="cardnote"></div>
   </div>
@@ -491,7 +492,7 @@ function callaway(holeScores){
 var FIRST='Dave Lisa Bruce Karen Tyler Sandra Mike Joanne Rick Cheryl Greg Tanya Doug Patti Wayne Colleen Scott Brenda Jeff Marlene Kyle Dana Trevor Shannon Ron Angie Craig Nicole Barry Lorraine Chad Heather Dean Tracy Neil Robin Glen Wendy Curtis Michelle'.split(' ');
 var LAST='Comeau Leicht Goplin Somers Kowalchuk Beaudry Nakamura Fontaine Osei Vandenberg Prashad Mercier Halvorsen Dube Cardinal Whitecalf Bergeron Lindqvist Amaro Tessier'.split(' ');
 
-var S={ groups:[], me:null, hole:1, board:'net', pane:'entry', mycode:null };
+var S={ groups:[], me:null, hole:1, board:'net', pane:'entry', mycode:null, failed:[], lastSaved:null };
 
 function rnd(seed){ var x=Math.sin(seed)*10000; return x-Math.floor(x); }
 
@@ -858,21 +859,59 @@ $('btnwatch').addEventListener('click', function(){
   showPane('board');
 });
 
+/* ⭐⭐⭐ s42 — THE WRITE MUST TELL YOU WHEN IT FAILS.
+   The original form of this function was:
+       fetch(...).catch(function(){ ...offline tolerant... });
+   and it had no .then at all. ⭐⭐⭐ fetch() DOES NOT REJECT ON 400/409/500 — it RESOLVES.
+   So the .catch() never even ran: on 2026-07-31 four writes came back HTTP 400 as four
+   perfectly successful promises, the card advanced, and nothing reached D1. The bug class
+   is not 'a swallowed catch', it is 'nothing ever looked at the response'.
+   ⭐⭐ That single omission hides EVERY failure mode at once: a wrong group code (400), an
+   event still in draft (409 — the real Sandale event id 75 is draft TODAY), a worker
+   hiccup (500), a CORS change, a future config typo. This is the systemic fix; the
+   group_code fix earlier today only covered one of those.
+   ⭐ Same principle as the Live/SAMPLE banner: a thing that looks like it worked and did
+   not is worse than an obvious failure. Gated by repro-postwrite §8. */
+function writeOutcome(hole, ok){
+  var i=S.failed.indexOf(hole);
+  if(ok){ if(i>=0) S.failed.splice(i,1); S.lastSaved=hole; }
+  else if(i<0) S.failed.push(hole);
+  S.failed.sort(function(a,b){ return a-b; });
+  renderWriteNote();
+}
+function renderWriteNote(){
+  var el=$('writenote'); if(!el) return;
+  if(S.failed.length){
+    el.innerHTML='<div style="background:#fdecea;color:#a3271b;border:1px solid #efb4ac;'+
+      'border-radius:9px;padding:10px 12px;font-size:13px;font-weight:800;margin-bottom:11px">'+
+      '\u26a0 NOT SAVED \u2014 hole'+(S.failed.length>1?'s ':' ')+S.failed.join(', ')+
+      '. Go back to '+(S.failed.length>1?'each one':'it')+' and tap Save again.</div>';
+  } else if(S.lastSaved!=null){
+    el.innerHTML='<div style="background:#eaf5ee;color:#1F5C3D;border:1px solid #b7d9c4;'+
+      'border-radius:9px;padding:8px 12px;font-size:12px;font-weight:800;margin-bottom:11px">'+
+      '\u2713 Hole '+S.lastSaved+' saved</div>';
+  } else el.innerHTML='';
+}
+
 /* live write — idempotent, matches the worker's existing contract exactly */
 function postHole(hole){
   if(CFG.DEMO) return;
-  var g=S.groups[S.me], idx=hole-1;
+  if(typeof fetch!=='function') return;
+  var g=S.groups[S.me], idx=hole-1, calls=[], bad=0;
   g.players.forEach(function(p){
     if(p.holes[idx]==null) return;               // partial hole is fine, just skip
-    fetch(CFG.API+'/api/scores',{
+    calls.push(fetch(CFG.API+'/api/scores',{
       method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         group_code: g.code,
         player_name: p.name,
         scores:[{hole:hole, gross_score:p.holes[idx]}]
       })
-    }).catch(function(){ /* queue for retry — offline tolerant */ });
+    }).then(function(r){ if(!r || r.ok===false) bad++; })
+      .catch(function(){ bad++; }));            /* genuinely offline lands here */
   });
+  if(!calls.length) return;
+  return Promise.all(calls).then(function(){ writeOutcome(hole, bad===0); });
 }
 
 /* ============================================================
