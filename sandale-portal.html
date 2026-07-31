@@ -828,6 +828,17 @@ $('btnjoin').addEventListener('click', function(){
   if(gi<0){
     if(S.live){ liveNote('\u26a0 That code is not in this event. Check the cart card.', false); return; }
     gi=0;                                   /* sample data: any code opens the first group */
+  } else {
+    /* ⭐⭐⭐ s42 — THE WRITE PATH DEPENDS ON THIS LINE.
+       handleWatch does not return the group code (the worker v2.72.0 debt), so buildLive()
+       leaves every live group with a null code. findGroup() still matches by start hole +
+       unit, so ENTRY works and the entire screen looks correct — but postHole() sends
+       g.code, and the worker rejects a null group_code with a 400 before it looks anything
+       up. That 400 lands in postHole()'s empty .catch() and is completely invisible: the
+       card advances, no error shows, and nothing reaches D1. Confirmed in the field
+       2026-07-31 (four POSTs, four 400s) and reproduced by repro-postwrite §2/§3/§4.
+       Stamp the code the scorer actually typed onto the group they joined. */
+    S.groups[gi].code = code;
   }
   $('entryerr').innerHTML='';
   S.me=gi;
