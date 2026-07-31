@@ -308,6 +308,16 @@ td.sc{font-weight:900;font-size:17px;font-variant-numeric:tabular-nums}
 var CFG = {
   API:        'https://pards-tour-api.bdapple.workers.dev',
   EVENT_CODE: 'SNDEMO',
+  /* s42 — GROUP CODE PREFIX. groups.code is UNIQUE ACROSS THE WHOLE DATABASE
+     (CREATE TABLE groups ... code TEXT NOT NULL UNIQUE), and the worker resolves a score
+     write by code ALONE - no event id is sent or checked:
+         SELECT g.id, g.event_id FROM groups g JOIN events e ... WHERE g.code = ?
+     So the prefix is what keeps two events apart. The demo owns SND*; the real Sandale
+     event owns SC*. A leftover practice cart card therefore CANNOT write into the live
+     event - its code resolves to the demo or to nothing. That separation is the whole
+     point, and it is why this is config and not a literal buried in a regex.
+     Switching this portal to the real event is exactly two lines: EVENT_CODE + this. */
+  GROUP_PREFIX: 'SND',
   DEMO:       false,         // s41 — LIVE. API host was the wrong subdomain: a host that does not exist
   CALLAWAY:   'classic',     // 'classic' | 'brief'  <-- the open question
   NUDGE_MIN:  40             // minutes of silence before the by-name nudge
@@ -996,9 +1006,11 @@ function rejoinAfterRefresh(){
 }
 
 /* Typed code -> group. Real codes are not in the watch payload yet, so this
-   also accepts the SND<unit><hole> form this event uses. Returns -1 for no match. */
+   also accepts the <prefix><unit><hole> form these events use. Returns -1 for no match.
+   The prefix comes from CFG.GROUP_PREFIX - see the comment there for why it matters. */
 function findGroup(code){
-  var i, g, m=/^SND([AB])(\d{1,2})$/.exec(code);
+  var pfx=String(CFG.GROUP_PREFIX||'SND').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  var i, g, m=new RegExp('^'+pfx+'([AB])(\\d{1,2})$').exec(String(code||'').toUpperCase());
   for(i=0;i<S.groups.length;i++){
     g=S.groups[i];
     if(g.code && String(g.code).toUpperCase()===code) return i;
