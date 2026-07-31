@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#12241b">
+<title>Sandale Golf Classic — Stewart Creek</title>
+<style>
+:root{
+  --deep:#12241b; --green:#1a3a2a; --mid:#2d6a4f; --gold:#c9a84c; --goldpale:#f5e6b8;
+  --sand:#7d1128; --sand-lt:#a8324a; --sand-pale:#f3d9df;
+  --card:#F8F3EB; --ink:#1a1a1a; --soft:#6b6b6b; --mute:#9a9a9a; --line:rgba(255,255,255,.10);
+  --ok:#27ae60; --bad:#e05a4f; --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%}
+body{
+  background:linear-gradient(170deg,var(--green) 0%,var(--deep) 60%,#0a1610 100%);
+  background-attachment:fixed; color:#fff; overscroll-behavior:none;
+  font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.wrap{max-width:560px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+
+/* ---------- top bar ---------- */
+.top{display:flex;align-items:center;gap:10px;padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+.top h1{margin:0;font-size:15px;letter-spacing:.06em;color:var(--gold);font-weight:800;text-transform:uppercase}
+.top .sub{font-size:11px;color:var(--mute);letter-spacing:.04em}
+.top .spacer{flex:1}
+.pill{border:1px solid rgba(201,168,76,.45);color:var(--goldpale);border-radius:999px;padding:5px 11px;font-size:11px;font-weight:700;letter-spacing:.04em}
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;gap:6px;padding:10px 12px 0}
+.tab{flex:1;text-align:center;padding:9px 4px;border-radius:10px 10px 0 0;font-size:12px;font-weight:800;
+  letter-spacing:.05em;color:rgba(255,255,255,.55);background:rgba(255,255,255,.04);text-transform:uppercase}
+.tab.on{color:var(--deep);background:var(--gold)}
+
+.pane{flex:1;padding:14px 12px calc(96px + var(--safe-b))}
+.hide{display:none!important}
+
+/* ---------- entry ---------- */
+.hero{text-align:center;padding:34px 16px 22px}
+.hero .mark{font-size:44px;line-height:1}
+.hero h2{margin:12px 0 4px;font-size:26px;letter-spacing:.02em;color:var(--goldpale)}
+.hero p{margin:0;color:var(--mute);font-size:13px}
+.field{margin:16px 0}
+.field label{display:block;font-size:11px;letter-spacing:.1em;color:var(--gold);font-weight:800;margin:0 0 7px 3px;text-transform:uppercase}
+.field input{width:100%;padding:16px;border-radius:13px;background:rgba(255,255,255,.07);
+  border:1.5px solid rgba(201,168,76,.4);color:#fff;font-size:22px;text-align:center;
+  letter-spacing:.28em;font-weight:800;text-transform:uppercase}
+.field input::placeholder{color:rgba(255,255,255,.22);letter-spacing:.18em;font-weight:600}
+.field input:focus{outline:0;border-color:var(--gold);background:rgba(255,255,255,.11)}
+.btn{display:block;width:100%;padding:16px;border-radius:13px;background:var(--gold);color:var(--deep);
+  font-weight:900;letter-spacing:.06em;font-size:15px;text-transform:uppercase}
+.btn.ghost{background:transparent;border:1.5px solid rgba(255,255,255,.22);color:#fff}
+.btn:active{transform:scale(.985)}
+.note{font-size:12px;color:var(--mute);text-align:center;margin:14px 4px}
+.err{background:rgba(224,90,79,.16);border:1px solid rgba(224,90,79,.5);color:#ffd9d5;
+  padding:11px 13px;border-radius:11px;font-size:13px;margin:12px 0}
+
+/* ---------- scorecard : SANDALE THEMED ---------- */
+.sandbar{display:flex;align-items:center;gap:11px;background:linear-gradient(100deg,var(--sand),#5c0c1d);
+  border:1px solid rgba(201,168,76,.45);border-radius:15px;padding:11px 14px;margin-bottom:11px}
+.sandbar .wm{flex:1}
+.sandbar .wm b{display:block;font-size:16px;font-weight:900;letter-spacing:.16em;color:#fff;line-height:1.1}
+.sandbar .wm span{font-size:9.5px;letter-spacing:.2em;color:var(--gold);font-weight:800;text-transform:uppercase}
+.sandbar .cl{text-align:right;font-size:9.5px;letter-spacing:.13em;color:var(--sand-pale);
+  font-weight:800;text-transform:uppercase;line-height:1.5}
+.holebar{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.05);
+  border:1px solid var(--line);border-radius:15px;padding:12px 14px;margin-bottom:12px}
+.holebar .n{font-size:34px;font-weight:900;color:var(--gold);line-height:1;min-width:56px;text-align:center}
+.holebar .meta{flex:1;font-size:12px;color:var(--mute);line-height:1.6}
+.holebar .meta b{color:#fff;font-weight:700}
+.navb{display:flex;gap:8px}
+.navb button{width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.08);
+  border:1px solid var(--line);font-size:19px;font-weight:800;color:var(--goldpale)}
+.navb button:disabled{opacity:.25}
+
+.prow{display:flex;align-items:center;gap:10px;background:var(--card);color:var(--ink);
+  border-radius:14px;padding:11px 12px;margin-bottom:9px;border-left:5px solid var(--sand)}
+.prow .nm{flex:1;min-width:0;text-align:left}
+.prow .nm b{display:block;font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prow .nm b:after{content:" ›";color:var(--sand);font-weight:900}
+.prow .nm span{font-size:11px;color:var(--soft)}
+
+/* player card sheet */
+.sheet{position:fixed;inset:0;z-index:70;background:rgba(5,12,9,.9);display:flex;align-items:flex-end;
+  opacity:0;pointer-events:none;transition:opacity .2s}
+.sheet.show{opacity:1;pointer-events:auto}
+.sheetbody{width:100%;max-width:560px;margin:0 auto;background:var(--card);color:var(--ink);
+  border-radius:22px 22px 0 0;padding:18px 16px calc(20px + var(--safe-b));max-height:88vh;overflow:auto;
+  transform:translateY(24px);transition:transform .24s}
+.sheet.show .sheetbody{transform:translateY(0)}
+.sheethd{display:flex;align-items:flex-start;gap:10px;border-bottom:2px solid var(--sand);padding-bottom:11px;margin-bottom:13px}
+.sheethd b{font-size:19px;font-weight:900;display:block}
+.sheethd span{font-size:11.5px;color:var(--soft)}
+.sheethd button{margin-left:auto;font-size:13px;font-weight:800;color:var(--sand)}
+.hgrid{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;margin-bottom:11px}
+.hcell{text-align:center;border-radius:7px;padding:5px 1px;background:#efe9de}
+.hcell i{display:block;font-style:normal;font-size:8.5px;color:var(--soft);font-weight:800}
+.hcell b{display:block;font-size:14px;font-weight:900;line-height:1.25}
+.hcell.e{opacity:.4} .hcell.u{background:#d8f0df} .hcell.o{background:#f7ddd9}
+.hcell.cw{outline:2px solid var(--sand);background:#fbeef1}
+.tot{display:flex;gap:8px;margin:12px 0 6px}
+.tot div{flex:1;background:var(--green);color:var(--goldpale);border-radius:11px;padding:9px 6px;text-align:center}
+.tot div b{display:block;font-size:21px;font-weight:900;color:#fff}
+.tot div span{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase}
+.cwnote{font-size:12px;color:var(--soft);background:#efe9de;border-radius:10px;padding:10px 12px;line-height:1.5}
+.cwnote b{color:var(--sand)}
+.step{display:flex;align-items:center;gap:8px}
+.step button{width:38px;height:38px;border-radius:10px;background:var(--green);color:var(--goldpale);
+  font-size:21px;font-weight:800;line-height:1}
+.step button:disabled{opacity:.3}
+.step .v{min-width:44px;text-align:center;font-size:25px;font-weight:900}
+.step .v.empty{color:#c8c2b8;font-weight:600}
+.step .v.bird{color:var(--ok)} .step .v.bog{color:var(--bad)}
+
+.savebar{position:fixed;left:0;right:0;bottom:0;padding:10px 12px calc(10px + var(--safe-b));
+  background:linear-gradient(to top,rgba(10,22,16,.98) 60%,rgba(10,22,16,0));max-width:560px;margin:0 auto}
+
+/* ---------- nudge ---------- */
+.nudge{background:linear-gradient(100deg,rgba(201,168,76,.22),rgba(201,168,76,.07));
+  border:1px solid rgba(201,168,76,.5);border-radius:14px;padding:12px 14px;margin-bottom:12px;
+  font-size:14px;color:var(--goldpale);font-weight:600}
+
+/* ---------- leaderboard ---------- */
+.seg{display:flex;gap:5px;background:rgba(255,255,255,.06);padding:4px;border-radius:12px;margin-bottom:13px}
+.seg button{flex:1;padding:9px 4px;border-radius:9px;font-size:12px;font-weight:800;letter-spacing:.04em;
+  color:rgba(255,255,255,.6);text-transform:uppercase}
+.seg button.on{background:var(--gold);color:var(--deep)}
+table{width:100%;border-collapse:collapse}
+th{font-size:10px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;text-align:left;
+  padding:0 8px 8px;font-weight:800}
+th.r,td.r{text-align:right}
+td{padding:11px 8px;border-top:1px solid rgba(255,255,255,.07);font-size:14px;vertical-align:middle}
+tr.me td{background:rgba(201,168,76,.11)}
+td.pos{width:30px;color:var(--gold);font-weight:900;font-size:15px}
+td.nm b{display:block;font-weight:700}
+td.nm span{font-size:11px;color:var(--mute)}
+td.sc{font-weight:900;font-size:17px;font-variant-numeric:tabular-nums}
+.thru{font-size:10px;color:var(--gold);font-weight:800;letter-spacing:.05em}
+.empt{text-align:center;color:var(--mute);padding:42px 16px;font-size:14px}
+
+/* ---------- sponsor popup ---------- */
+.pop{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:26px;
+  background:rgba(5,12,9,.93);opacity:0;pointer-events:none;transition:opacity .22s}
+.pop.show{opacity:1;pointer-events:auto}
+.popcard{width:100%;max-width:360px;background:var(--card);border-radius:22px;padding:26px 22px 20px;
+  text-align:center;color:var(--ink);transform:scale(.9);transition:transform .26s cubic-bezier(.2,1.3,.4,1);
+  box-shadow:0 22px 60px rgba(0,0,0,.6)}
+.pop.show .popcard{transform:scale(1)}
+.popcard .kick{font-size:10px;letter-spacing:.16em;color:var(--soft);font-weight:800;text-transform:uppercase}
+.popcard .logo{margin:18px 0 16px;display:flex;align-items:center;justify-content:center;min-height:82px}
+.popcard .logo svg{max-width:100%;height:auto}
+.popcard .tagline{font-size:13px;color:var(--soft);margin:0 0 18px;font-style:italic}
+.popcard .tier{display:inline-block;font-size:9px;letter-spacing:.14em;font-weight:900;padding:4px 10px;
+  border-radius:999px;text-transform:uppercase;margin-bottom:14px}
+.tier-title{background:#7d1128;color:#fff}
+.tier-premium{background:var(--gold);color:var(--deep)}
+.tier-hole{background:var(--green);color:var(--goldpale)}
+.popcard .go{width:100%;padding:14px;border-radius:12px;background:var(--green);color:var(--goldpale);
+  font-weight:900;letter-spacing:.05em;font-size:14px;text-transform:uppercase}
+.popbar{height:3px;background:rgba(0,0,0,.1);border-radius:2px;margin-top:12px;overflow:hidden}
+.popbar i{display:block;height:100%;background:var(--gold);width:100%;transform-origin:left;
+  animation:cd 3.2s linear forwards}
+@keyframes cd{to{transform:scaleX(0)}}
+
+/* ---------- ticker ---------- */
+.tick{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(6,14,10,.96);
+  border-top:1px solid rgba(201,168,76,.28);padding:7px 0 calc(7px + var(--safe-b));overflow:hidden}
+.tickrow{display:flex;gap:34px;white-space:nowrap;animation:sc 42s linear infinite;width:max-content}
+.tickrow span{font-size:11px;color:rgba(255,255,255,.62);letter-spacing:.05em;font-weight:600}
+.tickrow span b{color:var(--gold);font-weight:800}
+@keyframes sc{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- sponsor index ---------- */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.scell{background:var(--card);border-radius:13px;padding:14px 10px;text-align:center;color:var(--ink)}
+.scell.full{grid-column:1/-1}
+.scell .logo{min-height:56px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.scell .h{font-size:10px;color:var(--soft);letter-spacing:.08em;font-weight:800;text-transform:uppercase}
+.shead{font-size:11px;letter-spacing:.14em;color:var(--gold);font-weight:900;text-transform:uppercase;
+  margin:20px 3px 10px;display:flex;align-items:center;gap:10px}
+.shead:after{content:"";flex:1;height:1px;background:rgba(201,168,76,.28)}
+.stat{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin-bottom:12px}
+.stat b{color:var(--gold);font-size:22px;font-weight:900;display:block;line-height:1.2}
+.stat span{font-size:12px;color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <h1>Sandale Golf Classic</h1>
+      <div class="sub" id="subline">Stewart Creek · Canmore · Aug 7 2026</div>
+    </div>
+    <div class="spacer"></div>
+    <div class="pill" id="grouppill">—</div>
+  </div>
+
+  <div class="tabs hide" id="tabs">
+    <button class="tab on" data-pane="score">Card</button>
+    <button class="tab"    data-pane="board">Leaderboard</button>
+    <button class="tab"    data-pane="spons">Sponsors</button>
+  </div>
+
+  <!-- ENTRY -->
+  <div class="pane" id="pane-entry">
+    <div class="hero">
+      <div class="mark">⛳</div>
+      <h2>Sandale Golf Classic</h2>
+      <p>Stewart Creek Golf &amp; Country Club<br>Friday, August 7 2026 · Shotgun start</p>
+    </div>
+    <div id="entryerr"></div>
+    <div class="field">
+      <label>Your group code</label>
+      <input id="gcode" maxlength="6" placeholder="ABC123" autocomplete="off" autocapitalize="characters">
+    </div>
+    <button class="btn" id="btnjoin">Start scoring</button>
+    <div class="note">One code per group — it's on your cart card.<br>No app to install. No account needed.</div>
+    <button class="btn ghost" id="btnwatch" style="margin-top:6px">Just watch the leaderboard</button>
+    <div class="note" style="margin-top:22px;opacity:.65">Demo build · any code works</div>
+  </div>
+
+  <!-- SCORECARD -->
+  <div class="pane hide" id="pane-score">
+    <div class="sandbar">
+      <div class="wm"><b>SANDALE</b><span>Utility Products</span></div>
+      <div class="cl">Golf Classic 2026<br>Stewart Creek</div>
+    </div>
+    <div id="nudgeslot"></div>
+    <div class="holebar">
+      <div class="n" id="holenum">1</div>
+      <div class="meta" id="holemeta"></div>
+      <div class="navb">
+        <button id="hprev">‹</button>
+        <button id="hnext">›</button>
+      </div>
+    </div>
+    <div id="players"></div>
+    <div class="note" id="cardnote"></div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div class="pane hide" id="pane-board">
+    <div class="seg">
+      <button class="on" data-b="net">Net</button>
+      <button data-b="gross">Gross</button>
+      <button data-b="high">High score</button>
+    </div>
+    <div id="boardnote" class="note" style="margin-top:0"></div>
+    <div id="boardwrap"></div>
+  </div>
+
+  <!-- SPONSORS -->
+  <div class="pane hide" id="pane-spons">
+    <div class="stat"><b id="impcount">540</b><span>guaranteed full-screen impressions across the day — one per group, per hole, dismissed by hand</span></div>
+    <div id="sponsindex"></div>
+  </div>
+
+  <div class="savebar hide" id="savebar">
+    <button class="btn" id="btnsave">Save hole &amp; continue</button>
+  </div>
+
+  <div class="tick hide" id="ticker"><div class="tickrow" id="tickrow"></div></div>
+</div>
+
+<!-- PLAYER CARD SHEET -->
+<div class="sheet" id="sheet">
+  <div class="sheetbody">
+    <div class="sheethd">
+      <div><b id="shname">—</b><span id="shsub"></span></div>
+      <button id="shclose">Close ✕</button>
+    </div>
+    <div id="shfront"></div>
+    <div id="shback"></div>
+    <div class="tot" id="shtot"></div>
+    <div class="cwnote" id="shcw"></div>
+  </div>
+</div>
+
+<!-- SPONSOR POPUP -->
+<div class="pop" id="pop">
+  <div class="popcard">
+    <div class="kick" id="popkick">Hole 1 brought to you by</div>
+    <div class="logo" id="poplogo"></div>
+    <div class="tier" id="poptier">Hole sponsor</div>
+    <div class="tagline" id="poptag"></div>
+    <button class="go" id="popgo">Continue to hole 2</button>
+    <div class="popbar"><i id="popbarfill"></i></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ============================================================
+   CONFIG
+   ============================================================ */
+var CFG = {
+  API:        'https://pards-tour-api.bdapple.workers.dev',
+  EVENT_CODE: 'SNDEMO',
+  DEMO:       false,         // s41 — LIVE. API host was the wrong subdomain: a host that does not exist
+  CALLAWAY:   'classic',     // 'classic' | 'brief'  <-- the open question
+  NUDGE_MIN:  40             // minutes of silence before the by-name nudge
+};
+
+/* Stewart Creek — lifted verbatim from pards-tour.html line 3466 */
+var COURSE = {
+  name: 'Stewart Creek',
+  par:  [4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],   // 71
+  si:   [7,11,15,1,9,3,5,13,17,12,4,18,8,14,6,2,16,10]
+};
+
+/* ============================================================
+   LOGO FACTORY — 23 invented corporate marks, pure SVG.
+   Six archetypes so the wall of them looks like a real sponsor board.
+   ============================================================ */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+var LOGO = {
+  // solid roundel + wordmark
+  roundel: function(b,w){
+    return '<svg viewBox="0 0 300 76" width="'+w+'">'+
+      '<circle cx="34" cy="38" r="26" fill="'+b.c1+'"/>'+
+      '<circle cx="34" cy="38" r="14" fill="none" stroke="'+b.c2+'" stroke-width="5"/>'+
+      '<text x="74" y="46" font-family="Helvetica,Arial,sans-serif" font-size="27" font-weight="700" fill="'+b.c1+'" letter-spacing="-.4">'+esc(b.n)+'</text>'+
+    '</svg>';
+  },
+  // two interlocking circles (payment-card language)
+  duo: function(b,w){
+    return '<svg viewBox="0 0 300 76" width="'+w+'">'+
+      '<circle cx="36" cy="38" r="24" fill="'+b.c1+'"/>'+
+      '<circle cx="66" cy="38" r="24" fill="'+b.c2+'" fill-opacity=".85"/>'+
+      '<text x="102" y="46" font-family="Helvetica,Arial,sans-serif" font-size="25" font-weight="800" fill="#22242a" letter-spacing="-.6">'+esc(b.n)+'</text>'+
+    '</svg>';
+  },
+  // monogram tile
+  tile: function(b,w){
+    var i=b.n.replace(/[^A-Za-z ]/g,'').split(' ').map(function(x){return x[0];}).join('').slice(0,2).toUpperCase();
+    return '<svg viewBox="0 0 300 76" width="'+w+'">'+
+      '<rect x="6" y="10" width="56" height="56" rx="13" fill="'+b.c1+'"/>'+
+      '<text x="34" y="50" text-anchor="middle" font-family="Georgia,serif" font-size="26" font-weight="700" fill="#fff">'+i+'</text>'+
+      '<text x="74" y="36" font-family="Georgia,serif" font-size="20" font-weight="700" fill="'+b.c1+'">'+esc(b.n)+'</text>'+
+      '<text x="75" y="54" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8b8b8b" letter-spacing="2.6">'+esc((b.k||'').toUpperCase())+'</text>'+
+    '</svg>';
+  },
+  // forward chevron
+  chev: function(b,w){
+    return '<svg viewBox="0 0 300 76" width="'+w+'">'+
+      '<path d="M8 16 L36 38 L8 60 Z" fill="'+b.c1+'"/>'+
+      '<path d="M32 16 L60 38 L32 60 Z" fill="'+b.c2+'"/>'+
+      '<text x="74" y="47" font-family="Helvetica,Arial,sans-serif" font-size="26" font-weight="800" fill="#1d1f24" letter-spacing="-.5">'+esc(b.n)+'</text>'+
+    '</svg>';
+  },
+  // stacked wordmark with rule
+  rule: function(b,w){
+    return '<svg viewBox="0 0 300 76" width="'+w+'">'+
+      '<text x="150" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="26" font-weight="900" fill="'+b.c1+'" letter-spacing="-.6">'+esc(b.n.toUpperCase())+'</text>'+
+      '<rect x="66" y="43" width="168" height="3.5" fill="'+b.c2+'"/>'+
+      '<text x="150" y="63" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7d7d7d" letter-spacing="3.4">'+esc((b.k||'').toUpperCase())+'</text>'+
+    '</svg>';
+  },
+  // split shield
+  shield: function(b,w){
+    return '<svg viewBox="0 0 300 76" width="'+w+'">'+
+      '<path d="M34 8 L60 18 V40 C60 54 48 64 34 69 C20 64 8 54 8 40 V18 Z" fill="'+b.c1+'"/>'+
+      '<path d="M34 8 L60 18 V40 C60 54 48 64 34 69 Z" fill="'+b.c2+'"/>'+
+      '<text x="74" y="46" font-family="Georgia,serif" font-size="24" font-weight="700" fill="'+b.c1+'">'+esc(b.n)+'</text>'+
+    '</svg>';
+  }
+};
+
+/* 23 brands. Invented — deliberately not real trademarks. */
+var BRANDS = [
+  {id:'sandale', n:'SANDALE',            k:'Utility Products',  c1:'#7d1128', c2:'#c9a84c', f:'rule',    tier:'title',
+   tag:'Proud host of the 2026 Sandale Golf Classic.'},
+
+  {id:'bvw', n:'Bow Valley Waterworks',  k:'Since 1974',        c1:'#0f6fa8', c2:'#7ec8e3', f:'roundel', tier:'premium', rank:1, tag:'Water infrastructure for the Bow corridor.'},
+  {id:'cps', n:'Cascade Pipe',           k:'Pipe & Supply',     c1:'#c0392b', c2:'#f0a500', f:'duo',     tier:'premium', rank:2, tag:'Everything that carries anything.'},
+  {id:'tse', n:'Three Sisters',          k:'Excavating',        c1:'#2f5d3a', c2:'#8bbf6a', f:'shield',  tier:'premium', rank:3, tag:'We move mountains. Carefully.'},
+  {id:'rrm', n:'Rundle Ridge',           k:'Mechanical',        c1:'#34495e', c2:'#95a5a6', f:'tile',    tier:'premium', rank:4, tag:'Heating, cooling, and doing it right.'},
+  {id:'sle', n:'Spray Lakes',            k:'Equipment Rentals', c1:'#e07b1a', c2:'#ffd08a', f:'chev',    tier:'premium', rank:5, tag:'If it lifts, digs or hauls — we rent it.'},
+
+  {id:'kob', n:'Koba Cola',              k:'Refreshingly Bold', c1:'#d21f26', c2:'#ffffff', f:'rule',    tier:'hole', hole:2,  tag:'Ice cold at the turn.'},
+  {id:'mer', n:'Meridian Card',          k:'Pay Forward',       c1:'#eb5b1e', c2:'#f2b705', f:'duo',     tier:'hole', hole:3,  tag:'Accepted at the pro shop and everywhere else.'},
+  {id:'dom', n:'Dominion Trust',         k:'Banking',           c1:'#00713c', c2:'#a5d6a7', f:'tile',    tier:'hole', hole:5,  tag:'A bank that knows a bogey isn’t a crisis.'},
+  {id:'nar', n:'NorthArc Telecom',       k:'Connected',         c1:'#1b3a8f', c2:'#5b8dee', f:'chev',    tier:'hole', hole:7,  tag:'Full bars, even in the valley.'},
+  {id:'van', n:'Vantage Insurance',      k:'Assured',           c1:'#122a4a', c2:'#c9a84c', f:'shield',  tier:'hole', hole:9,  tag:'We cover the cart, not the slice.'},
+  {id:'cas', n:'Cascadia Air',           k:'Fly West',          c1:'#0f8b8d', c2:'#9fe0e1', f:'roundel', tier:'hole', hole:11, tag:'Non-stop to anywhere you’d rather be.'},
+  {id:'irn', n:'Ironwood Energy',        k:'Alberta Owned',     c1:'#b5651d', c2:'#ffb26b', f:'chev',    tier:'hole', hole:13, tag:'Powering the province since 1968.'},
+  {id:'blu', n:'Bluewater Brewing',      k:'Craft Since 1991',  c1:'#a4741d', c2:'#f0d08a', f:'shield',  tier:'hole', hole:15, tag:'The 19th hole starts here.'},
+  {id:'smt', n:'Summit Motors',          k:'Drive Higher',      c1:'#1c1c1e', c2:'#b8b8be', f:'rule',    tier:'hole', hole:16, tag:'Hole-in-one prize sponsor.'},
+  {id:'ldc', n:'Lac des Arcs',           k:'Ind. Coatings',     c1:'#455a64', c2:'#ff8a3d', f:'tile',    tier:'hole', hole:18, tag:'The finish that finishes last.'},
+
+  {id:'qtl', n:'Quantum Logistics',      k:'Freight',           c1:'#5b2c8d', c2:'#b98fe0', f:'chev',    tier:'hole', tag:'It gets there. That’s the whole pitch.'},
+  {id:'pgf', n:'Prairie Gold Foods',     k:'Grown Here',        c1:'#c9a227', c2:'#f4e2a1', f:'roundel', tier:'hole', tag:'Lunch at the turn, courtesy of us.'},
+  {id:'rss', n:'Redstone Realty',        k:'Homes',             c1:'#9b2226', c2:'#e9a1a3', f:'tile',    tier:'hole', tag:'Know anyone selling in Canmore?'},
+  {id:'aur', n:'Aurora Health',          k:'Clinics',           c1:'#2196a8', c2:'#a8e0e8', f:'duo',     tier:'hole', tag:'Physio for whatever the back nine does to you.'},
+  {id:'cop', n:'Copperline Tools',       k:'Hand & Power',      c1:'#a4552b', c2:'#e5a06e', f:'shield',  tier:'hole', tag:'Built for people who actually use them.'},
+  {id:'slv', n:'Silverpeak Wealth',      k:'Advisors',          c1:'#37474f', c2:'#c9a84c', f:'rule',    tier:'hole', tag:'Retire early. Play more of these.'},
+  {id:'vlt', n:'Voltra Electric',        k:'Contractors',       c1:'#1a1a1a', c2:'#f2d024', f:'chev',    tier:'hole', tag:'Licensed, bonded, and quick about it.'}
+];
+
+function brandById(id){ for(var i=0;i<BRANDS.length;i++){ if(BRANDS[i].id===id) return BRANDS[i]; } return null; }
+function renderLogo(b,w){ return LOGO[b.f](b,w||210); }
+
+/* Hole -> sponsor. Named holes first; the rest filled by title + premium rank. */
+var HOLE_SPONSOR = (function(){
+  var map={}, i;
+  for(i=0;i<BRANDS.length;i++){ if(BRANDS[i].hole) map[BRANDS[i].hole]=BRANDS[i].id; }
+  var fill=['sandale','bvw','cps','sandale','tse','rrm','sle','bvw'], fi=0;
+  for(i=1;i<=18;i++){ if(!map[i]) map[i]=fill[fi++ % fill.length]; }
+  return map;
+})();
+
+/* ============================================================
+   CALLAWAY
+   ============================================================ */
+/* Classic published table. Each row: [loMinusOne, deductHoles] over a 5-wide
+   band; the position inside the band gives the adjustment -2,-1,0,+1,+2. */
+var CW_ROWS = [
+  {lo:70, hi:72,  deduct:0.0, scratch:true},
+  {lo:73, hi:75,  deduct:0.5},
+  {lo:76, hi:80,  deduct:1.0},
+  {lo:81, hi:85,  deduct:1.5},
+  {lo:86, hi:90,  deduct:2.0},
+  {lo:91, hi:95,  deduct:2.5},
+  {lo:96, hi:100, deduct:3.0},
+  {lo:101,hi:105, deduct:3.5},
+  {lo:106,hi:110, deduct:4.0},
+  {lo:111,hi:115, deduct:4.5},
+  {lo:116,hi:120, deduct:5.0},
+  {lo:121,hi:125, deduct:5.5},
+  {lo:126,hi:130, deduct:6.0},
+  {lo:131,hi:135, deduct:6.5},
+  {lo:136,hi:140, deduct:7.0},
+  {lo:141,hi:145, deduct:7.5},
+  {lo:146,hi:150, deduct:8.0}
+];
+
+function callaway(holeScores){
+  // holeScores: array of 18, null where not played.
+  var played=0,i,gross=0;
+  for(i=0;i<18;i++){ if(holeScores[i]!=null){ played++; gross+=holeScores[i]; } }
+  if(played<18) return {complete:false, played:played, gross:gross, hcp:null, net:null};
+
+  var row=null;
+  for(i=0;i<CW_ROWS.length;i++){ if(gross>=CW_ROWS[i].lo && gross<=CW_ROWS[i].hi){ row=CW_ROWS[i]; break; } }
+  if(!row){ row = gross<70 ? {lo:70,hi:72,deduct:0,scratch:true} : CW_ROWS[CW_ROWS.length-1]; }
+  if(row.scratch) return {complete:true, played:18, gross:gross, hcp:0, net:gross, deduct:0, adj:0, used:[]};
+
+  // adjustment: position within the band, mapped across -2..+2
+  var span = row.hi-row.lo+1;
+  var pos  = Math.min(span-1, Math.max(0, gross-row.lo));
+  var adj  = Math.round((pos/(span-1))*4) - 2;
+
+  // eligible holes: 1..16 only (17 and 18 never deductible), capped at 2x par
+  var elig=[];
+  for(i=0;i<16;i++){
+    if(holeScores[i]==null) continue;
+    elig.push({h:i+1, v:Math.min(holeScores[i], COURSE.par[i]*2)});
+  }
+  elig.sort(function(a,b){ return b.v-a.v; });
+
+  var whole=Math.floor(row.deduct), half=(row.deduct%1)>0;
+  var sum=0, used=[];
+  for(i=0;i<whole && i<elig.length;i++){ sum+=elig[i].v; used.push({h:elig[i].h,v:elig[i].v,part:1}); }
+  if(half && elig.length>whole){
+    var hv=elig[whole].v/2; sum+=hv; used.push({h:elig[whole].h,v:hv,part:.5});
+  }
+
+  var hcp=sum+adj;
+  if(hcp<0) hcp=0;
+  if(hcp>50) hcp=50;
+  hcp=Math.round(hcp*10)/10;
+  return {complete:true, played:18, gross:gross, hcp:hcp, net:Math.round((gross-hcp)*10)/10,
+          deduct:row.deduct, adj:adj, used:used};
+}
+
+/* ============================================================
+   DEMO DATA — 30 groups x 4. Nothing hard-codes the count.
+   ============================================================ */
+var FIRST='Dave Lisa Bruce Karen Tyler Sandra Mike Joanne Rick Cheryl Greg Tanya Doug Patti Wayne Colleen Scott Brenda Jeff Marlene Kyle Dana Trevor Shannon Ron Angie Craig Nicole Barry Lorraine Chad Heather Dean Tracy Neil Robin Glen Wendy Curtis Michelle'.split(' ');
+var LAST='Comeau Leicht Goplin Somers Kowalchuk Beaudry Nakamura Fontaine Osei Vandenberg Prashad Mercier Halvorsen Dube Cardinal Whitecalf Bergeron Lindqvist Amaro Tessier'.split(' ');
+
+var S={ groups:[], me:null, hole:1, board:'net', pane:'entry' };
+
+function rnd(seed){ var x=Math.sin(seed)*10000; return x-Math.floor(x); }
+
+function buildDemo(){
+  var gs=[], gi, pi, seed=1;
+  for(gi=0; gi<30; gi++){
+    var startHole=(gi%18)+1, unit=gi<18?'A':'B';
+    var size = gi===7 ? 3 : (gi===19 ? 3 : 4);   // two threesomes — dropouts happen
+    var players=[];
+    for(pi=0; pi<size; pi++){
+      var nm=FIRST[(gi*4+pi)%FIRST.length]+' '+LAST[(gi*3+pi)%LAST.length];
+      // shape a plausible round for someone who doesn't play much
+      var base=4.6+rnd(seed++)*2.4;
+      var holes=[], done;
+      // most groups well along; a few stalled; two gave up
+      var prog = gi===11 ? 12 : (gi===23 ? 9 : (gi<22 ? 18 : 10+Math.floor(rnd(seed++)*8)));
+      for(var h=0; h<18; h++){
+        if(h>=prog){ holes.push(null); continue; }
+        var v=Math.round(COURSE.par[h]+base-4.2+(rnd(seed++)-.42)*3.4);
+        if(v<2)v=2; if(v>COURSE.par[h]*2+2)v=COURSE.par[h]*2+2;
+        holes.push(v);
+      }
+      players.push({name:nm, holes:holes});
+    }
+    gs.push({code:'G'+String(100+gi), name:'Group '+(gi+1), startHole:startHole, unit:unit,
+             players:players, lastPost: gi===11 ? Date.now()-52*60000 : Date.now()-4*60000});
+  }
+  return gs;
+}
+
+/* ============================================================
+   STANDINGS
+   ============================================================ */
+function allPlayers(){
+  var out=[],i,j;
+  for(i=0;i<S.groups.length;i++){
+    var g=S.groups[i];
+    for(j=0;j<g.players.length;j++){
+      var p=g.players[j], c=callaway(p.holes);
+      out.push({name:p.name, group:g.name, gi:i, pi:j,
+                gross:c.gross, played:c.played, complete:c.complete, hcp:c.hcp, net:c.net});
+    }
+  }
+  return out;
+}
+
+function standings(kind){
+  var a=allPlayers();
+  if(kind==='net'){
+    var done=a.filter(function(p){return p.complete;});
+    done.sort(function(x,y){ return x.net-y.net || x.gross-y.gross; });
+    var part=a.filter(function(p){return !p.complete && p.played>0;});
+    part.sort(function(x,y){ return y.played-x.played || x.gross-y.gross; });
+    return done.concat(part);
+  }
+  if(kind==='high'){
+    var h=a.filter(function(p){return p.complete;});
+    h.sort(function(x,y){ return y.gross-x.gross; });
+    return h.slice(0,12);
+  }
+  var g=a.filter(function(p){return p.played>0;});
+  g.sort(function(x,y){ return (y.complete?1:0)-(x.complete?1:0) || x.gross-y.gross || y.played-x.played; });
+  return g;
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function $(id){ return document.getElementById(id); }
+
+function showPane(name){
+  S.pane=name;
+  ['entry','score','board','spons'].forEach(function(p){
+    var el=$('pane-'+p); if(el) el.classList.toggle('hide', p!==name);
+  });
+  var playing = name!=='entry';
+  $('tabs').classList.toggle('hide', !playing);
+  $('ticker').classList.toggle('hide', !playing);
+  $('savebar').classList.toggle('hide', name!=='score');
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'), function(t){
+    t.classList.toggle('on', t.dataset.pane===name);
+  });
+  if(name==='board') renderBoard();
+  if(name==='spons') renderSponsors();
+  if(name==='score') renderCard();
+  window.scrollTo(0,0);
+}
+
+function renderCard(){
+  // GUARD: reachable by tapping "Card" after entering as a watcher.
+  // Without this, S.groups[null] throws mid-render and leaves a broken card.
+  if(S.me==null){
+    $('players').innerHTML='<div class="empt">You joined as a watcher.<br>Reload and enter your group code to score.</div>';
+    $('holemeta').textContent=''; $('cardnote').textContent=''; $('nudgeslot').innerHTML='';
+    $('savebar').classList.add('hide');
+    return;
+  }
+  var g=S.groups[S.me], h=S.hole, idx=h-1;
+  $('holenum').textContent=h;
+  $('holemeta').innerHTML='Par <b>'+COURSE.par[idx]+'</b> · Stroke index <b>'+COURSE.si[idx]+'</b><br>'+
+     esc(COURSE.name)+' · started hole <b>'+g.startHole+g.unit+'</b>';
+  $('hprev').disabled = (h<=1);
+  $('hnext').disabled = (h>=18);
+
+  var out='';
+  for(var i=0;i<g.players.length;i++){
+    var p=g.players[i], v=p.holes[idx], par=COURSE.par[idx];
+    var cls = v==null ? 'empty' : (v<par ? 'bird' : (v>par ? 'bog' : ''));
+    out+='<div class="prow">'+
+      '<button class="nm" data-open="'+i+'"><b>'+esc(p.name)+'</b><span>'+
+        (p.holes.filter(function(x){return x!=null;}).length)+' of 18 recorded · tap for card</span></button>'+
+      '<div class="step">'+
+        '<button data-d="-1" data-p="'+i+'"'+(v==null||v<=1?' disabled':'')+'>−</button>'+
+        '<div class="v '+cls+'">'+(v==null?'–':v)+'</div>'+
+        '<button data-d="1" data-p="'+i+'">+</button>'+
+      '</div></div>';
+  }
+  $('players').innerHTML=out;
+
+  var missing=g.players.filter(function(p){return p.holes[idx]==null;}).length;
+  $('cardnote').textContent = missing
+    ? missing+' still to enter — you can save a partial hole and come back.'
+    : 'All in. Save to continue.';
+
+  renderNudge();
+}
+
+function renderNudge(){
+  var g=S.groups[S.me];
+  var mins=Math.round((Date.now()-g.lastPost)/60000);
+  if(mins < CFG.NUDGE_MIN){ $('nudgeslot').innerHTML=''; return; }
+  // nudge BY NAME — the player with the most holes left
+  var worst=null;
+  g.players.forEach(function(p){
+    var left=p.holes.filter(function(x){return x==null;}).length;
+    if(!worst || left>worst.left) worst={p:p, left:left};
+  });
+  if(!worst || worst.left===0){ $('nudgeslot').innerHTML=''; return; }
+  var first=worst.p.name.split(' ')[0];
+  $('nudgeslot').innerHTML='<div class="nudge">⛳ '+esc(first)+' — don’t stop now, '+worst.left+' to go!</div>';
+}
+
+function renderBoard(){
+  var kind=S.board, rows=standings(kind), out='', i;
+  Array.prototype.forEach.call(document.querySelectorAll('.seg button'), function(b){
+    b.classList.toggle('on', b.dataset.b===kind);
+  });
+
+  $('boardnote').textContent =
+    kind==='net'  ? 'Callaway net. A card must be complete to be eligible — partial rounds are listed below the finishers and still count on gross.' :
+    kind==='high' ? 'Highest completed gross score. Somebody has to win it.' :
+                    'Gross, lowest first. Partial rounds show how far they got.';
+
+  if(!rows.length){ $('boardwrap').innerHTML='<div class="empt">No scores yet.</div>'; return; }
+
+  out='<table><thead><tr><th></th><th>Player</th><th class="r">'+
+      (kind==='net'?'Net':'Gross')+'</th><th class="r">'+(kind==='net'?'Gross':'Thru')+'</th></tr></thead><tbody>';
+  for(i=0;i<rows.length;i++){
+    var p=rows[i];
+    var mine = S.me!=null && p.gi===S.me;
+    var main, side;
+    if(kind==='net'){
+      main = p.complete ? p.net : '—';
+      side = p.complete ? p.gross : '<span class="thru">THRU '+p.played+'</span>';
+    } else if(kind==='high'){
+      main = p.gross; side = '';
+    } else {
+      main = p.gross;
+      side = p.complete ? 'F' : '<span class="thru">'+p.played+'</span>';
+    }
+    out+='<tr'+(mine?' class="me"':'')+' data-gi="'+p.gi+'" data-pi="'+p.pi+'">'+
+      '<td class="pos">'+(i+1)+'</td>'+
+      '<td class="nm"><b>'+esc(p.name)+'</b><span>'+esc(p.group)+
+         (p.complete&&kind==='net'?' · hcp '+p.hcp:'')+'</span></td>'+
+      '<td class="r sc">'+main+'</td>'+
+      '<td class="r">'+side+'</td></tr>';
+  }
+  out+='</tbody></table>';
+  $('boardwrap').innerHTML=out;
+}
+
+function renderSponsors(){
+  var out='', i, b;
+  var title=BRANDS.filter(function(x){return x.tier==='title';});
+  var prem =BRANDS.filter(function(x){return x.tier==='premium';}).sort(function(a,c){return a.rank-c.rank;});
+  var hole =BRANDS.filter(function(x){return x.tier==='hole';});
+
+  out+='<div class="shead">Title</div><div class="sgrid">';
+  for(i=0;i<title.length;i++){ b=title[i];
+    out+='<div class="scell full"><div class="logo">'+renderLogo(b,240)+'</div><div class="h">Presenting sponsor · holes 1 &amp; 4</div></div>'; }
+  out+='</div>';
+
+  out+='<div class="shead">Premium · ranked</div><div class="sgrid">';
+  for(i=0;i<prem.length;i++){ b=prem[i];
+    out+='<div class="scell"><div class="logo">'+renderLogo(b,150)+'</div><div class="h">Rank '+b.rank+'</div></div>'; }
+  out+='</div>';
+
+  out+='<div class="shead">Hole sponsors</div><div class="sgrid">';
+  for(i=0;i<hole.length;i++){ b=hole[i];
+    out+='<div class="scell"><div class="logo">'+renderLogo(b,150)+'</div><div class="h">'+
+      (b.hole?('Hole '+b.hole):'Rotation')+'</div></div>'; }
+  out+='</div>';
+
+  $('sponsindex').innerHTML=out;
+  $('impcount').textContent=(S.groups.length*18).toLocaleString();
+}
+
+function renderTicker(){
+  var parts='', i, seq=[];
+  for(i=1;i<=18;i++){ seq.push('Hole '+i+' — <b>'+esc(brandById(HOLE_SPONSOR[i]).n)+'</b>'); }
+  var one=seq.map(function(s){return '<span>'+s+'</span>';}).join('');
+  $('tickrow').innerHTML=one+one;
+}
+
+/* ---------- sponsor popup ---------- */
+var popTimer=null;
+function showSponsor(hole, then){
+  var b=brandById(HOLE_SPONSOR[hole]);
+  $('popkick').textContent='Hole '+hole+' brought to you by';
+  $('poplogo').innerHTML=renderLogo(b,250);
+  $('poptag').textContent=b.tag||'';
+  var t=$('poptier');
+  t.className='tier '+(b.tier==='title'?'tier-title':b.tier==='premium'?'tier-premium':'tier-hole');
+  t.textContent = b.tier==='title' ? 'Presenting sponsor'
+                : b.tier==='premium' ? 'Premium sponsor · rank '+b.rank
+                : 'Hole sponsor';
+  $('popgo').textContent = hole>=18 ? 'Finish round' : 'Continue to hole '+(hole+1);
+  var bar=$('popbarfill'); bar.style.animation='none'; void bar.offsetWidth; bar.style.animation='';
+  $('pop').classList.add('show');
+  clearTimeout(popTimer);
+  popTimer=setTimeout(function(){ dismissSponsor(then); }, 3200);
+  $('popgo').onclick=function(){ dismissSponsor(then); };
+}
+function dismissSponsor(then){
+  clearTimeout(popTimer);
+  $('pop').classList.remove('show');
+  if(then) setTimeout(then,120);
+}
+
+/* ============================================================
+   WIRING
+   ============================================================ */
+$('players').addEventListener('click', function(e){
+  var open=e.target.closest('button[data-open]');
+  if(open){ openPlayerSheet(S.me, +open.dataset.open); return; }
+  var btn=e.target.closest('button[data-p]'); if(!btn) return;
+  var pi=+btn.dataset.p, d=+btn.dataset.d, idx=S.hole-1;
+  var p=S.groups[S.me].players[pi];
+  var v=p.holes[idx];
+  if(v==null) v = d>0 ? COURSE.par[idx] : COURSE.par[idx];
+  else v = v+d;
+  if(v<1) v=1; if(v>20) v=20;
+  p.holes[idx]=v;
+  renderCard();
+});
+
+$('btnsave').addEventListener('click', function(){
+  var g=S.groups[S.me];
+  g.lastPost=Date.now();
+  postHole(S.hole);
+  var h=S.hole;
+  showSponsor(h, function(){
+    if(h<18){ S.hole=h+1; renderCard(); }
+    else showPane('board');
+  });
+});
+
+/* Sponsor popup fires on EVERY hole change, not just on save. */
+function goHole(h){
+  if(h<1||h>18) return;
+  showSponsor(h, function(){ S.hole=h; renderCard(); });
+}
+$('hprev').addEventListener('click', function(){ goHole(S.hole-1); });
+$('hnext').addEventListener('click', function(){ goHole(S.hole+1); });
+
+/* ---------- player card sheet ---------- */
+function openPlayerSheet(gi, pi){
+  var g=S.groups[gi], p=g.players[pi], c=callaway(p.holes);
+  $('shname').textContent=p.name;
+  $('shsub').textContent=g.name+' · started hole '+g.startHole+g.unit;
+
+  var cwHoles={}; (c.used||[]).forEach(function(u){ cwHoles[u.h]=u.part; });
+  function nine(from){
+    var s='<div class="hgrid">', i;
+    for(i=from;i<from+9;i++){
+      var v=p.holes[i], par=COURSE.par[i], cls='hcell';
+      if(v==null) cls+=' e';
+      else if(v<par) cls+=' u';
+      else if(v>par) cls+=' o';
+      if(cwHoles[i+1]) cls+=' cw';
+      s+='<div class="'+cls+'"><i>'+(i+1)+'</i><b>'+(v==null?'–':v)+'</b></div>';
+    }
+    return s+'</div>';
+  }
+  $('shfront').innerHTML=nine(0);
+  $('shback').innerHTML=nine(9);
+
+  $('shtot').innerHTML=
+    '<div><b>'+c.gross+'</b><span>Gross</span></div>'+
+    '<div><b>'+(c.complete?c.hcp:'–')+'</b><span>Callaway</span></div>'+
+    '<div><b>'+(c.complete?c.net:'–')+'</b><span>Net</span></div>';
+
+  if(!c.complete){
+    $('shcw').innerHTML='<b>Thru '+c.played+' of 18.</b> A Callaway handicap is worked out from the '+
+      'finished 18-hole total, so there is no net until the card is complete. '+
+      'The gross score still counts and still shows on the board.';
+  } else if(!c.used.length){
+    $('shcw').innerHTML='<b>Scratch band.</b> Gross '+c.gross+' takes no deduction under Callaway.';
+  } else {
+    var parts=c.used.map(function(u){
+      return 'hole '+u.h+' ('+(u.part===0.5?'half of '+(u.v*2):u.v)+')';
+    }).join(' + ');
+    $('shcw').innerHTML='<b>Callaway:</b> gross '+c.gross+' → deduct '+c.deduct+
+      ' worst hole'+(c.deduct===1?'':'s')+', adjustment '+(c.adj>=0?'+':'')+c.adj+'.<br>'+
+      'Took '+parts+' = '+(Math.round((c.hcp-c.adj)*10)/10)+', '+(c.adj>=0?'plus ':'minus ')+Math.abs(c.adj)+
+      ' → handicap <b>'+c.hcp+'</b>, net <b>'+c.net+'</b>.<br>'+
+      '<span style="opacity:.75">Holes 17 and 18 are never deductible. Any hole counts at most double par.</span>';
+  }
+  $('sheet').classList.add('show');
+}
+/* any name on the leaderboard opens the same card */
+$('boardwrap').addEventListener('click', function(e){
+  var tr=e.target.closest('tr[data-gi]'); if(!tr) return;
+  openPlayerSheet(+tr.dataset.gi, +tr.dataset.pi);
+});
+$('shclose').addEventListener('click', function(){ $('sheet').classList.remove('show'); });
+$('sheet').addEventListener('click', function(e){ if(e.target.id==='sheet') $('sheet').classList.remove('show'); });
+
+Array.prototype.forEach.call(document.querySelectorAll('.tab'), function(t){
+  t.addEventListener('click', function(){ showPane(t.dataset.pane); });
+});
+Array.prototype.forEach.call(document.querySelectorAll('.seg button'), function(b){
+  b.addEventListener('click', function(){ S.board=b.dataset.b; renderBoard(); });
+});
+
+$('btnjoin').addEventListener('click', function(){
+  var code=($('gcode').value||'').trim().toUpperCase();
+  if(code.length<3){ $('entryerr').innerHTML='<div class="err">Enter the code from your cart card.</div>'; return; }
+  var gi=findGroup(code);
+  if(gi<0){
+    if(S.live){ liveNote('\u26a0 That code is not in this event. Check the cart card.', false); return; }
+    gi=0;                                   /* sample data: any code opens the first group */
+  }
+  $('entryerr').innerHTML='';
+  S.me=gi;
+  S.hole=S.groups[gi].startHole;
+  $('grouppill').textContent=S.groups[gi].name+' · '+S.groups[gi].startHole+S.groups[gi].unit;
+  showPane('score');
+});
+$('btnwatch').addEventListener('click', function(){
+  S.me=null; $('grouppill').textContent='Watching';
+  showPane('board');
+});
+
+/* live write — idempotent, matches the worker's existing contract exactly */
+function postHole(hole){
+  if(CFG.DEMO) return;
+  var g=S.groups[S.me], idx=hole-1;
+  g.players.forEach(function(p){
+    if(p.holes[idx]==null) return;               // partial hole is fine, just skip
+    fetch(CFG.API+'/api/scores',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        group_code: g.code,
+        player_name: p.name,
+        scores:[{hole:hole, gross_score:p.holes[idx]}]
+      })
+    }).catch(function(){ /* queue for retry — offline tolerant */ });
+  });
+}
+
+/* ============================================================
+   LIVE READ  (s41)  —  /api/events/watch takes an event code and no login.
+   The worker returns per-player rows; this rebuilds the same group shape
+   buildDemo() produces, so every renderer below is untouched.
+   ============================================================ */
+function holesFromSbh(sbh){
+  var h=[],i,v;
+  for(i=1;i<=18;i++){
+    v = sbh[i]; if(v==null) v = sbh[String(i)];
+    h.push(v==null ? null : Number(v));
+  }
+  return h;
+}
+
+function buildLive(rows){
+  var map={}, order=[], i, r, key;
+  for(i=0;i<rows.length;i++){
+    r=rows[i];
+    key = (r.group_id==null) ? ('x'+i) : ('g'+r.group_id);
+    if(!map[key]){
+      map[key]={ code:null,
+                 name: r.group_name || ('Group '+(order.length+1)),
+                 startHole: r.start_hole || 1,
+                 unit: r.start_unit || '',
+                 players: [],
+                 lastPost: Date.now() };
+      order.push(key);
+    }
+    map[key].players.push({ name: r.player_name, holes: holesFromSbh(r.scores_by_hole||{}) });
+  }
+  order.sort(function(a,b){
+    return map[a].startHole-map[b].startHole || (map[a].unit < map[b].unit ? -1 : 1);
+  });
+  return order.map(function(k){ return map[k]; });
+}
+
+function liveNote(msg, good){
+  var el=$('entryerr'); if(!el) return;
+  el.innerHTML = '<div style="font-size:13px;font-weight:700;padding:7px 10px;border-radius:8px;'+
+    (good ? 'background:#eaf5ee;color:#1F5C3D;border:1px solid #b7d9c4' :
+            'background:#fdecea;color:#a3271b;border:1px solid #efb4ac')+'">'+msg+'</div>';
+}
+
+function loadLive(){
+  if(typeof fetch!=='function'){ S.live=false; return; }   /* jsdom/no-fetch: stay on sample data */
+  fetch(CFG.API+'/api/events/watch', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ event_code: CFG.EVENT_CODE })
+  }).then(function(r){ return r.json(); })
+    .then(function(d){
+      if(!d || !d.standings || !d.standings.length) throw new Error('no standings');
+      S.groups = buildLive(d.standings);
+      S.live   = true;
+      renderTicker();
+      renderSponsors();     /* s41: impcount lives HERE, not in renderTicker — the sponsor
+                               rate-card number would otherwise keep showing the sample field */
+      if(S.pane==='board') renderBoard();
+      liveNote('\u2713 Live \u2014 '+d.standings.length+' players in '+S.groups.length+' groups.', true);
+    })
+    .catch(function(){
+      S.live = false;
+      liveNote('\u26a0 Could not reach the scoring server. Showing SAMPLE data, not the real field.', false);
+    });
+}
+
+/* Typed code -> group. Real codes are not in the watch payload yet, so this
+   also accepts the SND<unit><hole> form this event uses. Returns -1 for no match. */
+function findGroup(code){
+  var i, g, m=/^SND([AB])(\d{1,2})$/.exec(code);
+  for(i=0;i<S.groups.length;i++){
+    g=S.groups[i];
+    if(g.code && String(g.code).toUpperCase()===code) return i;
+  }
+  if(m){
+    var u=m[1], h=parseInt(m[2],10);
+    for(i=0;i<S.groups.length;i++){
+      g=S.groups[i];
+      if(g.startHole===h && String(g.unit||'').toUpperCase()===u) return i;
+    }
+  }
+  return -1;
+}
+
+/* ---------- boot ---------- */
+S.groups=buildDemo();   /* instant fallback so the screen is never blank */
+renderTicker();
+showPane('entry');
+if(!CFG.DEMO) loadLive();
+</script>
+</body>
+</html>
