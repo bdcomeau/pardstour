@@ -307,7 +307,7 @@ td.sc{font-weight:900;font-size:17px;font-variant-numeric:tabular-nums}
    ============================================================ */
 var CFG = {
   API:        'https://pards-tour-api.bdapple.workers.dev',
-  EVENT_CODE: 'SNDEMO',
+  EVENT_CODE: 'SANDAL',
   /* s42 — GROUP CODE PREFIX. groups.code is UNIQUE ACROSS THE WHOLE DATABASE
      (CREATE TABLE groups ... code TEXT NOT NULL UNIQUE), and the worker resolves a score
      write by code ALONE - no event id is sent or checked:
@@ -317,7 +317,7 @@ var CFG = {
      event - its code resolves to the demo or to nothing. That separation is the whole
      point, and it is why this is config and not a literal buried in a regex.
      Switching this portal to the real event is exactly two lines: EVENT_CODE + this. */
-  GROUP_PREFIX: 'SND',
+  GROUP_PREFIX: 'SC',
   DEMO:       false,         // s41 — LIVE. API host was the wrong subdomain: a host that does not exist
   CALLAWAY:   'classic',     // 'classic' | 'brief'  <-- the open question
   NUDGE_MIN:  40             // minutes of silence before the by-name nudge
