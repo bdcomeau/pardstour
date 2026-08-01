@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v370.0 -->
+  <!-- pards-tour-v371.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -40759,6 +40759,30 @@ function ptScorecardBuilder(eventId, round) {
       if (!d || !d.event) { ptToast((d && d.error) || 'Could not load event.'); return; }
       var ev = d.event, groups = d.groups || [];
       if (!groups.length) { ptToast('No groups yet — build the tee sheet first.'); return; }
+      // s62 (Bruce): the card carries the start VERY CLEARLY — tee time
+      // and/or shotgun hole. Round tee-times map to groups via players'
+      // group_id (the _ttMap.byGroup precedent).
+      var ttInfo = { byGroup: {}, shotgun: false };
+      var ttReady = Promise.resolve();
+      // s62 · B-23 (Bruce: card 021187 scored, ZERO rows in D1): multi-round
+      // events score through per-round TEE-TIME codes (v236.0) — a group
+      // code on a multi_day card joins a wheel with no valid submit target
+      // and the post dies silently. Never print group codes for multi_day.
+      if (ev.format === 'multi_day' && !round) { ptToast('Multi-round event — print score cards from a round row (tee-time codes live per round).'); return; }
+      if (round && round.id) {
+        ttReady = fetch(TOUR_API + '/api/rounds/' + round.id + '/tee-times', { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
+          .then(_ptJson).then(function (td) {
+            var tts = (td && td.tee_times) || [];
+            ttInfo.shotgun = round.mode === 'shotgun' || (tts.length > 1 && tts.every(function (t) { return t.start_time === tts[0].start_time; }) && tts.some(function (t) { return (t.hole || 1) !== (tts[0].hole || 1); }));
+            tts.forEach(function (tt) {
+              (tt.players || []).forEach(function (p) {
+                if (p.group_id && !ttInfo.byGroup[p.group_id]) ttInfo.byGroup[p.group_id] = { time: tt.start_time || '', hole: tt.hole || null, code: tt.foursome_code || null };
+              });
+            });
+          }).catch(function () {});
+      } else if (ev.mode === 'shotgun' || groups.filter(function (g) { return (g.start_hole || 1) !== 1; }).length) {
+        ttInfo.shotgun = true;
+      }
       // Cross-marking detection (the v303.0 _scorerOf derivation, verbatim):
       // pointer first (MMG rotation), then the symmetric two-on-a-hole swap.
       var scorerOf = {};
@@ -40810,7 +40834,7 @@ function ptScorecardBuilder(eventId, round) {
         ['hcp', 'ptScbFHcp'], ['members', 'ptScbFMem'], ['fmt', 'ptScbFFmt'], ['attest', 'ptScbFAtt']]
           .forEach(function (p) { var el = document.getElementById(p[1]); o[p[0]] = !!(el && el.checked); });
         ov.remove();
-        ptScbPrint(ev, groups, scorerOf, round, o);
+        ttReady.then(function () { ptScbPrint(ev, groups, scorerOf, round, o, ttInfo); });
       };
     })
     .catch(function () { ptToast('Could not load event.'); });
@@ -40819,7 +40843,8 @@ function ptScorecardBuilder(eventId, round) {
 // ── Render + print. One card per marked unit (marker on) or per pairing
 // (marker off: two teams sharing a start hole share one card, per Bruce's
 // sample cards). Letter landscape, 2 cards per page.
-function ptScbPrint(ev, groups, scorerOf, round, o) {
+function ptScbPrint(ev, groups, scorerOf, round, o, ttInfo) {
+  ttInfo = ttInfo || { byGroup: {}, shotgun: false };
   var cfg = ptEvCfg(ev);
   var fmt = (round && round.format) || ev.format || '';
   var isScr = /^scramble/.test(fmt);
@@ -40892,7 +40917,7 @@ function ptScbPrint(ev, groups, scorerOf, round, o) {
     for (var i = 0; i < 18; i++) {
       if (i === 9) h += '<td class="sc-sum">' + (headerRow ? 'OUT' : (marks && marks.sumOut != null ? marks.sumOut : '')) + '</td><td class="sc-div">' + (marks && marks.div != null ? marks.div : '') + '</td>';
       var cell = headerRow ? String(i + 1) : (marks && marks.cells ? marks.cells[i] : '');
-      var cls = headerRow ? 'sc-hn' + ((i + 1) === startHole ? ' sc-start' : '') : 'sc-c';
+      var cls = headerRow ? 'sc-hn' + ((i + 1) === startHole ? ' sc-start' : '') : 'sc-c' + (marks && marks.cls && marks.cls[i] ? ' ' + marks.cls[i] : '');
       h += '<td class="' + cls + '">' + cell + '</td>';
     }
     h += '<td class="sc-sum">' + (headerRow ? 'IN' : (marks && marks.sumIn != null ? marks.sumIn : '')) + '</td>';
@@ -40901,26 +40926,26 @@ function ptScbPrint(ev, groups, scorerOf, round, o) {
   }
 
   function rowFor(label, ph, siArr, bold) {
-    // s62 (Bruce): stroke holes get a RED CIRCLE around the score box, not a
-    // + sign that covers the entry. 1 stroke = ring, 2 = double ring,
-    // give-back (plus players) = dashed ring. Score is written inside.
-    var cells = [], div = '';
+    // s62 (Bruce, 2nd pass): stroke holes get a THICK RED BORDER on the
+    // score box — nothing inside it, the whole box stays writable. 1 stroke
+    // = thick border, 2 = thick border + inner line, give-back = dashed.
+    var cells = Array(18).fill(''), cellCls = [], div = '';
     if (o.strokes && ph != null) {
       var stk = ptScbStrokes(Math.round(ph), siArr);
-      cells = stk.map(function (s) {
-        if (s > 1) return '<span class="sc-ring sc-ring2"><span class="sc-ringi"></span></span>';
-        if (s === 1) return '<span class="sc-ring"></span>';
-        if (s < 0) return '<span class="sc-ring sc-ringneg"></span>';
+      cellCls = stk.map(function (s) {
+        if (s > 1) return 'sc-stk2';
+        if (s === 1) return 'sc-stk1';
+        if (s < 0) return 'sc-stkneg';
         return '';
       });
-    } else cells = Array(18).fill('');
+    }
     // s62 (Bruce): beside every player/team name, always the ADJUSTED
     // handicap and the tee box they play (round tee — per-player tees are
     // not modelled in the event roster yet).
     var meta = ph != null ? (Math.round(ph) + (teeMeta ? ' · ' + teeMeta : '')) : '';
     return '<tr><td class="sc-name' + (bold ? ' sc-b' : '') + '">' + esc(label)
       + (meta ? ' <span class="sc-meta">' + esc(meta) + '</span>' : '') + '</td>'
-      + holeCells({ cells: cells, div: div }, 0, false)
+      + holeCells({ cells: cells, cls: cellCls, div: div }, 0, false)
       + (o.hcp ? '<td class="sc-hd">' + (ph != null ? Math.round(ph) : '') + '</td><td class="sc-hd"></td>' : '')
       + '</tr>';
   }
@@ -40934,6 +40959,11 @@ function ptScbPrint(ev, groups, scorerOf, round, o) {
     // is paired with). No marker → the unit's own code.
     var codeGroup = (o.marker && u.keeper) ? u.keeper : g0;
     var code = codeGroup.code || '';
+    if (ev.format === 'multi_day') {
+      // B-23: multi_day scores ONLY via tee-time codes. No tee time yet ->
+      // no code on the card (a dead code is worse than none).
+      code = (ttInfo.byGroup[codeGroup.id] || {}).code || '';
+    }
     var qrSvg = (o.qr && code) ? ptScbQRSvg(appUrl + '?code=' + code, 86) : '';
 
     // rows
@@ -40957,7 +40987,16 @@ function ptScbPrint(ev, groups, scorerOf, round, o) {
     });
 
     var head1 = (dateStr ? dateStr : '') + (g0.start_unit ? ' · Start ' + g0.start_unit : (startHole !== 1 ? ' · Hole ' + startHole : ''));
-    var keeperLine = (o.marker && u.keeper) ? '<div class="sc-keeper">Card kept by: <b>' + esc(u.keeper.name || 'marker group') + '</b></div>' : '';
+    // s62 (Bruce): "1PM SHOTGUN HOLE 3" — the start, unmissable.
+    var tt0 = ttInfo.byGroup[g0.id] || null;
+    var startHole2 = (tt0 && tt0.hole) || startHole;
+    var timeLabel = (tt0 && tt0.time && typeof _pt12h === 'function') ? _pt12h(tt0.time) : '';
+    var startLine = (timeLabel ? timeLabel + ' · ' : '')
+      + (g0.start_unit ? 'START ' + g0.start_unit
+        : (ttInfo.shotgun ? 'SHOTGUN — HOLE ' + startHole2 : 'START HOLE ' + startHole2));
+    // s62 (Bruce): cross-marking prints the OTHER team as the MARKER.
+    var keeperLine = (o.marker && u.keeper) ? '<span class="sc-keeper">MARKER: ' + esc(u.keeper.name || '') + '</span>' : '';
+    var startRow = '<div class="sc-startrow"><span class="sc-startline">\u26f3 ' + esc(startLine) + '</span>' + keeperLine + '</div>';
     var markerStrip = o.marker
       ? '<table class="sc-t sc-ms"><tr><td class="sc-name sc-msl">Marker Scores</td>' + holeCells(null, 0, true) + (o.hcp ? '<td class="sc-hd">HDCP</td><td class="sc-hd">NET</td>' : '') + '</tr>'
       + '<tr><td class="sc-name"></td>' + holeCells(null, -1, false) + (o.hcp ? '<td class="sc-hd"></td><td class="sc-hd"></td>' : '') + '</tr></table>'
@@ -40973,7 +41012,7 @@ function ptScbPrint(ev, groups, scorerOf, round, o) {
       + '</div>'
       + (qrSvg ? '<div class="sc-qr">' + qrSvg + '</div>' : '<div class="sc-qr"></div>')
       + '</div>'
-      + keeperLine
+      + startRow
       + '<table class="sc-t">'
       + '<tr><td class="sc-name sc-tt">' + esc(head1) + '</td>' + holeCells(null, startHole, true) + (o.hcp ? '<td class="sc-hd"></td><td class="sc-hd"></td>' : '') + '</tr>'
       + (o.yards && yards ? '<tr class="sc-rowyds"><td class="sc-name sc-lbl">' + esc(teeObj ? teeObj.name : teeName) + '</td>' + holeCells({ cells: yards.map(String), sumOut: ydsS.out, sumIn: ydsS.inn, sumTot: ydsS.tot, div: '' }, 0, false) + (o.hcp ? '<td class="sc-hd"></td><td class="sc-hd"></td>' : '') + '</tr>' : '')
@@ -40996,7 +41035,9 @@ function ptScbPrint(ev, groups, scorerOf, round, o) {
     + '.sc-sub .sc-code{margin-left:34px}'
     + '.sc-fmt{font-size:10px;color:#444;margin-top:1px}'
     + '.sc-qr{width:88px;flex-shrink:0}'
-    + '.sc-keeper{font-size:10px;margin:0 0 3px;color:#333}'
+    + '.sc-startrow{display:flex;align-items:center;justify-content:space-between;margin:0 0 4px}'
+    + '.sc-startline{font-size:15px;font-weight:900;letter-spacing:.5px;color:#1a3a2a}'
+    + '.sc-keeper{font-size:13px;font-weight:900;color:#c0392b;letter-spacing:.4px}'
     + '.sc-t{width:100%;border-collapse:collapse;table-layout:fixed}'
     + '.sc-t td{border:1px solid #111;text-align:center;font-size:10px;padding:2px 1px;height:19px;overflow:hidden}'
     + '.sc-t td.sc-name{width:150px;text-align:left;padding:2px 6px;font-size:11px}'
@@ -41012,10 +41053,9 @@ function ptScbPrint(ev, groups, scorerOf, round, o) {
     + '.sc-t td.sc-hd{width:30px;font-weight:700}'
     + '.sc-t td.sc-c{font-weight:700;font-size:11px}'
     + '.sc-meta{font-weight:600;font-size:9px;color:#555;white-space:nowrap}'
-    + '.sc-ring{display:inline-block;width:15px;height:15px;border:1.6px solid #c0392b;border-radius:50%;vertical-align:middle}'
-    + '.sc-ring2{position:relative}'
-    + '.sc-ringi{position:absolute;inset:1.5px;border:1.2px solid #c0392b;border-radius:50%}'
-    + '.sc-ringneg{border-style:dashed}'
+    + '.sc-t td.sc-stk1{border:1.5px solid #c0392b}'
+    + '.sc-t td.sc-stk2{border:3.2px solid #c0392b}'
+    + '.sc-t td.sc-stkneg{border:1.5px dashed #c0392b}'
     + '.sc-rowyds td{background:#e5eee3}'
     + '.sc-rowhcp td{background:#f5edd6}'
     + '.sc-rowpar td{background:#1a3a2a;color:#f5e6b8;border-color:#111}'
@@ -41024,7 +41064,7 @@ function ptScbPrint(ev, groups, scorerOf, round, o) {
     + '.sc-ms td.sc-msl{font-size:9px}'
     + '.sc-foot td{text-align:left!important;font-size:12px!important;font-weight:700;height:26px!important;padding:4px 8px!important}'
     + '#ptRptBar{position:fixed;top:0;left:0;right:0;background:#1a3a2a;padding:7px 16px;display:flex;align-items:center;justify-content:space-between;z-index:999}'
-    + '@media print{@page{size:letter landscape;margin:9mm}body{padding:0}#ptRptBar{display:none!important}.sc-pb{page-break-after:always}.sc-start,.sc-t td,.sc-ring,.sc-rowyds td,.sc-rowhcp td,.sc-rowpar td{-webkit-print-color-adjust:exact;print-color-adjust:exact}}';
+    + '@media print{@page{size:letter landscape;margin:9mm}body{padding:0}#ptRptBar{display:none!important}.sc-pb{page-break-after:always}.sc-start,.sc-t td,.sc-t td.sc-stk1,.sc-t td.sc-stk2,.sc-t td.sc-stkneg,.sc-rowyds td,.sc-rowhcp td,.sc-rowpar td{-webkit-print-color-adjust:exact;print-color-adjust:exact}}';
   var bar = '<div id="ptRptBar"><div style="color:#c9a84c;font-weight:800;font-size:13px">🎴 Score Cards — ' + esc(ev.name) + '</div>'
     + '<button onclick="window.print()" style="padding:6px 14px;background:#c9a84c;border:none;border-radius:8px;color:#1a3a2a;font-size:12px;font-weight:900;cursor:pointer">🖨️ Print</button></div>';
   var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + esc(ev.name) + ' — Score Cards</title><style>' + css + '</style></head><body>'
@@ -44742,9 +44782,18 @@ function doJoinGroup() {
   if (!G._teeShots) G._teeShots = {};
   if (!G._refTeeShots) G._refTeeShots = {};
   G._activeScoreTab = 'official'; // 'official' | 'ref'
-  // Scorecard name: show the team being officially scored
+  // Scorecard name: show the team being officially scored.
+  // v371.0 · B-22 (Bruce, s62, off the printed QR card): the wheel carries
+  // the OFFICIAL entity tied to the 6-digit code — the team name (paired:
+  // the PAIRED team's), or the individual being scored. The typed "Your
+  // Name" is the SCORER's identity (G.playerName) and must never rename the
+  // card. Root cause: handleJoinCode returns the EVENT-level format, so a
+  // scramble/team round inside a 'multi_day' (wizard) or legacy team event
+  // fell to this solo branch and printed the scorer's name on the wheel.
+  // Individual formats keep the scorer name — they score themselves.
   var officialTeamName = G._pairedGroup ? G._pairedGroup.name : (G.joinGroup.name || name);
-  var scorecardName = (G.joinGroup.format === 'scramble') ? officialTeamName : name;
+  var _slIndiv = (typeof ptIsIndivRoundFormat === 'function') && ptIsIndivRoundFormat(G.joinGroup.format || '');
+  var scorecardName = _slIndiv ? name : officialTeamName;
   G.players = [{
     name: scorecardName,
     idx: hdcpIndex,
@@ -46920,7 +46969,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v370.0';
+    const TOUR_VERSION     = 'pards-tour-v371.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
