@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v343.0 -->
+  <!-- pards-tour-v344.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -22834,6 +22834,10 @@ function openFavorites(){
 }
 
 var _favEditingName = null; // null = new player
+// v344.0 — Me chip state lives here, not in CSS. The chip used to be rendered
+// from storage in #1a6a3a while three readers tested for #e8f5ee, so every save
+// of your own row read back "not Me" and cleared c.me (and fav and buddy).
+var _favEditMe = false;
 
 function favOpenEdit(name){ try {
   _favEditingName = name;
@@ -22905,6 +22909,7 @@ function favOpenEdit(name){ try {
 
   // Me check
   const isMe = c ? !!(c.me) : false;
+  _favEditMe = isMe;
   const meC2 = contacts.find(function(x){ return x.me; });
   const meName2 = meC2 ? meC2.name : 'Me';
 
@@ -22978,7 +22983,7 @@ function favOpenEdit(name){ try {
   h += '<div style="display:flex;gap:8px;margin-bottom:16px">';
   h += '<div id="favToggleStar"  onclick="favToggleChip(\'star\')"  style="'+CHIP_STAR +(starActive  ? '#b8860b;background:#b8860b;color:#fff"'  : '#ddd;background:#fff;color:#aaa"')+'>'+(starActive?'✓ ':'')+'⚡ Quick Add</div>';
   h += '<div id="favToggleBuddy" onclick="favToggleChip(\'buddy\')" style="'+CHIP_BUDDY+(buddyActive ? '#1a6a9a;background:#1a6a9a;color:#fff"' : '#ddd;background:#fff;color:#aaa"')+'>'+(buddyActive?'✓ ':'')+'🤝 Buddy</div>';
-  h += '<div id="favToggleMe"    onclick="favMeChipTapped()"       style="'+CHIP_ME   +(isMe       ? '#1a6a3a;background:#1a6a3a;color:#fff"' : '#ddd;background:#fff;color:#aaa"')+'>✓ This is me</div>';
+  h += '<div id="favToggleMe"    onclick="favMeChipTapped()"       style="'+CHIP_ME   +(isMe       ? '#2d6a4f;background:#e8f5ee;color:#1a3a2a"' : '#ddd;background:#fff;color:#aaa"')+'>✓ This is me</div>';
   h += '</div>';
 
   // ── SECTION 1: Identity ────────────────────────────────────────────────────
@@ -23173,7 +23178,7 @@ var _meLongPressTimer = null;
 
 function favMeChipTapped(){
   var meEl = document.getElementById('favToggleMe');
-  var alreadyMe = meEl && (meEl.style.background === 'rgb(232, 245, 238)' || meEl.style.background === '#e8f5ee');
+  var alreadyMe = _favEditMe;
   if(alreadyMe) return; // already Me — no action needed
   var contacts = loadContacts();
   var existingMe = contacts.find(function(c){ return c.me; });
@@ -23239,6 +23244,7 @@ function favConfirmMeChip(){
   var meEl = document.getElementById('favToggleMe');
   var starEl = document.getElementById('favToggleStar');
   if(!meEl) return;
+  _favEditMe = true;
   meEl.style.background = '#e8f5ee'; meEl.style.color = '#1a3a2a'; meEl.style.borderColor = '#2d6a4f';
   meEl.textContent = '✓ This is Me';
   if(starEl){ starEl.style.background = '#fffbe6'; starEl.style.color = '#b8860b'; starEl.style.borderColor = '#c9a84c'; }
@@ -23673,7 +23679,7 @@ function favGetCurrentValues(){
   var starEl=document.getElementById('favToggleStar');
   var meEl=document.getElementById('favToggleMe');
   vals.fav=starEl?(starEl.style.background==='rgb(184, 134, 11)'||starEl.style.background==='#b8860b'):false;
-  vals.me=meEl?(meEl.style.background==='rgb(232, 245, 238)'||meEl.style.background==='#e8f5ee'):false;
+  vals.me=_favEditMe;
   var buddyEl2=document.getElementById('favToggleBuddy');
   vals.buddy=buddyEl2?(buddyEl2.style.background==='rgb(26, 106, 154)'||buddyEl2.style.background==='#1a6a9a'):false;
   return vals;
@@ -23960,7 +23966,7 @@ function favSaveEdit(){
   const newWheel = wheelEl ? parseInt(wheelEl.value,10) : 1;
 
   const isFav = starEl && (starEl.style.background === 'rgb(184, 134, 11)' || starEl.style.background === '#b8860b');
-  const isMe  = meEl  && (meEl.style.background  === 'rgb(232, 245, 238)' || meEl.style.background  === '#e8f5ee');
+  const isMe  = _favEditMe;
 
   const contacts = loadContacts();
   const oldName  = _favEditingName;
@@ -45510,7 +45516,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v343.0';
+    const TOUR_VERSION     = 'pards-tour-v344.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
