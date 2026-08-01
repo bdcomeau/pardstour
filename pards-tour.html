@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v348.0 -->
+  <!-- pards-tour-v349.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -30615,6 +30615,83 @@ function doCreateTrip() {
   });
 }
 
+/* ===== v349.0 — B-08 · EDIT A TRIP =====================================
+   The Worker has accepted PATCH /api/trips/:id {name, destination, start_date,
+   end_date, status} since long before this. The CLIENT simply never called it:
+   measured s55, the only trip writes the client ever made were POST /api/trips
+   and DELETE /api/trips/:id. B-08 was a missing screen, not a missing endpoint.
+   ⭐ The worker guard is `!= null`, so a date can be CHANGED from here but never
+   CLEARED. Both dates are therefore required, exactly as Create Trip requires. */
+window.ptShowEditTrip = function(){
+  var t = window._ptTripEdit; if(!t) return;
+  var _prev = document.getElementById('ptEditTripOv'); if(_prev) _prev.remove();  // idempotent: never two #ptEditTripOv
+  var ov = document.createElement('div');
+  ov.id = 'ptEditTripOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:640;background:rgba(0,0,0,.75);display:flex;align-items:flex-end';
+  var _lbl = 'font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px';
+  var _inp = 'width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(100,180,255,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none';
+  var _dat = 'width:100%;box-sizing:border-box;padding:12px 10px;border-radius:10px;border:1.5px solid rgba(100,180,255,.3);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none';
+  ov.innerHTML = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;box-sizing:border-box;max-height:90vh;overflow-y:auto">'
+    +'<div style="display:flex;align-items:center;margin-bottom:6px">'
+    +'<div style="font-size:17px;font-weight:800;color:rgba(100,180,255,1);flex:1">✎ Edit Trip</div>'
+    +'<button onclick="document.getElementById(\'ptEditTripOv\').remove()" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:22px;cursor:pointer;padding:0">\xd7</button>'
+    +'</div>'
+    +'<div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px">Rounds keep their own dates — changing the span only re-draws the itinerary strip.</div>'
+    +'<div style="margin-bottom:14px"><div style="'+_lbl+'">Trip Name</div><input id="ptEdTripName" type="text" style="'+_inp+'"></div>'
+    +'<div style="margin-bottom:14px"><div style="'+_lbl+'">Destination</div><input id="ptEdTripDest" type="text" placeholder="e.g. Scottsdale, AZ" style="'+_inp+'"></div>'
+    +'<div style="display:flex;gap:10px;margin-bottom:20px">'
+    +'<div style="flex:1"><div style="'+_lbl+'">Start Date</div><input id="ptEdTripStart" type="date" style="'+_dat+'"></div>'
+    +'<div style="flex:1"><div style="'+_lbl+'">End Date</div><input id="ptEdTripEnd" type="date" style="'+_dat+'"></div>'
+    +'</div>'
+    +'<div id="ptEdTripErr" style="display:none;color:#e74c3c;font-size:13px;margin-bottom:12px;text-align:center"></div>'
+    +'<button id="ptEdTripSave" onclick="doSaveTripEdit()" style="width:100%;padding:15px;background:rgba(100,180,255,.9);color:#0a1a2a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:10px">Save Changes</button>'
+    +'<button onclick="document.getElementById(\'ptEditTripOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
+    +'</div>';
+  ov.addEventListener('click', function(e){ if(e.target===ov) ov.remove(); });
+  document.body.appendChild(ov);
+  // Values assigned as PROPERTIES, never interpolated into the markup.
+  document.getElementById('ptEdTripName').value  = t.name || '';
+  document.getElementById('ptEdTripDest').value  = t.destination || '';
+  document.getElementById('ptEdTripStart').value = t.start_date || '';
+  document.getElementById('ptEdTripEnd').value   = t.end_date || '';
+};
+
+window.doSaveTripEdit = function(){
+  var t = window._ptTripEdit; if(!t) return;
+  var errEl = document.getElementById('ptEdTripErr');
+  var btn   = document.getElementById('ptEdTripSave');
+  var name  = (document.getElementById('ptEdTripName').value||'').trim();
+  var dest  = (document.getElementById('ptEdTripDest').value||'').trim();
+  var start = document.getElementById('ptEdTripStart').value;
+  var end   = document.getElementById('ptEdTripEnd').value;
+  errEl.style.display='none';
+  function _fail(m){ errEl.textContent=m; errEl.style.display='block'; }
+  if(!name)  { _fail('Trip name required.');  return; }
+  if(!start) { _fail('Start date required.'); return; }
+  if(!end)   { _fail('End date required.');   return; }
+  // ISO yyyy-mm-dd sorts lexicographically; no Date parsing needed and no timezone.
+  if(end < start) { _fail('End date cannot be before the start date.'); return; }
+  var _out = (window._ptTripDetailRounds||[]).filter(function(r){ return r.date && (r.date < start || r.date > end); });
+  if(_out.length && !confirm(_out.length+' round'+(_out.length===1?'':'s')+' fall outside the new dates. They keep their own dates and are NOT deleted, but they drop off the itinerary strip. Save anyway?')) return;
+  btn.disabled=true; btn.textContent='Saving…';
+  fetch(TOUR_API+'/api/trips/'+t.id, {
+    method:'PATCH',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+G.orgToken},
+    body:JSON.stringify({name:name, destination:dest, start_date:start, end_date:end})
+  }).then(_ptJson).then(function(d){
+    if(d && d.trip){
+      var _ov=document.getElementById('ptEditTripOv'); if(_ov) _ov.remove();
+      ptLoadTripDetail(t.id);   // re-fetch: header, itinerary strip and _ptTripSpan all re-derive
+    } else {
+      btn.disabled=false; btn.textContent='Save Changes';
+      _fail((d&&d.error)||'Save failed.');
+    }
+  }).catch(function(_e){
+    btn.disabled=false; btn.textContent='Save Changes';
+    _fail(_ptMsg(_e,'Network error — check connection.'));
+  });
+};
+
 window.ptDeleteTrip = function(tripId, ev) {
   if(ev) ev.stopPropagation();
   if(!confirm('Delete this trip and all its rounds, scores and tee times?')) return;
@@ -30808,13 +30885,23 @@ function ptRenderTripDetail(trip, players, rounds) {
 
   // Stash trip span so Add-Round can constrain its date picker to the trip's days
   window._ptTripSpan = (trip.start_date && trip.end_date) ? {start:trip.start_date, end:trip.end_date} : null;
+  // v349.0 — B-08: stash the editable fields for ptShowEditTrip(). Stashed rather
+  // than interpolated into an onclick, because _ptEsc does NOT escape quotes and a
+  // trip name with an apostrophe would break the attribute.
+  window._ptTripEdit = {id:tripId, name:trip.name||'', destination:trip.destination||'', start_date:trip.start_date||'', end_date:trip.end_date||''};
   var _multiDay = !_isLeague && trip.start_date && trip.end_date && trip.start_date !== trip.end_date;
 
   // Header card
   var html = '<div style="background:rgba(100,180,255,.08);border:1.5px solid rgba(100,180,255,.2);border-radius:16px;padding:18px;margin-bottom:20px">'
     +'<div style="font-size:20px;font-weight:900;color:#fff;margin-bottom:4px">'+_esc(trip.name)+'</div>'
     +(trip.destination?'<div style="font-size:13px;color:rgba(100,180,255,.8);margin-bottom:4px">\u{1F4CD} '+_esc(trip.destination)+'</div>':'')
-    +(trip.start_date?'<div style="font-size:13px;color:rgba(255,255,255,.5)">'+ptFormatDate(trip.start_date)+(trip.end_date?' \u2013 '+ptFormatDate(trip.end_date):'')+'</div>':'')
+    // v349.0 — B-08: the date line always renders for a trip and carries the ✎ Edit
+    // affordance, so a trip saved with no dates is still reachable. Leagues keep the
+    // old read-only line — they are not /api/trips and must not PATCH it.
+    +(_isLeague
+      ? (trip.start_date?'<div style="font-size:13px;color:rgba(255,255,255,.5)">'+ptFormatDate(trip.start_date)+(trip.end_date?' \u2013 '+ptFormatDate(trip.end_date):'')+'</div>':'')
+      : '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><div style="font-size:13px;color:rgba(255,255,255,'+(trip.start_date?'.5':'.3')+')">'+(trip.start_date?ptFormatDate(trip.start_date)+(trip.end_date?' \u2013 '+ptFormatDate(trip.end_date):''):'No dates set')+'</div>'
+        +'<button onclick="ptShowEditTrip()" title="Edit trip name, destination and dates" style="background:rgba(100,180,255,.12);border:1px solid rgba(100,180,255,.3);border-radius:8px;color:rgba(100,180,255,.85);font-size:11px;font-weight:800;cursor:pointer;padding:4px 9px;flex-shrink:0;-webkit-tap-highlight-color:transparent">\u270E Edit</button></div>')
     // v245.0 — trip_code is now the shareable Watch Live code (Worker v2.35.0)
     +(trip.trip_code&&!_isLeague?'<div style="margin-top:12px"><div style="font-size:10px;color:rgba(255,255,255,.35);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Trip Code (share to Watch Live)</div><div style="font-size:26px;font-weight:900;color:#c9a84c;letter-spacing:6px;font-family:monospace">'+_esc(trip.trip_code)+'</div></div>':'')
     +'<div style="margin-top:12px;display:flex;gap:8px">'
@@ -45620,7 +45707,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v348.0';
+    const TOUR_VERSION     = 'pards-tour-v349.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
