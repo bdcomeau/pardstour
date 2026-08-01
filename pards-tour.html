@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v349.0 -->
+  <!-- pards-tour-v350.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -35947,6 +35947,15 @@ function ptOpenScoringSettings(eventId) {
       var cfg = ptEvCfg(d.event);
       var modes = ptScoringModes(cfg);
       window._ptScRule = cfg.flight_rule || null;
+      // v350.0 — D11, ENFORCED IN THE PRODUCT FOR THE FIRST TIME.
+      // Bruce, s45, unprompted and twice: "There are no flights in a team event."
+      // "Flights are only singles." That is a RULE, not a selector — and until now
+      // nothing stopped a TEAM multi_day event (event 49, the Randy Goulet) from
+      // setting one. MEASURED against live D1 before shipping: of the 7 events only
+      // 58 and 69 carry a flight_rule and BOTH are individual, so disabling this row
+      // on team events destroys no existing configuration.
+      var _flightsOk = ptIsIndividualEvent(cfg);
+      if (!_flightsOk) window._ptScRule = null;
       var ov = document.createElement('div');
       ov.id = 'ptScOv';
       ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.75);display:flex;align-items:flex-end;overflow-y:auto';
@@ -35969,11 +35978,18 @@ function ptOpenScoringSettings(eventId) {
         + chk('ptScMode_gross', 'Gross (total strokes)', modes.indexOf('gross') !== -1)
         + chk('ptScMode_net', 'Net (gross \u2212 full handicap)', modes.indexOf('net') !== -1)
         + '<div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 6px">Flights</div>'
-        + '<div id="ptScRuleRow" style="display:flex;gap:6px;margin-bottom:8px">' + ruleBtn(null, 'None') + ruleBtn('handicap', 'Handicap') + ruleBtn('age', 'Age') + '</div>'
-        + '<div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:12px;padding:0 2px">One rule per event \u2014 handicap and age flights are never combined. Age comes from the Roster.</div>'
+        + (_flightsOk
+            ? '<div id="ptScRuleRow" style="display:flex;gap:6px;margin-bottom:8px">' + ruleBtn(null, 'None') + ruleBtn('handicap', 'Handicap') + ruleBtn('age', 'Age') + '</div>'
+              + '<div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:12px;padding:0 2px">One rule per event \u2014 handicap and age flights are never combined. Age comes from the Roster.</div>'
+            : '<div style="display:flex;gap:6px;margin-bottom:8px;opacity:.35;pointer-events:none">'
+              + '<div style="flex:1;padding:10px 4px;border-radius:9px;border:1.5px solid rgba(201,168,76,.25);text-align:center;color:rgba(201,168,76,.5);font-size:12px;font-weight:800">None</div>'
+              + '<div style="flex:1;padding:10px 4px;border-radius:9px;border:1.5px solid rgba(201,168,76,.25);text-align:center;color:rgba(201,168,76,.5);font-size:12px;font-weight:800">Handicap</div>'
+              + '<div style="flex:1;padding:10px 4px;border-radius:9px;border:1.5px solid rgba(201,168,76,.25);text-align:center;color:rgba(201,168,76,.5);font-size:12px;font-weight:800">Age</div>'
+              + '</div>'
+              + '<div style="font-size:11px;color:rgba(255,200,100,.6);margin-bottom:12px;padding:0 2px">\u26a0\ufe0f No flights in a team event \u2014 the team scoring rule decides the winner. Set this event\u2019s roster to individual to flight it.</div>')
         + '<div id="ptScErr" style="display:none;color:#e74c3c;font-size:13px;margin-bottom:10px;text-align:center"></div>'
         + '<div style="display:flex;gap:8px;margin-top:4px">'
-        + '<button onclick="ptSaveScoringSettings(' + eventId + ',true)" style="flex:1;padding:13px;background:rgba(201,168,76,.12);border:1.5px solid rgba(201,168,76,.4);border-radius:12px;color:#c9a84c;font-size:13px;font-weight:800;cursor:pointer">\u26f3 Save + Edit Flights</button>'
+        + (_flightsOk ? '<button onclick="ptSaveScoringSettings(' + eventId + ',true)" style="flex:1;padding:13px;background:rgba(201,168,76,.12);border:1.5px solid rgba(201,168,76,.4);border-radius:12px;color:#c9a84c;font-size:13px;font-weight:800;cursor:pointer">\u26f3 Save + Edit Flights</button>' : '')
         + '<button onclick="ptSaveScoringSettings(' + eventId + ',false)" style="flex:1;padding:13px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer">Save</button>'
         + '</div>'
         + '<button onclick="document.getElementById(\'ptScOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;margin-top:6px">Cancel</button>';
@@ -36887,7 +36903,22 @@ function ptRenderRounds(ev, rounds) {
   } // v286.0 — end non-mmg rounds UI
   // v247.0 — Scoring & Flights lives outside the rounds/groups gate so a fresh
   // multi-day event can be configured before any rounds exist.
-  if (ev.format === 'multi_day') {
+  // v350.0 — D9/D10 UNGATE. ⚙️ Scoring & Flights was reachable ONLY from a
+  // multi_day event. MEASURED against live D1 (s55): of Bruce's 7 events, FOUR
+  // (23 rbc_scramble, 66 mmg, 74 scramble, 75 callaway) could not reach it at all,
+  // so they could not choose their own leaderboards. It is now offered on any
+  // round-bearing event of any format.
+  // ⭐ DELIBERATELY NOT widened to ZERO-ROUND events. Every consumer of
+  // scoring_modes / flight_rule (the round report ~37365, the multi-round report
+  // ~37620, multi-day standings) reads /events/:id/rounds/:rid/scores. On a
+  // zero-round groups event the control would save a value nothing ever reads —
+  // which is worse than hiding it. The gate was never arbitrary; it was a
+  // FORMAT string standing in for a STRUCTURAL fact. This replaces it with the
+  // structural fact. multi_day keeps its v247.0 exemption so a fresh multi-day
+  // event can still be configured before its first round exists.
+  // ⭐ MMG stays out: its rounds UI is replaced wholesale above and it carries
+  // its own standings and tie-break chain (config.mmg_tiebreak).
+  if (ev.format !== 'mmg' && (ev.format === 'multi_day' || rounds.length > 0)) {
     h += '<button onclick="ptOpenScoringSettings('+ev.id+')" style="width:100%;margin-top:12px;padding:10px;background:rgba(201,168,76,.08);border:1.5px solid rgba(201,168,76,.3);border-radius:9px;color:#c9a84c;font-size:12px;font-weight:800;cursor:pointer">\u2699\ufe0f Scoring & Flights</button>';
   }
   // Utility actions — v244.1: gate on rounds OR groups. Zero-round events
@@ -45707,7 +45738,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v349.0';
+    const TOUR_VERSION     = 'pards-tour-v350.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
