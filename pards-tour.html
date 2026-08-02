@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v394.0 -->
+  <!-- pards-tour-v395.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -36748,10 +36748,6 @@ function ptComputeMultiDayStandings(eventId, rounds, groups, headers) {
 
   // Fetch scores for each scored round
   var roundPromises = rounds.map(function(r) {
-    if (r.format === 'scramble' || r.format === 'rbc_scramble') {
-      // Gross scramble — not yet supported
-      return Promise.resolve({ round: r, playerScores: [] });
-    }
     return fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers || {} })
       .then(_ptJson)
       .then(function(d) { return { round: r, playerScores: d.scores || [] }; })
@@ -36763,11 +36759,17 @@ function ptComputeMultiDayStandings(eventId, rounds, groups, headers) {
     // groups: [{id, name, players:[{name, handicap, roster_id}]}]
     var teamRows = groups.map(function(g) {
       var totalPts = 0;
+      var totalGross = 0;                                              // B-35 (v395.0)
+      var totalHoles = 0;                                              // B-35 (v395.0)
+      var totalToPar = 0;                                              // B-35 (v395.0)
       var roundBreakdown = [];
 
       results.forEach(function(res) {
         var r = res.round;
         var roundPts = 0;
+        var roundGross = 0;                                            // B-35 (v395.0)
+        var roundHoles = 0;                                            // B-35 (v395.0)
+        var roundToPar = null;                                         // B-35 (v395.0)
         var playerCount = 0;
 
         if (r.format === 'individual_stableford') {   // DELIBERATE equality (v358.0): team-event stableford engine — the new individual formats are not offered on team events
@@ -36788,7 +36790,7 @@ function ptComputeMultiDayStandings(eventId, rounds, groups, headers) {
               playerCount++;
             }
           });
-        } else if (r.format === 'scramble_stableford') {
+        } else if (ptIsScrFmt(r.format)) {                               // B-35 (v395.0) — was scramble_stableford only
           // Match scramble scores to this team by player_name = team name
           // Scores stored under tee_time_id; group scores by tee_time_id, take best per hole
           var teamName = g.name || '';
@@ -36814,27 +36816,59 @@ function ptComputeMultiDayStandings(eventId, rounds, groups, headers) {
             roundPts += result.total_points;
             playerCount = 1;
           }
+          // B-35 (v395.0 · D42) — carry strokes + to-par alongside the points so a
+          // gross-scramble round has a real currency of its own.
+          var _rPars = ptGetHolePars(r.course_id, r.tee) || Array(18).fill(4);
+          var _rPar = 0;
+          grossScores.forEach(function(gs) {
+            if (gs.gross_score == null) return;
+            roundHoles++;
+            roundGross += gs.gross_score;
+            _rPar += (_rPars[gs.hole - 1] || 4);
+          });
+          roundToPar = roundHoles > 0 ? (roundGross - _rPar) : null;
+          if (roundHoles > 0 && !playerCount) playerCount = 1;
         }
 
         roundBreakdown.push({
           round_number: r.round_number,
           format: r.format,
           pts: roundPts,
+          gross: roundGross,                                           // B-35 (v395.0)
+          topar: roundToPar,                                           // B-35 (v395.0)
+          holes: roundHoles,                                           // B-35 (v395.0)
           players_scored: playerCount
         });
         totalPts += roundPts;
+        totalGross += roundGross;                                      // B-35 (v395.0)
+        totalHoles += roundHoles;                                      // B-35 (v395.0)
+        if (roundToPar != null) totalToPar += roundToPar;              // B-35 (v395.0)
       });
 
       return {
         group_id: g.id,
         group_name: g.name,
         total_points: totalPts,
+        total_gross: totalGross,                                       // B-35 (v395.0)
+        total_holes: totalHoles,                                       // B-35 (v395.0)
+        total_topar: totalToPar,                                       // B-35 (v395.0)
         rounds: roundBreakdown
       };
     });
 
-    // Sort by total points descending
-    teamRows.sort(function(a, b) { return b.total_points - a.total_points; });
+    // B-35 (v395.0 · D42) — if EVERY scored round is non-stableford the event is a
+    // stroke event: rank fewest strokes, most holes first. Any stableford round and
+    // the event keeps points as its currency (unchanged pre-v395.0 behaviour).
+    var _allGross = results.length > 0 && results.every(function(res) { return !ptIsStblFmt(res.round.format); });
+    if (_allGross) {
+      teamRows.sort(function(a, b) {
+        if (b.total_holes !== a.total_holes) return b.total_holes - a.total_holes;
+        return a.total_gross - b.total_gross;
+      });
+    } else {
+      teamRows.sort(function(a, b) { return b.total_points - a.total_points; });
+    }
+    teamRows.allGross = _allGross;                                     // read by ptRefreshMultiDayLeaderboard
     return teamRows;
   });
 }
@@ -36873,6 +36907,7 @@ function ptRefreshMultiDayLeaderboard(eventId) {
 
     return ptComputeMultiDayStandings(eventId, rounds, groups, headers).then(function(standings) {
       if (!body) return;
+      var _ag = !!(standings && standings.allGross);                   // B-35 (v395.0 · D42)
       // v248.0 — individual events have no team standings; don't early-return
       // before the individual section gets its chance to render.
       var indivRounds = rounds.filter(function(r){ return ptIsIndivRoundFormat(r.format); });   // v358.0
@@ -36891,7 +36926,7 @@ function ptRefreshMultiDayLeaderboard(eventId) {
       rounds.forEach(function(r) {
         h += '<div style="font-size:10px;color:rgba(201,168,76,.6);font-weight:700;text-align:center;min-width:32px">R' + r.round_number + '</div>';
       });
-      h += '<div style="font-size:10px;color:rgba(201,168,76,.9);font-weight:700;text-align:center;min-width:36px">TOT</div>';
+      h += '<div style="font-size:10px;color:rgba(201,168,76,.9);font-weight:700;text-align:center;min-width:36px">' + (_ag ? 'GROSS' : 'TOT') + '</div>';
       h += '</div>';
 
       standings.forEach(function(row, idx) {
@@ -36900,15 +36935,17 @@ function ptRefreshMultiDayLeaderboard(eventId) {
         h += '<div><div style="font-size:14px;font-weight:800;color:' + (isTop ? '#f5e6b8' : '#ddd') + '">' + (idx + 1) + '. ' + (row.group_name || '—') + '</div></div>';
         rounds.forEach(function(r) {
           var rd = (row.rounds || []).find(function(x){ return x.round_number === r.round_number; });
-          var pts = rd ? rd.pts : 0;
+          var pts = rd ? (_ag ? rd.gross : rd.pts) : 0;               // B-35 (v395.0 · D42)
           var hasScores = rd && rd.players_scored > 0;
           h += '<div style="text-align:center;min-width:32px;font-size:13px;font-weight:700;color:' + (hasScores ? 'rgba(255,255,255,.7)' : 'rgba(255,255,255,.2)') + '">' + (hasScores ? pts : '—') + '</div>';
         });
-        h += '<div style="text-align:center;min-width:36px;font-size:16px;font-weight:900;color:' + (isTop ? '#c9a84c' : '#aaa') + '">' + row.total_points + '</div>';
+        var _tot = _ag ? (row.total_holes > 0 ? row.total_gross : '—') : row.total_points;   // B-35 (v395.0)
+        var _tp  = _ag && row.total_holes > 0 ? (row.total_topar === 0 ? 'E' : (row.total_topar > 0 ? '+' + row.total_topar : String(row.total_topar))) : '';
+        h += '<div style="text-align:center;min-width:36px;font-size:16px;font-weight:900;color:' + (isTop ? '#c9a84c' : '#aaa') + '">' + _tot + (_tp ? '<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.45)">' + _tp + '</div>' : '') + '</div>';
         h += '</div>';
       });
 
-      h += '<div style="margin-top:16px;font-size:10px;color:rgba(255,255,255,.2);text-align:center">Net Stableford · Points per round</div>';
+      h += '<div style="margin-top:16px;font-size:10px;color:rgba(255,255,255,.2);text-align:center">' + (_ag ? 'Gross Scramble · Strokes per round' : 'Net Stableford · Points per round') + '</div>';
       }                                                                  // v248.0 end team block
 
       body.innerHTML = h;
@@ -37182,7 +37219,11 @@ function ptIsIndividualEvent(cfg) { return !!(cfg && cfg.roster_mode === 'indivi
 // the D17 position_points fold needs. Same prefix test ptBetsRacePlan has
 // used since v248.6.
 function ptIsIndivRoundFormat(f) { return String(f || '').indexOf('individual') === 0; }
-function ptRoundRule(f) { return f === 'individual_low_net' ? 'net' : f === 'individual_low_gross' ? 'gross' : 'stableford'; }
+// B-35 (v395.0) — DERIVED format predicates. Never enumerate scramble variants;
+// these keep the format-literal budget flat and catch rbc_scramble for free.
+function ptIsScrFmt(f)  { return /scramble/.test(String(f || '')); }
+function ptIsStblFmt(f) { return /stableford/.test(String(f || '')); }
+function ptRoundRule(f) { return f === 'individual_low_net' ? 'net' : f === 'individual_low_gross' ? 'gross' : ptIsStblFmt(f) ? 'stableford' : 'gross'; }   // B-35 (v395.0)
 
 // ── v384.0 (D27) — TEAM X-OF-N ENGINE ──────────────────────────────────────
 // One engine for the best-N-balls family (Bruce s64). Rule of the house (D21):
@@ -41036,7 +41077,7 @@ function ptPrintTeamOverallReport(eventId) {
 
       roundScores.forEach(function(rr) {
         var r = rr.round;
-        var isScramble = r.format === 'scramble_stableford' || r.format === 'scramble';
+        var isScramble = ptIsScrFmt(r.format);                           // B-35 (v395.0) — budget -1
 
         if (isScramble) {
           // One score per hole per team stored as player_name = team name
@@ -41175,7 +41216,7 @@ function ptPrintTeamOverallReport(eventId) {
               holeCells += '<td class="pts-0">—</td>';
             }
           }
-          var fmt = r.format === 'scramble_stableford' ? 'Scr' : 'Ind';
+          var fmt = ptIsScrFmt(r.format) ? 'Scr' : 'Ind';                    // B-35 (v395.0) — gross scramble mislabelled 'Ind'
           bodyRows += '<tr class="sub-row">'
             + '<td class="rnd-lbl">R' + r.round_number + ' ' + fmt + '</td>'
             + holeCells
@@ -49464,7 +49505,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v394.0';
+    const TOUR_VERSION     = 'pards-tour-v395.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
