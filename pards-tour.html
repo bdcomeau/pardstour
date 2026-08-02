@@ -38227,11 +38227,12 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst) {
       var scCol = function (g, par) {
         if (g == null) return null;
         var d = g - par;
-        if (d <= -2) return '#e8862a';
-        if (d === -1) return '#5aa85a';
-        if (d === 0) return '#3f7fc4';
-        if (d === 1) return '#c94a4a';
-        return '#7e2a2a';
+        if (g === 1) return { bg: '#2e9e5b', fg: '#fff', bd: '0' };      // Bruce s65: hole-in-one = white on green
+        if (d <= -2) return { bg: '#e8862a', fg: '#fff', bd: '0' };      // eagle+ orange
+        if (d === -1) return { bg: '#c94a4a', fg: '#fff', bd: '0' };     // Bruce s65: birdie = white on red
+        if (d === 0) return { bg: '#3f7fc4', fg: '#fff', bd: '0' };      // par blue
+        if (d === 1) return { bg: '#d8d8d8', fg: '#111', bd: '0' };      // bogey = black on light grey
+        return { bg: '#111', fg: '#fff', bd: '.35' };                    // double+ = white on black
       };
       var scRows = st.rows.filter(function (p) { return p.rounds[scR.round_number]; });
       scRows.sort(function (a, b) {
@@ -38241,8 +38242,8 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst) {
         return scRule === 'stableford' ? (vb - va) : ((rb.holes - ra.holes) || (va - vb));
       });
       var scLegend = '<div style="display:flex;gap:2vw;justify-content:center;margin-bottom:1.1vh;font-size:1.6vh;color:rgba(255,255,255,.65)">'
-        + [['#e8862a', 'Eagle+'], ['#5aa85a', 'Birdie'], ['#3f7fc4', 'Par'], ['#c94a4a', 'Bogey'], ['#7e2a2a', 'Dbl+']].map(function (x) {
-            return '<span><span style="display:inline-block;width:1.7vh;height:1.7vh;border-radius:.4vh;background:' + x[0] + ';vertical-align:-.25vh;margin-right:.4vw"></span>' + x[1] + '</span>';
+        + [['#2e9e5b', 'Ace'], ['#e8862a', 'Eagle+'], ['#c94a4a', 'Birdie'], ['#3f7fc4', 'Par'], ['#d8d8d8', 'Bogey'], ['#111', 'Dbl+']].map(function (x) {
+            return '<span><span style="display:inline-block;width:1.7vh;height:1.7vh;border-radius:.4vh;background:' + x[0] + ';border:1px solid rgba(255,255,255,.25);vertical-align:-.25vh;margin-right:.4vw"></span>' + x[1] + '</span>';
           }).join('')
         + '</div>';
       var scCols = '14vw' + ' 1fr'.repeat(18) + ' 6vw';
@@ -38262,7 +38263,7 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst) {
             var par = scPars ? scPars[hh - 1] : 4;
             var col = scCol(g != null ? g : null, par || 4);
             scHtml += col
-              ? '<div style="text-align:center;font-size:1.9vh;font-weight:900;color:#fff;background:' + col + ';border-radius:.5vh;padding:.25vh 0">' + g + '</div>'
+              ? '<div style="text-align:center;font-size:1.9vh;font-weight:900;color:' + col.fg + ';background:' + col.bg + ';border:1px solid rgba(255,255,255,' + col.bd + ');border-radius:.5vh;padding:.25vh 0">' + g + '</div>'
               : '<div style="text-align:center;font-size:1.9vh;color:rgba(255,255,255,.15)">·</div>';
           }
           scHtml += '<div style="text-align:center;font-size:2vh;font-weight:900;color:#a8d5b5">' + tot + '</div></div>';
