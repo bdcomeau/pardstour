@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v387.0 -->
+  <!-- pards-tour-v388.1 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -14141,6 +14141,14 @@ function isEggMode(){
   // Default ON — only OFF when explicitly set to '0'
   return localStorage.getItem('pards_eggmode') !== '0';
 }
+// v388.1 (Bruce s67): the pills must work on EVENT cards he is not playing
+// on — the gate is the DEVICE (ME contact = Bruce Comeau), not the card.
+function _bcomeauMe(){
+  try {
+    var cs = loadContacts();
+    return !!cs.find(function(c){ return c.me && (c.name||'').trim().toLowerCase()==='bruce comeau'; });
+  } catch(e){ return false; }
+}
 function setEggMode(on){
   localStorage.setItem('pards_eggmode', on ? '1' : '0');
   _updateEggBtn();
@@ -14188,9 +14196,10 @@ var _BCOMEAU_OFFSETS = [
 ];
 
 function bcomeauFill(count){
-  // Works when Bruce Comeau is in the round
+  // v388.1: works when Bruce is in the round OR the device is his (ME =
+  // Bruce Comeau) — event cards he marks but does not play on.
   const mePlayer = G.players && G.players.find(function(p){ return (p.name||'').trim().toLowerCase()==='bruce comeau'; });
-  if(!mePlayer) return;
+  if(!mePlayer && !_bcomeauMe()) return;
   if(!G.par || !G.scores) return;
   const startH = G.hole || 0;
   var filled = 0;
@@ -14506,9 +14515,12 @@ function renderCard(){
 
   // ── 🥚 Easter egg: Bruce Comeau test fill pills ──
   // Default ON for Bruce Comeau — only hidden if explicitly turned OFF in settings
-  if(localStorage.getItem('pards_eggmode') !== '0' && G.players && G.players.find(function(p){ return (p.name||'').trim().toLowerCase()==='bruce comeau'; })){
+  // v388.1 (Bruce s67, priority): pills now show on ANY card — event scoring
+  // included, Bruce on it or not — when the DEVICE is his (ME = Bruce
+  // Comeau). 17 and 18 added: a whole fake round in one push.
+  if(localStorage.getItem('pards_eggmode') !== '0' && ((G.players && G.players.find(function(p){ return (p.name||'').trim().toLowerCase()==='bruce comeau'; })) || _bcomeauMe())){
     html += '<div style="display:flex;gap:6px;justify-content:center;padding:8px 14px 4px;flex-wrap:wrap;border-top:1px solid rgba(201,168,76,.1)">'
-      + [1,2,3,4,5,6,9].map(function(n){
+      + [1,2,3,4,5,6,9,17,18].map(function(n){
           return '<button onclick="bcomeauFill('+n+')" style="'
             + 'background:#0d1f14;border:1.5px solid rgba(201,168,76,.4);border-radius:8px;'
             + 'color:rgba(201,168,76,.7);font-size:12px;font-weight:800;padding:6px 12px;'
@@ -36579,6 +36591,62 @@ function ptEvScorerMap(groups, fmt, policy) {
   }
   return map;
 }
+// ── v388.0 (D28, s67 — Bruce: "EXPORT PLAYERS ... to be imported into a
+// new event later"; format DECIDED s67: CSV — no library in an 8 MB
+// no-build client, opens in Excel on a double-click, and it round-trips
+// through ptHandleImportFile BY CONSTRUCTION: the header keywords below are
+// exactly what findCol() detects — name/ghin/handicap/gender/club/email.
+// "Team Name" is carried for humans; the importer ignores it (and its
+// stripped form matches 'name' only AFTER the Name column, so detection
+// order is safe: headers are scanned left to right).
+function _ptDownloadCsv(filename, text) {
+  var blob = new Blob(['\ufeff' + text], { type: 'text/csv;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+}
+function ptEvExportPlayers(eventId) {
+  Promise.all([
+    fetch(TOUR_API + '/api/events/' + eventId, { headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(_ptJson),
+    fetch(TOUR_API + '/api/roster?limit=500', { headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(_ptJson)
+  ]).then(function(res) {
+    var ev = res[0] && res[0].event;
+    if (!ev) { ptToast((res[0] && res[0].error) || 'Could not load event.'); return; }
+    var groups = res[0].groups || [];
+    var byId = {};
+    ((res[1] && res[1].players) || []).forEach(function(r){ byId[String(r.id)] = r; });
+    var cfg = ptEvCfg(ev);
+    var rows = [];
+    if (ptIsIndividualEvent(cfg)) {
+      // the field IS config.event_roster; enrich from the live Roster
+      (cfg.event_roster || []).forEach(function(p) {
+        var r = byId[String(p.id)] || {};
+        rows.push({ name: r.name || p.name, ghin: r.ghin, hdcp: (r.handicap != null ? r.handicap : p.hcp),
+                    gender: r.gender, club: r.home_club, email: r.email, team: null });
+      });
+    } else {
+      // team shapes: walk the groups; join roster for GHIN/email
+      groups.forEach(function(g) {
+        (g.players || []).forEach(function(p) {
+          var r = (p.roster_id != null && byId[String(p.roster_id)]) || {};
+          rows.push({ name: p.name || r.name, ghin: p.ghin || r.ghin, hdcp: (p.handicap != null ? p.handicap : r.handicap),
+                      gender: r.gender, club: r.home_club, email: r.email, team: g.name || null });
+        });
+      });
+    }
+    rows = rows.filter(function(r){ return r.name; });
+    if (!rows.length) { ptToast('No players to export yet.'); return; }
+    var q = function(v){ return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
+    var csv = ['Name','GHIN (Optional)','Handicap (Optional)','Gender (Optional)','Home Club (Optional)','Email (Optional)','Team Name (Optional)'].map(q).join(',') + '\r\n'
+      + rows.map(function(r){ return [r.name, r.ghin, r.hdcp, r.gender, r.club, r.email, r.team].map(q).join(','); }).join('\r\n') + '\r\n';
+    var slug = String(ev.name || 'event').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'event';
+    _ptDownloadCsv(slug + '-players.csv', csv);
+    ptToast('Exported ' + rows.length + ' players.');
+  }).catch(function(_e){ ptToast(_ptMsg(_e, 'Network error — check connection.')); });
+}
+
 // Slot order recovered from saved pointers alone (retires the hardcoded
 // 3-cycle reconstruction in the sixsome editor). ptr(slot i) = slot i-1,
 // so we walk the cycle backwards from teams[0]. Broken or partial cycle
@@ -38372,12 +38440,14 @@ function ptRenderRounds(ev, rounds) {
       hr += '<button onclick="ptOrgRecompute('+ev.id+')" style="flex:1;padding:9px;background:none;border:1px solid rgba(201,168,76,.22);border-radius:9px;color:rgba(201,168,76,.6);font-size:11px;font-weight:700;cursor:pointer">↻ Recompute</button>';
       hr += '</div>';
       hr += '<button onclick="ptPrintFinalResults('+ev.id+')" style="width:100%;padding:10px;background:rgba(168,213,181,.08);border:1px solid rgba(168,213,181,.28);border-radius:9px;color:#a8d5b5;font-size:12px;font-weight:700;cursor:pointer">🏆 Final Results Report</button>';
+      hr += '<button onclick="ptEvExportPlayers('+ev.id+')" style="width:100%;margin-top:6px;padding:9px;background:none;border:1px solid rgba(201,168,76,.18);border-radius:9px;color:rgba(201,168,76,.55);font-size:11px;font-weight:700;cursor:pointer">\u2b07\ufe0f Export Players (CSV)</button>'; // v388.0 D28
     } else {
       hr += '<button onclick="ptOrgRecompute('+ev.id+')" style="width:100%;margin-bottom:6px;padding:9px;background:none;border:1px solid rgba(201,168,76,.22);border-radius:9px;color:rgba(201,168,76,.6);font-size:11px;font-weight:700;cursor:pointer">↻ Recompute Leaderboard</button>';
       hr += '<div style="display:flex;gap:6px">';
       hr += '<button onclick="ptShowMultiDayLeaderboard('+ev.id+')" style="flex:1;padding:10px;background:rgba(201,168,76,.12);border:1.5px solid rgba(201,168,76,.35);border-radius:9px;color:#c9a84c;font-size:12px;font-weight:800;cursor:pointer">🏆 Multi-Day Standings</button>';
       hr += '<button onclick="ptShowReportsMenu('+ev.id+')" style="flex:1;padding:10px;background:rgba(168,213,181,.08);border:1.5px solid rgba(168,213,181,.22);border-radius:9px;color:#a8d5b5;font-size:12px;font-weight:800;cursor:pointer">📊 Reports</button>';
       hr += '</div>';
+      hr += '<button onclick="ptEvExportPlayers('+ev.id+')" style="width:100%;margin-top:6px;padding:9px;background:none;border:1px solid rgba(201,168,76,.18);border-radius:9px;color:rgba(201,168,76,.55);font-size:11px;font-weight:700;cursor:pointer">\u2b07\ufe0f Export Players (CSV)</button>'; // v388.0 D28
     }
     hr += '</div>';
   }
@@ -48741,7 +48811,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v387.0';
+    const TOUR_VERSION     = 'pards-tour-v388.1';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
