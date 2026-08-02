@@ -210,7 +210,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.16</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.17</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -1668,7 +1668,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.16';
+const APP_VERSION = 'v20.17';
 
 // v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
 // The badge was a SECOND hardcoded literal in the markup (the span at the top of
@@ -1848,17 +1848,51 @@ function renderTeams() {
 }
 
 // ─── BETTORS ──────────────────────────────────────────────────────────────────
-function addBettor() {
+async function addBettor() {
   const name = document.getElementById('new-bettor-name').value.trim();
   if (!name) return;
   if (state.bettors.find(b => b.name.toLowerCase() === name.toLowerCase())) {
     alert('"' + name + '" is already in the bettors list.');
     return;
   }
+  const _nbEmail = document.getElementById('new-bettor-email').value.trim();
+  const _nbPhone = document.getElementById('new-bettor-phone').value.trim();
+  // B-29 (v20.17): in D1 mode a bettor must exist SERVER-SIDE before any ticket
+  // can save. The old local uid() string became NaN at submit time and the
+  // worker 400'd every wager for a hand-added bettor ("bettor_id and wagers[]
+  // required") — the failure surfaced at TICKET time, after the money was
+  // taken. Now: create via POST /api/bets/races/:id/bettors (worker v2.79.0),
+  // keep the numeric D1 id, and refuse the add loudly if the save fails —
+  // a device-only bettor is a trap, not a fallback. Same auth as the wagers
+  // POST (race token or full session). Server dup-guard is case-insensitive
+  // and returns the existing row, so a re-add just reuses the D1 id.
+  let _nbId = uid();
+  if (typeof _d1Mode !== 'undefined' && _d1Mode) {
+    try {
+      const resp = await fetch(TOUR_API + '/api/bets/races/' + _d1RaceId + '/bettors', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _d1Token },
+        body: JSON.stringify({ name: name, email: _nbEmail, phone: _nbPhone })
+      });
+      const d = await resp.json().catch(function(){ return {}; });
+      if (!resp.ok || !d.bettor || !d.bettor.id) {
+        _d1Alarm('"' + name + '" was NOT added to Pards Tour.',
+          ((d && d.error) ? d.error : ('HTTP ' + resp.status)) +
+          ' \u2014 a bettor that only exists on this device cannot save tickets. Check the connection and add them again.');
+        return;
+      }
+      _nbId = d.bettor.id;
+    } catch (e) {
+      _d1Alarm('"' + name + '" was NOT added to Pards Tour.',
+        ((e && e.message) || 'Network error') +
+        ' \u2014 a bettor that only exists on this device cannot save tickets. Check the connection and add them again.');
+      return;
+    }
+  }
   state.bettors.push({
-    id: uid(), name,
-    email: document.getElementById('new-bettor-email').value.trim(),
-    phone: document.getElementById('new-bettor-phone').value.trim()
+    id: _nbId, name,
+    email: _nbEmail,
+    phone: _nbPhone
   });
   document.getElementById('new-bettor-name').value  = '';
   document.getElementById('new-bettor-email').value = '';
