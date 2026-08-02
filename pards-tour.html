@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v395.1 -->
+  <!-- pards-tour-v395.2 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -39001,10 +39001,14 @@ function ptRenderRounds(ev, rounds) {
       var fmtLabel = (ptIsIndividualEvent(ptEvCfg(ev)) && ptIsIndivRoundFormat(r.format)) ? ('Individual stroke play · ranks by ' + (ptRoundRule(r.format)==='net'?'Low Net':ptRoundRule(r.format)==='gross'?'Low Gross':'Stableford')) : ptIsTeamXofN(r.format) ? ptXofNLabel(r.format, ptXofNAllow(ptEvCfg(ev), r)) : (formatLabels[r.format] || r.format || '—'); // v248.1 · v358.0 ranks-by
       var dateStr = r.date ? ptFormatDate(r.date, r.course_id, {weekday:'short',month:'short',day:'numeric'}) : 'No date';
       var progBadge = ptRoundProgressBadge(r, ev.id);                   // v248.4 \u00b7 v377.0 Q10: clickable
+      // D44 (v395.2, Bruce s74) \u2014 an explicitly configured Card Swap shows on the
+      // round row at a glance. Auto (absent key) stays silent \u2014 nothing was chosen.
+      var _csw = ptEvCardSwap(ptEvCfg(ev), r);
+      var _cswChip = _csw.source === 'config' ? ' <span style="display:inline-block;padding:1px 7px;border-radius:8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);color:rgba(201,168,76,.85);font-size:9.5px;font-weight:800;vertical-align:1px">\ud83d\udd01 ' + (_csw.mode === 'pointer' ? 'Pointer swap' : _csw.mode === 'pair' ? 'Pair swap' : 'No swap') + '</span>' : '';
       h += '<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px;margin-bottom:8px">';
       h += '<div style="display:flex;align-items:center;justify-content:space-between">';
       h += '<div style="flex:1">';
-      h += '<div style="font-size:13px;font-weight:800;color:#f5e6b8">Round '+r.round_number+' <span style="font-size:10px;font-weight:600;color:rgba(255,255,255,.35)">'+dateStr+'</span>'+(r.status==='locked'?' <span style="display:inline-block;padding:1px 7px;border-radius:8px;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.4);color:#e74c3c;font-size:9.5px;font-weight:800;vertical-align:1px">\ud83d\udd12 scoring locked</span>':'')+progBadge+'<span id="ptRoundTT_'+r.id+'"></span></div>'; // v248.2 + v248.4 progress
+      h += '<div style="font-size:13px;font-weight:800;color:#f5e6b8">Round '+r.round_number+' <span style="font-size:10px;font-weight:600;color:rgba(255,255,255,.35)">'+dateStr+'</span>'+(r.status==='locked'?' <span style="display:inline-block;padding:1px 7px;border-radius:8px;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.4);color:#e74c3c;font-size:9.5px;font-weight:800;vertical-align:1px">\ud83d\udd12 scoring locked</span>':'')+progBadge+_cswChip+'<span id="ptRoundTT_'+r.id+'"></span></div>'; // v248.2 + v248.4 progress + D44 swap chip
       h += '<div style="font-size:11px;color:rgba(201,168,76,.7);margin-top:2px">'+fmtLabel+'</div>';
       h += '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:1px">'+courseName+(r.tee?' · '+r.tee:'')+'</div>';
       h += '</div>';
@@ -44013,6 +44017,44 @@ function ptShowDrawImport(eventId, format) {
     .then(function(d){_ptDrawImportRoster=d.players||[];});
 }
 
+// B-38 (v395.2) \u2014 the modal's own "Download Template" xlsx is one row per PLAYER
+// (First Name / Last Name / Team Name / Starting Hole), teams paired by an identical
+// Team Name. The wide-format parser below read it as one TEAM per row ("First Name"
+// matched /first/ \u2192 captain column), so 90 two-man teams imported as 180 solos.
+// Detect the template shape by header and group rows by Team Name instead.
+// Returns null when the sheet is not template-shaped (wide parser handles it).
+function ptDrawParseTemplateRows(rows) {
+  if (!rows || !rows.length) return null;
+  var hdr = rows[0].map(function(h){ return (h || '').toString().toLowerCase(); });
+  var fnCol = -1, lnCol = -1, tmCol = -1, holeCol = -1;
+  hdr.forEach(function(lh, i){
+    if (fnCol < 0 && /first\s*name/.test(lh)) fnCol = i;
+    else if (lnCol < 0 && /last\s*name/.test(lh)) lnCol = i;
+    else if (tmCol < 0 && /team\s*name/.test(lh)) tmCol = i;
+    else if (holeCol < 0 && /hole/.test(lh)) holeCol = i;
+  });
+  if (fnCol < 0 || tmCol < 0) return null;
+  var teams = [], byKey = {};
+  rows.slice(1).forEach(function(row){
+    var fn = (row[fnCol] || '').toString().trim();
+    var ln = lnCol >= 0 ? (row[lnCol] || '').toString().trim() : '';
+    var full = (fn + ' ' + ln).replace(/\s+/g, ' ').trim();
+    if (!full) return;
+    var tn = (row[tmCol] || '').toString().trim();
+    var hole = holeCol >= 0 ? parseInt((row[holeCol] || '').toString(), 10) : NaN;
+    var key = tn ? tn.toLowerCase() : '__solo__' + teams.length;
+    var t = byKey[key];
+    if (!t) {
+      t = { hole: isNaN(hole) ? null : hole, start_time: null, captain: full, players: [], name: tn || full };
+      byKey[key] = t; teams.push(t);
+    } else {
+      t.players.push(full);
+      if (t.hole == null && !isNaN(hole)) t.hole = hole;
+    }
+  });
+  return teams.length ? teams : null;
+}
+
 function ptHandleDrawFile(input) {
   var file = input.files[0]; if (!file) return;
   var status = document.getElementById('ptDrawStatus');
@@ -44065,6 +44107,13 @@ function ptHandleDrawFile(input) {
       var wb = XLSX.read(data,{type:'array'});
       var ws = wb.Sheets[wb.SheetNames[0]];
       var rows = XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+      var _tpl = ptDrawParseTemplateRows(rows);                    // B-38 (v395.2)
+      if (_tpl) {
+        _ptDrawImportTeams = _tpl;
+        ptRenderDrawPreview(_tpl);
+        status.textContent = '\u2713 ' + _tpl.length + ' teams found. Review below.';
+        return;
+      }
       // Auto-detect columns: Captain/Lead, Seconds, Thirds, Anchors (hole no longer in CSV)
       var captainCol=-1,p2Col=-1,p3Col=-1,p4Col=-1;
       var hasHdr=false;
@@ -44116,11 +44165,11 @@ function ptRenderDrawPreview(teams) {
   var html = '<div style="margin-bottom:16px">';
   teams.forEach(function(team,ti) {
     var allPlayers = [team.captain].concat(team.players||[]);
-    var teamName = team.captain + ' Team';
+    var teamName = team.name || (team.captain + ' Team');   // B-38 (v395.2) \u2014 template imports carry the sheet's Team Name
     html += '<div style="background:rgba(255,255,255,.04);border-radius:12px;padding:14px 16px;margin-bottom:10px">';
     html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">';
     html += '<div><div style="font-size:14px;font-weight:800;color:#f5e6b8">'+teamName+'</div>';
-    html += '<div style="font-size:11px;color:rgba(255,255,255,.35)">Hole '+team.hole+'</div></div>';
+    html += '<div style="font-size:11px;color:rgba(255,255,255,.35)">'+(team.hole!=null?'Hole '+team.hole:'')+'</div></div>';   // B-38 (v395.2) \u2014 no "Hole null" when the sheet has no start holes
     html += '<input type="text" value="'+teamName+'" id="ptDrawTeamName_'+ti+'" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:6px 10px;color:#fff;font-size:12px;width:140px"></div>';
     allPlayers.forEach(function(pname,pi) {
       if(!pname) return;
@@ -49531,7 +49580,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v395.1';
+    const TOUR_VERSION     = 'pards-tour-v395.2';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
