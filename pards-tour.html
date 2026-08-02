@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v390.1 -->
+  <!-- pards-tour-v391.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -36922,6 +36922,18 @@ function ptEvGroupSize(cfg) {
   return Math.max(1, Math.min(8, Math.round(n)));
 }
 
+// v390.2 (Bruce s69, priority): TEAMS PER TEE-TIME SLOT, from the wizard's own
+// answers — teams of `players_per_team` playing in groups of `players_per_group`
+// means ppg/ppt team units share one start (Last Call: 4 and 8 → 2 teams per
+// shotgun hole, swapping cards per D29 'pair'). Absent/individual config → 1,
+// the exact pre-v390.2 behaviour: every existing scramble sheet unchanged.
+function ptEvTeamsPerSlot(cfg) {
+  var ppt = cfg && cfg.tb ? Number(cfg.tb.players_per_team) : NaN;
+  var ppg = cfg && cfg.tb ? Number(cfg.tb.players_per_group) : NaN;
+  if (!isFinite(ppt) || ppt < 2 || !isFinite(ppg) || ppg < ppt) return 1;
+  return Math.max(1, Math.min(4, Math.round(ppg / ppt)));
+}
+
 // ── v387.0 (D29 stage 1, s67) — CARD SWAP through ONE reader ────────────────
 // Bruce s66: "Tournament Builder should now be the absolute source of truth...
 // anything hardcoded with respect to tee-time card swap for the member guest
@@ -38032,7 +38044,7 @@ function _ptTTBRenderSetup() {
     h += '<div style="margin-bottom:10px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Interval (minutes)</div>';
     h += '<input id="ptTTBInterval" type="number" min="5" max="30" value="9" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none"></div>';
     h += '<div style="margin-bottom:20px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Number of Groups</div>';
-    h += '<input id="ptTTBCount" type="number" min="1" max="50" value="'+(ptIsIndividualEvent(_ptTTB.cfg)?Math.max(1,Math.ceil(ptEventPool(_ptTTB.cfg,_ptTTB.groups).length/ptEvGroupSize(_ptTTB.cfg))):(_ptTTB.groups.length||20))+'" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none"></div>';
+    h += '<input id="ptTTBCount" type="number" min="1" max="50" value="'+(ptIsIndividualEvent(_ptTTB.cfg)?Math.max(1,Math.ceil(ptEventPool(_ptTTB.cfg,_ptTTB.groups).length/ptEvGroupSize(_ptTTB.cfg))):Math.max(1,Math.ceil((_ptTTB.groups.length||20)/ptEvTeamsPerSlot(_ptTTB.cfg))))+'" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none"></div>';
   } else {
     // v382.0 \u00b7 D26 (Bruce s64, from the Golf Genius screenshot): shotgun
     // layout = per-hole GROUP COUNTS, not a binary include. A second group on
@@ -38041,7 +38053,7 @@ function _ptTTBRenderSetup() {
     // slots on par-4/5 holes ASCENDING; par-3 B slots only when the field
     // still needs them. A/B is DERIVED from slot order at save \u2014 zero
     // worker changes (tee_times already stores start_time + hole).
-    var _need = ptIsIndividualEvent(_ptTTB.cfg) ? Math.max(1, Math.ceil(ptEventPool(_ptTTB.cfg, _ptTTB.groups).length / 4)) : (_ptTTB.groups.length || 18);
+    var _need = ptIsIndividualEvent(_ptTTB.cfg) ? Math.max(1, Math.ceil(ptEventPool(_ptTTB.cfg, _ptTTB.groups).length / 4)) : Math.max(1, Math.ceil((_ptTTB.groups.length || 18) / ptEvTeamsPerSlot(_ptTTB.cfg))); // v390.2 — slots, not teams
     h += '<div style="margin-bottom:10px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Wave Start Time</div>';
     h += '<input id="ptTTBWave" type="time" value="' + (_ptTTB.session === 'morning' ? '08:00' : '13:00') + '" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none"></div>';
     h += '<div style="margin-bottom:20px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Groups Per Hole</div>';
@@ -38094,7 +38106,7 @@ function ptTTBHoleSum() {
 function ptTTBAutoHoles() {
   // Bruce s60, verbatim rule from _ptSixAuto: par-4/5 B slots ascending
   // before ANY par-3 B slot; par-3 doubles only when the field forces them.
-  var need = ptIsIndividualEvent(_ptTTB.cfg) ? Math.max(1, Math.ceil(ptEventPool(_ptTTB.cfg, _ptTTB.groups).length / 4)) : (_ptTTB.groups.length || 18);
+  var need = ptIsIndividualEvent(_ptTTB.cfg) ? Math.max(1, Math.ceil(ptEventPool(_ptTTB.cfg, _ptTTB.groups).length / 4)) : Math.max(1, Math.ceil((_ptTTB.groups.length || 18) / ptEvTeamsPerSlot(_ptTTB.cfg))); // v390.2 — slots, not teams
   var pars = null;
   try { pars = ptGetHolePars(_ptTTB.round.course_id, _ptTTB.round.tee); } catch (e) {}
   var hc = {};
@@ -38138,12 +38150,12 @@ function ptTtAB(list, item) {
 
 function ptTTBGenerate() {
   var isScramble=_ptTTB.round.format==='scramble_stableford'||_ptTTB.round.format==='scramble';
-  var n=isScramble?1:4; var slots=[];
+  var n=isScramble?ptEvTeamsPerSlot(_ptTTB.cfg):ptEvGroupSize(_ptTTB.cfg); var slots=[]; // v390.2 — seats follow the wizard: team units = ppg/ppt, player seats = ppg (MMG: 3 twosomes = 6)
   if(_ptTTB.mode==='tee_times'){
     var s=document.getElementById('ptTTBStart'),iv=document.getElementById('ptTTBInterval'),ct=document.getElementById('ptTTBCount');
     if(!s||!iv)return;
     var sp=s.value.split(':');
-    var cur=parseInt(sp[0])*60+parseInt(sp[1]),interval=parseInt(iv.value)||9,count=parseInt((ct&&ct.value)||_ptTTB.groups.length||20);
+    var cur=parseInt(sp[0])*60+parseInt(sp[1]),interval=parseInt(iv.value)||9,count=parseInt((ct&&ct.value)||Math.max(1,Math.ceil((_ptTTB.groups.length||20)/ptEvTeamsPerSlot(_ptTTB.cfg))));
     for(var ci=0;ci<count;ci++){var hh=String(Math.floor(cur/60)).padStart(2,'0'),mm=String(cur%60).padStart(2,'0');slots.push({start_time:hh+':'+mm,hole:1,players:Array(n).fill(null)});cur+=interval;}
   } else {
     // v382.0 \u00b7 D26 \u2014 counts drive slots: 1 = single group, 2 = A then B.
@@ -38207,7 +38219,7 @@ function _ptTTBRender() {
     else if(hasRP)h+='<div style="font-size:10px;color:#f39c12;font-weight:700">&#9888; Repeat pairing</div>';
     else if(hasRest)h+='<div style="font-size:10px;color:#9b59b6;font-weight:700">&#9888; &lt;4.5hr rest</div>';
     h+='</div>';
-    var n=isScramble?1:4;
+    var n=(slot.players&&slot.players.length)||(isScramble?ptEvTeamsPerSlot(_ptTTB.cfg):ptEvGroupSize(_ptTTB.cfg)); // v390.2 — seats come from the slot
     // v234.0: tap-tap chips (selects retired) — chip = assigned, dashed = empty
     for(var pi=0;pi<n;pi++){
       var assigned=slot.players[pi];
@@ -38254,8 +38266,11 @@ function ptTTBAutoFill() {
     var teams = _ptTTB.groups.map(function(g){ return {roster_id:null, group_id:g.id, name:g.name}; });
     // Shuffle
     for (var i=teams.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=teams[i];teams[i]=teams[j];teams[j]=t;}
+    var _tps = ptEvTeamsPerSlot(_ptTTB.cfg);                       // v390.2 — Last Call: 2 teams share a start
     _ptTTB.slots.forEach(function(slot, si) {
-      slot.players = teams[si] ? [teams[si]] : [null];
+      var seats = [];
+      for (var k = 0; k < _tps; k++) seats.push(teams[si * _tps + k] || null);
+      slot.players = seats;
     });
     _ptTTBRender();
     return;
@@ -39665,6 +39680,20 @@ function ptEditRound(eventId, round, evObj) {
   inp += '<div id="ptXofNAllowRow" style="display:'+(ptIsTeamXofN(round.format)?'block':'none')+';margin-bottom:14px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Handicap Allowance %</div>';
   inp += '<input id="ptEditRndAllow" type="number" min="1" max="200" step="1" value="'+_xa+'" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:rgba(255,255,255,.08);color:#fff;font-size:15px;outline:none">';
   inp += '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:4px">Doc default shown — each player\u2019s course handicap is scaled by this before strokes fall by SI. Score entry never changes.</div></div>';
+  // v391.0 \u2014 D29 write-UI (Bruce s69: "where do you ask if teams or players
+  // need to swap cards? very important"). Reader = ptEvCardSwap; storage =
+  // cfg.ttb_swap[round_id] via ptPatchEvConfig (the D27 xofn_allow pattern \u2014
+  // own key, NEVER cfg.tb.*). Auto (absent key) = pre-D29 behaviour exactly.
+  var _cs = ptEvCardSwap(_cfgE, round);
+  var _csSel = _cs.source === 'config' ? _cs.mode : '';
+  inp += '<div style="margin-bottom:14px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Card Swap</div>';
+  inp += '<select id="ptEditRndSwap" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:#1a2a1a;color:#fff;font-size:14px;outline:none">'
+    + '<option value=""'       + (_csSel===''        ? ' selected' : '') + '>Auto \u2014 pointers, else two-on-a-hole pair (default)</option>'
+    + '<option value="pair"'    + (_csSel==='pair'    ? ' selected' : '') + '>Pair \u2014 units sharing a start swap cards (Last Call)</option>'
+    + '<option value="pointer"' + (_csSel==='pointer' ? ' selected' : '') + '>Pointer \u2014 fixed rotation (MMG)</option>'
+    + '<option value="none"'    + (_csSel==='none'    ? ' selected' : '') + '>No swap \u2014 every unit keeps its own card</option>'
+    + '</select>';
+  inp += '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:4px">Who keeps whose scorecard. Applies to live scoring and printed cards for this round.</div></div>';
   }
 
   inp += '<div style="margin-bottom:14px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Course</div>';
@@ -39755,6 +39784,20 @@ function ptDoEditRound(eventId, roundId, overlay) {
       } else if (_wasX && _prevA != null) {
         var _nb = {}; Object.keys(_stored).forEach(function(k){ if (k !== String(roundId)) _nb[k] = _stored[k]; });
         _chain = ptPatchEvConfig(eventId, { xofn_allow: _nb }).catch(function(){});
+      }
+      // v391.0 \u2014 D29 write-UI: persist the Card Swap answer (team events only;
+      // the select only exists there). Auto clears the round's key.
+      var _swEl = document.getElementById('ptEditRndSwap');
+      if (_swEl) {
+        var _swStored = (_st.cfg && _st.cfg.ttb_swap) || {};
+        var _swPrev = _swStored[String(roundId)] || null;
+        var _swMode = _swEl.value || '';
+        var _swNew = {}; Object.keys(_swStored).forEach(function(k){ _swNew[k] = _swStored[k]; });
+        if (!_swMode) delete _swNew[String(roundId)];
+        else _swNew[String(roundId)] = { mode: _swMode, cycle: (_swPrev && _swPrev.cycle) || 3 };
+        if (JSON.stringify(_swNew) !== JSON.stringify(_swStored)) {
+          _chain = _chain.then(function(){ return ptPatchEvConfig(eventId, { ttb_swap: _swNew }); }).catch(function(){ ptToast('Round saved \u2014 the card-swap setting did not save. Edit the round and try again.'); });
+        }
       }
       _chain.then(function(){ if(overlay) overlay.remove(); loadOrgEventDetail(eventId); });
     }
@@ -49218,7 +49261,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v390.1';
+    const TOUR_VERSION     = 'pards-tour-v391.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
