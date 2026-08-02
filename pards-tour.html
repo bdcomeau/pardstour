@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v391.0 -->
+  <!-- pards-tour-v391.1 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -33480,18 +33480,29 @@ function _ptLgDate(d) {
   return MON[parseInt(parts[1],10)-1] + ' ' + parseInt(parts[2],10) + ', ' + parts[0];
 }
 
-// 18-cell gross grid coloured by the SERVER's stableford points.
+// 18-cell gross grid. v391.1 — D37 (Bruce s69, universal card colour rule):
+// cells now colour by GROSS vs PAR through _ptScoreCellColor — the one scoring
+// language every card uses (eagle orange · birdie red · par blue · bogey light
+// gray/black text · double+ black) — with 1–2 red stroke DOTS on the holes
+// where the player receives handicap strokes (the trips/leagues simple-SI rule,
+// bit-identical to how hole_pts were computed). Net pts stay on the third line.
 function _ptLgHoleGrid(e) {
+  var hd = e.playing_handicap != null ? Number(e.playing_handicap) : 0;
   var html = '<div style="display:flex;flex-wrap:wrap;gap:3px">';
   for (var h = 1; h <= 18; h++) {
     var sc  = (e.hole_scores && e.hole_scores[h] != null) ? e.hole_scores[h] : null;
     var pts = (e.hole_pts && e.hole_pts[h-1] != null) ? e.hole_pts[h-1] : null;
     var par = (e.pars && e.pars[h-1] != null) ? e.pars[h-1] : null;
-    var col = (pts === null || pts <= 1) ? 'rgba(255,255,255,.45)' : '#fff';
-    html += '<div style="width:calc(100%/9 - 3px);text-align:center;background:'+_ptLgPtsBg(pts)+';border-radius:4px;padding:4px 0;box-sizing:border-box">'
-      + '<div style="font-size:8px;color:rgba(255,255,255,.3)">'+h+(par!=null?'<span style="opacity:.6"> p'+par+'</span>':'')+'</div>'
-      + '<div style="font-size:11px;font-weight:800;color:'+col+'">'+(sc!==null?sc:'·')+'</div>'
-      + '<div style="font-size:8px;color:'+col+';opacity:.75">'+(pts!==null?pts:'·')+'</div>'
+    var si1 = (e.si && e.si[h-1] != null) ? e.si[h-1] : h;
+    var strokes = hd >= si1 ? (hd >= si1 + 18 ? 2 : 1) : 0;
+    var cc = _ptScoreCellColor(sc, par);
+    var dots = strokes ? '<span style="color:#e74c3c;font-size:7px;vertical-align:top;margin-left:1px">' + (strokes >= 2 ? '\u25cf\u25cf' : '\u25cf') + '</span>' : '';
+    var sub = (sc !== null && cc.bg !== 'transparent') ? 'rgba(255,255,255,.75)' : 'rgba(255,255,255,.35)';
+    if (cc.bg === '#dde0e3') sub = 'rgba(0,0,0,.55)';
+    html += '<div style="width:calc(100%/9 - 3px);text-align:center;background:'+cc.bg+';border-radius:4px;padding:4px 0;box-sizing:border-box'+(cc.bg==='transparent'?';border:1px solid rgba(255,255,255,.07)':'')+'">'
+      + '<div style="font-size:8px;color:'+(cc.bg==='#dde0e3'?'rgba(0,0,0,.45)':'rgba(255,255,255,.35)')+'">'+h+(par!=null?'<span style="opacity:.7"> p'+par+'</span>':'')+'</div>'
+      + '<div style="font-size:11px;font-weight:800;color:'+cc.color+'">'+(sc!==null?sc:'\u00b7')+dots+'</div>'
+      + '<div style="font-size:8px;color:'+sub+'">'+(pts!==null?pts:'\u00b7')+'</div>'
       + '</div>';
   }
   html += '</div>'
@@ -49261,7 +49272,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v391.0';
+    const TOUR_VERSION     = 'pards-tour-v391.1';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
