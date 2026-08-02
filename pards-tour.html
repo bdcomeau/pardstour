@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v389.0 -->
+  <!-- pards-tour-v389.1 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -14173,27 +14173,49 @@ function _updateEggSettingsRow(){
 // Score offsets cycling per player to give varied results.
 // Columns = player index (wraps), rows = holes (wraps).
 // offsets are relative to par.
-var _BCOMEAU_OFFSETS = [
-  // P0   P1   P2   P3   P4
-  [ -1,   0,   1,   1,   2],  // hole 0
-  [  0,   1,   0,   2,   1],  // hole 1
-  [  1,   0,  -1,   1,   0],  // hole 2
-  [  0,   2,   1,   0,   1],  // hole 3
-  [ -1,   1,   2,   0,   0],  // hole 4
-  [  1,  -1,   0,   1,   2],  // hole 5
-  [  2,   0,   1,  -1,   0],  // hole 6
-  [  0,   1,   0,   1,   3],  // hole 7
-  [ -2,   0,   1,   0,   1],  // hole 8  eagle for P0
-  [  1,   1,   0,   2,   0],  // hole 9
-  [  0,   0,   2,   1,  -1],  // hole 10
-  [  3,   1,   0,   0,   1],  // hole 11  triple for P0
-  [  0,   2,   1,   1,   0],  // hole 12
-  [  1,   0,   0,   2,   1],  // hole 13
-  [ -1,   1,   1,   0,   2],  // hole 14
-  [  0,   0,   2,   1,   0],  // hole 15
-  [  1,  -1,   0,   0,   1],  // hole 16
-  [  2,   1,   1,   0,   0]   // hole 17
-];
+// v389.1 â the fixed _BCOMEAU_OFFSETS table is GONE (Bruce s68: "not random â
+// 4 groups in a row all got a hole-in-one on the same hole, and a 23 should
+// not shoot 78"). Replaced by _ptSimCard, ONE generator shared by the egg
+// pills and the D35 overlay's D36 Simulate, calibrated to the USGA
+// exceptional-tournament-score odds table Bruce supplied s68: net differential
+// 0 ≈ 5:1, -1 ≈ 10:1, -2 ≈ 22:1 — so ~17% of cards play to handicap or
+// better, most land +1..+8 over, -3 or better ≈ 2%. Per-hole floor is par-1
+// (never below 2): a fill can NEVER produce an ace.
+window._ptSimCard = function(par, si, hd){
+  var nd, r = Math.random();
+  if      (r < 0.02)  nd = -3;
+  else if (r < 0.045) nd = -2;
+  else if (r < 0.09)  nd = -1;
+  else if (r < 0.17)  nd = 0;
+  else if (r < 0.28)  nd = 1;
+  else if (r < 0.40)  nd = 2;
+  else if (r < 0.53)  nd = 3;
+  else if (r < 0.66)  nd = 4;
+  else if (r < 0.77)  nd = 5;
+  else if (r < 0.86)  nd = 6;
+  else if (r < 0.93)  nd = 7;
+  else if (r < 0.98)  nd = 8;
+  else nd = 10;
+  var strokes = [], g = [], i;
+  for (i = 0; i < 18; i++){
+    var s1 = (si[i] || i + 1);
+    var s = hd >= s1 ? (hd >= s1 + 18 ? 2 : 1) : 0;
+    strokes.push(s); g.push((par[i] || 4) + s);
+  }
+  var lo = function(h){ return Math.max(2, (par[h] || 4) - 1); };
+  var hi = function(h){ return (par[h] || 4) + strokes[h] + 3; };
+  var want = nd, guard = 400;
+  while (want !== 0 && guard-- > 0){
+    var h = Math.floor(Math.random() * 18);
+    if (want > 0 && g[h] < hi(h)){ g[h]++; want--; }
+    else if (want < 0 && g[h] > lo(h)){ g[h]--; want++; }
+  }
+  for (i = 0; i < 9; i++){ // sum-neutral wobble so cards are not flat par+stroke rows
+    var a = Math.floor(Math.random() * 18), b = Math.floor(Math.random() * 18);
+    if (a !== b && g[a] < hi(a) && g[b] > lo(b)){ g[a]++; g[b]--; }
+  }
+  return g;
+};
 
 function bcomeauFill(count){
   // v388.1: works when Bruce is in the round OR the device is his (ME =
@@ -14203,15 +14225,18 @@ function bcomeauFill(count){
   if(!G.par || !G.scores) return;
   const startH = G.hole || 0;
   var filled = 0;
+  var siArr = []; for(var s0 = 0; s0 < 18; s0++) siArr.push((G.si && G.si[s0]) || (s0 + 1));
+  var sims = [];
+  for(var pj = 0; pj < G.n && pj < 5; pj++){
+    var pp = (G.players && G.players[pj]) || {};
+    var hdj = (pp.playHdcp && pp.playHdcp > 0) ? pp.playHdcp : Math.round(pp.hdcpIndex || pp.idx || 0);
+    sims.push(window._ptSimCard(G.par, siArr, hdj));
+  }
   for(var k = 0; k < 18 && filled < count; k++){
     var h = (startH + k) % 18;
-    var par = G.par[h] || 4;
     for(var pi = 0; pi < G.n && pi < 5; pi++){
-      var offsetRow = _BCOMEAU_OFFSETS[h % 18];
-      var offset = offsetRow ? (offsetRow[pi % 5] || 0) : 0;
-      var score = Math.max(1, Math.min(15, par + offset));
       var prev = G.scores[pi][h];
-      G.scores[pi][h] = score;
+      G.scores[pi][h] = Math.min(15, sims[pi][h]);
       checkBirdieJuice(pi, h, prev);
     }
     filled++;
@@ -32011,12 +32036,10 @@ function _ptUtcToLocal(ts){
       (g.players||[]).forEach(function(p, pi){
         var sc = (g.existing_scores && g.existing_scores[p.trip_player_id]) || {};
         var hd = p.playing_handicap || 0, scores = [];
+        var card = window._ptSimCard(par, si, hd); // v389.1 — USGA-odds-calibrated shared generator
         for (var h1 = 1; h1 <= 18; h1++){
           if (sc[h1] > 0) continue; // never touch a real score
-          var strokes = hd >= si[h1-1] ? (hd >= si[h1-1] + 18 ? 2 : 1) : 0;
-          var r = Math.random();
-          var jitter = r < 0.16 ? -1 : r < 0.60 ? 0 : r < 0.88 ? 1 : 2;
-          var gross = Math.max(1, par[h1-1] + strokes + jitter);
+          var gross = card[h1-1];
           scores.push({ hole: h1, gross_score: gross, stableford_pts: _pts(hd, si[h1-1], par[h1-1], gross) });
         }
         if (scores.length) todo.push({ gi: gi, pi: pi, scores: scores, name: p.name });
@@ -49068,7 +49091,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v389.0';
+    const TOUR_VERSION     = 'pards-tour-v389.1';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
