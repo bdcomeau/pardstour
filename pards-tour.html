@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v408.0 -->
+  <!-- pards-tour-v409.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -35668,9 +35668,16 @@ function ptOrgRefreshLive(eventId) {
   var body = document.getElementById('ptOrgLiveBody');
   if (!body) return;
   var _orgGross = ptIsGrossScr(_ptOrgLiveFormat); // B-35 (v395.1) — was === 'scramble', missed rbc_scramble
-  fetch(TOUR_API + '/api/events/' + eventId + '/leaderboard', {
-    headers: { 'Authorization': 'Bearer ' + G.orgToken }
-  }).then(_ptJson).then(_ptThrow).then(function(lb) {
+  // v409.0 (B-67) — the ROUND decides gross, not the event. The seed above is
+  // the v408.0 value and stands if the rounds read comes back empty.
+  Promise.all([
+    fetch(TOUR_API + '/api/events/' + eventId + '/leaderboard', {
+      headers: { 'Authorization': 'Bearer ' + G.orgToken }
+    }).then(_ptJson).then(_ptThrow),
+    ptRoundsFor(eventId)
+  ]).then(function(_olr) {
+    var lb = _olr[0];
+    _orgGross = ptTeamBoardGross(_ptOrgLiveFormat, _olr[1]);              // v409.0 (B-67)
     if (!body) return;
     var standings = lb.standings || [];
     if (_ptOrgLiveFormat === 'mmg') {                                     // v295.0 — Bruce (organizer tab, live): "group name instead of the
@@ -35797,7 +35804,7 @@ function ptOrgRefreshLive(eventId) {
         h += '<div style="flex:1;min-width:0">';
         h += '<div style="font-size:15px;font-weight:800;color:#f5e6b8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(row.group_name||'Group')+(holesPlayed>=18?' <span style="font-size:16px">✅</span>':'')+'</div>';
         if (row.ineligible_reason && !_orgGross) h += '<div style="font-size:9px;color:#e74c3c;font-weight:700;margin-top:2px">⚠️ Ineligible: '+row.ineligible_reason+'</div>';
-        if (row.tee_violation) h += '<div style="font-size:9px;color:#e67e22;font-weight:700;margin-top:2px">⛳ '+row.tee_violation+'</div>';
+        if (row.tee_violation && !_orgGross) h += '<div style="font-size:9px;color:#e67e22;font-weight:700;margin-top:2px">⛳ '+row.tee_violation+'</div>';   // v409.0 (B-67) - TEE is RBC machinery, same rule as Ineligible one line up
         h += '<div style="display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap">';
         h += '<div style="font-size:11px;color:rgba(255,255,255,.4)">'+(holesPlayed>=18?'Finished':holesPlayed>0?('On hole '+currentHole):('Not started'))+'</div>';
         h += '<div style="font-size:11px;font-weight:700;color:rgba(201,168,76,.8);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.4);border-radius:10px;padding:1px 8px">&#9675; Started hole '+startHole+(row.start_unit?' \u00b7 Unit '+row.start_unit:'')+'</div>';
@@ -37311,6 +37318,35 @@ function ptTeamBoardGross(evFmt, rounds) {
   var scr = (rounds || []).filter(function (r) { return ptIsScrFmt(r.format); });
   if (scr.length) return scr.every(function (r) { return !ptIsStblFmt(r.format); });
   return ptIsGrossScr(evFmt);
+}
+// ⭐ v409.0 (B-67, Bruce live on 519909) — THE ROUND IS THE TRUTH, NOT THE
+// EVENT. Three surfaces still fed the EVENT format to ptIsGrossScr: the ticker
+// popup, the watch leaderboard and organizer Live Scores. Event 93 reads
+// multi_day and its ONLY round is a gross scramble, so all three printed NET,
+// INELIGIBLE and TEE on a gross scramble. ptTeamBoardGross above already
+// encodes the rule — only the TV board (v395.1) was ever converted.
+// The worker's /api/events/watch payload carries no round FORMAT (v2.85.0 added
+// round.mode only), so the rounds list comes from the PUBLIC
+// GET /api/events/:id/rounds (handleListRounds falls back to a no-auth read),
+// cached per event id.
+// ⭐⭐ FAIL-SOFT BY CONSTRUCTION: with no rounds known ptTeamBoardGross falls
+// straight back to the event format — byte-for-byte the v408.0 behaviour. A
+// failed or empty response is NOT cached, so a transient 5xx self-heals.
+var _ptRoundsCache = {};
+function ptRoundsFor(eventId) {
+  if (!eventId) return Promise.resolve([]);
+  var k = String(eventId);
+  if (_ptRoundsCache[k]) return _ptRoundsCache[k];
+  var p = fetch(TOUR_API + '/api/events/' + k + '/rounds')
+    .then(_ptJson)
+    .then(function (d) {
+      var rs = (d && d.rounds) || [];
+      if (!rs.length) delete _ptRoundsCache[k];
+      return rs;
+    })
+    .catch(function () { delete _ptRoundsCache[k]; return []; });
+  _ptRoundsCache[k] = p;
+  return p;
 }
 
 // ── v384.0 (D27) — TEAM X-OF-N ENGINE ──────────────────────────────────────
@@ -46465,11 +46501,13 @@ function _ptRenderStandings(standings, computed, eventId) {
       })
       .catch(function(){ return { players: [], par: [], start_hole: row.start_hole || 1, team_handicap: row.team_handicap != null ? row.team_handicap : null }; });
   });
-  Promise.all(detailFetches).then(function(details) {
+  Promise.all([Promise.all(detailFetches), ptRoundsFor(eid)]).then(function(_wdr) {   // v409.0 (B-67)
+    var details = _wdr[0];
     var body2 = document.getElementById('ptLbBody');
     if (!body2) return;
     // v230.0 — gross scramble: gross+to-par, no NET/hdcp/eligibility, to-par ranking
-    var _wlGross = ptIsGrossScr((G._watchEvent && G._watchEvent.format) || (G.joinGroup && G.joinGroup.format));   // B-35 (v395.1)
+    // v409.0 (B-67) — derive from the ROUND(s). No rounds known => event format.
+    var _wlGross = ptTeamBoardGross((G._watchEvent && G._watchEvent.format) || (G.joinGroup && G.joinGroup.format), _wdr[1]);   // B-35 (v395.1) · v409.0 (B-67)
     // Build standings with to-par
     var enriched = standings.map(function(row, i) {
         var detail = details[i];
@@ -46570,7 +46608,7 @@ function _ptRenderStandings(standings, computed, eventId) {
         + '<div style="display:flex;align-items:center;gap:10px">'
         + '<div style="font-size:18px;min-width:26px;text-align:center">'+(typeof medal==='number'?'<span style="font-size:13px;font-weight:900;color:rgba(255,255,255,.4)">'+medal+'</span>':medal)+'</div>'
         + '<div style="flex:1;min-width:0">'
-        + '<div style="font-size:14px;font-weight:800;color:#f5e6b8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(row.group_name||'Group')+(isMyGroup?' <span style="font-size:10px;color:#c9a84c">(you)</span>':'')+(item.countbackWin?' <span style="font-size:9px;font-weight:900;color:rgba(201,168,76,.6);letter-spacing:.3px">C/B</span>':'')+'</div>'        +((!_wlGross && (row.ineligible_reason||item.detail.ineligible_reason))?'<div style="font-size:9px;color:#e74c3c;font-weight:700;margin-top:2px">⚠️ Ineligible: '+(row.ineligible_reason||item.detail.ineligible_reason)+'</div>':'')        +(row.tee_violation?'<div style="font-size:9px;color:#e67e22;font-weight:700;margin-top:2px">⛳ '+row.tee_violation+'</div>':'')
+        + '<div style="font-size:14px;font-weight:800;color:#f5e6b8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(row.group_name||'Group')+(isMyGroup?' <span style="font-size:10px;color:#c9a84c">(you)</span>':'')+(item.countbackWin?' <span style="font-size:9px;font-weight:900;color:rgba(201,168,76,.6);letter-spacing:.3px">C/B</span>':'')+'</div>'        +((!_wlGross && (row.ineligible_reason||item.detail.ineligible_reason))?'<div style="font-size:9px;color:#e74c3c;font-weight:700;margin-top:2px">⚠️ Ineligible: '+(row.ineligible_reason||item.detail.ineligible_reason)+'</div>':'')        +((!_wlGross && row.tee_violation)?'<div style="font-size:9px;color:#e67e22;font-weight:700;margin-top:2px">⛳ '+row.tee_violation+'</div>':'')   /* v409.0 (B-67) - TEE is RBC machinery, same rule as Ineligible one line up */
         + '<div style="margin-top:2px">'+holeInfo+'</div>'
         + '</div>'
         + '<div style="text-align:right;flex-shrink:0">'
@@ -49605,6 +49643,7 @@ function ptLaunchFoursomeRound(foursomeData) {
   var _dead = false;        // 404/409/closed — stop for good this round
   var _deadCode = null;     // join code _dead belongs to
   var _evShotgun = false;   // v408.0 (B-64) - round.mode from /api/events/watch (worker 2.85.0)
+  var _evId = null, _evRounds = null;   // v409.0 (B-67) - the watch payload has no round FORMAT; rounds are read separately
 
   function _log() { try { console.log.apply(console, ['[pt-ticker]'].concat([].slice.call(arguments))); } catch (e) {} }
   function _esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
@@ -49764,6 +49803,22 @@ function ptLaunchFoursomeRound(foursomeData) {
     return parts.join('');
   }
 
+  // v409.0 (B-67) — event 93 reads multi_day, its ONLY round is a gross
+  // scramble, and the popup fed the EVENT format to ptIsGrossScr: NET,
+  // INELIGIBLE and TEE all rendered on a gross scramble. Both polls call this
+  // the moment they learn the event id; the popup reads _evRounds and falls
+  // back to the event format while it is null (= the v408.0 behaviour).
+  function _evLoadRounds(id) {
+    if (!id || id === _evId) return;
+    _evId = id; _evRounds = null;
+    ptRoundsFor(id).then(function (rs) {
+      if (_evId !== id) return;
+      _evRounds = rs;
+      // The popup is rebuilt wholesale on open; repaint it if it is already up.
+      if (document.getElementById('ptTickerPopup')) { _closePopup(); _openPopup(); }
+    });
+  }
+
   function _render() {
     var _tc = _tripCtx(); // v266.0
     if (_tc) { _tRender(_tc); return; }
@@ -49807,7 +49862,7 @@ function ptLaunchFoursomeRound(foursomeData) {
     var withPar = isMmg
       ? _standings.map(function (r) { return { r: r, tp: null }; })       // v293.0 — worker order authoritative
       : _sorted(_standings);
-    var grossOnly = ptIsGrossScr(fmt);                                    // B-35 (v395.1)
+    var grossOnly = ptTeamBoardGross(fmt, _evRounds);                     // B-35 (v395.1) · v409.0 (B-67) — the ROUND, not the event
     var anyNet = !grossOnly && withPar.some(function (x) { return x.r.team_handicap != null; });
     var rows = '';
     for (var i = 0; i < withPar.length; i++) {
@@ -50036,6 +50091,7 @@ function ptLaunchFoursomeRound(foursomeData) {
         if (d.event && d.event.status && d.event.status !== 'active') { _ewDead = true; _ewDeadKey = ec.code; _render(); _log('event watch ticker off: event ' + d.event.status); return; }
         _standings = _mmgAdapt(d, d.standings || []);                      // v294.0 — shared MMG adapter (was inline v293.0)
         _evShotgun = !!(d.round && d.round.mode === 'shotgun');            // v408.0 (B-64)
+        _evLoadRounds(d.event && d.event.id);                              // v409.0 (B-67)
         _computedAt = d.computed_at || null;
         _evFormat = (d.event && d.event.format) || _evFormat;
         _ewName = (d.event && d.event.name) || ec.name || _ewName;
@@ -50382,6 +50438,7 @@ function ptLaunchFoursomeRound(foursomeData) {
         if (d.event && d.event.status && d.event.status !== 'active') { _die(code, 'event ' + d.event.status); return; }
         _standings = _mmgAdapt(d, d.standings || []);                      // v294.0 — mmg scorer ticker
         _evShotgun = !!(d.round && d.round.mode === 'shotgun');            // v408.0 (B-64)
+        _evLoadRounds(d.event && d.event.id);                              // v409.0 (B-67)
         _computedAt = d.computed_at || null;
         _evFormat = (d.event && d.event.format) || _evFormat;
         _stale = false;
@@ -50419,6 +50476,7 @@ function ptLaunchFoursomeRound(foursomeData) {
     _tPrevHoles = null; _tPrevKey = null; _tMoments = []; _tSeen = {}; _tCycle = 0;
     _ewDead = false; _ewDeadKey = null; _ewName = null;                    // v288.0
     _evShotgun = false;                                                    // v408.0 (B-64)
+    _evId = null; _evRounds = null;                                        // v409.0 (B-67)
     _mPrev = null; _mPrevKey = null; _mMoments = []; _mSeen = {}; _mCycle = 0; // v289.0
   }
 
@@ -50484,7 +50542,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v408.0';
+    const TOUR_VERSION     = 'pards-tour-v409.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
