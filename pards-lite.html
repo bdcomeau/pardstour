@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<!-- pards-lite-v1.0 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1">
+<meta name="theme-color" content="#0f1512">
+<title>Pards Tour — Quick Score</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:#0f1512;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+body{min-height:100dvh;padding-bottom:44px}
+.wrap{max-width:520px;margin:0 auto;padding:14px 14px 8px}
+.hdr{display:flex;align-items:center;gap:10px;padding:10px 14px 4px;max-width:520px;margin:0 auto}
+.brand{font-size:13px;font-weight:900;letter-spacing:.14em;color:#c9a84c}
+.lite{font-size:10px;font-weight:800;letter-spacing:.1em;color:rgba(255,255,255,.32)}
+.card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;margin-bottom:12px}
+.ev{font-size:17px;font-weight:900;line-height:1.25}
+.sub{font-size:12px;color:rgba(255,255,255,.55);margin-top:3px}
+.for{margin-top:9px;font-size:13px;font-weight:800;color:#a8d5b5}
+.for small{display:block;font-weight:600;font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.hole{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 12px}
+.hbtn{width:52px;height:52px;flex:0 0 52px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:22px;font-weight:800;cursor:pointer}
+.hbtn:disabled{opacity:.25}
+.hnum{text-align:center;flex:1}
+.hnum b{display:block;font-size:34px;font-weight:900;line-height:1}
+.hnum span{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.08em}
+.pl{margin-bottom:12px}
+.plname{font-size:14px;font-weight:800;margin-bottom:7px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.plname i{font-style:normal;font-size:11px;font-weight:700;color:rgba(255,255,255,.45)}
+.pad{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.pad button{height:50px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);color:#fff;font-size:19px;font-weight:800;cursor:pointer}
+.pad button.on{background:rgba(201,168,76,.9);border-color:#c9a84c;color:#1a1a12}
+.pad button.clr{font-size:13px;font-weight:700;color:rgba(255,255,255,.5)}
+.tot{display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.6);padding:2px 2px 0}
+.tot b{color:#fff;font-size:14px}
+.act{display:flex;gap:8px;margin:14px 0 6px}
+.act a,.act button{flex:1;text-align:center;text-decoration:none;padding:12px 8px;border-radius:12px;font-size:13px;font-weight:800;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#fff;cursor:pointer}
+.act a.pri{background:rgba(201,168,76,.14);border-color:rgba(201,168,76,.45);color:#e6c96f}
+.sync{font-size:11px;text-align:center;color:rgba(255,255,255,.4);padding:4px 0 2px;min-height:16px}
+.sync.bad{color:#ffb4a0}
+.sync.ok{color:#a8d5b5}
+input.code{width:100%;padding:16px;font-size:30px;font-weight:900;letter-spacing:.22em;text-align:center;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.18);border-radius:14px;color:#fff}
+button.go{width:100%;margin-top:10px;padding:15px;border-radius:14px;border:1px solid rgba(201,168,76,.5);background:rgba(201,168,76,.16);color:#e6c96f;font-size:16px;font-weight:900;cursor:pointer}
+.err{color:#ffb4a0;font-size:13px;text-align:center;margin-top:10px;min-height:18px;line-height:1.4}
+#tick{position:fixed;left:0;right:0;bottom:0;height:34px;background:#141a17;border-top:1px solid rgba(201,168,76,.28);display:none;overflow:hidden;z-index:250;cursor:pointer}
+#tick .tr{display:flex;align-items:center;height:34px;white-space:nowrap;padding:0 12px;font-size:12px;font-weight:700;color:rgba(255,255,255,.85);overflow-x:auto;scrollbar-width:none}
+#tick .tr::-webkit-scrollbar{display:none}
+#tick .tr span{margin-right:20px}
+#tick .tr em{font-style:normal;color:#c9a84c;font-weight:900}
+#lb{position:fixed;inset:0;background:#0f1512;z-index:9500;display:none;overflow:auto;padding:16px 14px 60px}
+#lb h3{margin:4px 0 2px;font-size:17px;font-weight:900}
+#lb .cl{font-size:11px;color:rgba(255,255,255,.45);margin-bottom:12px}
+table.lbt{width:100%;border-collapse:collapse;font-size:13px}
+table.lbt th{text-align:left;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,.4);padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.12)}
+table.lbt td{padding:8px 4px;border-bottom:1px solid rgba(255,255,255,.06)}
+table.lbt td.n{text-align:right;font-weight:800;white-space:nowrap}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<div class="hdr"><span class="brand">PARDS TOUR</span><span class="lite">QUICK SCORE</span></div>
+
+<div class="wrap" id="vCode">
+  <div class="card">
+    <div class="ev">Enter your card code</div>
+    <div class="sub">The 6&#8209;digit code printed on your scorecard.</div>
+    <input class="code" id="codeIn" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="off">
+    <button class="go" id="codeGo">Start scoring</button>
+    <div class="err" id="codeErr"></div>
+  </div>
+</div>
+
+<div class="wrap hide" id="vCard">
+  <div class="card">
+    <div class="ev" id="evName">&nbsp;</div>
+    <div class="sub" id="evSub">&nbsp;</div>
+    <div class="for" id="forWho"></div>
+  </div>
+  <div class="hole">
+    <button class="hbtn" id="hPrev">&#8249;</button>
+    <div class="hnum"><b id="hNum">1</b><span id="hPar">PAR 4</span></div>
+    <button class="hbtn" id="hNext">&#8250;</button>
+  </div>
+  <div id="entry"></div>
+  <div class="sync" id="syncMsg"></div>
+  <div class="act">
+    <a class="pri" id="fullApp" href="#">Open full app</a>
+    <button id="btnLb">Leaderboard</button>
+  </div>
+</div>
+
+<div id="tick"><div class="tr" id="tickTr"></div></div>
+<div id="lb"><h3 id="lbTitle">Leaderboard</h3><div class="cl" id="lbClock"></div><div id="lbBody"></div>
+  <div class="act"><button id="lbClose">Close</button></div></div>
+
+<script>
+/* ============================================================
+   Pards Tour — LITE scoring page (D54, spec s77, built s79)
+   Standalone. Speaks only the four public no-auth endpoints of
+   worker v2.81.0:
+     GET  /api/join/:code?rid=      (team / group card)
+     GET  /api/join-round/:code     (tee-time foursome card)
+     POST /api/scores               (team card submit)
+     POST /api/scores/round         (tee-time card submit)
+     POST /api/events/watch         (ticker + standings)
+   No service worker, no cache-version marker of any kind, and zero
+   client invariants touched — this file is independent of the 8 MB app.
+   ============================================================ */
+'use strict';
+var API = 'https://pards-tour-api.bdapple.workers.dev';
+var LITE_VERSION = 'lite-v1.0';
+var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
+
+var S = {                       // session state
+  mode: null,                   // 'group' | 'round'
+  code: null, rid: null, mp: null,
+  evName: '', evCode: null, courseId: null, startHole: 1,
+  cols: [],                     // [{key,label,sub,post:{...}}]
+  holes: [],                    // play order, shotgun-aware
+  hi: 0,                        // index into holes
+  sc: {}                        // sc[colKey][hole] = gross
+};
+var QKEY = null;                // localStorage key for this card
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function log(){ try{ console.log.apply(console,['[pt-lite]'].concat([].slice.call(arguments))); }catch(e){} }
+
+/* ---------- storage (this IS a website — localStorage allowed) ---------- */
+function lsGet(k){ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+
+/* ---------- par maths (mirrors the client's shotgun-safe _toPar) -------- */
+function parArr(cid){ return (cid && PARS[cid]) || null; }
+function parOf(h){ var p = parArr(S.courseId); return p ? p[h-1] : null; }
+function toPar(entry){
+  var p = parArr(entry.course_id || S.courseId);
+  if (!p || !entry.scores_by_hole) return null;
+  var hs = Object.keys(entry.scores_by_hole); if (!hs.length) return null;
+  var sum = 0;
+  for (var i=0;i<hs.length;i++){ var h = Number(hs[i]); if (!(h>=1&&h<=18)) return null; sum += p[h-1]; }
+  return entry.total - sum;
+}
+function fmtToPar(n){ return n===null ? '—' : (n===0 ? 'E' : (n<0 ? '−'+Math.abs(n) : '+'+n)); }
+
+/* ---------- resolve ----------------------------------------------------- */
+function jfetch(url, opt){
+  return fetch(url, opt).then(function(r){
+    return r.text().then(function(t){
+      var d = null; try { d = JSON.parse(t); } catch(e){}
+      return { status: r.status, ok: r.ok, data: d };
+    });
+  });
+}
+
+function resolve(code, rid){
+  var q = rid ? ('?rid=' + encodeURIComponent(rid)) : '';
+  return jfetch(API + '/api/join/' + encodeURIComponent(code) + q).then(function(r){
+    if (r.ok && r.data && r.data.group) return startGroup(r.data, code, rid);
+    if (r.status === 404) {
+      return jfetch(API + '/api/join-round/' + encodeURIComponent(code)).then(function(r2){
+        if (r2.ok && r2.data && r2.data.foursome) return startRound(r2.data, code);
+        throw new Error((r2.data && r2.data.error) || 'That code didn’t match a card.');
+      });
+    }
+    throw new Error((r.data && r.data.error) || ('Could not open that card (HTTP ' + r.status + ').'));
+  });
+}
+
+/* --- team / group card: POST /api/scores ------------------------------- */
+function startGroup(d, code, rid){
+  var g = d.group;
+  if (g.event_status && g.event_status !== 'active') throw new Error('This event isn’t open for scoring right now.');
+  if (g.round_status === 'locked') throw new Error('Scoring is locked for this round — see the organizer.');
+  S.mode = 'group'; S.code = code; S.rid = rid;
+  S.evName = g.event_name || 'Pards Tour';
+  S.evCode = g.event_code || null;
+  S.courseId = g.course_id || null;
+  S.startHole = Number(g.start_hole) || 1;
+
+  // The worker already applied the Card Swap policy (B-45 / w2.81.0) — we
+  // simply score whatever it handed us. paired_group present = cross-scoring.
+  var paired = d.paired_group;
+  var scope = paired ? paired : { id: g.id, name: g.name, code: g.code };
+  var roster = paired ? (d.paired_players || []) : (d.players || []);
+  var label  = (roster[0] && roster[0].name) || scope.name || 'Team';
+
+  S.cols = [{
+    key: 'g' + scope.id,
+    label: scope.name || 'Team',
+    sub: '',                                   // the banner above already lists the names
+    names: roster.map(function(p){ return p.name; }).join(' · '),
+    post: { url: API + '/api/scores',
+            body: { group_code: scope.code, player_name: label, handicap: 0, tee: g.tee || 'white' } }
+  }];
+  S.holes = holeOrder(S.startHole);
+  $('forWho').innerHTML = (paired ? 'You’re keeping score for: ' : 'Your card: ') + esc(scope.name || 'Team') +
+    (S.cols[0].names ? '<small>' + esc(S.cols[0].names) + '</small>' : '');
+  $('evSub').textContent = [g.course_name || '', g.date || '', paired ? 'cross-scoring' : ''].filter(Boolean).join(' · ');
+}
+
+/* --- tee-time foursome card: POST /api/scores/round -------------------- */
+function startRound(d, code){
+  var f = d.foursome;
+  if (f.round_status === 'locked') throw new Error('Scoring is locked for this round — see the organizer.');
+  S.mode = 'round'; S.code = code;
+  S.evName = f.event_name || 'Pards Tour';
+  S.evCode = null;                              // join-round carries no event_code — no ticker
+  S.courseId = f.course_id || null;
+  S.startHole = Number(f.hole) || 1;
+
+  var players = (d.players || []).filter(function(p){ return p.roster_id; });
+  var scope = players;
+  // D49 / B-51 marker rotation: ?mp= names the official; the marker is one
+  // slot back (wraps). Same rule the full client applies.
+  if (f.card_swap === 'marker' && S.mp) {
+    var oi = -1;
+    for (var i=0;i<players.length;i++) if (String(players[i].roster_id) === String(S.mp)) oi = i;
+    if (oi >= 0 && players.length > 1) {
+      var mi = (oi - 1 + players.length) % players.length;
+      scope = [players[oi], players[mi]];
+    }
+  }
+  S.cols = scope.map(function(p){
+    return {
+      key: 'r' + p.roster_id,
+      label: p.name,
+      sub: (p.handicap != null ? 'Hcp ' + p.handicap : ''),
+      post: { url: API + '/api/scores/round',
+              body: { group_code: f.code, player_name: p.name, handicap: p.handicap || 0,
+                      tee: f.tee || 'white', tee_time_id: f.id, round_id: f.round_id,
+                      group_id: p.group_id || null, roster_id: p.roster_id } }
+    };
+  });
+  // seed from the worker's existing scores so a resumed card isn't blank
+  var ex = d.existing_scores || {};
+  S.cols.forEach(function(c, i){
+    var rid = scope[i].roster_id, have = ex[rid];
+    if (have) { S.sc[c.key] = {}; Object.keys(have).forEach(function(h){ S.sc[c.key][Number(h)] = have[h]; }); }
+  });
+  S.holes = holeOrder(S.startHole);
+  $('forWho').innerHTML = (scope.length === 2 && f.card_swap === 'marker'
+      ? 'THIS CARD: ' + esc(scope[0].name) + ' &nbsp;·&nbsp; MARKER: ' + esc(scope[1].name) + '<small>you enter both scores</small>'
+      : 'Your card<small>' + esc(scope.map(function(p){return p.name;}).join(' · ')) + '</small>');
+  $('evSub').textContent = ['Round ' + (f.round_number || 1), f.start_time || '', f.date || ''].filter(Boolean).join(' · ');
+}
+
+function holeOrder(start){
+  var o = [], s = (start>=1 && start<=18) ? start : 1;
+  for (var i=0;i<18;i++) o.push(((s - 1 + i) % 18) + 1);
+  return o;
+}
+
+/* ---------- entry UI ---------------------------------------------------- */
+function renderCard(){
+  $('vCode').classList.add('hide');
+  $('vCard').classList.remove('hide');
+  $('evName').textContent = S.evName;
+  var fa = 'index.html?code=' + encodeURIComponent(S.code) +
+           (S.rid ? '&rid=' + encodeURIComponent(S.rid) : '') +
+           (S.mp ? '&mp=' + encodeURIComponent(S.mp) : '');
+  $('fullApp').setAttribute('href', fa);
+  // resume where they left off: first hole with nothing entered
+  var seen = 0;
+  for (var i=0;i<S.holes.length;i++){
+    var h = S.holes[i], any = false;
+    for (var c=0;c<S.cols.length;c++) if (val(S.cols[c].key,h)) any = true;
+    if (any) seen = i + 1;
+  }
+  S.hi = Math.min(seen, 17);
+  renderHole();
+  if (S.evCode) tickArm();
+}
+
+function val(key,h){ return (S.sc[key] && S.sc[key][h]) || 0; }
+function setVal(key,h,v){ if(!S.sc[key]) S.sc[key] = {}; if (v) S.sc[key][h] = v; else delete S.sc[key][h]; persist(); }
+
+function renderHole(){
+  var h = S.holes[S.hi], p = parOf(h);
+  $('hNum').textContent = h;
+  $('hPar').textContent = p ? ('PAR ' + p) : ('HOLE ' + (S.hi+1) + ' OF 18');
+  $('hPrev').disabled = S.hi === 0;
+  $('hNext').disabled = S.hi === 17;
+  var out = '';
+  for (var c=0;c<S.cols.length;c++){
+    var col = S.cols[c], cur = val(col.key,h);
+    var tot = 0, thru = 0;
+    for (var k=1;k<=18;k++){ var v = val(col.key,k); if (v){ tot += v; thru++; } }
+    out += '<div class="pl"><div class="plname"><span>' + esc(col.label) + '</span>' +
+           (col.sub ? '<i>' + esc(col.sub) + '</i>' : '') + '</div><div class="pad">';
+    for (var n=1;n<=9;n++){
+      out += '<button data-c="' + c + '" data-v="' + n + '" class="' + (cur===n?'on':'') + '">' + n + '</button>';
+    }
+    out += '<button data-c="' + c + '" data-v="0" class="clr">clear</button>';
+    out += '</div><div class="tot"><span>Thru ' + thru + '</span><span>Total <b>' + (tot||'–') + '</b></span></div></div>';
+  }
+  $('entry').innerHTML = out;
+}
+
+$('entry').addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('button[data-c]');
+  if (!b) return;
+  var c = Number(b.getAttribute('data-c')), v = Number(b.getAttribute('data-v'));
+  var col = S.cols[c], h = S.holes[S.hi];
+  setVal(col.key, h, val(col.key,h) === v ? 0 : v);
+  renderHole();
+  if (v) queueSend(col, h, val(col.key,h));
+  else   sync('Cleared — hole ' + h + ' will keep its last saved value on the server.', 'bad');
+});
+$('hPrev').addEventListener('click', function(){ if (S.hi>0){ S.hi--; renderHole(); } });
+$('hNext').addEventListener('click', function(){ if (S.hi<17){ S.hi++; renderHole(); } });
+
+/* ---------- submit + retry queue ---------------------------------------- */
+function persist(){ if (QKEY) lsSet(QKEY, { sc: S.sc, hi: S.hi }); }
+function qLoad(){ return lsGet(QKEY + ':q') || []; }
+function qSave(q){ lsSet(QKEY + ':q', q); }
+
+function sync(msg, cls){ var e = $('syncMsg'); e.textContent = msg || ''; e.className = 'sync' + (cls ? ' ' + cls : ''); }
+
+function queueSend(col, hole, gross){
+  var q = qLoad();
+  q = q.filter(function(it){ return !(it.key === col.key && it.hole === hole); });
+  q.push({ key: col.key, hole: hole, gross: gross, t: Date.now() });
+  qSave(q);
+  flush();
+}
+
+var _flushing = false;
+function flush(){
+  var q = qLoad();
+  if (!q.length){ sync('All scores saved.', 'ok'); return Promise.resolve(); }
+  if (_flushing) return Promise.resolve();
+  _flushing = true;
+  sync('Saving ' + q.length + ' hole' + (q.length>1?'s':'') + '…');
+  // one POST per column, carrying every queued hole for that column
+  var byCol = {};
+  q.forEach(function(it){ (byCol[it.key] = byCol[it.key] || []).push(it); });
+  var jobs = Object.keys(byCol).map(function(key){
+    var col = null; for (var i=0;i<S.cols.length;i++) if (S.cols[i].key === key) col = S.cols[i];
+    if (!col) return Promise.resolve({ key: key, ok: true });
+    var body = {}; for (var k in col.post.body) body[k] = col.post.body[k];
+    body.scores = byCol[key].map(function(it){ return { hole: it.hole, gross_score: it.gross }; });
+    return jfetch(col.post.url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) })
+      .then(function(r){
+        if (r.ok && r.data && r.data.ok) return { key: key, ok: true };
+        if (r.status === 409) return { key: key, ok: false, fatal: (r.data && r.data.error) || 'Scoring is closed for this round.' };
+        return { key: key, ok: false };
+      })
+      .catch(function(){ return { key: key, ok: false }; });
+  });
+  return Promise.all(jobs).then(function(res){
+    _flushing = false;
+    var left = qLoad(), fatal = null;
+    res.forEach(function(r){
+      if (r.fatal) fatal = r.fatal;
+      if (r.ok) left = left.filter(function(it){ return it.key !== r.key; });
+    });
+    qSave(left);
+    if (fatal){ sync(fatal, 'bad'); return; }
+    if (left.length) sync(left.length + ' hole' + (left.length>1?'s':'') + ' waiting — will retry (keep this page open).', 'bad');
+    else { sync('All scores saved.', 'ok'); if (S.evCode) setTimeout(tickPoll, 8000); }
+  });
+}
+setInterval(function(){ if (qLoad().length) flush(); }, 15000);
+window.addEventListener('online', flush);
+
+/* ---------- ticker ------------------------------------------------------ */
+var _st = null, _at = null, _tickTimer = null, _tickDead = false;
+function tickArm(){ if (_tickTimer || !S.evCode) return; tickPoll(); _tickTimer = setInterval(tickPoll, 60000); }
+function tickPoll(){
+  if (_tickDead || !S.evCode) return;
+  if (typeof document.hidden !== 'undefined' && document.hidden) return;
+  jfetch(API + '/api/events/watch', { method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ event_code: S.evCode }) })
+    .then(function(r){
+      if (r.status === 404 || r.status === 409){ _tickDead = true; return; }
+      var d = r.data; if (!d || d.error) return;
+      if (d.event && d.event.status && d.event.status !== 'active'){ _tickDead = true; return; }
+      _st = d.standings || []; _at = d.computed_at || null;
+      tickRender();
+    })
+    .catch(function(){});
+}
+function sorted(rows){
+  var w = rows.map(function(r){ return { r:r, tp: toPar(r) }; });
+  w.sort(function(a,b){
+    if (b.r.holes_played !== a.r.holes_played) return b.r.holes_played - a.r.holes_played;
+    if (a.tp !== null && b.tp !== null && a.tp !== b.tp) return a.tp - b.tp;
+    return a.r.total - b.r.total;
+  });
+  return w;
+}
+function tickRender(){
+  var on = _st && _st.length && _st.some(function(e){ return e.holes_played > 0; });
+  var t = $('tick');
+  if (!on){ t.style.display = 'none'; return; }
+  var rows = sorted(_st), html = '';
+  for (var i=0;i<rows.length && i<12;i++){
+    var e = rows[i].r;
+    html += '<span><em>' + (i+1) + '.</em> ' + esc(e.group_name || 'Team') + ' ' +
+            fmtToPar(rows[i].tp) + ' <i style="font-style:normal;color:rgba(255,255,255,.45)">thru ' + e.holes_played + '</i></span>';
+  }
+  html += '<span style="color:rgba(255,255,255,.35)">tap for full board</span>';
+  $('tickTr').innerHTML = html;
+  t.style.display = 'block';
+}
+function lbOpen(){
+  if (!_st || !_st.length){ return; }
+  var rows = sorted(_st), h = '<table class="lbt"><tr><th>#</th><th>Team</th><th style="text-align:right">To par</th><th style="text-align:right">Thru</th><th style="text-align:right">Gross</th></tr>';
+  for (var i=0;i<rows.length;i++){
+    var e = rows[i].r;
+    h += '<tr><td>' + (i+1) + '</td><td>' + esc(e.group_name || 'Team') + '</td><td class="n">' +
+         fmtToPar(rows[i].tp) + '</td><td class="n">' + e.holes_played + '</td><td class="n">' + (e.total || '–') + '</td></tr>';
+  }
+  h += '</table>';
+  $('lbTitle').textContent = S.evName;
+  $('lbClock').textContent = _at ? ('Updated ' + String(_at).replace('T',' ').replace('Z',' UTC')) : '';
+  $('lbBody').innerHTML = h;
+  $('lb').style.display = 'block';
+}
+$('tick').addEventListener('click', lbOpen);
+$('btnLb').addEventListener('click', function(){ if (_st && _st.length) lbOpen(); else sync('No standings yet — scores will appear as cards come in.'); });
+$('lbClose').addEventListener('click', function(){ $('lb').style.display = 'none'; });
+
+/* ---------- boot -------------------------------------------------------- */
+function boot(code, rid, mp){
+  S.mp = mp || null;
+  QKEY = 'ptlite:' + code + (rid ? ':' + rid : '');
+  $('codeErr').textContent = '';
+  return resolve(code, rid).then(function(){
+    var saved = lsGet(QKEY);
+    if (saved && saved.sc) {                       // local wins for un-synced holes
+      Object.keys(saved.sc).forEach(function(k){
+        S.sc[k] = S.sc[k] || {};
+        Object.keys(saved.sc[k]).forEach(function(h){ S.sc[k][Number(h)] = saved.sc[k][h]; });
+      });
+    }
+    renderCard();
+    flush();
+  });
+}
+
+$('codeGo').addEventListener('click', function(){
+  var c = String($('codeIn').value || '').replace(/[^0-9A-Za-z]/g,'');
+  if (c.length < 6){ $('codeErr').textContent = 'Enter the 6-digit code from your card.'; return; }
+  $('codeGo').disabled = true; $('codeGo').textContent = 'Opening…';
+  boot(c, null, null).catch(function(e){
+    $('codeErr').textContent = (e && e.message) || 'Could not open that card.';
+    $('codeGo').disabled = false; $('codeGo').textContent = 'Start scoring';
+  });
+});
+$('codeIn').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('codeGo').click(); });
+
+(function(){
+  var q = new URLSearchParams(location.search);
+  var c = q.get('code'), rid = q.get('rid'), mp = q.get('mp');
+  if (c && /^[0-9A-Za-z]{6}$/.test(c)) {
+    boot(c, rid, mp).catch(function(e){
+      $('codeErr').textContent = (e && e.message) || 'Could not open that card.';
+      $('codeIn').value = c;
+    });
+  }
+  log(LITE_VERSION, 'ready');
+})();
+</script>
+</body>
+</html>
