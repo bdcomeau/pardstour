@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- pards-lite-v1.3 -->
+<!-- pards-lite-v1.5 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -120,7 +120,7 @@ table.lbt td.n{text-align:right;font-weight:800;white-space:nowrap}
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LITE_VERSION = 'lite-v1.3';
+var LITE_VERSION = 'lite-v1.5';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var S = {                       // session state
@@ -217,7 +217,7 @@ function startRound(d, code){
   if (f.round_status === 'locked') throw new Error('Scoring is locked for this round — see the organizer.');
   S.mode = 'round'; S.code = code;
   S.evName = f.event_name || 'Pards Tour';
-  S.evCode = null;                              // join-round carries no event_code — no ticker
+  S.evCode = f.event_code || null;              // v1.4 \u00b7 worker v2.82.0+ names it; older workers omit \u2192 null, ticker stays off on roster cards (teams still borrow below)
   S.courseId = f.course_id || null;
   S.startHole = Number(f.hole) || 1;
 
@@ -289,11 +289,38 @@ function startRound(d, code){
       ? 'THIS CARD: ' + esc(scope[0].name) + ' &nbsp;\u00b7&nbsp; MARKER: ' + esc(mkName) + '<small>marker attests on paper \u2014 you enter ' + esc(scope[0].name) + '\u2019s scores</small>'
       : 'Your card<small>' + esc(scope.map(function(p){return p.name;}).join(' \u00b7 ')) + '</small>');
   $('evSub').textContent = ['Round ' + (f.round_number || 1), f.start_time || '', f.date || ''].filter(Boolean).join(' · ');
+  if (S.evCode) tickArm();                      // v1.4 \u00b7 ticker on individual cards
 }
 
 /* --- v1.1 · scramble teams sitting on a tee-time card ------------------ */
 function startRoundTeams(d, teams){
   var f = d.foursome;
+  /* v1.5 \u00b7 B-58 (Bruce s80, slot code 264546): on a card-swap PAIR event each
+     team's card is a separate piece of paper kept by the other team \u2014 one
+     phone must score ONE card, or the event gets a second surface per team
+     (the MIN caveat). A slot code can't say which card you hold, so ask.
+     ?tg= (set by the pick, kept on reload) or a single team skips the ask.
+     Non-pair events keep the one-paper-card-two-teams behaviour. */
+  if (f.card_swap === 'pair' && teams.length > 1 && !S.tg) {
+    var ov = document.createElement('div');
+    ov.id = 'tgPick';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:90;background:#0d1f0b;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:10px';
+    ov.innerHTML = '<div style="font-size:17px;font-weight:900;color:#f5e6b8;margin-bottom:2px">Whose card are you holding?</div>'
+      + '<div style="font-size:12.5px;color:rgba(255,255,255,.55);margin-bottom:8px;text-align:center">This is a card-swap round \u2014 each team\u2019s card is scored by the other team. Pick the team named on the card in your hand.</div>'
+      + teams.map(function(t){ return '<button data-g="' + t.group_id + '" style="width:100%;max-width:340px;padding:14px;background:rgba(201,168,76,.14);border:1.5px solid rgba(201,168,76,.5);border-radius:11px;color:#f5e6b8;font-size:15px;font-weight:900">' + esc(t.name || 'Team') + '</button>'; }).join('');
+    ov.addEventListener('click', function(e){
+      var b = e.target.closest('button[data-g]'); if (!b) return;
+      S.tg = b.getAttribute('data-g');
+      try { var u = new URL(location.href); u.searchParams.set('code', S.code); u.searchParams.set('tg', S.tg); history.replaceState(null, '', u); } catch (e2) {}
+      ov.remove();
+      startRoundTeams(d, teams); renderCard(); flush();
+    });
+    document.body.appendChild(ov);
+  }
+  if (S.tg) {
+    var picked = teams.filter(function(t){ return String(t.group_id) === String(S.tg); });
+    if (picked.length) teams = picked;
+  }
   S.holes = holeOrder(S.startHole);
   S.cols = teams.map(function(t){
     var roster = t.team_players || [];
@@ -315,7 +342,8 @@ function startRoundTeams(d, teams){
     (f.hole ? 'Start hole ' + f.hole : ''), f.start_time || '', f.date || ''].filter(Boolean).join(' · ');
   // handleJoinRound carries no event_code, so borrow it from a team's own
   // group join — one extra GET, fail-soft, ticker simply stays off on error.
-  jfetch(API + '/api/join/' + encodeURIComponent(teams[0].group_code))
+  if (f.event_code){ S.evCode = f.event_code; tickArm(); }   // v1.4 \u00b7 worker v2.82.0+ carries it \u2014 no borrow needed
+  else jfetch(API + '/api/join/' + encodeURIComponent(teams[0].group_code))
     .then(function(r){
       var ec = r.ok && r.data && r.data.group && r.data.group.event_code;
       if (ec){ S.evCode = ec; tickArm(); }
@@ -483,7 +511,14 @@ function flush(){
     });
     qSave(left);
     if (fatal){ sync(fatal, 'bad'); return; }
-    if (left.length) sync(left.length + ' hole' + (left.length>1?'s':'') + ' waiting — will retry (keep this page open).', 'bad');
+    if (left.length) {
+      /* v1.5 \u00b7 B-59 (Bruce s80): B-55 keeps mid-flight holes queued \u2014 correct \u2014
+         but they then sat until the 15 s tick, spamming 'waiting' while play
+         continued. If THIS flush landed anything, go again immediately; the
+         tick + online listener still cover the true-failure case. */
+      if (res.some(function(r){ return r.ok; })) { sync('Saving\u2026'); setTimeout(flush, 300); }
+      else sync(left.length + ' hole' + (left.length>1?'s':'') + ' waiting — will retry (keep this page open).', 'bad');
+    }
     else { sync('All scores saved.', 'ok'); if (S.evCode) setTimeout(tickPoll, 8000); }
   });
 }
@@ -584,8 +619,9 @@ $('btnLb').addEventListener('click', function(){ if (_st && _st.length) lbOpen()
 $('lbClose').addEventListener('click', function(){ $('lb').style.display = 'none'; });
 
 /* ---------- boot -------------------------------------------------------- */
-function boot(code, rid, mp){
+function boot(code, rid, mp, tg){
   S.mp = mp || null;
+  S.tg = tg || null;                             // v1.5 \u00b7 B-58 \u2014 picked team card on a pair slot code
   QKEY = 'ptlite:' + code + (rid ? ':' + rid : '');
   $('codeErr').textContent = '';
   return resolve(code, rid).then(function(){
@@ -614,9 +650,9 @@ $('codeIn').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('c
 
 (function(){
   var q = new URLSearchParams(location.search);
-  var c = q.get('code'), rid = q.get('rid'), mp = q.get('mp');
+  var c = q.get('code'), rid = q.get('rid'), mp = q.get('mp'), tg = q.get('tg');
   if (c && /^[0-9A-Za-z]{6}$/.test(c)) {
-    boot(c, rid, mp).catch(function(e){
+    boot(c, rid, mp, tg).catch(function(e){
       $('codeErr').textContent = (e && e.message) || 'Could not open that card.';
       $('codeIn').value = c;
     });
