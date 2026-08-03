@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- pards-lite-v1.1 -->
+<!-- pards-lite-v1.2 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -56,6 +56,17 @@ table.lbt th{text-align:left;font-size:10px;letter-spacing:.08em;color:rgba(255,
 table.lbt td{padding:8px 4px;border-bottom:1px solid rgba(255,255,255,.06)}
 table.lbt td.n{text-align:right;font-weight:800;white-space:nowrap}
 .hide{display:none!important}
+/* v1.2 — recorded-scores strip */
+.scg{margin:6px 0 2px}
+.scg table{width:100%;border-collapse:collapse;table-layout:fixed}
+.scg td{padding:3px 0;text-align:center;font-size:11px;border:1px solid rgba(255,255,255,.07)}
+.scg tr.h td{font-size:9px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.02em}
+.scg tr.v td{font-size:13px;font-weight:800;color:#fff;cursor:pointer}
+.scg tr.v td.e{color:rgba(255,255,255,.22)}
+.scg tr.v td.cur{background:rgba(201,168,76,.22);border-color:rgba(201,168,76,.55)}
+.scg td.sum{background:rgba(255,255,255,.05);font-weight:900;color:#c9a84c}
+.lbt tr.row{cursor:pointer}
+.lbt tr.exp td{padding:0 0 10px;border-bottom:1px solid rgba(255,255,255,.06)}
 </style>
 </head>
 <body>
@@ -109,7 +120,7 @@ table.lbt td.n{text-align:right;font-weight:800;white-space:nowrap}
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LITE_VERSION = 'lite-v1.1';
+var LITE_VERSION = 'lite-v1.2';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var S = {                       // session state
@@ -316,6 +327,33 @@ function renderCard(){
 function val(key,h){ return (S.sc[key] && S.sc[key][h]) || 0; }
 function setVal(key,h,v){ if(!S.sc[key]) S.sc[key] = {}; if (v) S.sc[key][h] = v; else delete S.sc[key][h]; persist(); }
 
+/* v1.2 — recorded-scores grid. `get(h)` returns the gross for hole h.
+   Standard 1–18 card layout (what a golfer reads) even on a shotgun, with
+   OUT / IN / TOT. `clickable` wires each cell to jump the entry pad there. */
+function scoreGrid(get, clickable, curHole){
+  function nine(from){
+    var lab = '', val = '', sum = 0, any = false;
+    for (var i=from;i<from+9;i++){
+      var h = i + 1, v = get(h) || 0;
+      if (v){ sum += v; any = true; }
+      lab += '<td>' + h + '</td>';
+      val += '<td class="' + (v ? '' : 'e') + (h === curHole ? ' cur' : '') + '"' +
+             (clickable ? ' data-h="' + h + '"' : '') + '>' + (v || '·') + '</td>';
+    }
+    lab += '<td class="sum">' + (from === 0 ? 'OUT' : 'IN') + '</td>';
+    val += '<td class="sum">' + (any ? sum : '–') + '</td>';
+    return { lab: lab, val: val, sum: any ? sum : null };
+  }
+  var o = nine(0), n = nine(9);
+  var tot = (o.sum || 0) + (n.sum || 0);
+  return '<div class="scg"><table>' +
+    '<tr class="h">' + o.lab + '<td class="sum"></td></tr>' +
+    '<tr class="v">' + o.val + '<td class="sum"></td></tr>' +
+    '<tr class="h">' + n.lab + '<td class="sum">TOT</td></tr>' +
+    '<tr class="v">' + n.val + '<td class="sum">' + (tot || '–') + '</td></tr>' +
+    '</table></div>';
+}
+
 function renderHole(){
   var h = S.holes[S.hi], p = parOf(h);
   $('hNum').textContent = h;
@@ -333,20 +371,33 @@ function renderHole(){
       out += '<button data-c="' + c + '" data-v="' + n + '" class="' + (cur===n?'on':'') + '">' + n + '</button>';
     }
     out += '<button data-c="' + c + '" data-v="0" class="clr">clear</button>';
-    out += '</div><div class="tot"><span>Thru ' + thru + '</span><span>Total <b>' + (tot||'–') + '</b></span></div></div>';
+    out += '</div><div class="tot"><span>Thru ' + thru + '</span><span>Total <b>' + (tot||'–') + '</b></span></div>';
+    out += scoreGrid((function(k){ return function(hh){ return val(k, hh); }; })(col.key), true, h)
+             .replace('<div class="scg">', '<div class="scg" data-col="' + c + '">');
+    out += '</div>';
   }
   $('entry').innerHTML = out;
 }
 
 $('entry').addEventListener('click', function(e){
+  // v1.2 — tap any hole in the recorded-scores grid to jump the pad there
+  var cell = e.target.closest && e.target.closest('.scg td[data-h]');
+  if (cell) {
+    var want = Number(cell.getAttribute('data-h'));
+    for (var i=0;i<S.holes.length;i++) if (S.holes[i] === want) { S.hi = i; renderHole(); return; }
+    return;
+  }
   var b = e.target.closest && e.target.closest('button[data-c]');
   if (!b) return;
   var c = Number(b.getAttribute('data-c')), v = Number(b.getAttribute('data-v'));
   var col = S.cols[c], h = S.holes[S.hi];
-  setVal(col.key, h, val(col.key,h) === v ? 0 : v);
+  // ⭐ v1.2 — tapping the SAME number again toggles the hole off. Guard on the
+  // NEW value, not the button: `if (v)` used to queue a gross_score of 0.
+  var nv = (val(col.key,h) === v) ? 0 : v;
+  setVal(col.key, h, nv);
   renderHole();
-  if (v) queueSend(col, h, val(col.key,h));
-  else   sync('Cleared — hole ' + h + ' will keep its last saved value on the server.', 'bad');
+  if (nv) queueSend(col, h, nv);
+  else    sync('Cleared — hole ' + h + ' keeps its last saved value on the server.', 'bad');
 });
 $('hPrev').addEventListener('click', function(){ if (S.hi>0){ S.hi--; renderHole(); } });
 $('hNext').addEventListener('click', function(){ if (S.hi<17){ S.hi++; renderHole(); } });
@@ -418,10 +469,35 @@ function tickPoll(){
       var d = r.data; if (!d || d.error) return;
       if (d.event && d.event.status && d.event.status !== 'active'){ _tickDead = true; return; }
       _st = d.standings || []; _at = d.computed_at || null;
+      seedFromStandings();
       tickRender();
     })
     .catch(function(){});
 }
+/* v1.2 — a fresh phone joining a card mid-round has no local scores, but the
+   worker's standings already carry this group's scores_by_hole. Fill the gaps
+   ONLY: anything entered locally wins (it may not have synced yet), and
+   nothing here is ever re-queued for submit. */
+function seedFromStandings(){
+  if (!_st || !_st.length || !S.cols.length) return;
+  var changed = false;
+  for (var i=0;i<_st.length;i++){
+    var e = _st[i];
+    if (e.group_id == null || !e.scores_by_hole) continue;
+    var key = 'g' + e.group_id, own = false;
+    for (var c=0;c<S.cols.length;c++) if (S.cols[c].key === key) own = true;
+    if (!own) continue;
+    S.sc[key] = S.sc[key] || {};
+    var hs = Object.keys(e.scores_by_hole);
+    for (var j=0;j<hs.length;j++){
+      var h = Number(hs[j]);
+      if (!(h>=1 && h<=18)) continue;
+      if (!S.sc[key][h]) { S.sc[key][h] = e.scores_by_hole[hs[j]]; changed = true; }
+    }
+  }
+  if (changed) { persist(); renderHole(); }
+}
+
 function sorted(rows){
   var w = rows.map(function(r){ return { r:r, tp: toPar(r) }; });
   w.sort(function(a,b){
@@ -450,15 +526,25 @@ function lbOpen(){
   var rows = sorted(_st), h = '<table class="lbt"><tr><th>#</th><th>Team</th><th style="text-align:right">To par</th><th style="text-align:right">Thru</th><th style="text-align:right">Gross</th></tr>';
   for (var i=0;i<rows.length;i++){
     var e = rows[i].r;
-    h += '<tr><td>' + (i+1) + '</td><td>' + esc(e.group_name || 'Team') + '</td><td class="n">' +
+    h += '<tr class="row" data-i="' + i + '"><td>' + (i+1) + '</td><td>' + esc(e.group_name || 'Team') +
+         ' <span style="color:rgba(255,255,255,.3);font-size:11px">▾</span></td><td class="n">' +
          fmtToPar(rows[i].tp) + '</td><td class="n">' + e.holes_played + '</td><td class="n">' + (e.total || '–') + '</td></tr>';
+    h += '<tr class="exp hide" data-x="' + i + '"><td colspan="5">' +
+         scoreGrid((function(sbh){ return function(hh){ return sbh ? (sbh[hh] || sbh[String(hh)] || 0) : 0; }; })(e.scores_by_hole),
+                   false, null) + '</td></tr>';
   }
-  h += '</table>';
+  h += '</table><div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:8px">Tap a team for its hole-by-hole card.</div>';
   $('lbTitle').textContent = S.evName;
   $('lbClock').textContent = _at ? ('Updated ' + String(_at).replace('T',' ').replace('Z',' UTC')) : '';
   $('lbBody').innerHTML = h;
   $('lb').style.display = 'block';
 }
+$('lbBody').addEventListener('click', function(e){
+  var tr = e.target.closest && e.target.closest('tr.row');
+  if (!tr) return;
+  var x = $('lbBody').querySelector('tr.exp[data-x="' + tr.getAttribute('data-i') + '"]');
+  if (x) x.classList.toggle('hide');
+});
 $('tick').addEventListener('click', lbOpen);
 $('btnLb').addEventListener('click', function(){ if (_st && _st.length) lbOpen(); else sync('No standings yet — scores will appear as cards come in.'); });
 $('lbClose').addEventListener('click', function(){ $('lb').style.display = 'none'; });
