@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v416.0 -->
+  <!-- pards-tour-v418.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -9551,7 +9551,20 @@ function renderTossMatches(){
   matches.forEach(function(m){
     var exists = G.teamGames.find(function(g){ return JSON.stringify(g.a)===JSON.stringify(m.a)&&JSON.stringify(g.b)===JSON.stringify(m.b); });
     if(!exists){ G.teamGames.push({a:m.a, b:m.b, bet:5, active:true, scoring:'hilow'}); }   // v354.0 (B-14) — same default addTeamGame sets
-    else if(exists.bet===undefined||exists.bet===2) exists.bet=5;
+    /* ⭐⭐ v417.0 (B-72, Bruce s92, HIGH) — a second clause used to sit on this
+       line testing the bet for the literal two, and it made $2 unselectable on
+       every ball-toss card. setTossMatchBet writes the value and then calls
+       renderTossMatches, which landed right here and stamped it back to 5 — so
+       the button drew, the tap registered, and the value silently reverted.
+       Every other amount survived because only that one was named. It reads
+       like a one-time migration off an older default that was never scoped to
+       run once, and it outlived the default by turning a legitimate choice into
+       a value the app refuses to hold.
+       ⭐ THE UNDEFINED GUARD IS THE ONLY ONE THAT BELONGS HERE. A missing bet
+       needs a default; a bet the user picked is not the app's to overrule.
+       ⭐ Do not write the coerced literal into this comment — the gate greps
+       for it, and a comment is source text (the other s92 lesson). */
+    else if(exists.bet===undefined) exists.bet=5;
   });
   // Remove games not in current toss matches
   G.teamGames = G.teamGames.filter(function(g){
@@ -40301,7 +40314,7 @@ function ptTvCrawlPane(pane, b) {
     wrap.style.height = avail + 'px';                             // the clip box IS the visible area
   }
   var over = el.scrollHeight - avail;
-  if (over <= 4) { if (wrap) wrap.style.height = ''; return; }    // fits: leader stays on top, nothing moves
+  if (over <= 4) { if (wrap) wrap.style.height = ''; _ptTv.crawlKey = null; return; }    // fits: leader stays on top, nothing moves
   /* ⭐ Bruce s92: "start the scroll from the last place team at the top —
      suspense builds as it scrolls to the leaders". The rows are BUILT leader
      first (medals, highlight and rank all belong to that order); reversing the
@@ -40312,10 +40325,36 @@ function ptTvCrawlPane(pane, b) {
     for (var i = kids.length - 1; i >= 0; i--) el.appendChild(kids[i]);
     el.setAttribute('data-tvrevd', '1');
   }
-  var secs = Math.max(8, Math.round(over / 40));                  // ~40px a second
-  el.style.setProperty('--ptTvDy', (-over) + 'px');
-  el.style.animation = 'ptTvCrawl ' + secs + 's linear 2s 1 forwards';
-  _ptTv.dwell = (secs + 5) * 1000;
+  /* ⭐⭐ v418.0 (Bruce s93, watching 519909 on a real TV) — CONTINUOUS ROLL.
+     v410.0 ran the crawl ONCE and held: it climbed to the leaders, stopped
+     dead, and the next render dropped it back to last place. Bruce: "can we
+     just keep it a rolling scroll as opposed to a reset after 1st place team".
+     So the list is CLONED once and the animation loops forever, translating by
+     exactly one copy's pitch — the clone is already in view at the seam, so the
+     wrap point is invisible and the board never stops moving.
+     ⭐ The pitch is measured as the distance between the first card and its
+     clone, NOT scrollHeight: a block container does not report the last child's
+     bottom margin, and using it would tighten the seam by one card gap. */
+  var _n0 = el.children.length;
+  if (!_n0) { if (wrap) wrap.style.height = ''; return; }
+  if (!el.getAttribute('data-tvloop')) {
+    for (var c = 0; c < _n0; c++) el.appendChild(el.children[c].cloneNode(true));
+    el.setAttribute('data-tvloop', '1');
+  }
+  var one = el.children[_n0].offsetTop - el.children[0].offsetTop;
+  if (one <= 4) { if (wrap) wrap.style.height = ''; return; }
+  var secs = Math.max(8, Math.round(one / 40));                   // ~40px a second, unchanged
+  el.style.setProperty('--ptTvDy', (-one) + 'px');
+  /* ⭐⭐ The 60s poll re-renders this pane from scratch, which would otherwise
+     snap the roll back to last place once a minute. Re-entering with the SAME
+     pane and the same pitch resumes where it was via a negative delay, so a
+     data refresh is invisible. A changed pitch (a team joined, a board resized)
+     starts a fresh cycle rather than jumping to a stale offset. */
+  var key = (pane.title || '') + '|' + one;
+  if (_ptTv.crawlKey !== key || !_ptTv.crawlT0) { _ptTv.crawlKey = key; _ptTv.crawlT0 = Date.now(); }
+  var off = ((Date.now() - _ptTv.crawlT0) / 1000) % secs;
+  el.style.animation = 'ptTvCrawl ' + secs + 's linear ' + (-off) + 's infinite';
+  _ptTv.dwell = secs * 1000;                                      // one full pass before rotating
 }
 function ptTvRotate(dir) {
   if (_ptTv.panes.length < 2) return;
@@ -50871,7 +50910,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v416.0';
+    const TOUR_VERSION     = 'pards-tour-v418.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
