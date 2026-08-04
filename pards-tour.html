@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v418.0 -->
+  <!-- pards-tour-v419.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -8897,6 +8897,24 @@ function allPairCombos(){
   return u;
 }
 
+/* v419.0 (B-73, Bruce s92, HIGH) - a 2v2 pairing is an IDENTITY, not an array order.
+   allPairCombos() always emits a:[a,b] with a<b and always puts the side holding
+   player 0 on the `a` side. renderTossMatches() stores the toss pair in the order
+   Bruce TAPPED it, so a saved ball-toss game like {a:[1,2],b:[0,3]} never
+   string-matched any combo: mid-round settings drew it as an inactive "Tap to add"
+   row with no dollar buttons, and tapping that row pushed a DUPLICATE game at the
+   default 5. Manual-mode games come straight out of allPairCombos() and are
+   canonical by construction - which is why the June rounds were fine and today's
+   were not. Compare through this key at every site instead.
+   NOT a data migration: renderTossMatches() re-derives its match list from
+   _tossPartners on every paint and would overwrite normalised stored games. */
+function ptPairKey(g){
+  if(!g || !g.a || !g.b) return '';
+  var a=[].concat(g.a).sort(function(x,y){return x-y;}).join('-');
+  var b=[].concat(g.b).sort(function(x,y){return x-y;}).join('-');
+  return (a<b) ? (a+'|'+b) : (b+'|'+a);
+}
+
 function names(){return Array.from({length:G.n},(_,i)=>(G.players&&G.players[i]?G.players[i].name:null)||((document.getElementById(`pn${i}`)||{}).value||'').trim()||`P${i+1}`);}
 
 // Poll player name fields every 400ms while on setup screen — catches typing, paste,
@@ -9549,7 +9567,7 @@ function renderTossMatches(){
 
   // Sync with G.teamGames — add any missing, keep bets
   matches.forEach(function(m){
-    var exists = G.teamGames.find(function(g){ return JSON.stringify(g.a)===JSON.stringify(m.a)&&JSON.stringify(g.b)===JSON.stringify(m.b); });
+    var exists = G.teamGames.find(function(g){ return ptPairKey(g)===ptPairKey(m); });
     if(!exists){ G.teamGames.push({a:m.a, b:m.b, bet:5, active:true, scoring:'hilow'}); }   // v354.0 (B-14) — same default addTeamGame sets
     /* ⭐⭐ v417.0 (B-72, Bruce s92, HIGH) — a second clause used to sit on this
        line testing the bet for the literal two, and it made $2 unselectable on
@@ -9568,13 +9586,13 @@ function renderTossMatches(){
   });
   // Remove games not in current toss matches
   G.teamGames = G.teamGames.filter(function(g){
-    return matches.some(function(m){ return JSON.stringify(m.a)===JSON.stringify(g.a)&&JSON.stringify(m.b)===JSON.stringify(g.b); });
+    return matches.some(function(m){ return ptPairKey(m)===ptPairKey(g); });
   });
 
   // Render match cards
   var html = '';
   matches.forEach(function(m, mi){
-    var g = G.teamGames.find(function(g){ return JSON.stringify(g.a)===JSON.stringify(m.a)&&JSON.stringify(g.b)===JSON.stringify(m.b); });
+    var g = G.teamGames.find(function(g){ return ptPairKey(g)===ptPairKey(m); });
     var active = !g||g.active!==false;
     html += '<div style="background:rgba(0,0,0,.25);border:1.5px solid rgba(201,168,76,.2);border-radius:12px;padding:12px 14px;margin-bottom:10px;opacity:'+(active?'1':'.5')+'">';
     html += '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">';
@@ -9620,7 +9638,7 @@ function renderTossMatches(){
 function setTossMatchActive(mi, active){
   var matches = _getTossMatchList();
   if(!matches[mi]) return;
-  var g = G.teamGames.find(function(g){ return JSON.stringify(g.a)===JSON.stringify(matches[mi].a)&&JSON.stringify(g.b)===JSON.stringify(matches[mi].b); });
+  var g = G.teamGames.find(function(g){ return ptPairKey(g)===ptPairKey(matches[mi]); });
   if(g) g.active = active;
   renderTossMatches();
 }
@@ -9628,7 +9646,7 @@ function setTossMatchActive(mi, active){
 function setTossMatchBet(mi, v){
   var matches = _getTossMatchList();
   if(!matches[mi]) return;
-  var g = G.teamGames.find(function(g){ return JSON.stringify(g.a)===JSON.stringify(matches[mi].a)&&JSON.stringify(g.b)===JSON.stringify(matches[mi].b); });
+  var g = G.teamGames.find(function(g){ return ptPairKey(g)===ptPairKey(matches[mi]); });
   if(g){ g.bet = v; }
   renderTossMatches();
 }
@@ -9637,7 +9655,7 @@ function setTossMatchBet(mi, v){
 function setTossMatchScoring(mi, v){
   var matches = _getTossMatchList();
   if(!matches[mi]) return;
-  var g = G.teamGames.find(function(g){ return JSON.stringify(g.a)===JSON.stringify(matches[mi].a)&&JSON.stringify(g.b)===JSON.stringify(matches[mi].b); });
+  var g = G.teamGames.find(function(g){ return ptPairKey(g)===ptPairKey(matches[mi]); });
   if(g){ g.scoring = v; try{ saveG(); }catch(e){} }
   renderTossMatches();
 }
@@ -9819,7 +9837,7 @@ function renderTeamOptions(){
 
     // Inactive combos — tap to add
     combos.forEach(function(c,i){
-      const already=G.teamGames.some(function(g){ return JSON.stringify(g.a)===JSON.stringify(c.a)&&JSON.stringify(g.b)===JSON.stringify(c.b); });
+      const already=G.teamGames.some(function(g){ return ptPairKey(g)===ptPairKey(c); });
       if(already) return;
       h+='<div onclick="addTeamGame('+i+')" style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);margin-bottom:6px;cursor:pointer;-webkit-tap-highlight-color:transparent">';
       h+='<div style="font-size:13px;color:rgba(255,255,255,.5)">'+nm[c.a[0]]+' & '+nm[c.a[1]]+' <span style="font-size:11px">vs</span> '+nm[c.b[0]]+' & '+nm[c.b[1]]+'</div>';
@@ -9853,7 +9871,7 @@ function renderTeamGamesList(){
 function addTeamGame(ci){
   const c=window._pairCombos[ci];
   if(!c)return;
-  const already=G.teamGames.findIndex(g=>JSON.stringify(g.a)===JSON.stringify(c.a)&&JSON.stringify(g.b)===JSON.stringify(c.b));
+  const already=G.teamGames.findIndex(g=>ptPairKey(g)===ptPairKey(c));
   if(already>=0){G.teamGames.splice(already,1);}
   else{G.teamGames.push({a:c.a,b:c.b,bet:5,scoring:'hilow'});}   // v347.0 (B-10) — Hi/Low is the default (Bruce, s52)
   renderTeamOptions();renderTeamGamesList();updateActiveLabels();
@@ -22737,7 +22755,7 @@ function renderMMPairOptions(){
     h='<div style="font-size:13px;color:rgba(255,255,255,.4);padding:12px 0">Need at least 4 players for 2v2.</div>';
   } else {
     pairs.forEach(function(c,i){
-      var gi=G.teamGames.findIndex(function(g){return JSON.stringify(g.a)===JSON.stringify(c.a)&&JSON.stringify(g.b)===JSON.stringify(c.b);});
+      var gi=G.teamGames.findIndex(function(g){return ptPairKey(g)===ptPairKey(c);});
       var on=gi>=0;
       var game=on?G.teamGames[gi]:null;
       var labelA=nm(c.a[0])+' & '+nm(c.a[1]);
@@ -22765,7 +22783,7 @@ function renderMMPairOptions(){
 
 function mmAddTeamGame(ci){
   var c=allPairCombos()[ci];
-  var already=G.teamGames.findIndex(function(g){return JSON.stringify(g.a)===JSON.stringify(c.a)&&JSON.stringify(g.b)===JSON.stringify(c.b);});
+  var already=G.teamGames.findIndex(function(g){return ptPairKey(g)===ptPairKey(c);});
   if(already>=0){ G.teamGames.splice(already,1); }
   else{ G.teamGames.push({a:c.a,b:c.b,bet:5}); }
   saveG();
@@ -50910,7 +50928,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v418.0';
+    const TOUR_VERSION     = 'pards-tour-v419.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
