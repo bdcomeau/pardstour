@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v413.0 -->
+  <!-- pards-tour-v416.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -36615,16 +36615,23 @@ function ptCalcStablefordPoints(grossScores, courseId, tee, hdcpIndex) {
 
 // Phrase pools, keyed by scoreClass().lbl. Picked deterministically (below)
 // so a re-render never reshuffles the line under the scorer's thumb.
+// v415.0 · Bruce s92: "the funny messages are awful — create more of them,
+// add some emojis — they are all looking the same." 25 lines → 70, every one
+// emoji-led and varied in shape.
+// ⭐ EVERY LINE STANDS ALONE. The live card renders note.text by itself, so a
+//   phrase that only works after "Birdie on 7 ·" reads as a fragment there.
+// ⭐ NO 🫎 in the Moose pool — the TV ticker already prefixes one.
+// ⭐ Lite's LT_FUN carries this pool VERBATIM (s82, one voice everywhere).
 window.PT_TICKER_FUN = {
-  'Ace':       ['ACE! Buy the drinks.', 'Hole in one — the whole course heard that.', 'ACE. Nothing left to say.'],
-  'Albatross': ['ALBATROSS. Once in a lifetime.', 'Double eagle — that is a story for years.'],
-  'Eagle':     ['EAGLE. Filthy.', 'Eagle — absolutely striped it.', 'Eagle. That will play.'],
-  'Birdie':    ['Birdie — smooth.', 'Birdie. Keep it rolling.', 'Birdie — that one had a name on it.', 'Birdie. Pure.'],
-  'Double':    ['Double. Shake it off.', 'Double — next one is better.', 'Double bogey. Walk it off.'],
-  'Triple':    ['Triple. Reload.', 'Triple — nothing to see here.', 'Triple. It happens.'],
-  'Quad':      ['Quad. Deep breath.', 'Quad — the card forgives, the group will not.'],
-  'Big':       ['That is a big number.', 'We will not talk about that one.'],
-  'Moose':     ['MOOSE! A perfect ten.', 'MOOSE — ten, right on the number.', 'Moose spotted.']
+  'Ace':        ['🎯 ACE! Buy the drinks.', '⛳ Hole in one — the whole course heard that.', '🚨 ACE. Nothing left to say.', '💥 ACE! Straight in the jar.', '🏆 Hole in one. Frame the card.', '🍻 ACE — the bar tab just changed hands.', '😱 ACE! Somebody go check the pin.', '⚡ Ace. Dead centre, never a doubt.'],
+  'Albatross':  ['🦅 ALBATROSS. Once in a lifetime.', '💥 Double eagle — that is a story for years.', '🌟 ALBATROSS! Rarer than an ace.', '📸 Double eagle. Please tell me that was filmed.', '🤯 ALBATROSS — nobody here believes it.', '🎆 Double eagle. Absurd.', '🚀 ALBATROSS. Two shots, three under.'],
+  'Eagle':      ['🔥 EAGLE. Filthy.', '🦅 Eagle — absolutely striped it.', '💪 Eagle. That will play.', '🚀 EAGLE! Launched.', '😮 Eagle — where did THAT come from?', '⚡ Eagle. Two under in one swing.', '🎯 Eagle — pin high and cashed.', '🥂 EAGLE. Enjoy the walk to the next tee.'],
+  'Birdie':     ['🐦 Birdie — smooth.', '🔥 Birdie. Keep it rolling.', '🎯 Birdie — that one had a name on it.', '✨ Birdie. Pure.', '🧊 Birdie. Ice in the veins.', '📈 Birdie — the card is moving the right way.', '👏 Birdie. Take a bow.', '😎 Birdie — made it look easy.', '🎣 Birdie. Reeled that one in.', '🦅 Ka-KAW!!! A BIRDIE!'],
+  'Double':     ['😬 Double. Shake it off.', '🧊 Double — ice cold, head up.', '🚶 Double bogey. Walk it off.', '🪣 Double — into the bucket, move on.', '🔧 Double bogey. Quick fix on the next tee.', '🙃 Double — the next one is better.', '😐 Double bogey. Nobody saw it.', '🌧 Double. Just weather.'],
+  'Triple':     ['🚨 Triple. Reload.', '💣 Triple bogey. Detonated.', '🧯 Triple — put the fire out and move on.', '🙈 Triple. Nothing to see here.', '📉 Triple bogey. The card took a hit.', '😵 Triple. Deep breath.', '🔁 Triple — reset, next hole.', '🤷 Triple bogey. It happens.'],
+  'Quad':       ['💥 Quad. Deep breath.', '🚨 Quad — the card forgives, the group will not.', '🧨 Quad bogey. That one stung.', '🥴 Quad. Let us never speak of it.', '📉 Quad bogey. Straight down.', '🫣 Quad. Eyes forward.', '🧊 Quad — cold shower, then the next tee.'],
+  'Big':        ['☠ That is a big number.', '🙊 We will not talk about that one.', '🧱 That one hit a wall.', '🚧 Big number — road closed on that hole.', '🌊 Big number. Washed out.', '😅 Big one. New hole, new life.', '🔢 Big number. The card remembers.', '🕳 That hole won.'],
+  'Moose':      ['🔟 MOOSE! A perfect ten.', '🚨 MOOSE — ten, right on the number.', '👀 Moose spotted.', '💥 MOOSE. Ten on the dot.', '🌲 Moose on the loose — a clean ten.', '📛 MOOSE! Ten, no more no less.', '😬 Moose. A tidy, terrible ten.']
 };
 
 // Deterministic pick — same player, same hole, same line every render.
@@ -37627,8 +37634,56 @@ function ptFlightSections(cfg, rows) {
   return sections;
 }
 
+/* ── v414.0 · FR-01 — THE EXTRAORDINARY-SCORE MARK ──────────────────────────
+   Worker v2.89.0 computes the rating (erRate, USGA score-frequency table) and
+   ships it as data.er on every player row of the round leaderboard cache.
+   ⭐ THIS FILE NEVER COMPUTES IT. s91's finding was that the worker resolves
+   rating/slope from D1 while the client resolves them from PARDS_COURSES —
+   two sources for one number, the B-70 shape one layer up. Porting the rater
+   here would have made that two sources for a RARITY CLAIM. The rating is
+   READ, always, on every surface. (s85 rule: one helper, every caller.)
+   ⭐ The print-media rule count is a standing invariant (19) — style with an
+   inline colour, never a new print rule.                                      */
+function _ptErMark(er, mode) {
+  if (!er || er.extraordinary !== true) return '';
+  var lab = String(er.label || '1:100');
+  if (mode === 'odds') return lab;                    // ticker sentence
+  if (mode === 'text') return ' * E.R. ' + lab;       // any escaped-text sink
+  /* ⭐ The TV is read from across a room, so the mark is a PILL sized in vh
+     like everything else on that board — an em-relative footnote vanished at
+     1920 wide (looked at the render, s91 lesson 4). */
+  if (mode === 'tv') {
+    return '<span style="display:inline-block;font-size:1.5vh;font-weight:900;color:#12240f;background:#f5c542;'
+         + 'border-radius:.7vh;padding:.25vh .9vh;margin-left:1vw;vertical-align:middle;white-space:nowrap;letter-spacing:.3px">'
+         + '\u2b50 E.R. ' + lab + '</span>';
+  }
+  var col = mode === 'print' ? '#7a5c00' : '#c9a84c';
+  return ' <span style="color:' + col + ';font-weight:800;font-size:.85em;white-space:nowrap"'
+       + ' title="Extraordinary score \u2014 rarer than 1 in 100 rounds for this Handicap Index'
+       + ' (USGA score frequency). Net differential ' + er.net_diff + '.">* E.R. ' + lab + '</span>';
+}
+
+/* Index a round-leaderboard payload's er by ROSTER id. The cache keys player
+   rows by players.id; every client surface keys by roster_id. The round scores
+   read already carries both, so the map costs no extra request. A row with no
+   er, or an unmappable one, simply does not appear — absent, never zero. */
+function _ptErByRoster(standings, scores) {
+  var rbp = {}, out = {};
+  (scores || []).forEach(function (s) {
+    if (s && s.player_id != null && s.roster_id != null) rbp[s.player_id] = s.roster_id;
+  });
+  (standings || []).forEach(function (e) {
+    if (!e || e.entry_type !== 'player') return;
+    var d = e.data || {};
+    if (!d.er) return;
+    var rid = d.roster_id != null ? d.roster_id : rbp[d.player_id];
+    if (rid != null) out[String(rid)] = d.er;
+  });
+  return out;
+}
+
 // Fetch all individual-round scores and compute every mode per player at once.
-function ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg) {
+function ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg, opts) {
   var playerMap = {};
   ptEventPool(cfg, groups).forEach(function(p) {                         // v248.0
     playerMap[String(p.roster_id)] = {
@@ -37637,11 +37692,20 @@ function ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg) {
       rounds: {}, pts: 0, gross: 0, net: 0, holes: 0
     };
   });
+  // v414.0 \u00b7 FR-01 — opts.er adds the worker's leaderboard read per round so
+  // the rarity rating can be DISPLAYED without being recomputed here. Opt-in:
+  // the callers that show no mark cost exactly what they cost before.
+  var _wantEr = !!(opts && opts.er);
   return Promise.all(indivRounds.map(function(r) {
-    return fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers || {} })
-      .then(_ptJson)
-      .then(function(d){ return { round: r, scores: d.scores || [] }; })
-      .catch(function(){ return { round: r, scores: [] }; });
+    var _sc = fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers || {} })
+      .then(_ptJson).then(function(d){ return d.scores || []; }).catch(function(){ return []; });
+    var _lb = _wantEr
+      ? fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/leaderboard', { headers: headers || {} })
+          .then(_ptJson).then(function(d){ return (d && d.standings) || []; }).catch(function(){ return []; })
+      : Promise.resolve([]);
+    return Promise.all([_sc, _lb]).then(function(x) {
+      return { round: r, scores: x[0], erBy: _wantEr ? _ptErByRoster(x[1], x[0]) : {} };
+    });
   })).then(function(roundResults) {
     roundResults.forEach(function(rr) {
       var byPlayer = {};
@@ -37665,6 +37729,7 @@ function ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg) {
         var byHole = {};                                            // v248.4
         grossArr.forEach(function(x){ byHole[x.hole] = x.gross_score; });
         pl.rounds[rr.round.round_number] = { pts: stbl.total_points, gross: gross, net: gross - chcp, holes: stbl.holes_played, chcp: chcp,
+                                             er: (rr.erBy && rr.erBy[k]) || null,           // v414.0 \u00b7 FR-01 — read, never recomputed
                                              byHole: byHole, round: rr.round };
         pl.pts += stbl.total_points; pl.gross += gross; pl.net += gross - chcp; pl.holes += stbl.holes_played;
       });
@@ -39720,7 +39785,7 @@ function ptTvRefresh() {
         var groups = (rs[1] && (rs[1].groups || rs[1])) || [];
         if (!Array.isArray(groups)) groups = [];
         var indiv = rounds.filter(function (r) { return ptIsIndivRoundFormat(r.format); });
-        var chain = indiv.length ? ptBuildMdIndividual(ev.id, indiv, groups, {}, cfg) : Promise.resolve(null);
+        var chain = indiv.length ? ptBuildMdIndividual(ev.id, indiv, groups, {}, cfg, { er: true }) : Promise.resolve(null);   // v414.0 \u00b7 FR-01
         var xofnR = rounds.filter(function (r) { return ptIsTeamXofN(r.format); });   // v384.0 (D27)
         var chainX = xofnR.length ? ptBuildMdTeamXofN(ev.id, xofnR, groups, {}, cfg) : Promise.resolve(null);
         return Promise.all([chain, chainX]).then(function (cs) {
@@ -39819,6 +39884,19 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
       if (ns.length) _tvNames[String(g.id)] = ns;
     });
     var _tvPars = ptTvParsFor(teamRows[0] && teamRows[0].course_id);
+    /* v414.0 (Bruce s92) — SHOTGUN START, derived, never assumed. The watch
+       standings row already carries start_hole and start_unit (worker v2.79.0,
+       D34); a tee-time round starts every group on 1, so a start that is not 1
+       IS the shotgun. No new fetch, no round.mode guess. */
+    var _tvStartOf = function (s2) {
+      var u = s2 && s2.start_unit;
+      if (u != null && String(u) !== '') return String(u);
+      return (s2 && s2.start_hole != null) ? String(s2.start_hole) : '';
+    };
+    var _tvShotgun = teamRows.some(function (s2) {
+      var v = _tvStartOf(s2);
+      return v !== '' && v !== '1';
+    });
     teamRows.sort(function (a, b) { return (b.holes_played - a.holes_played) || (_tvTmKey(a) - _tvTmKey(b)); });
     var _tvCols = 'grid-template-columns:6vw 1fr 10vw 10vw 10vw';
     var th = '';
@@ -39843,7 +39921,9 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
       th += '<div style="padding:1.1vh 1vw;background:rgba(255,255,255,' + (i === 0 ? '.09' : '.035') + ');border-radius:1vh;margin-bottom:.9vh">'
         + '<div style="display:grid;' + _tvCols + ';gap:.6vw;align-items:baseline">'
         + '<div style="font-size:2.4vh;font-weight:900">' + med + '</div>'
-        + '<div style="font-size:2.4vh;font-weight:800;color:' + (i === 0 ? '#a8d5b5' : '#ddd') + '">' + _ptEsc(s.group_name) + '</div>'
+        + '<div style="font-size:2.4vh;font-weight:800;color:' + (i === 0 ? '#a8d5b5' : '#ddd') + '">' + _ptEsc(s.group_name)
+        + (_tvShotgun && _tvStartOf(s) ? '<span style="font-size:1.5vh;font-weight:700;color:rgba(201,168,76,.8);margin-left:1vw;white-space:nowrap">\u26f3 started ' + _ptEsc(_tvStartOf(s)) + '</span>' : '')   // v414.0 \u00b7 shotgun start
+        + '</div>'
         + '<div style="text-align:center;font-size:2.2vh;color:rgba(255,255,255,.65)">' + (s.holes_played >= 18 ? 'F' : s.holes_played) + '</div>'
         + '<div style="text-align:center;font-size:2.6vh;font-weight:900;color:#a8d5b5">' + (_tvTmVal(s) != null ? _tvTmVal(s) : '—') + '</div>'
         + '<div style="text-align:center;font-size:2.4vh;font-weight:900;color:' + tpl.color + '">' + (_tvPars ? tpl.text : '') + '</div></div>'
@@ -39854,7 +39934,18 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
       + '<div></div><div>Team</div><div style="text-align:center">Thru</div>'
       + '<div style="text-align:center">' + (_tvTmGross ? 'Gross' : 'Net') + '</div>'
       + '<div style="text-align:center">' + (_tvPars ? 'To Par' : '') + '</div></div>';
-    panes.push({ title: '👥 Team Standings', html: _tvHd + '<div id="ptTvCrawl">' + th + '</div>', scroll: true });
+    /* ⭐ v414.0 (Bruce s92, live on 519909) — the header used to be a plain
+       sibling ABOVE the crawl, so a translated row slid straight over it and
+       "TEAM / THRU / GROSS" bled through the cards. The crawl now lives in its
+       own CLIPPED box; the header keeps its own space and cannot be reached.
+       ⭐ data-tvrev flips the running order to LAST PLACE FIRST — but only when
+       the pane actually crawls (ptTvCrawlPane decides). A board that fits on
+       one screen is still leader-at-the-top, exactly as it was. */
+    panes.push({ title: '👥 Team Standings',
+                 html: '<div id="ptTvTmHd">' + _tvHd + '</div>'
+                     + '<div id="ptTvCrawlWrap" style="position:relative;overflow:hidden">'
+                     + '<div id="ptTvCrawl" data-tvrev="1">' + th + '</div></div>',
+                 scroll: true });
   }
 
   // 2b · v384.0 (D27) — X-of-N team boards: one pane per scored round, plus
@@ -40029,6 +40120,18 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
   return panes;
 }
 
+/* v414.0 \u00b7 FR-01 — the rarest extraordinary round a player has among the
+   rounds ON THIS BOARD. Highest odds wins; null when none qualifies. */
+function _ptErBest(p, st) {
+  var best = null;
+  ((st && st.rounds) || []).forEach(function (r) {
+    var rd = p && p.rounds && p.rounds[r.round_number];
+    var er = rd && rd.er;
+    if (er && er.extraordinary === true && (!best || (er.odds || 0) > (best.odds || 0))) best = er;
+  });
+  return best;
+}
+
 // Shared multi-round grid (overall pane) — rank · name · R1..Rn · TOT
 function ptTvTable(sorted, st, mode) {
   var nR = st.rounds.length;
@@ -40045,7 +40148,9 @@ function ptTvTable(sorted, st, mode) {
     var med = rk === 1 ? '🥇' : rk === 2 ? '🥈' : rk === 3 ? '🥉' : rk + '.';
     h += '<div style="display:grid;grid-template-columns:' + cols + ';gap:.6vw;align-items:center;padding:1vh 1vw;background:rgba(255,255,255,' + (rk === 1 ? '.09' : '.035') + ');border-radius:1vh;margin-bottom:.6vh">'
       + '<div style="font-size:2.3vh;font-weight:900">' + med + '</div>'
-      + '<div><span style="font-size:2.3vh;font-weight:800;color:' + (rk === 1 ? '#a8d5b5' : '#ddd') + '">' + _ptEsc(p.name) + '</span><span style="font-size:1.6vh;color:rgba(255,255,255,.35);margin-left:1vw">' + _ptEsc(p.team || '') + '</span></div>';
+      + '<div><span style="font-size:2.3vh;font-weight:800;color:' + (rk === 1 ? '#a8d5b5' : '#ddd') + '">' + _ptEsc(p.name) + '</span>'
+      + _ptErMark(_ptErBest(p, st), 'tv')                              // v414.0 \u00b7 FR-01
+      + '<span style="font-size:1.6vh;color:rgba(255,255,255,.35);margin-left:1vw">' + _ptEsc(p.team || '') + '</span></div>';
     st.rounds.forEach(function (r) {
       var rd = p.rounds[r.round_number];
       var v = mode === 'fold' ? ((p._fold && p._fold.perRound[r.round_number] != null) ? p._fold.perRound[r.round_number] : null)
@@ -40086,7 +40191,7 @@ function ptTvBuildTicker(cfg, st) {
     var pars = ptGetHolePars(r.course_id, r.tee);
     var rule = ptRoundRule(r.format);
     var rows = st.rows.filter(function (p) { return p.rounds[r.round_number]; });
-    var lead = [], moose = [], good = [], bad = [], streak = [];
+    var lead = [], moose = [], good = [], bad = [], streak = [], er = [];   // v414.0 \u00b7 FR-01
 
     rows.forEach(function (p) {
       var rd = p.rounds[r.round_number];
@@ -40109,6 +40214,12 @@ function ptTvBuildTicker(cfg, st) {
       }
       var sk = window.ptTickerStreak(rd.byHole, pars, p.name);
       if (sk) streak.push(sk);
+      // v414.0 \u00b7 FR-01 — the worker's rating, verbatim. Nothing rare is
+      // decided here; rd.er is either a claim or it is null.
+      if (rd.er && rd.er.extraordinary === true) {
+        er.push({ tone: 'er', text: '\u2b50 EXTRAORDINARY ROUND \u2014 ' + p.name
+                  + '  \u00b7  ' + _ptErMark(rd.er, 'odds') + ' at this Handicap Index' });
+      }
     });
 
     // Lead change — compared against the previous poll, not the previous pane.
@@ -40124,7 +40235,9 @@ function ptTvBuildTicker(cfg, st) {
     _ptTv.prevLead = nowLead;
 
     // Order: the loud stuff first, then the good, the streaks, the damage.
-    _ptTv.ticker = lead.concat(moose, good, streak, bad).slice(0, 24);
+    // v414.0 \u00b7 FR-01 — a lead change is time-sensitive (it is announced once,
+    // between polls); an extraordinary round persists, so it sits second.
+    _ptTv.ticker = lead.concat(er, moose, good, streak, bad).slice(0, 24);
   } catch (e) { _ptTv.ticker = []; }
 }
 
@@ -40144,7 +40257,7 @@ function ptTvPaintTicker() {
   }
   if (!on) { run.innerHTML = ''; run.style.animation = 'none'; return; }
   var col = function (tone) {
-    return tone === 'lead' ? '#f5e6b8' : tone === 'good' ? '#7fbf7f' : tone === 'moose' ? '#c9a84c' : 'rgba(255,170,160,.95)';
+    return tone === 'lead' ? '#f5e6b8' : tone === 'er' ? '#f5c542' : tone === 'good' ? '#7fbf7f' : tone === 'moose' ? '#c9a84c' : 'rgba(255,170,160,.95)';   // v414.0 \u00b7 FR-01
   };
   var html = items.map(function (x) {
     return '<span style="display:inline-block;font-size:2.3vh;font-weight:800;color:' + col(x.tone) + ';padding:0 2.2vw;line-height:6vh">'
@@ -40176,8 +40289,29 @@ function ptTvCrawlPane(pane, b) {
   if (!pane || !pane.scroll || !b) return;
   var el = b.querySelector('#ptTvCrawl');
   if (!el) return;
-  var over = el.scrollHeight - b.clientHeight;
-  if (over <= 4) return;
+  /* ⭐ v414.0 — measure against the CRAWL BOX, not the whole body. v410.0 used
+     b.clientHeight, which silently included the header's strip and so under-
+     travelled by exactly the header height: the last card never made it into
+     view. Rect maths, not offsetTop — b is not a positioned ancestor. */
+  var wrap = (el.parentNode && el.parentNode.id === 'ptTvCrawlWrap') ? el.parentNode : null;
+  var avail = b.clientHeight;
+  if (wrap) {
+    var dy = wrap.getBoundingClientRect().top - b.getBoundingClientRect().top;
+    if (dy > 0 && dy < b.clientHeight) avail = b.clientHeight - dy;
+    wrap.style.height = avail + 'px';                             // the clip box IS the visible area
+  }
+  var over = el.scrollHeight - avail;
+  if (over <= 4) { if (wrap) wrap.style.height = ''; return; }    // fits: leader stays on top, nothing moves
+  /* ⭐ Bruce s92: "start the scroll from the last place team at the top —
+     suspense builds as it scrolls to the leaders". The rows are BUILT leader
+     first (medals, highlight and rank all belong to that order); reversing the
+     DOM here keeps every one of those correct and only changes the running
+     order, and only on a pane that is actually going to move. */
+  if (el.getAttribute('data-tvrev') === '1' && !el.getAttribute('data-tvrevd')) {
+    var kids = Array.prototype.slice.call(el.children);
+    for (var i = kids.length - 1; i >= 0; i--) el.appendChild(kids[i]);
+    el.setAttribute('data-tvrevd', '1');
+  }
   var secs = Math.max(8, Math.round(over / 40));                  // ~40px a second
   el.style.setProperty('--ptTvDy', (-over) + 'px');
   el.style.animation = 'ptTvCrawl ' + secs + 's linear 2s 1 forwards';
@@ -40504,7 +40638,7 @@ function ptEditRound(eventId, round, evObj) {
   inp += '<div style="margin-bottom:14px"><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Card Swap</div>';
   inp += '<select id="ptEditRndSwap" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(201,168,76,.3);background:#1a2a1a;color:#fff;font-size:14px;outline:none">'
     + '<option value=""'       + (_csISel!=='marker' ? ' selected' : '') + '>No marker rotation \u2014 the group keeps one card (default)</option>'
-    + '<option value="marker"' + (_csISel==='marker' ? ' selected' : '') + '>Rotate markers \u2014 A marks B, B marks C, last marks A</option>'
+    + '<option value="marker"' + (_csISel==='marker' ? ' selected' : '') + '>Rotate markers \u2014 Players swap cards (A keeps B\u2019s, B keeps C\u2019s)</option>'   // v414.0 \u00b7 D73
     + '</select>';
   inp += '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:4px">Set this BEFORE building tee times \u2014 printed score cards follow it (one card per player, marker named on each).</div></div>';
   inp += '<div style="margin-bottom:14px;padding:10px 12px;background:rgba(220,170,255,.06);border:1px solid rgba(220,170,255,.2);border-radius:10px;font-size:12px;color:rgba(220,170,255,.8);line-height:1.5">\ud83c\udfcc\ufe0f Individual stroke play \u2014 \u201cRanks by\u201d only decides how this round ranks when rounds are combined. Leaderboard views are still set in <b>Scoring &amp; Flights</b>.</div>';
@@ -40899,11 +41033,16 @@ function ptPrintIndividualRoundReport(eventId, round) {
   Promise.all([
     fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(_ptJson).catch(function(){ return {}; }),
     fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/scores', { headers: headers }).then(_ptJson).catch(function(){ return {scores:[]}; }),
-    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(_ptJson).catch(function(){ return {groups:[]}; })
+    fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(_ptJson).catch(function(){ return {groups:[]}; }),
+    // v414.0 \u00b7 FR-01 — the worker's round leaderboard. The printed card gets
+    // the rarity rating from the SAME place the on-screen board does; nothing
+    // about it is recomputed here (s91: no second rater).
+    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/leaderboard', { headers: headers }).then(_ptJson).catch(function(){ return {}; })
   ]).then(function(results) {
     var ev = results[0].event || {};
     var scores = results[1].scores || [];
     var groups = results[2].groups || [];
+    var erBy = _ptErByRoster((results[3] || {}).standings, scores);      // v414.0 \u00b7 FR-01
 
     // v248.3 — the report now follows the event's OWN scoring setup instead of
     // always printing stableford: columns, sort key, title and flight sections
@@ -40974,6 +41113,7 @@ function ptPrintIndividualRoundReport(eventId, round) {
       // pts/gross/net/holes are the field names ptMdSortRows + ptMdKey expect —
       // the report and the on-screen standings are then provably the same order.
       return { roster_id: pd.roster_id, name: name, teamName: teamName, team: teamName,
+               er: pd.roster_id != null ? (erBy[String(pd.roster_id)] || null) : null,   // v414.0 \u00b7 FR-01
                hdcpIdx: hdcpIdx, handicap: hdcpIdx, age: pInfo.age, courseHdcp: courseHdcp,
                grossArr: grossArr, ptsArr: ptsArr,
                totalGross: totalGross, totalPts: totalPts, totalNet: totalGross - courseHdcp,
@@ -41071,7 +41211,7 @@ function ptPrintIndividualRoundReport(eventId, round) {
         }
         return '<tr>'
           + '<td class="pos">' + ranks[idx] + '</td>'
-          + '<td class="left"><div class="player-name">' + pr.name + '</div><div class="team-name">' + pr.teamName + '</div></td>'
+          + '<td class="left"><div class="player-name">' + pr.name + _ptErMark(pr.er, 'print') + '</div><div class="team-name">' + pr.teamName + '</div></td>'
           + '<td class="hdcp">' + pr.hdcpIdx + '<br><span style="font-size:8px;color:#aaa">CH:' + pr.courseHdcp + '</span></td>'
           + cells
           + totalCols.map(function(c) {
@@ -42123,6 +42263,7 @@ function ptViewRoundModel(round, standings, teeTimes, groups, rosterByPlayer) {
     return { name: e.name, gross: e.gross, net: e.net != null ? e.net : null,
              pts: e.points != null ? e.points : null, holes: e.holes_played || 0,
              byHole: d.scores_by_hole || {}, start: start,
+             er: d.er || null,                                          // v414.0 \u00b7 FR-01
              time: hasSheet && tt ? (tt.start_time || null) : null };
   }
   var indiv = st.filter(function(e){ return e.entry_type === 'player'; }).map(rowOf);
@@ -42257,7 +42398,7 @@ function ptViewRenderScreen(model, title) {
       if (kk !== prevKey) rank = shown;
       prevKey = kk;
       var td = function(t, left){ return '<td style="padding:3px 6px;border-bottom:1px solid rgba(255,255,255,.07);text-align:' + (left ? 'left' : 'center') + ';white-space:nowrap">' + t + '</td>'; };
-      h += '<tr>' + td(String(rank)) + td(_esc(r.name || ''), true);
+      h += '<tr>' + td(String(rank)) + td(_esc(r.name || '') + _ptErMark(r.er, 'screen'), true);   // v414.0 \u00b7 FR-01
       if (model.kind === 'round') {
         if (sec.cols.start) h += td(r.start != null ? _esc(String(r.start)) : '');
         if (sec.cols.time) h += td(r.time != null ? _esc(_pt12h(r.time)) : '');
@@ -44056,16 +44197,20 @@ function ptScorecardBuilder(eventId, round) {
       var ov = document.createElement('div');
       ov.id = 'ptScbOv';
       ov.style.cssText = 'position:fixed;inset:0;z-index:720;background:rgba(10,20,14,.82);display:flex;align-items:center;justify-content:center;padding:20px';
-      function chk(id, label, on, note) {
+      // v414.0 \u00b7 D73 — optional 5th arg: a plain-English line UNDER the label.
+      // Bruce keeps the word "Marker"; the gloss is what makes it self-explaining.
+      function chk(id, label, on, note, sub) {
         return '<label style="display:flex;align-items:center;gap:10px;padding:9px 4px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.05)">'
           + '<input type="checkbox" id="' + id + '"' + (on ? ' checked' : '') + ' style="width:17px;height:17px;accent-color:#c9a84c">'
           + '<span style="font-size:13px;color:#f5e6b8;font-weight:600">' + label
-          + (note ? ' <span style="font-size:10px;color:rgba(255,255,255,.35);font-weight:400">' + note + '</span>' : '') + '</span></label>';
+          + (note ? ' <span style="font-size:10px;color:rgba(255,255,255,.35);font-weight:400">' + note + '</span>' : '')
+          + (sub ? '<span style="display:block;font-size:10.5px;color:rgba(255,255,255,.45);font-weight:400;margin-top:3px;line-height:1.35">' + sub + '</span>' : '')
+          + '</span></label>';
       }
       ov.innerHTML = '<div style="background:linear-gradient(160deg,#12281b,#1a3a2a);border:1px solid rgba(201,168,76,.3);border-radius:16px;padding:22px 24px;max-width:420px;width:100%;max-height:86vh;overflow-y:auto">'
         + '<div style="font-size:17px;font-weight:800;color:#c9a84c;margin-bottom:2px">🎴 Score Card Builder</div>'
         + '<div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:14px">' + (round ? 'Round ' + round.round_number : ev.name) + ' · letter landscape · 2 cards per page</div>'
-        + chk('ptScbFMark', 'Marker required', crossMarked, _mkRot ? 'marker rotation — one card per player' : crossMarked ? 'cross-marking detected — one card per marked team' : 'adds marker tally strip + attest')
+        + chk('ptScbFMark', 'Marker required', crossMarked, _mkRot ? 'marker rotation — one card per player' : crossMarked ? 'cross-marking detected — one card per marked team' : 'adds marker tally strip + attest', 'Players swap cards (A keeps B\u2019s, B keeps C\u2019s)')   // v414.0 \u00b7 D73
         + chk('ptScbFQr', 'QR code + join code', true, 'scan opens code entry, prefilled')
         + chk('ptScbFStk', 'Stroke indications', !_scbScr, _scbScr ? 'not on a scramble card' : '+ where strokes are received')
         + chk('ptScbFYds', 'Yardage row', true)
@@ -50726,7 +50871,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v413.0';
+    const TOUR_VERSION     = 'pards-tour-v416.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
