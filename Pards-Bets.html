@@ -1416,8 +1416,8 @@ function printPayoutSlips() {
     '<meta name="viewport" content="width=device-width,initial-scale=1"/>' +
     '<title>' + esc(evName) + ' — Payout Slips</title>' +
     '<style>' +
-      '@page{size:62mm auto;margin:2mm;}' +
-      'body{font-family:system-ui,-apple-system,sans-serif;color:#111;width:54mm;margin:0 auto;padding:8px 0;}' +
+      '@page{size:62mm 140mm;margin:2mm;}' +   // v20.20 (B-86): "62mm auto" is invalid CSS — the size was silently DROPPED, paper fell back to letter, and the roll printed the blank left edge of a letter page
+      'body{font-family:system-ui,-apple-system,sans-serif;color:#111;width:54mm;margin:0;padding:8px 0;}' +
       '.slip{page-break-after:always;padding-bottom:8px;}' +
       '.slip:last-child{page-break-after:avoid;}' +
       '@media print{body{padding:0;}}' +
@@ -1754,7 +1754,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.19';
+const APP_VERSION = 'v20.20';
 
 // v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
 // The badge was a SECOND hardcoded literal in the markup (the span at the top of
@@ -3319,8 +3319,8 @@ function buildReceiptHTML(td) {
     '<meta name="viewport" content="width=device-width,initial-scale=1"/>' +
     '<title>' + esc(td.bettorName) + ' — Betting Receipt</title>' +
     '<style>' +
-      '@page{size:62mm auto;margin:2mm;}' +
-      'body{font-family:system-ui,-apple-system,sans-serif;color:#111;width:54mm;margin:0 auto;padding:8px 0;}' +
+      '@page{size:62mm 140mm;margin:2mm;}' +   // v20.20 (B-86): "62mm auto" is invalid CSS — the size was silently DROPPED, paper fell back to letter, and the roll printed the blank left edge of a letter page
+      'body{font-family:system-ui,-apple-system,sans-serif;color:#111;width:54mm;margin:0;padding:8px 0;}' +
       '@media print{body{padding:0;}}' +
     '</style>' +
     '</head><body>' +
