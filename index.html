@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v439.0 -->
+  <!-- pards-tour-v440.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -6843,7 +6843,7 @@ function _updateCourseDetail(){
   const par = c.par.reduce((a,b)=>a+b,0);
   const teeList = c.tees.map(t=>{
     const yds = t.yards ? t.yards.reduce((a,b)=>a+b,0).toLocaleString() : null;
-    return `${t.name} (${t.slope}/${t.rating}${yds ? ', '+yds+' yds' : ''})`;
+    return `${t.name} (${t.rating}/${t.slope}${yds ? ', '+yds+' yds' : ''})`;   // FR-08 (v440.0) — rating first; this was the one slope-first outlier (spec s90)
   }).join('  ·  ');
   det.innerHTML = `<span>Par ${par}  ·  ${teeList}</span>`;
 }
@@ -29794,6 +29794,7 @@ function doCreateLeague() {
 }
 
 function ptShowLeagueDetail(leagueId) {
+  var _o88 = document.getElementById('ptLeagueDetailOv'); if (_o88) _o88.remove();   // B-88 (v440.0) — re-entry (post-link/unlink) stacked a duplicate id: the new overlay froze on 'Loading…' while getElementById fed the render to the OLD one underneath
   var ov = document.createElement('div');
   ov.id = 'ptLeagueDetailOv';
   ov.style.cssText = 'position:fixed;inset:0;z-index:600;background:#0d1f0d;overflow-y:auto';
@@ -36361,6 +36362,11 @@ function loadOrgEventDetail(eventId) {
     (G._ptEvCfg = G._ptEvCfg || {})[ev.id] = _evConfig;
     (G._ptEvGroups = G._ptEvGroups || {})[ev.id] = groups;             // v384.0 (D27) — round editor gates Team formats on real teams                  // v248.1 — round editor reads this
     html+='</div>';
+    // FR-24 (v440.0, s115) — the event side SHOWS its league link (badge) and
+    // can CREATE one (picker) — Bruce: linking only from the league page "seems odd".
+    html+=(_evConfig.league&&_evConfig.league.id)
+      ?'<div style="display:flex;align-items:center;gap:8px;background:rgba(245,217,122,.07);border:1px solid rgba(245,217,122,.25);border-radius:12px;padding:10px 14px;margin-bottom:14px"><span style="font-size:13px">\ud83c\udfc6</span><span style="flex:1;font-size:12.5px;font-weight:800;color:#f5d97a">League night \u00b7 '+_ptEsc(_evConfig.league.name||'league')+'</span><button onclick="ptShowLeagueDetail('+_evConfig.league.id+')" style="padding:5px 10px;background:none;border:1px solid rgba(245,217,122,.35);border-radius:8px;color:rgba(245,217,122,.85);font-size:11px;font-weight:700;cursor:pointer">Open league</button></div>'
+      :'<button onclick="ptFr24LinkOpen('+ev.id+')" style="width:100%;padding:11px;background:rgba(245,217,122,.05);border:1.5px dashed rgba(245,217,122,.3);border-radius:12px;color:rgba(245,217,122,.8);font-size:12.5px;font-weight:800;cursor:pointer;margin-bottom:14px">\ud83c\udfc6 Link to a league\u2026</button>';
     // v376.0 · Q9 — the builder's order: setup (header) -> run (ROUNDS) ->
     // TEAMS -> RESULTS hub -> PARDS BETS -> ADMIN. "Groups" is renamed TEAMS
     // (Players stays for individual events, the label was already
@@ -38523,6 +38529,78 @@ window.ptFr19ShowBoard = function (lid) {
     });
   }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not load')); });
 };
+// ── FR-24 (v440.0, s115) — LINK TO A LEAGUE FROM THE EVENT SIDE ───────────────
+// Bruce s115: "when an event is linked to a league - it does not indicate that
+// anywhere in the event set up - and also - I thought the link to league would
+// be in the TB event screen … it just seems odd to go to league first."
+// Two halves: (1) the event screen SHOWS its link — a League-night badge with
+// an Open-league button whenever cfg.league is stamped; (2) an unlinked event
+// gets "Link to a league…" right on the event screen — a league picker that
+// rides the SAME machinery as the league-page link (one POST + ptLgStampLeague;
+// nothing new server-side), then reloads the event and offers the FR-21 roster
+// import. Unlink stays on the league page only (deliberate — one home for the
+// destructive direction).
+window.ptFr24LinkOpen = function (eid) {
+  fetch(TOUR_API + '/api/leagues', { headers: { 'Authorization': 'Bearer ' + G.orgToken } }).then(_ptJson).then(function (d) {
+    var ls = d.leagues || [];
+    if (!ls.length) { ptToast('No leagues yet — create one under Leagues first.'); return; }
+    var old = document.getElementById('ptFr24Ov'); if (old) old.remove();
+    var ov = document.createElement('div');
+    ov.id = 'ptFr24Ov';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:760;background:rgba(0,0,0,.75);display:flex;align-items:flex-end';
+    var inner = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:22px 18px 36px;width:100%;box-sizing:border-box;max-height:75%;overflow-y:auto">'
+      + '<div style="font-size:15px;font-weight:800;color:#f5d97a;margin-bottom:4px">Link this event to a league</div>'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:14px">A team night stays a real event — unlinking never deletes it, and nights never feed season points.</div>';
+    ls.forEach(function (l) {
+      inner += '<button onclick="ptFr24Link(' + eid + ',' + l.id + ')" style="display:block;width:100%;text-align:left;margin-bottom:6px;padding:11px 14px;background:rgba(245,217,122,.07);border:1px solid rgba(245,217,122,.22);border-radius:10px;color:#ddd;font-size:13px;font-weight:800;cursor:pointer">🏆 ' + _ptEsc(l.name || '—') + '</button>';
+    });
+    inner += '<button onclick="document.getElementById(\'ptFr24Ov\').remove()" style="width:100%;margin-top:10px;padding:12px;background:none;border:1.5px solid rgba(255,255,255,.2);border-radius:12px;color:rgba(255,255,255,.6);font-size:14px;font-weight:700;cursor:pointer">Cancel</button></div>';
+    ov.innerHTML = inner;
+    ov.addEventListener('click', function (e2) { if (e2.target === ov) ov.remove(); });
+    document.body.appendChild(ov);
+  }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not load leagues')); });
+};
+window.ptFr24Link = function (eid, lid) {
+  fetch(TOUR_API + '/api/leagues/' + lid + '/events', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+    body: JSON.stringify({ event_id: eid })
+  }).then(_ptJson).then(_ptThrow).then(function () {
+    var o = document.getElementById('ptFr24Ov'); if (o) o.remove();
+    return window.ptLgStampLeague(lid, null);
+  }).then(function () {
+    ptToast('Linked — this event is now a league night.');
+    loadOrgEventDetail(eid);
+    window.ptFr21OfferAfterLink(lid, eid);
+  }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not link')); });
+};
+// ── FR-08 (v440.0, s115) — RATING & SLOPE BESIDE THE TEE NAME ON PRINT ────────
+// Bruce s90: "on the scorecard print — for all rounds — add the Rating and
+// Slope beside the tee name, wherever that occurs." Format answered s100:
+// RATING FIRST — 'Blue 71.2 / 129', the printed-card convention.
+// THE HONESTY RULE (spec _12\spec-fr08-tee-rating-slope-s90.md): no honest
+// source, no number — a missing tee row prints the NAME ALONE, and the row
+// lookup returns null on a miss, never the library's default row (69.6/119/70
+// — a plausible wrong rating on the most authoritative-looking surface in the
+// app is exactly the s90 wrong-number-nobody-reports class).
+// Coverage decided s115: converted = round/event tee sheets, scorecard-builder
+// player meta rows, MMG overall header, plus the one slope-first outlier in
+// _updateCourseDetail. Left as-is = the three '(CR r / Slope s / Par p)'
+// headers and buildPrintHTML's tee columns (already compliant, richer). Left
+// name-only = trip/league/Barnes overall reports — their payloads carry only a
+// tee-name STRING, no course_id, so there is no honest number to print.
+function _ptTeeRow(courseId, teeName) {
+  if (!courseId || !teeName) return null;
+  var c = ptGetCourse(courseId);
+  if (!c || !c.tees) return null;
+  var q = String(teeName).toLowerCase();
+  return c.tees.find(function (t) { return String(t.name || '').toLowerCase() === q; }) || null;
+}
+function _ptTeeLabel(teeName, row) {
+  var n = teeName ? String(teeName) : '';
+  if (!n) return '';
+  if (!row || row.rating == null || row.slope == null) return n;
+  return n + ' ' + row.rating + ' / ' + row.slope;
+}
 // ── FR-21 (v439.0, s115) — IMPORT PLAYERS FROM THE LEAGUE ROSTER ──────────────
 // Bruce s113: a league-linked event imports its players from the league's
 // dedicated roster instead of re-entering names weekly. All four answers taken
@@ -45527,7 +45605,7 @@ function ptPrintRoundTeeSheet(eventId, round) {
       +'<div class="meta">'
       +'<span>'+dateStr+'</span>'
       +'<span>'+sessionLabel+'</span>'
-      +(courseName?'<span>'+courseName+(teeBox?' \u00B7 '+teeBox+' Tees':'')+'</span>':'')
+      +(courseName?'<span>'+courseName+(teeBox?' \u00B7 '+_ptTeeLabel(teeBox,_ptTeeRow(round.course_id,teeBox))+' Tees':'')+'</span>':'')   // FR-08 (v440.0)
       +'<span>'+fmtLabel+'</span>'
       +(isShotgun?'<span>Shotgun Start</span>':'<span>Tee Times</span>')
       +(Object.keys(_b63For).length?'<span>\u270E Card Swap \u2014 enter YOUR code; you keep and score the card shown under it</span>':'')   // v407.0 \u00b7 B-63
@@ -45600,7 +45678,7 @@ function ptPrintTeeSheet(eventId) {
         +'🖨 Print / Save PDF</button></div>'
         +'<div style="height:42px"></div>'
         +'<h1>'+ev.name+'</h1>'
-        +'<h2>'+dateStr+(courseName?' \u00B7 '+courseName:'')+(teeBox?' \u00B7 '+teeBox+' tees':'')+(ev.format?' \u00B7 '+(ev.format==='mmg'?'Two-Man Combined Net Stableford':ev.format):'')+'&nbsp;&nbsp;&nbsp;<span style="color:#aaa;font-size:10px">Event #'+eventId+(ev.event_code?' &nbsp;\u00B7&nbsp; Code: <b style="letter-spacing:2px;font-family:monospace">'+ev.event_code+'</b>':'')+'</span></h2>'
+        +'<h2>'+dateStr+(courseName?' \u00B7 '+courseName:'')+(teeBox?' \u00B7 '+_ptTeeLabel(teeBox,_ptTeeRow(ev.course_id,teeBox))+' tees':'')+(ev.format?' \u00B7 '+(ev.format==='mmg'?'Two-Man Combined Net Stableford':ev.format):'')+'&nbsp;&nbsp;&nbsp;<span style="color:#aaa;font-size:10px">Event #'+eventId+(ev.event_code?' &nbsp;\u00B7&nbsp; Code: <b style="letter-spacing:2px;font-family:monospace">'+ev.event_code+'</b>':'')+'</span></h2>'
         +'<table><thead><tr><th class="hole-col">'+(_tsMmg?'Unit':'Hole')+'</th><th>Group</th><th>Join Code</th><th>Players</th></tr></thead><tbody>'+rows+'</tbody></table>'
         +'<div class="footer">Pards Tour \u2014 Printed '+new Date().toLocaleString()+'</div>'
         +'</body></html>';
@@ -47074,7 +47152,7 @@ function ptScbPrint(ev, groups, scorerOf, round, o, ttInfo) {
     // s62 (Bruce): beside every player/team name, always the ADJUSTED
     // handicap and the tee box they play (round tee — per-player tees are
     // not modelled in the event roster yet).
-    var meta = ph != null ? (Math.round(ph) + (teeMeta ? ' · ' + teeMeta : '')) : '';
+    var meta = ph != null ? (Math.round(ph) + (teeMeta ? ' · ' + _ptTeeLabel(teeMeta, teeObj) : '')) : '';   // FR-08 (v440.0)
     return '<tr style="height:' + _scRowH + 'px">' + '<td class="sc-name' + (bold ? ' sc-b' : '') + '">' + esc(label)
       + (sub ? ' <span class="sc-meta">' + esc(sub) + '</span>' : '')   // v392.0 — B-30: members ride BEHIND the team name, so a narrow column truncates them and never the team
       + (meta ? ' <span class="sc-meta">' + esc(meta) + '</span>' : '') + '</td>'
@@ -47163,7 +47241,7 @@ function ptScbPrint(ev, groups, scorerOf, round, o, ttInfo) {
         rows += rowFor(_tname, isGrossScr ? null : teamPH(plist, plist.length || 4), si, true, _mem);
       } else {
         plist.forEach(function (p) {
-          var cellsRow = rowFor(p.name, isIndivGross ? null : playerPH(p.handicap, indivAlw), si, false, isIndivGross && teeMeta ? '\u00b7 ' + teeMeta : undefined);   // v400.0 \u00b7 B-52 \u2014 ph=null kills dots + handicap-beside-name + HDCP cell; the tee rides the sub slot so the row still reads "Name \u00b7 Deck 1"
+          var cellsRow = rowFor(p.name, isIndivGross ? null : playerPH(p.handicap, indivAlw), si, false, isIndivGross && teeMeta ? '\u00b7 ' + _ptTeeLabel(teeMeta, teeObj) : undefined);   // v400.0 \u00b7 B-52 \u2014 ph=null kills dots + handicap-beside-name + HDCP cell; the tee rides the sub slot so the row still reads "Name \u00b7 Deck 1"
           // initials in the divider cell
           cellsRow = cellsRow.replace('class="sc-div"></td>', 'class="sc-div sc-ini">' + esc(initials(p.name)) + '</td>');
           rows += cellsRow;
@@ -47464,7 +47542,7 @@ function ptPrintMmgOverallReport(eventId) {
         + '<div class="rpt-hdr"><h1>' + title + '</h1>'
         + '<div class="meta">'
         + (ev.date ? '<span>\ud83d\udcc5 ' + _esc(ptFormatDate(ev.date, (dev && dev.course_id) || null)) + '</span>' : '')
-        + (ev.course_name ? '<span>\u26f3 ' + _esc(ev.course_name) + (ev.tee ? ' \u00b7 ' + _esc(ev.tee) + ' tees' : '') + '</span>' : '')
+        + (ev.course_name ? '<span>\u26f3 ' + _esc(ev.course_name) + (ev.tee ? ' \u00b7 ' + _esc(_ptTeeLabel(ev.tee, _ptTeeRow((dev && dev.course_id) || 'derrick-gwc', ev.tee))) + ' tees' : '') + '</span>' : '')
         + '<span>\ud83d\udc65 ' + standings.length + ' teams</span>'
         + '<span>\ud83c\udfaf Full course handicap \u00b7 ' + tbLbl + '</span>'
         + '</div></div>'
@@ -53690,7 +53768,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v439.0';
+    const TOUR_VERSION     = 'pards-tour-v440.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
