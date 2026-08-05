@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v424.0 -->
+  <!-- pards-tour-v425.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -30067,12 +30067,98 @@ window.ptCreateLeagueRoundUI = function(leagueId, presetDate) {
 // Bruce, session 18 (BIND): match_play and best_ball come OUT of the pickers
 // until they actually score. They are Phase 2 — worker v2.69.0 gives low_net
 // and low_gross real engines; those two still have none.
+// ⭐⭐⭐ v425.0 — D81 SPINE, STEP 1. PURE ADDITION: NOTHING CALLS _ptFmtFor YET.
+// s101's audit (claude/spec-d81-spine-contract-s101.md) found the v322.0
+// comment above is HALF TRUE. v322.0 unified the TRIP and LEAGUE pickers onto
+// this list. It never touched the EVENT path, which still carries FOUR
+// hardcoded option arrays (28983, 28986, 41075, 41110) and THREE label maps
+// (39936, 43285, 44779) that DISAGREE with each other — 3, 3 and 5 keys.
+//
+// Step 1 gives every entry the two fields the event side needs, and seeds the
+// five event formats so the registry can answer for all three containers. It
+// changes NO caller: _ptFmtPairs is scoped to trip+league below, which is
+// exactly the four rows it returned before.
+//
+//   on   — which CONTAINERS offer this format: 'event' | 'trip' | 'league'.
+//          ⭐ OFFER is filtered by `on`; RENDER never is. _ptFmtLabel still
+//          scans the WHOLE list, so a round stamped with any key ever written
+//          to rounds.format renders its own name. v322.0's rule, unchanged.
+//   ppt  — which team-size buckets OFFER it: 1 = individual rounds,
+//          2 = team rounds (players-per-team >= 2). individual_stableford is
+//          [1,2] because _ptTBFmts offers it in BOTH sets — short label in the
+//          individual set, long label in the team set. That is why s and l
+//          differ on the event rows and are identical on the trip/league rows.
+//
+// ⭐⭐ OPTIONAL, ABSENT ON EVERY FORMAT TODAY, AND IN THE CONTRACT ON PURPOSE:
+//   segments: [ { holes:[1,6], fmt:'scramble', alw:[35,10] }, … ]
+// D62 (Bruce, s82) decided 6-6-6 and 9-9 are CONFIGURABLE COMPOSITES — per
+// segment game type AND per-segment per-player handicap allowance. FR-14 Cha
+// Cha Cha is the same shape with the BALL COUNT varying instead of the game
+// type. One segment engine, three decided customers. The field is declared
+// here from step 1 because adding it after formats are stored is a migration.
+//
+// NOT in this list on purpose:
+//   • team_<C>of<N>_<net|stableford> — GENERATED (D27, v384.0, PT_XOFN_RE),
+//     never enumerated; ptXofNLabel renders them.
+//   • 'mmg' — an EVENT-level format (events.format), not a rounds.format any
+//     picker offers.
+//   • 'match_play' / 'best_ball' — out of the OFFER since s18, still rendered.
+//
+// ⭐ hi = HIGH-WINS / season-eligible, and it mirrors the WORKER's
+// HIGH_WINS_FORMATS, which holds only the trip/league vocabulary. Every event
+// row is therefore hi:false — not an oversight: the server would 400 a season
+// fed by an event key, so the UI must never offer it. _ptFmtIsHigh's answers
+// are byte-for-byte what they were before this list grew.
 window._PT_FMT_LIVE = [
-  { k: 'stableford',    s: 'Individual Stableford', l: 'Individual Stableford', hi: true  },
-  { k: 'overall_skins', s: 'Overall Skins',         l: 'Overall Skins (across all groups)', hi: true },
-  { k: 'low_net',       s: 'Low Net',               l: 'Low Net',  hi: false },
-  { k: 'low_gross',     s: 'Low Gross',             l: 'Low Gross', hi: false }
+  // ── trip + league vocabulary (unchanged rows, two fields added) ───────
+  { k: 'stableford',    s: 'Individual Stableford', l: 'Individual Stableford', hi: true,  on: ['trip','league'], ppt: [1] },
+  { k: 'overall_skins', s: 'Overall Skins',         l: 'Overall Skins (across all groups)', hi: true, on: ['trip','league'], ppt: [1] },
+  { k: 'low_net',       s: 'Low Net',               l: 'Low Net',  hi: false, on: ['trip','league'], ppt: [1] },
+  { k: 'low_gross',     s: 'Low Gross',             l: 'Low Gross', hi: false, on: ['trip','league'], ppt: [1] },
+  // ── event vocabulary (NEW rows — seeded to match the four hardcoded arrays
+  //    exactly, in their exact order, with their exact labels) ─────────────
+  { k: 'individual_stableford', s: 'Stableford',                l: 'Individual Net Stableford', hi: false, on: ['event'], ppt: [1,2] },
+  { k: 'individual_low_net',    s: 'Low Net',                   l: 'Individual Low Net',        hi: false, on: ['event'], ppt: [1]   },
+  { k: 'individual_low_gross',  s: 'Low Gross',                 l: 'Individual Low Gross',      hi: false, on: ['event'], ppt: [1]   },
+  { k: 'scramble_stableford',   s: 'Scramble Gross Stableford', l: 'Scramble Gross Stableford', hi: false, on: ['event'], ppt: [2]   },
+  { k: 'scramble',              s: 'Gross Score Team Scramble', l: 'Gross Score Team Scramble', hi: false, on: ['event'], ppt: [2]   }
 ];
+// ⭐ v425.0 — the scoped view. `container` is a string or an array of them;
+// omitted/null means the WHOLE list (render, never offer).
+window._ptFmtEntries = function(container){
+  if (container == null) return window._PT_FMT_LIVE.slice();
+  var want = (Object.prototype.toString.call(container) === '[object Array]') ? container : [container];
+  return window._PT_FMT_LIVE.filter(function(f){
+    var on = f.on || [];
+    for (var i = 0; i < want.length; i++) if (on.indexOf(want[i]) !== -1) return true;
+    return false;
+  });
+};
+// ⭐⭐ v425.0 — THE SPINE ENTRY POINT. Returns [[key,label], …].
+// Container differences that are DELIBERATE become ARGUMENTS here, never
+// branches at the call site (spec §"The four rules", rule 3):
+//   opts.long       — wordy labels. League passes true, trip passes false.
+//                     Kept as an argument so no visible label ever moves.
+//   opts.ppt        — 1 or >=2. Event only; omit and no ppt filter applies.
+//   opts.includeTBD — prepends the empty-key row. Leagues default to TBD on
+//                     purpose (v216/v235.0: a league round with no format
+//                     locks tee times deliberately); trips default stableford.
+//   opts.tbdLabel   — the two existing TBD rows word it differently
+//                     ('Format: TBD' vs 'Format: TBD (choose later)'), so the
+//                     wording is an argument too until step 2 says otherwise.
+// ⭐ NOTHING CALLS THIS YET. Steps 2–5 move trip, league, ptEditRound and
+// _ptTBFmts onto it, one gated diff each.
+window._ptFmtFor = function(container, opts){
+  opts = opts || {};
+  var long = !!opts.long, want = opts.ppt;
+  var out = window._ptFmtEntries(container).filter(function(f){
+    if (want == null) return true;
+    var bucket = (Number(want) === 1) ? 1 : 2;
+    return (f.ppt || [1]).indexOf(bucket) !== -1;
+  }).map(function(f){ return [f.k, long ? f.l : f.s]; });
+  if (opts.includeTBD) out.unshift(['', opts.tbdLabel || 'Format: TBD']);
+  return out;
+};
 // ⭐ v323.0 — `hi` is HIGH-WINS: a game whose unit is "more is better" and
 // which may therefore feed the season points column. It mirrors the worker's
 // HIGH_WINS_FORMATS (v2.69.0, worker 3018) and exists so the UI can DISABLE a
@@ -30089,8 +30175,12 @@ window._ptFmtLabel = function(k, long){
 };
 // `long` picks the wordier "(across all groups)" wording the two league sheets
 // already used. Kept so this change moves NO visible label.
+// ⭐ v425.0 — scoped to the trip/league vocabulary. Before this version the
+// list held ONLY those four rows, so this returns exactly what it always did;
+// the scope is what keeps it true now that the event rows share the registry.
+// Step 2 replaces both call sites with _ptFmtFor and retires this wrapper.
 window._ptFmtPairs = function(long){
-  return window._PT_FMT_LIVE.map(function(f){ return [f.k, long ? f.l : f.s]; });
+  return window._ptFmtEntries(['trip','league']).map(function(f){ return [f.k, long ? f.l : f.s]; });
 };
 window._ptFmtOptions = function(long, cur){
   return window._ptFmtPairs(long).map(function(pr){
@@ -30253,7 +30343,9 @@ window._ptGamesSheetHTML = function(){
   // ── 1. PRIMARY ───────────────────────────────────────────
   H += '<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px">Primary game — the official result</div>';
   H += btn(!st.format, 'Format: TBD (choose later)', 'Tee times stay locked until a format is set.', "_ptGamesPrimary('')", false);
-  window._PT_FMT_LIVE.forEach(function(f){
+  // ⭐ v425.0 — scoped: this sheet is a trip/league round's games, so it must
+  // never see the event rows the registry gained in step 1. Same four as before.
+  window._ptFmtEntries(['trip','league']).forEach(function(f){
     H += btn(st.format===f.k, f.l, f.hi ? 'Can feed the season points column.' : 'Side board only — never feeds season points.', "_ptGamesPrimary('"+f.k+"')", false);
   });
 
@@ -30267,7 +30359,7 @@ window._ptGamesSheetHTML = function(){
   } else if(!st.format){
     H += '<div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.28);border-radius:10px;padding:10px 12px;font-size:12px;color:rgba(255,255,255,.55);line-height:1.5;margin-bottom:6px">Pick a primary game first — a round with extra games still needs one official result.</div>';
   } else {
-    window._PT_FMT_LIVE.forEach(function(f){
+    window._ptFmtEntries(['trip','league']).forEach(function(f){   // v425.0 — scoped, same four
       var isPrimary = (f.k === st.format);
       var on = st.list.indexOf(f.k) !== -1;
       H += btn(on, f.s + (isPrimary?' \u00b7 primary':''),
@@ -51513,7 +51605,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v424.0';
+    const TOUR_VERSION     = 'pards-tour-v425.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
