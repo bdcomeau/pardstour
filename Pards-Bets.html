@@ -210,7 +210,7 @@
   </div>
   <!-- Help button + version — fixed top right -->
   <div id="help-btn-wrap" style="position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:10000;display:flex;align-items:center;gap:8px;">
-    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.17</span>
+    <span id="header-version" style="font-size:13px;color:#D4A843;letter-spacing:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;opacity:0.85;">v20.18</span>
     <button onclick="showHelp()" style="width:26px;height:26px;border-radius:50%;background:#D4A843;color:#111;border:none;font-size:14px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">?</button>
   </div>
 
@@ -721,6 +721,8 @@
           </div>
           <div id="winners-leaderboard" style="margin-bottom:12px;"></div>
           <button class="btn btn-primary" id="prepare-print-btn" onclick="prepareCashLabels()" style="width:100%;font-size:16px;padding:14px;">🏆 Prepare &amp; Print Winner Summaries</button>
+          <!-- v20.18 — FR-11: payout slips on the QL-720NW 62mm roll (calcPayouts truth, one label per winner) -->
+          <button class="btn btn-primary" onclick="printPayoutSlips()" style="width:100%;margin-top:8px;font-size:15px;padding:14px;background:#8F6E2A;">🎫 Print Payout Slips (Label Roll)</button>
           <button id="label-print-btn" class="btn btn-primary" style="display:none;width:100%;margin-top:8px;font-size:15px;padding:14px;">🖨 Open &amp; Print Winner Summaries</button>
           <div id="winners-preview" style="display:none;margin-top:16px;"></div>
         </div>
@@ -1339,6 +1341,83 @@ function initResetSlider() {
 // Generates a letter-size winner summary page per winning bettor.
 // One bettor per page, clean and readable, suitable for handing out with cash.
 
+// v20.18 — FR-11: PAYOUT SLIPS on the 62 mm roll — paper on both ends of the
+// money (Bruce's call #3, s100). One label per WINNING bettor, page-break
+// between labels (the roll cuts per page). Numbers come from calcPayouts at
+// the moment of printing — settlement truth, never a re-derivation.
+function printPayoutSlips() {
+  const ev = activeEvent();
+  if (!ev) { alert('No active event. Please open an event first.'); return; }
+  const { p1, p2, p3 } = ev.placements || {};
+  if (!p1 || !p2 || !p3) {
+    alert('Please set the final placements (1st, 2nd, 3rd) on the Placements tab first.');
+    return;
+  }
+  syncStateFromRoot();
+  const { betResults } = calcPayouts();
+  const bettorMap = {};
+  betResults.forEach(function(b) {
+    if (!bettorMap[b.bettorId]) bettorMap[b.bettorId] = { wagered:0, payout:0, bets:[] };
+    bettorMap[b.bettorId].wagered += b.amount;
+    bettorMap[b.bettorId].payout  += b.payout;
+    bettorMap[b.bettorId].bets.push(b);
+  });
+  const winners = Object.entries(bettorMap)
+    .filter(function(e){ return e[1].payout > 0; })
+    .sort(function(a,b){ return b[1].payout - a[1].payout; });
+  if (!winners.length) { alert('No winning bets found. Check that placements are set and bets exist.'); return; }
+  const evName = ev.name || 'Event';
+  const now = new Date().toLocaleString('en-CA', { dateStyle:'medium', timeStyle:'short' });
+  const pages = winners.map(function(e) {
+    const bettor = bettorById(e[0]);
+    const name = bettor ? bettor.name : e[0];
+    const s = e[1];
+    const refs = [...new Set(s.bets.filter(function(b){ return b.ticketRef; }).map(function(b){ return b.ticketRef; }))];
+    const winRows = s.bets.filter(function(b){ return b.payout > 0; }).map(function(b) {
+      return '<tr>' +
+        '<td style="padding:3px 4px;border-bottom:1px solid #eee;font-weight:800;font-size:9px;white-space:nowrap;">' + b.type.toUpperCase() + '</td>' +
+        '<td style="padding:3px 4px;border-bottom:1px solid #eee;font-size:10px;">' + esc(teamName(b.teamId)) + '</td>' +
+        '<td style="padding:3px 4px;border-bottom:1px solid #eee;text-align:right;font-size:9px;color:#555;white-space:nowrap;">' + fmt(b.amount) + '</td>' +
+        '<td style="padding:3px 4px;border-bottom:1px solid #eee;text-align:right;font-size:10px;font-weight:900;white-space:nowrap;">' + fmt(b.payout) + '</td>' +
+      '</tr>';
+    }).join('');
+    return '<div class="slip">' +
+      '<div style="border-bottom:2px solid #111;padding-bottom:5px;margin-bottom:6px;text-align:center;">' +
+        '<div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#555;">Payout Slip</div>' +
+        '<div style="font-size:12px;font-weight:800;margin-top:2px;">' + esc(evName) + '</div>' +
+        '<div style="font-size:8px;color:#555;margin-top:2px;">' + now + '</div>' +
+        '<div style="font-size:15px;font-weight:900;margin-top:4px;">' + esc(name) + '</div>' +
+        (refs.length ? '<div style="font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:900;letter-spacing:1px;margin-top:2px;">' + refs.join('  ') + '</div>' : '') +
+      '</div>' +
+      '<table style="width:100%;border-collapse:collapse;">' +
+        '<thead><tr>' +
+          '<th style="text-align:left;font-size:7.5px;color:#888;padding:1px 4px;">TYPE</th>' +
+          '<th style="text-align:left;font-size:7.5px;color:#888;padding:1px 4px;">TEAM</th>' +
+          '<th style="text-align:right;font-size:7.5px;color:#888;padding:1px 4px;">BET</th>' +
+          '<th style="text-align:right;font-size:7.5px;color:#888;padding:1px 4px;">PAID</th>' +
+        '</tr></thead>' +
+        '<tbody>' + winRows + '</tbody>' +
+      '</table>' +
+      '<div style="border-top:2px solid #111;padding-top:5px;margin-top:6px;display:flex;justify-content:space-between;align-items:baseline;">' +
+        '<span style="font-size:11px;font-weight:800;">COLLECT</span>' +
+        '<span style="font-size:18px;font-weight:900;">' + fmt(s.payout) + '</span>' +
+      '</div>' +
+      '<div style="margin-top:4px;font-size:7.5px;color:#666;text-align:center;">Wagered ' + fmt(s.wagered) + ' · Net ' + (s.payout - s.wagered >= 0 ? '+' : '−') + fmt(Math.abs(s.payout - s.wagered)) + ' · Present this slip to collect.</div>' +
+    '</div>';
+  }).join('');
+  const html = '<!DOCTYPE html><html><head><meta charset="utf-8"/>' +
+    '<meta name="viewport" content="width=device-width,initial-scale=1"/>' +
+    '<title>' + esc(evName) + ' — Payout Slips</title>' +
+    '<style>' +
+      '@page{size:62mm auto;margin:2mm;}' +
+      'body{font-family:system-ui,-apple-system,sans-serif;color:#111;width:54mm;margin:0 auto;padding:8px 0;}' +
+      '.slip{page-break-after:always;padding-bottom:8px;}' +
+      '.slip:last-child{page-break-after:avoid;}' +
+      '@media print{body{padding:0;}}' +
+    '</style></head><body>' + pages + '</body></html>';
+  openReceiptTab(html);
+}
+
 function prepareCashLabels() {
   const ev = activeEvent();
   if (!ev) { alert('No active event. Please open an event first.'); return; }
@@ -1668,7 +1747,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.17';
+const APP_VERSION = 'v20.18';
 
 // v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
 // The badge was a SECOND hardcoded literal in the markup (the span at the top of
@@ -3169,23 +3248,27 @@ function buildReceiptHTML(td) {
   const unrefBets  = byTicket['__unref__'] || [];
   const grandTotal = allBets.reduce(function(s,b){ return s+b.amount; },0) || td.total || 0;
   const typeClr = { win:'#8F6E2A', place:'#1a5590', show:'#5a1a90' };
+  const _oddsCtx = _slipOddsCtx();   // v20.18 — FR-11: odds at print time
+  const _betRow = function(b) {
+    const tname = b._teamName || teamName(b.teamId);
+    const oddsTxt = _slipOddsLine(_oddsCtx, b.type, b.teamId, b.amount);
+    return '<tr>' +
+      '<td style="padding:3px 4px;border-bottom:1px solid #eee;font-weight:800;color:' + (typeClr[b.type]||'#333') + ';font-size:9px;white-space:nowrap;">' + b.type.toUpperCase() + '</td>' +
+      '<td style="padding:3px 4px;border-bottom:1px solid #eee;font-size:10px;">' + esc(tname) +
+        (oddsTxt ? '<div style="font-size:7.5px;color:#555;">' + oddsTxt + '</div>' : '') + '</td>' +
+      '<td style="padding:3px 4px;border-bottom:1px solid #eee;text-align:right;font-size:10px;font-weight:700;white-space:nowrap;">$' + b.amount + '</td>' +
+    '</tr>';
+  };
   const ticketSections = ticketRefs.map(function(ref) {
     const bets = byTicket[ref];
     const sub  = bets.reduce(function(s,b){ return s+b.amount; },0);
-    const rows = bets.map(function(b) {
-      const tname = b._teamName || teamName(b.teamId);
-      return '<tr>' +
-        '<td style="padding:5px 10px;border-bottom:1px solid #eee;font-weight:700;color:' + (typeClr[b.type]||'#333') + ';font-size:11px;">' + b.type.toUpperCase() + '</td>' +
-        '<td style="padding:5px 10px;border-bottom:1px solid #eee;font-size:12px;">' + esc(tname) + '</td>' +
-        '<td style="padding:5px 10px;border-bottom:1px solid #eee;text-align:right;font-size:12px;">$' + b.amount + '</td>' +
-      '</tr>';
-    }).join('');
-    return '<div style="margin-bottom:16px;">' +
-      '<div style="background:#f9f6ee;border:1px solid #d4a843;border-radius:6px 6px 0 0;padding:6px 12px;display:flex;justify-content:space-between;">' +
-        '<span style="font-weight:700;font-size:13px;color:#8F6E2A;">Ticket: ' + ref + '</span>' +
-        '<span style="font-size:12px;color:#555;">Subtotal: <strong>$' + sub + '</strong></span>' +
+    const rows = bets.map(_betRow).join('');
+    return '<div style="margin-bottom:8px;">' +
+      '<div style="border:2px solid #111;border-radius:4px;padding:4px 6px;text-align:center;margin-bottom:2px;">' +
+        '<div style="font-family:ui-monospace,Menlo,monospace;font-size:17px;font-weight:900;letter-spacing:1px;">' + ref + '</div>' +
+        '<div style="font-size:8px;color:#555;">Subtotal <strong>$' + sub + '</strong></div>' +
       '</div>' +
-      '<table style="width:100%;border-collapse:collapse;border:1px solid #d4a843;border-top:none;">' +
+      '<table style="width:100%;border-collapse:collapse;">' +
         '<tbody>' + rows + '</tbody>' +
       '</table>' +
     '</div>';
@@ -3193,16 +3276,10 @@ function buildReceiptHTML(td) {
 
   // Unref bets section (imported bets with no ticket number)
   const unrefSection = unrefBets.length ? (function() {
-    const rows = unrefBets.map(function(b) {
-      const tname = b._teamName || teamName(b.teamId);
-      return '<tr>' +
-        '<td style="padding:5px 10px;border-bottom:1px solid #eee;font-weight:700;color:' + (typeClr[b.type]||'#333') + ';font-size:11px;">' + b.type.toUpperCase() + '</td>' +
-        '<td style="padding:5px 10px;border-bottom:1px solid #eee;font-size:12px;">' + esc(tname) + '</td>' +
-        '<td style="padding:5px 10px;border-bottom:1px solid #eee;text-align:right;font-size:12px;">$' + b.amount + '</td>' +
-      '</tr>';
-    }).join('');
-    return '<div style="margin-bottom:16px;">' +
-      '<table style="width:100%;border-collapse:collapse;border:1px solid #ccc;">' +
+    const rows = unrefBets.map(_betRow).join('');   // v20.18 — FR-11: same dense row, same odds line
+    return '<div style="margin-bottom:8px;">' +
+      '<div style="font-size:8px;color:#555;letter-spacing:1px;text-transform:uppercase;margin-bottom:1px;">Other bets</div>' +
+      '<table style="width:100%;border-collapse:collapse;">' +
         '<tbody>' + rows + '</tbody>' +
       '</table>' +
     '</div>';
@@ -3210,28 +3287,67 @@ function buildReceiptHTML(td) {
 
   const ticketLabel = ticketRefs.length ? ticketRefs.join('  ') : td.bettorName;
 
+  // v20.18 — FR-11: the receipt prints on the Brother QL-720NW's DK-4205
+  // 62 mm continuous roll via AirPrint (Safari print sheet, window.print()).
+  // ~58 mm printable, unlimited length. Bruce's three calls (s100): per
+  // bettor · cram in as much information as fits (odds + potential return
+  // added, oversized ticket ref) · payout slips print too (printPayoutSlips).
   return '<!DOCTYPE html><html><head><meta charset="utf-8"/>' +
     '<meta name="viewport" content="width=device-width,initial-scale=1"/>' +
     '<title>' + esc(td.bettorName) + ' — Betting Receipt</title>' +
     '<style>' +
-      '@page{size:letter portrait;margin:18mm;}' +
-      'body{font-family:system-ui,-apple-system,sans-serif;color:#111;max-width:500px;margin:0 auto;padding:20px;}' +
+      '@page{size:62mm auto;margin:2mm;}' +
+      'body{font-family:system-ui,-apple-system,sans-serif;color:#111;width:54mm;margin:0 auto;padding:8px 0;}' +
       '@media print{body{padding:0;}}' +
     '</style>' +
     '</head><body>' +
-    '<div style="border-bottom:2px solid #d4a843;padding-bottom:10px;margin-bottom:16px;">' +
-      '<div style="font-size:10px;color:#888;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;">Betting Receipt · ' + esc(evName) + '</div>' +
-      '<div style="font-size:15px;font-weight:700;margin-top:4px;">' + esc(td.bettorName) + '</div>' +
-      '<div style="font-size:11px;color:#666;margin-top:2px;">' + now + '</div>' +
+    '<div style="border-bottom:2px solid #111;padding-bottom:6px;margin-bottom:8px;text-align:center;">' +
+      '<div style="font-size:8px;color:#555;letter-spacing:2px;text-transform:uppercase;">Betting Receipt</div>' +
+      '<div style="font-size:12px;font-weight:800;margin-top:2px;">' + esc(evName) + '</div>' +
+      '<div style="font-size:8px;color:#555;margin-top:2px;">' + now + '</div>' +
+      '<div style="font-size:15px;font-weight:900;margin-top:4px;">' + esc(td.bettorName) + '</div>' +
     '</div>' +
     ticketSections +
     unrefSection +
-    '<div style="border-top:2px solid #111;padding-top:10px;margin-top:8px;display:flex;justify-content:space-between;align-items:baseline;">' +
-      '<span style="font-size:14px;font-weight:700;">TOTAL</span>' +
-      '<span style="font-size:22px;font-weight:900;color:#1a7a3a;">$' + grandTotal + '</span>' +
+    '<div style="border-top:2px solid #111;padding-top:6px;margin-top:6px;display:flex;justify-content:space-between;align-items:baseline;">' +
+      '<span style="font-size:11px;font-weight:800;">TOTAL</span>' +
+      '<span style="font-size:18px;font-weight:900;color:#111;">$' + grandTotal + '</span>' +
     '</div>' +
-    '<div style="margin-top:24px;font-size:10px;color:#aaa;text-align:center;">Good luck! 🍀 · ' + esc(evName) + ' · Parimutuel Betting</div>' +
+    '<div style="margin-top:6px;font-size:7.5px;color:#666;text-align:center;">Odds shown are AT PRINT TIME — pools move until betting closes; the payout is set at settlement. Keep this slip.</div>' +
+    '<div style="margin-top:4px;font-size:8px;color:#888;text-align:center;">Good luck! 🍀 · Parimutuel Betting</div>' +
     '</body></html>';
+}
+
+// v20.18 — FR-11: odds AT PRINT TIME for the label receipt. Mirrors the
+// Results odds card (net pool ÷ stake carried by that team+type, field bets
+// counting on every team) and calcPayouts' house-take handling, so the slip
+// never shows a number the app itself would not show.
+function _slipOddsCtx() {
+  const bets = state.bets || [];
+  const pools = { win:0, place:0, show:0 };
+  bets.forEach(function(b){ if (pools[b.type] != null) pools[b.type] += b.amount; });
+  const totalCollected = pools.win + pools.place + pools.show;
+  let houseAmt;
+  if ((state.handleMode||'pct') === 'flat') houseAmt = Math.min(state.handleFlat||0, totalCollected);
+  else houseAmt = Math.round(totalCollected * ((state.handlePct||0)/100) * 100) / 100;
+  const netTotal = Math.max(0, totalCollected - houseAmt);
+  const net = totalCollected > 0 ? {
+    win:   pools.win   / totalCollected * netTotal,
+    place: pools.place / totalCollected * netTotal,
+    show:  pools.show  / totalCollected * netTotal,
+  } : { win:0, place:0, show:0 };
+  return { bets: bets, net: net };
+}
+function _slipOddsLine(ctx, type, teamId, stakeAmt) {
+  if (teamId === 'FIELD') return 'covers every team — return varies by winner';
+  const stake = ctx.bets.filter(function(b){ return b.type === type && (b.teamId === teamId || b.teamId === 'FIELD'); })
+    .reduce(function(s,b){ return s + b.amount; }, 0);
+  const pool = ctx.net[type] || 0;
+  if (!(stake > 0) || !(pool > 0)) return '';
+  const mult = pool / stake;
+  const potential = stakeAmt * mult;
+  const when = type === 'win' ? 'if 1st' : type === 'place' ? 'if top 2' : 'if top 3';
+  return mult.toFixed(2) + '× → pays ' + fmt(potential) + ' ' + when;
 }
 
 // ─── RACE IDENTITY (v20.10) ──────────────────────────────────────────────────
