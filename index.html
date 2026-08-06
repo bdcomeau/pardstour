@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v452.0 -->
+  <!-- pards-tour-v453.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -34813,7 +34813,12 @@ function ptPrintTripOverallReport() {
   var d = G._ptTripLb;
   if (!d || !d.standings || !d.standings.length) { ptToast('No scores to report yet.'); return; }
   var trip = d.trip || {};
-  var rounds = (d.rounds || []).slice().sort(function(a,b){ return a.round_number - b.round_number; });
+  // v453.0 — B-105: the printed report is the screen's twin and must read the
+  // same two rails. Was: d.rounds only, sorted by round_number — so a game day
+  // never appeared on the printout and columns were labelled by a number that
+  // collides across rails.
+  var rounds = _ptTripRdMergeCells(_ptTripRdList(d), d.standings);
+  var _cmsP  = (d.standings || []).map(_ptTripCellsByKey);
   var nR = rounds.length || 1;
 
   // Display-only ring: the same allocation the worker uses (hcpStrokesForHole).
@@ -34824,10 +34829,11 @@ function ptPrintTripOverallReport() {
   }
   function _t12(t) { return (t && typeof _pt12h === 'function') ? _pt12h(t) : (t || ''); }
 
-  var rows = d.standings.map(function(p){
+  var rows = d.standings.map(function(p, _pi){
     var totGross = 0, played = 0, totNet = 0, netOk = true; // v292.0
+    var _cmP  = _cmsP[_pi] || {};
     var lines = rounds.map(function(rd){
-      var r = (p.rounds||[]).filter(function(x){ return x.round_number === rd.round_number; })[0]
+      var r = _cmP[rd.key]                                   // v453.0 — B-105: keyed by RAIL + round
         || { round_number: rd.round_number, pts: null, holes: 0 };
       if (r.holes > 0) { totGross += (r.gross||0); played++; if (r.net != null) totNet += r.net; else netOk = false; } // v292.0
       return r;
@@ -34912,7 +34918,7 @@ function ptPrintTripOverallReport() {
       var tm = _t12(r.start_time);
       var crs = rd.course_name || r.course_name || '';
       var tee = r.tee_name || rd.tee_name || '';
-      var rdCell = '<td class="rd-cell"ROWSPAN><span class="rd-lbl">R' + r.round_number + '</span><br><span class="rd-ch">PH:' + ph + '</span></td>';
+      var rdCell = '<td class="rd-cell"ROWSPAN><span class="rd-lbl">' + _esc(_ptTripRdShort(rd) || ('R' + r.round_number)) + '</span>' + (rd.date ? '<br><span class="rd-ch">' + _esc(_ptTripRdDate(rd.date)) + '</span>' : '') + '<br><span class="rd-ch">PH:' + ph + '</span></td>';
       var infoCell = '<td class="left info-cell"ROWSPAN>'
         + (dt ? dt : '') + (tm ? ' · ' + tm : '') + '<br>'
         + '<span class="crs">' + _esc(crs) + '</span>' + (tee ? ' · ' + _esc(tee) : '')
@@ -34938,7 +34944,7 @@ function ptPrintTripOverallReport() {
   var dates = rounds.map(function(r){ return r.date ? _ptLgDate(r.date) : ''; }).filter(Boolean);
   var dateStr = dates.length ? dates[0] + (dates.length > 1 ? ' – ' + dates[dates.length-1] : '') : '';
   var courses = [];
-  rounds.forEach(function(r){ if (r.course_name && courses.indexOf(r.course_name) < 0) courses.push(r.course_name); });
+  rounds.forEach(function(r){ var _cn = r.course_name || (r.source === 'event' ? r.title : null); if (_cn && courses.indexOf(_cn) < 0) courses.push(_cn); });   // v453.0 — B-105: a game day names its event
 
   var title = _esc(trip.name || 'Trip') + ' — Overall Individual Net Stableford';
   var html = '<!DOCTYPE html><html><head><meta charset="utf-8">'
@@ -55661,7 +55667,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v452.0';
+    const TOUR_VERSION     = 'pards-tour-v453.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
