@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v454.0 -->
+  <!-- pards-tour-v455.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -24937,7 +24937,7 @@ function openHomeCourseModal(name){
   function buildCourseRows(filter){
     rowsEl.innerHTML = '';
     const q = (filter||'').toLowerCase().trim();
-    const courses = PARDS_COURSES.slice().sort(function(a,b){ return String(a.name||'').localeCompare(String(b.name||''), undefined, {sensitivity:'base'}); }).filter(function(c){   // v454.0 - B-97b: alphabetical; .slice() so the shared PARDS_COURSES order is untouched
+    const courses = PARDS_COURSES.slice().sort(function(a,b){ return String(a.name||'').localeCompare(String(b.name||''), undefined, {sensitivity:'base'}); }).filter(function(c){   // v455.0 - B-97b: alphabetical; .slice() so the shared PARDS_COURSES order is untouched
       return !q || c.name.toLowerCase().includes(q) || (c.location||'').toLowerCase().includes(q);
     });
     courses.forEach(function(c){
@@ -33743,6 +33743,8 @@ function _ptTRMRenderTeeBoxPicker() {
   });
   h += '</div>';
   h += '<button onclick="_ptTRMRenderCoursePicker()" style="width:100%;margin-top:12px;padding:11px;background:none;border:1.5px solid rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.4);font-size:13px;cursor:pointer">← Change Course</button>';
+  h += _PT_MR_GCLOSE;
+
   body.innerHTML = h;
 }
 
@@ -42997,9 +42999,11 @@ function _ptMRStats(st, ev, r) {
 
   // 11 — r.complete_players / r.field_players are server-supplied and NULL on
   //      non-individual rounds; absent means silent, never a guessed zero
-  var prog = (r.field_players != null && r.complete_players != null && r.field_players > 0)
-    ? r.complete_players + ' of ' + r.field_players + ' complete' : '';
-  S[11] = st.tee ? D('ready', prog) : D('gated', '', 'Needs a tee sheet');
+  var _pKnown = (r.field_players != null && r.complete_players != null && r.field_players > 0);
+  var prog    = _pKnown ? r.complete_players + ' of ' + r.field_players + ' complete' : '';
+  S[11] = !st.tee ? D('gated', '', 'Needs a tee sheet')
+        : ((_pKnown && r.complete_players >= r.field_players) ? D('done', prog)
+        : D('ready', prog || (st.scores ? 'Scores are in — cards editable' : 'No scores yet')));
 
   // 12
   S[12] = st.locked ? D('done', 'Locked — scores cannot change')
@@ -43017,10 +43021,15 @@ function _ptMRSec(n, title, stat, bodyHtml) {
   var open = false;
   try { open = window._ptEvSecOpen(_ptMR.eventId, _ptMRKey(n), false); } catch (e) {}
   stat = stat || { k: 'ready', d: '' };
+  var toneIdx = n <= 7 ? 1 : n <= 9 ? 2 : 3;
+  var tone = _PT_MR_TONE[toneIdx];
   return '<div id="ptMRSec' + n + '" data-mrstate="' + stat.k + '" style="margin-bottom:8px">'
     + '<div onclick="ptMRToggle(' + n + ',this)" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 2px;cursor:pointer;border-bottom:1px solid rgba(201,168,76,.15)">'
-    + '<div style="min-width:0;flex:1">'
+    + '<div style="min-width:0;flex:1;display:flex;align-items:center;gap:8px">'
+    +   '<div style="width:21px;height:21px;border-radius:50%;background:rgba(' + tone[1] + ',.15);border:1px solid rgba(' + tone[1] + ',.3);display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:900;color:' + tone[0] + '">' + n + '</div>'
     +   '<div style="font-size:12.5px;font-weight:800;color:rgba(201,168,76,.85)">' + title + '</div>'
+    + '</div>'
+    + '<div style="min-width:0;flex:1">'
     +   (stat.d ? '<div class="pt-mr-detail" style="font-size:10.5px;color:rgba(255,255,255,.4);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + stat.d + '</div>' : '')
     + '</div>'
     + '<div style="display:flex;align-items:center;gap:8px;flex-shrink:0">' + _ptMRChipHtml(stat)
@@ -43102,9 +43111,16 @@ function _ptMRNote(txt) {
    organizer is about to change them, not in a decision log he will never read. */
 var _PT_MR_SHARED = '<div style="font-size:10.5px;font-weight:700;color:rgba(100,180,255,.85);background:rgba(100,180,255,.07);border:1px solid rgba(100,180,255,.22);border-radius:8px;padding:7px 10px;margin-bottom:9px">🔗 Shared — affects every round in this event.</div>';
 
-function _ptMRGroup(label) {
-  return '<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.2px;margin:16px 0 4px">' + label + '</div>';
+var _PT_MR_TONE = { 1:['#c9a84c','201,168,76'], 2:['#64b4ff','100,180,255'], 3:['#e8a33d','232,163,61'] };
+function _ptMRGroupOpen(g, label, done, total){
+  var tone = _PT_MR_TONE[g];
+  return '<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(' + tone[1] + ',.07);border:1px solid rgba(' + tone[1] + ',.14);border-radius:13px;border-bottom:1px solid rgba(' + tone[1] + ',.22);color:' + tone[0] + '">'
+    + '<div style="width:8px;height:8px;border-radius:50%;background:' + tone[0] + '"></div>'
+    + '<div style="font-size:11.5px;font-weight:800;letter-spacing:1.1px;flex:1">' + label + '</div>'
+    + '<div style="font-size:11px;color:rgba(255,255,255,.42)">' + done + ' of ' + total + ' done</div>'
+    + '</div><div style="padding:3px 14px 6px;border-left:1px solid rgba(' + tone[1] + ',.14);border-right:1px solid rgba(' + tone[1] + ',.14);border-bottom:1px solid rgba(' + tone[1] + ',.14);border-radius:0 0 13px 13px;margin-bottom:12px">';
 }
+var _PT_MR_GCLOSE = '</div></div>';
 
 function _ptMRCnt(txt, on) {
   return '<span style="font-size:9.5px;font-weight:800;padding:2px 8px;border-radius:8px;'
@@ -43117,6 +43133,9 @@ function _ptMRPaint() {
   var ev = _ptMR.ev || {}, r = _ptMR.round || {};
   var st = _ptMRState();
   var ST = _ptMRStats(st, ev, r);            // FR-33b — one status per header
+
+var _mrRoll = function(ns){ var d=0; for (var i=0;i<ns.length;i++) if (ST[ns[i]].k==='done') d++;
+                            return d + ' of ' + ns.length + ' done'; };
   var RJ = '', EJ = '';
   try { RJ = JSON.stringify(r).replace(/"/g, '&quot;'); } catch (e) { RJ = '{}'; }
   try { EJ = JSON.stringify(ev).replace(/"/g, '&quot;'); } catch (e) { EJ = '{}'; }
@@ -43148,7 +43167,7 @@ function _ptMRPaint() {
     + '</div>';
 
   // ── PRE-GAME ──────────────────────────────────────────────────────────
-  h += _ptMRGroup('Pre-Game');
+  h += _ptMRGroupOpen(1,'Pre-Game',_mrRoll([1,2,3,4,5,6,7]),7);
 
   // 1 · Players & Teams — FR-33 §1: SEE AND SET per-round teams. Storage is
   //     cfg.rteams[roundId]; absent key = the event teams, unchanged.
@@ -43265,7 +43284,7 @@ function _ptMRPaint() {
                '#c9a84c', 'rgba(201,168,76,.08)', 'rgba(201,168,76,.28)'));
 
   // ── GAME TIME ─────────────────────────────────────────────────────────
-  h += _ptMRGroup('Game Time');
+  h += _PT_MR_GCLOSE + _ptMRGroupOpen(2,'Game Time',_mrRoll([8,9]),2);
 
   // 8 · TV — needs an event code
   var b8 = ev.event_code
@@ -43285,7 +43304,7 @@ function _ptMRPaint() {
   h += _ptMRSec(9, '🏆 Board', ST[9], b9);
 
   // ── POST GAME ─────────────────────────────────────────────────────────
-  h += _ptMRGroup('Post Game');
+  h += _PT_MR_GCLOSE + _ptMRGroupOpen(3,'Post Game',_mrRoll([10,11,12]),3);
 
   // 10 · Reports — this round only. Same branch as ptShowReportsMenu (44001).
   var b10 = '';
@@ -43337,6 +43356,7 @@ function _ptMRPaint() {
     : _ptMRGate('No scores in yet — nothing to lock.', 5, 'Build tee times');
   h += _ptMRSec(12, '🔒 Lock', ST[12], b12);
 
+  h += _PT_MR_GCLOSE;
   body.innerHTML = h;
 }
 
