@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v448.0 -->
+  <!-- pards-tour-v450.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -29287,11 +29287,29 @@ window.ptTBCreate = function () {
       chain = chain.then(function () {
         // sequential on purpose - handleCreateRound numbers rounds COUNT+1,
         // so parallel POSTs could race the numbering.
+        /* ⭐ FR-32 (v449.0) — PRESENCE TEST, not `||`. r.format === '' is a
+           REAL choice ("no games — just golf") and `||` swallowed it into
+           t.defFmt before it ever reached the wire. */
+        var _want = (r.format != null) ? String(r.format) : String(t.defFmt || '');
         return fetch(TOUR_API + '/api/events/' + evId + '/rounds', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
-          body: JSON.stringify({ date: r.date || null, course_id: r.course_id || null, tee: r.tee || null, format: r.format || t.defFmt })
-        }).then(_ptJson);
+          body: JSON.stringify({ date: r.date || null, course_id: r.course_id || null, tee: r.tee || null, format: _want })
+        }).then(_ptJson).then(function (_rd) {
+          /* ⭐⭐ ORDERING DEFENCE (s121). Worker v2.93.0 coerces a falsy format to
+             'individual_stableford' (3879); v2.94.0 does not. Bruce pastes the
+             worker and pushes the client as SEPARATE acts, so this client must
+             be correct on either. If the server rewrote what we asked for, put
+             it back — PATCH /api/rounds/:id accepts '' on v2.93.0, and a round
+             created one second ago has no scores to 409 on. */
+          var _got = (_rd && _rd.round) ? String(_rd.round.format == null ? '' : _rd.round.format) : null;
+          if (_got === null || _got === _want || !_rd.round.id) return _rd;
+          return fetch(TOUR_API + '/api/rounds/' + _rd.round.id, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+            body: JSON.stringify({ format: _want })
+          }).then(_ptJson).then(function () { return _rd; }).catch(function () { return _rd; });
+        });
       });
     });
     return chain.then(function () { return evId; });
@@ -30182,6 +30200,12 @@ window._PT_FMT_LIVE = [
   { k: 'individual_low_gross',  s: 'Low Gross',                 l: 'Individual Low Gross',      hi: false, on: ['event'], ppt: [1]   },
   { k: 'scramble_stableford',   s: 'Scramble Gross Stableford', l: 'Scramble Gross Stableford', hi: false, on: ['event'], ppt: [2]   },
   { k: 'scramble',              s: 'Gross Score Team Scramble', l: 'Gross Score Team Scramble', hi: false, on: ['event'], ppt: [2]   },
+  // ⭐ FR-32 (v449.0, s121) — "no games, just golf". The VALUE is '' so that
+  // _ptRGames returns an EMPTY game list with no code change (its push guard
+  // is `if (k && …)`). ppt:[1,2] — a gameless round is legal solo or in teams.
+  // hi:false — nothing to feed a season with. on:['event'] keeps it out of the
+  // league/trip pickers, where '' already means "Format: TBD".
+  { k: '',                      s: '🎲 No games — just golf',   l: '🎲 No games — just golf',   hi: false, on: ['event'], ppt: [1,2] },
   // ── render-only (v429.0, step 5) ────────────────────────────────────────
   // ⭐ multi_day is an EVENT-level format (events.format), never a round's and
   // never OFFERED — on:[] keeps it out of every picker and every _ptFmtFor
@@ -30247,6 +30271,14 @@ window._ptFmtIsHigh = function(k){
   return false;  // an unknown or Phase-2 key is never season-eligible
 };
 window._ptFmtLabel = function(k, long){
+  /* ⭐ FR-32 (v449.0, s121) — THE EMPTY KEY IS CONTAINER-OVERLOADED and this
+     function is deliberately unfiltered, so it must never answer for it: ''
+     means "Format: TBD" on a league/trip round and "no games" on an event
+     round. Returning '' here preserves 46746's stated contract
+     ("_ptFmtLabel('',true) === ''") and 32027's 'Format TBD' fallback. The
+     gameless row's label is read by _ptFmtFor — the OFFER path, which IS
+     scoped by on:['event'] — never by this one. */
+  if (!k) return '';
   for (var i=0;i<window._PT_FMT_LIVE.length;i++) if(window._PT_FMT_LIVE[i].k===k) return long ? window._PT_FMT_LIVE[i].l : window._PT_FMT_LIVE[i].s;
   return k || '';
 };
@@ -38600,6 +38632,79 @@ window._ptRGames = function (cfg, round) {
   } catch (e) {}
   return out;
 };
+// ── FR-33 §1 (v449.0, s121) — PER-ROUND TEAMS · SEE AND SET ─────────────
+// ⭐⭐ SCOPE, and it is deliberately narrow (Bruce, s121): a round may carry
+// its OWN team set for planning and display. TEE SHEETS, SCORECARDS AND
+// SKINS STILL KEY ON group_id AND STILL COME OFF THE EVENT GROUPS. §1 says
+// exactly that on screen — see the honest-copy line in _ptMRPaint. This is a
+// display + planning layer, NOT a re-wiring of the scoring path.
+//
+// ⭐ NO DDL. The map rides cfg.rteams[String(round.id)] — the same shape
+// cfg.rgames / cfg.pot / cfg.skins already use. An ABSENT key is today's
+// behaviour BYTE-FOR-BYTE (ptRoundTeams returns `groups` verbatim), which is
+// FR-27's mode:'pct' dual-read discipline applied to teams.
+//
+// Stored shape: { list: [ { id, name, players: [roster_id, …] } ] }
+// roster_ids ONLY — names and handicaps resolve from the live groups/roster
+// at read time, so a handicap change can never go stale inside a config blob.
+window.ptRoundTeams = function (cfg, round, groups) {
+  groups = groups || [];
+  var row = null;
+  try {
+    var all = cfg && cfg.rteams;
+    if (all && typeof all === 'object' && !Array.isArray(all)) row = all[String(round && round.id)];
+  } catch (e) { row = null; }
+  var list = row && row.list;
+  if (Object.prototype.toString.call(list) !== '[object Array]' || !list.length) return groups;
+  var byId = {};
+  groups.forEach(function (g) {
+    (g.players || []).forEach(function (p) { if (p && p.roster_id != null) byId[String(p.roster_id)] = p; });
+  });
+  try {
+    (((cfg || {}).event_roster) || []).forEach(function (p) {
+      if (p && p.id != null && !byId[String(p.id)]) byId[String(p.id)] = { roster_id: p.id, name: p.name, handicap: (p.hcp != null ? p.hcp : null) };
+    });
+  } catch (e2) {}
+  return list.map(function (t, i) {
+    return {
+      /* ⭐ synthetic ids are NEGATIVE INTEGERS, never strings: the FR-21 editor
+         interpolates them bare into onclick attributes (ptFr21TapTeam(<id>)),
+         so a string id would emit a ReferenceError instead of a tap target. */
+      id: (t.id != null ? t.id : -(i + 1)),
+      name: t.name || ('Team ' + (i + 1)),
+      players: (t.players || []).map(function (rid) {
+        return byId[String(rid)] || { roster_id: rid, name: 'Player ' + rid, handicap: null };
+      })
+    };
+  });
+};
+// Does THIS round carry its own set, or is it inheriting the event teams?
+window.ptRTeamsHas = function (cfg, roundId) {
+  try {
+    var row = ((cfg && cfg.rteams) || {})[String(roundId)];
+    return !!(row && row.list && row.list.length);
+  } catch (e) { return false; }
+};
+// ⭐ THE MERGE RULE, identical to ptRGamesSave below: ptPatchEvConfig assigns
+// top-level keys WHOLESALE, so every OTHER round's row is read back and merged
+// in before saving — or they are wiped. Passing an empty list DELETES this
+// round's row, which restores "inherit the event teams" exactly.
+window.ptRTeamsSave = function (eventId, roundId, teams) {
+  return fetch(TOUR_API + '/api/events/' + eventId, { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
+    .then(_ptJson).then(_ptThrow).then(function (d) {
+      if (!d.event) throw new Error('Event not found');
+      var cfg = ptEvCfg(d.event);
+      var all = Object.assign({}, cfg.rteams || {});
+      var norm = (teams || []).map(function (t, i) {
+        return { id: t.id, name: t.name || ('Team ' + (i + 1)),
+                 players: (t.players || []).map(function (p) {
+                   return (p && p.roster_id != null) ? p.roster_id : p; }) };
+      });
+      if (norm.length) all[String(roundId)] = { list: norm };
+      else delete all[String(roundId)];
+      return ptPatchEvConfig(eventId, { rteams: all });
+    });
+};
 // FR-20 step 1 — read-merge-write on cfg.rgames, the ptSkinsSave pattern:
 // ptPatchEvConfig assigns top-level keys WHOLESALE, so the other rounds'
 // rows are merged in before saving. A list of <=1 game DELETES the round's
@@ -39239,6 +39344,39 @@ window.ptFr21TripOpen = function (eid, tid) {
     window.ptFr21PickRender();
   }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not load the trip players')); });
 };
+// ⭐ FR-33 §1 (v449.0, s121) — the SAME tap-to-assign editor, saving into
+// cfg.rteams instead of the groups API. The whole field goes into st.pool and
+// st.placed is PREFILLED from this round's effective teams, so the existing
+// renderer draws the current line-up with zero markup changes.
+window.ptFr21OpenRTeams = function (eid, rid, roundLabel) {
+  var H = { headers: { 'Authorization': 'Bearer ' + G.orgToken } };
+  Promise.all([
+    fetch(TOUR_API + '/api/events/' + eid, H).then(_ptJson),
+    fetch(TOUR_API + '/api/events/' + eid + '/groups', H).then(_ptJson).catch(function () { return { groups: [] }; })
+  ]).then(function (rs) {
+    if (!rs[0] || !rs[0].event) { ptToast((rs[0] && rs[0].error) || 'Could not load the event.'); return; }
+    var cfg = ptEvCfg(rs[0].event);
+    var groups = (rs[1] && rs[1].groups) || rs[0].groups || [];
+    /* B-95: individual roster-mode events carry ZERO groups rows — the field
+       IS cfg.event_roster. ptFr17Players knows both shapes. */
+    var field = window.ptFr17Players(groups, cfg) || [];
+    if (!field.length) { ptToast('No players in this field yet — add players first.'); return; }
+    var teams = window.ptRoundTeams(cfg, { id: rid }, groups) || [];
+    var placed = {};
+    teams.forEach(function (t) {
+      (t.players || []).forEach(function (p) { if (p && p.roster_id != null) placed[String(p.roster_id)] = t.id; });
+    });
+    window._ptFr21 = {
+      eid: eid, lid: null, lname: (roundLabel || 'This round'),
+      rt: { roundId: rid },                       // ⭐ the mode flag every save point reads
+      indEv: false, members: [], sel: {}, evRoster: (cfg.event_roster || []),
+      pool: field.map(function (p) { return { roster_id: p.roster_id, name: p.name, hcp: p.handicap }; }),
+      placed: placed,
+      groups: teams.map(function (t) { return { id: t.id, name: t.name, players: [] }; })
+    };
+    window.ptFr21AssignRender();
+  }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not load the teams')); });
+};
 window.ptFr21PickRender = function () {
   var st = window._ptFr21; if (!st) return;
   var old = document.getElementById('ptFr21Ov'); if (old) old.remove();
@@ -39305,17 +39443,27 @@ window.ptFr21AssignRender = function () {
   var unplaced = st.pool.filter(function (p) { return !st.placed[String(p.roster_id)]; });
   var chips = unplaced.length ? unplaced.map(function (p) {
     var on = st.pick === p.roster_id;
-    return '<button onclick="ptFr21TapPlayer(' + p.roster_id + ')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;margin:0 6px 6px 0;border-radius:20px;border:1.5px solid ' + (on ? '#f5d97a' : 'rgba(255,255,255,.18)') + ';background:' + (on ? 'rgba(245,217,122,.18)' : 'rgba(255,255,255,.05)') + ';color:' + (on ? '#f5d97a' : '#eee') + ';font-size:13px;font-weight:800;cursor:pointer">' + _ptEsc(p.name) + (p.hcp != null ? '<span style="font-weight:600;font-size:10.5px;color:rgba(255,255,255,.4)">' + p.hcp + '</span>' : '') + '</button>';
+    /* ⭐ FR-34 (v450.0) — the chip is now BOTH a tap target and a drag
+       source. onclick is untouched: a release under the drag threshold
+       never fires a drag, so the browser's own click lands in the exact
+       tap path that shipped before this build.
+       ⭐ touch-action:none is scoped to the CHIP. On the scrolling
+       container it would cost page scroll on the phone, which is the
+       whole reason tap has to survive. */
+    return '<button data-ptdrag="1" data-rid="' + p.roster_id + '" onclick="ptFr21TapPlayer(' + p.roster_id + ')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;margin:0 6px 6px 0;border-radius:20px;border:1.5px solid ' + (on ? '#f5d97a' : 'rgba(255,255,255,.18)') + ';background:' + (on ? 'rgba(245,217,122,.18)' : 'rgba(255,255,255,.05)') + ';color:' + (on ? '#f5d97a' : '#eee') + ';font-size:13px;font-weight:800;cursor:grab;touch-action:none;user-select:none">' + _ptEsc(p.name) + (p.hcp != null ? '<span style="font-weight:600;font-size:10.5px;color:rgba(255,255,255,.4)">' + p.hcp + '</span>' : '') + '</button>';
   }).join('') : '<div style="font-size:12.5px;color:#a8d5b5;font-weight:700;padding:4px 0">Everyone’s placed — hit Done.</div>';
   var teams = st.groups.map(function (g) {
     var names = (g.players || []).map(function (p) { return _ptEsc(p.name); });
-    st.pool.forEach(function (p) { if (st.placed[String(p.roster_id)] === g.id) names.push('<span style="color:#f5d97a">' + _ptEsc(p.name) + '</span>'); });
+    st.pool.forEach(function (p) {
+      if (st.placed[String(p.roster_id)] !== g.id) return;
+      names.push('<span data-ptdrag="1" data-rid="' + p.roster_id + '" style="color:#f5d97a;cursor:grab;touch-action:none;user-select:none;display:inline-block">' + _ptEsc(p.name) + '</span>');
+    });
     /* FR-30 (v447.0, s120) — the team name is now tappable. The row splits
        into TWO targets: the card still places the picked player, and a pencil
        renames the team. They are SIBLINGS, not nested — an interactive element
        inside a <button> is invalid HTML and iOS swallows the inner tap. */
     return '<div style="display:flex;align-items:stretch;gap:6px;margin-bottom:8px">'
-      + '<button onclick="ptFr21TapTeam(' + g.id + ')" style="flex:1;min-width:0;text-align:left;padding:12px 14px;border-radius:12px;border:1.5px solid ' + (st.pick != null ? 'rgba(245,217,122,.45)' : 'rgba(255,255,255,.12)') + ';background:rgba(255,255,255,.04);cursor:pointer">'
+      + '<button data-ptdrop="team" data-gid="' + g.id + '" onclick="ptFr21TapTeam(' + g.id + ')" style="flex:1;min-width:0;text-align:left;padding:12px 14px;border-radius:12px;border:1.5px solid ' + (st.pick != null ? 'rgba(245,217,122,.45)' : 'rgba(255,255,255,.12)') + ';background:rgba(255,255,255,.04);cursor:pointer">'
       + '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span style="font-size:14px;font-weight:800;color:#f0f0f0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + _ptEsc(g.name || '—') + '</span><span style="font-size:11px;font-weight:800;color:rgba(245,217,122,.8);flex-shrink:0">' + names.length + ' player' + (names.length === 1 ? '' : 's') + '</span></div>'
       + (names.length ? '<div style="font-size:11.5px;color:rgba(255,255,255,.5);margin-top:3px">' + names.join(' · ') + '</div>' : '<div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:3px">empty</div>')
       + '</button>'
@@ -39327,15 +39475,142 @@ window.ptFr21AssignRender = function () {
   ov.style.cssText = 'position:fixed;inset:0;z-index:764;background:#0f1f14;display:flex;flex-direction:column;overflow:hidden';
   ov.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 10px;border-bottom:1px solid rgba(245,217,122,.2);flex-shrink:0">'
     + '<button onclick="ptFr21BackToPick()" style="background:none;border:none;color:rgba(245,217,122,.7);font-size:24px;cursor:pointer;padding:0">&larr;</button>'
-    + '<div style="font-size:16px;font-weight:800;color:#f5d97a">Place the teams</div>'
+    + '<div style="font-size:16px;font-weight:800;color:#f5d97a">' + (st.rt ? _ptEsc(st.lname) + ' — teams' : 'Place the teams') + '</div>'
     + '<div style="width:32px"></div></div>'
-    + '<div style="padding:10px 16px 0;flex-shrink:0;font-size:12px;color:rgba(255,255,255,.45)">Tap a player, then tap their team. Each add saves straight to the event.</div>'
-    + '<div style="flex-shrink:0;padding:12px 16px 4px">' + chips + '</div>'
+    + '<div style="padding:10px 16px 0;flex-shrink:0;font-size:12px;color:rgba(255,255,255,.45)">' + (st.rt ? 'Drag a player onto a team, or tap the player then the team. Drag back to the top to unassign. Nothing saves until you hit Done. Tee sheets and scorecards still use the event teams.' : 'Drag a player onto a team, or tap the player then the team. Drag back to the top to unassign. Each change saves straight to the event.') + '</div>'
+    + '<div id="ptFr21Pool" data-ptdrop="pool" style="flex-shrink:0;padding:12px 16px 4px;min-height:44px">' + chips + '</div>'
     + '<div id="ptFr21Teams" style="flex:1;overflow-y:auto;padding:8px 16px 120px">' + teams
     + '<button onclick="ptFr21NewTeam()" style="width:100%;padding:12px;background:rgba(245,217,122,.06);border:1.5px dashed rgba(245,217,122,.3);border-radius:12px;color:#f5d97a;font-size:13px;font-weight:800;cursor:pointer">+ New team</button></div>'
     + '<div style="position:fixed;bottom:0;left:0;right:0;padding:12px 16px;background:#0f1f14;border-top:1px solid rgba(245,217,122,.2)">'
     + '<button onclick="ptFr21Done()" style="width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:16px;font-weight:900;cursor:pointer">Done</button></div>';
   document.body.appendChild(ov);
+  window._ptFr21DragInit(ov);          // FR-34 — listeners live and die with this overlay
+};
+/* ── FR-34 (v450.0, s121) — DRAG AND DROP, WITHOUT LOSING TAP ─────────────
+   Bruce: "I want this to be drag and drop - clicking is a pain in the ass."
+   He organizes on a desktop browser. But the phone is where he scores live
+   rounds, and dragging a chip on a touch screen while trying to scroll is
+   miserable — so drag is ADDITIVE and tap is untouched.
+
+   ⭐⭐ THE TRICK: A TAP IS A DRAG OF ZERO DISTANCE. pointerdown only ARMS.
+   Movement past _PT_DRAG_SLOP promotes to a real drag with a floating ghost.
+   A release under the threshold does NOTHING — it does not preventDefault,
+   so the browser's own click fires and lands in the pre-existing onclick.
+   One implementation serves mouse and finger; nothing sniffs the device.
+
+   ⭐ No PointerEvent support (or no overlay) => this returns immediately and
+   the screen behaves exactly as it did before FR-34. Tap can never regress. */
+var _PT_DRAG_SLOP = 6;
+window._ptFr21Drag = null;
+
+window._ptFr21DragInit = function (ov) {
+  if (!ov || typeof window.PointerEvent !== 'function') return;
+  var drops = Array.prototype.slice.call(ov.querySelectorAll('[data-ptdrop]'));
+  /* Highlight with OUTLINE only — never touching background means clearing is
+     a single assignment and no original styling has to be remembered. */
+  var hi = function (el) {
+    drops.forEach(function (d) {
+      d.style.outline = (d === el) ? '2px solid #f5d97a' : '';
+      d.style.outlineOffset = (d === el) ? '2px' : '';
+    });
+  };
+  var closest = function (node, sel) {
+    return (node && node.closest) ? node.closest(sel) : null;
+  };
+
+  ov.addEventListener('pointerdown', function (e) {
+    if (e.button > 0) return;                       // right/middle click is not a drag
+    var chip = closest(e.target, '[data-ptdrag]');
+    if (!chip || !window._ptFr21) return;
+    window._ptFr21Drag = { rid: Number(chip.getAttribute('data-rid')),
+                           x0: e.clientX, y0: e.clientY,
+                           on: false, ghost: null, over: null, chip: chip };
+    try { chip.setPointerCapture(e.pointerId); } catch (_ec) {}
+  });
+
+  ov.addEventListener('pointermove', function (e) {
+    var d = window._ptFr21Drag; if (!d) return;
+    var dx = e.clientX - d.x0, dy = e.clientY - d.y0;
+    if (!d.on) {
+      if ((dx * dx + dy * dy) < _PT_DRAG_SLOP * _PT_DRAG_SLOP) return;   // still a tap
+      d.on = true;
+      var g = document.createElement('div');
+      g.id = 'ptFr21Ghost';
+      /* pointer-events:none so elementFromPoint sees THROUGH the ghost to the
+         drop target; position:fixed so it never fights the page's scroll. */
+      g.style.cssText = 'position:fixed;z-index:900;pointer-events:none;padding:8px 14px;'
+        + 'border-radius:20px;border:1.5px solid #f5d97a;background:rgba(245,217,122,.22);'
+        + 'color:#f5d97a;font-size:13px;font-weight:800;white-space:nowrap;'
+        + 'transform:translate(-50%,-50%);opacity:.95';
+      g.textContent = d.chip.textContent;
+      document.body.appendChild(g);
+      d.ghost = g;
+      d.chip.style.opacity = '.35';
+    }
+    d.ghost.style.left = e.clientX + 'px';
+    d.ghost.style.top = e.clientY + 'px';
+    d.over = closest(document.elementFromPoint(e.clientX, e.clientY), '[data-ptdrop]');
+    hi(d.over);
+    e.preventDefault();
+  });
+
+  var finish = function (e) {
+    var d = window._ptFr21Drag; if (!d) return;
+    window._ptFr21Drag = null;
+    if (d.ghost) d.ghost.remove();
+    if (d.chip) d.chip.style.opacity = '';
+    hi(null);
+    if (!d.on) return;          // ⭐ under threshold: a TAP. Let the click through.
+    /* A real drag happened, so swallow the click the browser is about to
+       synthesise — otherwise the drop AND the tap handler would both fire. */
+    var kill = function (ev) { ev.stopPropagation(); ev.preventDefault(); };
+    ov.addEventListener('click', kill, true);
+    setTimeout(function () { ov.removeEventListener('click', kill, true); }, 0);
+    if (!d.over) return;
+    var kind = d.over.getAttribute('data-ptdrop');
+    if (kind === 'team') window.ptFr21DropOnTeam(d.rid, d.over.getAttribute('data-gid'));
+    else if (kind === 'pool') window.ptFr21DropOnPool(d.rid);
+  };
+  ov.addEventListener('pointerup', finish);
+  ov.addEventListener('pointercancel', finish);
+};
+
+/* ⭐ A DROP IS THE SAME ASSIGNMENT A TAP MAKES. Rather than reimplement either
+   mode, set st.pick and hand off to ptFr21TapTeam — so round mode stays LOCAL
+   (cfg.rteams, written on Done) and event mode still POSTs to the groups API.
+   Save semantics are therefore identical to tap, by construction.
+   ⭐ Number() keeps NEGATIVE synthetic round-team ids intact. */
+window.ptFr21DropOnTeam = function (rid, gid) {
+  var st = window._ptFr21; if (!st) return;
+  var g = Number(gid);
+  if (st.placed[String(rid)] === g) { st.pick = null; window.ptFr21AssignRender(); return; }  // already there
+  st.pick = rid;
+  window.ptFr21TapTeam(g);
+};
+
+/* Drop on the pool = take the player back off. */
+window.ptFr21DropOnPool = function (rid) {
+  var st = window._ptFr21; if (!st) return;
+  var gid = st.placed[String(rid)];
+  if (gid == null) { st.pick = null; window.ptFr21AssignRender(); return; }   // already unassigned
+  if (st.rt) {
+    /* Round mode is local until Done — exactly like the tap path. */
+    delete st.placed[String(rid)];
+    st.pick = null;
+    window.ptFr21AssignRender();
+    return;
+  }
+  /* Event mode assigns straight through, so it must un-assign the same way.
+     ⭐ DELETE /api/groups/:gid/roster/:rid (worker 2007). Its path regex is
+     \\d+ only — which is exactly right, because negative ids are synthetic
+     ROUND team ids and never reach the API. */
+  fetch(TOUR_API + '/api/groups/' + gid + '/roster/' + rid, {
+    method: 'DELETE', headers: { 'Authorization': 'Bearer ' + G.orgToken }
+  }).then(_ptJson).then(_ptThrow).then(function () {
+    delete st.placed[String(rid)];
+    st.pick = null;
+    window.ptFr21AssignRender();
+  }).catch(function (e) { ptToast('Could not take that player off — ' + _ptMsg(e, 'try again')); });
 };
 window.ptFr21TapPlayer = function (rid) {
   var st = window._ptFr21; if (!st) return;
@@ -39346,6 +39621,13 @@ window.ptFr21TapTeam = function (gid) {
   var st = window._ptFr21; if (!st) return;
   if (st.pick == null) { ptToast('Tap a player first, then the team.'); return; }
   var rid = st.pick, m = null;
+  /* ⭐ FR-33 §1 — per-round teams live in cfg.rteams, so a tap is a LOCAL move
+     and nothing is persisted until Done. The event groups are never touched. */
+  if (st.rt) {
+    st.placed[String(rid)] = gid; st.pick = null;
+    window.ptFr21AssignRender();
+    return;
+  }
   st.pool.forEach(function (p) { if (p.roster_id === rid) m = p; });
   fetch(TOUR_API + '/api/groups/' + gid + '/roster', {
     method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
@@ -39397,6 +39679,14 @@ window.ptFr21DoRenameTeam = function (gid, idx) {
   /* Blank is not an error — it means "put it back to the default". A team row
      with an empty name is unreadable on a tee sheet. */
   var name = ((inp && inp.value) || '').trim() || ('Team ' + (idx + 1));
+  /* ⭐ FR-33 §1 — rename a per-round team in place; Done persists it. */
+  if (st.rt) {
+    st.groups.forEach(function (g) { if (String(g.id) === String(gid)) g.name = name; });
+    var _o = document.getElementById('ptFr21RenOv'); if (_o) _o.remove();
+    ptToast('✓ Renamed to ' + name);
+    window.ptFr21AssignRender();
+    return;
+  }
   if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
   fetch(TOUR_API + '/api/groups/' + gid, {
     method: 'PATCH',
@@ -39421,6 +39711,16 @@ window.ptFr21DoRenameTeam = function (gid, idx) {
 window.ptFr21NewTeam = function () {
   var st = window._ptFr21; if (!st) return;
   var n = st.groups.length + 1;
+  /* ⭐ FR-33 §1 — a per-round team is a config row, not a groups row. The id is
+     a NEGATIVE INTEGER so it stays a valid bare onclick argument and can never
+     collide with a real (positive) group id. */
+  if (st.rt) {
+    var _neg = -1;
+    st.groups.forEach(function (g) { if (typeof g.id === 'number' && g.id <= _neg) _neg = g.id - 1; });
+    st.groups.push({ id: _neg, name: 'Team ' + n, players: [] });
+    window.ptFr21AssignRender();
+    return;
+  }
   fetch(TOUR_API + '/api/events/' + st.eid + '/groups', {
     method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
     body: JSON.stringify({ name: 'Team ' + n, start_hole: 1, bypass_hole_limit: true })
@@ -39438,10 +39738,27 @@ window.ptFr21BackToPick = function () {
   window.ptFr21PickRender();
 };
 window.ptFr21Done = function () {
+window.ptFr21Done = function () {
   var st = window._ptFr21;
+  /* ⭐ FR-33 §1 — THIS is where a per-round set is written. One save, whole
+     list, via ptRTeamsSave's read-merge-write (other rounds survive). */
+  if (st && st.rt) {
+    var _teams = st.groups.map(function (g) {
+      return { id: g.id, name: g.name,
+               players: st.pool.filter(function (p) { return st.placed[String(p.roster_id)] === g.id; })
+                               .map(function (p) { return p.roster_id; }) };
+    });
+    window.ptRTeamsSave(st.eid, st.rt.roundId, _teams).then(function () {
+      var _o2 = document.getElementById('ptFr21Ov'); if (_o2) _o2.remove();
+      window._ptFr21 = null;
+      var _left = st.pool.filter(function (p) { return st.placed[String(p.roster_id)] == null; }).length;
+      ptToast(_left ? ('Saved — ' + _left + ' player' + (_left > 1 ? 's' : '') + ' not on a team.') : 'Round teams saved.');
+      if (document.getElementById('ptMROv')) { try { ptMRRefresh(); } catch (_e3) {} }
+    }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not save the round teams')); });
+    return;
+  }
   var o = document.getElementById('ptFr21Ov'); if (o) o.remove();
   window._ptFr21 = null;
-  if (st) {
     var left = st.pool.filter(function (p) { return !st.placed[String(p.roster_id)]; }).length;
     ptToast(left ? ('Done — ' + left + ' picked player' + (left > 1 ? 's' : '') + ' never got a team.') : 'Teams updated.');
     loadOrgEventDetail(st.eid);
@@ -42392,6 +42709,7 @@ window.ptMRRefresh = function () {
     if (res[0] && res[0].event) _ptMR.ev = res[0].event;
     _ptMR.groups = (res[0] && res[0].groups) || [];
     var rs = (res[1] && res[1].rounds) || [];
+    _ptMR.rounds = rs;               // FR-33 §1 — copy-forward needs the siblings
     for (var i = 0; i < rs.length; i++) {
       if (String(rs[i].id) === String(rid)) { _ptMR.round = rs[i]; break; }
     }
@@ -42437,7 +42755,13 @@ function _ptMRState() {
   return {
     cfg: cfg, games: games, nGames: games.length,
     field: field, nPlayers: nPlayers,
-    nTeams: (_ptMR.groups || []).length,
+    /* ⭐ FR-33 §1 — the ROUND's teams, which ARE the event teams until this
+       round is given its own set. One source, so the header chip, ST[1] and
+       the section body can never disagree. */
+    nTeams: (function () {
+      try { return (window.ptRoundTeams(cfg, r, _ptMR.groups || []) || []).length; }
+      catch (e) { return (_ptMR.groups || []).length; }
+    })(),
     tee: teeN > 0 || (r.field_players || 0) > 0, teeN: teeN, teePl: teePl,
     scores: ((r.scoring_players || 0) + (r.complete_players || 0)) > 0,
     locked: r.status === 'locked',
@@ -42603,6 +42927,32 @@ window.ptMRJump = function (n) {
 };
 
 /* Leave for the event console with one of ITS sections forced open. */
+/* ⭐ FR-33 §1 — one-tap copy-forward. "Round 1" is the LOWEST round_number in
+   the event, not index 0 of whatever order the API returned. Copying reads
+   round 1's EFFECTIVE teams (its own set if it has one, otherwise the event
+   teams), so the button means the same thing in both states. */
+window.ptMRCopyTeamsFwd = function (eventId, roundId) {
+  var cfg = {};
+  try { cfg = ptEvCfg(_ptMR.ev || {}); } catch (e) { cfg = {}; }
+  var rounds = (_ptMR.rounds || []).slice().sort(function (a, b) { return (a.round_number || 0) - (b.round_number || 0); });
+  var r1 = rounds[0];
+  if (!r1) { ptToast('No first round to copy from.'); return; }
+  if (String(r1.id) === String(roundId)) { ptToast('This IS Round 1.'); return; }
+  var teams = window.ptRoundTeams(cfg, r1, _ptMR.groups || []) || [];
+  if (!teams.length) { ptToast('Round ' + (r1.round_number || 1) + ' has no teams to copy.'); return; }
+  window.ptRTeamsSave(eventId, roundId, teams).then(function () {
+    ptToast('Copied ' + teams.length + ' team' + (teams.length === 1 ? '' : 's') + ' from Round ' + (r1.round_number || 1) + '.');
+    ptMRRefresh();
+  }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not copy the teams')); });
+};
+/* Drop this round's own set — an empty list DELETES the cfg.rteams row, which
+   restores "inherit the event teams" exactly. */
+window.ptMRResetTeams = function (eventId, roundId) {
+  window.ptRTeamsSave(eventId, roundId, []).then(function () {
+    ptToast('Back to the event teams.');
+    ptMRRefresh();
+  }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not reset the teams')); });
+};
 window.ptMRGoEvent = function (key) {
   try { (G._ptEvSec = G._ptEvSec || {})[_ptMR.eventId + ':' + key] = true; } catch (e) {}
   ptMRExit();
@@ -42683,11 +43033,29 @@ function _ptMRPaint() {
   // ── PRE-GAME ──────────────────────────────────────────────────────────
   h += _ptMRGroup('Pre-Game');
 
-  // 1 · Players & Teams — read-only + jump (per-round teams land in v448)
+  // 1 · Players & Teams — FR-33 §1: SEE AND SET per-round teams. Storage is
+  //     cfg.rteams[roundId]; absent key = the event teams, unchanged.
+  var _mrTeams = [], _mrOwn = false;
+  try { _mrTeams = window.ptRoundTeams(st.cfg, r, _ptMR.groups || []) || []; } catch (e1) { _mrTeams = _ptMR.groups || []; }
+  try { _mrOwn = window.ptRTeamsHas(st.cfg, r.id); } catch (e1b) { _mrOwn = false; }
   var b1 = '<div style="font-size:12.5px;color:rgba(255,255,255,.6);margin-bottom:9px">'
     + st.nPlayers + ' player' + (st.nPlayers === 1 ? '' : 's')
-    + (st.indiv ? '' : ' · ' + st.nTeams + ' team' + (st.nTeams === 1 ? '' : 's')) + ' in the field.</div>';
-  if (st.field.length) {
+    + (st.indiv ? '' : ' · ' + _mrTeams.length + ' team' + (_mrTeams.length === 1 ? '' : 's'))
+    + ' in the field.'
+    + (st.indiv ? '' : ' <span style="color:' + (_mrOwn ? '#f5d97a' : 'rgba(255,255,255,.35)') + ';font-weight:800">'
+        + (_mrOwn ? 'Own teams this round' : 'Same teams as the event') + '</span>')
+    + '</div>';
+  if (!st.indiv && _mrTeams.length) {
+    b1 += '<div style="max-height:240px;overflow-y:auto;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:9px 11px;margin-bottom:9px">'
+      + _mrTeams.map(function (t) {
+          return '<div style="padding:3px 0"><div style="font-size:12px;font-weight:800;color:rgba(245,217,122,.85)">' + _ptEsc(t.name || '—')
+            + ' <span style="font-weight:600;color:rgba(255,255,255,.3)">' + ((t.players || []).length) + '</span></div>'
+            + '<div style="font-size:11.5px;color:rgba(255,255,255,.5)">'
+            + ((t.players || []).map(function (p) { return _ptEsc(p.name || ''); }).join(' · ') || 'empty')
+            + '</div></div>';
+        }).join('')
+      + '</div>';
+  } else if (st.field.length) {
     b1 += '<div style="max-height:220px;overflow-y:auto;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:9px 11px;margin-bottom:9px">'
       + st.field.map(function (p) {
           return '<div style="font-size:12px;color:rgba(255,255,255,.6);padding:2px 0">🏌️ ' + _ptEsc(p.name || '')
@@ -42698,7 +43066,27 @@ function _ptMRPaint() {
   } else {
     b1 += '<div style="font-size:12.5px;color:rgba(255,255,255,.3);padding:4px 0 10px">No players in this field yet.</div>';
   }
-  b1 += _ptMRNote('The field is event-wide today. Per-round teams with one-tap copy-forward land in v448.');
+  /* ⭐⭐ THE HONEST LINE. See-and-set: a round can carry its own teams for
+     planning and display, but tee times, score cards and skins still key on
+     group_id and still come off the EVENT teams. Say it in both states, name
+     no version, promise nothing (B-99). */
+  b1 += _ptMRNote(st.indiv
+    ? 'This event plays individually — the field is event-wide.'
+    : (_mrOwn
+        ? 'This round has its own teams. Tee sheets and scorecards still use the event teams.'
+        : 'This round uses the event teams. Tee sheets and scorecards still use the event teams.'));
+  if (!st.indiv && st.nPlayers > 0) {
+    b1 += _ptMRBtn('ptFr21OpenRTeams(' + _ptMR.eventId + ',' + r.id + ',' + JSON.stringify('Round ' + (r.round_number || 1)).replace(/"/g, '&quot;') + ')',
+                   '🤝 Set this round&rsquo;s teams…', '#f5d97a', 'rgba(245,217,122,.1)', 'rgba(245,217,122,.32)');
+    if ((r.round_number || 1) > 1) {
+      b1 += _ptMRBtn('ptMRCopyTeamsFwd(' + _ptMR.eventId + ',' + r.id + ')',
+                     '📄 Same teams as Round 1', 'rgba(255,255,255,.7)', 'rgba(255,255,255,.05)', 'rgba(255,255,255,.16)');
+    }
+    if (_mrOwn) {
+      b1 += _ptMRBtn('ptMRResetTeams(' + _ptMR.eventId + ',' + r.id + ')',
+                     '↩️ Back to the event teams', 'rgba(255,255,255,.55)', 'rgba(255,255,255,.04)', 'rgba(255,255,255,.14)');
+    }
+  }
   b1 += _ptMRBtn('ptMRGoEvent(\'teams\')', '👥 Open Players &amp; Teams on the event page',
                  '#c9a84c', 'rgba(201,168,76,.1)', 'rgba(201,168,76,.32)');
   h += _ptMRSec(1, '👥 Players &amp; Teams', ST[1], b1);
@@ -44301,7 +44689,9 @@ function ptEditRound(eventId, round, evObj) {
   // extra — so the rows get ONE more optgroup, built by the SAME spine call
   // the Ranks-by set uses (ppt:1, short labels). Individual events keep the
   // Ranks-by set alone (no teams to offer).
-  var _rgInd = '<optgroup label="Individual — side games">' + window._ptFmtFor('event', { ppt: 1, long: false }).map(function(f){ return '<option value="' + f[0] + '">' + f[1] + '</option>'; }).join('') + '</optgroup>';
+  // ⭐ FR-32 (v449.0): .filter drops the gameless row — "Also playing: no
+  // games" is a contradiction. It stays offerable as a PRIMARY format above.
+  var _rgInd = '<optgroup label="Individual — side games">' + window._ptFmtFor('event', { ppt: 1, long: false }).filter(function(f){ return f[0] !== ''; }).map(function(f){ return '<option value="' + f[0] + '">' + f[1] + '</option>'; }).join('') + '</optgroup>';
   window._ptEditRnd.rgOpts = _indE ? _rbOpts : (formatOpts + _xopts + _rgInd);
   window._ptEditRnd.rgames = window._ptRGames(_cfgE, round);
   window._ptEditRnd.rgames0 = JSON.stringify(window._ptEditRnd.rgames);
@@ -55152,7 +55542,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v448.0';
+    const TOUR_VERSION     = 'pards-tour-v450.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
