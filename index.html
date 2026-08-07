@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v462.0 -->
+  <!-- pards-tour-v463.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -43205,6 +43205,30 @@ window.ptMRExit = function () {
   }
 };
 
+/* ⭐ s131 — FR-33 left a gap: Delete Round was reachable ONLY from inside the
+   format sheet (ptEditRound), four taps from the card you made the mistake on.
+   FR-33 deliberately cut Duplicate Round from scope but never re-homed Delete.
+   This exits through ptMRExit — NOT by removing ptMROv directly — so the
+   launcher hidden on open (the trip game-day overlay, per the z560 note) is
+   always restored. Removing the overlay by hand would strand it hidden. */
+window._ptRoundDelete = function (evId, roundId, n, onDone) {
+  if (!roundId) { ptToast('No round to delete.'); return; }
+  if (!confirm('Delete Round ' + n + ' and all of its scores?\n\nThis cannot be undone.')) return;
+  fetch(TOUR_API + '/api/rounds/' + roundId, {
+    method: 'DELETE', headers: { 'Authorization': 'Bearer ' + G.orgToken }
+  }).then(_ptJson).catch(_ptNetErr)
+  .then(function (d) {
+    if (d && d.ok) {
+      ptToast('Round ' + n + ' deleted.');
+      if (onDone) onDone(); else if (typeof loadOrgEventDetail === 'function') loadOrgEventDetail(evId);
+    } else { ptToast('Could not delete the round \u2014 ' + ((d && d.error) || 'unknown error.')); }
+  });
+};
+window.ptMRDeleteRound = function () {
+  var r = _ptMR.round || {};
+  window._ptRoundDelete(_ptMR.eventId, r.id, (r.round_number != null ? r.round_number : ''), ptMRExit);
+};
+
 /* Re-read event + rounds + this round's tee sheet, then repaint header, chips
    and whichever section bodies are open. Called on EVERY accordion toggle —
    lazy bodies make that nearly free — and once more from the tail of
@@ -43824,6 +43848,15 @@ var _mrRoll = function(ns){ var d=0; for (var i=0;i<ns.length;i++) if (ST[ns[i]]
   h += _ptMRSec(13, '💰 Settle Games &amp; Allocate Monies', ST[13], b13);
 
   h += _PT_MR_GCLOSE;
+
+  /* ADMIN — same shape and same quiet weight as the event console's own admin
+     block, so "destructive lives at the bottom" means one thing in this app. */
+  h += '<div id="ptMRAdmin" style="margin-top:18px;border-top:1px solid rgba(255,255,255,.07);padding-top:14px">'
+     + '<div style="font-size:10px;font-weight:800;letter-spacing:1.2px;color:rgba(255,255,255,.28);margin-bottom:8px">ADMIN</div>'
+     + '<button onclick="ptMRDeleteRound()" style="width:100%;padding:11px;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.28);border-radius:10px;color:rgba(231,76,60,.85);font-size:12.5px;font-weight:800;cursor:pointer">\ud83d\uddd1 Delete Round' + (r.round_number != null ? ' ' + r.round_number : '') + '</button>'
+     + '<div style="font-size:10.5px;color:rgba(255,255,255,.3);margin-top:7px;line-height:1.5">Removes this round, its scores and its money rows. The event and its other rounds are untouched.</div>'
+     + '</div>';
+
   body.innerHTML = h;
 }
 
@@ -43916,6 +43949,12 @@ function ptRenderRounds(ev, rounds) {
       if (ev.event_code) h += '<button title="TV leaderboard link" onclick="ptTvShowLink('+JSON.stringify(String(ev.event_code)).replace(/"/g,'&quot;')+','+JSON.stringify(String(ev.name||'')+' — Round '+r.round_number).replace(/"/g,'&quot;')+','+r.round_number+')" style="flex:1;padding:7px 9px;background:rgba(100,180,255,.08);border:1px solid rgba(100,180,255,.3);border-radius:9px;color:rgba(100,180,255,.9);font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap">📺 TV</button>';
       h += '<button title="Round leaderboard" onclick="ptViewOpenRound('+ev.id+','+JSON.stringify(r).replace(/"/g,'&quot;')+')" style="flex:1;padding:7px 9px;background:rgba(245,217,122,.08);border:1px solid rgba(245,217,122,.3);border-radius:9px;color:#f5d97a;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap">🏆 Board</button>';
       h += '</div>';
+      /* ⭐ s131 (Bruce): delete belongs where the mistake is visible. It was
+         four taps deep inside the format sheet. Same _ptRoundDelete the Manage
+         page calls — one implementation, two doors, the FR-33b rule. Kept
+         deliberately quiet: it sits below the two controls used in live play,
+         and it is the only red thing on the card. */
+      h += '<button title="Delete this round" onclick="window._ptRoundDelete('+ev.id+','+r.id+','+JSON.stringify(String(r.round_number != null ? r.round_number : '')).replace(/"/g,'&quot;')+')" style="margin-top:1px;padding:6px 9px;background:none;border:1px solid rgba(231,76,60,.3);border-radius:9px;color:rgba(231,76,60,.75);font-size:10.5px;font-weight:800;cursor:pointer;white-space:nowrap">\ud83d\uddd1 Delete</button>';
       h += '</div>';
       h += '</div>';
       var _mrInd = false; try { _mrInd = ptIsIndividualEvent(ptEvCfg(ev)); } catch (_mrE1) {}
@@ -56154,7 +56193,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v462.0';
+    const TOUR_VERSION     = 'pards-tour-v463.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
