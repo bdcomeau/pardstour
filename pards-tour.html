@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v457.0 -->
+  <!-- pards-tour-v458.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -38818,6 +38818,51 @@ function ptMoneyFmt(cents) {
   var n = (cents || 0) / 100;
   return '$' + (n === Math.floor(n) ? String(n) : n.toFixed(2));
 }
+// ⭐ D89 (Bruce, s128) — WHOLE DOLLARS, AND THE HAT BALANCES.
+// Nobody in a clubhouse carries pennies, so what a man is handed shows as a
+// whole dollar. But §Settle is not a report — it is an instruction to hand
+// out cash from a hat holding a finite amount. Twelve men ante $20, $240 goes
+// in; a column saying hand out $243 is three dollars that do not exist.
+// So the whole-dollar column ALWAYS sums to what went in.
+function ptMoneyFmtWhole(cents) { return '$' + Math.round((cents || 0) / 100); }
+// ⭐ THE ONE ROUNDER. Floors each exact figure to dollars and hands the
+// leftover dollars to the biggest remainders — which is precisely what
+// ptPotApportion already does for cents, so it CALLS ptPotApportion rather
+// than restating the rule. One money-splitting implementation in this file,
+// still, exactly as v456.0 set out to guarantee.
+// ⭐ Men who finished level come out equal whenever the dollars divide between
+// them; when they do not they land $1 apart and ptMoneyRoundSplits names them.
+// Returns cents, always whole-dollar multiples, always summing to the input
+// total rounded to the nearest dollar.
+function ptMoneyWholeArr(centsArr) {
+  var arr = centsArr || [], tot = 0, w = {}, i;
+  for (i = 0; i < arr.length; i++) { var c = Number(arr[i]) || 0; tot += c; if (c > 0) w[String(i)] = c; }
+  var target = Math.round(tot / 100);
+  if (!(target > 0)) return arr.map(function () { return 0; });
+  var d = ptPotApportion(target, w);
+  return arr.map(function (_x, ix) { return (d[String(ix)] || 0) * 100; });
+}
+// ⭐ The one case D89 cannot make pretty: men who finished level are handed
+// different dollars, because one odd dollar would not divide between them.
+// ⭐ This CANNOT key off equal cents. ptPotApportion may already have split
+// genuinely tied men by a single cent in order to conserve the pot — three men
+// tied on a $1 slice arrive here holding 34/33/33, not 33/33/33 — so an
+// equality test would stay silent on exactly the case it exists to announce.
+// The test is therefore the GAP: men who were within a dollar of each other
+// and are being handed different dollars. That also catches the near-miss,
+// which is the same complaint from the same man on the same night.
+function ptMoneyRoundSplits(rows) {
+  var r = (rows || []).filter(function (x) { return x.cents > 0; })
+    .slice().sort(function (a, b) { return b.cents - a.cents; });
+  var out = [];
+  for (var i = 1; i < r.length; i++) {
+    var a = r[i - 1], b = r[i];
+    if ((a.cents - b.cents) < 100 && a.whole !== b.whole) {
+      out.push(a.name + ' ' + ptMoneyFmtWhole(a.whole) + ' / ' + b.name + ' ' + ptMoneyFmtWhole(b.whole));
+    }
+  }
+  return out;
+}
 
 // ── FR-20 step 1 (s112) — MULTIPLE RANKED GAMES PER EVENT ROUND ────────────
 // cfg.rgames[String(round.id)] = { list: [...] }, mirroring the trips-side
@@ -40158,6 +40203,7 @@ window.ptFr17GamesHtml = function (evCfg, round, players, byP, teamRows, groups)
       ranks[i] = (i > 0 && sorted[i - 1].total === t.total && sorted[i - 1].holesCounted === t.holesCounted) ? ranks[i - 1] : i + 1;
     });
     var pay = window.ptPotPayRanks(ranks, potCents, places);   // FR-27 (v457.0)
+    var payW = ptMoneyWholeArr(pay);   // D89 — whole dollars, slice preserved to the dollar
     var nAt = {}; ranks.forEach(function (r) { nAt[r] = (nAt[r] || 0) + 1; });
     var lbl = tp.ccc ? ptCccLabel(gf) : ptXofNLabel(gf);
     var bh = '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 12px;margin-bottom:8px">';
@@ -40169,7 +40215,7 @@ window.ptFr17GamesHtml = function (evCfg, round, players, byP, teamRows, groups)
       bh += '<div style="display:flex;align-items:center;padding:4px 0;font-size:12.5px">'
         + '<div style="flex:1;font-weight:' + (isW ? '800' : '600') + ';color:' + (isW ? '#f0f0f0' : 'rgba(255,255,255,.55)') + '">' + medal + ' ' + _ptEsc(t.name) + '</div>'
         + '<div style="font-weight:800;color:' + (isW ? '#a8d5b5' : 'rgba(255,255,255,.45)') + '">' + t.total + '</div>'
-        + (pay[i] > 0 ? '<div style="margin-left:10px;font-size:11px;font-weight:800;color:#a8d5b5">' + (nAt[ranks[i]] > 1 ? 'shares ' : ranks[i] === 1 ? 'wins ' : 'takes ') + ptMoneyFmt(pay[i]) + '</div>' : '')
+        + (pay[i] > 0 ? '<div style="margin-left:10px;font-size:11px;font-weight:800;color:#a8d5b5">' + (nAt[ranks[i]] > 1 ? 'shares ' : ranks[i] === 1 ? 'wins ' : 'takes ') + ptMoneyFmtWhole(payW[i]) + '</div>' : '')
         + '</div>';
     });
     bh += '</div>';
@@ -40211,6 +40257,7 @@ window.ptFr17GamesHtml = function (evCfg, round, players, byP, teamRows, groups)
         irows.forEach(function (t, i) { irk[i] = (i > 0 && irows[i - 1].total === t.total && irows[i - 1].holes === t.holes) ? irk[i - 1] : i + 1; });
         var _ipl = (potChk && potChk.ok) ? ptPotPlaces(potCfg, _gkey) : [100];       // FR-27 (v457.0)
         var _ipay = window.ptPotPayRanks(irk, _ipc, _ipl);
+        var _ipayW = ptMoneyWholeArr(_ipay);   // D89 — whole dollars, slice preserved to the dollar
         var _inAt = {}; irk.forEach(function (r) { _inAt[r] = (_inAt[r] || 0) + 1; });
         out += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 12px;margin-bottom:8px">';
         out += '<div style="display:flex;align-items:center;margin-bottom:6px"><div style="font-size:12px;font-weight:800;color:#a8d5b5">🏆 ' + _ptEsc(window._ptFmtLabel(gf, true) || gf) + '</div>'
@@ -40221,7 +40268,7 @@ window.ptFr17GamesHtml = function (evCfg, round, players, byP, teamRows, groups)
           out += '<div style="display:flex;align-items:center;padding:4px 0;font-size:12.5px">'
             + '<div style="flex:1;font-weight:' + (isW ? '800' : '600') + ';color:' + (isW ? '#f0f0f0' : 'rgba(255,255,255,.55)') + '">' + medal + ' ' + _ptEsc(t.name) + '</div>'
             + '<div style="font-weight:800;color:' + (isW ? '#a8d5b5' : 'rgba(255,255,255,.45)') + '">' + t.total + '</div>'
-            + (_ipay[i] > 0 ? '<div style="margin-left:10px;font-size:11px;font-weight:800;color:#a8d5b5">' + (_inAt[irk[i]] > 1 ? 'shares ' : irk[i] === 1 ? 'wins ' : 'takes ') + ptMoneyFmt(_ipay[i]) + '</div>' : '')
+            + (_ipay[i] > 0 ? '<div style="margin-left:10px;font-size:11px;font-weight:800;color:#a8d5b5">' + (_inAt[irk[i]] > 1 ? 'shares ' : irk[i] === 1 ? 'wins ' : 'takes ') + ptMoneyFmtWhole(_ipayW[i]) + '</div>' : '')
             + '</div>';
         });
         out += '</div>';
@@ -40574,24 +40621,42 @@ window.ptPotOwedHtml = function (ctx) {
   var rows = Object.keys(acc).map(function (n) { return { name: n, cents: Math.round(acc[n]) }; })
     .filter(function (r) { return r.cents > 0; })
     .sort(function (a, b) { return b.cents - a.cents || a.name.localeCompare(b.name); });
+  // ⭐ D89 — one pass, and the column is guaranteed to add up to the pot.
+  var _wh = ptMoneyWholeArr(rows.map(function (r) { return r.cents; }));
+  rows.forEach(function (r, i) { r.whole = _wh[i] || 0; });
   var h = '<div style="background:rgba(168,213,181,.07);border:1px solid rgba(168,213,181,.25);border-radius:12px;padding:14px;margin-bottom:14px">'
     + '<div style="font-size:11px;font-weight:700;color:#a8d5b5;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Hand these out</div>';
   if (!rows.length) {
     h += '<div style="font-size:12.5px;color:rgba(255,255,255,.4);padding:6px 0">Nothing is owed on this round yet — no pot is balanced and no skins have been won.</div>';
   } else {
-    var tot = 0; rows.forEach(function (r) { tot += r.cents; });
+    var tot = 0, totW = 0, anyZero = false;
+    rows.forEach(function (r) { tot += r.cents; totW += r.whole; if (!(r.whole > 0)) anyZero = true; });
     rows.forEach(function (r) {
       h += '<div style="display:flex;align-items:center;padding:6px 0;border-top:1px solid rgba(255,255,255,.06)">'
         + '<div style="flex:1;font-size:14px;font-weight:700;color:#f0f0f0">' + _ptEsc(r.name) + '</div>'
-        + '<div style="font-size:16px;font-weight:900;color:#a8d5b5">' + ptMoneyFmt(r.cents) + '</div>'
+        + '<div style="font-size:16px;font-weight:900;color:' + (r.whole > 0 ? '#a8d5b5' : 'rgba(255,255,255,.35)') + '">' + (r.whole > 0 ? ptMoneyFmtWhole(r.whole) : '\u2014') + '</div>'
         + '</div>';
     });
     h += '<div style="display:flex;align-items:center;padding:9px 0 0;margin-top:6px;border-top:1px solid rgba(255,255,255,.14)">'
       + '<div style="flex:1;font-size:11px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.5px">Total paid out</div>'
-      + '<div style="font-size:13px;font-weight:900;color:#f5d97a">' + ptMoneyFmt(tot) + '</div>'
+      + '<div style="font-size:13px;font-weight:900;color:#f5d97a">' + ptMoneyFmtWhole(totW) + '</div>'
       + '</div>';
+    // ⭐ D89 — the odd dollar that would not divide. Named, never silent.
+    var _ties = ptMoneyRoundSplits(rows);
+    if (_ties.length) {
+      h += '<div style="font-size:10.5px;color:#e8a33d;margin-top:6px;line-height:1.5">Level to within a dollar, and the odd dollar would not divide — ' + _ptEsc(_ties.join('; ')) + '. Sort it between yourselves.</div>';
+    }
+    if (anyZero) {
+      h += '<div style="font-size:10.5px;color:rgba(255,255,255,.35);margin-top:4px">A dash is a man owed less than half a dollar once the pot was squared off — nothing to hand over.</div>';
+    }
+    // ⭐ Defensive: by construction this cannot fire. If it ever does, the
+    // apportioner has been changed and the hat no longer balances — which is
+    // exactly the thing D89 exists to prevent, so it must be LOUD.
+    if (Math.round(totW / 100) !== Math.round(tot / 100)) {
+      h += '<div style="font-size:11px;font-weight:700;color:#ff6b6b;margin-top:6px">Rounding does not balance against the pot (' + ptMoneyFmt(tot) + ' in, ' + ptMoneyFmtWhole(totW) + ' out). Do not pay from this screen — report it.</div>';
+    }
   }
-  return h + '<div style="font-size:10.5px;color:rgba(255,255,255,.3);margin-top:10px;line-height:1.5">Same figures as the printed Game Results report — they read one engine. Correct a split below if something needs fixing and these follow.</div></div>';
+  return h + '<div style="font-size:10.5px;color:rgba(255,255,255,.3);margin-top:10px;line-height:1.5">Same figures as the printed Game Results report — they read one engine. Paid in whole dollars, and the column always adds up to what went into the hat. Correct a split below if something needs fixing and these follow.</div></div>';
 };
 window.ptPotRender = function (pot, field, round) {
   var b = document.getElementById('ptPotBody'); if (!b) return;
@@ -56039,7 +56104,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v457.0';
+    const TOUR_VERSION     = 'pards-tour-v458.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
