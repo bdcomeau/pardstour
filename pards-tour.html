@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v473.0 -->
+  <!-- pards-tour-v474.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -44223,7 +44223,18 @@ function ptRenderRounds(ev, rounds) {
   // event can still be configured before its first round exists.
   // ⭐ MMG stays out: its rounds UI is replaced wholesale above and it carries
   // its own standings and tie-break chain (config.mmg_tiebreak).
-  if (ev.format !== 'mmg' && (ev.format === 'multi_day' || rounds.length > 0)) {
+  // ⭐ v474.0 (FR-43, Bruce s135) — these two are TRUE DUPLICATES of the round
+  // Manage sheet's own copies: it calls ptOpenScoringSettings(eventId) and
+  // ptOpenTickerSettings(eventId) with the SAME single argument, so the two
+  // buttons are byte-identical in effect. They stay here ONLY when there is no
+  // round card to carry them — a multi_day event being configured before its
+  // first round exists (the v247.0 exemption, still load-bearing).
+  // ⛔ The gate is rounds.length, NOT format. The fact that decides this is
+  // "does a round Manage sheet exist"; format is only ever a proxy for it, and
+  // a proxy is what made the v244.1 gate hide a working Print Tee Sheet.
+  // ⛔ A zero-round scramble/RBC never rendered these anyway (the old gate
+  // needed multi_day OR rounds>0, and event 23 is neither) — unchanged.
+  if (ev.format !== 'mmg' && ev.format === 'multi_day' && rounds.length === 0) {
     hr += '<button onclick="ptOpenScoringSettings('+ev.id+')" style="width:100%;margin-top:12px;padding:10px;background:rgba(201,168,76,.08);border:1.5px solid rgba(201,168,76,.3);border-radius:9px;color:#c9a84c;font-size:12px;font-weight:800;cursor:pointer">\u2699\ufe0f Scoring & Flights</button>';
     // v393.0 (D40) — the D13 ticker, promoted out of Scoring & Flights.
     hr += '<button onclick="ptOpenTickerSettings('+ev.id+')" style="width:100%;margin-top:8px;padding:10px;background:rgba(201,168,76,.08);border:1.5px solid rgba(201,168,76,.3);border-radius:9px;color:#c9a84c;font-size:12px;font-weight:800;cursor:pointer">\ud83d\udcfa Scorecard Ticker</button>';
@@ -44244,11 +44255,13 @@ function ptRenderRounds(ev, rounds) {
       hr += '<button onclick="ptEvExportPlayers('+ev.id+')" style="width:100%;margin-top:6px;padding:9px;background:none;border:1px solid rgba(201,168,76,.18);border-radius:9px;color:rgba(201,168,76,.55);font-size:11px;font-weight:700;cursor:pointer">\u2b07\ufe0f Export Players (CSV)</button>'; // v388.0 D28
     } else {
       hr += '<button onclick="ptOrgRecompute('+ev.id+')" style="width:100%;margin-bottom:6px;padding:9px;background:none;border:1px solid rgba(201,168,76,.22);border-radius:9px;color:rgba(201,168,76,.6);font-size:11px;font-weight:700;cursor:pointer">↻ Recompute Leaderboard</button>';
-      hr += '<div style="display:flex;gap:6px">';
-      hr += '<button onclick="ptShowMultiDayLeaderboard('+ev.id+')" style="flex:1;padding:10px;background:rgba(201,168,76,.12);border:1.5px solid rgba(201,168,76,.35);border-radius:9px;color:#c9a84c;font-size:12px;font-weight:800;cursor:pointer">🏆 Multi-Day Standings</button>';
-      hr += '<button onclick="ptViewOpenOverall('+ev.id+')" style="flex:1;padding:10px;background:rgba(245,217,122,.1);border:1.5px solid rgba(245,217,122,.35);border-radius:9px;color:#f5d97a;font-size:12px;font-weight:800;cursor:pointer">\ud83c\udfc6 Overall Board</button>'; // v396.0 \u00b7 D43 stage 1 overall pill
-      hr += '<button onclick="ptShowReportsMenu('+ev.id+')" style="flex:1;padding:10px;background:rgba(168,213,181,.08);border:1.5px solid rgba(168,213,181,.22);border-radius:9px;color:#a8d5b5;font-size:12px;font-weight:800;cursor:pointer">📊 Reports</button>';
-      hr += '</div>';
+      // ⭐ v474.0 (FR-43) — three event-level buttons folded behind ONE entry.
+      // ⛔ NOT deleted: none of them has a round-card equivalent. Multi-Day
+      // Standings and Overall Board are across-rounds by definition, and
+      // ptShowReportsMenu carries ptPrintMdOverallReport + ptPrintTeamOverallReport
+      // which exist NOWHERE else (the Manage sheet has the other five). Deleting
+      // this row would have silently lost both overall reports.
+      hr += '<button onclick="ptEvOverallSheet('+ev.id+')" style="width:100%;padding:11px;background:rgba(245,217,122,.1);border:1.5px solid rgba(245,217,122,.35);border-radius:9px;color:#f5d97a;font-size:12.5px;font-weight:800;cursor:pointer">\ud83c\udfc6 Overall — standings, board &amp; reports</button>';
       hr += '<button onclick="ptEvExportPlayers('+ev.id+')" style="width:100%;margin-top:6px;padding:9px;background:none;border:1px solid rgba(201,168,76,.18);border-radius:9px;color:rgba(201,168,76,.55);font-size:11px;font-weight:700;cursor:pointer">\u2b07\ufe0f Export Players (CSV)</button>'; // v388.0 D28
     }
     hr += '</div>';
@@ -45925,6 +45938,39 @@ function ptEdMmgSetTb(eventId, v) {
 
 
 // ── Multi-Day Reports ─────────────────────────────────────────────────────────
+
+// ⭐ v474.0 (FR-43, Bruce s135) — THE EVENT-LEVEL CHOOSER.
+// The event console's RESULTS hub had eight buttons, most of which the round
+// Manage sheet already carried. The two real duplicates were deleted; these
+// three are NOT duplicates — they are the things that span rounds and so can
+// never live on a round card — and they are folded behind one entry instead.
+// ⛔ Existing handlers, called with the same arguments. No new behaviour here:
+// if this sheet ever needs logic of its own, that is the signal it has become
+// a fourth surface rather than a menu.
+function ptEvOverallSheet(eventId) {
+  var ex = document.getElementById('ptEvOverallOv'); if (ex) ex.remove();
+  var ov = document.createElement('div');
+  ov.id = 'ptEvOverallOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.65);display:flex;align-items:flex-end;justify-content:center';
+  ov.onclick = function (e) { if (e.target === ov) ov.remove(); };
+  var close = "document.getElementById('ptEvOverallOv').remove()";
+  var row = function (onclick, icon, label, sub, col, bg, br) {
+    return '<button onclick="' + close + ';' + onclick + '" style="width:100%;margin-bottom:8px;padding:13px 14px;text-align:left;background:' + bg
+      + ';border:1.5px solid ' + br + ';border-radius:12px;color:' + col + ';font-size:14px;font-weight:800;cursor:pointer">'
+      + icon + ' ' + label
+      + '<div style="font-size:11px;font-weight:600;color:rgba(255,255,255,.4);margin-top:3px">' + sub + '</div></button>';
+  };
+  ov.innerHTML = '<div style="background:#1a2e1f;border-radius:18px 18px 0 0;padding:20px 16px 40px;width:100%;max-width:460px;box-shadow:0 -4px 32px rgba(0,0,0,.5)">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">'
+    + '<div style="font-size:17px;font-weight:800;color:#f5d97a">\ud83c\udfc6 Overall</div>'
+    + '<button onclick="' + close + '" style="background:none;border:none;color:rgba(255,255,255,.45);font-size:22px;cursor:pointer;padding:2px 6px">&times;</button></div>'
+    + '<div style="font-size:11.5px;color:rgba(255,255,255,.4);margin-bottom:16px;line-height:1.45">Across every round. Anything for a single round lives on that round\u2019s <b>Manage</b> sheet.</div>'
+    + row('ptShowMultiDayLeaderboard(' + eventId + ')', '\ud83c\udfc6', 'Multi-Day Standings', 'Combined standings across all rounds', '#c9a84c', 'rgba(201,168,76,.12)', 'rgba(201,168,76,.35)')
+    + row('ptViewOpenOverall(' + eventId + ')', '\ud83c\udfc6', 'Overall Board', 'The viewer-facing overall leaderboard', '#f5d97a', 'rgba(245,217,122,.1)', 'rgba(245,217,122,.35)')
+    + row('ptShowReportsMenu(' + eventId + ')', '\ud83d\udcca', 'Reports', 'Overall reports, plus a copy of each round\u2019s', '#a8d5b5', 'rgba(168,213,181,.08)', 'rgba(168,213,181,.22)')
+    + '</div>';
+  document.body.appendChild(ov);
+}
 
 function ptShowReportsMenu(eventId) {
   // Fetch rounds first so we can build per-round report buttons
@@ -56545,7 +56591,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v473.0';
+    const TOUR_VERSION     = 'pards-tour-v474.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
