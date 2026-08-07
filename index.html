@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v470.0 -->
+  <!-- pards-tour-v471.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -41411,10 +41411,36 @@ function ptApplyFold(rows, rounds) {
 // (net/gross) or ptStablefordPts (stableford); a hole CONTRIBUTES only when
 // >= min(count, teamSize) member scores exist on it; the best of those values
 // (lowest net/gross, highest points) sum into the team hole.
+// ⭐ FR-42 (v471.0) — the ALLOWANCE-SCALED course handicap, lifted out of
+// ptXofNHoleVals so the dots and the points are drawn from the same number.
+// D9/D1 make allowance real; dots computed off the raw index would contradict
+// the points sitting in the same cell the moment allowance is not 100%.
+function ptXofNCourseHdcp(courseId, tee, hdcpIndex, pct) {
+  var td = ptResolveCourse(courseId, tee);
+  return Math.round(ptCalcCourseHandicap(hdcpIndex || 0, td.slope, td.rating, td.par) * (pct || 100) / 100);
+}
+// ⭐ FR-42 (v471.0) — the shots a man gets on a hole, as marks Bruce asked for:
+// solid red for strokes RECEIVED, hollow for a plus handicap GIVING one back.
+// ptStrokesOnHole already returns a negative for a plus handicap (its own
+// courseHdcp < 0 branch) — that IS the hollow dot. Nothing new is computed.
+// ⛔ .sdot needs print-color-adjust:exact in the host report or it prints grey.
+function ptFr42Dots(strokes) {
+  var n = Number(strokes) || 0;
+  if (n >= 2) return '<span class="sdot">\u25cf\u25cf</span>';
+  if (n === 1) return '<span class="sdot">\u25cf</span>';
+  if (n <= -2) return '<span class="hdot">\u25cb\u25cb</span>';
+  if (n === -1) return '<span class="hdot">\u25cb</span>';
+  return '';
+}
+// The print CSS both reports share for the new marks. One string, so the two
+// papers cannot drift apart and neither can forget the colour-adjust rule.
+var PT_FR42_CSS = '.sdot{color:#c0392b;font-size:6px;vertical-align:super;letter-spacing:-1.5px;margin-left:1px}'
+  + '.hdot{color:#444;font-size:6px;vertical-align:super;letter-spacing:-1.5px;margin-left:1px}'
+  + '.gsm{color:#8a8a8a;font-size:7.5px;margin-left:2px;font-weight:400}'
+  + '.tlab{color:#4a7a5a;font-size:8.5px;font-weight:600;letter-spacing:.2px}';
 function ptXofNHoleVals(grossByHole, courseId, tee, hdcpIndex, pct) {
   var si = ptGetSI(courseId, tee), pars = ptGetHolePars(courseId, tee);
-  var td = ptResolveCourse(courseId, tee);
-  var chcp = Math.round(ptCalcCourseHandicap(hdcpIndex || 0, td.slope, td.rating, td.par) * (pct || 100) / 100);
+  var chcp = ptXofNCourseHdcp(courseId, tee, hdcpIndex, pct);   // FR-42 — one rule
   var out = {};
   Object.keys(grossByHole).forEach(function(h) {
     var hIdx = parseInt(h) - 1; if (hIdx < 0 || hIdx > 17) return;
@@ -41455,9 +41481,11 @@ function ptBuildMdTeamXofN(eventId, xofnRounds, groups, headers, cfg) {
         var t = teams[k];
         var basePl = window.ptEqRoster(cfg, rr.round.id, t.group_id, t.players, groups);   // FR-18 — engine-boundary filter (pull=exclude, double=append); math below untouched
         var mem = basePl.map(function(pl) {
+          var _hi42 = pl.handicap != null ? Number(pl.handicap) : 0;   // FR-42
           return { roster_id: pl.roster_id, name: pl.name, counted: 0,
+                   chcp: ptXofNCourseHdcp(rr.round.course_id, rr.round.tee, _hi42, pct),   // FR-42 — for the dots
                    vals: ptXofNHoleVals(byPlayer[String(pl.roster_id)] || {}, rr.round.course_id, rr.round.tee,
-                                        pl.handicap != null ? Number(pl.handicap) : 0, pct) };
+                                        _hi42, pct) };
         });
         var perHole = {}, holesCounted = 0, total = 0, thru = 0;
         for (var h = 1; h <= 18; h++) {
@@ -41483,7 +41511,10 @@ function ptBuildMdTeamXofN(eventId, xofnRounds, groups, headers, cfg) {
         if (!holesCounted && !thru) return;                // team never on course this round
         t.rounds[rr.round.round_number] = { total: total, holesCounted: holesCounted, thru: thru, basis: p.basis,
           perHole: perHole,
-          players: mem.map(function(m){ return { roster_id: m.roster_id, name: m.name, counted: m.counted }; }) };
+          // ⭐ FR-42 — vals and chcp ride OUT of the engine. They were computed here
+          // and thrown away; the report re-deriving them would have been a second
+          // implementation of the points that decide the money above them.
+          players: mem.map(function(m){ return { roster_id: m.roster_id, name: m.name, counted: m.counted, vals: m.vals, chcp: m.chcp }; }) };
         t.holesCounted += holesCounted; t.total += total;
       });
     });
@@ -47468,13 +47499,23 @@ function ptPrintXofNRoundReport(eventId, round) {
         + '.left{text-align:left}'
         + '.team{background:#eef5ee;font-weight:800}'
         + '.pl td{color:#555;font-size:10px;border-color:#ddd}'
+        + PT_FR42_CSS
         + '#ptRptBar{position:fixed;top:0;left:0;right:0;background:#1a3a2a;padding:7px 16px;display:flex;align-items:center;justify-content:space-between;z-index:999}'
-        + '@media print{@page{size:letter landscape;margin:8mm}body{padding:0}#ptRptBar{display:none!important}th,.team{-webkit-print-color-adjust:exact;print-color-adjust:exact}tbody{break-inside:avoid}}'
+        + '@media print{@page{size:letter landscape;margin:8mm}body{padding:0}#ptRptBar{display:none!important}th,.team,.sdot,.hdot{-webkit-print-color-adjust:exact;print-color-adjust:exact}tbody{break-inside:avoid}}'
         + '</style></head><body>'
         + '<div id="ptRptBar"><span style="color:#c9a84c;font-weight:800;font-size:13px">' + (ev.name || '') + ' — Round ' + rn + ' · ' + lbl + '</span>'
         + '<button onclick="window.print()" style="background:#c9a84c;color:#1a3a2a;border:none;border-radius:8px;padding:6px 14px;font-weight:900;cursor:pointer">\ud83d\udda8 Print</button></div>'
         + '<h2 style="margin:6px 0 10px;font-size:16px">' + (ev.name || '') + ' — Round ' + rn + ' · ' + lbl + '</h2>'
         + '<table><thead><tr><th class="left" style="width:26px">Pos</th><th class="left" style="min-width:130px">Team / Player</th>' + holeHd + '<th>Holes</th><th>Total</th></tr></thead><tbody>';
+      // ⭐ FR-42 (v471.0) — POINTS AND SHOTS. Gated on the round's basis actually
+      // being stableford: a net or gross day prints exactly what it printed at
+      // v470.0, byte for byte. The footer on this paper has always promised
+      // "Stableford points per hole" while the player rows printed GROSS — two
+      // units in one table. Points now lead, gross rides muted beside them, and
+      // the row total switches to points so the man's line adds up to what the
+      // team row above it was built from.
+      var _fr42 = (p.basis === 'stableford');
+      var _si42 = _fr42 ? ptGetSI(round.course_id, round.tee) : null;
       var rank = 0, shown = 0, prevKey = null;
       rows.forEach(function(t) {
         var rd = t.rounds[rn]; shown++;
@@ -47483,25 +47524,39 @@ function ptPrintXofNRoundReport(eventId, round) {
         prevKey = kk;
         var cells = '';
         for (var h = 1; h <= 18; h++) cells += '<td>' + (rd.perHole[h] != null ? rd.perHole[h] : '—') + '</td>';
-        html += '<tr class="team"><td>' + rank + '</td><td class="left">' + t.name + '</td>' + cells + '<td>' + rd.holesCounted + '</td><td>' + rd.total + '</td></tr>';
+        // ⭐ FR-42 (Bruce, s134) — this row was ALREADY the counted team total per
+        // hole; it was simply never said so on the paper. Labelled, not rebuilt.
+        var _tlab = (rd.players && rd.players.length)
+          ? ' <span class="tlab">\u25b8 counted team ' + (p.basis === 'stableford' ? 'points' : p.basis) + ' per hole</span>' : '';
+        html += '<tr class="team"><td>' + rank + '</td><td class="left">' + t.name + _tlab + '</td>' + cells + '<td>' + rd.holesCounted + '</td><td>' + rd.total + '</td></tr>';
         (rd.players || []).forEach(function(m) {
           // v433.0 (FR-17 — Bruce s110): each individual's OWN gross per hole
           // on the team round report, from the builder's rawByRound (no re-fetch).
           var _bh = (st.rawByRound && st.rawByRound[String(round.id)] && st.rawByRound[String(round.id)][String(m.roster_id)]) || {};
-          var _pc = '', _pt2 = 0, _ph = 0;
+          var _pc = '', _pt2 = 0, _ph = 0, _pp2 = 0;
           for (var _h2 = 1; _h2 <= 18; _h2++) {
             var _g2 = _bh[_h2];
             if (_g2 != null) { _pt2 += _g2; _ph++; }
-            _pc += '<td>' + (_g2 != null ? _g2 : '\u2014') + '</td>';
+            if (_fr42) {
+              var _v42 = m.vals ? m.vals[_h2] : null;
+              // Dots print on EVERY hole, played or not — "where do I get shots"
+              // is a question you ask on the tee, not after the card is in.
+              var _d42 = ptFr42Dots(ptStrokesOnHole(m.chcp || 0, (_si42 && _si42[_h2 - 1]) || _h2));
+              if (_g2 != null && _v42) _pp2 += _v42.pts;
+              _pc += '<td>' + (_g2 != null && _v42 ? _v42.pts + '<span class="gsm">' + _g2 + '</span>' : '\u2014') + _d42 + '</td>';
+            } else {
+              _pc += '<td>' + (_g2 != null ? _g2 : '\u2014') + '</td>';
+            }
           }
-          html += '<tr class="pl"><td></td><td class="left">' + m.name + ' <span style="color:#999">(' + m.counted + ' of ' + rd.holesCounted + ' counted)</span></td>' + _pc + '<td>' + (_ph || '\u2014') + '</td><td>' + (_ph ? _pt2 : '\u2014') + '</td></tr>';
+          html += '<tr class="pl"><td></td><td class="left">' + m.name + ' <span style="color:#999">(' + m.counted + ' of ' + rd.holesCounted + ' counted)</span></td>' + _pc + '<td>' + (_ph || '\u2014') + '</td><td>' + (_ph ? (_fr42 ? _pp2 : _pt2) : '\u2014') + '</td></tr>';
         });
       });
       if (!rows.length) html += '<tr><td colspan="22" style="padding:14px">No scores yet.</td></tr>';
       html += '</tbody></table>'
         + '<div style="margin-top:8px;font-size:10px;color:#666">' + (p.ccc ? ptCccLabel(round.format) + ' · balls counted rotate by hole' : 'Best ' + p.count + ' of ' + p.size) + ' · '
         + (p.basis === 'net' ? 'net per hole' : p.basis === 'gross' ? 'gross per hole' : 'Stableford points per hole')
-        + ' · handicap allowance ' + pct + '% · a hole counts once that hole\u2019s ' + (p.ccc ? 'rotating count of' : p.count + '+') + ' team scores are in (short teams: all balls)</div>'
+        + ' · handicap allowance ' + pct + '% · a hole counts once that hole\u2019s ' + (p.ccc ? 'rotating count of' : p.count + '+') + ' team scores are in (short teams: all balls)'
+        + (_fr42 ? ' · player cells show POINTS with gross beside them · <span class="sdot">\u25cf</span> = a shot received on that hole, <span class="sdot">\u25cf\u25cf</span> = two, <span class="hdot">\u25cb</span> = a plus handicap giving one back' : '') + '</div>'
         + '</body></html>';
       _ptOpenPrintBlob(html, 'ptXofNRptFrame');
     });
@@ -47558,8 +47613,10 @@ function ptPrintGameResultsReport(eventId, round) {
         + '.win{background:#eef5ee;font-weight:800}'
         + '.money{font-weight:900;color:#1a5c33}'
         + '.note{font-size:10px;color:#666;margin-top:2px}'
+        + PT_FR42_CSS
+        + '.sc td,.sc th{padding:3px 2px;font-size:10px}'
         + '#ptRptBar{position:fixed;top:0;left:0;right:0;background:#1a3a2a;padding:7px 16px;display:flex;align-items:center;justify-content:space-between;z-index:999}'
-        + '@media print{@page{size:letter portrait;margin:10mm}body{padding:0}#ptRptBar{display:none!important}th,.win{-webkit-print-color-adjust:exact;print-color-adjust:exact}table{break-inside:avoid}}'
+        + '@media print{@page{size:letter portrait;margin:10mm}body{padding:0}#ptRptBar{display:none!important}th,.win,.sdot,.hdot{-webkit-print-color-adjust:exact;print-color-adjust:exact}table{break-inside:avoid}}'
         + '</style></head><body>'
         + '<div id="ptRptBar"><span style="color:#c9a84c;font-weight:800;font-size:13px">' + _ptEsc(ev.name || '') + ' \u2014 Round ' + rn + ' \u00b7 Game Results</span>'
         + '<button onclick="window.print()" style="background:#c9a84c;color:#1a3a2a;border:none;border-radius:8px;padding:6px 14px;font-weight:900;cursor:pointer">\ud83d\udda8 Print</button></div>'
@@ -47699,28 +47756,62 @@ function ptPrintGameResultsReport(eventId, round) {
       // player rows. Data is already in hand (players + byP) — no re-fetch,
       // and no new print CSS block (the standing media-print invariants hold).
       var scPars = ptGetHolePars(round.course_id, round.tee);
+      // ⭐ FR-42 (v471.0) — points and shots on the Scorecards block too, but
+      // INVERTED from the x-of-N paper: this table is a SCORECARD and keeps a
+      // Par row, so GROSS stays the cell's headline and points ride muted
+      // beside it. §A promises points in its footer and leads with them; this
+      // one promises a scorecard. Same two numbers, different sheet, and each
+      // sheet still says what it means.
+      // ⛔ Gate: only when a stableford game is actually in play. A pure net or
+      // gross day prints v470.0's cells byte for byte.
+      var _fr42B = false;
+      for (var _gj = 0; _gj < games.length; _gj++) {
+        var _tp42 = ptTeamParse(games[_gj]);
+        if (_tp42 ? _tp42.basis === 'stableford' : /stableford/i.test(String(games[_gj]))) { _fr42B = true; break; }
+      }
+      var _pct42 = ptXofNAllow(cfg, round);   // 100 for any non-team format — D9/D1 allowance where it applies
+      var _si42B = _fr42B ? ptGetSI(round.course_id, round.tee) : null;
       var scRows = players.map(function(p) {
         var hh = byP[String(p.roster_id)] || {}, outT = 0, inT = 0, nH = 0;
         for (var h3 = 1; h3 <= 18; h3++) { var g3 = hh[h3]; if (g3 != null) { nH++; if (h3 <= 9) outT += g3; else inT += g3; } }
-        return { name: p.name, holes: hh, count: nH, out: outT, inn: inT, tot: outT + inT };
+        var _hi = p.handicap != null ? Number(p.handicap) : 0;
+        return { name: p.name, holes: hh, count: nH, out: outT, inn: inT, tot: outT + inT,
+                 vals: _fr42B ? ptXofNHoleVals(hh, round.course_id, round.tee, _hi, _pct42) : null,
+                 chcp: _fr42B ? ptXofNCourseHdcp(round.course_id, round.tee, _hi, _pct42) : 0 };
       }).filter(function(r2){ return r2.count > 0; }).sort(function(a2, b2){ return a2.tot - b2.tot; });
       if (scRows.length) {
         html += '<h3>\ud83d\uddc2 Scorecards</h3>'
-          + '<table><thead><tr><th class="left">Player</th>';
+          + '<table class="sc"><thead><tr><th class="left">Player</th>';
         for (var h4 = 1; h4 <= 18; h4++) html += '<th style="width:18px">' + h4 + '</th>';
-        html += '<th>Out</th><th>In</th><th>Tot</th></tr></thead><tbody>';
+        html += '<th>Out</th><th>In</th><th>Tot</th>' + (_fr42B ? '<th>Pts</th>' : '') + '</tr></thead><tbody>';
         if (scPars) {
           var pOut = 0, pIn = 0, pc = '';
           for (var h5 = 0; h5 < 18; h5++) { if (h5 < 9) pOut += scPars[h5]; else pIn += scPars[h5]; pc += '<td style="color:#666">' + scPars[h5] + '</td>'; }
           html += '<tr><td class="left" style="color:#666">Par</td>' + pc
-            + '<td style="color:#666">' + pOut + '</td><td style="color:#666">' + pIn + '</td><td style="color:#666">' + (pOut + pIn) + '</td></tr>';
+            + '<td style="color:#666">' + pOut + '</td><td style="color:#666">' + pIn + '</td><td style="color:#666">' + (pOut + pIn) + '</td>'
+            + (_fr42B ? '<td></td>' : '') + '</tr>';
         }
         scRows.forEach(function(r2) {
           html += '<tr><td class="left">' + _ptEsc(r2.name) + '</td>';
-          for (var h6 = 1; h6 <= 18; h6++) html += '<td>' + (r2.holes[h6] != null ? r2.holes[h6] : '\u2014') + '</td>';
-          html += '<td>' + (r2.out || '\u2014') + '</td><td>' + (r2.inn || '\u2014') + '</td><td style="font-weight:900">' + r2.tot + '</td></tr>';
+          var _tp42b = 0;
+          for (var h6 = 1; h6 <= 18; h6++) {
+            var _g6 = r2.holes[h6];
+            if (_fr42B) {
+              var _v6 = r2.vals ? r2.vals[h6] : null;
+              var _d6 = ptFr42Dots(ptStrokesOnHole(r2.chcp || 0, (_si42B && _si42B[h6 - 1]) || h6));
+              if (_g6 != null && _v6) _tp42b += _v6.pts;
+              html += '<td>' + (_g6 != null ? _g6 + (_v6 ? '<span class="gsm">' + _v6.pts + '</span>' : '') : '\u2014') + _d6 + '</td>';
+            } else {
+              html += '<td>' + (_g6 != null ? _g6 : '\u2014') + '</td>';
+            }
+          }
+          html += '<td>' + (r2.out || '\u2014') + '</td><td>' + (r2.inn || '\u2014') + '</td><td style="font-weight:900">' + r2.tot + '</td>'
+            + (_fr42B ? '<td style="font-weight:900">' + _tp42b + '</td>' : '') + '</tr>';
         });
         html += '</tbody></table>';
+        if (_fr42B) html += '<div class="note">Cells show gross with Stableford points beside them'
+          + (_pct42 !== 100 ? ' (handicap allowance ' + _pct42 + '%)' : '')
+          + ' · <span class="sdot">\u25cf</span> = a shot received on that hole, <span class="sdot">\u25cf\u25cf</span> = two, <span class="hdot">\u25cb</span> = a plus handicap giving one back.</div>';
       }
       html += '</body></html>';
       _ptOpenPrintBlob(html, 'ptGameResultsFrame');
@@ -56401,7 +56492,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v470.0';
+    const TOUR_VERSION     = 'pards-tour-v471.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
