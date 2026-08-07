@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v471.0 -->
+  <!-- pards-tour-v472.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -47575,11 +47575,16 @@ function ptPrintGameResultsReport(eventId, round) {
   Promise.all([
     fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(_ptJson).catch(function(){ return {}; }),
     fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(_ptJson).catch(function(){ return {groups:[]}; }),
-    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/scores', { headers: headers }).then(_ptJson).catch(function(){ return {scores:[]}; })
+    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/scores', { headers: headers }).then(_ptJson).catch(function(){ return {scores:[]}; }),
+    // ⭐ FR-42 §E (v472.0) — the ROUND'S OWN side-game money. Event-scoped, so
+    // this report never reads _ptTrpState, which it has no honest claim on.
+    // ⛔ Fail-soft: worker < v2.98.0 has no GET here and 404s -> [] -> section absent.
+    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/money', { headers: headers }).then(_ptJson).catch(function(){ return {money:[]}; })
   ]).then(function(res) {
     var ev = res[0].event || {};
     var cfg = ptEvCfg(ev);
     var groups = res[1].groups || [];
+    var _sg42 = (res[3] && Array.isArray(res[3].money)) ? res[3].money : [];   // FR-42 §E
     var players = window.ptFr17Players(groups, cfg);   // B-95
     var byP = {};
     (res[2].scores || []).forEach(function(s) {
@@ -47749,6 +47754,50 @@ function ptPrintGameResultsReport(eventId, round) {
           html += '</tbody></table>';
           html += '<div class="note">' + sm.total_skins + ' skin' + (sm.total_skins === 1 ? '' : 's') + ' \u00b7 lone low wins \u00b7 ties push, no carry \u00b7 whole-dollar payouts, biggest winner absorbs the remainder \u00b7 field = everyone who posted scores (' + sm.field + ')</div>';
         }
+      }
+      // ⭐ FR-42 §E (v472.0) — SIDE GAMES THAT DAY. Bruce: "on the game results
+      // report - include a section that shows results of the side games that day".
+      // These settle BETWEEN PLAYERS and never touch the pot, so the section says
+      // so — the report's other money columns all come out of the hat and a reader
+      // must not add these to them.
+      // ⭐ ABSENT, NOT EMPTY when there are none (FR-08, the rule the weather block
+      // already follows). No worker, no trip state, no cache.
+      // ⭐ player_name rides ON the row since worker v2.97.0 (B-116) — read it
+      // first, exactly as v466.0 does at both existing call sites.
+      // ⭐ The FALLBACK here is NOT the trip card's `pidName` map: that is a local
+      // inside the trip day-card loader and is not in scope on an event surface —
+      // reaching for it would have been the same trip-state mistake §E exists to
+      // avoid, just spelled differently. This report already holds its own roster,
+      // and event_round_money.player_id IS players.id (worker validates it as
+      // `SELECT id FROM players WHERE id=? AND event_id=?`), which is the same id
+      // ptFr17Players returns as roster_id. Verified against round 117 in D1.
+      var _sgBy = {};
+      (players || []).forEach(function (p) { if (p && p.roster_id != null) _sgBy[String(p.roster_id)] = p.name; });
+      if (_sg42.length) {
+        var _sgNames = {}, _sgRows = [];
+        _sg42.forEach(function (m) {
+          var _nm = m.player_name || _sgBy[String(m.player_id)] || ('Player ' + m.player_id);
+          var _gm = [];
+          try { var _d = m.detail ? (typeof m.detail === 'string' ? JSON.parse(m.detail) : m.detail) : null;
+                if (_d && Array.isArray(_d.games)) _gm = _d.games; } catch (_e) { _gm = []; }
+          _gm.forEach(function (g) { if (g) _sgNames[String(g)] = 1; });
+          _sgRows.push({ name: _nm, cents: Math.round(Number(m.cents) || 0) });
+        });
+        _sgRows.sort(function (a, b) { return b.cents - a.cents; });
+        var _sgLbl = Object.keys(_sgNames).join(' \u00b7 ');
+        var _sgNet = 0; _sgRows.forEach(function (r3) { _sgNet += r3.cents; });
+        html += '<h3>\ud83c\udfb2 Side games' + (_sgLbl ? ' \u2014 ' + _ptEsc(_sgLbl) : '') + '</h3>'
+          + '<table><thead><tr><th class="left">Player</th><th>Result</th></tr></thead><tbody>';
+        _sgRows.forEach(function (r3) {
+          var _sign = r3.cents > 0 ? '+' : r3.cents < 0 ? '\u2212' : '';
+          html += '<tr><td class="left">' + _ptEsc(r3.name) + '</td>'
+            + '<td class="money"' + (r3.cents < 0 ? ' style="color:#8a2b2b"' : r3.cents === 0 ? ' style="color:#777;font-weight:600"' : '')
+            + '>' + _sign + ptMoneyFmt(Math.abs(r3.cents)) + '</td></tr>';
+        });
+        html += '</tbody></table>';
+        html += '<div class="note">Settled between players \u2014 <strong>not out of the pot</strong>, so these do not add to the payouts above.'
+          + (_sgNet !== 0 ? ' \u26a0 This table nets to ' + (_sgNet > 0 ? '+' : '\u2212') + ptMoneyFmt(Math.abs(_sgNet)) + ' rather than zero \u2014 somebody\u2019s card is missing.' : '')
+          + '</div>';
       }
       // v435.0 (FR-17 amendment — Bruce s111): every individual's scorecard on
       // the Game Results paper. One row per player, 18 hole columns + Out/In/
@@ -56492,7 +56541,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v471.0';
+    const TOUR_VERSION     = 'pards-tour-v472.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
