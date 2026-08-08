@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v491.0 -->
+  <!-- pards-tour-v493.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -6892,8 +6892,25 @@ function initSetup(){
   _updateCoursePickerBtn();
   renderPlayers();
   renderFavPreview();
-  try{ setScorecardMode(localStorage.getItem('pards_pref_scoreOnly')==='1'); }catch(_){ setScorecardMode(false); }
-  setBirdieJuice(!!(G.birdieJuice && G.birdieJuice.enabled===true));
+  /* ⭐⭐ v492.0 · FR-56 (Bruce, s148) — EVERY NEW ROUND OPENS WITH ALL THREE ON:
+     The International, Birdie Juice and Gambling. The setup screen no longer
+     opens on last round's leftovers or on a stale localStorage preference.
+     A switch thrown on THIS setup screen still wins for THIS round —
+     International rides G._intlSetupChoice into _doStartRound, Gambling and
+     Birdie Juice are read live (off #scorecardOnly and off G) at start.
+     ⛔ B-13 IS UNTOUCHED. Every International GATE is still an explicit
+     `=== true`; only the default VALUE moved. Do not loosen a gate to get here.
+     ⛔ Pre-round only — a live round (roundDate set, roundEnd not) keeps
+     whatever it is already running. */
+  if(!G.roundDate || G.roundEnd){
+    setScorecardMode(false);                            // Gambling ON == scoresOnly false (B-02 semantics)
+    setBirdieJuice(true);                               // Birdie Juice ON
+    G.intlEnabled = true; G._intlSetupChoice = true;    // The International ON
+  } else {
+    try{ setScorecardMode(localStorage.getItem('pards_pref_scoreOnly')==='1'); }catch(_){ setScorecardMode(false); }
+    setBirdieJuice(!!(G.birdieJuice && G.birdieJuice.enabled===true));
+  }
+  try{ syncIntlEnableUI(); }catch(_){}
   refreshRoundOptSummary();
   updateActiveLabels();
   // If Player 1 is empty and there's a "Me" contact, pre-fill it
@@ -10310,8 +10327,10 @@ function confirmResetSetup(){
   G.players=[];
   G.scorecardOnly=false;
   G.startHole=1;
-  setScorecardMode(false);
-  setBirdieJuice(false);
+  setScorecardMode(false);                            // Gambling ON
+  setBirdieJuice(true);                               // ⭐ v492.0 · FR-56 — was false; a reset lands on the same defaults a new round does
+  G.intlEnabled = true; G._intlSetupChoice = true;    // ⭐ v492.0 · FR-56 — The International ON
+  try{ syncIntlEnableUI(); }catch(_){}
   // Reset to home course
   const meContact = loadContacts().find(c=>c.me);
   G.courseId = (meContact && meContact.homeCourse) ? meContact.homeCourse : 'derrick-gwc';
@@ -11115,8 +11134,15 @@ function _doStartRound(){
      ⭐ _intlSetupChoice is only ever written while no round is in progress (see
      setIntlEnabled), and is consumed and cleared right here, so it can never leak
      into the next round — which is exactly what v356.0 was protecting against. */
-  G.intlEnabled = (G._intlSetupChoice === true);
-  G._intlSetupChoice = false;
+  /* ⭐ v492.0 · FR-56 (Bruce, s148) — the default flipped to ON. Tri-state:
+       true                -> chosen ON, or the new default
+       false               -> the man explicitly threw it OFF on the setup screen
+       null / undefined    -> never touched this round -> ON
+     ⛔ Consumed as NULL, not false, so a stale `false` left in a pre-v492 save
+     can never force the next round OFF. B-127's rule is intact: a setup choice
+     is for THIS round only and cannot leak into the next one. */
+  G.intlEnabled = (G._intlSetupChoice !== false);
+  G._intlSetupChoice = null;
   G._intlReminderShown=false; G._intlBannerDismissed=false; // reset so popup fires fresh this round
   updateActiveLabels();
   const snakeBox=document.getElementById('snakeEnabled');
@@ -41792,6 +41818,100 @@ function _ptErMark(er, mode) {
    rows by players.id; every client surface keys by roster_id. The round scores
    read already carries both, so the map costs no extra request. A row with no
    er, or an unmappable one, simply does not appear — absent, never zero. */
+// ============================================================================
+// B-132 (v492.0) — THE PRINTED PAPER READS, IT DOES NOT SCORE.
+// ----------------------------------------------------------------------------
+// s147 measured it: the Round Report recomputed course handicaps, net,
+// Stableford points AND the ranking client-side, against round.tee for the
+// WHOLE field. Every man on the round tee agreed with the board; every man off
+// it was wrong — Garvey printed CH 19/37pts against a true 16/34, Stu 15/36
+// against 8/29, Swane 15/36 against 17/38 — and the payout table ranked off
+// those numbers. That is B-130 in a third surface.
+//
+// The worker already resolved every player against HIS OWN DECK
+// (v3.03.0, fr52ResolvePlayerHcp) and parked the answer in
+// round_leaderboard_cache. So the fix is to READ it.
+//
+// ⛔ DO NOT "fix" this by teaching a report to resolve decks client-side. That
+//    builds a second correct implementation — the same disease with better
+//    symptoms. One engine, one answer.
+// ⛔ FAIL CLOSED. No payload, or a scored player with no row, and the paper
+//    says so and refuses to print. A plausible wrong number on a printed sheet
+//    IS the bug. (Same shape as computeQuotaStandings' per_hole_pars_missing.)
+// ============================================================================
+
+// Fetch the worker's round leaderboard for printing. ⭐ recompute=1 — the cache
+// is organizer-scoped and can be stale, which is exactly how B-132 was caught.
+// Organizer Bearer required; a 401 lands as a refusal, not as a silent guess.
+window._ptLbFetch = function (eventId, roundId, headers) {
+  return fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + roundId + '/leaderboard?recompute=1',
+               { headers: headers || {} })
+    .then(_ptJson).catch(function () { return null; });
+};
+
+// Index one leaderboard payload by roster_id (and by name as the fallback key
+// for a scored player carrying no roster row). ⭐ The player_id -> roster_id
+// join is the SAME one _ptErByRoster has used since v414.0 — it rides the
+// /scores payload the report already has in hand. Nothing new is fetched.
+window._ptLbIndex = function (payload, scores) {
+  if (!payload) return { ok: false, reason: 'The worker did not answer.' };
+  if (payload.error) return { ok: false, reason: String(payload.error) + ' — organizer sign-in may have expired.' };
+  if (payload.unavailable) return { ok: false, reason: String(payload.unavailable) };
+  var st = (payload.standings || []).filter(function (e) { return e && e.entry_type === 'player'; });
+  if (!st.length) return { ok: false, reason: 'The worker has no scored players on this round yet.' };
+  var rbp = {};
+  (scores || []).forEach(function (s) {
+    if (s && s.player_id != null && s.roster_id != null) rbp[s.player_id] = s.roster_id;
+  });
+  var byRoster = {}, byName = {};
+  st.forEach(function (e) {
+    var d = e.data || {};
+    var rec = { gross: e.gross, net: e.net, points: e.points, holes: e.holes_played,
+                ch: d.course_handicap, ph: (d.playing_handicap != null ? d.playing_handicap : d.course_handicap),
+                hcpSource: d.hcp_source || null, idx: d.handicap,
+                tee: d.tee || null, roundTee: d.round_tee || null,
+                rating: d.rating, slope: d.slope, er: d.er || null, name: e.name };
+    var rid = d.roster_id != null ? d.roster_id : rbp[d.player_id];
+    if (rid != null) byRoster[String(rid)] = rec;
+    if (e.name) byName[String(e.name).trim().toLowerCase()] = rec;
+  });
+  return { ok: true, byRoster: byRoster, byName: byName, count: st.length };
+};
+
+// One player's server figures, or null. ⛔ null is a refusal, never a default.
+window._ptLbFind = function (lb, rosterId, name) {
+  if (!lb || !lb.ok) return null;
+  if (rosterId != null && lb.byRoster[String(rosterId)]) return lb.byRoster[String(rosterId)];
+  if (name) return lb.byName[String(name).trim().toLowerCase()] || null;
+  return null;
+};
+
+// The refusal sheet. It prints INSTEAD of the report, says exactly what is
+// missing, and never carries a number. ⭐ It still goes through _ptRptEmit so a
+// refusal inside ptPrintRoundAllGames lands as that section's paper.
+window._ptLbRefuse = function (title, reason, detail, opts) {
+  var body = '<div class="rf-h">\u26d4 This report will not print.</div>'
+    + '<div class="rf-b"><p><strong>' + _ptEsc(String(title || 'Report')) + '</strong></p>'
+    + '<p>' + _ptEsc(String(reason || 'The worker\u2019s numbers are not available.')) + '</p>'
+    + (detail ? '<p class="rf-d">' + _ptEsc(String(detail)) + '</p>' : '')
+    + '<p class="rf-n">This paper reads the scores the worker computed \u2014 it does not compute its own. '
+    + 'Rather than print a number that might be wrong, it prints nothing. Open the round\u2019s '
+    + '\ud83c\udfc6 Board once (that recomputes the leaderboard), check you are still signed in as the '
+    + 'organizer, then print again.</p></div>';
+  var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Report unavailable</title><style>'
+    + 'body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#fff;color:#222;padding:52px 16px 16px;margin:0}'
+    + '.rf-h{font-size:17px;font-weight:900;color:#8B0000;margin-bottom:10px}'
+    + '.rf-b{max-width:640px;font-size:13px;line-height:1.65}'
+    + '.rf-b p{margin:0 0 9px}'
+    + '.rf-d{padding:8px 10px;background:#fdf6e0;border:1px solid #d9b34a;border-radius:6px;font-size:12px}'
+    + '.rf-n{color:#666;font-size:11.5px}'
+    + '#ptRptBar{position:fixed;top:0;left:0;right:0;background:#1a3a2a;padding:7px 16px;display:flex;align-items:center;justify-content:space-between;z-index:999}'
+    + '@media print{@page{size:letter portrait;margin:12mm}body{padding:0}#ptRptBar{display:none!important}}'
+    + '</style></head><body><div id="ptRptBar"><span style="color:#c9a84c;font-weight:800;font-size:13px">Report unavailable</span></div>'
+    + body + '</body></html>';
+  _ptRptEmit(html, 'ptRptRefuse', opts);
+};
+
 function _ptErByRoster(standings, scores) {
   var rbp = {}, out = {};
   (scores || []).forEach(function (s) {
@@ -47021,15 +47141,24 @@ function ptPrintIndividualRoundReport(eventId, round, opts) {
     fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(_ptJson).catch(function(){ return {}; }),
     fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/scores', { headers: headers }).then(_ptJson).catch(function(){ return {scores:[]}; }),
     fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(_ptJson).catch(function(){ return {groups:[]}; }),
-    // v414.0 \u00b7 FR-01 — the worker's round leaderboard. The printed card gets
-    // the rarity rating from the SAME place the on-screen board does; nothing
-    // about it is recomputed here (s91: no second rater).
-    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/leaderboard', { headers: headers }).then(_ptJson).catch(function(){ return {}; })
+    // \u2b50\u2b50 v493.0 \u00b7 B-132 — the worker's round leaderboard is no longer a
+    // decoration fetched for the rarity mark. It is now THE SOURCE of every
+    // course handicap, net, points total and rank on this paper. ?recompute=1
+    // because the cache is organizer-scoped and can be stale — which is exactly
+    // how B-132 was caught in s147.
+    window._ptLbFetch(eventId, round.id, headers)
   ]).then(function(results) {
     var ev = results[0].event || {};
     var scores = results[1].scores || [];
     var groups = results[2].groups || [];
-    var erBy = _ptErByRoster((results[3] || {}).standings, scores);      // v414.0 \u00b7 FR-01
+    // \u2b50\u2b50 v493.0 \u00b7 B-132 — READ, NEVER RECOMPUTE.
+    // \u26d4 No payload, no paper. A refusal is the correct output; a plausible
+    // wrong number on a printed sheet IS the bug.
+    var lb = window._ptLbIndex(results[3], scores);
+    if (!lb.ok) {
+      window._ptLbRefuse('Round ' + round.round_number + ' \u2014 Individual Report', lb.reason, null, opts);
+      return;
+    }
 
     // v248.3 — the report now follows the event's OWN scoring setup instead of
     // always printing stableford: columns, sort key, title and flight sections
@@ -47065,47 +47194,87 @@ function ptPrintIndividualRoundReport(eventId, round, opts) {
     var pars = ptGetHolePars(round.course_id, round.tee) || Array(18).fill(4);
     var teeData = ptResolveCourse(round.course_id, round.tee);
 
-    // Build player rows — every mode computed, the enabled ones displayed
+    // \u2b50\u2b50 v493.0 \u00b7 B-132 — THIS BLOCK NO LONGER SCORES.
+    // It used to run ptCalcCourseHandicap against round.tee for the WHOLE field,
+    // so every man off the round tee printed a wrong course handicap, a wrong
+    // net and wrong points — and the payout tables ranked off them. Measured on
+    // round 123: Garvey 19/37 against a true 16/34, Stu 15/36 against 8/29,
+    // Swane 15/36 against 17/38. That is B-130 in a third surface.
+    // Now: gross, net, points, course handicap and the RANK ORDER are all READ
+    // off round_leaderboard_cache, where the worker already resolved every man
+    // against HIS OWN DECK (v3.03.0, fr52ResolvePlayerHcp).
+    // \u26d4 A scored player with no server row is a REFUSAL, never a computed guess.
+    var _lbMiss = [];
     var playerRows = Object.keys(byPlayer).map(function(key) {
       var pd = byPlayer[key];
       var pInfo = pd.roster_id ? (playerMap[String(pd.roster_id)] || {}) : {};
       var name = pInfo.name || pd.player_name || '\u2014';
       var teamName = pInfo.team_name || '';
-      var hdcpIdx = pInfo.handicap || 0;
-      var courseHdcp = Math.round(ptCalcCourseHandicap(hdcpIdx, teeData.slope, teeData.rating, teeData.par));
+      var srv = window._ptLbFind(lb, pd.roster_id, name);
+      if (!srv) { _lbMiss.push(name); return null; }
+      var hdcpIdx = (srv.idx != null ? srv.idx : (pInfo.handicap || 0));
+      var courseHdcp = srv.ch;                                  // \u26d4 the server's, never derived here
+      var playHdcp = (srv.ph != null ? srv.ph : srv.ch);        // allowance already applied (D1)
+      // \u2b50 FR-55 display half — the deck this man actually stood on, and THAT
+      // deck's SI/pars for the hole marks.
+      var pTee  = srv.tee || round.tee;
+      var pSI   = ptGetSI(round.course_id, pTee) || si;
+      var pPars = ptGetHolePars(round.course_id, pTee) || pars;
 
       var grossArr = Array(18).fill(null);
       var ptsArr = Array(18).fill(null);
-      var totalGross = 0;
-      var totalPts = 0;
-      var holesPlayed = 0;
+      var derivedPts = 0, marked = 0;
 
       for (var h = 1; h <= 18; h++) {
         var gross = pd.holes[h];
         if (!gross || gross <= 0) continue;
         var hIdx = h - 1;
-        var holeSI = si[hIdx] || h;
-        var holePar = pars[hIdx] || 4;
-        var strokes = ptStrokesOnHole(courseHdcp, holeSI);   // v473.0 (B-120) \u2014 was an inline restatement of the D27 rule; folded
-        var net = gross - strokes;
-        var diff = holePar - net;
-        var pts = ptStablefordPts(diff, gross); // v247.2 \u2014 unified tour scale
+        var holeSI = pSI[hIdx] || h;
+        var holePar = pPars[hIdx] || 4;
+        // \u2b50 DECORATION ONLY — the circles and the colour bands. Drawn from the
+        // SERVER's playing handicap so the marks and the totals cannot disagree
+        // about how many shots a man gets.
+        var strokes = ptStrokesOnHole(playHdcp, holeSI);
+        var pts = ptStablefordPts(holePar - (gross - strokes), gross);
         grossArr[hIdx] = gross;
         ptsArr[hIdx] = { pts: pts, strokes: strokes, par: holePar };
-        totalGross += gross;
-        totalPts += pts;
-        holesPlayed++;
+        derivedPts += pts;
+        marked++;
       }
-      // pts/gross/net/holes are the field names ptMdSortRows + ptMdKey expect —
-      // the report and the on-screen standings are then provably the same order.
+      // \u2b50\u2b50 SELF-CHECK. The hole marks are drawn here; the totals are not.
+      // If they disagree, this deck's SI or pars differ from what the worker
+      // used (FR-55's allocation half — 53 of 131 courses vary SI/pars by deck).
+      // The paper SAYS SO rather than quietly printing two stories.
+      var ptsDrift = (srv.points != null && marked === srv.holes && derivedPts !== srv.points);
       return { roster_id: pd.roster_id, name: name, teamName: teamName, team: teamName,
-               er: pd.roster_id != null ? (erBy[String(pd.roster_id)] || null) : null,   // v414.0 \u00b7 FR-01
+               er: srv.er || null,
                hdcpIdx: hdcpIdx, handicap: hdcpIdx, age: pInfo.age, courseHdcp: courseHdcp,
+               tee: pTee, teeOff: String(pTee || '') !== String(round.tee || ''),
+               hcpSource: srv.hcpSource, ptsDrift: ptsDrift,
                grossArr: grossArr, ptsArr: ptsArr,
-               totalGross: totalGross, totalPts: totalPts, totalNet: totalGross - courseHdcp,
-               pts: totalPts, gross: totalGross, net: totalGross - courseHdcp, holes: holesPlayed,
-               holesPlayed: holesPlayed };
-    });
+               // \u26d4 SERVER TOTALS. ptMdSortRows/ptMdKey rank off pts/gross/net/holes,
+               // so the paper's order is now the worker's order by construction.
+               totalGross: srv.gross, totalPts: srv.points, totalNet: srv.net,
+               pts: srv.points, gross: srv.gross, net: srv.net, holes: srv.holes,
+               holesPlayed: srv.holes };
+    }).filter(Boolean);
+
+    if (_lbMiss.length) {
+      window._ptLbRefuse('Round ' + round.round_number + ' \u2014 Individual Report',
+        'These players have scores on this round but no row in the worker\u2019s leaderboard, so their figures cannot be read.',
+        _lbMiss.join(', '), opts);
+      return;
+    }
+    // \u26d4 Ranking by a mode the worker did not compute would be a guess. Worker
+    // v3.03.0 only fills points when the ROUND FORMAT says stableford.
+    if (primary === 'stableford' && playerRows.some(function(r){ return r.pts == null; })) {
+      window._ptLbRefuse('Round ' + round.round_number + ' \u2014 Individual Report',
+        'This event ranks by Stableford points, but the worker returned no points for this round \u2014 its format is \u201c' + (round.format || '?') + '\u201d.',
+        'Worker fix owed: compute points whenever per-hole pars exist, not only when the format string says stableford.', opts);
+      return;
+    }
+    var _anyDrift = playerRows.some(function(r){ return r.ptsDrift; });
+    var _anyOffTee = playerRows.some(function(r){ return r.teeOff; });
 
     // Build HTML
     var dateStr = round.date ? ptFormatDate(round.date, round.course_id) : '';
@@ -47115,6 +47284,10 @@ function ptPrintIndividualRoundReport(eventId, round, opts) {
     if (course && round.tee) {
       var td = (course.tees || []).find(function(t){ return t.name.toLowerCase() === (round.tee||'').toLowerCase(); });
       teeInfo = td ? round.tee + ' (CR ' + td.rating + ' / Slope ' + td.slope + ' / Par ' + td.par + ')' : round.tee;
+      // \u2b50 v493.0 \u00b7 B-132 — it is the round's DEFAULT deck, not everyone's.
+      // Saying so is the whole point: the old sheet implied one deck for the field
+      // and then scored the field on it.
+      if (_anyOffTee) teeInfo = 'Round default ' + teeInfo;
     }
 
     var css = '*{box-sizing:border-box;margin:0;padding:0}'
@@ -47159,19 +47332,19 @@ function ptPrintIndividualRoundReport(eventId, round, opts) {
     // Table header rows
     var holeHeaders = '';
     for (var i = 1; i <= 18; i++) holeHeaders += '<th>' + i + '</th>';
-    var thRow = '<tr><th class="left" style="width:24px">Pos</th><th class="left" style="min-width:100px">Player</th><th>Hdcp</th>'
+    var thRow = '<tr><th class="left" style="width:24px">Pos</th><th class="left" style="min-width:100px">Player</th><th>Hdcp</th><th>Tee</th>'
       + holeHeaders
       + totalCols.map(function(c){ return '<th>' + c.label + '</th>'; }).join('')
       + '</tr>';
 
     var siCells = '';
     for (var i = 0; i < 18; i++) siCells += '<td>' + (si[i] || '?') + '</td>';
-    var siRow = '<tr class="si-row"><td></td><td class="left">SI</td><td></td>' + siCells + padCols + '</tr>';
+    var siRow = '<tr class="si-row"><td></td><td class="left">SI</td><td></td><td></td>' + siCells + padCols + '</tr>';
 
     var parCells = '';
     var totalPar = 0;
     for (var i = 0; i < 18; i++) { parCells += '<td>' + (pars[i] || 4) + '</td>'; totalPar += (pars[i] || 4); }
-    var parRow = '<tr class="par-row"><td></td><td class="left">Par</td><td></td>' + parCells
+    var parRow = '<tr class="par-row"><td></td><td class="left">Par</td><td></td><td></td>' + parCells
       + totalCols.map(function(c){ return '<td>' + (c.key === 'gross' ? totalPar : '') + '</td>'; }).join('')
       + '</tr>';
 
@@ -47199,10 +47372,19 @@ function ptPrintIndividualRoundReport(eventId, round, opts) {
           + '<td class="pos">' + ranks[idx] + '</td>'
           + '<td class="left"><div class="player-name">' + pr.name + _ptErMark(pr.er, 'print') + '</div><div class="team-name">' + pr.teamName + '</div></td>'
           + '<td class="hdcp">' + pr.hdcpIdx + '<br><span style="font-size:8px;color:#aaa">CH:' + pr.courseHdcp + '</span></td>'
+          // \u2b50 FR-55 display half (v493.0) — the deck THIS man played, marked
+          // when it is not the round's default deck. Same field the figures came
+          // from, so the tee printed and the handicap printed cannot disagree.
+          + '<td class="hdcp"' + (pr.teeOff ? ' style="font-weight:800;color:#8B0000"' : '') + '>'
+            + _ptEsc(String(pr.tee || '\u2014')) + (pr.teeOff ? ' *' : '')
+            + (pr.ptsDrift ? '<br><span style="font-size:8px;color:#8B0000">\u2020</span>' : '')
+            + '</td>'
           + cells
           + totalCols.map(function(c) {
               var v = c.key === 'gross' ? pr.totalGross : (c.key === 'net' ? pr.totalNet : pr.totalPts);
-              return '<td class="' + (c.key === primary ? 'pts-total' : 'gross-total') + '">' + (pr.holesPlayed > 0 ? v : '\u2014') + '</td>';
+              // \u26d4 v493.0 \u00b7 B-132 — null is a total the WORKER did not compute
+              // (points on a non-stableford round). Print the dash, never a guess.
+              return '<td class="' + (c.key === primary ? 'pts-total' : 'gross-total') + '">' + (pr.holesPlayed > 0 && v != null ? v : '\u2014') + '</td>';
             }).join('')
           + '</tr>';
       }).join('');
@@ -47252,6 +47434,13 @@ function ptPrintIndividualRoundReport(eventId, round, opts) {
       + (showStrokes ? '<span>\u2b55 = stroke received on hole</span>' : '')
       + legend
       + '</div>'
+      // \u2b50 v493.0 \u00b7 B-132 / FR-55 — say where the numbers came from, and say
+      // it on the paper, because paper is where disputes get settled.
+      + '<div style="margin-top:6px;font-size:9px;color:#888;line-height:1.6">'
+      + '<div>Course handicaps, net, points and the order are read from the scoring server \u2014 this sheet does not compute its own.</div>'
+      + (_anyOffTee ? '<div><strong>*</strong> played a different deck from the round default; the SI and Par rows above are the round default\u2019s.</div>' : '')
+      + (_anyDrift ? '<div style="color:#8B0000"><strong>\u2020</strong> the hole-by-hole marks for this player are drawn from his own deck\u2019s stroke index, which does not match the server total. The TOTAL is correct \u2014 the per-hole circles may not be.</div>' : '')
+      + '</div>'
       + '<div class="footer"><span>Pards Tour \u2014 pards.golf \u00b7 ' + sortNote + '</span><span>Printed ' + new Date().toLocaleString() + '</span></div>'
       + '</body></html>';
 
@@ -47284,10 +47473,33 @@ function ptPrintMdOverallReport(eventId) {
     var groups = results[2].groups || [];
     if (!allRounds.length) { ptToast('No individual rounds on this event.'); return; }
 
+    // \u2b50\u2b50 v493.0 \u00b7 B-132 — the multi-round paper had the SAME defect as the
+    // single-round one (ct ~41341, flagged unexamined at s147 close): one
+    // ctx.teeData per ROUND, applied to the whole field. Every man off that
+    // round's deck printed a wrong course handicap, net and points, and the
+    // combined totals inherited it. Fixed the same way: read, never recompute.
     Promise.all(allRounds.map(function(r) {
-      return fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers })
-        .then(_ptJson).catch(function(){ return {scores:[]}; });
-    })).then(function(scoreResults) {
+      return Promise.all([
+        fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers })
+          .then(_ptJson).catch(function(){ return {scores:[]}; }),
+        window._ptLbFetch(eventId, r.id, headers)
+      ]);
+    })).then(function(pairs) {
+      var scoreResults = pairs.map(function(p){ return p[0]; });
+      // One index per round, aligned to allRounds. \u26d4 A round the worker cannot
+      // answer for kills the whole paper \u2014 a combined total built on a mix of
+      // read and computed figures is exactly the lie B-132 is about.
+      var _lbBad = null;
+      var lbs = pairs.map(function(p, ri) {
+        var x = window._ptLbIndex(p[1], (p[0] || {}).scores || []);
+        if (!x.ok && !_lbBad) _lbBad = { rn: allRounds[ri].round_number, reason: x.reason };
+        return x;
+      });
+      if (_lbBad) {
+        window._ptLbRefuse((ev.name || 'Event') + ' \u2014 Overall Individual Report',
+          'Round ' + _lbBad.rn + ': ' + _lbBad.reason, null, null);
+        return;
+      }
 
       var cfg = ptEvCfg(ev);
       var modes = ptScoringModes(cfg);
@@ -47329,6 +47541,7 @@ function ptPrintMdOverallReport(eventId) {
       });
 
       // Build one row object per player, with a line per round + combined totals
+      var _lbMiss = [];
       var playerRows = Object.keys(byPlayer).map(function(key) {
         var pd = byPlayer[key];
         var pInfo = pd.roster_id ? (playerMap[String(pd.roster_id)] || {}) : {};
@@ -47338,26 +47551,41 @@ function ptPrintMdOverallReport(eventId) {
 
         var lines = roundCtx.map(function(ctx, ri) {
           var holes = pd.perRound[ri];
-          var courseHdcp = Math.round(ptCalcCourseHandicap(hdcpIdx, ctx.teeData.slope, ctx.teeData.rating, ctx.teeData.par));
+          // \u26d4 v493.0 \u00b7 B-132 — the server's figures for THIS man in THIS round.
+          var srv = window._ptLbFind(lbs[ri], pd.roster_id, name);
+          if (holes && !srv) { _lbMiss.push(name + ' (R' + ctx.round.round_number + ')'); }
+          var courseHdcp = srv ? srv.ch : null;
+          var playHdcp = srv ? (srv.ph != null ? srv.ph : srv.ch) : null;
+          var pTee  = srv && srv.tee ? srv.tee : ctx.round.tee;
+          var pSI   = ptGetSI(ctx.round.course_id, pTee) || ctx.si;
+          var pPars = ptGetHolePars(ctx.round.course_id, pTee) || ctx.pars;
           var grossArr = Array(18).fill(null), ptsArr = Array(18).fill(null);
-          var g = 0, p = 0, hp = 0;
-          if (holes) for (var h = 1; h <= 18; h++) {
+          var derived = 0, marked = 0;
+          if (holes && srv) for (var h = 1; h <= 18; h++) {
             var gross = holes[h];
             if (!gross || gross <= 0) continue;
             var hIdx = h - 1;
-            var holeSI = ctx.si[hIdx] || h;
-            var holePar = ctx.pars[hIdx] || 4;
-            var strokes = ptStrokesOnHole(courseHdcp, holeSI);   // v473.0 (B-120) \u2014 was an inline restatement of the D27 rule; folded
-            var net = gross - strokes;
-            var pts = ptStablefordPts(holePar - net, gross);
+            var holeSI = pSI[hIdx] || h;
+            var holePar = pPars[hIdx] || 4;
+            // \u2b50 DECORATION \u2014 chips and stroke rings, off the SERVER's playing
+            // handicap and HIS deck's SI. The totals below are the server's.
+            var strokes = ptStrokesOnHole(playHdcp, holeSI);
+            var pts = ptStablefordPts(holePar - (gross - strokes), gross);
             grossArr[hIdx] = gross;
             ptsArr[hIdx] = { pts: pts, strokes: strokes, par: holePar };
-            g += gross; p += pts; hp++;
+            derived += pts; marked++;
           }
-          if (hp > 0) { totGross += g; totNet += (g - courseHdcp); totPts += p; totHoles += hp; roundsPlayed++; }
+          var lg = srv ? srv.gross : 0, lp = srv ? srv.points : null, ln = srv ? srv.net : null, lh = srv ? srv.holes : 0;
+          if (srv && lh > 0) {
+            totGross += lg; totHoles += lh; roundsPlayed++;
+            if (ln != null) totNet += ln;
+            if (lp != null) totPts += lp;
+          }
           return { roundNumber: ctx.round.round_number, courseHdcp: courseHdcp,
+                   tee: pTee, teeOff: String(pTee || '') !== String(ctx.round.tee || ''),
+                   ptsDrift: (lp != null && marked === lh && derived !== lp),
                    grossArr: grossArr, ptsArr: ptsArr,
-                   gross: g, net: g - courseHdcp, pts: p, holes: hp };
+                   gross: lg, net: ln, pts: lp, holes: lh };
         });
 
         return { roster_id: pd.roster_id, name: name, hdcpIdx: hdcpIdx, handicap: hdcpIdx,
@@ -47365,6 +47593,24 @@ function ptPrintMdOverallReport(eventId) {
                  roundsPlayed: roundsPlayed,
                  gross: totGross, net: totNet, pts: totPts, holes: totHoles, holesPlayed: totHoles };
       });
+
+      // \u26d4 v493.0 \u00b7 B-132 — fail CLOSED. A scored man with no server row on a
+      // round means his combined totals would be short by that round.
+      if (_lbMiss.length) {
+        window._ptLbRefuse((ev.name || 'Event') + ' \u2014 Overall Individual Report',
+          'These player-rounds have scores but no row in the worker\u2019s leaderboard, so their figures cannot be read.',
+          _lbMiss.join(', '), null);
+        return;
+      }
+      if (primary === 'stableford' && playerRows.some(function(r){
+            return r.lines.some(function(l){ return l.holes > 0 && l.pts == null; }); })) {
+        window._ptLbRefuse((ev.name || 'Event') + ' \u2014 Overall Individual Report',
+          'This event ranks by Stableford points, but the worker returned no points for at least one round \u2014 check those rounds\u2019 formats.',
+          'Worker fix owed: compute points whenever per-hole pars exist, not only when the format string says stableford.', null);
+        return;
+      }
+      var _anyOffTee = playerRows.some(function(r){ return r.lines.some(function(l){ return l.teeOff; }); });
+      var _anyDrift  = playerRows.some(function(r){ return r.lines.some(function(l){ return l.ptsDrift; }); });
 
       // ── HTML ──
       var course = ptGetCourse(allRounds[0].course_id);
@@ -47374,6 +47620,7 @@ function ptPrintMdOverallReport(eventId) {
       if (course && allRounds[0].tee) {
         var td = (course.tees || []).find(function(t){ return t.name.toLowerCase() === (allRounds[0].tee||'').toLowerCase(); });
         teeInfo = td ? allRounds[0].tee + ' (CR ' + td.rating + ' / Slope ' + td.slope + ' / Par ' + td.par + ')' : allRounds[0].tee;
+        if (_anyOffTee) teeInfo = 'Round default ' + teeInfo;   // \u2b50 v493.0 \u00b7 B-132
       }
 
       var css = '*{box-sizing:border-box;margin:0;padding:0}'
@@ -47466,7 +47713,7 @@ function ptPrintMdOverallReport(eventId) {
             }
             var rdTotCells = rdCols.map(function(c) {
               var v = c.key === 'gross' ? line.gross : (c.key === 'net' ? line.net : line.pts);
-              return '<td class="rd-total">' + (line.holes > 0 ? v : '—') + '</td>';
+              return '<td class="rd-total">' + (line.holes > 0 && v != null ? v : '—') + '</td>';
             }).join('');
             var totTds = '';
             if (li === 0) {
@@ -47476,7 +47723,10 @@ function ptPrintMdOverallReport(eventId) {
               }).join('');
             }
             return '<tr>' + lead
-              + '<td><span class="rd-lbl">R' + line.roundNumber + '</span><br><span class="rd-ch">CH:' + line.courseHdcp + '</span></td>'
+              // \u2b50 FR-55 display half (v493.0) — the CH is the server's and the deck
+              // it came from is printed under it, marked when it is not the round default.
+              + '<td><span class="rd-lbl">R' + line.roundNumber + '</span><br><span class="rd-ch">CH:' + (line.courseHdcp != null ? line.courseHdcp : '\u2014') + '</span>'
+                + '<br><span class="rd-ch"' + (line.teeOff ? ' style="color:#8B0000;font-weight:800"' : '') + '>' + _ptEsc(String(line.tee || '\u2014')) + (line.teeOff ? ' *' : '') + (line.ptsDrift ? ' \u2020' : '') + '</span></td>'
               + lineCells(line) + rdTotCells + totTds + '</tr>';
           }).join('');
           return '<tbody>' + trs + '</tbody>';
@@ -47513,13 +47763,19 @@ function ptPrintMdOverallReport(eventId) {
         + '<span>🏌️ ' + allRounds.length + ' rounds</span>'
         + (courseName ? '<span>⛳ ' + courseName + '</span>' : '')
         + (teeInfo && !mixedTees ? '<span>🎯 ' + teeInfo + '</span>' : '')
-        + (mixedTees ? '<span>🎯 Mixed tees — SI/Par header shows Round 1; each line is scored against its own round’s tee (see CH per line)</span>' : '')
+        + (mixedTees ? '<span>🎯 Mixed tees — SI/Par header shows Round 1; each line carries its own round’s deck and course handicap</span>' : '')
         + (cfg.flight_rule ? '<span>🏳️ ' + (cfg.flight_rule === 'age' ? 'Age' : 'Handicap') + ' flights</span>' : '')
         + '</div></div>'
         + tables
         + '<div style="margin-top:10px;font-size:9px;color:#888;display:flex;gap:16px;flex-wrap:wrap">'
         + (showStrokes ? '<span><span class="chip" style="background:#2563eb;color:#fff;box-shadow:0 0 0 2px #c9a84c">4</span> gold ring = stroke received on hole</span>' : '')
         + legend
+        + '</div>'
+        // ⭐ v493.0 · B-132 / FR-55 — say where the numbers came from, on the paper.
+        + '<div style="margin-top:6px;font-size:9px;color:#888;line-height:1.6">'
+        + '<div>Course handicaps, net, points and the order are read from the scoring server — this sheet does not compute its own.</div>'
+        + (_anyOffTee ? '<div><strong>*</strong> played a different deck from that round’s default; the SI and Par rows above are Round 1’s default deck.</div>' : '')
+        + (_anyDrift ? '<div style="color:#8B0000"><strong>†</strong> the hole chips on that line are drawn from his own deck’s stroke index, which does not match the server total. The TOTAL is correct — the per-hole rings may not be.</div>' : '')
         + '</div>'
         + '<div class="footer"><span>Pards Tour — pards.golf · ' + sortNote + '</span><span>Printed ' + new Date().toLocaleString() + '</span></div>'
         + '</body></html>';
@@ -57973,7 +58229,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v491.0';
+    const TOUR_VERSION     = 'pards-tour-v493.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
