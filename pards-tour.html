@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v486.0 -->
+  <!-- pards-tour-v487.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -9512,6 +9512,10 @@ function intlEnableRowHtml(){
 }
 function setIntlEnabled(on){
   G.intlEnabled = !!on;
+  // v487.0 · B-127 — remember a PRE-ROUND choice so _doStartRound's reset honours it.
+  // Mid-round throws (roundDate set, roundEnd not) are already live and are deliberately
+  // NOT remembered: they must not survive into the next round.
+  if(!G.roundDate || G.roundEnd) G._intlSetupChoice = !!on;
   try{ saveG(); }catch(e){}
   syncIntlEnableUI();
   try{ updateInternationalBadge(); }catch(e){}
@@ -11102,7 +11106,17 @@ function _doStartRound(){
   G.roundEnd=null;
   G.weatherStart=null; G.weatherEnd=null; // fresh weather snapshots for this round
   G.internationals={}; // reset any leftover International state from a previous round
-  G.intlEnabled=false; // v356.0 — Bruce (s56): the International switch defaults OFF each round
+  /* v487.0 · B-127 (Bruce, s143) — "In round set up I selected Nassau 2v2, turned
+     The International On, started scoring, and after 17 it did not call it — mid-round
+     settings showed it Off." The 2v2 setup overlay's switch writes G.intlEnabled via
+     setIntlEnabled (9513), and then _doStartRound wiped it back to false one line
+     later. v356.0's rule stands — the switch defaults OFF each round — but a switch
+     thrown ON DURING SETUP is a choice for THIS round, not leftovers from the last.
+     ⭐ _intlSetupChoice is only ever written while no round is in progress (see
+     setIntlEnabled), and is consumed and cleared right here, so it can never leak
+     into the next round — which is exactly what v356.0 was protecting against. */
+  G.intlEnabled = (G._intlSetupChoice === true);
+  G._intlSetupChoice = false;
   G._intlReminderShown=false; G._intlBannerDismissed=false; // reset so popup fires fresh this round
   updateActiveLabels();
   const snakeBox=document.getElementById('snakeEnabled');
@@ -15500,7 +15514,26 @@ function buildInternationalPanel(m){
    ⭐ s140's habit, stated the other way round: it is not enough to change the
    state — repaint the surface the user can actually SEE. */
 function _ptRepaintMoneySurfaces(){
-  try{ if(document.getElementById('betsBody')) renderBets(); }catch(e){}
+  /* ── v487.0 · B-126 (Bruce, s143) ───────────────────────────────────────────
+     "clicked on call international - it did nothing - froze - restarted app -
+     it was called." Same sentence as B-124, different door: this time the tap
+     WAS on the bets screen and it WORKED (13.9 ms, panel repaints, s143 gate).
+     #betsBody IS the scroller (1746: height:calc(100% - 52px);overflow-y:auto)
+     and renderBets ends with `betsBody.innerHTML = html` (15566) — which snaps
+     scrollTop to 0. The Call button lives at the BOTTOM of a long Nassau panel,
+     so the tap threw Bruce back to the top of the screen with nothing visibly
+     changed where he was looking. Confirmed on device, s143: "screen definitely
+     jumped after hitting it."
+     ⭐ Same scroll-preserve the overlay leg below has had since v485.0. */
+  try{
+    var _bb = document.getElementById('betsBody');
+    if(_bb){
+      var _bbTop = _bb.scrollTop || 0;
+      renderBets();
+      var _bb2 = document.getElementById('betsBody');
+      if(_bb2 && _bbTop) _bb2.scrollTop = _bbTop;
+    }
+  }catch(e){}
   try{
     var ov = document.getElementById('midRoundScorecards');
     if(ov && typeof openMidRoundScorecards === 'function'){
@@ -57721,7 +57754,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v486.0';
+    const TOUR_VERSION     = 'pards-tour-v487.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
