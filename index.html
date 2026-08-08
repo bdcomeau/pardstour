@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v498.0 -->
+  <!-- pards-tour-v500.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -11179,6 +11179,16 @@ function _doStartRound(){
 // Calculate strokes per hole for a player given their playing handicap in a specific match
 function matchStrokes(playHdcp){
   return G.si.map(si=>{
+    // v500.0 (B-137) — plus handicaps GIVE BACK, starting at the EASIEST hole
+    // (SI 18) and working down. Exact mirror of the positive branch below, and
+    // it keeps THIS function's own 2-stroke cap. ⛔ Deliberately not delegated
+    // to ptStrokesOnHole: that one is uncapped, this one caps at 2 for match play.
+    if(playHdcp<0){
+      const a=-playHdcp, e=19-si;      // e = easiness rank: SI 18 -> 1, SI 1 -> 18
+      if(a>=e+18) return -2;
+      if(a>=e)    return -1;
+      return 0;
+    }
     if(playHdcp>=si+18) return 2;
     if(playHdcp>=si)    return 1;
     return 0;
@@ -11775,7 +11785,10 @@ function computeVegas(game){
   // Net strokes per player (full handicap by SI) — used for net-mode NUMBERS only.
   function strokeMap(pi){
     const hdcp = Math.round(G.players[pi] ? (G.players[pi].idx || 0) : 0);
-    return G.si.map(si => { if(hdcp>=si+18) return 2; if(hdcp>=si) return 1; return 0; });
+    // v500.0 (B-137) — was a hand-inlined copy of matchStrokes that clamped plus
+    // handicaps to zero. This takes a RAW index, so it is one of only two sites
+    // that can ever see a negative. Folded into matchStrokes: one rule, one cap.
+    return matchStrokes(hdcp);
   }
   const stk = {};
   [...A, ...B].forEach(pi => { stk[pi] = strokeMap(pi); });
@@ -32350,7 +32363,7 @@ window.ptTrpRender = function (d) {
 
   // ── bottom buttons ──
   html += '<button onclick="ptShowTripLeaderboard(' + trip.id + ',\'' + _esc(String(trip.viewer_pin || '')) + '\')" style="display:block;width:100%;text-align:center;padding:12px;border-radius:14px;font-weight:800;font-size:15px;border:none;margin-bottom:8px;background:linear-gradient(135deg,#c9a84c,#a07830);color:#0d1a0f;cursor:pointer">🏆 Overall Trip Leaderboard</button>'
-    + (trip.trip_code ? '<button onclick="ptTvShowLink(' + JSON.stringify(String(trip.trip_code)).replace(/"/g, '&quot;') + ',' + JSON.stringify(trip.name || '').replace(/"/g, '&quot;') + ')" style="display:block;width:100%;text-align:center;padding:12px;border-radius:14px;font-weight:800;font-size:15px;border:1px solid rgba(82,183,136,.3);margin-bottom:8px;background:#1e2d20;color:#a8d5b5;cursor:pointer">📺 TV board &mdash; link &amp; QR</button>' : '')
+    + (trip.trip_code ? '<button onclick="ptTvShowLink(' + JSON.stringify(String(trip.trip_code)).replace(/"/g, '&quot;') + ',' + JSON.stringify(trip.name || '').replace(/"/g, '&quot;') + ')" style="display:block;width:100%;text-align:center;padding:12px;border-radius:14px;font-weight:800;font-size:15px;border:1px solid rgba(82,183,136,.3);margin-bottom:8px;background:#1e2d20;color:#a8d5b5;cursor:pointer">📺 TV Board</button>' : '')
     + '<button onclick="ptShowTripRoundReport(' + trip.id + ',\'' + _esc(String(trip.viewer_pin || trip.trip_code || '')) + '\')" style="display:block;width:100%;text-align:center;padding:12px;border-radius:14px;font-weight:800;font-size:15px;border:1px solid rgba(82,183,136,.3);margin-bottom:8px;background:#1e2d20;color:#a8d5b5;cursor:pointer">📋 Round Reports &amp; Print</button>';
 
   body.innerHTML = html;
@@ -33349,7 +33362,7 @@ function ptRenderTripDetail(trip, players, rounds) {
   html += '<div style="border-top:1px solid rgba(255,255,255,.08);padding-top:16px">'
     +'<button onclick="ptShowTripLeaderboard('+tripId+',\''+trip.viewer_pin+'\')" style="width:100%;padding:14px;background:rgba(100,180,255,.12);border:1.5px solid rgba(100,180,255,.35);border-radius:12px;color:rgba(100,180,255,1);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px">🏆 Overall '+_lbLabel+'</button>'
     +'<button onclick="ptShowTripRoundReport('+tripId+',\''+(trip.viewer_pin||trip.trip_code||'')+'\')" style="width:100%;padding:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:rgba(255,255,255,.5);font-size:13px;font-weight:700;cursor:pointer">📋 Round Reports</button>'
-    +(trip.trip_code?'<button onclick="ptTvShowLink('+JSON.stringify(String(trip.trip_code)).replace(/"/g,'&quot;')+','+JSON.stringify(trip.name||'').replace(/"/g,'&quot;')+')" style="width:100%;margin-top:10px;padding:12px;background:rgba(100,180,255,.08);border:1px solid rgba(100,180,255,.3);border-radius:12px;color:rgba(100,180,255,.85);font-size:13px;font-weight:700;cursor:pointer">📺 TV board &mdash; link &amp; QR</button>':'') // v385.0 · D25b
+    +(trip.trip_code?'<button onclick="ptTvShowLink('+JSON.stringify(String(trip.trip_code)).replace(/"/g,'&quot;')+','+JSON.stringify(trip.name||'').replace(/"/g,'&quot;')+')" style="width:100%;margin-top:10px;padding:12px;background:rgba(100,180,255,.08);border:1px solid rgba(100,180,255,.3);border-radius:12px;color:rgba(100,180,255,.85);font-size:13px;font-weight:700;cursor:pointer">📺 TV Board</button>':'') // v385.0 · D25b
     +'</div>';
 
   // Delete Trip — real trips only (league rounds delete via the league; each round has its own delete)
@@ -35423,9 +35436,11 @@ function ptPrintTripOverallReport() {
 
   // Display-only ring: the same allocation the worker uses (hcpStrokesForHole).
   function _ringStrokes(si, ph) {
-    var hcp = Math.max(0, Math.round(Number(ph) || 0));
+    // v500.0 (B-137) — the Math.max(0,...) clamp showed a plus player NO dots.
+    // ptFr42Dots already renders give-backs as hollow rings, so this only ever
+    // needed the right number handed to it.
     var idx = Number(si) >= 1 ? Number(si) : 18;
-    return Math.floor(hcp / 18) + (idx <= (hcp % 18) ? 1 : 0);
+    return ptStrokesOnHole(Math.round(Number(ph) || 0), idx);
   }
   function _t12(t) { return (t && typeof _pt12h === 'function') ? _pt12h(t) : (t || ''); }
 
@@ -35595,9 +35610,11 @@ function ptPrintLeagueOverallReport() {
 
   // Display-only ring: the same allocation the worker uses (hcpStrokesForHole).
   function _ringStrokes(si, ph) {
-    var hcp = Math.max(0, Math.round(Number(ph) || 0));
+    // v500.0 (B-137) — the Math.max(0,...) clamp showed a plus player NO dots.
+    // ptFr42Dots already renders give-backs as hollow rings, so this only ever
+    // needed the right number handed to it.
     var idx = Number(si) >= 1 ? Number(si) : 18;
-    return Math.floor(hcp / 18) + (idx <= (hcp % 18) ? 1 : 0);
+    return ptStrokesOnHole(Math.round(Number(ph) || 0), idx);
   }
 
   // Rows in SERVER standings order with SERVER ranks; each row's week lines
@@ -51079,12 +51096,13 @@ function ptScbQRSvg(text, px) {
 // round report at ptPrintIndividualRoundReport): floor + SI threshold, and
 // the give-back branch for plus handicaps.
 function ptScbStrokes(ph, si) {
+  // v500.0 (B-137) — was a SECOND allocator whose plus branch gave strokes back
+  // on SI 1 upward (the two HARDEST holes) — the exact mistake B-120 corrected in
+  // ptStrokesOnHole at v473.0, left standing here. Now delegates, so there is one
+  // allocation rule on this surface and it cannot drift again (D43).
   var out = [];
   for (var h = 0; h < 18; h++) {
-    var holeSI = si[h] || (h + 1);
-    var strokes = Math.floor(ph / 18) + (holeSI <= (ph % 18) ? 1 : 0);
-    if (ph < 0) strokes = Math.ceil(ph / 18) - (holeSI <= (Math.abs(ph) % 18) ? 1 : 0);
-    out.push(strokes);
+    out.push(ptStrokesOnHole(ph, si[h] || (h + 1)));
   }
   return out;
 }
@@ -51831,9 +51849,9 @@ function ptPrintMmgOverallReport(eventId) {
       if (!si) { si = []; for (var _s = 1; _s <= 18; _s++) si.push(_s); } // worker fallback: SI = hole number
       // Display-only ring: the same allocation the worker uses (hcpStrokesForHole).
       function _ringStrokes(siv, ph) {
-        var hcp = Math.max(0, Math.round(Number(ph) || 0));
+        // v500.0 (B-137) — see the note on the other two copies.
         var idx = Number(siv) >= 1 ? Number(siv) : 18;
-        return Math.floor(hcp / 18) + (idx <= (hcp % 18) ? 1 : 0);
+        return ptStrokesOnHole(Math.round(Number(ph) || 0), idx);
       }
       var css = '*{box-sizing:border-box;margin:0;padding:0}'
         + 'body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#1a1a1a;padding:16px;font-size:11px}'
@@ -58482,7 +58500,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v498.0';
+    const TOUR_VERSION     = 'pards-tour-v500.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
