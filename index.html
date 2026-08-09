@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v517.0 -->
+  <!-- pards-tour-v518.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -30323,6 +30323,7 @@ function doCreateLeague() {
       var ov=document.getElementById('ptCreateLeagueOv'); if(ov) ov.remove();
       loadOrgEvents();
       ptShowLeagueDetail(d.league.id);
+      try { ptLBOpen(d.league.id, name); } catch (_eLB3) { }   // D100 Phase 1 — asked once, at creation
     } else {
       if(btn){ btn.disabled=false; btn.textContent='Create League'; }
       errEl.textContent=d.error||'Failed.'; errEl.style.display='block';
@@ -30351,11 +30352,124 @@ window.ptLgAddGameDay = function (lid, lname, iso, nights) {
   (nights || []).forEach(function (n) {
     if (n && n.event_code && (!last || String(n.date || '') >= String(last.date || ''))) last = n;
   });
-  if (!last) return open({ ppt:1, ppg:0, mult:100, alw:null, bets:false, fmt:'', course_id:'', tee:'' });
+  if (!last) {
+    /* D100 Phase 1 (v518.0) — the FIRST night has no cadence to inherit, so it
+       inherits the league profile instead: team size and group size ride in and
+       the format snaps to the first legal one for that team size. No profile (or
+       a no-teams league) keeps the light open exactly as before. */
+    var _lbP = null; try { _lbP = (G._ptLBStash || {})[lid] || null; } catch (_eP) { _lbP = null; }
+    if (_lbP && _lbP.teams && _lbP.teams !== 'none')
+      return open({ ppt: (_lbP.size >= 2 && _lbP.size <= 8) ? _lbP.size : 4, ppg: (_lbP.grp === 4 || _lbP.grp === 5) ? _lbP.grp : 0, mult: 100, alw: null, bets: false, fmt: null, course_id: '', tee: '' });
+    return open({ ppt:1, ppg:(_lbP && (_lbP.grp === 4 || _lbP.grp === 5)) ? _lbP.grp : 0, mult:100, alw:null, bets:false, fmt:'', course_id:'', tee:'' });
+  }
   try { window._ptTrpGDCache = window._ptTrpGDCache || {}; } catch (_e) { }
   _ptTrpFetchGD(last.event_code)
     .then(function (gdd) { open(gdd ? _ptTBPrefillFrom(gdd) : null); })
     .catch(function () { open(null); });   // a bad prefill opens the builder empty, never blocks the night
+};
+
+/* ── D100 PHASE 1 (v518.0, s170) — THE LEAGUE PROFILE ─────────────────────
+   A league is a POLICY, a night is an instance. These answers are asked once
+   and stamped into the league's own config under one key ('profile'); the
+   night builder inherits them so most weeks are one confirming tap.
+   ⭐ Season stays money-only (ruling 1, s170). ⛔ The step-6 feeds question is
+   deliberately NOT pre-answered from here — the no-default rule stands until
+   Bruce amends it. ⛔ Nothing here writes to any table but the league's own
+   config row, and only under the one 'profile' key. */
+window._ptLB = null;
+window.ptLBOpen = function (lid, lname) {
+  var p = {};
+  try { p = ((G._ptLBStash || {})[lid]) || {}; } catch (_e0) { p = {}; }
+  window._ptLB = {
+    lid: lid, lname: lname || '',
+    teams: p.teams || 'none',
+    size:  (p.size >= 2 && p.size <= 5) ? p.size : 4,
+    grp:   (p.grp === 4 || p.grp === 5) ? p.grp : 4,
+    short: p.short || 'equalize',
+    games: p.games || 'varies',
+    ante:  (p.ante_cents != null) ? String(Math.round(p.ante_cents / 100)) : '',
+    main:  (p.split && isFinite(p.split.main))  ? String(p.split.main)  : '100',
+    skins: (p.split && isFinite(p.split.skins)) ? String(p.split.skins) : '0'
+  };
+  window._ptLBPaint();
+};
+window._ptLBChip = function (k, v, label) {
+  var st = window._ptLB, on = st[k] === v;
+  var vjs = (typeof v === 'string') ? '\'' + v + '\'' : String(v);
+  return '<button onclick="window._ptLB.' + k + '=' + vjs + ';window._ptLBPaint()" style="flex:1;min-width:0;padding:11px 4px;border-radius:11px;border:1.5px solid '
+    + (on ? '#64dcb4' : 'rgba(255,255,255,.14)') + ';background:' + (on ? 'rgba(100,220,180,.16)' : 'rgba(255,255,255,.04)')
+    + ';color:' + (on ? '#a9f0d8' : 'rgba(255,255,255,.6)') + ';font-size:12px;font-weight:800;cursor:pointer">' + label + '</button>';
+};
+window._ptLBPaint = function () {
+  var st = window._ptLB; if (!st) return;
+  var aEl = document.getElementById('ptLBAnte'), mEl = document.getElementById('ptLBMain'), sEl = document.getElementById('ptLBSkins');
+  if (aEl) st.ante = aEl.value; if (mEl) st.main = mEl.value; if (sEl) st.skins = sEl.value;
+  var old = document.getElementById('ptLBOv'); if (old) old.remove();
+  var hasTeams = st.teams !== 'none';
+  var lab = function (t) { return '<div style="font-size:11.5px;font-weight:800;color:rgba(255,255,255,.5);margin:14px 0 7px">' + t + '</div>'; };
+  var row = function (hh) { return '<div style="display:flex;gap:7px">' + hh + '</div>'; };
+  var inp = 'box-sizing:border-box;padding:11px 13px;border-radius:10px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-size:15px;outline:none';
+  var h = '<div style="font-size:16px;font-weight:800;color:#64dcb4;margin-bottom:3px">⚙️ League Setup</div>'
+    + '<div style="font-size:12px;color:rgba(255,255,255,.45)">' + _ptEsc(st.lname) + ' — asked once; every night starts from these answers.</div>'
+    + lab('TEAMS ON A NIGHT')
+    + row(window._ptLBChip('teams', 'none', 'No teams') + window._ptLBChip('teams', 'before', 'Set before tee-off'))
+    + '<div style="height:7px"></div>'
+    + row(window._ptLBChip('teams', 'hat', '🎩 Drawn after the round') + window._ptLBChip('teams', 'teetime', 'The tee time IS the team'));
+  if (hasTeams) {
+    h += lab('TEAM SIZE (A TARGET, NOT A PROMISE)') + row([2, 3, 4, 5].map(function (n) { return window._ptLBChip('size', n, String(n)); }).join(''));
+    h += lab('PLAYERS IN A GROUP') + row(window._ptLBChip('grp', 4, '4') + window._ptLBChip('grp', 5, '5'));
+  }
+  if (st.teams === 'before' || st.teams === 'teetime') {
+    h += lab('WHEN THE FIELD DOES NOT DIVIDE')
+      + row(window._ptLBChip('short', 'equalize', '🎲 Blind add/remove to even') + window._ptLBChip('short', 'ask', 'Organizer decides on the night'));
+  } else if (st.teams === 'hat') {
+    h += '<div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:12px">🎩 A field that does not divide leaves the last team honestly short — the hat’s own rule. A hat league never runs the 🎲 draw.</div>';
+  }
+  h += lab('THE GAMES')
+    + row(window._ptLBChip('games', 'fixed', 'Same every week') + window._ptLBChip('games', 'varies', 'Change week to week'));
+  h += lab('ANTE PER PLAYER, PER NIGHT — $ (leave blank if it varies)')
+    + '<input id="ptLBAnte" type="number" min="0" step="1" value="' + _ptEsc(st.ante) + '" style="width:100%;' + inp + '">';
+  h += lab('POT SPLIT — MAIN GAME % · SKINS % (must total 100)')
+    + '<div style="display:flex;gap:7px">'
+    + '<input id="ptLBMain" type="number" min="0" max="100" value="' + _ptEsc(st.main) + '" style="flex:1;' + inp + '">'
+    + '<input id="ptLBSkins" type="number" min="0" max="100" value="' + _ptEsc(st.skins) + '" style="flex:1;' + inp + '">'
+    + '</div>'
+    + '<div id="ptLBErr" style="display:none;color:#e74c3c;font-size:12.5px;margin-top:10px"></div>'
+    + '<button onclick="window.ptLBSave()" style="width:100%;margin-top:16px;padding:15px;background:rgba(100,220,180,.9);color:#0a1a0a;border:none;border-radius:13px;font-size:15px;font-weight:900;cursor:pointer">Save League Setup</button>'
+    + '<button onclick="var o=document.getElementById(\'ptLBOv\');if(o)o.remove();window._ptLB=null" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>';
+  var ov = document.createElement('div');
+  ov.id = 'ptLBOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:764;background:rgba(0,0,0,.78);display:flex;align-items:flex-end';
+  ov.innerHTML = '<div style="background:#1a2a1a;border-radius:20px 20px 0 0;padding:22px 18px 34px;width:100%;box-sizing:border-box;max-height:92vh;overflow-y:auto">' + h + '</div>';
+  ov.addEventListener('click', function (e2) { if (e2.target === ov) { ov.remove(); window._ptLB = null; } });
+  document.body.appendChild(ov);
+};
+window.ptLBSave = function () {
+  var st = window._ptLB; if (!st) return;
+  var aEl = document.getElementById('ptLBAnte'), mEl = document.getElementById('ptLBMain'), sEl = document.getElementById('ptLBSkins');
+  var err = document.getElementById('ptLBErr');
+  var ante = aEl && aEl.value !== '' ? Math.round(Number(aEl.value) * 100) : null;
+  if (ante != null && (!isFinite(ante) || ante < 0)) { if (err) { err.textContent = 'The ante has to be a dollar amount, or blank.'; err.style.display = 'block'; } return; }
+  var mainPct = mEl ? Number(mEl.value) : 100, skinsPct = sEl ? Number(sEl.value) : 0;
+  if (!isFinite(mainPct) || !isFinite(skinsPct) || Math.round(mainPct + skinsPct) !== 100) {
+    if (err) { err.textContent = 'The split has to total 100 — it reads ' + mainPct + ' + ' + skinsPct + '.'; err.style.display = 'block'; } return;
+  }
+  var prof = { v: 1, season: 'money', teams: st.teams, size: st.size, grp: st.grp,
+               short: (st.teams === 'before' || st.teams === 'teetime') ? st.short : null,
+               games: st.games, ante_cents: ante, split: { main: mainPct, skins: skinsPct } };
+  fetch(TOUR_API + '/api/leagues/' + st.lid + '/config', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+    body: JSON.stringify({ profile: prof })
+  }).then(_ptJson).then(_ptThrow).then(function () {
+    try { G._ptLBStash = G._ptLBStash || {}; G._ptLBStash[st.lid] = prof; } catch (_e1) { }
+    var o = document.getElementById('ptLBOv'); if (o) o.remove();
+    var lid2 = st.lid; window._ptLB = null;
+    ptToast('⚙️ League setup saved.');
+    if (document.getElementById('ptLeagueDetailOv')) { try { ptLoadLeagueDetail(lid2); } catch (_e2) { } }
+  }).catch(function (e) {
+    if (err) { err.textContent = _ptMsg(e, 'Could not save the setup.'); err.style.display = 'block'; }
+  });
 };
 
 /* ⭐⭐ FR-67 — OPEN A LEAGUE NIGHT FROM THE LEAGUE PAGE.
@@ -30458,6 +30572,13 @@ function ptRenderLeagueDetail(league, members, rounds, teamNights) {   // FR-19 
     +(league.watch_code?'<div style="margin-top:12px"><div style="font-size:10px;color:rgba(255,255,255,.35);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">League Code (share to Watch Live &amp; Results)</div><div style="font-size:26px;font-weight:900;color:#c9a84c;letter-spacing:6px;font-family:monospace">'+_esc(league.watch_code)+'</div></div>':'')
     +'</div>';
 
+  /* D100 Phase 1 (v518.0) — read the stored profile off the league row and stash it
+     so the setup sheet and the first-night prefill can reach it without a refetch. */
+  var _lbProf = null;
+  try { var _lbC = typeof league.config === 'string' ? JSON.parse(league.config || '{}') : (league.config || {}); _lbProf = _lbC.profile || null; } catch (_eLB) { _lbProf = null; }
+  try { G._ptLBStash = G._ptLBStash || {}; G._ptLBStash[lid] = _lbProf; } catch (_eLB2) { }
+  var _lbNmJS = JSON.stringify(String(league.name || '')).replace(/"/g, '&quot;');
+  html += '<button onclick="ptLBOpen(' + lid + ',' + _lbNmJS + ')" style="width:100%;padding:12px;background:rgba(255,255,255,.04);border:1.5px solid rgba(100,220,180,.25);border-radius:12px;color:rgba(100,220,180,.85);font-size:13px;font-weight:800;cursor:pointer;margin-bottom:20px">⚙️ League Setup — how this league plays' + (_lbProf ? '' : ' <span style="color:#e8c96b;font-weight:700">· not set</span>') + '</button>';
   // v246.0 - whole-season results: league parity with trip Watch Live & Results
   html += '<button onclick="ptShowLeagueSeason('+lid+','+(league.watch_code?"'"+_esc(league.watch_code)+"'":'null')+')" style="width:100%;padding:14px;background:rgba(100,180,255,.12);border:1.5px solid rgba(100,180,255,.35);border-radius:12px;color:rgba(100,180,255,1);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:20px">\uD83C\uDFC6 Season Standings &amp; All Weeks</button>';
   if (league.watch_code) html += '<button onclick="ptTvShowLink('+JSON.stringify(String(league.watch_code)).replace(/"/g,'&quot;')+','+JSON.stringify(league.name||'').replace(/"/g,'&quot;')+')" style="width:100%;padding:12px;background:rgba(100,180,255,.08);border:1px solid rgba(100,180,255,.3);border-radius:12px;color:rgba(100,180,255,.85);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:20px;margin-top:-10px">📺 TV Leaderboard</button>'; // v385.0 · D25b
@@ -59512,7 +59633,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v517.0';
+    const TOUR_VERSION     = 'pards-tour-v518.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
