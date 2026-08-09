@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v519.0 -->
+  <!-- pards-tour-v520.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -30754,11 +30754,23 @@ function ptRenderLeagueDetail(league, members, rounds, teamNights) {   // FR-19 
      every new league is born on the event chassis. */
   var _evBacked = !rounds.length;
   if(_evBacked){ /* Team Nights owns the add button for this league */ }
-  else if(_cad.nextISO){
-    html += '<button onclick="ptCreateLeagueRoundUI('+lid+',\''+_cad.nextISO+'\')" style="width:100%;padding:13px;background:rgba(100,220,180,.12);border:1.5px dashed rgba(100,220,180,.4);border-radius:12px;color:rgba(100,220,180,.9);font-size:14px;font-weight:800;cursor:pointer;margin-bottom:8px">+ Add next Game Day ('+_cad.nextLabel+')</button>';
-    html += '<button onclick="ptCreateLeagueRoundUI('+lid+')" style="width:100%;padding:9px;background:none;border:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:8px">or pick a custom date</button>';
+  else {
+    /* ⭐ FR-73 (v520.0, s171) — the rail inherits. Bruce circled a fresh week reading
+       "Format: TBD" under two straight weeks of the same format. The latest-dated round
+       that HAS a format is what next week follows on from; it rides into the create
+       sheet PRE-SELECTED, never silently — the dropdown stays the answer. A league
+       whose every week is TBD inherits nothing and the sheet opens exactly as before.
+       ⛔ The first game day of a league has no last week and keeps the plain open. */
+    var _pfFmt = '';
+    rounds.slice().sort(function(a,b){ return (a.round_date||'').localeCompare(b.round_date||''); })
+      .forEach(function(r){ if (r.format) _pfFmt = r.format; });
+    var _pfJS = '\'' + String(_pfFmt).replace(/[^a-z0-9_]/gi, '') + '\'';
+  if(_cad.nextISO){
+    html += '<button onclick="ptCreateLeagueRoundUI('+lid+',\''+_cad.nextISO+'\','+_pfJS+')" style="width:100%;padding:13px;background:rgba(100,220,180,.12);border:1.5px dashed rgba(100,220,180,.4);border-radius:12px;color:rgba(100,220,180,.9);font-size:14px;font-weight:800;cursor:pointer;margin-bottom:8px">+ Add next Game Day ('+_cad.nextLabel+')</button>';
+    html += '<button onclick="ptCreateLeagueRoundUI('+lid+',null,'+_pfJS+')" style="width:100%;padding:9px;background:none;border:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:8px">or pick a custom date</button>';
   } else {
     html += '<button onclick="ptCreateLeagueRoundUI('+lid+')" style="width:100%;padding:12px;background:rgba(100,220,180,.1);border:1.5px dashed rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,.7);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px">+ Create First Game Day</button>';
+  }
   }
   html += '<button onclick="ptDeleteLeague('+lid+')" style="width:100%;margin-top:12px;padding:10px;background:none;border:1px solid rgba(180,30,30,.35);border-radius:10px;color:rgba(200,60,60,.6);font-size:12px;font-weight:700;cursor:pointer">🗑️ Delete League...</button>';
 
@@ -30835,7 +30847,7 @@ window.ptRemoveLeagueMember = function(leagueId, memberId) {
   });
 };
 
-window.ptCreateLeagueRoundUI = function(leagueId, presetDate) {
+window.ptCreateLeagueRoundUI = function(leagueId, presetDate, prevFmt) {
   var ov = document.createElement('div');
   ov.id = 'ptCreateLeagueRoundOv';
   ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.8);display:flex;align-items:flex-end';
@@ -30852,11 +30864,15 @@ window.ptCreateLeagueRoundUI = function(leagueId, presetDate) {
        _ptFmtOptions wrapper. Both of this sheet's deliberate differences are
        ARGUMENTS now (contract rule 3): long labels, and its OWN wording of the
        TBD row — 'Format: TBD (choose later)', which the trip sheet words
-       differently on purpose. No option carries `selected`, exactly as before:
-       the browser selects the first row, which is still TBD. */
+       differently on purpose. ⭐ FR-73 (v520.0, s171) amends the old "no option
+       carries selected" rule: when the rail hands in last week's format it IS
+       selected — a pre-answer, editable in place. With nothing handed in, the
+       browser still lands on the first row, which is still TBD. */
     + window._ptFmtFor('league', { long:true, includeTBD:true, tbdLabel:'Format: TBD (choose later)' })
-        .map(function(x){ return '<option value="'+x[0]+'">'+x[1]+'</option>'; }).join('')
-    +'</select></div>'
+        .map(function(x){ return '<option value="'+x[0]+'"'+((prevFmt && x[0]===prevFmt)?' selected':'')+'>'+x[1]+'</option>'; }).join('')
+    +'</select>'
+    +(prevFmt ? '<div style="font-size:11px;color:#e8c96b;margin-top:6px">Pre-answered from last week \u2014 change it if this week is different.</div>' : '')
+    +'</div>'
     +'<div style="color:rgba(255,255,255,.35);font-size:12px;margin-bottom:18px">Creates a round linked to this league. Pick who is playing tonight and set up groups.</div>'
     +'<button onclick="doCreateLeagueRound('+leagueId+')" style="width:100%;padding:13px;background:rgba(100,220,180,.9);color:#0a1a0a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;margin-bottom:8px">Create Round</button>'
     +'<button onclick="document.getElementById(\'ptCreateLeagueRoundOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer">Cancel</button>'
@@ -59650,7 +59666,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v519.0';
+    const TOUR_VERSION     = 'pards-tour-v520.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
