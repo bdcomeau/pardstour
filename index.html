@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v511.0 -->
+  <!-- pards-tour-v512.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -28798,6 +28798,7 @@ function showOrgDash() {
 }
 
 function loadOrgEvents() {
+  window._ptFr67Ctx = null;   // ⭐ FR-67 — the list is the other door; the league context does not survive it
   var list = document.getElementById('ptOrgEventList');
   if (!list) return;
   list.innerHTML = '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">Loading\u2026</div>';
@@ -30318,6 +30319,29 @@ window.ptLgAddGameDay = function (lid, lname, iso, nights) {
     .catch(function () { open(null); });   // a bad prefill opens the builder empty, never blocks the night
 };
 
+/* ⭐⭐ FR-67 — OPEN A LEAGUE NIGHT FROM THE LEAGUE PAGE.
+   ⛔ The league detail is a FULL-SCREEN OVERLAY (ptLeagueDetailOv, z-index 600),
+   NOT a pane — so it is not enough to switch tabs: the overlay has to come down
+   or loadOrgEventDetail paints into #ptOrgEventList UNDERNEATH it and the tap
+   looks dead. (The s163 measurement said "switch tab, load detail" and missed
+   the overlay; corrected s165.)
+   The context is ONE-SHOT and pinned to the event id it was opened for, so a
+   stale league can never claim an event reached any other way. */
+window._ptFr67Ctx = null;
+window.ptFr67OpenNight = function (lid, evId, lname) {
+  window._ptFr67Ctx = { lid: lid, evId: String(evId), name: lname || 'League' };
+  var ov = document.getElementById('ptLeagueDetailOv'); if (ov) ov.remove();
+  try { ptOrgSwitchTab('events'); } catch (e) {}
+  loadOrgEventDetail(evId);
+};
+/* Back into the league. ptShowLeagueDetail rebuilds the overlay and refetches
+   (it already self-removes any duplicate — B-88), so this is the whole exit. */
+window.ptFr67Back = function () {
+  var c = window._ptFr67Ctx; window._ptFr67Ctx = null;
+  if (!c) { loadOrgEvents(); return; }
+  try { ptOrgSwitchTab('leagues'); } catch (e) {}
+  ptShowLeagueDetail(c.lid);
+};
 function ptShowLeagueDetail(leagueId) {
   var _o88 = document.getElementById('ptLeagueDetailOv'); if (_o88) _o88.remove();   // B-88 (v440.0) — re-entry (post-link/unlink) stacked a duplicate id: the new overlay froze on 'Loading…' while getElementById fed the render to the OLD one underneath
   var ov = document.createElement('div');
@@ -30412,9 +30436,12 @@ function ptRenderLeagueDetail(league, members, rounds, teamNights) {   // FR-19 
     +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:'+(_tn.length?'8':'2')+'px">'
     +'<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px">Team Nights · <span style="color:rgba(245,217,122,.85)">'+_tn.length+'</span></div>'
     +'<button onclick="ptLgLinkEventOpen('+lid+')" style="padding:5px 10px;background:rgba(245,217,122,.1);border:1px solid rgba(245,217,122,.35);border-radius:8px;color:#f5d97a;font-size:11px;font-weight:700;cursor:pointer">+ Link an event</button></div>';
+  /* ⭐ FR-67 — the night name is a tap target. The league name rides into the
+     back button so the exit says where it goes. */
+  var _fr67LgNm = JSON.stringify(String(league.name||'')).replace(/"/g,'&quot;');
   _tn.forEach(function(t){
     html += '<div style="display:flex;align-items:center;padding:7px 0;border-top:1px solid rgba(255,255,255,.05)">'
-      +'<div style="flex:1"><div style="font-size:13px;font-weight:700;color:#f0f0f0">'+_esc(t.name||'—')+'</div>'
+      +'<div style="flex:1">'+'<div onclick="ptFr67OpenNight('+lid+','+t.id+','+_fr67LgNm+')" style="font-size:13px;font-weight:700;color:#f0f0f0;cursor:pointer;-webkit-tap-highlight-color:transparent">'+_esc(t.name||'—')+' <span style="color:rgba(245,217,122,.55);font-weight:600">\u203a</span></div>'
       +'<div style="font-size:10.5px;color:rgba(255,255,255,.35)">'+_esc(t.date||'')+(t.status?' · '+_esc(t.status):'')+'</div>'
       /* ⭐ D99 — the ONLY route to an answer for a night linked by hand, or one that
          existed before v507.0. All four live rows carry config NULL today. */
@@ -38029,7 +38056,12 @@ function loadOrgEventDetail(eventId) {
     if(!d.event){list.innerHTML='<div style="color:#e74c3c;padding:20px;text-align:center">Not found.</div>';return;}
     var ev=d.event, groups=d.groups||[];
     var sc=ev.status==='active'?'#4CAF50':ev.status==='complete'?'#888':ev.status==='archived'?'rgba(255,255,255,.25)':'#c9a84c';
-    var html='<div style="margin-bottom:14px"><button onclick="loadOrgEvents()" style="background:none;border:none;color:rgba(201,168,76,.7);font-size:13px;cursor:pointer;padding:0;font-weight:700">← All Events</button></div>'
+    /* ⭐ FR-67 — league-aware exit. Pinned to THIS event id; anything else
+       still says All Events. ⛔ Without this the exit from a league night is a
+       dead end the moment B-141 hides those nights from the events list. */
+    var _f67 = window._ptFr67Ctx;
+    var _f67On = !!(_f67 && String(_f67.evId) === String(eventId));
+    var html='<div style="margin-bottom:14px"><button onclick="'+(_f67On?'ptFr67Back()':'loadOrgEvents()')+'" style="background:none;border:none;color:rgba(201,168,76,.7);font-size:13px;cursor:pointer;padding:0;font-weight:700">← '+(_f67On?_ptEsc(_f67.name):'All Events')+'</button></div>'
       +'<div style="background:rgba(255,255,255,.06);border-radius:12px;padding:16px;margin-bottom:14px">'
       +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">'
       +'<div style="display:flex;align-items:center;gap:8px">'      +'<div style="font-size:17px;font-weight:900;color:#f5e6b8;flex:1">'+ev.name+'</div>'      +'<button onclick="ptEditEvent('+ev.id+')" style="padding:4px 10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);border-radius:8px;color:#c9a84c;font-size:11px;font-weight:700;cursor:pointer">&#9998; Edit</button>'      +'</div>'      +'<div style="font-size:11px;font-weight:700;color:'+sc+';text-transform:uppercase;margin-top:2px">'+ev.status+'</div>'
@@ -59260,7 +59292,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v511.0';
+    const TOUR_VERSION     = 'pards-tour-v512.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
