@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v520.0 -->
+  <!-- pards-tour-v521.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -30649,11 +30649,15 @@ function ptRenderLeagueDetail(league, members, rounds, teamNights) {   // FR-19 
   try { var _lc = typeof league.config === 'string' ? JSON.parse(league.config||'{}') : (league.config||{}); _bOn = !!(_lc.barnes && _lc.barnes.on); } catch(_e) { _bOn = false; }
   if (_bOn) {
     html += '<button onclick="ptShowLeagueBarnes('+lid+')" style="width:100%;padding:14px;background:rgba(224,122,95,.12);border:1.5px solid rgba(224,122,95,.35);border-radius:12px;color:rgba(224,122,95,1);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:8px">\u26F3 Barnes Week &amp; Year Long</button>';
-    // v317.0 — setup sits behind the SAME _bOn gate as the board. Turning
-    // Barnes on for a brand-new league is still an API/D1 job; this screen
-    // configures a league that already has the format switched on. Named in
-    // the handoff rather than left as a surprise.
+    // v317.0 said turning this on for a new league was an API/D1 job. ⭐ D102
+    // (v521.0, s171) retired that: the else-branch below is the door in when the
+    // flag is off, and the setup screen's own switch turns it on.
     html += '<button onclick="ptShowBarnesSetup('+lid+')" style="width:100%;padding:11px;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;color:rgba(255,255,255,.55);font-size:13px;font-weight:800;cursor:pointer;margin-bottom:20px">\u2699\ufe0f Barnes Setup</button>';
+  } else {
+    /* ⭐ D102 (v521.0, s171) — the format is recreatable from screens now, so the door
+       has to exist before the flag is on. The setup screen itself carries the on/off
+       switch; this is only the way in. Low-key on purpose — most leagues never tap it. */
+    html += '<button onclick="ptShowBarnesSetup('+lid+')" style="width:100%;padding:10px;background:none;border:1.5px dashed rgba(224,122,95,.3);border-radius:12px;color:rgba(224,122,95,.55);font-size:12px;font-weight:800;cursor:pointer;margin-bottom:20px">\u26f3 Season match play (Barnes-style) \u2014 set up\u2026</button>';
   }
 
   // Members section
@@ -37386,8 +37390,45 @@ function _ptBSTeams() {
   if (!ready) {
     html += '<div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-top:8px">A ' + _ptBSCount('A') + '/6 · B ' + _ptBSCount('B') + '/6 · C ' + _ptBSCount('C') + '/6</div>';
   }
+
+  /* ── ⭐ FR-71 step 1 (v521.0, s171) — WEEKLY STAKES ─────────────────────
+     The one Barnes screen that never existed: the money was hand-written into
+     the database at session 12 and edited nowhere since. Dollars, never
+     percentages — Bruce's 66.667/33.333 IS 20+5+5 of 30, and the dollars are
+     exact where the percentages are lossy. The engine already defaults to
+     30/20/5/5 when nothing is stored, so the boxes open on what the board
+     would actually pay. Saved as its own partial patch: the one-level merge
+     leaves teams, carry-in and the rest untouched. */
+  var stk = _ptBSBarnes().stake || { per_player: 30, team: 20, front: 5, back: 5 };
+  var stkBox = function (id, label, val) {
+    return '<div style="flex:1;min-width:0"><div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">' + label + '</div>'
+      + '<input id="' + id + '" type="number" min="0" step="1" value="' + val + '" style="width:100%;box-sizing:border-box;padding:9px 8px;border-radius:9px;border:1.5px solid rgba(224,122,95,.3);background:rgba(255,255,255,.06);color:#fff;font-size:14px;font-weight:800;outline:none;text-align:center"></div>';
+  };
+  html += '<div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;margin:22px 0 8px">Weekly stakes</div>'
+    + '<div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px">'
+    + '<div style="display:flex;gap:8px;margin-bottom:8px">'
+    + stkBox('ptBSStakePP', 'Buy-in / player', stk.per_player)
+    + stkBox('ptBSStakeTeam', 'Team pot', stk.team)
+    + stkBox('ptBSStakeF9', 'Front 9', stk.front)
+    + stkBox('ptBSStakeB9', 'Back 9', stk.back)
+    + '</div>'
+    + '<div style="font-size:11px;color:rgba(255,255,255,.35)">Team pot + Front 9 + Back 9 must add up to the buy-in \u2014 dollars, not percentages. No invented money.</div>'
+    + '<div id="ptBSStakeErr" style="display:none;color:#e74c3c;font-size:12px;margin-top:6px"></div>'
+    + '<button onclick="ptBSStakeSave()" style="width:100%;margin-top:10px;padding:11px;border-radius:10px;border:1.5px solid rgba(224,122,95,.4);background:rgba(224,122,95,.12);color:rgba(224,122,95,1);font-size:13px;font-weight:800;cursor:pointer">Save stakes</button>'
+    + '</div>';
   return html;
 }
+
+window.ptBSStakeSave = function () {
+  var g = function (id) { var el = document.getElementById(id); return el ? Math.round(Number(el.value)) : NaN; };
+  var pp = g('ptBSStakePP'), tm = g('ptBSStakeTeam'), f9 = g('ptBSStakeF9'), b9 = g('ptBSStakeB9');
+  var err = document.getElementById('ptBSStakeErr');
+  var say = function (m) { if (err) { err.textContent = m; err.style.display = 'block'; } };
+  if (![pp, tm, f9, b9].every(function (n) { return isFinite(n) && n >= 0; }) || pp <= 0) { say('Every stake has to be a whole dollar amount, and the buy-in above zero.'); return; }
+  if (tm + f9 + b9 !== pp) { say('The split has to add up to the buy-in \u2014 it reads ' + tm + ' + ' + f9 + ' + ' + b9 + ' = ' + (tm + f9 + b9) + ' against ' + pp + '.'); return; }
+  if (err) err.style.display = 'none';
+  _ptBSPatchLeague({ stake: { per_player: pp, team: tm, front: f9, back: b9 } }, 'Stakes saved');
+};
 
 window.ptBSName = function (t, v) { if (G._ptBS) G._ptBS.names[t] = v; };
 
@@ -37425,7 +37466,12 @@ window.ptBSToggle = function () {
   var b = _ptBSBarnes();
   // ⭐ This exact patch — {barnes:{on:…}} — is the one that destroyed teams,
   // stake and carry_in under v2.68.0's shallow merge. It is safe from v2.68.1.
-  _ptBSPatchLeague({ on: !b.on }, !b.on ? 'Barnes on' : 'Barnes off');
+  /* ⭐ D102 (v521.0, s171) — the FIRST enable on a bare league stamps the rest of
+     the shape league 10 carries: the three match types and the weekly organizer
+     pick. A league that already has a games list keeps it untouched. */
+  var patch = { on: !b.on };
+  if (!b.on && !(b.games && b.games.length)) { patch.games = ['1v1_nassau', '2v2_highlow', '2v2_bestball']; patch.game_select = 'organizer_weekly'; }
+  _ptBSPatchLeague(patch, !b.on ? 'Barnes on' : 'Barnes off');
 };
 
 function _ptBSPatchLeague(barnesPatch, okMsg) {
@@ -59666,7 +59712,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v520.0';
+    const TOUR_VERSION     = 'pards-tour-v521.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
