@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v525.0 -->
+  <!-- pards-tour-v526.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -28176,14 +28176,25 @@ function ptLoadOrgLeagues() {
       }
       el.innerHTML = leagues.map(function(lg) {
         _ptDupNames.lg[lg.id] = lg.name;
-        return '<div onclick="ptShowLeagueDetail('+lg.id+')" style="background:rgba(100,220,180,.06);border:1px solid rgba(100,220,180,.2);border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;-webkit-tap-highlight-color:transparent">'
-          + '<div style="display:flex;align-items:center;justify-content:space-between">'
-          + '<div style="font-size:15px;font-weight:800;color:rgba(100,220,180,.9)">' + lg.name + '</div>'
-          + '<div style="display:flex;align-items:center;gap:6px"><div style="font-size:11px;color:rgba(255,255,255,.35)">' + (lg.member_count||0) + ' members · ' + (lg.round_count||0) + ' rounds</div>'
-          + '<button onclick="ptDupLeague('+lg.id+',event)" title="Duplicate league" style="background:none;border:none;color:rgba(201,168,76,.6);font-size:16px;cursor:pointer;padding:2px 4px">&#x29C9;</button></div>'
+        /* ⭐⭐ FR-77 (v526.0, s174) — Bruce: "can we make league pills look nice like trip
+           pills". The trip gallery card is the template (D85 again): the gold gradient
+           cover, the name at 17px in gold, a muted subtitle line, and the counts moved
+           DOWN onto their own mint line instead of crowding the name. ⭐ The counts read
+           as words on that line rather than a right-aligned whisper — a league with 39
+           members and no weeks yet now says so where the eye already is. */
+        var _lgBits = [];
+        if (lg.member_count != null) _lgBits.push(lg.member_count + ' member' + (Number(lg.member_count) === 1 ? '' : 's'));
+        var _lgN = Number(lg.round_count || 0) + Number(lg.night_count || 0);
+        _lgBits.push(_lgN ? _lgN + ' week' + (_lgN === 1 ? '' : 's') : 'no weeks yet');
+        return '<div style="background:linear-gradient(160deg,rgba(100,220,180,.07),rgba(255,255,255,.03));border:1px solid rgba(100,220,180,.25);border-radius:14px;padding:14px 16px;margin-bottom:12px">'
+          + '<div style="display:flex;align-items:flex-start;gap:8px">'
+          + '<div onclick="ptShowLeagueDetail('+lg.id+')" style="flex:1;min-width:0;cursor:pointer;-webkit-tap-highlight-color:transparent">'
+          + '<div style="font-size:17px;font-weight:800;color:#7fe3c0">' + _esc(lg.name) + '</div>'
+          + (lg.home_course_name ? '<div style="font-size:12.5px;color:rgba(255,255,255,.45);margin-top:3px">\ud83d\udccd ' + _esc(lg.home_course_name) + '</div>' : '')
+          + '<div style="font-size:12.5px;color:#a8d5b5;margin-top:7px">' + _lgBits.join(' \u00b7 ') + '</div>'
           + '</div>'
-          + (lg.home_course_name ? '<div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:3px">' + lg.home_course_name + '</div>' : '')
-          + '</div>';
+          + '<button onclick="ptDupLeague('+lg.id+',event)" title="Duplicate league" style="background:none;border:none;color:rgba(201,168,76,.6);font-size:16px;cursor:pointer;padding:2px 4px;flex-shrink:0">&#x29C9;</button>'
+          + '</div></div>';
       }).join('');
     })
     .catch(function(_e) {
@@ -30623,9 +30634,24 @@ function ptRenderLeagueDetail(league, members, rounds, teamNights) {   // FR-19 
      in, and the nights below read as cards rather than list rows. A league season is
      12\u201320+ weeks against a trip's 9 days, so the strip scrolls where the trip's
      rarely has to. Date order decides the week number \u2014 the stored order does not. */
-  var _lgWk = _tn.slice().sort(function(a,b){ return String(a.date||'').localeCompare(String(b.date||'')); });
+  /* ⭐⭐ FR-78 (v526.0, s174) — THE FOLD. Bruce: "can you migrate games days to game
+     nights and be done with it?" The two rails stop being two SECTIONS here. Every week
+     the league owns — a night on the event chassis, or an older trip-backed round —
+     lands in ONE date-ordered strip and ONE stack of cards, and the words Game Day leave
+     the league page.
+     ⛔⛔ NOTHING MOVES IN THE DATABASE. An older week keeps its own id space, its own
+     stored scores and its own manage screen; only the frame around it changed. Copying
+     those scores across id spaces would rewrite nights that have already paid out — the
+     handicap-snapshot class of mistake, measured s174 at 378 scores over three weeks.
+     ⭐ Week numbers come off the MERGED date order, so an old week and a new night can
+     never both claim the same number. */
+  var _lgWk = _tn.map(function(t){ return { kind:'night', id:t.id, key:'n'+t.id, date:t.date, row:t }; })
+    .concat((rounds||[]).map(function(r){ return { kind:'day', id:r.league_round_id, key:'d'+r.league_round_id, date:r.round_date, row:r }; }))
+    .sort(function(a,b){ return String(a.date||'').localeCompare(String(b.date||'')); });
   var _lgWkNo = {};
-  _lgWk.forEach(function(t,i){ _lgWkNo[String(t.id)] = i+1; });
+  _lgWk.forEach(function(w,i){ _lgWkNo[w.key] = i+1; });
+  var _lgWkDom = function(w){ return (w.kind==='night' ? 'ptLgNight_' : 'ptLgDay_') + w.id; };
+  var _FMT = {stableford:'Individual Stableford', overall_skins:'Overall Skins', low_net:'Low Net', low_gross:'Low Gross', match_play:'Match Play', best_ball:'Best Ball'};
   var _lgChipDate = function(iso){
     var s = String(iso||'').slice(0,10);
     var d = new Date(s+'T12:00:00');
@@ -30633,35 +30659,69 @@ function ptRenderLeagueDetail(league, members, rounds, teamNights) {   // FR-19 
     var WDS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], MOS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     return { wd:WDS[d.getDay()], md:MOS[d.getMonth()]+' '+d.getDate() };
   };
-  /* The add chip must obey the same old-rail refusal the add BUTTON obeys, or the
-     strip would offer the tap the button below deliberately withholds. */
-  var _canAddNight = (!rounds.length || _tn.length);
+  /* ⭐ B-150 (v526.0, s174) — the add is offered on EVERY league now. B-147 withheld it
+     from a league living wholly on the old rail, which was right while both rails were
+     live doors; FR-78 retired the old door, and Bruce deleting Boyers' last night proved
+     the withholding could DEMOTE a league that had already come through. One flag, both
+     sites, and it is now always true — the chip and the button cannot disagree. */
+  var _canAddNight = true;
   if (_lgWk.length) {
     html += '<div style="display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;-webkit-overflow-scrolling:touch">';
-    _lgWk.forEach(function(t){
-      var _cd = _lgChipDate(t.date);
-      html += '<button onclick="var el=document.getElementById(\'ptLgNight_'+t.id+'\');if(el)el.scrollIntoView({behavior:\'smooth\',block:\'center\'})" '
+    _lgWk.forEach(function(w){
+      var _cd = _lgChipDate(w.date);
+      html += '<button onclick="var el=document.getElementById(\''+_lgWkDom(w)+'\');if(el)el.scrollIntoView({behavior:\'smooth\',block:\'center\'})" '
         + 'style="flex:0 0 auto;min-width:62px;text-align:center;background:#1e2d20;border:1px solid rgba(201,168,76,.6);border-radius:12px;padding:7px 6px;cursor:pointer">'
         + '<div style="font-size:11px;color:#e8c96b;font-weight:700">'+_esc(_cd.wd)+'</div>'
         + '<div style="font-size:15px;font-weight:800;color:#e8f0e9;white-space:nowrap">'+_esc(_cd.md)+'</div>'
-        + '<div style="font-size:10px;font-weight:700;color:#52b788">Week '+_lgWkNo[String(t.id)]+'</div>'
+        + '<div style="font-size:10px;font-weight:700;color:#52b788">Week '+_lgWkNo[w.key]+'</div>'
         + '</button>';
     });
     if (_canAddNight) html += '<button onclick="var el=document.getElementById(\'ptLgAddNight\');if(el)el.scrollIntoView({behavior:\'smooth\',block:\'center\'})" style="flex:0 0 auto;min-width:62px;text-align:center;background:none;border:1.5px dashed rgba(201,168,76,.4);border-radius:12px;padding:7px 6px;cursor:pointer;color:rgba(232,201,107,.75)"><div style="font-size:16px;font-weight:800;line-height:1.5">\uff0b</div><div style="font-size:10px;font-weight:700">Night</div></button>';
     html += '</div>';
   }
   html += '<div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px 14px;margin-bottom:20px">'
-    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:'+(_tn.length?'10':'2')+'px">'
-    +'<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px">Game Nights \u00b7 <span style="color:rgba(245,217,122,.85)">'+_tn.length+'</span></div>'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:'+(_lgWk.length?'10':'2')+'px">'
+    +'<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px">Game Nights \u00b7 <span style="color:rgba(245,217,122,.85)">'+_lgWk.length+'</span></div>'
     +'<button onclick="ptLgLinkEventOpen('+lid+')" style="padding:5px 10px;background:rgba(245,217,122,.1);border:1px solid rgba(245,217,122,.35);border-radius:8px;color:#f5d97a;font-size:11px;font-weight:700;cursor:pointer">+ Link a tournament</button></div>';
   /* ⭐ FR-67 — the night name is a tap target. The league name rides into the
      back button so the exit says where it goes. */
   var _fr67LgNm = JSON.stringify(String(league.name||'')).replace(/"/g,'&quot;');
-  _lgWk.forEach(function(t){
-    var _cd = _lgChipDate(t.date);
-    html += '<div id="ptLgNight_'+t.id+'" style="background:linear-gradient(160deg,#1e2d20,#152018);border:1px solid rgba(201,168,76,.18);border-radius:14px;padding:13px;margin-bottom:10px">'
-      +'<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">'
-      +'<span style="font-size:11px;letter-spacing:1px;color:#7a9c7d;font-weight:700;text-transform:uppercase">Week '+_lgWkNo[String(t.id)]+' \u00b7 '+_esc(_cd.wd?(_cd.wd+' '+_cd.md):_cd.md)+'</span>'
+  _lgWk.forEach(function(w){
+    var _cd = _lgChipDate(w.date);
+    var _hd = '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">'
+      +'<span style="font-size:11px;letter-spacing:1px;color:#7a9c7d;font-weight:700;text-transform:uppercase">Week '+_lgWkNo[w.key]+' \u00b7 '+_esc(_cd.wd?(_cd.wd+' '+_cd.md):_cd.md)+'</span>';
+    var _skin = 'style="background:linear-gradient(160deg,#1e2d20,#152018);border:1px solid rgba(201,168,76,.18);border-radius:14px;padding:13px;margin-bottom:10px"';
+    if (w.kind === 'day') {
+      /* ⭐ FR-78 — an older trip-backed week wears the SAME card as a night. Its buttons
+         are its own, because its data is its own: the manage screen, the results board and
+         the format picker all still speak the old rail. ⛔ There is deliberately no
+         "+ Add a Game Day" anywhere on this page any more — a new week is always a Night. */
+      var r = w.row;
+      var _dStr = r.round_date ? ptFormatDate(r.round_date) : 'Date TBD';
+      var _pill;
+      if(!(r.group_count>0))                   _pill = {t:'\u25cb no tee sheet yet', c:'rgba(255,255,255,.4)'};
+      else if(!(r.players_done>0))             _pill = {t:'\u25cb not scored', c:'rgba(255,255,255,.4)'};
+      else if(r.players_done < r.player_count) _pill = {t:'\u23f3 '+r.players_done+'/'+r.player_count+' scored', c:'#c9a84c'};
+      else                                     _pill = {t:'\u2705 scored', c:'#a8d5b5'};
+      var _fmtLabel = r.format ? (_FMT[r.format]||r.format) : null;
+      html += '<div id="ptLgDay_'+r.league_round_id+'" '+_skin+'>'
+        + _hd
+        + '<span style="font-size:11px;color:'+_pill.c+'">'+_pill.t+'</span>'
+        + '</div>'
+        + '<div onclick="ptShowGameDay('+lid+','+r.league_round_id+')" style="font-size:16px;font-weight:900;color:#fff;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-top:4px">'+_esc(_dStr)+' <span style="color:rgba(245,217,122,.55);font-weight:600">\u203a</span></div>'
+        + '<div style="font-size:12px;color:rgba(100,220,180,.7);font-weight:700;margin-top:2px">'+(r.player_count||0)+' players</div>'
+        + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px">'
+        +   '<button onclick="ptGameDayFormatUI('+lid+','+r.league_round_id+',\''+(r.format||'')+'\','+(r.trip_id||'null')+')" style="font-size:10.5px;font-weight:700;padding:4px 9px;border-radius:8px;cursor:pointer;-webkit-tap-highlight-color:transparent;'+(_fmtLabel?'background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:#e8c96b':'background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.18);color:rgba(255,255,255,.4)')+'">\ud83c\udff7 '+(_fmtLabel||'Format: TBD')+' \u25be</button>'
+        +   '<div style="display:flex;align-items:center;gap:8px">'
+        +     '<button onclick="ptShowLeagueLeaderboard('+lid+','+r.league_round_id+',\''+r.viewer_pin+'\',\''+_dStr+'\')" style="padding:4px 9px;background:rgba(100,220,180,.1);border:1px solid rgba(100,220,180,.3);border-radius:8px;color:rgba(100,220,180,.9);font-size:10.5px;font-weight:700;cursor:pointer">\ud83c\udfc6 Results</button>'
+        +     '<button onclick="ptDeleteGameDayUI('+lid+','+r.league_round_id+',\''+_dStr+'\','+(r.player_count||0)+','+(r.players_done||0)+')" style="background:none;border:none;color:rgba(255,100,100,.45);font-size:14px;cursor:pointer;padding:2px 4px">\ud83d\uddd1</button>'
+        +   '</div>'
+        + '</div></div>';
+      return;
+    }
+    var t = w.row;
+    html += '<div id="ptLgNight_'+t.id+'" '+_skin+'>'
+      + _hd
       +(t.status?'<span style="font-size:11px;color:rgba(255,255,255,.35)">'+_esc(t.status)+'</span>':'')
       +'</div>'
       +'<div onclick="ptFr67OpenNight('+lid+','+t.id+','+_fr67LgNm+')" style="font-size:16px;font-weight:900;color:#fff;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-top:4px">'+_esc(t.name||'\u2014')+' <span style="color:rgba(245,217,122,.55);font-weight:600">\u203a</span></div>'
@@ -30680,13 +30740,14 @@ function ptRenderLeagueDetail(league, members, rounds, teamNights) {   // FR-19 
   var _lgNmJS = JSON.stringify(String(league.name||'')).replace(/"/g,'&quot;');
   var _tnJS = JSON.stringify(_tn.map(function(t){ return { event_code: t.event_code, date: t.date }; })).replace(/"/g,'&quot;');
   var _addBtn = 'width:100%;margin-top:10px;padding:13px;background:rgba(201,168,76,.12);border:1.5px dashed rgba(201,168,76,.45);border-radius:12px;color:#e8c96b;font-size:14px;font-weight:800;cursor:pointer';
-  /* ⭐ B-147 (v523.0, s172) — a league living WHOLLY on the old rail (trip-backed
-     rounds, zero linked nights) gets NO night-add here: one tap on it would split
-     the league across two engines (Bruce's Boyers screenshots, s171 and s172 —
-     both live buttons eight inches apart, same date on each). The moment such a
-     league gains its first night — the D98 step-5 migration, blocked until the
-     Boyers season ends by Bruce's own ruling — the button comes back on its own.
-     A league with no old-rail rounds is byte-for-byte untouched. */
+  /* ⭐ B-147 (v523.0, s172) — RETIRED BY B-150 (v526.0, s174). It withheld this add
+     from a league living wholly on the old rail, so one tap could not split the league
+     across two engines. FR-78 folded the old rail into this one strip and took the other
+     door away, so there is no longer a wrong engine to tap into — and the withholding
+     had a second edge nobody saw until Bruce hit it: a league that came through the door
+     and then lost its last night was DEMOTED, left with no way to build another.
+     ⭐ The add is unconditional now; _canAddNight above is the single flag both the chip
+     and this button read. */
   if (_canAddNight) {
   if (_lcad.nextISO) {
     html += '<button id="ptLgAddNight" onclick="ptLgAddGameDay('+lid+','+_lgNmJS+',\''+_lcad.nextISO+'\','+_tnJS+')" style="'+_addBtn+'">＋ Add next Night ('+_lcad.nextLabel+')</button>';
@@ -30746,104 +30807,17 @@ function ptRenderLeagueDetail(league, members, rounds, teamNights) {   // FR-19 
   html += '<button onclick="ptAddLeagueMemberUI('+lid+')" style="width:100%;padding:11px;background:rgba(100,220,180,.1);border:1.5px dashed rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,.7);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:24px">+ Add Members</button>';
   html += '</div>'; // v248.7 — end roster collapse
 
-  // Season schedule — cadence derived from existing round dates (lightweight; no stored field)
-  /* ⭐ B-148 (v522.0, s172) — an event-backed league gets NO Game Days section at all.
-     The v506.0 gate further down already withheld the old-rail add button, but the
-     header and its "add the first one below" empty state still rendered on a
-     brand-new league, promising a button that was deliberately not there (Bruce's
-     Sowa screenshot, s172). The whole section now renders only for a league that
-     already carries trip-backed rounds; every other league builds its weeks under
-     Team Nights above. */
-  if (rounds.length) {
-  html += '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Game Days</div>';
-  var _cad = _ptLeagueCadence(rounds);
-  var _FMT = {stableford:'Individual Stableford', overall_skins:'Overall Skins', low_net:'Low Net', low_gross:'Low Gross', match_play:'Match Play', best_ball:'Best Ball'};
-  if(_cad.weekday){
-    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:9px 12px">'
-      + '<span style="font-size:14px">🔁</span>'
-      + '<span style="font-size:12px;font-weight:800;color:#f5e6b8">Every '+_cad.weekday+'</span>'
-      + '</div>';
-  }
-  if(rounds.length){
-    var _sorted = rounds.slice().sort(function(a,b){ return (a.round_date||'').localeCompare(b.round_date||''); });
-    var _todayISO = _ptTodayISO();
-    _sorted.forEach(function(r, i){
-      var dateStr = r.round_date ? ptFormatDate(r.round_date) : 'Date TBD';
-      var tag = '';
-      if(r.round_date === _todayISO) tag = '<span style="font-size:10px;font-weight:800;color:#c9a84c;text-transform:uppercase;letter-spacing:.4px">● Today</span>';
-      else if(r.round_date && r.round_date > _todayISO) tag = '<span style="font-size:10px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.4px">Upcoming</span>';
-      var fmtLabel = r.format ? (_FMT[r.format]||r.format) : null;
-      // v258.0 — scored-status pill. players_done (worker v2.56.0) = players
-      // with all 18 holes in D1. Trust D1 over the screen.
-      var _pill;
-      if(!(r.group_count>0))                  _pill = {t:'\u25cb no tee sheet yet', c:'rgba(255,255,255,.4)'};
-      else if(!(r.players_done>0))            _pill = {t:'\u25cb not scored', c:'rgba(255,255,255,.4)'};
-      else if(r.players_done < r.player_count) _pill = {t:'\u23f3 '+r.players_done+'/'+r.player_count+' scored', c:'#c9a84c'};
-      else                                     _pill = {t:'\u2705 scored', c:'#a8d5b5'};
-      html += '<div style="background:rgba(255,255,255,.04);border-radius:14px;padding:14px;margin-bottom:10px">'
-        + '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">'
-        +   '<div style="flex:0 0 auto;width:40px;height:40px;border-radius:10px;background:rgba(0,0,0,.3);display:flex;flex-direction:column;align-items:center;justify-content:center">'
-        +     '<div style="font-size:8px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;line-height:1.2">Wk</div>'
-        +     '<div style="font-size:17px;font-weight:900;color:#f5e6b8;line-height:1">'+(i+1)+'</div>'
-        +   '</div>'
-        +   '<div style="flex:1;min-width:0">'
-        +     '<div style="font-size:15px;font-weight:900;color:#fff">'+dateStr+'</div>'
-        +     '<div style="font-size:12px;color:rgba(100,220,180,.7);font-weight:700">'+(r.player_count||0)+' players · <span style="color:'+_pill.c+'">'+_pill.t+'</span></div>'
-        +   '</div>'
-        +   (tag?'<div style="flex:0 0 auto">'+tag+'</div>':'')
-        + '</div>'
-        + '<div style="margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:8px">'
-        +   '<button onclick="ptGameDayFormatUI('+lid+','+r.league_round_id+',\''+(r.format||'')+'\','+(r.trip_id||'null')+')" style="font-size:11px;font-weight:800;padding:5px 10px;border-radius:8px;cursor:pointer;-webkit-tap-highlight-color:transparent;'+(fmtLabel?'background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);color:#c9a84c':'background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.18);color:rgba(255,255,255,.4)')+'">🏷 '+(fmtLabel||'Format: TBD — tap to set')+' ▾</button>'
-        +   '<button onclick="ptDeleteGameDayUI('+lid+','+r.league_round_id+',\''+dateStr+'\','+(r.player_count||0)+','+(r.players_done||0)+')" style="background:none;border:none;color:rgba(255,100,100,.45);font-size:15px;cursor:pointer;padding:2px 4px;-webkit-tap-highlight-color:transparent">🗑</button>'
-        + '</div>'
-        + '<div style="display:flex;gap:8px">'
-        +   '<button onclick="ptShowGameDay('+lid+','+r.league_round_id+')" style="flex:1;padding:10px;background:rgba(100,220,180,.12);border:1px solid rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,1);font-size:13px;font-weight:800;cursor:pointer">⚙️ Manage Game Day</button>'
-        +   '<button onclick="ptShowLeagueLeaderboard('+lid+','+r.league_round_id+',\''+r.viewer_pin+'\',\''+dateStr+'\')" style="flex:1;padding:10px;background:rgba(100,220,180,.06);border:1px solid rgba(100,220,180,.2);border-radius:10px;color:rgba(100,220,180,.8);font-size:13px;font-weight:800;cursor:pointer">🏆 Results</button>'
-        + '</div>'
-        + '</div>';
-    });
-  }
-
-  // Add-week controls: one-tap next week (pre-filled), plus a custom-date fallback
-  /* ⛔⛔ v506.0 — D98 STEP 1: NEVER OFFER THE TRIP CHASSIS ON AN EVENT-BACKED LEAGUE.
-     Lauber - Mens Night - 2026 (39 members) and Ed's Menswear each have ZERO league_rounds
-     and one linked event, so this section rendered "No game days yet" underneath a live,
-     one-tap "+ Create First Game Day" — which writes a league_rounds row and splits that
-     league across BOTH engines. s158 measured that no league is split today; this button
-     was one tap from making one. Bruce walked both screens at s159 and confirmed it.
-     ⭐ The add button for these leagues lives in Team Nights above. */
-  /* ⭐⭐ SHARPENED before it shipped: the gate is `no trip rounds`, not `no trip rounds AND
-     has nights`. A BRAND-NEW league has neither, and the first version of this rendered
-     BOTH offers at once — "＋ Add a Night" on the new chassis and "+ Create First Game Day"
-     on the old one — letting the very first tap of a new league pick the engine D98 is
-     retiring. Only a league that ALREADY has trip-backed rounds keeps the old button:
-     Boyers Lawyers and Friends (3) and Barnes League (1) keep working untouched, and
-     every new league is born on the event chassis.
-     ⭐ B-148 (v522.0, s172) — the SECTION now shares this gate: header, list and add
-     controls all sit inside the trip-rounds check that opens the section, so the
-     check below can no longer see a league without trip rounds. Kept as
-     belt-and-braces, not drift. */
-  var _evBacked = !rounds.length;
-  if(_evBacked){ /* Team Nights owns the add button for this league */ }
-  else {
-    /* ⭐ FR-73 (v520.0, s171) — the rail inherits. Bruce circled a fresh week reading
-       "Format: TBD" under two straight weeks of the same format. The latest-dated round
-       that HAS a format is what next week follows on from; it rides into the create
-       sheet PRE-SELECTED, never silently — the dropdown stays the answer. A league
-       whose every week is TBD inherits nothing and the sheet opens exactly as before.
-       ⛔ The first game day of a league has no last week and keeps the plain open. */
-    var _pfFmt = '';
-    rounds.slice().sort(function(a,b){ return (a.round_date||'').localeCompare(b.round_date||''); })
-      .forEach(function(r){ if (r.format) _pfFmt = r.format; });
-    var _pfJS = '\'' + String(_pfFmt).replace(/[^a-z0-9_]/gi, '') + '\'';
-  if(_cad.nextISO){
-    html += '<button onclick="ptCreateLeagueRoundUI('+lid+',\''+_cad.nextISO+'\','+_pfJS+')" style="width:100%;padding:13px;background:rgba(100,220,180,.12);border:1.5px dashed rgba(100,220,180,.4);border-radius:12px;color:rgba(100,220,180,.9);font-size:14px;font-weight:800;cursor:pointer;margin-bottom:8px">+ Add next Game Day ('+_cad.nextLabel+')</button>';
-    html += '<button onclick="ptCreateLeagueRoundUI('+lid+',null,'+_pfJS+')" style="width:100%;padding:9px;background:none;border:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:8px">or pick a custom date</button>';
-  } else {
-    html += '<button onclick="ptCreateLeagueRoundUI('+lid+')" style="width:100%;padding:12px;background:rgba(100,220,180,.1);border:1.5px dashed rgba(100,220,180,.3);border-radius:10px;color:rgba(100,220,180,.7);font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px">+ Create First Game Day</button>';
-  }
-  }
-  } // end of the B-148 trip-rounds section gate
+  /* ⛔⛔ FR-78 (v526.0, s174) — THE GAME DAYS SECTION IS GONE FROM THIS PAGE. Its
+     header, its cadence pill, its week list and its two add buttons all lived here and
+     all rendered a SECOND rail underneath the first. Every one of those weeks now renders
+     in the strip above, in date order, beside the nights — same card, same week numbers,
+     its own buttons. B-148 gated this section off for event-backed leagues at v522.0;
+     FR-78 finishes the job for the two leagues that still had it.
+     ⛔ The old-rail CREATE path (ptCreateLeagueRoundUI) is deliberately unreachable from
+     the league page now — the function survives for the trip rail and for anything that
+     calls it directly, but nothing on this page offers a new Game Day. A new week is a
+     Night. ⛔⛔ No stored round was touched: D98 step 5, the real data migration, is
+     still Bruce's to call and is still blocked until the Boyers season ends. */
   html += '<button onclick="ptDeleteLeague('+lid+')" style="width:100%;margin-top:12px;padding:10px;background:none;border:1px solid rgba(180,30,30,.35);border-radius:10px;color:rgba(200,60,60,.6);font-size:12px;font-weight:700;cursor:pointer">🗑️ Delete League...</button>';
 
   body.innerHTML = html;
@@ -59909,7 +59883,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v525.0';
+    const TOUR_VERSION     = 'pards-tour-v526.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
