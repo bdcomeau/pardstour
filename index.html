@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v562.0 -->
+  <!-- pards-tour-v563.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -52456,7 +52456,13 @@ function ptPrintGameResultsReport(eventId, round, opts) {
       var potCfg = ptPotCfg(cfg, round.id, field);   // FR-27
       var potChk = potCfg ? ptPotCheck(potCfg, field) : null;
       var sm = window.ptSkinsModel(cfg, round, players, byP, srvCH);   // \u2b50 v496.0 \u00b7 B-132 family
-      if (!tp && !sm.on && !potCfg && games.length <= 1) { ptToast('No games on this round.'); return; }   // FR-20: extra games alone still print
+      /* ⭐⭐ FR-98 — the auction this round held, if it held one. Read here so
+         the two gates below can both ask it: a round whose only game was the
+         auction still gets paper, and the door that offers this sheet still
+         appears. A rule can be UNREACHABLE rather than absent. */
+      var _calcRow = null;
+      try { _calcRow = ptCalcCfg(cfg, round.id); } catch (e) { _calcRow = null; }
+      if (!tp && !sm.on && !potCfg && !_calcRow && games.length <= 1) { ptToast('No games on this round.'); return; }   // FR-20: extra games alone still print
       var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Round ' + rn + ' \u2014 Game Results</title><style>'
         + 'body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#fff;color:#222;padding:52px 16px 16px;margin:0}'
         + 'h2{margin:6px 0 10px;font-size:16px}'
@@ -52651,6 +52657,98 @@ function ptPrintGameResultsReport(eventId, round, opts) {
         html += '<div class="note">Settled between players \u2014 <strong>not out of the pot</strong>, so these do not add to the payouts above.'
           + (_sgNet !== 0 ? ' \u26a0 This table nets to ' + (_sgNet > 0 ? '+' : '\u2212') + ptMoneyFmt(Math.abs(_sgNet)) + ' rather than zero \u2014 somebody\u2019s card is missing.' : '')
           + '</div>';
+      }
+      /* ⭐⭐⭐ FR-98 — THE AUCTION ON PAPER. Its own block, after the side games
+         and before the scorecards: the money sections sit together, and this one
+         is never folded into the pot allocation, because none of it ever entered
+         the ante (trap 14).
+         ⭐ Nothing new is fetched — the finishing order is the board this report
+         already asked for, read in array order, never re-sorted (trap 3).
+         ⛔ EVERY LOT PRINTS, because paper is where a dispute gets settled — but
+         the WON column comes only out of the one money engine the settle screen
+         reads, so the sheet and the screen cannot hand out different dollars. */
+      if (_calcRow) {
+        var _cOrd = window.ptCalcOrder((res[4] || {}).standings || []);
+        var _cM = ptCalcMoney(_calcRow, _cOrd);
+        var _cPos = {};
+        _cOrd.forEach(function (e4, i4) { if (_cPos[e4.key] == null) _cPos[e4.key] = i4 + 1; });
+        var _cWon = {};
+        _cM.places.forEach(function (p4) { _cWon[p4.key] = p4; });
+        var _cLots = [];
+        try { _cLots = window.ptCalcLots(cfg, round, groups) || []; } catch (e) { _cLots = []; }
+        var _cSeen = {}, _cRows = [], _cByKey = {};
+        _cLots.forEach(function (L4) {
+          var s4 = (_calcRow.lots || {})[L4.key] || null;
+          _cSeen[L4.key] = 1;
+          var r4 = { key: L4.key, name: L4.name || '', sub: L4.sub || '',
+                     buyer: s4 ? (s4.buyer || '') : '', cents: s4 ? s4.cents : 0,
+                     pos: _cPos[L4.key] || 0 };
+          _cRows.push(r4); _cByKey[L4.key] = r4;
+        });
+        /* ⛔ A lot that was SOLD and has since left the field still holds real
+           money, so it prints rather than vanishing off the sheet. */
+        Object.keys(_calcRow.lots || {}).forEach(function (k4) {
+          if (_cSeen[k4]) return;
+          var s4 = _calcRow.lots[k4] || {}, o4 = null;
+          _cOrd.forEach(function (e4) { if (e4.key === k4 && !o4) o4 = e4; });
+          var r4 = { key: k4, name: (o4 && o4.name) || 'A lot that is no longer in the field',
+                     sub: '', buyer: s4.buyer || '', cents: s4.cents || 0, pos: _cPos[k4] || 0 };
+          _cRows.push(r4); _cByKey[k4] = r4;
+        });
+        _cRows.sort(function (a4, b4) {
+          var pa = a4.pos || 9999, pb = b4.pos || 9999;
+          if (pa !== pb) return pa - pb;
+          return String(a4.name).localeCompare(String(b4.name));
+        });
+        var _cSold = 0;
+        _cRows.forEach(function (r4) { if (r4.cents > 0) _cSold++; });
+        html += '<h3>\ud83d\udd28 Calcutta — ' + _ptEsc(PT_CALC_SPLIT_LBL[_cM.split] || _cM.split) + '</h3>'
+          + '<table><thead><tr><th class="left">Lot</th><th class="left">Bought by</th><th style="width:44px">Board</th><th>Paid</th><th>Won</th></tr></thead><tbody>';
+        _cRows.forEach(function (r4) {
+          var w4 = _cWon[r4.key];
+          html += '<tr' + (w4 ? ' class="win"' : '') + '>'
+            + '<td class="left">' + _ptEsc(r4.name)
+            +   (r4.sub ? '<div class="note" style="margin:0">' + _ptEsc(r4.sub) + '</div>' : '') + '</td>'
+            + '<td class="left">' + (r4.cents > 0 ? _ptEsc(r4.buyer) : '<span style="color:#888">not sold</span>') + '</td>'
+            + '<td>' + (r4.pos ? r4.pos : '\u2014') + '</td>'
+            + '<td>' + (r4.cents > 0 ? ptMoneyFmt(r4.cents) : '\u2014') + '</td>'
+            + '<td' + (w4 ? ' class="money"' : '') + '>' + (w4 ? ptMoneyFmtWhole(w4.dollars) : '\u2014') + '</td></tr>';
+        });
+        html += '</tbody></table>';
+        /* The sentence is spelled from the rows actually printed above it, so it
+           cannot describe a sheet other than this one (trap 19). */
+        html += '<div class="note">' + _cSold + ' of ' + _cRows.length + ' lot' + (_cRows.length === 1 ? '' : 's')
+          + ' sold · ' + ptMoneyFmt(_cM.in_cents) + ' in'
+          + (_cM.held ? '' : ' · ' + ptMoneyFmtWhole(_cM.whole_cents) + ' out') + '</div>';
+        if (_cM.held) {
+          /* ⛔ VERBATIM — the same sentence the settle screen shows, out of the
+             same engine. Two wordings for one refusal is two answers. */
+          html += '<div class="note" style="color:#8a5a00;font-weight:700">' + _ptEsc(_cM.held) + '</div>';
+        } else {
+          if (_cM.whole_cents !== _cM.in_cents) {
+            html += '<div class="note">The pot was ' + ptMoneyFmt(_cM.in_cents)
+              + ' and it will not divide into whole dollars — the column above is squared off to '
+              + ptMoneyFmtWhole(_cM.whole_cents) + '. Sort the odd dollar between yourselves.</div>';
+          }
+          /* ⭐⭐ THE STANDING ASSERT, ON PAPER TOO. Paper pays people: a sheet that
+             does not balance has to stop the payout, not merely look tidy.
+             By construction it cannot fire. */
+          if (_cM.paid_cents !== _cM.in_cents) {
+            html += '<div class="note" style="color:#8a2b2b;font-weight:800">The Calcutta does not balance ('
+              + ptMoneyFmt(_cM.in_cents) + ' in, ' + ptMoneyFmt(_cM.paid_cents)
+              + ' out). There is no house cut, so these must match. Do not pay from this sheet — report it.</div>';
+          }
+          /* Only printed when it actually happened, and it names who (trap 18). */
+          var _cLastPaid = 0;
+          _cM.places.forEach(function (p4) { var rr = _cByKey[p4.key]; if (rr && rr.pos > _cLastPaid) _cLastPaid = rr.pos; });
+          var _cAhead = _cRows.filter(function (r4) { return !(r4.cents > 0) && r4.pos && r4.pos < _cLastPaid; });
+          if (_cAhead.length) {
+            html += '<div class="note">' + _ptEsc(_cAhead.map(function (r4) { return r4.name; }).join(', '))
+              + ' finished ahead of a lot that was paid, and nobody bought '
+              + (_cAhead.length === 1 ? 'that one' : 'those') + ' — an unsold lot takes no place and burns none, so the money moved down.</div>';
+          }
+        }
+        html += '<div class="note">The buyer is whatever name was written down at the auction — it does not have to be a man in the field. Places come off this round\u2019s leaderboard, ties off the countback. There is no house cut: every dollar bid goes back out. Same figures as the Settle Games screen — they read one engine.</div>';
       }
       // v435.0 (FR-17 amendment — Bruce s111): every individual's scorecard on
       // the Game Results paper. One row per player, 18 hole columns + Out/In/
@@ -52862,7 +52960,7 @@ window._ptAGBlurb = function (cfg, round) {
     (window._ptRGames(cfg || {}, round) || []).forEach(function (g) {
       if (g) names.push(window._ptAGLabel(g, cfg, round));
     });
-    if (ptSkinsCfg(cfg, round.id) || ptPotCfg(cfg, round.id)) names.push('💰 Game Results');
+    if (ptSkinsCfg(cfg, round.id) || ptPotCfg(cfg, round.id) || ptCalcCfg(cfg, round.id)) names.push('💰 Game Results');
   } catch (e) {}
   if (!names.length) return 'One paper with every game this round is playing.';
   return 'Prints ' + names.join(' · ') + ' — one continuous paper, landscape.';
@@ -52909,7 +53007,7 @@ window.ptPrintRoundAllGames = function (eventId, round) {
 
     // Money — FR-27 EXISTENCE ONLY, the same gate both buttons used.
     try {
-      if (ptSkinsCfg(cfg, round.id) || ptPotCfg(cfg, round.id)) {
+      if (ptSkinsCfg(cfg, round.id) || ptPotCfg(cfg, round.id) || ptCalcCfg(cfg, round.id)) {
         jobs.push({ label: '💰 Game Results', run: function (c) { ptPrintGameResultsReport(eventId, round, c); } });
       }
     } catch (e) {}
@@ -62190,7 +62288,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v562.0';
+    const TOUR_VERSION     = 'pards-tour-v563.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
