@@ -639,7 +639,7 @@ const SK = 'pards_gc';
    deploy: pards-tools-v1.0 -> v1.1 -> v1.2 ... Two occurrences in the file
    need the bump — this const, and nowhere else (the header badge reads it
    live via displayVersion()). */
-const CURRENT_VERSION = 'pards-tools-v1.19';
+const CURRENT_VERSION = 'pards-tools-v1.20';
 const LIVE_URL = 'https://bdcomeau.github.io/pardstour/pards-golf-tools.html';  // s85 (Bruce): serve from the pardstour repo
 const VERSION_REGEX = /const CURRENT_VERSION = '(pards-tools-v[\d.]+)'/;
 const RELEASE_NOTES = [
@@ -742,19 +742,54 @@ function saveCreds(c) { try { localStorage.setItem(SK, JSON.stringify(c)); } cat
 
 function wBase() { return (loadCreds().worker || 'https://gc-proxy.bdapple.workers.dev').replace(/\/+$/, ''); }
 
+/* ⭐ B-170 + s202 — the same two-server mint as the main app. A failed login
+   is classified on the STATUS, never on prose: only a 401, or a 400 whose body
+   is credential-shaped, blames the password. Anything else names the outage
+   and says the login is fine. On a non-credential failure the Score Centre's
+   own token server is tried (the worker's /scg/token) — its certificate is
+   valid while golfnet's sat expired. A credential refusal never falls back,
+   and a failed fallback re-throws the ORIGINAL golfnet error. */
+function classifyHttp(status, body) {
+  const s = Number(status) || 0;
+  const isAuth = (s === 401 || (s === 400 && /invalid_grant|invalid_username|invalid_password/i.test(String(body || ''))));
+  const why = isAuth
+    ? 'Golf Canada did not accept that username or password.'
+    : (s === 526
+        ? 'Golf Canada is not answering right now \u2014 their server\u2019s security certificate could not be verified (526). Your login is fine; try again shortly.'
+        : 'Golf Canada is not answering right now (HTTP ' + s + '). Your login is fine; try again shortly.');
+  const e = new Error(why);
+  e.gcStatus = s; e.gcIsAuth = isAuth;
+  return e;
+}
 async function getToken() {
   const now = Date.now();
   if (_tok && now < _tokExp - 10000) return _tok;
   const c = loadCreds();
   if (!c.worker || !c.username || !c.password) throw new Error('No credentials saved.');
-  const r = await fetch(c.worker.replace(/\/+$/, '') + '/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username: c.username, password: c.password })
+  const base = c.worker.replace(/\/+$/, '');
+  const body = JSON.stringify({ username: c.username, password: c.password });
+  const r = await fetch(base + '/token', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body
   });
-  if (!r.ok) { const t = await r.text(); throw new Error('Login failed (' + r.status + '): ' + t.slice(0, 120)); }
-  const d = await r.json();
-  if (!d.access_token) throw new Error('No token returned.');
+  let d = null;
+  if (r.ok) {
+    d = await r.json();
+    if (!d.access_token) throw new Error('No token returned.');
+  } else {
+    const bt = await r.text();
+    const err = classifyHttp(r.status, bt);
+    if (err.gcIsAuth) throw err;              // a wrong password is wrong on both servers
+    try {
+      const r2 = await fetch(base + '/scg/token', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body
+      });
+      if (r2.ok) {
+        const d2 = await r2.json();
+        if (d2.access_token) d = d2;          // minted at the Score Centre
+      }
+    } catch (e2) { /* the fallback never makes things worse */ }
+    if (!d) throw err;                        // the original, honest error
+  }
   _tok = d.access_token;
   _tokExp = now + ((d.expires_in || 3600) * 1000);
   return _tok;
