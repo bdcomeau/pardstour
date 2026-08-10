@@ -37406,6 +37406,58 @@ var _PT_BS_FOURSOMES = [
 
 function _ptBSSlotTag(s) { return s[0] + (s[1] + 1); }
 
+/* ⭐⭐ FR-83 second half (v539.0, s185) — does the tee sheet agree?
+   The three groups below ARE the tee times: four men who cannot get off the
+   same tee cannot play their match, even though the money and the board stay
+   correct either way (both are computed from the lineup, never from the tee
+   sheet). So the two are compared, and a disagreement is SHOWN rather than
+   discovered on the first tee.
+   ⛔ Read-only. Nothing here writes a tee time, reorders one, or touches
+   the lineup — it reports, and the organizer decides which side is wrong.
+   ⭐ Fetched once per week picked, then cached on the screen's state. A week
+   with no tee times yet is a normal answer, not an error. */
+function _ptBSLoadTee(roundId) {
+  var bs = G._ptBS; if (!bs) return;
+  var r = bs.rounds.filter(function (x) { return x.league_round_id === roundId; })[0];
+  if (!r || r.trip_id == null) { bs.tee = { roundId: roundId, state: 'err' }; return; }
+  bs.tee = { roundId: roundId, state: 'loading' };
+  var H = { headers: { 'Authorization': 'Bearer ' + G.orgToken } };
+  fetch(TOUR_API + '/api/trips/' + r.trip_id, H).then(_ptJson).then(function (d) {
+    var rd = (d.rounds || [])[0];
+    if (!rd) return { tee_times: [] };
+    return fetch(TOUR_API + '/api/trips/' + r.trip_id + '/rounds/' + rd.id + '/tee-times', H).then(_ptJson);
+  }).then(function (d) {
+    if (!bs.tee || bs.tee.roundId !== roundId) return;      // he moved on
+    bs.tee = { roundId: roundId, state: 'ok', groups: (d.tee_times || []).map(function (t) {
+      return { time: t.start_time || '', ids: (t.players || []).map(function (pl) { return Number(pl.roster_id); }) };
+    }) };
+    _ptBSRender();
+  }).catch(function () {
+    if (!bs.tee || bs.tee.roundId !== roundId) return;
+    bs.tee = { roundId: roundId, state: 'err' };
+    _ptBSRender();
+  });
+}
+
+/* One group against the tee sheet. Returns null while the four are still being
+   tapped — a half-built group has nothing to disagree with yet. */
+function _ptBSTeeCheck(slots) {
+  var bs = G._ptBS, tee = bs && bs.tee;
+  if (!tee || tee.state !== 'ok') return null;
+  var lu = bs.lineup || {};
+  var ids = slots.map(function (x) { var a = lu[x[0]] || []; return a[x[1]] == null ? null : Number(a[x[1]]); });
+  if (ids.some(function (v) { return v == null; })) return null;
+  if (!tee.groups.length) return { state: 'none' };
+  var hit = null, spread = [];
+  tee.groups.forEach(function (g) {
+    var n = ids.filter(function (rid) { return g.ids.indexOf(rid) > -1; }).length;
+    if (!n) return;
+    if (n === ids.length) hit = g; else spread.push(n + ' at ' + (g.time || 'another time'));
+  });
+  if (hit) return { state: 'ok', time: hit.time };
+  return { state: 'split', where: spread };
+}
+
 // The abstract rule, spelled from the rows above rather than typed out, so the
 // sentence and the preview can never describe different layouts. per = players
 // per side: 1 reads each row as two singles, 2 reads it as one pair match.
@@ -37433,6 +37485,42 @@ function _ptBSSlotCell(s) {
 }
 
 // The live preview. Fills in as slots are tapped; blanks stay visible.
+/* The one line that answers "have I built these groups yet, and do they
+   agree?" — stated above the cards so it is read before the detail. */
+function _ptBSTeeSummary() {
+  var bs = G._ptBS, tee = bs && bs.tee;
+  var box = function (col, bg, txt) {
+    return '<div style="background:' + bg + ';border:1.5px solid ' + col + ';border-radius:10px;padding:9px 11px;'
+      + 'margin-bottom:9px;font-size:11.5px;line-height:1.55;color:rgba(255,255,255,.72)">' + txt + '</div>';
+  };
+  if (!tee || tee.state === 'loading') return box('rgba(255,255,255,.08)', 'rgba(255,255,255,.03)', 'Checking the tee times…');
+  if (tee.state === 'err') return box('rgba(255,255,255,.08)', 'rgba(255,255,255,.03)', 'Could not read the tee times for this game day, so the groups below are unchecked.');
+  if (!tee.groups.length) return box('rgba(255,255,255,.08)', 'rgba(255,255,255,.03)', 'No tee times built for this game day yet. Build them to match the three groups below.');
+  var checks = _PT_BS_FOURSOMES.map(function (f) { return _ptBSTeeCheck(f.a.concat(f.b)); });
+  if (checks.some(function (c) { return !c; })) {
+    return box('rgba(255,255,255,.08)', 'rgba(255,255,255,.03)', 'Finish the lineup and each group will be checked against your tee times.');
+  }
+  var bad = checks.filter(function (c) { return c.state === 'split'; });
+  if (!bad.length) {
+    return box('rgba(100,220,180,.3)', 'rgba(100,220,180,.08)',
+      '<strong style="color:rgba(100,220,180,1)">✓ Your tee times match all three groups.</strong> Everyone can play the match they are in.');
+  }
+  return box('rgba(224,160,95,.35)', 'rgba(224,160,95,.08)',
+    '<strong style="color:#e0a05f">⚠ ' + bad.length + ' of 3 groups are split across your tee times.</strong> '
+    + 'The money and the board are still right — both come from the lineup, never from the tee sheet — but the men marked below cannot play each other, because they are not in the same group. '
+    + '<strong>Either side can be the wrong one:</strong> move the tee times, or re-tap the lineup.');
+}
+
+function _ptBSTeeBadge(chk) {
+  if (!chk) return '';
+  if (chk.state === 'ok') {
+    return '<div style="margin-left:auto;color:rgba(100,220,180,.85);font-weight:800">✓ '
+      + _ptEsc(chk.time || 'together') + '</div>';
+  }
+  if (chk.state === 'none') return '';
+  return '<div style="margin-left:auto;color:#e0a05f;font-weight:800">⚠ split</div>';
+}
+
 function _ptBSPreview(per) {
   var vs = '<span style="color:rgba(255,255,255,.3);font-weight:800;padding:0 4px"> v </span>';
   var head = per === 1 ? 'Six singles, in three groups'
@@ -37442,6 +37530,8 @@ function _ptBSPreview(per) {
     + '<div style="font-size:11px;color:rgba(255,255,255,.35);line-height:1.55;margin-bottom:10px">'
     + head + '. <strong>Each group is one tee time</strong> — this list is your tee sheet.</div>';
 
+  html += _ptBSTeeSummary();
+
   _PT_BS_FOURSOMES.forEach(function (f) {
     var ta = f.a[0][0], tb = f.b[0][0];
     html += '<div style="background:rgba(255,255,255,.04);border-radius:11px;padding:10px 12px;margin-bottom:7px">'
@@ -37450,6 +37540,7 @@ function _ptBSPreview(per) {
       + '<div style="color:' + _PT_BARNES_TEAMCOL[ta] + '">' + _ptEsc(_ptBSTeamLabel(ta)) + '</div>'
       + '<div style="color:rgba(255,255,255,.25);padding:0 5px">v</div>'
       + '<div style="color:' + _PT_BARNES_TEAMCOL[tb] + '">' + _ptEsc(_ptBSTeamLabel(tb)) + '</div>'
+      + _ptBSTeeBadge(_ptBSTeeCheck(f.a.concat(f.b)))
       + '</div>';
     if (per === 1) {
       for (var i = 0; i < 2; i++) {
@@ -37853,7 +37944,7 @@ function _ptBSMemberName(rid) {
 
 window.ptBSPickWeek = function (roundId) {
   var bs = G._ptBS; if (!bs) return;
-  if (bs.roundId === roundId) { bs.roundId = null; _ptBSRender(); return; }
+  if (bs.roundId === roundId) { bs.roundId = null; bs.tee = null; _ptBSRender(); return; }
   var r = bs.rounds.filter(function (x) { return x.league_round_id === roundId; })[0] || {};
   var bw = (_ptBSParse(r.round_config).barnes_week) || {};
   bs.roundId = roundId;
@@ -37863,6 +37954,7 @@ window.ptBSPickWeek = function (roundId) {
   // measured against.
   bs.game0 = bs.game;
   bs.lineup0 = bs.lineup ? JSON.parse(JSON.stringify(bs.lineup)) : null;
+  _ptBSLoadTee(roundId);
   _ptBSRender();
 };
 
