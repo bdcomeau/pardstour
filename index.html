@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v552.0 -->
+  <!-- pards-tour-v553.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -44323,7 +44323,18 @@ function ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg, opts) {
         var chcp = Math.round(ptCalcCourseHandicap(pl.handicap || 0, td.slope, td.rating, td.par));
         var byHole = {};                                            // v248.4
         grossArr.forEach(function(x){ byHole[x.hole] = x.gross_score; });
+        /* ⭐⭐ FR-89 (v553.0, s194) — TO PAR, over the holes actually PLAYED.
+           A championship board reads in to-par and nothing here carried it. The
+           multi-day TEAM engine has computed exactly this since B-35 (v395.0);
+           the individual engine never did. Same rule as that one — par summed
+           over the SCORED holes only — so a nine-hole card says +4 instead of
+           pretending the missing nine were all birdies. ⛔ Derived on every
+           build, never stored (trap 12). */
+        var _tpPars = ptGetHolePars(rr.round.course_id, rr.round.tee) || null;
+        var _tpPar = 0;
+        grossArr.forEach(function(x){ _tpPar += (_tpPars && _tpPars[x.hole - 1] != null) ? _tpPars[x.hole - 1] : 4; });
         pl.rounds[rr.round.round_number] = { pts: stbl.total_points, gross: gross, net: gross - chcp, holes: stbl.holes_played, chcp: chcp,
+                                             topar: gross - _tpPar,                        // FR-89 (v553.0)
                                              er: (rr.erBy && rr.erBy[k]) || null,           // v414.0 \u00b7 FR-01 — read, never recomputed
                                              byHole: byHole, round: rr.round };
         pl.pts += stbl.total_points; pl.gross += gross; pl.net += gross - chcp; pl.holes += stbl.holes_played;
@@ -44354,6 +44365,68 @@ function ptMdSortRows(rows, mode) {
   });
   return r;
 }
+
+/* ⭐⭐⭐ FR-89 (v553.0, s194) — THE CHAMPIONSHIP LEADERBOARD.
+   Bruce s191, three Alberta Golf screenshots, for the 2026 Derrick club
+   championship: "Pos · Move · Player · Total To Par Gross · R1 R2 R3 · Total",
+   round tabs across the top (each tab = the standings AS OF that round), the
+   leader pinned open with his cards, any row tapping open that player's
+   scorecards, the same format for FLIGHTS — the Derrick's by HANDICAP.
+   ⛔ Minus the photo — his words.
+   ⭐⭐⭐ TRAP 17, AGAIN AND IN FULL: nothing was broken, four things were
+   unreachable. The multi-round individual ENGINE (ptBuildMdIndividual), the
+   RANKING (ptMdSortRows), the FLIGHT partition (ptFlightSections over
+   PT_FLIGHT_BRACKETS.handicap — the handicap brackets he needs were locked in
+   at v247.0) and the expanding scorecard GRIDS (the block inside
+   ptShowPlayerCard, lifted below into one builder) all shipped months ago.
+   FR-89 adds only what genuinely did not exist: to-par (in the engine above),
+   the MOVE arrow, the ROUND TABS and the PINNED LEADER.
+   ⛔ NO second leaderboard, NO second engine, NO second ranking rule. To Par is
+   a COLUMN, never a sort — the board still ranks through ptMdSortRows, so this
+   surface and the standings block cannot disagree about who is winning. */
+
+// Ties share a rank. Was FIVE byte-identical inline copies (the standings
+// block, the live board, the X-of-N report and two print reports) — trap 9.
+function ptMdRanks(sorted, mode) {
+  var ranks = [];
+  (sorted || []).forEach(function(p, i) {
+    ranks[i] = (i > 0 && ptMdKey(sorted[i-1], mode) === ptMdKey(p, mode) && sorted[i-1].holes === p.holes) ? ranks[i-1] : i + 1;
+  });
+  return ranks;
+}
+
+// Standings AS OF round N — the tab, and the thing MOVE is measured against.
+// A shallow clone per player: the per-round detail is SHARED BY REFERENCE (the
+// scorecard grids read it), and only the totals are re-summed over rounds <= N.
+// ⛔ Nothing is stored. A stored rank is a stale value with a hard-coded writer
+// (trap 12) and so is a stored subtotal.
+function ptMdThrough(rows, rounds, throughN) {
+  return (rows || []).map(function(p) {
+    var q = { roster_id: p.roster_id, name: p.name, team: p.team || '', handicap: p.handicap,
+              age: p.age, rounds: p.rounds, pts: 0, gross: 0, net: 0, holes: 0, topar: 0 };
+    (rounds || []).forEach(function(r) {
+      if (throughN != null && r.round_number > throughN) return;
+      var rd = p.rounds[r.round_number];
+      if (!rd || !rd.holes) return;
+      q.pts += rd.pts; q.gross += rd.gross; q.net += rd.net; q.holes += rd.holes;
+      if (rd.topar != null) q.topar += rd.topar;
+    });
+    return q;
+  }).filter(function(p){ return p.holes > 0; });
+}
+
+// ▲9 / ▼2 against the prior round's standings IN THE SAME SECTION — the arrow
+// sits beside a FLIGHT position, so it has to be measured inside that flight.
+// null = no prior round for this man; there is nothing to have moved from.
+function ptMdMoveMark(d) {
+  if (d == null) return '<span style="color:rgba(255,255,255,.15);font-size:10px">\u00b7</span>';
+  if (d === 0)   return '<span style="color:rgba(255,255,255,.3);font-size:10px">\u2013</span>';
+  if (d > 0)     return '<span style="color:#2ecc71;font-size:10px;font-weight:900">\u25b2' + d + '</span>';
+  return '<span style="color:#e74c3c;font-size:10px;font-weight:900">\u25bc' + Math.abs(d) + '</span>';
+}
+
+// E / +5 / -3.
+function ptFmtToPar(n) { return n == null ? '\u2014' : (n === 0 ? 'E' : (n > 0 ? '+' + n : String(n))); }
 
 // ── v359.0 (D17) — THE POSITION-POINTS FOLD ──────────────────────────────────
 // Each round ranks by ITS OWN rule (D21 ranks-by); finishing position pays
@@ -44687,10 +44760,7 @@ function ptRenderMdIndividual() {
     ih += '</div>';
     if (mode === 'fold') ptApplyFold(sec.rows, st.rounds);   // v359.0 — fold WITHIN the flight (D2)
     var sorted = ptMdSortRows(sec.rows, mode);
-    var ranks = [];
-    sorted.forEach(function(p, i) {
-      ranks[i] = (i > 0 && ptMdKey(sorted[i-1], mode) === ptMdKey(p, mode) && sorted[i-1].holes === p.holes) ? ranks[i-1] : i + 1;
-    });
+    var ranks = ptMdRanks(sorted, mode);                       // FR-89 (v553.0) — trap 9
     sorted.forEach(function(pr, idx) {
       var rk = ranks[idx];
       var isTop = rk === 1;
@@ -49983,10 +50053,7 @@ function ptPrintIndividualRoundReport(eventId, round, opts) {
 
     function buildTable(rows) {
       var sorted = ptMdSortRows(rows, primary);          // v248.3 \u2014 same comparator as the screen
-      var ranks = [];
-      sorted.forEach(function(p, i) {
-        ranks[i] = (i > 0 && ptMdKey(sorted[i-1], primary) === ptMdKey(p, primary) && sorted[i-1].holes === p.holes) ? ranks[i-1] : i + 1;
-      });
+      var ranks = ptMdRanks(sorted, primary);            // FR-89 (v553.0) — trap 9
       var bodyRows = sorted.map(function(pr, idx) {
         var cells = '';
         for (var i = 0; i < 18; i++) {
@@ -50367,10 +50434,7 @@ function ptPrintMdOverallReport(eventId) {
 
       function buildTable(rows) {
         var sorted = ptMdSortRows(rows, primary);
-        var ranks = [];
-        sorted.forEach(function(p, i) {
-          ranks[i] = (i > 0 && ptMdKey(sorted[i-1], primary) === ptMdKey(p, primary) && sorted[i-1].holes === p.holes) ? ranks[i-1] : i + 1;
-        });
+        var ranks = ptMdRanks(sorted, primary);          // FR-89 (v553.0) — trap 9
         var bodies = sorted.map(function(pr, idx) {
           var n = pr.lines.length;
           var trs = pr.lines.map(function(line, li) {
@@ -50977,10 +51041,20 @@ function ptIndivLbSetMode(m) {
 // v248.3 — renders G._indivLb with the SAME helpers the standings block uses
 // (ptMdSortRows / ptMdKey / ptFlightSections / ptModeLabel), so the two
 // surfaces cannot disagree about order, ties or flight membership.
+function ptIndivLbSetTab(n) {
+  var st = G._indivLb; if (!st) return;
+  st.tab = (n == null || n === '') ? null : Number(n);
+  ptRenderIndivLb();
+}
+function ptIndivLbToggle(rid) {
+  var st = G._indivLb; if (!st) return;
+  st.open = (String(st.open) === String(rid)) ? null : String(rid);
+  ptRenderIndivLb();
+}
 function ptRenderIndivLb() {
   var st = G._indivLb, body = document.getElementById('ptIndivLbBody');
   if (!st || !body) return;
-  var mode = st.mode, nR = st.rounds.length;
+  var mode = st.mode;
   var h = '';
   if (st.modes.length > 1) {
     h += '<div style="display:flex;gap:6px;margin-bottom:12px">';
@@ -50994,42 +51068,109 @@ function ptRenderIndivLb() {
     body.innerHTML = '<div style="color:rgba(255,255,255,.35);text-align:center;padding:40px 0;font-size:14px">No scores yet.</div>';
     return;
   }
+  var allR = (st.rounds || []).slice().sort(function(a, b){ return a.round_number - b.round_number; });
+  /* ⭐ FR-89 — a tab per round that CARRIES A SCORE. A tab for a round nobody
+     has played paints an empty board, and "how many rounds exist" is not the
+     question "how many have been played" (trap 21). */
+  var scoredR = allR.filter(function(r) {
+    return st.rows.some(function(p){ var rd = p.rounds[r.round_number]; return rd && rd.holes > 0; });
+  });
+  if (st.tab === undefined) st.tab = scoredR.length ? scoredR[scoredR.length - 1].round_number : null;
+  var tab = st.tab, tabIdx = -1;
+  scoredR.forEach(function(r, i){ if (r.round_number === tab) tabIdx = i; });
+  var prevN = tabIdx > 0 ? scoredR[tabIdx - 1].round_number : null;
+  var shownR = allR.filter(function(r){ return tab == null || r.round_number <= tab; });
+  var nR = shownR.length;
+  var showMove = prevN != null;
+  var showTp = (mode === 'gross');          // B-31 — a column EXISTS or is OMITTED, never dashes
   var _prOnly = st.mixed && st.foldRule === 'per_round_only';   // v359.0 (D17)
-  if (_prOnly) h += '<div style="font-size:11px;color:rgba(255,200,100,.6);margin-bottom:10px;padding:0 2px">Mixed-rule rounds \u00b7 per-round standings only \u2014 no overall winner (organizer setting)</div>';
-  ptFlightSections(st.cfg, st.rows).forEach(function(sec) {
-    if (sec.name) h += '<div style="margin-top:18px;margin-bottom:8px;font-size:11px;font-weight:800;color:rgba(201,168,76,.75);text-transform:uppercase;letter-spacing:.5px">\u26f3 ' + sec.name + ' <span style="color:rgba(255,255,255,.25);font-weight:600">(' + sec.rows.length + ')</span></div>';
-    h += '<div style="display:grid;grid-template-columns:28px 1fr' + ' auto'.repeat(nR) + ' auto;gap:4px;margin-bottom:8px;padding:0 4px;align-items:center">';
-    h += '<div style="font-size:9px;color:rgba(255,255,255,.3);font-weight:700;text-transform:uppercase">#</div>';
+
+  if (scoredR.length > 1) {
+    h += '<div style="display:flex;gap:6px;margin-bottom:6px;overflow-x:auto">';
+    scoredR.forEach(function(r) {
+      var on = r.round_number === tab;
+      h += '<button onclick="ptIndivLbSetTab(' + r.round_number + ')" style="flex:0 0 auto;padding:7px 15px;border-radius:20px;border:1.5px solid rgba(201,168,76,' + (on ? '.7' : '.2') + ');background:' + (on ? 'rgba(201,168,76,.15)' : 'none') + ';color:' + (on ? '#c9a84c' : 'rgba(201,168,76,.5)') + ';font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap">R' + r.round_number + '</button>';
+    });
+    h += '</div>';
+    h += '<div style="font-size:10px;color:rgba(255,255,255,.32);margin-bottom:10px;padding:0 3px">Standings after Round ' + tab + (showMove ? ' · ▲▼ vs after Round ' + prevN : ' · first round — no movement yet') + '</div>';
+  }
+  if (_prOnly) h += '<div style="font-size:11px;color:rgba(255,200,100,.6);margin-bottom:10px;padding:0 2px">Mixed-rule rounds · per-round standings only — no overall winner (organizer setting)</div>';
+
+  var rowsNow  = ptMdThrough(st.rows, allR, tab);
+  var rowsPrev = showMove ? ptMdThrough(st.rows, allR, prevN) : null;
+  var prevR    = showMove ? allR.filter(function(r){ return r.round_number <= prevN; }) : null;
+  var secs     = ptFlightSections(st.cfg, rowsNow);
+  var prevSecs = rowsPrev ? ptFlightSections(st.cfg, rowsPrev) : null;
+  if (mode === 'fold') secs.forEach(function(sc){ ptApplyFold(sc.rows, shownR); });   // v359.0 — fold WITHIN the flight (D2)
+
+  /* ⭐ FR-89 — the overall leader is pinned open. A new tab re-pins whoever
+     leads THAT tab; a tap anywhere overrides it until the tab changes again. */
+  var lead = null;
+  if (secs.length && secs[0].rows.length) {
+    var ls = ptMdSortRows(secs[0].rows, mode);
+    if (ls.length) lead = String(ls[0].roster_id);
+  }
+  if (st._openTab !== tab) { st._openTab = tab; st.open = _prOnly ? null : lead; }
+
+  var gridCols = '28px' + (showMove ? ' 30px' : '') + ' 1fr' + (showTp ? ' 44px' : '') + ' auto'.repeat(nR) + ' auto';
+  secs.forEach(function(sec) {
+    if (sec.name) h += '<div style="margin-top:18px;margin-bottom:8px;font-size:11px;font-weight:800;color:rgba(201,168,76,.75);text-transform:uppercase;letter-spacing:.5px">⛳ ' + sec.name + ' <span style="color:rgba(255,255,255,.25);font-weight:600">(' + sec.rows.length + ')</span></div>';
+    h += '<div style="display:grid;grid-template-columns:' + gridCols + ';gap:4px;margin-bottom:8px;padding:0 4px;align-items:center">';
+    h += '<div style="font-size:9px;color:rgba(255,255,255,.3);font-weight:700;text-transform:uppercase">Pos</div>';
+    if (showMove) h += '<div style="font-size:9px;color:rgba(255,255,255,.3);font-weight:700;text-align:center;text-transform:uppercase">Move</div>';
     h += '<div style="font-size:9px;color:rgba(255,255,255,.3);font-weight:700;text-transform:uppercase">Player</div>';
-    st.rounds.forEach(function(r) {
+    if (showTp) h += '<div style="font-size:9px;color:rgba(201,168,76,.75);font-weight:700;text-align:center;text-transform:uppercase">To Par</div>';
+    shownR.forEach(function(r) {
       h += '<div style="font-size:9px;color:rgba(201,168,76,.6);font-weight:700;text-align:center;min-width:30px">R' + r.round_number + '</div>';
     });
     h += '<div style="font-size:9px;color:rgba(201,168,76,.9);font-weight:700;text-align:center;min-width:36px">TOT</div>';
     h += '</div>';
-    if (mode === 'fold') ptApplyFold(sec.rows, st.rounds);   // v359.0 — fold WITHIN the flight (D2)
+
+    /* Prior-round ranks for THIS section, matched by section NAME — flight
+       membership comes off the handicap/age bracket and does not move round to
+       round, so the same name is the same set of men. */
+    var pmap = null;
+    if (showMove && prevSecs) {
+      var ps = null;
+      prevSecs.forEach(function(x){ if (String(x.name) === String(sec.name)) ps = x; });
+      if (ps) {
+        if (mode === 'fold') ptApplyFold(ps.rows, prevR);
+        var psorted = ptMdSortRows(ps.rows, mode), pranks = ptMdRanks(psorted, mode);
+        pmap = {};
+        psorted.forEach(function(pp, i){ pmap[String(pp.roster_id)] = pranks[i]; });
+      }
+    }
+
     var sorted = ptMdSortRows(sec.rows, mode);
-    var ranks = [];
-    sorted.forEach(function(p, i) {
-      ranks[i] = (i > 0 && ptMdKey(sorted[i-1], mode) === ptMdKey(p, mode) && sorted[i-1].holes === p.holes) ? ranks[i-1] : i + 1;
-    });
+    var ranks = ptMdRanks(sorted, mode);
     sorted.forEach(function(pr, idx) {
       var rk = ranks[idx];
       var isTop = rk === 1;
-      var medal = _prOnly ? '\u00b7' : rk === 1 ? '\ud83e\udd47' : rk === 2 ? '\ud83e\udd48' : rk === 3 ? '\ud83e\udd49' : String(rk);   // v359.0 — per_round_only shows no ranks
-      h += '<div onclick="ptShowPlayerCard(\'_indivLb\',' + JSON.stringify(String(pr.roster_id)) + ')" style="display:grid;grid-template-columns:28px 1fr' + ' auto'.repeat(nR) + ' auto;gap:4px;align-items:center;padding:10px;background:' + (isTop ? 'rgba(201,168,76,.12)' : 'rgba(255,255,255,.04)') + ';border:1px solid ' + (isTop ? 'rgba(201,168,76,.3)' : 'rgba(255,255,255,.06)') + ';border-radius:10px;margin-bottom:6px;cursor:pointer;-webkit-tap-highlight-color:transparent">';
+      var rid = String(pr.roster_id);
+      var isOpen = String(st.open) === rid;
+      var medal = _prOnly ? '·' : rk === 1 ? '🥇' : rk === 2 ? '🥈' : rk === 3 ? '🥉' : String(rk);   // v359.0 — per_round_only shows no ranks
+      h += '<div onclick="ptIndivLbToggle(\'' + rid + '\')" style="display:grid;grid-template-columns:' + gridCols + ';gap:4px;align-items:center;padding:10px;background:' + (isTop ? 'rgba(201,168,76,.12)' : 'rgba(255,255,255,.04)') + ';border:1px solid ' + (isTop ? 'rgba(201,168,76,.3)' : 'rgba(255,255,255,.06)') + ';border-radius:' + (isOpen ? '10px 10px 0 0' : '10px') + ';margin-bottom:' + (isOpen ? '0' : '6px') + ';cursor:pointer;-webkit-tap-highlight-color:transparent">';
       h += '<div style="font-size:' + (rk < 4 ? '16' : '12') + 'px;text-align:center">' + medal + '</div>';
-      h += '<div><div style="font-size:13px;font-weight:800;color:' + (isTop ? '#f5e6b8' : '#ddd') + '">' + pr.name + '</div><div style="font-size:10px;color:rgba(255,255,255,.4)">' + pr.team + (mode === 'net' && pr.handicap != null ? (pr.team ? ' \u00b7 ' : '') + 'hcp ' + pr.handicap : '') + '</div></div>';
-      st.rounds.forEach(function(r) {
+      if (showMove) h += '<div style="text-align:center">' + ptMdMoveMark(pmap ? (pmap[rid] != null ? pmap[rid] - rk : null) : null) + '</div>';
+      h += '<div><div style="font-size:13px;font-weight:800;color:' + (isTop ? '#f5e6b8' : '#ddd') + '">' + pr.name + '</div><div style="font-size:10px;color:rgba(255,255,255,.4)">' + pr.team + (mode === 'net' && pr.handicap != null ? (pr.team ? ' · ' : '') + 'hcp ' + pr.handicap : '') + '</div></div>';
+      if (showTp) h += '<div style="text-align:center;font-size:14px;font-weight:900;color:' + (pr.topar < 0 ? '#2ecc71' : pr.topar === 0 ? '#f5e6b8' : 'rgba(255,255,255,.75)') + '">' + ptFmtToPar(pr.topar) + '</div>';
+      shownR.forEach(function(r) {
         var rd = pr.rounds[r.round_number];
         var v = mode === 'fold' ? ((pr._fold && pr._fold.perRound[r.round_number] != null) ? pr._fold.perRound[r.round_number] : null) : rd ? (mode === 'stableford' ? rd.pts : (mode === 'gross' ? rd.gross : rd.net)) : null;   // v359.0
-        h += '<div style="text-align:center;min-width:30px;font-size:13px;font-weight:700;color:' + (v != null ? 'rgba(255,255,255,.7)' : 'rgba(255,255,255,.2)') + '">' + (v != null ? v : '\u2014') + '</div>';
+        h += '<div style="text-align:center;min-width:30px;font-size:13px;font-weight:700;color:' + (v != null ? 'rgba(255,255,255,.7)' : 'rgba(255,255,255,.2)') + '">' + (v != null ? v : '—') + '</div>';
       });
-      h += '<div style="text-align:center;min-width:36px;font-size:16px;font-weight:900;color:' + (isTop ? '#c9a84c' : '#aaa') + '">' + (_prOnly ? '\u2014' : ptMdKey(pr, mode)) + '</div>';   // v359.0
+      h += '<div style="text-align:center;min-width:36px;font-size:16px;font-weight:900;color:' + (isTop ? '#c9a84c' : '#aaa') + '">' + (_prOnly ? '—' : ptMdKey(pr, mode)) + '</div>';   // v359.0
       h += '</div>';
+      if (isOpen) {
+        h += '<div style="background:rgba(255,255,255,.03);border:1px solid ' + (isTop ? 'rgba(201,168,76,.3)' : 'rgba(255,255,255,.06)') + ';border-top:none;border-radius:0 0 10px 10px;padding:2px 12px 14px;margin-bottom:6px">'
+          + ptPlayerCardGrids(shownR, st.modes, pr, { reverse: true })
+          + '<div style="margin-top:10px;font-size:9.5px;color:rgba(255,255,255,.25);text-align:center">• = stroke received · read-only — corrections go through the organizer</div>'
+          + '</div>';
+      }
     });
   });
-  var foot = mode === 'fold' ? 'Position points \u00b7 each round ranks by its own rule \u00b7 winner N \u2026 last 1, ties share \u00b7 high wins' : mode === 'stableford' ? 'Net Stableford \u00b7 high wins' : (mode === 'gross' ? 'Gross \u00b7 total strokes, low wins' : 'Net \u00b7 gross \u2212 full course handicap, low wins');   // v359.0
-  h += '<div style="margin-top:16px;font-size:10px;color:rgba(255,255,255,.2);text-align:center">' + foot + ' \u00b7 Tap a player for their card</div>';
+  var foot = mode === 'fold' ? 'Position points · each round ranks by its own rule · winner N … last 1, ties share · high wins' : mode === 'stableford' ? 'Net Stableford · high wins' : (mode === 'gross' ? 'Gross · total strokes, low wins · To Par counts the holes played' : 'Net · gross − full course handicap, low wins');   // v359.0
+  h += '<div style="margin-top:16px;font-size:10px;color:rgba(255,255,255,.2);text-align:center">' + foot + ' · Tap a player for their scorecards</div>';
   body.innerHTML = h;
 }
 
@@ -51039,17 +51180,18 @@ function ptRenderIndivLb() {
 // event screen) — no fetch, no new endpoint: ptBuildMdIndividual now carries
 // each round's per-hole grosses. Read-only by design; corrections still go
 // unlock -> foursome code -> fix -> relock.
-function ptShowPlayerCard(stateKey, rosterId) {
-  var st = G[stateKey];
-  if (!st) return;
-  var pr = null;
-  st.rows.forEach(function(r){ if (String(r.roster_id) === String(rosterId)) pr = r; });
-  if (!pr) return;
-  var modes = st.modes || ['stableford'];
-  var ex = document.getElementById('ptPlayerCardOv'); if (ex) ex.remove();
-
+/* ⭐⭐ FR-89 (v553.0, s194) — THE SCORECARD GRIDS, LIFTED INTO ONE BUILDER.
+   This block was the body of ptShowPlayerCard and nothing else could reach it.
+   The championship board needs the same grids INLINE — under the pinned leader
+   and under any row he taps. MOVED, not copied: ptShowPlayerCard now calls it,
+   so the overlay and the board cannot draw a man's card two different ways.
+   ⭐ opts.reverse prints the most recent round first (his words on the pinned
+   leader). No opts = the exact order the overlay has printed since v248.4. */
+function ptPlayerCardGrids(rounds, modes, pr, opts) {
+  var list = (rounds || []).slice();
+  if (opts && opts.reverse) list.reverse();
   var body = '';
-  st.rounds.forEach(function(r) {
+  list.forEach(function(r) {
     var rd = pr.rounds[r.round_number];
     var pars = ptGetHolePars(r.course_id, r.tee) || Array(18).fill(4);
     var si   = ptGetSI(r.course_id, r.tee) || Array.from({length:18}, function(_,i){ return i+1; });
@@ -51112,6 +51254,19 @@ function ptShowPlayerCard(stateKey, rosterId) {
     body += '<div style="font-size:11px;color:rgba(255,255,255,.5);text-align:right;margin-top:2px">' + bits.join(' \u00b7 ')
       + (rd.holes < 18 ? ' <span style="color:#e74c3c">\u00b7 ' + rd.holes + '/18 holes</span>' : '') + '</div>';
   });
+  return body;
+}
+
+function ptShowPlayerCard(stateKey, rosterId) {
+  var st = G[stateKey];
+  if (!st) return;
+  var pr = null;
+  st.rows.forEach(function(r){ if (String(r.roster_id) === String(rosterId)) pr = r; });
+  if (!pr) return;
+  var modes = st.modes || ['stableford'];
+  var ex = document.getElementById('ptPlayerCardOv'); if (ex) ex.remove();
+
+  var body = ptPlayerCardGrids(st.rounds, modes, pr, null);   // FR-89 (v553.0)
 
   var totBits = [];
   if (modes.indexOf('gross') !== -1) totBits.push('Gross ' + pr.gross);
@@ -61304,7 +61459,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v552.0';
+    const TOUR_VERSION     = 'pards-tour-v553.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
