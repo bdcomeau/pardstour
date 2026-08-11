@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v582.0 -->
+  <!-- pards-tour-v583.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -40609,6 +40609,14 @@ function ptRefreshMultiDayLeaderboard(eventId) {
           if (!_iDone && ptIsIndivRoundFormat(g)) { _iDone = true; indivRounds.push(Object.assign({}, r, { format: g })); }
           else if (!_xDone && ptIsTeamXofN(g)) { _xDone = true; xofnRounds.push(Object.assign({}, r, { format: g })); }
         });
+        /* FR-108 (v583.0, s218) — a team-only round still has per-player cards,
+           so it still has an individual board. The derive engine answers null
+           on anything it cannot honestly score, and the stamp rides through to
+           the surface on the round object the builder returns verbatim. */
+        if (!_iDone) {
+          var _d108 = window.ptIndivDerive(evCfg, r);
+          if (_d108) { _iDone = true; indivRounds.push(Object.assign({}, r, { format: _d108, _ptDerived: true })); }
+        }
       });
       if (!standings.length && !indivRounds.length && !xofnRounds.length) {
         body.innerHTML = '<div style="color:rgba(255,255,255,.35);text-align:center;padding:40px 0;font-size:14px">No scores yet.</div>';
@@ -41652,6 +41660,48 @@ window._ptRGames = function (cfg, round) {
     if (Object.prototype.toString.call(l) === '[object Array]') for (var i = 0; i < l.length; i++) push(l[i]);
   } catch (e) {}
   return out;
+};
+/* ══ FR-108 (v583.0, s218) — A TEAM-ONLY ROUND BUILDS ITS OWN INDIVIDUAL PASS ══
+   Bruce said it three times in one evening and it was ONE bug: "there are no
+   page with individual score cards", "TV is not scrolling players on the
+   bottom", "only shows one screen". A round whose games list names no
+   individual game leaves the individual partition EMPTY, so the multi-round
+   individual builder is never called, its state comes back null, and four
+   surfaces die silently behind `if (st && ...)`: the individual board, the
+   par-coloured scorecards, the skins pane, and the TV ticker — which returns
+   on its FIRST line, so every player note is never built at all.
+
+   ⭐ ONE ENGINE, asked by both partition sites. It answers the individual
+   format a team-only round should be SCORED ON, or null. The basis comes from
+   the team format's own parser — no second table (trap 42), no fourth scoring
+   engine (trap 3).
+
+   ⛔⛔ THE LINE THAT MATTERS MOST: the answer is deliberately NOT pushed into
+   the games list. The pot derives its money keys from that list IN ORDER, so a
+   game added here would re-key every stored pot config and MOVE SETTLED MONEY.
+   FR-108 changes what the boards SHOW. It never changes what the night PAYS.
+   (traps 14, 42, 55.)
+
+   ⭐ IT REFUSES RATHER THAN GUESSES (trap 27): a scramble is one ball for the
+   group and has no per-player score to rank; an empty or unknown format is not
+   a team night (three rounds in D1 carry an empty format string today); and a
+   round that already names an individual game keeps exactly the board its
+   organizer built. */
+window.ptIndivDerive = function (cfg, round) {
+  try {
+    var list = window._ptRGames(cfg || {}, round) || [];
+    // already has a real individual game -> never a duplicate board
+    for (var i = 0; i < list.length; i++) if (ptIsIndivRoundFormat(list[i])) return null;
+    var basis = null;
+    for (var j = 0; j < list.length; j++) {
+      var p = ptTeamParse(list[j]);      // the ONE team parser: x-of-n, ccc, segment
+      if (p) { basis = p.basis; break; }
+    }
+    if (basis === 'stableford') return 'individual_stableford';
+    if (basis === 'net')        return 'individual_low_net';
+    if (basis === 'gross')      return 'individual_low_gross';
+    return null;
+  } catch (e) { return null; }
 };
 // ── FR-81 (v532.0, s177) — "WHAT ARE WE PLAYING TODAY" AS ONE LINE ─────────
 // ⭐⭐⭐ ONE renderer, every caller. Bruce (s175), holding a printed card that
@@ -49140,6 +49190,14 @@ function ptTvRefresh() {
             if (!_iD && ptIsIndivRoundFormat(g)) { _iD = true; indiv.push(Object.assign({}, r, { format: g })); }
             else if (!_xD && ptIsTeamXofN(g)) { _xD = true; xofnR.push(Object.assign({}, r, { format: g })); }
           });
+          /* FR-108 (v583.0, s218) — WITHOUT THIS THE TICKER IS NEVER BUILT.
+             The ticker builder returns on its first line when the individual
+             state is null, so on a team-only night every player note (leaders,
+             mooses, birdies, blow-ups, streaks, eagles) was silently absent. */
+          if (!_iD) {
+            var _d108 = window.ptIndivDerive(cfg, r);
+            if (_d108) { _iD = true; indiv.push(Object.assign({}, r, { format: _d108, _ptDerived: true })); }
+          }
         });
         var chain = indiv.length ? ptBuildMdIndividual(ev.id, indiv, groups, {}, cfg, { er: true }) : Promise.resolve(null);   // v414.0 \u00b7 FR-01
         var chainX = xofnR.length ? ptBuildMdTeamXofN(ev.id, xofnR, groups, {}, cfg) : Promise.resolve(null);
@@ -49450,6 +49508,14 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
         if (sec.name) html += '<div style="font-size:2vh;font-weight:900;color:#c9a84c;text-transform:uppercase;letter-spacing:1px;margin:1.2vh 0 .8vh">⛳ ' + _ptEsc(sec.name) + '</div>';
         html += ptTvTable(sorted, st, mode, _pmap);
       });
+      /* FR-108 (v583.0, s218) — trap 73: a board nobody can EXPLAIN is
+         indistinguishable from one that is broken. Bruce asked three times.
+         Only when EVERY contributing round was derived; a mixed event's board
+         is a real board and says nothing. */
+      if ((st.rounds || []).length && (st.rounds || []).every(function (_r) { return !!_r._ptDerived; })) {
+        html = '<div style="font-size:1.6vh;color:rgba(255,255,255,.45);margin:0 0 1vh;text-align:center">'
+             + 'Scored from the team night\u2019s cards \u2014 no separate individual game is set</div>' + html;
+      }
       panes.push({ title: '🏆 Overall — ' + ptModeLabel(mode), html: html });
     });
   }
@@ -63289,7 +63355,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v582.0';
+    const TOUR_VERSION     = 'pards-tour-v583.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
