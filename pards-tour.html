@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v570.0 -->
+  <!-- pards-tour-v571.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -7451,7 +7451,7 @@ async function refreshSetupHcp(i){
     const res = await fetch(cfg.worker.replace(/\/+$/,'')+'/handicap?cardId='+encodeURIComponent(gid),{
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok) throw new Error('HTTP '+res.status);
+    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 — data route, not a password verdict */
     const data = await res.json();
     const rec = Array.isArray(data.data) ? data.data[0] : data;
     if(!rec||rec.handicapValue===undefined) throw new Error('No handicap found');
@@ -7474,7 +7474,11 @@ async function refreshSetupHcp(i){
     if(btn){ btn.textContent='✓'; setTimeout(function(){ if(btn){btn.textContent='↻';btn.disabled=false;} },1500); }
   } catch(e){
     if(btn){ btn.textContent='↻'; btn.disabled=false; }
-    showToast('Fetch failed: '+e.message);
+    /* ⭐ B-177 (v571.0) — CLASSIFY ON FLAGS, NEVER ON PROSE. A handicap fetch is a
+       DATA route: it may never render a credential verdict. Only a refusal from the
+       token mint reopens the sheet. */
+    if(e && e.gcIsAuth){ _gcToken=null; _gcTokenExp=0; showGcCredSheet(function(){ refreshSetupHcp(i); }); return; }
+    showToast((e && e.gcStatus) ? e.message : ('Fetch failed: '+e.message));
   }
 }
 
@@ -7598,10 +7602,12 @@ async function _gcMintToken(base, username, password){
 function _gcBulkOutcome(updated, failed, notTried, firstErr){
   if(!failed) return { text: '\u2713 Updated ' + updated, sticky: false };
   if(updated > 0) return { text: '\u2713 Updated ' + updated + ' \u00b7 ' + failed + ' failed', sticky: false };
-  var s = firstErr && firstErr.gcStatus;
-  var why = s === 526 ? 'Golf Canada is not answering (526 \u2014 their certificate). Your login is fine.'
-          : s ? 'Golf Canada is not answering (HTTP ' + s + ').'
-          : (firstErr && firstErr.message) ? firstErr.message : 'No players could be updated.';
+  /* ⭐ B-177 (v571.0) — PRINT THE CLASSIFIED SENTENCE. Every error reaching here now
+     carries one, and it already names the status AND vouches for the login. The old
+     ladder re-spelled the status by hand and dropped the reassurance, so a run that
+     failed on a refused session token read as "Golf Canada is not answering" with
+     nothing said about the password the man was about to go and retype. */
+  var why = (firstErr && firstErr.message) ? firstErr.message : 'No players could be updated.';
   var counts = '0 updated \u00b7 ' + failed + ' failed' + (notTried > 0 ? ' \u00b7 ' + notTried + ' not tried' : '');
   return { text: '\u26a0\uFE0F ' + why + ' ' + counts + '. Stored values kept.', sticky: true };
 }
@@ -8943,7 +8949,7 @@ async function fetchHandicap(i){
     const res=await fetch(cfg.worker.replace(/\/+$/,'')+'/handicap?cardId='+encodeURIComponent(gid),{
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok){ const t=await res.text(); throw new Error('Lookup failed ('+res.status+'): '+t.slice(0,120)); }
+    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 — was prose the catch below re-parsed */
     const data=await res.json();
     // Response shape: { data: [ { handicapValue, displayHandicp, ... } ], total }
     const rec = Array.isArray(data.data) ? data.data[0] : data;
@@ -8988,7 +8994,11 @@ async function fetchHandicap(i){
     btn.innerHTML=`<img src="${GC_LOGO}" alt="Golf Canada"> Fetch`; btn.disabled=false;
     /* ⛔ B-170 — ask the STATUS, never our own sentence. The old first clause
        was true for every HTTP failure there is. */
-    const isAuthErr = (e && e.gcIsAuth === true) || e.message.includes('401') || e.message.includes('No token');
+    /* ⭐⭐⭐ B-177 (v571.0) — FLAGS ONLY. The old clause searched our own sentence for
+       “401”, so a data-route refusal during Golf Canada’s recovery reopened this sheet in
+       front of a password that was fine — the exact defect fixed on the search verb one
+       session earlier, still live on this one. */
+    const isAuthErr = (e && e.gcIsAuth === true) || (e && e.gcNoCreds === true);
     if(isAuthErr){
       _gcToken=null; _gcTokenExp=0; // clear any cached bad token
       showGcCredSheet(function(){ fetchHandicap(i); });
@@ -12409,7 +12419,7 @@ async function mcFetchHandicap(k){
     const res=await fetch(cfg.worker.replace(/\/+$/,'')+'/handicap?cardId='+encodeURIComponent(gid),{
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok){ const t=await res.text(); throw new Error('Lookup failed ('+res.status+'): '+t.slice(0,120)); }
+    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 */
     const data=await res.json();
     const rec = Array.isArray(data.data) ? data.data[0] : data;
     if(!rec || rec.handicapValue===undefined) throw new Error('No handicap found for ID '+gid);
@@ -12427,7 +12437,9 @@ async function mcFetchHandicap(k){
     renderMatchCardsConfig();
   }catch(e){
     if(btn){ btn.innerHTML='GC'; btn.disabled=false; }
-    alert('Could not fetch handicap: '+e.message);
+    /* B-177 — flags, not prose. */
+    if(e && e.gcIsAuth){ _gcToken=null; _gcTokenExp=0; showGcCredSheet(function(){ mcFetchHandicap(k); }); return; }
+    alert((e && e.gcStatus) ? e.message : ('Could not fetch handicap: '+e.message));
   }
 }
 
@@ -22266,7 +22278,7 @@ async function mmFetchMCHandicap(k){
     const res=await fetch(cfg.worker.replace(/\/+$/,'')+'/handicap?cardId='+encodeURIComponent(gid),{
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok){ const t=await res.text(); throw new Error('Lookup failed ('+res.status+'): '+t.slice(0,120)); }
+    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 */
     const data=await res.json();
     const rec = Array.isArray(data.data) ? data.data[0] : data;
     if(!rec || rec.handicapValue===undefined) throw new Error('No handicap found for ID '+gid);
@@ -22283,7 +22295,9 @@ async function mmFetchMCHandicap(k){
     renderMMMatchCards();
   }catch(e){
     if(btn){ btn.innerHTML='GC'; btn.disabled=false; }
-    alert('Could not fetch handicap: '+e.message);
+    /* B-177 — flags, not prose. */
+    if(e && e.gcIsAuth){ _gcToken=null; _gcTokenExp=0; showGcCredSheet(function(){ mmFetchMCHandicap(k); }); return; }
+    alert((e && e.gcStatus) ? e.message : ('Could not fetch handicap: '+e.message));
   }
 }
 
@@ -23609,7 +23623,11 @@ async function refreshAllHandicaps(){
         const res = await fetch(cfg.worker.replace(/\/+$/,'')+'/handicap?cardId='+encodeURIComponent(c.golfId),{
           headers:{'Authorization':'Bearer '+token}
         });
-        if(!res.ok){ const _bt = await res.text(); throw _gcHttpErr(res.status, _bt); }   // B-171 — keep the status, not prose
+        /* ⭐⭐⭐ B-177 (v571.0) — THIS IS A DATA ROUTE. It was throwing the MINT
+           classifier, which marks a 401 as a credential refusal — so the run’s own
+           infrastructure counter below never incremented, the three-strike stop never
+           tripped, and a recovering server got asked once per contact. */
+        if(!res.ok) throw _gcDataErr(res.status);
         const data = await res.json();
         const rec = Array.isArray(data.data) ? data.data[0] : data;
         if(!rec || rec.handicapValue===undefined) throw new Error('No handicap found');
@@ -24764,7 +24782,7 @@ async function favFetchGcHistory(gid, bodyEl){
     var res = await fetch(cfg.worker.replace(/\/+$/,'')+'/score-history?cardId='+encodeURIComponent(gid)+'&take=20', {
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok) throw new Error('HTTP '+res.status);
+    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 */
     var data = await res.json();
     var rounds = data.data || [];
     if(!rounds.length){
@@ -24810,7 +24828,7 @@ async function favFetchGcHistory(gid, bodyEl){
 
     bodyEl.innerHTML = html;
   } catch(e){
-    bodyEl.innerHTML = '<div style="padding:20px;text-align:center;color:#e74c3c;font-size:13px">Failed to load: '+e.message+'</div>';
+    bodyEl.innerHTML = '<div style="padding:20px;text-align:center;color:#e74c3c;font-size:13px">'+((e && e.gcStatus) ? e.message : ('Failed to load: '+e.message))+'</div>';   /* B-177 */
   }
 }
 
@@ -24835,7 +24853,7 @@ async function favFetchHandicap(){
     const res = await fetch(cfg.worker.replace(/\/+$/,'')+'/handicap?cardId='+encodeURIComponent(gid),{
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok) throw new Error('HTTP '+res.status);
+    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 */
     const data = await res.json();
     const rec = Array.isArray(data.data) ? data.data[0] : data;
     if(!rec||rec.handicapValue===undefined) throw new Error('No handicap found');
@@ -24848,7 +24866,9 @@ async function favFetchHandicap(){
     }, 2000);
   } catch(e){
     if(btn){ btn.disabled=false; btn.innerHTML='<img src="'+GC_LOGO+'" style="height:14px;width:auto;vertical-align:middle;margin-right:5px"> Fetch HCP'; }
-    alert('Fetch failed: '+e.message);
+    /* B-177 — flags, not prose. */
+    if(e && e.gcIsAuth){ _gcToken=null; _gcTokenExp=0; showGcCredSheet(function(){ favFetchHandicap(); }); return; }
+    alert((e && e.gcStatus) ? e.message : ('Fetch failed: '+e.message));
   }
 }
 
@@ -28333,7 +28353,9 @@ async function ptRefreshRosterHandicaps() {
         var res = await fetch(cfg.worker.replace(/\/+$/,'') + '/handicap?cardId=' + encodeURIComponent(p.ghin), {
           headers: { 'Authorization': 'Bearer ' + token }
         });
-        if (!res.ok){ var _bt = await res.text(); throw _gcHttpErr(res.status, _bt); }   // B-171 — keep the status, not prose
+        /* ⭐⭐⭐ B-177 (v571.0) — DATA route on the MINT classifier: same defect as the
+           favourites refresher, same three-strike stop silently disabled. */
+        if (!res.ok) throw _gcDataErr(res.status);
         var data = await res.json();
         var rec = Array.isArray(data.data) ? data.data[0] : data;
         if (!rec || rec.handicapValue === undefined) throw new Error('No handicap found');
@@ -62453,7 +62475,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v570.0';
+    const TOUR_VERSION     = 'pards-tour-v571.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
