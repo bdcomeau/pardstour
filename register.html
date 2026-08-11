@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.1 s212)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.2 s212)
+     v1.2: ?sheet=1 opens the day-of sheet directly; &pin= prefills the
+     organizer PIN and loads it — the FR-106 panel's one-tap sheet link.
      Static page, no build step. Opened as register.html?e=EVENTCODE
      Talks only to the pards-reg worker (reg-v1.1.0+).
      ============================================================ -->
@@ -409,7 +411,19 @@ $('walkGo').addEventListener('click', async function(){
 });
 
 // ---------------- boot ----------------
-if (evCode) { loadEvent(); } else { show('viewCode'); }
+// v1.2 — the FR-106 panel links straight to the sheet: ?sheet=1 (+ optional
+// &pin=). Only after the event actually loaded — a bad code still lands on
+// the code-entry view, never an empty sheet.
+var bootSheet = new URLSearchParams(location.search).get('sheet') === '1';
+var bootPin = new URLSearchParams(location.search).get('pin') || '';
+if (evCode) {
+  loadEvent().then(function(){
+    if (bootSheet && evData) {
+      show('viewSheet');
+      if (bootPin) { $('pinInput').value = bootPin; sheetPin = bootPin; loadSheet(true); }
+    }
+  });
+} else { show('viewCode'); }
 </script>
 </body>
 </html>
