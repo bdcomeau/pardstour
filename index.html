@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v571.0 -->
+  <!-- pards-tour-v572.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -7451,7 +7451,7 @@ async function refreshSetupHcp(i){
     const res = await fetch(cfg.worker.replace(/\/+$/,'')+'/handicap?cardId='+encodeURIComponent(gid),{
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 — data route, not a password verdict */
+    if(!res.ok) throw _gcDataErr(res.status, _gcTokenVia);   /* B-177 — data route, not a password verdict */
     const data = await res.json();
     const rec = Array.isArray(data.data) ? data.data[0] : data;
     if(!rec||rec.handicapValue===undefined) throw new Error('No handicap found');
@@ -7524,25 +7524,50 @@ function _gcHttpErr(status, body){
   var why = isAuth
     ? 'Golf Canada did not accept that username or password.'
     : (s === 526
-        ? 'Golf Canada is not answering right now \u2014 their server\u2019s security certificate could not be verified (526). Your login is fine; try again shortly.'
-        : 'Golf Canada is not answering right now (HTTP ' + s + '). Your login is fine; try again shortly.');
+        /* ⭐ B-179 — the login verdict STAYS here: this is the mint, and a
+           non-credential status is exactly what vouches for the password. The
+           fixed promise about when to try again is gone — nothing here measures
+           their recovery (trap 18). */
+        ? 'Golf Canada is not answering right now \u2014 their server\u2019s security certificate could not be verified (526). Your username and password were not the problem.'
+        : 'Golf Canada is not answering right now (HTTP ' + s + '). Your username and password were not the problem.');
   var e = new Error(why);
   e.gcStatus = s;
   e.gcIsAuth = isAuth;
   return e;
 }
 /* ⭐ s203 / B-173 — A DATA-ROUTE FAILURE IS NEVER A PASSWORD VERDICT. Only
-   the token mint may blame credentials; a 401 from a data route seconds after
-   a successful mint is Golf Canada's main API refusing the session token
-   while it recovers (measured live s202/s203), not a wrong password. The
-   status rides the error as a field — no caller may parse this prose. */
-function _gcDataErr(status){
+   the token mint may blame credentials; a 401 from a data route is Golf
+   Canada's main API refusing the session token, not a wrong password. The
+   status rides the error as a field — no caller may parse this prose.
+
+   ⭐⭐⭐ B-179 (v572.0, s206) — AND IT MAY NOT INVENT A CAUSE EITHER. The s203
+   sentence hard-coded "it is still recovering from their outage": a claim about
+   Golf Canada's servers that this device never measured, printed on every 401
+   from that day forward. It also hard-coded "Your login is fine" — a credential
+   verdict, which is the very thing B-173 and B-177 exist to keep off a data
+   route; the old bug asserted the password was WRONG, the fix asserted it was
+   RIGHT, and both read a verdict out of evidence that carries none.
+
+   What this device actually knows, and all it may say: a token was issued (so
+   the username and password WERE accepted, at the mint), which server issued it,
+   and that the main API refused it. ⛔ Never a prediction about their recovery,
+   ⛔ never a promise about when to try again, and ⛔ when the issuer is unknown
+   the sentence names no server rather than guessing one. */
+function _gcDataErr(status, via){
   var s = Number(status) || 0;
-  var e = new Error(s === 401
-    ? 'Golf Canada’s main API rejected the session token (HTTP 401) — it is still recovering from their outage. Your login is fine; try again later.'
-    : 'Golf Canada is not answering right now (HTTP ' + s + '). Your login is fine; try again shortly.');
+  var msg;
+  if (s === 401) {
+    msg = 'Golf Canada’s main API refused the session token (HTTP 401).';
+    if (via === 'scg')          msg += ' That token came from their Score Centre, not from golfnet — the main API often will not accept a Score Centre token.';
+    else if (via === 'golfnet') msg += ' golfnet issued that token and the main API then refused it, so the problem is on their side.';
+    msg += ' Your username and password were accepted when it was issued.';
+  } else {
+    msg = 'Golf Canada is not answering right now (HTTP ' + s + ').';
+  }
+  var e = new Error(msg);
   e.gcStatus = s;
   e.gcIsAuth = false;
+  e.gcVia    = (via === 'scg' || via === 'golfnet') ? via : null;   // B-179 — ships with its reader (the sentence above)
   return e;
 }
 /* ⭐ s202 — ONE MINT PATH, TWO SERVERS. Golf Canada runs two token servers:
@@ -7560,14 +7585,21 @@ function _gcDataErr(status){
    ⛔ Deliberately NOT swept onto the tee-sheet handicap refresh: it mints only
    to fetch golfnet handicaps, which are down for exactly as long as golfnet
    login is, and it already fails soft keeping stored values. */
-var _gcTokenVia = null, _gcScgNoticeShown = false;
+/* ⭐⭐⭐ B-179 (v572.0, s206) — WHICH SERVER ISSUED THIS TOKEN IS THE WHOLE
+   DIAGNOSIS, AND IT WAS BEING THROWN AWAY. There are TWO token caches (the
+   handicap rail and the search rail) and they can be holding tokens from
+   DIFFERENT servers at the same time, so one shared 'last mint' answer would
+   be wrong exactly when it mattered. Each cache now records its own, off the
+   value the mint returns — ⛔ never a second writer, ⛔ never a stale read: a
+   fetch cannot happen before its getter has set it. */
+var _gcTokenVia = null, _gcSearchTokVia = null, _gcScgNoticeShown = false;
 async function _gcMintToken(base, username, password){
   var body = JSON.stringify({username:username, password:password});
   var res = await fetch(base+'/token',{ method:'POST', headers:{'Content-Type':'application/json'}, body: body });
   if(res.ok){
     var data = await res.json();
     if(!data.access_token) throw new Error('No token returned');
-    _gcTokenVia = 'golfnet';
+    data._gcVia = 'golfnet';   // B-179 — ships WITH its readers (gcGetToken / _gcSearchGetToken)
     return data;
   }
   var t = await res.text();
@@ -7578,14 +7610,18 @@ async function _gcMintToken(base, username, password){
     if(r2.ok){
       var d2 = await r2.json();
       if(d2.access_token){
-        _gcTokenVia = 'scg';
+        d2._gcVia = 'scg';   // B-179
         d2.expires_in = Math.min(d2.expires_in || 3600, 300);   /* B-172 — a fallback token
            must not outlive golfnet's recovery by more than five minutes: when golfnet came
            back after the s202 outage, its data routes 401'd the Score Centre token for the
            rest of the cached hour, blaming a password that was fine. */
         if(!_gcScgNoticeShown && typeof showToast === 'function'){
           _gcScgNoticeShown = true;
-          showToast('Logged in via Golf Canada\u2019s Score Centre \u2014 their main API is still down, so handicap fetches may fail.');
+          /* ⭐ B-179 — SPELL IT FROM WHAT WE MEASURED. What just happened is that
+             golfnet's LOGIN server refused for a non-credential reason and the Score
+             Centre answered instead. That says nothing about whether their main API
+             is up, and the old wording asserted it was down. */
+          showToast('Signed in through Golf Canada\u2019s Score Centre \u2014 golfnet\u2019s own login server did not answer. Their main API may refuse a Score Centre token, so handicap fetches can fail.');
         }
         return d2;
       }
@@ -7617,6 +7653,7 @@ async function gcGetToken(cfg){
   const data = await _gcMintToken(cfg.worker.replace(/\/+$/,''), cfg.username, cfg.password);   // B-170 + s202 — one mint path, two servers
   _gcToken=data.access_token;
   _gcTokenExp=now + ((data.expires_in||3600)*1000);
+  _gcTokenVia=data._gcVia||null;   // B-179
   return _gcToken;
 }
 
@@ -8949,7 +8986,7 @@ async function fetchHandicap(i){
     const res=await fetch(cfg.worker.replace(/\/+$/,'')+'/handicap?cardId='+encodeURIComponent(gid),{
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 — was prose the catch below re-parsed */
+    if(!res.ok) throw _gcDataErr(res.status, _gcTokenVia);   /* B-177 — was prose the catch below re-parsed */
     const data=await res.json();
     // Response shape: { data: [ { handicapValue, displayHandicp, ... } ], total }
     const rec = Array.isArray(data.data) ? data.data[0] : data;
@@ -12419,7 +12456,7 @@ async function mcFetchHandicap(k){
     const res=await fetch(cfg.worker.replace(/\/+$/,'')+'/handicap?cardId='+encodeURIComponent(gid),{
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 */
+    if(!res.ok) throw _gcDataErr(res.status, _gcTokenVia);   /* B-177 */
     const data=await res.json();
     const rec = Array.isArray(data.data) ? data.data[0] : data;
     if(!rec || rec.handicapValue===undefined) throw new Error('No handicap found for ID '+gid);
@@ -22278,7 +22315,7 @@ async function mmFetchMCHandicap(k){
     const res=await fetch(cfg.worker.replace(/\/+$/,'')+'/handicap?cardId='+encodeURIComponent(gid),{
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 */
+    if(!res.ok) throw _gcDataErr(res.status, _gcTokenVia);   /* B-177 */
     const data=await res.json();
     const rec = Array.isArray(data.data) ? data.data[0] : data;
     if(!rec || rec.handicapValue===undefined) throw new Error('No handicap found for ID '+gid);
@@ -23627,7 +23664,7 @@ async function refreshAllHandicaps(){
            classifier, which marks a 401 as a credential refusal — so the run’s own
            infrastructure counter below never incremented, the three-strike stop never
            tripped, and a recovering server got asked once per contact. */
-        if(!res.ok) throw _gcDataErr(res.status);
+        if(!res.ok) throw _gcDataErr(res.status, _gcTokenVia);
         const data = await res.json();
         const rec = Array.isArray(data.data) ? data.data[0] : data;
         if(!rec || rec.handicapValue===undefined) throw new Error('No handicap found');
@@ -24280,6 +24317,7 @@ async function _gcSearchGetToken(){
   var d = await _gcMintToken(creds.worker.replace(/\/+$/,''), creds.username, creds.password);   // B-170 + s202 — one mint path, two servers
   _gcSearchTok = d.access_token;
   _gcSearchTokExp = now + ((d.expires_in||3600)*1000);
+  _gcSearchTokVia = d._gcVia||null;   // B-179
   return _gcSearchTok;
 }
 
@@ -24445,7 +24483,7 @@ async function favGcSearch(){
     while(true){
       var params = new URLSearchParams({keywords:kw, skip:String(skip), take:String(PAGE)});
       var r = await fetch(_gcWorkerBase()+'/member/search?'+params, {headers:{Authorization:'Bearer '+tok}});
-      if(!r.ok) throw _gcDataErr(r.status);
+      if(!r.ok) throw _gcDataErr(r.status, _gcSearchTokVia);
       var d = await r.json();
       var page = Array.isArray(d) ? d : (d.data||[]);
       members = members.concat(page);
@@ -24782,7 +24820,7 @@ async function favFetchGcHistory(gid, bodyEl){
     var res = await fetch(cfg.worker.replace(/\/+$/,'')+'/score-history?cardId='+encodeURIComponent(gid)+'&take=20', {
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 */
+    if(!res.ok) throw _gcDataErr(res.status, _gcTokenVia);   /* B-177 */
     var data = await res.json();
     var rounds = data.data || [];
     if(!rounds.length){
@@ -24853,7 +24891,7 @@ async function favFetchHandicap(){
     const res = await fetch(cfg.worker.replace(/\/+$/,'')+'/handicap?cardId='+encodeURIComponent(gid),{
       headers:{'Authorization':'Bearer '+token}
     });
-    if(!res.ok) throw _gcDataErr(res.status);   /* B-177 */
+    if(!res.ok) throw _gcDataErr(res.status, _gcTokenVia);   /* B-177 */
     const data = await res.json();
     const rec = Array.isArray(data.data) ? data.data[0] : data;
     if(!rec||rec.handicapValue===undefined) throw new Error('No handicap found');
@@ -28355,7 +28393,7 @@ async function ptRefreshRosterHandicaps() {
         });
         /* ⭐⭐⭐ B-177 (v571.0) — DATA route on the MINT classifier: same defect as the
            favourites refresher, same three-strike stop silently disabled. */
-        if (!res.ok) throw _gcDataErr(res.status);
+        if (!res.ok) throw _gcDataErr(res.status, _gcTokenVia);
         var data = await res.json();
         var rec = Array.isArray(data.data) ? data.data[0] : data;
         if (!rec || rec.handicapValue === undefined) throw new Error('No handicap found');
@@ -28579,7 +28617,7 @@ window.ptRosterGcSearch = async function() {
     while (true) {
       var params = new URLSearchParams({keywords: q, skip: String(skip), take: String(PAGE)});
       var r = await fetch(_gcWorkerBase() + '/member/search?' + params, {headers: {Authorization: 'Bearer ' + tok}});
-      if (!r.ok) throw _gcDataErr(r.status);
+      if (!r.ok) throw _gcDataErr(r.status, _gcSearchTokVia);
       var d = await r.json();
       var page = Array.isArray(d) ? d : (d.data || []);
       members = members.concat(page);
@@ -56536,7 +56574,7 @@ function ptDrawResolveGcSearch(name) {
     var parts=name.trim().split(/\s+/);
     var kw=parts.length>=2?parts[parts.length-1].toLowerCase()+', '+parts.slice(0,-1).join(' ').toLowerCase():name.toLowerCase();
     return fetch(_gcWorkerBase()+'/member/search?'+new URLSearchParams({keywords:kw,skip:'0',take:'20'}),{headers:{Authorization:'Bearer '+tok}});
-  }).then(function(r){ if(!r.ok) throw _gcDataErr(r.status); return _ptJson(r); }).then(function(d){   /* B-173 — a 401 must not read as "No results" */
+  }).then(function(r){ if(!r.ok) throw _gcDataErr(r.status, _gcSearchTokVia); return _ptJson(r); }).then(function(d){   /* B-173 — a 401 must not read as "No results" */
     var members=Array.isArray(d)?d:(d.data||[]);
     if(!members.length){el.innerHTML='<div style="color:rgba(255,255,255,.25);font-size:13px;padding:12px 0">No Golf Canada results</div>';return;}
     var ov=document.getElementById('ptDrawResolveOv');
@@ -58582,7 +58620,7 @@ function ptAssignGcSearch(){
     var parts=name.trim().split(/\s+/);
     var kw=parts.length>=2?parts[parts.length-1].toLowerCase()+', '+parts.slice(0,-1).join(' ').toLowerCase():name.toLowerCase();
     return fetch(_gcWorkerBase()+'/member/search?'+new URLSearchParams({keywords:kw,skip:'0',take:'20'}),{headers:{Authorization:'Bearer '+tok}});
-  }).then(function(r){ if(!r.ok) throw _gcDataErr(r.status); return _ptJson(r); }).then(function(d){   /* B-173 — a 401 must not read as "No results" */
+  }).then(function(r){ if(!r.ok) throw _gcDataErr(r.status, _gcSearchTokVia); return _ptJson(r); }).then(function(d){   /* B-173 — a 401 must not read as "No results" */
     var members=Array.isArray(d)?d:(d.data||[]);
     if(!members.length){el.innerHTML='<div style="color:rgba(255,255,255,.25);font-size:13px;padding:12px 0">No Golf Canada results</div>';return;}
     el.innerHTML=members.map(function(m){
@@ -62475,7 +62513,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v571.0';
+    const TOUR_VERSION     = 'pards-tour-v572.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
