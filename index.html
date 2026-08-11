@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v584.0 -->
+  <!-- pards-tour-v585.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -42186,7 +42186,16 @@ window.ptMoneyRows = function (acc) {
   return Object.keys(acc).map(function (k) { return { key: k, name: window.ptMoneyName(acc, k), cents: acc[k] }; })
     .sort(function (a, b) { return (b.cents - a.cents) || a.name.localeCompare(b.name); });
 };
-window.ptFr19NightMoney = function (evCfg, round, groups, byP, acc, out) {
+/* ⛔⛔⛔ B-190 (v585.0, s219) — THE SEVENTH ARGUMENT, AND IT IS THE MONEY.
+   `srv` = { <roster_id>: { ch, tee } } off the worker's round leaderboard.
+   Until v585.0 this function fed NONE of its three arms the server's per-man
+   decks — not the team rows, not the individual rows, not skins — while the
+   printed Game Results sheet fed all three. B-132 (v496.0) taught
+   ptFr20IndivRows and ptSkinsModel to accept the map; only the paper ever
+   handed it over. Every caller that has a leaderboard in hand now does too.
+   ⛔ Omitted = every arm falls back to the round's deck, byte for byte the
+   pre-v585.0 behaviour. ⛔ No allocation rule changes anywhere (trap 3). */
+window.ptFr19NightMoney = function (evCfg, round, groups, byP, acc, out, srv) {
   acc = acc || {};
   if (out) out.games = out.games || [];
   var add = function (rid, name, cents) { if (!name || !(cents > 0)) return; window.ptMoneyAdd(acc, rid, name, cents); };
@@ -42217,7 +42226,7 @@ window.ptFr19NightMoney = function (evCfg, round, groups, byP, acc, out) {
       if (!(slice > 0)) return;
       var tp = ptTeamParse(gf);
       if (tp) {
-        var rows = window.ptFr20XofNRows(gf, round, groups, byP, evCfg);   // FR-18 equalizer applied inside
+        var rows = window.ptFr20XofNRows(gf, round, groups, byP, evCfg, srv);   // FR-18 equalizer applied inside · B-190 srv
         if (!rows.length) return;
         var sorted = ptXofNSortRows(rows, tp.basis, false);
         // FR-27 (v457.0) — was winner-takes-the-slice; now the slice pays down
@@ -42270,7 +42279,7 @@ window.ptFr19NightMoney = function (evCfg, round, groups, byP, acc, out) {
           names.forEach(function (nm, _i) { add(nm.roster_id, nm.name, _s109[String(_i)] || 0); });
         });
       } else if (ptIsIndivRoundFormat(gf)) {
-        var irows = window.ptFr20IndivRows(gf, round, players, byP);       // already sorted, rule-aware
+        var irows = window.ptFr20IndivRows(gf, round, players, byP, srv);       // already sorted, rule-aware · B-190 srv
         if (!irows.length) return;
         // FR-27 (v457.0) — places, not winner-takes-all.
         var _irk = [];
@@ -42282,7 +42291,7 @@ window.ptFr19NightMoney = function (evCfg, round, groups, byP, acc, out) {
       }
     });
   }
-  var sm = window.ptSkinsModel(evCfg, round, players, byP);
+  var sm = window.ptSkinsModel(evCfg, round, players, byP, srv);   // B-190 srv
   if (sm.on && sm.pot_cents && sm.total_skins) sm.payouts.forEach(function (o) { add(o.roster_id, o.name, o.cents); });
   if (out) out.skins = { pot_cents: sm.pot_cents || 0, total_skins: sm.total_skins || 0, rows: (sm.payouts || []).map(function (o) { return { name: o.name, cents: o.cents }; }) };
   return acc;
@@ -44147,7 +44156,10 @@ window._ptHatGo = function () {
     ptToast('Error: ' + _ptMsg(e, 'Could not draw the teams'));
   });
 };
-window.ptFr20XofNRows = function (gf, round, groups, byP, evCfg) {
+/* ⛔⛔ B-190 (v585.0, s219) — THIS IS MONEY. OPTIONAL `srv` =
+   { <roster_id>: { ch, tee } } off the worker's round leaderboard, exactly the
+   map ptFr20IndivRows and ptSkinsModel take. Omitted = pre-v585.0 behaviour. */
+window.ptFr20XofNRows = function (gf, round, groups, byP, evCfg, srv) {
   var p = ptTeamParse(gf); if (!p) return [];
   var rOv = Object.assign({}, round, { format: gf });
   var pct = ptXofNAllow(evCfg, rOv);
@@ -44172,8 +44184,9 @@ window.ptFr20XofNRows = function (gf, round, groups, byP, evCfg) {
     mem = window.ptEqRoster(evCfg, round.id, g.id, mem, groups);   // FR-18 — same boundary filter as the builder (the s90 two-renderer rule)
     if (!mem.length) return;
     var vals = mem.map(function (pl) {
+      var _s190 = srv ? srv[String(pl.roster_id)] : null;   // B-190
       return ptXofNHoleVals((byP || {})[String(pl.roster_id)] || {}, round.course_id, round.tee,
-                            pl.handicap != null ? Number(pl.handicap) : 0, pct);
+                            pl.handicap != null ? Number(pl.handicap) : 0, pct, _s190);
     });
     var holesCounted = 0, total = 0, thru = 0;
     for (var h = 1; h <= 18; h++) {
@@ -44855,7 +44868,10 @@ window.ptPotLoad = function (eventId, round, mode) {
     try { entered = (window.ptFr17Players(rs[2].groups || [], cfg) || []).length; } catch (e) { entered = 0; }
     var settle = mode === 'settle';
     var field = settle ? scored : (entered || scored);
-    window.__ptPotCtx = { eventId: eventId, round: round, field: field, entered: entered, scored: scored, cfg: cfg, mode: settle ? 'settle' : 'setup', places: null, groups: rs[2].groups || [], byP: byP, standings: (rs[3] || {}).standings || [] };
+    /* ⭐ B-190 (v585.0, s219) — rawScores rides along so ptPotOwedHtml can index
+       the leaderboard already fetched above. _ptLbIndex needs the raw rows for
+       the player_id -> roster_id join; arm A's data block carries no roster_id. */
+    window.__ptPotCtx = { eventId: eventId, round: round, field: field, entered: entered, scored: scored, cfg: cfg, mode: settle ? 'settle' : 'setup', places: null, groups: rs[2].groups || [], byP: byP, standings: (rs[3] || {}).standings || [], rawScores: (rs[1] || {}).scores || [] };
     window.ptPotRender(ptPotCfg(cfg, round.id, field), field, round);
   }).catch(function (e) { fail(_ptMsg(e, 'Could not load the pot')); });
 };
@@ -44885,7 +44901,17 @@ window.ptPotSeed = function (pot, rows, total) {
 // and THAT is the bug. There is only one, so they cannot.
 window.ptPotOwedHtml = function (ctx) {
   var acc = {};
-  try { acc = window.ptFr19NightMoney(ctx.cfg, ctx.round, ctx.groups || [], ctx.byP || {}, {}) || {}; } catch (e) { acc = {}; }
+  /* ⛔⛔ B-190 (v585.0, s219) — HAND THE PAYER THE SERVER'S DECKS. The
+     leaderboard is already in ctx.standings (FR-97 fetched it for the Calcutta
+     finishing order); indexing it costs nothing and no request is added.
+     ⛔ FAIL SOFT — a bad index leaves srv null and every arm falls back to the
+     round's deck, which is exactly what this screen did before v585.0. */
+  var _srv190 = null;
+  try {
+    var _ix190 = window._ptLbIndex({ standings: ctx.standings || [] }, ctx.rawScores || []);
+    if (_ix190 && _ix190.ok) _srv190 = _ix190.byRoster;
+  } catch (_e190) { _srv190 = null; }
+  try { acc = window.ptFr19NightMoney(ctx.cfg, ctx.round, ctx.groups || [], ctx.byP || {}, {}, null, _srv190) || {}; } catch (e) { acc = {}; }
   var rows = window.ptMoneyRows(acc).map(function (n) { return { name: n.name, cents: Math.round(n.cents) }; })
     .filter(function (r) { return r.cents > 0; })
     .sort(function (a, b) { return b.cents - a.cents || a.name.localeCompare(b.name); });
@@ -45815,7 +45841,16 @@ function ptApplyFold(rows, rounds) {
 // ptXofNHoleVals so the dots and the points are drawn from the same number.
 // D9/D1 make allowance real; dots computed off the raw index would contradict
 // the points sitting in the same cell the moment allowance is not 100%.
-function ptXofNCourseHdcp(courseId, tee, hdcpIndex, pct) {
+/* ⭐⭐⭐ B-190 (v585.0, s219) — THE TEAM ENGINE ASKS WHOSE DECK IT IS.
+   OPTIONAL `srv` = ONE man's { ch, tee } off the worker's round leaderboard,
+   the SAME record shape ptFr20IndivRows and ptSkinsModel have taken since
+   v496.0 / B-132. Omitted = the round's deck for the whole field, byte for
+   byte what this line did before.
+   ⛔ The worker emits course_handicap RAW — arm A applies its allowance
+   separately to produce playing_handicap — so scaling by pct here is the
+   identical arithmetic the fallback below performs, not a new rule (trap 3). */
+function ptXofNCourseHdcp(courseId, tee, hdcpIndex, pct, srv) {
+  if (srv && srv.ch != null) return Math.round(Number(srv.ch) * (pct || 100) / 100);
   var td = ptResolveCourse(courseId, tee);
   return Math.round(ptCalcCourseHandicap(hdcpIndex || 0, td.slope, td.rating, td.par) * (pct || 100) / 100);
 }
@@ -45856,9 +45891,12 @@ var PT_FR42_CSS = '.sdot{color:#c0392b;font-size:6px;vertical-align:super;letter
   + '.hdot{color:#444;font-size:6px;vertical-align:super;letter-spacing:-1.5px;margin-left:1px}'
   + '.gsm{color:#8a8a8a;font-size:7.5px;margin-left:2px;font-weight:400}'
   + '.tlab{color:#4a7a5a;font-size:8.5px;font-weight:600;letter-spacing:.2px}';
-function ptXofNHoleVals(grossByHole, courseId, tee, hdcpIndex, pct) {
-  var si = ptGetSI(courseId, tee), pars = ptGetHolePars(courseId, tee);
-  var chcp = ptXofNCourseHdcp(courseId, tee, hdcpIndex, pct);   // FR-42 — one rule
+function ptXofNHoleVals(grossByHole, courseId, tee, hdcpIndex, pct, srv) {
+  /* B-190 (v585.0, s219) — HIS deck for the stroke index and the pars too, the
+     same shape line 41879 already uses. Absent = the round's deck. */
+  var _t190 = (srv && srv.tee) ? srv.tee : tee;
+  var si = ptGetSI(courseId, _t190), pars = ptGetHolePars(courseId, _t190);
+  var chcp = ptXofNCourseHdcp(courseId, _t190, hdcpIndex, pct, srv);   // FR-42 — one rule
   var out = {};
   Object.keys(grossByHole).forEach(function(h) {
     var hIdx = parseInt(h) - 1; if (hIdx < 0 || hIdx > 17) return;
@@ -45899,11 +45937,23 @@ function ptBuildMdTeamXofN(eventId, xofnRounds, groups, headers, cfg) {
     teams[String(g.id)] = { group_id: g.id, name: g.name || '—', players: mem,
                             rounds: {}, holesCounted: 0, total: 0 };
   });
+  /* \u2b50\u2b50\u2b50 B-190 (v585.0, s219) \u2014 THE TEAM BLOCK ASKS WHOSE DECK IT IS.
+     The leaderboard is fetched beside the scores, exactly as ptBuildMdIndividual
+     has done since v584.0 / B-189, and indexed through the SAME reader
+     (window._ptLbIndex). It is the ONE place the per-man deck is stated.
+     \u26d4 FAIL SOFT \u2014 a miss leaves the map empty and every man falls back to the
+     round's deck, byte for byte the pre-v585.0 sheet. */
   return Promise.all(xofnRounds.map(function(r) {
-    return fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers || {} })
-      .then(_ptJson)
-      .then(function(d){ return { round: r, scores: d.scores || [] }; })
-      .catch(function(){ return { round: r, scores: [] }; });
+    var _sc190 = fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers || {} })
+      .then(_ptJson).then(function(d){ return d.scores || []; }).catch(function(){ return []; });
+    var _lb190 = fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/leaderboard', { headers: headers || {} })
+      .then(_ptJson).catch(function(){ return null; });
+    return Promise.all([_sc190, _lb190]).then(function(x190) {
+      var _ix190 = null;
+      try { _ix190 = window._ptLbIndex(x190[1], x190[0]); } catch (e190) { _ix190 = null; }
+      return { round: r, scores: x190[0],
+               deck: (_ix190 && _ix190.ok && _ix190.byRoster) ? _ix190.byRoster : {} };
+    });
   })).then(function(roundResults) {
     var rawByRound = {};   // v433.0 (FR-17) — raw gross per player, keyed round id, threaded out for the surface blocks (no re-fetch)
     roundResults.forEach(function(rr) {
@@ -45920,10 +45970,11 @@ function ptBuildMdTeamXofN(eventId, xofnRounds, groups, headers, cfg) {
         var basePl = window.ptEqRoster(cfg, rr.round.id, t.group_id, t.players, groups);   // FR-18 — engine-boundary filter (pull=exclude, double=append); math below untouched
         var mem = basePl.map(function(pl) {
           var _hi42 = pl.handicap != null ? Number(pl.handicap) : 0;   // FR-42
+          var _s190 = (rr.deck && rr.deck[String(pl.roster_id)]) || null;   // B-190 — HIS deck
           return { roster_id: pl.roster_id, name: pl.name, counted: 0,
-                   chcp: ptXofNCourseHdcp(rr.round.course_id, rr.round.tee, _hi42, pct),   // FR-42 — for the dots
+                   chcp: ptXofNCourseHdcp(rr.round.course_id, rr.round.tee, _hi42, pct, _s190),   // FR-42 — for the dots
                    vals: ptXofNHoleVals(byPlayer[String(pl.roster_id)] || {}, rr.round.course_id, rr.round.tee,
-                                        _hi42, pct) };
+                                        _hi42, pct, _s190) };
         });
         var perHole = {}, holesCounted = 0, total = 0, thru = 0;
         for (var h = 1; h <= 18; h++) {
@@ -53489,8 +53540,15 @@ function ptPrintGameResultsReport(eventId, round, opts) {
        now carries { <roster_id>: { ch, tee } } straight out of
        round_leaderboard_cache and hands it to ptSkinsModel and ptFr20IndivRows.
        \u26d4 FAIL CLOSED. No payload -> refuse. This sheet settles bets; a plausible
-       wrong number on it is the whole bug. \u26d4 The TEAM tables below are untouched
-       \u2014 they run off groups.tee, which s147 established is already right. */
+       wrong number on it is the whole bug.
+       \u2b50\u2b50\u2b50 B-190 (v585.0, s219) \u2014 THE LINE THAT USED TO SIT HERE WAS A LIE, AND IT
+       COST SEVENTY SESSIONS. It said the team tables were untouched because they
+       ran off groups.tee. They never did: they run through ptXofNHoleVals, which
+       took the ROUND's deck for the whole field. Bruce's Round 1 sheet printed
+       one man at 28 in the team block and 27 in the individual block \u2014 one hole,
+       one shot, one point, and a payout order that could move. The team tables
+       below now read srvCH too. (trap 18 \u2014 a fixed sentence about a variable
+       thing becomes a lie; trap 40 \u2014 sweep the class, not the site.) */
     var _lbM = window._ptLbIndex(res[4], res[2].scores || []);
     if (!_lbM.ok) {
       window._ptLbRefuse('Round ' + round.round_number + ' \u00b7 Game Results', _lbM.reason, null, opts);
@@ -53620,7 +53678,7 @@ function ptPrintGameResultsReport(eventId, round, opts) {
           } else if (_tDone) {
             // FR-20 step 2b — second team game prints a REAL table from the
             // single-round engine pass (no new fetches); step 3 pays its slice.
-            var trows2 = ptXofNSortRows(window.ptFr20XofNRows(gf, round, groups, byP, cfg), gp.basis, false);
+            var trows2 = ptXofNSortRows(window.ptFr20XofNRows(gf, round, groups, byP, cfg, srvCH), gp.basis, false);   // B-190 (v585.0) — srvCH was already in scope
             html += '<h3>🏆 ' + _ptEsc(gp.ccc ? ptCccLabel(gf) : ptXofNLabel(gf)) + (_gpc ? ' \u2014 ' + ptMoneyFmt(_gpc) : '') + '</h3>';
             if (trows2.length) {
               var tRanks2 = [];
@@ -53856,9 +53914,10 @@ function ptPrintGameResultsReport(eventId, round, opts) {
         var hh = byP[String(p.roster_id)] || {}, outT = 0, inT = 0, nH = 0;
         for (var h3 = 1; h3 <= 18; h3++) { var g3 = hh[h3]; if (g3 != null) { nH++; if (h3 <= 9) outT += g3; else inT += g3; } }
         var _hi = p.handicap != null ? Number(p.handicap) : 0;
+        var _s190sc = srvCH ? srvCH[String(p.roster_id)] : null;   // B-190 — his deck for the FR-42 dots
         return { name: p.name, holes: hh, count: nH, out: outT, inn: inT, tot: outT + inT,
-                 vals: _fr42B ? ptXofNHoleVals(hh, round.course_id, round.tee, _hi, _pct42) : null,
-                 chcp: _fr42D ? ptXofNCourseHdcp(round.course_id, round.tee, _hi, _pct42) : 0 };
+                 vals: _fr42B ? ptXofNHoleVals(hh, round.course_id, round.tee, _hi, _pct42, _s190sc) : null,
+                 chcp: _fr42D ? ptXofNCourseHdcp(round.course_id, round.tee, _hi, _pct42, _s190sc) : 0 };
       }).filter(function(r2){ return r2.count > 0; }).sort(function(a2, b2){ return a2.tot - b2.tot; });
       if (scRows.length) {
         html += '<h3>\ud83d\uddc2 Scorecards</h3>'
@@ -63380,7 +63439,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v584.0';
+    const TOUR_VERSION     = 'pards-tour-v585.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
