@@ -639,10 +639,11 @@ const SK = 'pards_gc';
    deploy: pards-tools-v1.0 -> v1.1 -> v1.2 ... Two occurrences in the file
    need the bump — this const, and nowhere else (the header badge reads it
    live via displayVersion()). */
-const CURRENT_VERSION = 'pards-tools-v1.20';
+const CURRENT_VERSION = 'pards-tools-v1.21';
 const LIVE_URL = 'https://bdcomeau.github.io/pardstour/pards-golf-tools.html';  // s85 (Bruce): serve from the pardstour repo
 const VERSION_REGEX = /const CURRENT_VERSION = '(pards-tools-v[\d.]+)'/;
 const RELEASE_NOTES = [
+  'v1.21 — Login: removed the Score Centre fallback (B-180) — a failed golfnet login now reports honestly instead of signing in with a token the lookups reject.',
   'v1.19 — Menu (Members / HCP Calc / Courses) moved from the bottom of the screen to the top, pinned under the header while scrolling.',
   'v1.18 — Members: added blue "📊 Last 20 Rounds" button on each player card — opens the round history modal directly.',
   'v1.17 — Android homescreen install fixed: manifest now injected via Blob URL (replacing data: URI that Android Chrome ignores) and minimal service worker registered.',
@@ -742,13 +743,13 @@ function saveCreds(c) { try { localStorage.setItem(SK, JSON.stringify(c)); } cat
 
 function wBase() { return (loadCreds().worker || 'https://gc-proxy.bdapple.workers.dev').replace(/\/+$/, ''); }
 
-/* ⭐ B-170 + s202 — the same two-server mint as the main app. A failed login
+/* ⭐ B-170 + B-180 — the same one-server mint as the main app. A failed login
    is classified on the STATUS, never on prose: only a 401, or a 400 whose body
    is credential-shaped, blames the password. Anything else names the outage
-   and says the login is fine. On a non-credential failure the Score Centre's
-   own token server is tried (the worker's /scg/token) — its certificate is
-   valid while golfnet's sat expired. A credential refusal never falls back,
-   and a failed fallback re-throws the ORIGINAL golfnet error. */
+   and says the login is fine. The s202 Score Centre fallback is gone (B-180,
+   s207): the main API refuses Score-Centre-issued tokens on every data route
+   this page calls, so the fallback only ever turned an honest failed login
+   into a green login on dead lookups. */
 function classifyHttp(status, body) {
   const s = Number(status) || 0;
   const isAuth = (s === 401 || (s === 400 && /invalid_grant|invalid_username|invalid_password/i.test(String(body || ''))));
@@ -777,18 +778,7 @@ async function getToken() {
     if (!d.access_token) throw new Error('No token returned.');
   } else {
     const bt = await r.text();
-    const err = classifyHttp(r.status, bt);
-    if (err.gcIsAuth) throw err;              // a wrong password is wrong on both servers
-    try {
-      const r2 = await fetch(base + '/scg/token', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body
-      });
-      if (r2.ok) {
-        const d2 = await r2.json();
-        if (d2.access_token) d = d2;          // minted at the Score Centre
-      }
-    } catch (e2) { /* the fallback never makes things worse */ }
-    if (!d) throw err;                        // the original, honest error
+    throw classifyHttp(r.status, bt);         // B-180 — no second server; the honest error IS the answer
   }
   _tok = d.access_token;
   _tokExp = now + ((d.expires_in || 3600) * 1000);

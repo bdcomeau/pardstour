@@ -723,7 +723,7 @@
           </div>
           <div id="winners-leaderboard" style="margin-bottom:12px;"></div>
           <button class="btn btn-primary" id="prepare-print-btn" onclick="prepareCashLabels()" style="width:100%;font-size:16px;padding:14px;">🏆 Prepare &amp; Print Winner Summaries</button>
-          <!-- v20.18 — FR-11: payout slips on the QL-720NW 62mm roll (calcPayouts truth, one label per winner) -->
+          <!-- v20.18 — FR-11: payout slips on the QL-720NW roll (54 mm since B-181; calcPayouts truth, one label per winner) -->
           <button class="btn btn-primary" onclick="printPayoutSlips()" style="width:100%;margin-top:8px;font-size:15px;padding:14px;background:#8F6E2A;">🎫 Print Payout Slips (Label Roll)</button>
           <button id="label-print-btn" class="btn btn-primary" style="display:none;width:100%;margin-top:8px;font-size:15px;padding:14px;">🖨 Open &amp; Print Winner Summaries</button>
           <div id="winners-preview" style="display:none;margin-top:16px;"></div>
@@ -1348,8 +1348,14 @@ function initResetSlider() {
 // Generates a letter-size winner summary page per winning bettor.
 // One bettor per page, clean and readable, suitable for handing out with cash.
 
-/* ⭐⭐⭐ B-178 (v20.21, s206) — THE ONE 62 mm STYLE BLOCK, SHARED BY BOTH ROLL
-   SURFACES (the bettor receipt and the payout slips). Bruce, s205 close:
+/* ⭐⭐⭐ B-178 (v20.21, s206) + B-181 (v20.22, s207) — THE ONE ROLL STYLE
+   BLOCK, SHARED BY BOTH ROLL SURFACES (the bettor receipt and the payout
+   slips). ⭐ B-181: his rolls are 54 mm wide, but this page declared 62 mm —
+   the driver shrank the whole ticket to fit the narrower paper and banked the
+   difference as dead side margins ("leaving 10mm on either side"). The page
+   now declares the TRUE paper: 54 mm wide, 2 mm margins, body fills the 50 mm
+   content box — no driver scaling, the type prints at its declared size.
+   Bruce, s205 close:
    "printing to QL-720NW ... the text is so small it is printing horribly."
    The QL-720NW is a 300 dpi ONE-BIT thermal printer — it has no greyscale, so
    every #555/#666/#888/#eee on this paper was dithered into speckle or dropped
@@ -1361,8 +1367,8 @@ function initResetSlider() {
    legibility wins. ⛔ ONE block, both surfaces: B-86 had to be fixed twice
    because these two carried separate copies of the same paper. */
 const PB_ROLL_CSS =
-  '@page{size:62mm 190mm;margin:2mm;}' +
-  'body{font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;color:#000;width:54mm;margin:0;padding:8px 0;font-size:11px;font-weight:700;line-height:1.25;-webkit-text-size-adjust:none;}' +
+  '@page{size:54mm 190mm;margin:2mm;}' +   /* B-181 — the TRUE roll width; 62 mm here made the driver shrink every ticket */
+  'body{font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;color:#000;width:50mm;margin:0;padding:8px 0;font-size:11px;font-weight:700;line-height:1.25;-webkit-text-size-adjust:none;}' +
   '@media print{body{padding:0;}}' +
   '.pbHd{border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:8px;text-align:center;}' +
   '.pbKick{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;}' +
@@ -1388,7 +1394,7 @@ const PB_ROLL_CSS =
   '.pbSlip{page-break-after:always;padding-bottom:8px;}' +
   '.pbSlip:last-child{page-break-after:avoid;}';
 
-// v20.18 — FR-11: PAYOUT SLIPS on the 62 mm roll — paper on both ends of the
+// v20.18 — FR-11: PAYOUT SLIPS on the roll (54 mm since B-181) — paper on both ends of the
 // money (Bruce's call #3, s100). One label per WINNING bettor, page-break
 // between labels (the roll cuts per page). Numbers come from calcPayouts at
 // the moment of printing — settlement truth, never a re-derivation.
@@ -1421,7 +1427,7 @@ function printPayoutSlips() {
     const s = e[1];
     const refs = [...new Set(s.bets.filter(function(b){ return b.ticketRef; }).map(function(b){ return b.ticketRef; }))];
     const winRows = s.bets.filter(function(b){ return b.payout > 0; }).map(function(b) {
-      /* ⭐ B-178: FOUR columns of legible type do not fit 54 mm — at 12 px every
+      /* ⭐ B-178: FOUR columns of legible type do not fit this roll — at 12 px every
          team name wrapped to two ragged lines. The row is now TWO columns: the
          bet reads as a sentence on the left, the money sits alone on the right.
          Nothing was dropped — the stake moved to its own line under the team. */
@@ -1456,7 +1462,7 @@ function printPayoutSlips() {
   const html = '<!DOCTYPE html><html><head><meta charset="utf-8"/>' +
     '<meta name="viewport" content="width=device-width,initial-scale=1"/>' +
     '<title>' + esc(evName) + ' — Payout Slips</title>' +
-    '<style>' + PB_ROLL_CSS + '</style></head><body>' + pages + '</body></html>';   // B-178 (v20.21): the one shared 62 mm block — ⛔ never a second copy of this paper
+    '<style>' + PB_ROLL_CSS + '</style></head><body>' + pages + '</body></html>';   // B-178 + B-181: the one shared roll block — ⛔ never a second copy of this paper
   openReceiptTab(html);
 }
 
@@ -1789,7 +1795,7 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.21';
+const APP_VERSION = 'v20.22';
 
 // v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
 // The badge was a SECOND hardcoded literal in the markup (the span at the top of
@@ -3348,7 +3354,7 @@ function buildReceiptHTML(td) {
   const ticketLabel = ticketRefs.length ? ticketRefs.join('  ') : td.bettorName;
 
   // v20.18 — FR-11: the receipt prints on the Brother QL-720NW's DK-4205
-  // 62 mm continuous roll via AirPrint (Safari print sheet, window.print()).
+  // 54 mm continuous roll (B-181) via AirPrint (Safari print sheet, window.print()).
   // ~58 mm printable, unlimited length. Bruce's calls (s100): per bettor ·
   // odds + potential return on the slip · payout slips print too
   // (printPayoutSlips). ⭐ His third s100 call — "cram in as much information
@@ -3358,7 +3364,7 @@ function buildReceiptHTML(td) {
   return '<!DOCTYPE html><html><head><meta charset="utf-8"/>' +
     '<meta name="viewport" content="width=device-width,initial-scale=1"/>' +
     '<title>' + esc(td.bettorName) + ' — Betting Receipt</title>' +
-    '<style>' + PB_ROLL_CSS + '</style>' +   // B-178 (v20.21): the one shared 62 mm block — ⛔ never a second copy of this paper
+    '<style>' + PB_ROLL_CSS + '</style>' +   // B-178 + B-181: the one shared roll block — ⛔ never a second copy of this paper
     '</head><body>' +
     '<div class="pbHd">' +
       '<div class="pbKick">Betting Receipt</div>' +
