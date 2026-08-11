@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tournament Registration</title>
+<!-- ============================================================
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.1 s212)
+     Static page, no build step. Opened as register.html?e=EVENTCODE
+     Talks only to the pards-reg worker (reg-v1.1.0+).
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --linen:#f6f2e9; --linen-deep:#efe9db; --ink:#22211c; --ink-soft:#5b584e;
+    --green:#1d4a38; --green-deep:#143526; --brass:#a8863c; --brass-soft:#c3a86b;
+    --hair:rgba(34,33,28,.18); --card:#fbf8f1; --bad:#8c3b2e;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--linen); color:var(--ink);
+    font-family:'Jost',sans-serif; font-weight:400; font-size:16px; line-height:1.55;
+    min-height:100vh; display:flex; flex-direction:column; align-items:center;
+    padding:22px 14px 40px;
+  }
+  .sheetwrap{width:100%; max-width:430px;}
+  .card{
+    background:var(--card); border:1px solid var(--hair); border-radius:4px;
+    box-shadow:0 1px 0 rgba(34,33,28,.05), 0 10px 30px rgba(34,33,28,.07);
+    padding:26px 22px 24px; position:relative;
+  }
+  .card::before{
+    content:''; position:absolute; inset:7px; pointer-events:none;
+    border:1px solid rgba(168,134,60,.4); border-radius:2px;
+  }
+  .inner{position:relative;}
+  .crest{ text-align:center; letter-spacing:.34em; text-transform:uppercase;
+    font-size:11px; color:var(--brass); font-weight:600; margin-bottom:6px;}
+  h1.display{
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600;
+    font-size:30px; line-height:1.15; text-align:center; color:var(--green-deep);
+    margin:2px 0 4px;
+  }
+  .blurb{ text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:18px; color:var(--ink-soft); margin-bottom:12px;}
+  .hairline{ border:0; border-top:1px solid var(--hair); margin:16px 0;}
+  .hairline.brass{ border-top:1px solid rgba(168,134,60,.55); width:64%; margin:14px auto;}
+  .factrow{ display:flex; justify-content:space-between; gap:12px; padding:7px 2px;
+    border-bottom:1px dotted var(--hair); font-size:15px;}
+  .factrow:last-child{border-bottom:0;}
+  .factrow .k{ letter-spacing:.14em; text-transform:uppercase; font-size:11.5px;
+    color:var(--ink-soft); font-weight:500; padding-top:3px; white-space:nowrap;}
+  .factrow .v{ text-align:right; font-weight:500;}
+  .agenda{ white-space:pre-line; text-align:right;}
+  label{ display:block; letter-spacing:.14em; text-transform:uppercase; font-size:11.5px;
+    color:var(--ink-soft); font-weight:500; margin:13px 0 4px;}
+  input[type=text],input[type=email],input[type=tel],input[type=number]{
+    width:100%; padding:10px 11px; font-family:'Jost',sans-serif; font-size:16px;
+    color:var(--ink); background:#fff; border:1px solid var(--hair); border-radius:3px;
+    outline:none;
+  }
+  input:focus{ border-color:var(--brass);}
+  .row2{ display:flex; gap:10px;} .row2>div{flex:1;}
+  .rsvp-toggle{ display:flex; gap:0; border:1px solid var(--hair); border-radius:3px; overflow:hidden; margin-top:4px;}
+  .rsvp-toggle button{
+    flex:1; padding:11px 0; font-family:'Jost',sans-serif; font-size:15px; letter-spacing:.1em;
+    text-transform:uppercase; background:#fff; color:var(--ink-soft); border:0; cursor:pointer;
+  }
+  .rsvp-toggle button.on{ background:var(--green); color:var(--linen); font-weight:600;}
+  .rsvp-toggle button#rsvpNoBtn.on{ background:var(--ink-soft);}
+  .btn{
+    display:block; width:100%; margin-top:20px; padding:13px 0; cursor:pointer;
+    background:var(--green); color:var(--linen); border:0; border-radius:3px;
+    font-family:'Jost',sans-serif; font-size:15px; font-weight:600;
+    letter-spacing:.22em; text-transform:uppercase;
+  }
+  .btn:hover{ background:var(--green-deep);}
+  .btn.secondary{ background:transparent; color:var(--green); border:1px solid var(--green); font-weight:500;}
+  .btn.slim{ margin-top:10px; padding:9px 0; font-size:13px;}
+  .err{ color:var(--bad); font-size:14px; margin-top:10px; min-height:1em; text-align:center;}
+  .note{ color:var(--ink-soft); font-size:13.5px; text-align:center; margin-top:10px;}
+  .done-mark{
+    width:52px; height:52px; margin:6px auto 10px; border:1px solid var(--brass);
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond',serif; font-size:26px; color:var(--brass);
+  }
+  footer{ margin-top:22px; text-align:center; font-size:12.5px; color:var(--ink-soft);}
+  footer a{ color:var(--green); text-decoration:none; border-bottom:1px dotted var(--brass);}
+  .hidden{ display:none !important;}
+  /* ---- day-of sheet ---- */
+  .totals{
+    display:flex; justify-content:space-around; background:var(--green); color:var(--linen);
+    border-radius:3px; padding:10px 6px; margin:14px 0 10px; text-align:center;
+  }
+  .totals .num{ font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; display:block;}
+  .totals .cap{ font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; opacity:.85;}
+  .prow{ border-bottom:1px solid var(--hair); padding:11px 2px;}
+  .prow .top{ display:flex; justify-content:space-between; align-items:baseline; gap:8px;}
+  .prow .nm{ font-weight:600; font-size:16px;}
+  .prow .contact{ font-size:12.5px; color:var(--ink-soft); word-break:break-all;}
+  .badge{ font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; padding:3px 8px;
+    border-radius:2px; white-space:nowrap;}
+  .badge.yes{ background:rgba(29,74,56,.12); color:var(--green);}
+  .badge.no{ background:rgba(34,33,28,.10); color:var(--ink-soft);}
+  .badge.in{ background:var(--green); color:var(--linen);}
+  .prow .act{ display:flex; gap:8px; margin-top:8px; align-items:center;}
+  .prow .act input{ width:92px; padding:7px 8px; font-size:15px;}
+  .prow .act button{
+    padding:8px 12px; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+    border-radius:3px; cursor:pointer; border:1px solid var(--green); background:var(--green);
+    color:var(--linen); font-weight:600;
+  }
+  .prow .act button.undo{ background:transparent; color:var(--ink-soft); border-color:var(--hair);}
+  .walkhead{ cursor:pointer; user-select:none; letter-spacing:.16em; text-transform:uppercase;
+    font-size:12px; color:var(--green); font-weight:600; text-align:center; padding:12px 0 2px;}
+</style>
+</head>
+<body>
+<div class="sheetwrap">
+
+  <!-- ================= VIEW 1 — CODE ENTRY ================= -->
+  <div id="viewCode" class="card hidden"><div class="inner">
+    <div class="crest">Pards Tour</div>
+    <h1 class="display">Tournament Registration</h1>
+    <hr class="hairline brass">
+    <p class="note">Enter the event code from your invitation.</p>
+    <label for="codeInput">Event code</label>
+    <input type="text" id="codeInput" inputmode="text" autocomplete="off" placeholder="e.g. 939160">
+    <button class="btn" id="codeGo">Find my event</button>
+    <div class="err" id="codeErr"></div>
+  </div></div>
+
+  <!-- ================= VIEW 2 — EVENT + RSVP ================= -->
+  <div id="viewEvent" class="card hidden"><div class="inner">
+    <div class="crest">You are invited</div>
+    <h1 class="display" id="evName">&nbsp;</h1>
+    <div class="blurb" id="evBlurb"></div>
+    <hr class="hairline brass">
+    <div id="evFacts"></div>
+    <hr class="hairline">
+
+    <!-- RSVP form -->
+    <div id="rsvpForm">
+      <label>Will you be joining us?</label>
+      <div class="rsvp-toggle">
+        <button type="button" id="rsvpYesBtn" class="on">Yes, I'm in</button>
+        <button type="button" id="rsvpNoBtn">Regrets</button>
+      </div>
+      <div class="row2">
+        <div><label for="fFirst">First name</label><input type="text" id="fFirst" autocomplete="given-name"></div>
+        <div><label for="fLast">Last name</label><input type="text" id="fLast" autocomplete="family-name"></div>
+      </div>
+      <label for="fEmail">Email</label>
+      <input type="email" id="fEmail" autocomplete="email">
+      <label for="fPhone">Phone <span id="phoneReq">(required)</span></label>
+      <input type="tel" id="fPhone" autocomplete="tel">
+      <label for="fGc">Golf Canada ID <span style="text-transform:none;letter-spacing:0">(optional)</span></label>
+      <input type="text" id="fGc" inputmode="numeric" autocomplete="off">
+      <button class="btn" id="rsvpSubmit">Send my RSVP</button>
+      <div class="err" id="rsvpErr"></div>
+    </div>
+
+    <!-- closed notice -->
+    <div id="closedNotice" class="hidden">
+      <div class="done-mark">&#8212;</div>
+      <p class="note" style="font-size:15px">Registration is closed for this event.<br>
+      Contact the organizer if you believe this is in error.</p>
+    </div>
+
+    <!-- done card -->
+    <div id="doneCard" class="hidden">
+      <div class="done-mark">&#10003;</div>
+      <h1 class="display" style="font-size:24px" id="doneTitle">Thank you</h1>
+      <p class="note" id="doneMsg"></p>
+      <button class="btn secondary slim" id="doneAgain">Change my answer</button>
+    </div>
+
+    <footer>Day of the tournament? <a href="#" id="sheetLink">Open the sign-in sheet</a></footer>
+  </div></div>
+
+  <!-- ================= VIEW 3 — DAY-OF SIGN-IN SHEET ================= -->
+  <div id="viewSheet" class="card hidden"><div class="inner">
+    <div class="crest">Day-of sign-in</div>
+    <h1 class="display" id="shName" style="font-size:24px">&nbsp;</h1>
+    <div id="pinAsk">
+      <label for="pinInput">Organizer PIN</label>
+      <input type="text" id="pinInput" inputmode="numeric" autocomplete="off">
+      <button class="btn" id="pinGo">Open the sheet</button>
+      <div class="err" id="pinErr"></div>
+    </div>
+    <div id="sheetBody" class="hidden">
+      <div class="totals">
+        <div><span class="num" id="tIn">0</span><span class="cap">Checked in</span></div>
+        <div><span class="num" id="tYes">0</span><span class="cap">RSVP Yes</span></div>
+        <div><span class="num" id="tCash">$0</span><span class="cap">Collected</span></div>
+      </div>
+      <div id="sheetRows"></div>
+      <div class="walkhead" id="walkToggle">+ Walk-up registration</div>
+      <div id="walkForm" class="hidden">
+        <div class="row2">
+          <div><label for="wFirst">First</label><input type="text" id="wFirst"></div>
+          <div><label for="wLast">Last</label><input type="text" id="wLast"></div>
+        </div>
+        <label for="wEmail">Email</label><input type="email" id="wEmail">
+        <label for="wPhone">Phone</label><input type="tel" id="wPhone">
+        <label for="wPaid">Paid amount</label><input type="number" id="wPaid" step="0.01">
+        <button class="btn slim" id="walkGo">Add &amp; check in</button>
+        <div class="err" id="walkErr"></div>
+      </div>
+      <button class="btn secondary slim" id="sheetRefresh">Refresh</button>
+    </div>
+    <footer><a href="#" id="backLink">&larr; Back to the invitation</a></footer>
+  </div></div>
+
+</div>
+
+<script>
+// ⭐⭐ PASTE THE pards-reg WORKER URL BETWEEN THE QUOTES — no trailing slash. ⭐⭐
+var REG_API = 'https://pards-reg.bdapple.workers.dev';
+// ================================================================
+
+var evCode = new URLSearchParams(location.search).get('e') || '';
+var evData = null;
+var sheetPin = '';
+var rsvpChoice = 'yes';
+
+function $(id){ return document.getElementById(id); }
+function show(id){
+  ['viewCode','viewEvent','viewSheet'].forEach(function(v){ $(v).classList.add('hidden'); });
+  $(id).classList.remove('hidden');
+}
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function money(n){ return '$' + (Math.round(Number(n || 0) * 100) / 100).toLocaleString(); }
+async function api(path, body){
+  var opts = body
+    ? { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) }
+    : undefined;
+  var res = await fetch(REG_API + path, opts);
+  var data = null;
+  try { data = await res.json(); } catch (e) { data = { error: 'Bad response' }; }
+  return { ok: res.status === 200, status: res.status, data: data };
+}
+
+// ---------------- view 1: code entry ----------------
+$('codeGo').addEventListener('click', function(){
+  var c = $('codeInput').value.trim();
+  if (!c) { $('codeErr').textContent = 'Enter your event code.'; return; }
+  location.search = '?e=' + encodeURIComponent(c);
+});
+$('codeInput').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('codeGo').click(); });
+
+// ---------------- view 2: event + RSVP ----------------
+function fact(k, v, cls){
+  return v == null || v === '' ? '' :
+    '<div class="factrow"><span class="k">' + k + '</span><span class="v ' + (cls || '') + '">' + esc(v) + '</span></div>';
+}
+function fmtDate(d){
+  var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(d || ''));
+  if (!m) return d;
+  var names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return names[Number(m[2]) - 1] + ' ' + Number(m[3]) + ', ' + m[1];
+}
+function fmtFormat(f){
+  return String(f || '').replace(/_/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+}
+async function loadEvent(){
+  var r = await api('/api/reg/event?code=' + encodeURIComponent(evCode));
+  if (!r.ok) {
+    show('viewCode');
+    $('codeErr').textContent = (r.data && r.data.error) || 'Event not found.';
+    $('codeInput').value = evCode;
+    return;
+  }
+  evData = r.data;
+  $('evName').textContent = evData.name;
+  $('evBlurb').textContent = evData.blurb || '';
+  $('evFacts').innerHTML =
+    fact('Date', fmtDate(evData.date)) +
+    fact('Course', evData.course_name) +
+    fact('Format', fmtFormat(evData.format)) +
+    fact('Entry fee', evData.fee != null ? money(evData.fee) : null) +
+    fact('Agenda', evData.agenda, 'agenda');
+  $('shName').textContent = evData.name;
+  if (!evData.open) {
+    $('rsvpForm').classList.add('hidden');
+    $('closedNotice').classList.remove('hidden');
+  }
+  show('viewEvent');
+}
+function setRsvp(v){
+  rsvpChoice = v;
+  $('rsvpYesBtn').classList.toggle('on', v === 'yes');
+  $('rsvpNoBtn').classList.toggle('on', v === 'no');
+  $('phoneReq').textContent = v === 'yes' ? '(required)' : '(optional)';
+}
+$('rsvpYesBtn').addEventListener('click', function(){ setRsvp('yes'); });
+$('rsvpNoBtn').addEventListener('click', function(){ setRsvp('no'); });
+
+$('rsvpSubmit').addEventListener('click', async function(){
+  var first = $('fFirst').value.trim(), last = $('fLast').value.trim();
+  var email = $('fEmail').value.trim(), phone = $('fPhone').value.trim();
+  var gc = $('fGc').value.trim();
+  var errBox = $('rsvpErr');
+  errBox.textContent = '';
+  if (!first || !last) { errBox.textContent = 'First and last name, please.'; return; }
+  if (!email) { errBox.textContent = 'Email is required.'; return; }
+  if (rsvpChoice === 'yes' && !phone) { errBox.textContent = 'Phone is required when you are coming.'; return; }
+  var r = await api('/api/reg/rsvp', {
+    code: evCode, first: first, last: last, email: email, phone: phone, gc_id: gc, rsvp: rsvpChoice
+  });
+  if (!r.ok) { errBox.textContent = (r.data && r.data.error) || 'Something went wrong — try again.'; return; }
+  $('rsvpForm').classList.add('hidden');
+  $('doneCard').classList.remove('hidden');
+  if (r.data.rsvp === 'yes') {
+    $('doneTitle').textContent = 'See you there, ' + first;
+    $('doneMsg').textContent = r.data.added_to_field
+      ? 'Your RSVP is in and you have been added to the tournament field.'
+      : 'Your RSVP is in — you are on the tournament field list.';
+  } else {
+    $('doneTitle').textContent = 'Sorry you will miss it';
+    $('doneMsg').textContent = 'Your regrets are recorded. If plans change, come back any time and change your answer.';
+  }
+});
+$('doneAgain').addEventListener('click', function(){
+  $('doneCard').classList.add('hidden');
+  $('rsvpForm').classList.remove('hidden');
+});
+
+// ---------------- view 3: day-of sheet ----------------
+$('sheetLink').addEventListener('click', function(e){ e.preventDefault(); show('viewSheet'); });
+$('backLink').addEventListener('click', function(e){ e.preventDefault(); show('viewEvent'); });
+$('pinGo').addEventListener('click', async function(){
+  sheetPin = $('pinInput').value.trim();
+  if (!sheetPin) { $('pinErr').textContent = 'Enter the PIN.'; return; }
+  await loadSheet(true);
+});
+$('pinInput').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('pinGo').click(); });
+$('sheetRefresh').addEventListener('click', function(){ loadSheet(false); });
+$('walkToggle').addEventListener('click', function(){ $('walkForm').classList.toggle('hidden'); });
+
+async function loadSheet(fromPin){
+  var r = await api('/api/reg/list?code=' + encodeURIComponent(evCode) + '&pin=' + encodeURIComponent(sheetPin));
+  if (!r.ok) {
+    if (fromPin) $('pinErr').textContent = (r.data && r.data.error) || 'Bad PIN.';
+    return;
+  }
+  $('pinAsk').classList.add('hidden');
+  $('sheetBody').classList.remove('hidden');
+  renderSheet(r.data);
+}
+function renderSheet(d){
+  var list = d.list || [];
+  var yes = 0, chk = 0, cash = 0;
+  list.forEach(function(p){
+    if (p.rsvp === 'yes') yes++;
+    if (p.checked_in_at) chk++;
+    cash += Number(p.paid_amount || 0);
+  });
+  $('tYes').textContent = String(yes);
+  $('tIn').textContent = chk + ' / ' + yes;
+  $('tCash').textContent = money(cash);
+  var html = list.map(function(p){
+    var badge = p.checked_in_at
+      ? '<span class="badge in">In' + (p.paid_amount != null ? ' · ' + money(p.paid_amount) : '') + '</span>'
+      : (p.rsvp === 'yes' ? '<span class="badge yes">RSVP Yes</span>' : '<span class="badge no">RSVP No</span>');
+    var contact = [p.email, p.phone].filter(Boolean).map(esc).join(' · ');
+    var act = p.checked_in_at
+      ? '<div class="act"><button class="undo" data-undo="' + p.id + '">Undo</button></div>'
+      : '<div class="act"><input type="number" step="0.01" placeholder="' + esc(d.fee != null ? d.fee : '') + '" data-amt="' + p.id + '">' +
+        '<button data-in="' + p.id + '">Check in</button></div>';
+    return '<div class="prow"><div class="top"><span class="nm">' + esc(p.name) + '</span>' + badge + '</div>' +
+      '<div class="contact">' + contact + '</div>' + act + '</div>';
+  }).join('');
+  $('sheetRows').innerHTML = html || '<p class="note">No registrations yet.</p>';
+}
+$('sheetRows').addEventListener('click', async function(e){
+  var inId = e.target.getAttribute && e.target.getAttribute('data-in');
+  var undoId = e.target.getAttribute && e.target.getAttribute('data-undo');
+  if (inId) {
+    var amtEl = document.querySelector('[data-amt="' + inId + '"]');
+    var amt = amtEl && amtEl.value !== '' ? Number(amtEl.value) : null;
+    var r = await api('/api/reg/checkin', { code: evCode, pin: sheetPin, reg_id: Number(inId), paid_amount: amt });
+    if (r.ok) loadSheet(false);
+  } else if (undoId) {
+    var r2 = await api('/api/reg/checkin', { code: evCode, pin: sheetPin, reg_id: Number(undoId), undo: true });
+    if (r2.ok) loadSheet(false);
+  }
+});
+$('walkGo').addEventListener('click', async function(){
+  var first = $('wFirst').value.trim(), last = $('wLast').value.trim();
+  var email = $('wEmail').value.trim();
+  $('walkErr').textContent = '';
+  if (!first || !last || !email) { $('walkErr').textContent = 'Name and email are required.'; return; }
+  var paid = $('wPaid').value !== '' ? Number($('wPaid').value) : null;
+  var r = await api('/api/reg/walkup', {
+    code: evCode, pin: sheetPin, first: first, last: last,
+    email: email, phone: $('wPhone').value.trim(), gc_id: '', paid_amount: paid
+  });
+  if (!r.ok) { $('walkErr').textContent = (r.data && r.data.error) || 'Walk-up failed.'; return; }
+  $('wFirst').value = ''; $('wLast').value = ''; $('wEmail').value = ''; $('wPhone').value = ''; $('wPaid').value = '';
+  $('walkForm').classList.add('hidden');
+  loadSheet(false);
+});
+
+// ---------------- boot ----------------
+if (evCode) { loadEvent(); } else { show('viewCode'); }
+</script>
+</body>
+</html>
