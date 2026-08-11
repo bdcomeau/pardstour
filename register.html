@@ -5,11 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.2 s212)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.3 s214)
+     v1.3 (D103): the sheet gate is the STAFF PIN, not the watch-live PIN.
+     Wording only on this page — the check itself moved in pards-reg
+     reg-v1.2.0 (events.staff_pin). The old label said "Organizer PIN"
+     while the field actually took the PIN handed out to spectators; that
+     sentence is now true as well as clear.
      v1.2: ?sheet=1 opens the day-of sheet directly; &pin= prefills the
-     organizer PIN and loads it — the FR-106 panel's one-tap sheet link.
+     staff PIN and loads it — the FR-106 panel's one-tap sheet link.
      Static page, no build step. Opened as register.html?e=EVENTCODE
-     Talks only to the pards-reg worker (reg-v1.1.0+).
+     Talks only to the pards-reg worker (reg-v1.2.0+).
      ============================================================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -187,7 +192,7 @@
     <div class="crest">Day-of sign-in</div>
     <h1 class="display" id="shName" style="font-size:24px">&nbsp;</h1>
     <div id="pinAsk">
-      <label for="pinInput">Organizer PIN</label>
+      <label for="pinInput">Staff PIN</label>
       <input type="text" id="pinInput" inputmode="numeric" autocomplete="off">
       <button class="btn" id="pinGo">Open the sheet</button>
       <div class="err" id="pinErr"></div>
@@ -349,7 +354,7 @@ $('walkToggle').addEventListener('click', function(){ $('walkForm').classList.to
 async function loadSheet(fromPin){
   var r = await api('/api/reg/list?code=' + encodeURIComponent(evCode) + '&pin=' + encodeURIComponent(sheetPin));
   if (!r.ok) {
-    if (fromPin) $('pinErr').textContent = (r.data && r.data.error) || 'Bad PIN.';
+    if (fromPin) $('pinErr').textContent = (r.data && r.data.error) || 'Bad PIN. This sheet needs the STAFF PIN, not the watch-live PIN.';
     return;
   }
   $('pinAsk').classList.add('hidden');

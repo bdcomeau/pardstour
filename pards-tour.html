@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v581.0 -->
+  <!-- pards-tour-v582.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -39198,7 +39198,12 @@ window.ptRegRender = function (eventId) {
     cash += Number(p.paid_amount || 0);
   });
   var regUrl = 'https://pardstour.com/register.html?e=' + encodeURIComponent(d.event_code || '');
-  var sheetUrl = regUrl + '&sheet=1' + (d.viewer_pin ? '&pin=' + encodeURIComponent(d.viewer_pin) : '');
+  /* D103 (v582.0, s214) — the day-of sheet opens on the STAFF pin now. The
+     watch-live pin (d.viewer_pin) is handed to spectators and must never
+     prefill a sheet that lists emails and phone numbers. No staff pin set =
+     no pin in the link, and the sheet asks for one it will refuse until the
+     organizer sets it below (pards-reg never falls back — trap 36). */
+  var sheetUrl = regUrl + '&sheet=1' + (d.staff_pin ? '&pin=' + encodeURIComponent(d.staff_pin) : '');
   var isOpen = s.open == null ? true : !!Number(s.open);
   function stat(n, cap, col) {
     return '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:7px 4px;text-align:center;flex:1;min-width:0">'
@@ -39228,12 +39233,18 @@ window.ptRegRender = function (eventId) {
     + '<div style="display:flex;gap:8px;margin-bottom:8px">'
     + '<div style="flex:0 0 90px"><div style="font-size:9.5px;color:rgba(255,255,255,.35);margin-bottom:3px">ENTRY FEE $</div>'
     + '<input id="ptRegFee_' + eventId + '" type="number" step="0.01" value="' + (s.fee != null ? _ptEsc(String(s.fee)) : '') + '" style="width:100%;box-sizing:border-box;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;font-size:13px"></div>'
+    + '<div style="flex:0 0 100px"><div style="font-size:9.5px;color:rgba(255,255,255,.35);margin-bottom:3px">STAFF PIN</div>'
+    + '<input id="ptRegStaffPin_' + eventId + '" type="text" inputmode="numeric" maxlength="8" value="' + _ptEsc(String(d.staff_pin || '')) + '" style="width:100%;box-sizing:border-box;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.3);border-radius:8px;color:#c9a84c;font-size:13px;font-weight:800;letter-spacing:1px"></div>'
     + '<div style="flex:1"><div style="font-size:9.5px;color:rgba(255,255,255,.35);margin-bottom:3px">TAGLINE</div>'
     + '<input id="ptRegBlurb_' + eventId + '" type="text" maxlength="300" value="' + _ptEsc(String(s.blurb || '')) + '" style="width:100%;box-sizing:border-box;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;font-size:13px"></div>'
     + '</div>'
     + '<div style="font-size:9.5px;color:rgba(255,255,255,.35);margin-bottom:3px">AGENDA</div>'
     + '<textarea id="ptRegAgenda_' + eventId + '" rows="2" style="width:100%;box-sizing:border-box;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;font-size:13px;resize:vertical">' + _ptEsc(String(s.agenda || '')) + '</textarea>'
     + '<div style="font-size:9px;color:rgba(255,255,255,.25);margin:3px 0 8px">Date, format and course come from the tournament itself — edit those with ✎ Edit.</div>'
+    + '<div style="font-size:9.5px;color:rgba(201,168,76,.55);background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);border-radius:8px;padding:7px 9px;margin-bottom:8px">'
+    + '<b>Two different PINs.</b> The staff PIN above opens the day-of sheet — the check-in list with everyone\'s email and phone on it. Give it only to whoever works the registration table. '
+    + 'Watch-live is a separate PIN (<b>' + _ptEsc(String(d.viewer_pin || '—')) + '</b>) and you can hand that one out freely.'
+    + '</div>'
     + '<button onclick="ptRegSave(' + eventId + ')" style="width:100%;padding:10px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);border-radius:9px;color:#c9a84c;font-size:13px;font-weight:800;cursor:pointer">Save page settings</button>'
     + '</div>';
   if (list.length) {
@@ -39287,6 +39298,11 @@ window.ptRegSave = function (eventId, openOverride) {
     agenda: (document.getElementById('ptRegAgenda_' + eventId) || {}).value || null,
     open: open,
   };
+  /* D103 (v582.0, s214) — only send the key when the field is actually on
+     screen. An absent key leaves the stored staff pin alone; sending an
+     accidental '' would clear it and close the sheet. */
+  var spEl = document.getElementById('ptRegStaffPin_' + eventId);
+  if (spEl) body.staff_pin = String(spEl.value || '').trim();
   fetch(TOUR_API + '/api/events/' + eventId + '/reg-settings', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
@@ -63273,7 +63289,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v581.0';
+    const TOUR_VERSION     = 'pards-tour-v582.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
