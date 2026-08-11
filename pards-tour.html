@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v583.0 -->
+  <!-- pards-tour-v584.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -45599,12 +45599,29 @@ function ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg, opts) {
   return Promise.all(indivRounds.map(function(r) {
     var _sc = fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/scores', { headers: headers || {} })
       .then(_ptJson).then(function(d){ return d.scores || []; }).catch(function(){ return []; });
-    var _lb = _wantEr
-      ? fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/leaderboard', { headers: headers || {} })
-          .then(_ptJson).then(function(d){ return (d && d.standings) || []; }).catch(function(){ return []; })
-      : Promise.resolve([]);
+    /* ⭐⭐⭐ B-189 (v584.0, s218) — THE BOARD NOW ASKS WHAT DECK EACH MAN IS ON.
+       Bruce: "he is playing deck 3 and on the back-end his SI should be
+       calculated as such". Bill Burch plays Deck 3 on a night where every other
+       man is on Deck 2. This engine resolved the ROUND's deck for the whole
+       field, so his course handicap came out 29 instead of 26 — three strokes.
+       ⭐ The worker has emitted the right answer since v3.03.0 / B-130:
+       `data.tee` is HIS deck and `data.course_handicap` is resolved against it
+       by fr52ResolvePlayerHcp. The payout rows (ptFr20IndivRows) were taught to
+       read it at v496.0 / B-132 — whose own comment says "they used to derive
+       every course handicap off the ROUND tee". THIS function never got that
+       fix. Same rule, same source, one more caller (trap 9).
+       ⭐ The leaderboard is fetched ALWAYS now, not only for the ER mark, because
+       it is the ONE place the per-man deck is stated. Fail-soft: a miss leaves
+       the map empty and every man falls back to the round's deck, which is
+       byte-for-byte the pre-v584.0 behaviour. */
+    var _lb = fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + r.id + '/leaderboard', { headers: headers || {} })
+          .then(_ptJson).catch(function(){ return null; });
     return Promise.all([_sc, _lb]).then(function(x) {
-      return { round: r, scores: x[0], erBy: _wantEr ? _ptErByRoster(x[1], x[0]) : {} };
+      var _ix = null;
+      try { _ix = window._ptLbIndex(x[1], x[0]); } catch (e) { _ix = null; }
+      return { round: r, scores: x[0],
+               erBy: _wantEr ? _ptErByRoster((x[1] && x[1].standings) || [], x[0]) : {},
+               deck: (_ix && _ix.ok && _ix.byRoster) ? _ix.byRoster : {} };
     });
   })).then(function(roundResults) {
     var rawByRound = {};   // v433.0 (FR-17) — raw gross per player, keyed round id, threaded out for the surface blocks (no re-fetch)
@@ -45622,12 +45639,20 @@ function ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg, opts) {
         if (!pl) return;
         var grossArr = Object.keys(byPlayer[k]).map(function(h){ return { hole: parseInt(h), gross_score: byPlayer[k][h] }; });
         if (!grossArr.length) return;
-        var stbl = ptCalcStablefordPoints(grossArr, rr.round.course_id, rr.round.tee, pl.handicap || 0);
+        /* B-189 (v584.0, s218) — HIS deck, not the round's. Absent = the round's,
+           exactly as before. ⛔ No new allocation rule: ptCalcStablefordPoints
+           and ptStrokesOnHole are unchanged and remain the only ones (trap 3). */
+        var _dk189 = (rr.deck && rr.deck[k]) || null;
+        var _pTee189 = (_dk189 && _dk189.tee) ? _dk189.tee : rr.round.tee;
+        var stbl = ptCalcStablefordPoints(grossArr, rr.round.course_id, _pTee189, pl.handicap || 0,
+                                          (_dk189 && _dk189.ch != null) ? _dk189.ch : null);
         if (stbl.holes_played === 0) return;
         var gross = 0;
         grossArr.forEach(function(x){ gross += x.gross_score; });
-        var td = ptResolveCourse(rr.round.course_id, rr.round.tee);
-        var chcp = Math.round(ptCalcCourseHandicap(pl.handicap || 0, td.slope, td.rating, td.par));
+        var td = ptResolveCourse(rr.round.course_id, _pTee189);
+        var chcp = (_dk189 && _dk189.ch != null)
+          ? Math.round(_dk189.ch)
+          : Math.round(ptCalcCourseHandicap(pl.handicap || 0, td.slope, td.rating, td.par));
         var byHole = {};                                            // v248.4
         grossArr.forEach(function(x){ byHole[x.hole] = x.gross_score; });
         /* ⭐⭐ FR-89 (v553.0, s194) — TO PAR, over the holes actually PLAYED.
@@ -45637,7 +45662,7 @@ function ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg, opts) {
            over the SCORED holes only — so a nine-hole card says +4 instead of
            pretending the missing nine were all birdies. ⛔ Derived on every
            build, never stored (trap 12). */
-        var _tpPars = ptGetHolePars(rr.round.course_id, rr.round.tee) || null;
+        var _tpPars = ptGetHolePars(rr.round.course_id, _pTee189) || null;   // B-189 (v584.0) — HIS deck
         var _tpPar = 0;
         grossArr.forEach(function(x){ _tpPar += (_tpPars && _tpPars[x.hole - 1] != null) ? _tpPars[x.hole - 1] : 4; });
         pl.rounds[rr.round.round_number] = { pts: stbl.total_points, gross: gross, net: gross - chcp, holes: stbl.holes_played, chcp: chcp,
@@ -63355,7 +63380,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v583.0';
+    const TOUR_VERSION     = 'pards-tour-v584.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
