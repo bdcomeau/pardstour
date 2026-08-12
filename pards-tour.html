@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v591.0 -->
+  <!-- pards-tour-v592.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -12982,6 +12982,7 @@ function printStablefordCard(gi){
     </div>
   </body></html>`;
 
+  html = window._ptRptShareInject ? window._ptRptShareInject(html) : html;   // B-198
   const blob = new Blob([html],{type:'text/html'});
   const url  = URL.createObjectURL(blob);
   const win  = window.open(url,'_blank');
@@ -17377,6 +17378,7 @@ function printSixPointCard(gi){
   ${paceOfPlayStr()?`<div style="text-align:center;font-size:10px;color:#555;margin-top:8px;padding-top:6px;border-top:1px solid #eee">⏱️ ${paceOfPlayStr()}</div>`:''}
   </body></html>`;
 
+  printHTML = window._ptRptShareInject ? window._ptRptShareInject(printHTML) : printHTML;   // B-198
   const blob=new Blob([printHTML],{type:'text/html'});
   const url=URL.createObjectURL(blob);
   const win=window.open(url,'_blank');
@@ -17519,6 +17521,7 @@ function printMatchCard(mi){
   ${paceOfPlayStr()?`<div style="text-align:center;font-size:10px;color:#555;margin-top:8px;padding-top:6px;border-top:1px solid #eee">⏱️ ${paceOfPlayStr()}</div>`:''}
   </body></html>`;
 
+  printHTML = window._ptRptShareInject ? window._ptRptShareInject(printHTML) : printHTML;   // B-198
   const blob=new Blob([printHTML],{type:'text/html'});
   const url=URL.createObjectURL(blob);
   const win=window.open(url,'_blank');
@@ -17602,6 +17605,7 @@ function exportCurrentRound(){
   try{ snap=buildRoundSnapshot(); }catch(e){ alert("Could not build round snapshot."); return; }
   let printHTML;
   try{ printHTML=buildPrintHTML(snap); }catch(e){ alert("Could not build print page: "+e.message); return; }
+  printHTML = window._ptRptShareInject ? window._ptRptShareInject(printHTML) : printHTML;   // B-198
   const blob=new Blob([printHTML],{type:"text/html"});
   const blobUrl=URL.createObjectURL(blob);
   const win=window.open(blobUrl,"_blank");
@@ -17615,6 +17619,7 @@ function exportTotals(){
   if(!snap){ alert('Round not ready to print.'); return; }
   let printHTML='';
   try{ printHTML=buildPrintHTML(snap); }catch(e){ alert('Could not build print page: '+e.message); return; }
+  printHTML = window._ptRptShareInject ? window._ptRptShareInject(printHTML) : printHTML;   // B-198
   const blob = new Blob([printHTML], {type:'text/html'});
   const blobUrl = URL.createObjectURL(blob);
   const win = window.open(blobUrl, '_blank');
@@ -20619,6 +20624,7 @@ function printHistoryRound(){
   _refreshCourseShims(); // restore live round shims
   if(!printHTML){ alert('Could not build print page.'); return; }
   // Open in a new tab as a Blob URL — gives full print control, no app chrome bleeding in
+  printHTML = window._ptRptShareInject ? window._ptRptShareInject(printHTML) : printHTML;   // B-198
   const blob = new Blob([printHTML], {type:'text/html'});
   const blobUrl = URL.createObjectURL(blob);
   const win = window.open(blobUrl, '_blank');
@@ -54723,7 +54729,50 @@ window._ptRptEmit = function (html, frameId, opts) {
   _ptOpenPrintBlob(html, frameId);
 };
 
+// ⭐⭐⭐ B-198 (v592.0) — EVERY PRINTED REPORT USED TO HAND OUT A DEAD LINK.
+// A blob: URL is a handle into ONE browser's memory, not an address. Texting one
+// gives the recipient ERR_FILE_NOT_FOUND instantly and permanently. MEASURED in a
+// real browser at s230: revoking does NOT kill an already-open tab, reloading it
+// after the revoke fails, and a different browser never worked for one second.
+// ⛔⛔ THE 300000 REVOKE IS A RED HERRING — it is deliberately LEFT ALONE.
+// His ruling (s230, first message): THE SHARE BUTTON GOES INSIDE THE REPORT. The
+// report hands out its own HTML as a real FILE via navigator.share, with an
+// <a download> fallback — the same shape the backup share at exportData() uses.
+// ⚠⚠ The emitted report is a SEPARATE BROWSING CONTEXT with no access to any
+// pt* function, so this block is FULLY SELF-CONTAINED: its own style, its own
+// script, its own feedback line. It cannot call ptToast, _ptEsc or anything else.
+// ⭐ Placement is fixed bottom-right, NOT a slot in a print bar — there are 13
+// hand-rolled print bars with 13 different layouts and it has to survive all of
+// them. @media print hides it, or it prints.
+// ⭐⭐⭐ ONE FUNCTION, TEN CALL SITES — _ptOpenPrintBlob (which is 16 report
+// callers, nine direct plus seven through _ptRptEmit) AND the NINE hand-rolled
+// emitters that bypass the engine entirely: 12985 17380 17522 17605 17618 20622
+// 54925 55097 55165 on v591.0. The s230 doc named two of those nine.
+window._PT_RPT_SHARE_JS = '(function(){var b=document.getElementById(\'ptShareBtn\'),m=document.getElementById(\'ptShareMsg\');if(!b)return;function say(s){if(!m)return;m.textContent=s;m.style.display=\'block\';clearTimeout(m._t);m._t=setTimeout(function(){m.style.display=\'none\';},3600);}function fname(){var t=(document.title||\'pards-report\').toLowerCase().replace(/[^a-z0-9]+/g,\'-\').replace(/^-+|-+$/g,\'\').slice(0,60);return (t||\'pards-report\')+\'.html\';}function payload(){var w=document.getElementById(\'ptShareWrap\'),p=w&&w.parentNode,n=w&&w.nextSibling;if(w&&p)p.removeChild(w);var s=\'<!DOCTYPE html>\\n\'+document.documentElement.outerHTML;if(w&&p)p.insertBefore(w,n);return s;}function dl(h,f){try{var u=URL.createObjectURL(new Blob([h],{type:\'text/html\'}));var a=document.createElement(\'a\');a.href=u;a.download=f;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(u);},4000);say(\'Saved \'+f+\' \\u2014 attach that file to your text or email.\');}catch(e){say(\'Could not save this report.\');}}b.addEventListener(\'click\',function(){var f=fname(),h=payload(),t=document.title||\'Pards Tour report\';try{if(navigator.canShare){var fl=new File([h],f,{type:\'text/html\'});if(navigator.canShare({files:[fl]})){navigator.share({files:[fl],title:t}).then(function(){say(\'Shared.\');}).catch(function(e){if(e&&e.name===\'AbortError\')return;dl(h,f);});return;}}}catch(e){}dl(h,f);});})();';
+window._ptRptShareInject = function (html) {
+  try {
+    if (typeof html !== 'string' || !html) return html;
+    if (html.indexOf('id="ptShareWrap"') !== -1) return html;   // idempotent
+    var block = ''
+      + '<div id="ptShareWrap" style="position:fixed;right:14px;bottom:14px;z-index:2147483647;'
+      +   'display:flex;flex-direction:column;align-items:flex-end;gap:6px;'
+      +   'font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif">'
+      +   '<div id="ptShareMsg" style="display:none;max-width:260px;background:rgba(13,42,30,.94);'
+      +     'color:#f5e6b8;border:1px solid rgba(201,168,76,.5);border-radius:8px;padding:6px 10px;'
+      +     'font-size:11.5px;font-weight:700;line-height:1.35;text-align:right"></div>'
+      +   '<button id="ptShareBtn" type="button" style="background:#c9a84c;color:#1a3a2a;border:none;'
+      +     'border-radius:999px;padding:11px 18px;font-size:13.5px;font-weight:900;cursor:pointer;'
+      +     'box-shadow:0 4px 14px rgba(0,0,0,.45)">\uD83D\uDCE4 Share</button>'
+      +   '<style>@media print{#ptShareWrap{display:none!important}}</style>'
+      +   '<scr' + 'ipt>' + window._PT_RPT_SHARE_JS + '<\/scr' + 'ipt>'
+      + '</div>';
+    var i = html.toLowerCase().lastIndexOf('</body>');
+    return (i === -1) ? (html + block) : (html.slice(0, i) + block + html.slice(i));
+  } catch (e) { return html; }
+};
+
 function _ptOpenPrintBlob(html, frameId) {
+  html = window._ptRptShareInject ? window._ptRptShareInject(html) : html;   // B-198
   var blob = new Blob([html], {type:'text/html'});
   var blobUrl = URL.createObjectURL(blob);
   var win = window.open(blobUrl, '_blank');
@@ -54922,6 +54971,7 @@ function ptPrintFinalResults(eventId) {
               +'</div>'
               +'<div class="footer"><span>Pards Tour \u2014 pards.golf</span><span>Printed '+new Date().toLocaleString()+'</span></div>'
               +'</body></html>';
+            html = window._ptRptShareInject ? window._ptRptShareInject(html) : html;   // B-198
             var blob = new Blob([html], {type:'text/html'});
             var blobUrl = URL.createObjectURL(blob);
             var win = window.open(blobUrl, '_blank');
@@ -55094,6 +55144,7 @@ function ptPrintRoundTeeSheet(eventId, round) {
       +'<div class="footer"><span>Pards Tour</span><span>Printed '+new Date().toLocaleString()+'</span></div>'
       +'</body></html>';
 
+    html = window._ptRptShareInject ? window._ptRptShareInject(html) : html;   // B-198
     var blob=new Blob([html],{type:'text/html'});
     var blobUrl=URL.createObjectURL(blob);
     var win=window.open(blobUrl,'_blank');
@@ -55162,6 +55213,7 @@ function ptPrintTeeSheet(eventId) {
         +'<table><thead><tr><th class="hole-col">'+(_tsMmg?'Unit':'Hole')+'</th><th>Group</th><th>Join Code</th><th>Players</th></tr></thead><tbody>'+rows+'</tbody></table>'
         +'<div class="footer">Pards Tour \u2014 Printed '+new Date().toLocaleString()+'</div>'
         +'</body></html>';
+      html = window._ptRptShareInject ? window._ptRptShareInject(html) : html;   // B-198
       var blob = new Blob([html], {type:'text/html'});
       var blobUrl = URL.createObjectURL(blob);
       var win = window.open(blobUrl, '_blank');
@@ -63770,7 +63822,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v591.0';
+    const TOUR_VERSION     = 'pards-tour-v592.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
