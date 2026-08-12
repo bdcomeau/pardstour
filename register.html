@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.4 s227)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.5 s227)
      v1.3 (D103): the sheet gate is the STAFF PIN, not the watch-live PIN.
      Wording only on this page — the check itself moved in pards-reg
      reg-v1.2.0 (events.staff_pin). The old label said "Organizer PIN"
@@ -163,8 +163,6 @@
       <input type="email" id="fEmail" autocomplete="email">
       <label for="fPhone">Phone <span id="phoneReq">(optional)</span></label>
       <input type="tel" id="fPhone" autocomplete="tel">
-      <label for="fGc">Golf Canada ID <span style="text-transform:none;letter-spacing:0">(optional · 10 digit code)</span></label>
-      <input type="text" id="fGc" inputmode="numeric" autocomplete="off" placeholder="10 digit code">
       <button class="btn" id="rsvpSubmit">Send my RSVP</button>
       <div class="err" id="rsvpErr"></div>
     </div>
@@ -312,7 +310,7 @@ $('rsvpNoBtn').addEventListener('click', function(){ setRsvp('no'); });
 $('rsvpSubmit').addEventListener('click', async function(){
   var first = $('fFirst').value.trim(), last = $('fLast').value.trim();
   var email = $('fEmail').value.trim(), phone = $('fPhone').value.trim();
-  var gc = $('fGc').value.trim();
+  var gc = '';   /* v1.5 — Bruce, s227: GC ID field removed from the form; the worker's dedupe simply skips its first rung */
   var errBox = $('rsvpErr');
   errBox.textContent = '';
   if (!first || !last) { errBox.textContent = 'First and last name, please.'; return; }
