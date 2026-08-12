@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v595.0 -->
+  <!-- pards-tour-v596.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -27485,6 +27485,7 @@ function _ptMkBanner(){
 }
 
 function updateRoundBar(){
+  try { _fr112Bar(); } catch (e) {}
   try { _ptMkBanner(); } catch (e) {}
   const hole = document.getElementById('roundBarHole');
   if(hole) hole.textContent = '⛳ Hole ' + (G.hole + 1);
@@ -60898,6 +60899,347 @@ function _fr114Claim(ov, d, code, pickIds, tees, refetch) {
     .catch(function(){ refetch('Network hiccup — check the signal and try again.'); });
 }
 
+/* ══ FR-112 (client v596.0, s237) — THE MANAGE HALF, IN THE FULL CLIENT ══════
+   FR-114 (v595.0, s236) gave this app the fourth rail: a player types the EVENT
+   code and claims a card. This is its other half — the same player, later, when
+   somebody never shows up.
+
+   Bruce, s221, the first big FR-101 night: Mike claimed a card well before his
+   tee time, Harman and Darren never showed, and he was left holding two men he
+   could not score and no way out of it. That night's fix was a manual database
+   delete. Worker v3.29.0 shipped POST /api/round-team-manage/:cardCode at s226
+   and Pards Lite v1.34 became its FIRST caller at s227. Lite's own source says
+   what this file is: "the full client's FR-114 must be its second — same route,
+   never a second mechanism."
+
+   ⛔⛔ THIS IS A SECOND CALLER OF THAT ROUTE, NEVER A SECOND MANAGE SCREEN
+   (traps 3 / 9). Every rule below is re-checked server-side; a button state on
+   a stale phone is only ever half a guard.
+
+   ⭐ MEMBERSHIP IS RE-DERIVED FROM THE WIRE every time the sheet opens
+   (GET /api/join-round/:cardCode) — exactly as Lite does it. This app is
+   holding a live round in G, and editing a card out of G.players would be
+   editing from memory, the one shape Lite deliberately refuses.
+
+   ⭐ SWAP-IN CANDIDATES ride GET /api/round-field/:eventCode?round_id=… . The
+   event code and round id come off G._tournamentRound, which the card-code
+   launch writes. ⛔ G.joinGroup is NOT written on the tee-time branch — it is
+   the wrong place to look. No event code, or a failed read ⇒ REMOVALS ONLY,
+   and the sheet says so out loud instead of showing an empty list.
+
+   ⭐⭐⭐ ON SUCCESS IT DOES NOT LAUNCH A SCORECARD. It flushes whatever is
+   pending through the app's own sync layer, writes the CARD code into
+   #ptJoinCode and re-runs the client's own code-box lookup — the same front
+   door FR-114's claim uses. ⛔⛔ NEVER A SECOND LAUNCHER HERE: the foursome
+   launcher already carries a documented second copy (B-134, v495.0) and that
+   is the bug this shape exists to not repeat. ⭐ The build asserts the count
+   of that launcher's identifier is UNCHANGED by this rail, so this comment
+   deliberately does not name it (trap 106's third hat, learned at s236). The
+   route never touches tee_times or tee_time_groups, so the card code survives
+   and every other phone holding it keeps scoring.
+
+   ⭐ A SCORED MAN IS REMOVABLE — Bruce's s227 ruling; worker v3.30.0 dropped
+   the orphan guard outright: "you should be able to remove a player even if
+   they have scores - sometimes after a few holes a player may change groups
+   (very rarely)." His holes are NAMED on the button so nobody taps blind, and
+   his scores stay on the round either way. ⛔ The carried refusal list still
+   named has_scores; the deployed worker has no such refusal. Measured off the
+   live bytes, not inherited.
+
+   ⭐ A null rteams_matched on the reply is SURFACED, never guessed past
+   (trap 81): the card stands, the organizer's team board may lag, and he is
+   told so before the card reopens.
+   ⭐ Only tees that DIFFER from the round default are sent (trap 10).
+   ⛔ The last man cannot be taken off. ⛔ The ceiling is max_pick off the WIRE.
+*/
+function _fr112Bar() {
+  try {
+    var sc = document.getElementById('screen-score');
+    var el = document.getElementById('ptFr112Bar');
+    var tr = (typeof G !== 'undefined' && G) ? G._tournamentRound : null;
+    var code = (tr && tr.foursome_code) ? String(tr.foursome_code) : '';
+    /* ⛔ The door exists only on a card opened by a CARD CODE on an EVENT. A
+       trip/league card, a team-code scramble and a plain Pards Golf round all
+       fall out here, and the strip is removed rather than left stale — the same
+       lifecycle _ptMkBanner has used since v399.0. */
+    if (!sc || !code || (tr && tr.trip_id)) {
+      if (el && el.parentNode) el.parentNode.removeChild(el);
+      return;
+    }
+    if (el) return;
+    el = document.createElement('div');
+    el.id = 'ptFr112Bar';
+    el.style.cssText = 'margin:6px 10px 0;display:flex;justify-content:center';
+    el.innerHTML = '<button id="ptFr112Open" style="padding:7px 14px;background:rgba(201,168,76,.10);border:1.5px solid rgba(201,168,76,.38);border-radius:9px;color:#c9a84c;font-size:11.5px;font-weight:900;letter-spacing:.03em;cursor:pointer;-webkit-tap-highlight-color:transparent">&#128101; Manage Players on this Card</button>';
+    el.addEventListener('click', function (e) {
+      if (!e.target.closest('#ptFr112Open')) return;
+      try { _fr112Manage(null); } catch (err) {}
+    });
+    sc.insertBefore(el, sc.firstChild);
+  } catch (e) {}
+}
+
+function _fr112Manage(errMsg) {
+  var tr = (typeof G !== 'undefined' && G) ? (G._tournamentRound || {}) : {};
+  var code = String(tr.foursome_code || '').toUpperCase();
+  if (!code) return;
+
+  var old = document.getElementById('ptFr112Ov'); if (old) old.remove();
+  var ov = document.createElement('div');
+  ov.id = 'ptFr112Ov';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:700;background:linear-gradient(160deg,#0d1f14,#1a3a2a);display:flex;flex-direction:column;align-items:center;padding:22px 20px 40px;box-sizing:border-box;overflow-y:auto;gap:10px';
+  ov.innerHTML = '<div style="font-size:15px;font-weight:900;color:#c9a84c;margin-top:10px">One sec&hellip;</div>';
+  document.body.appendChild(ov);
+
+  var bail = function (msg) {
+    ov.innerHTML = '<div id="ptFr112Bail" style="font-size:13px;color:#e74c3c;text-align:center;max-width:360px;font-weight:700;margin-top:12px;line-height:1.5">' + _ptEsc(msg) + '</div>'
+      + '<button id="ptFr112Close" style="width:100%;max-width:360px;padding:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:11px;color:rgba(255,255,255,.65);font-size:13.5px;font-weight:700;cursor:pointer">Back to the card</button>';
+  };
+  /* ⛔ ONE exit listener for the whole overlay, bound once. Closing WRITES
+     NOTHING — FR-121's rule, mirrored. */
+  ov.addEventListener('click', function (e) {
+    if (e.target.closest('#ptFr112Close')) ov.remove();
+  });
+
+  fetch(TOUR_API + '/api/join-round/' + encodeURIComponent(code))
+    .then(_ptJson).catch(_ptNetErr)
+    .then(function (d) {
+      if (!(d && !d.error && d.foursome)) { bail((d && d.error) || 'Could not read this card.'); return; }
+      var members = (d.players || []).filter(function (p) { return p.roster_id; });
+      if (!members.length) { bail('This card carries no roster players to manage.'); return; }
+      var ex = d.existing_scores || {}, scored = {};
+      members.forEach(function (p) {
+        var hs = ex[p.roster_id];
+        if (hs && Object.keys(hs).length) scored[String(p.roster_id)] = Object.keys(hs).length;
+      });
+      var evc = d.foursome.event_code || tr.event_code || '';
+      var rid = d.foursome.round_id || tr.round_id || '';
+      var show = function (fd) { _fr112Sheet(ov, code, d.foursome, members, scored, fd, errMsg || null); };
+      /* ⭐ The field read is FAIL-SOFT in both directions: no event code, an
+         error body, or a thrown fetch all land on show(null), which is the
+         removals-only sheet. It never blocks the removal the man came for. */
+      if (!evc) { show(null); return; }
+      fetch(TOUR_API + '/api/round-field/' + encodeURIComponent(evc) + (rid ? ('?round_id=' + encodeURIComponent(rid)) : ''))
+        .then(_ptJson).catch(_ptNetErr)
+        .then(function (fd) { show(fd && !fd.error ? fd : null); })
+        .catch(function () { show(null); });
+    })
+    .catch(function () { bail('Network hiccup — check the signal and try again.'); });
+}
+
+function _fr112Sheet(ov, code, f, members, scored, fd, errMsg) {
+  var field   = (fd && fd.field) ? fd.field : null;
+  var claimed = (field && fd.claimed) || {};
+  var onCard  = {}; members.forEach(function (p) { onCard[String(p.roster_id)] = 1; });
+  var cands = (field || []).filter(function (p) {
+    return p.roster_id && !onCard[String(p.roster_id)] && !claimed[String(p.roster_id)];
+  });
+  var rmv = {}, add = {};
+  /* ⭐⭐ B-197's ceiling, mirrored: the round's own max_pick off the WIRE
+     (trap 30 — never a constant minted beside it). Math.max keeps a card the
+     organizer already seated ABOVE the cap editable: it can swap and shrink,
+     it just can never get bigger. No field read ⇒ cands is empty, so the cap
+     is only ever consulted when the wire actually answered. */
+  var cap = field ? (Number(fd.max_pick) || 5) : 0;
+  var ceiling = Math.max(cap, members.length);
+
+  var h = '<div id="ptFr112Title" style="font-size:18px;font-weight:900;color:#c9a84c;text-align:center">Manage this Card</div>'
+    + '<div style="font-size:12.5px;color:rgba(255,255,255,.5);text-align:center;max-width:360px;line-height:1.5">Take a no&#8209;show off the card, or bring somebody on from tonight&rsquo;s field. Posted scores are never touched.</div>'
+    + (errMsg ? '<div id="ptFr112Msg" style="color:#e74c3c;font-size:13px;text-align:center;max-width:360px;line-height:1.5;font-weight:700">' + _ptEsc(errMsg) + '</div>' : '')
+    + '<div style="font-size:11.5px;font-weight:900;color:rgba(255,255,255,.45);letter-spacing:.06em;margin-top:4px">ON THIS CARD &mdash; TAP TO TAKE OFF</div>'
+    + '<div style="width:100%;max-width:360px;display:flex;flex-direction:column;gap:8px">'
+    + members.map(function (p) {
+        /* ⭐ Bruce, s227 — a scored man IS removable; the worker dropped that
+           guard at v3.30.0. His holes are NAMED so nobody taps blind. */
+        var id = String(p.roster_id);
+        var ns = scored[id] || 0;
+        var hcp = (p.handicap === null || p.handicap === undefined || p.handicap === '') ? null : p.handicap;
+        return '<button data-fr112r="' + _ptEsc(id) + '" style="width:100%;padding:13px 14px;border-radius:12px;text-align:left;font-size:15px;font-weight:700;cursor:pointer;background:rgba(201,168,76,.14);border:1.5px solid rgba(201,168,76,.5);color:#f5e6b8;display:flex;align-items:center;gap:10px">'
+          + '<span style="flex:1">' + _ptEsc(p.name || ('Player ' + id)) + '</span>'
+          + '<span style="font-size:12px;font-weight:800;opacity:.75">'
+          + (ns ? (ns + ' hole' + (ns > 1 ? 's' : '') + ' scored') : (hcp === null ? 'no index' : _ptEsc(hcp)))
+          + '</span></button>';
+      }).join('')
+    + '</div>';
+
+  if (cands.length) {
+    var room = ceiling - members.length;
+    h += '<div style="font-size:11.5px;font-weight:900;color:rgba(255,255,255,.45);letter-spacing:.06em;margin-top:8px">'
+      + (room > 0 ? ('ADD FROM TONIGHT&rsquo;S FIELD &mdash; ROOM FOR ' + room + ' MORE') : ('SWAP IN &mdash; THIS CARD IS FULL AT ' + ceiling))
+      + '</div>'
+      + '<div style="width:100%;max-width:360px;display:flex;flex-direction:column;gap:8px">'
+      + cands.map(function (p) {
+          var id = String(p.roster_id);
+          var hcp = (p.handicap === null || p.handicap === undefined || p.handicap === '') ? null : p.handicap;
+          return '<button data-fr112a="' + _ptEsc(id) + '" style="width:100%;padding:13px 14px;border-radius:12px;text-align:left;font-size:15px;font-weight:700;cursor:pointer;background:rgba(120,190,120,.10);border:1.5px solid rgba(120,190,120,.4);color:#dff5df;display:flex;align-items:center;gap:10px">'
+            + '<span style="flex:1">' + _ptEsc(p.name || ('Player ' + id)) + '</span>'
+            + '<span style="font-size:12px;font-weight:800;opacity:.75">' + (hcp === null ? 'no index' : _ptEsc(hcp)) + '</span>'
+            + '</button>';
+        }).join('')
+      + '</div>';
+  } else if (!field) {
+    /* ⛔ Honest, not empty: the read failed, so this sheet can only remove. */
+    h += '<div id="ptFr112NoField" style="font-size:12.5px;color:rgba(255,255,255,.45);max-width:360px;text-align:center;line-height:1.5;margin-top:8px">Tonight&rsquo;s field couldn&rsquo;t be read, so this sheet can only take men off &mdash; bringing somebody on needs the organizer.</div>';
+  }
+
+  h += '<div id="ptFr112Count" style="font-size:12px;font-weight:800;color:rgba(201,168,76,.9);letter-spacing:.4px;margin-top:8px">Nothing picked yet</div>'
+    + '<button id="ptFr112Go" disabled style="width:100%;max-width:360px;padding:15px;background:rgba(120,190,120,.2);border:1.5px solid rgba(120,190,120,.6);border-radius:13px;color:#dff5df;font-size:16px;font-weight:900;cursor:pointer;opacity:.45">Update Card</button>'
+    + '<button id="ptFr112Close" style="width:100%;max-width:360px;padding:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:11px;color:rgba(255,255,255,.65);font-size:13.5px;font-weight:700;cursor:pointer">Back to the card</button>';
+
+  ov.innerHTML = h;
+
+  function sync(hint) {
+    var nR = Object.keys(rmv).length, nA = Object.keys(add).length;
+    var left = members.length - nR + nA;
+    var ok = (nR + nA) > 0 && left >= 1 && left <= ceiling;
+    var txt = 'Nothing picked yet';
+    if (nR + nA) {
+      var m = []; if (nR) m.push(nR + ' off'); if (nA) m.push(nA + ' on');
+      txt = 'Card goes ' + members.length + ' → ' + left + ' (' + m.join(', ') + ')';
+    }
+    if (!left && nR) { txt = 'A card can’t be emptied — leave at least one man on it.'; ok = false; }
+    var cEl = document.getElementById('ptFr112Count');
+    if (cEl) cEl.textContent = hint || txt;
+    var gEl = document.getElementById('ptFr112Go');
+    if (gEl) { gEl.disabled = !ok; gEl.style.opacity = ok ? '1' : '.45'; }
+  }
+
+  ov.addEventListener('click', function (e) {
+    var rb = e.target.closest('button[data-fr112r]');
+    if (rb) {
+      var id = rb.getAttribute('data-fr112r');
+      if (rmv[id]) {
+        if ((members.length - Object.keys(rmv).length + 1 + Object.keys(add).length) > ceiling) {
+          sync('That card holds ' + ceiling + ' — un‑pick somebody you added first.'); return;
+        }
+        delete rmv[id];
+        rb.style.background = 'rgba(201,168,76,.14)'; rb.style.borderColor = 'rgba(201,168,76,.5)'; rb.style.textDecoration = 'none';
+      } else {
+        rmv[id] = 1;
+        rb.style.background = 'rgba(232,110,110,.18)'; rb.style.borderColor = 'rgba(232,110,110,.7)'; rb.style.textDecoration = 'line-through';
+      }
+      sync(); return;
+    }
+    var ab = e.target.closest('button[data-fr112a]');
+    if (ab) {
+      var id2 = ab.getAttribute('data-fr112a');
+      if (add[id2]) {
+        delete add[id2];
+        ab.style.background = 'rgba(120,190,120,.10)'; ab.style.borderColor = 'rgba(120,190,120,.4)';
+      } else if ((members.length - Object.keys(rmv).length + Object.keys(add).length + 1) <= ceiling) {
+        add[id2] = 1;
+        ab.style.background = 'rgba(120,190,120,.3)'; ab.style.borderColor = 'rgba(120,190,120,.9)';
+      } else { sync('That card holds ' + ceiling + ' — take a man off to bring another one on.'); return; }
+      sync(); return;
+    }
+    var gEl2 = document.getElementById('ptFr112Go');
+    if (e.target.closest('#ptFr112Go') && gEl2 && !gEl2.disabled) {
+      gEl2.disabled = true; gEl2.textContent = 'One sec…';
+      var rmIds = Object.keys(rmv), adIds = Object.keys(add);
+
+      var send = function (tees) {
+        fetch(TOUR_API + '/api/round-team-manage/' + encodeURIComponent(code), {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ remove: rmIds.map(Number), add: adIds.map(Number), tees: tees || {} })
+        }).then(_ptJson).catch(_ptNetErr)
+          .then(function (r) {
+            if (r && !r.error && r.ok) {
+              /* ⭐⭐⭐ trap 81 — a null team-catalogue match is SURFACED, never
+                 guessed past. The card itself stands either way. */
+              if (r.rteams_matched === null) {
+                ov.innerHTML = '<div id="ptFr112Done" style="font-size:16px;font-weight:900;color:#c9a84c;margin-top:14px">Card updated ✓</div>'
+                  + '<div style="font-size:12.5px;color:rgba(255,255,255,.55);text-align:center;max-width:360px;line-height:1.5">One heads&#8209;up: the organizer&rsquo;s team list couldn&rsquo;t be matched to this card, so his team board may still show the old lineup &mdash; worth mentioning to him.</div>'
+                  + '<button id="ptFr112Cont" style="width:100%;max-width:360px;padding:15px;background:rgba(120,190,120,.2);border:1.5px solid rgba(120,190,120,.6);border-radius:13px;color:#dff5df;font-size:16px;font-weight:900;cursor:pointer">Open the Updated Card &rarr;</button>';
+                ov.addEventListener('click', function (e3) { if (e3.target.closest('#ptFr112Cont')) _fr112Reopen(ov, code); });
+                return;
+              }
+              _fr112Reopen(ov, code);
+              return;
+            }
+            /* ⭐ Every refusal re-derives the sheet FROM THE WIRE, so a stale
+               screen can never be edited a second time off the same numbers. */
+            ov.remove();
+            _fr112Manage((r && r.error) || 'Could not update the card — try again.');
+          })
+          .catch(function () { ov.remove(); _fr112Manage('Network hiccup — check the signal and try again.'); });
+      };
+
+      /* ⭐ Tees for the men coming ON only, and the ask is FAIL-SOFT: a failed
+         course read sends an empty tees object rather than blocking the
+         update (trap 10 — an untouched default is never sent at all). */
+      if (adIds.length && f && f.course_id && f.tee) {
+        fetch(TOUR_API + '/api/courses/' + encodeURIComponent(f.course_id))
+          .then(_ptJson).catch(_ptNetErr)
+          .then(function (r) {
+            var ts = (r && !r.error && r.course && r.course.tees) || [];
+            _fr112TeeStep(ov, adIds, cands, f.tee, ts.map(function (t) { return t.name; }).filter(Boolean), send);
+          })
+          .catch(function () { send({}); });
+      } else send({});
+      return;
+    }
+  });
+  sync();
+}
+
+/* ⭐⭐⭐ THE FRONT DOOR, AND THE ONLY WAY OUT OF A SUCCESSFUL UPDATE.
+   Flush whatever this phone still owes through the app's OWN sync layer, then
+   put the CARD code in the client's own code box and re-run its own lookup.
+   ⛔⛔ NO SECOND LAUNCHER — the foursome launcher is reached only through the
+   code-box lookup below, exactly as a hand-typed card code reaches it (B-134).
+   ⛔ Neither identifier is named in this prose on purpose: the build counts
+   both and a comment that names them would break its own assert (trap 106).
+   ⭐ The flush is idempotent per-hole and must never be able to strand the
+   man: a `once` latch plus a timer means the card reopens even if the sync
+   layer's callback never fires. */
+function _fr112Reopen(ov, code) {
+  var done = false;
+  var go = function () {
+    if (done) return; done = true;
+    try { if (ov && ov.parentNode) ov.parentNode.removeChild(ov); } catch (e) {}
+    var ib = document.getElementById('ptJoinCode');
+    if (ib) ib.value = code;
+    try { doJoinLookup(); } catch (e) {}
+  };
+  try { setTimeout(go, 2500); } catch (e) {}
+  try {
+    if (typeof window.ptSubmitTournamentScores === 'function') { window.ptSubmitTournamentScores(function () { go(); }); return; }
+  } catch (e) {}
+  go();
+}
+
+function _fr112TeeStep(ov, adIds, cands, defTee, deckNames, send) {
+  if (!deckNames || !deckNames.length || !defTee) { send({}); return; }
+  if (deckNames.indexOf(defTee) < 0) deckNames = [defTee].concat(deckNames);
+  var byId = {}; cands.forEach(function (p) { byId[String(p.roster_id)] = p; });
+  var h2 = '<div id="ptFr112TeeTitle" style="font-size:18px;font-weight:900;color:#c9a84c;text-align:center;margin-top:6px">Tees for the New Men</div>'
+    + '<div style="font-size:12.5px;color:rgba(255,255,255,.5);text-align:center;max-width:360px;line-height:1.5">Default is ' + _ptEsc(defTee) + ' &mdash; change a player only if he&rsquo;s playing a different deck today.</div>'
+    + '<div style="width:100%;max-width:360px;display:flex;flex-direction:column;gap:8px">'
+    + adIds.map(function (id) {
+        var nm = (byId[id] && byId[id].name) || ('Player ' + id);
+        return '<label style="width:100%;display:flex;align-items:center;gap:10px;color:#f5e6b8;font-size:14px;font-weight:700">'
+          + '<span style="flex:1">' + _ptEsc(nm) + '</span>'
+          + '<select data-fr112t="' + _ptEsc(id) + '" style="padding:10px;background:#1b201e;color:#f5e6b8;border:1.5px solid rgba(201,168,76,.5);border-radius:9px;font-size:14px">'
+          + deckNames.map(function (t) { return '<option' + (t === defTee ? ' selected' : '') + '>' + _ptEsc(t) + '</option>'; }).join('')
+          + '</select></label>';
+      }).join('')
+    + '</div>'
+    + '<button id="ptFr112Go2" style="width:100%;max-width:360px;padding:15px;margin-top:8px;background:rgba(120,190,120,.2);border:1.5px solid rgba(120,190,120,.6);border-radius:13px;color:#dff5df;font-size:16px;font-weight:900;cursor:pointer">Update Card &rarr;</button>';
+  ov.innerHTML = h2;
+  ov.addEventListener('click', function (e2) {
+    if (!e2.target.closest('#ptFr112Go2')) return;
+    var g2 = document.getElementById('ptFr112Go2');
+    if (g2) { g2.disabled = true; g2.textContent = 'Updating…'; }
+    /* ⛔ TRAP 10 — only a deck that DIFFERS from the round default is sent. */
+    var tees = {};
+    adIds.forEach(function (id) {
+      var sel = ov.querySelector('select[data-fr112t="' + id + '"]');
+      if (sel && sel.value && sel.value !== defTee) tees[id] = sel.value;
+    });
+    send(tees);
+  });
+}
+
 function doJoinTripLookup(code, btn, errEl) {
   fetch(TOUR_API+'/api/join-trip/'+code)
     .then(_ptJson).catch(_ptNetErr)
@@ -64238,7 +64580,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v595.0';
+    const TOUR_VERSION     = 'pards-tour-v596.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
