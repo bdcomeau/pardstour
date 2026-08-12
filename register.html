@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.3 s214)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.4 s227)
      v1.3 (D103): the sheet gate is the STAFF PIN, not the watch-live PIN.
      Wording only on this page — the check itself moved in pards-reg
      reg-v1.2.0 (events.staff_pin). The old label said "Organizer PIN"
@@ -161,10 +161,10 @@
       </div>
       <label for="fEmail">Email</label>
       <input type="email" id="fEmail" autocomplete="email">
-      <label for="fPhone">Phone <span id="phoneReq">(required)</span></label>
+      <label for="fPhone">Phone <span id="phoneReq">(optional)</span></label>
       <input type="tel" id="fPhone" autocomplete="tel">
-      <label for="fGc">Golf Canada ID <span style="text-transform:none;letter-spacing:0">(optional)</span></label>
-      <input type="text" id="fGc" inputmode="numeric" autocomplete="off">
+      <label for="fGc">Golf Canada ID <span style="text-transform:none;letter-spacing:0">(optional · 10 digit code)</span></label>
+      <input type="text" id="fGc" inputmode="numeric" autocomplete="off" placeholder="10 digit code">
       <button class="btn" id="rsvpSubmit">Send my RSVP</button>
       <div class="err" id="rsvpErr"></div>
     </div>
@@ -304,7 +304,7 @@ function setRsvp(v){
   rsvpChoice = v;
   $('rsvpYesBtn').classList.toggle('on', v === 'yes');
   $('rsvpNoBtn').classList.toggle('on', v === 'no');
-  $('phoneReq').textContent = v === 'yes' ? '(required)' : '(optional)';
+  $('phoneReq').textContent = '(optional)';   /* v1.4 — Bruce, s227: phone is never mandatory */
 }
 $('rsvpYesBtn').addEventListener('click', function(){ setRsvp('yes'); });
 $('rsvpNoBtn').addEventListener('click', function(){ setRsvp('no'); });
@@ -317,7 +317,6 @@ $('rsvpSubmit').addEventListener('click', async function(){
   errBox.textContent = '';
   if (!first || !last) { errBox.textContent = 'First and last name, please.'; return; }
   if (!email) { errBox.textContent = 'Email is required.'; return; }
-  if (rsvpChoice === 'yes' && !phone) { errBox.textContent = 'Phone is required when you are coming.'; return; }
   var r = await api('/api/reg/rsvp', {
     code: evCode, first: first, last: last, email: email, phone: phone, gc_id: gc, rsvp: rsvpChoice
   });
