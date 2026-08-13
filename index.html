@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v608.0 -->
+  <!-- pards-tour-v610.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -44741,7 +44741,10 @@ window.ptDraftSave = function () {
        floor; nothing else is added and no money goes near this blob. */
     var _nm = {};
     (st.field || []).forEach(function (p) { _nm[String(p.roster_id)] = p.name; });
-    all[String(st.rid)] = { buckets: st.buckets, order: st.order, picks: st.picks, names: _nm, done: !!st.done, at: new Date().toISOString() };
+    /* B-214 (v610.0, s251) — the record carries the SCREEN he was on, so a
+       lost page comes back where he left it instead of at the buckets. */
+    all[String(st.rid)] = { buckets: st.buckets, order: st.order, picks: st.picks, names: _nm,
+      phase: (st.phase === 'writing' ? 'live' : st.phase), done: !!st.done, at: new Date().toISOString() };
     return ptPatchEvConfig(st.eid, { draft: all });
   });
 };
@@ -44782,10 +44785,73 @@ window.ptDraftOpen = function (eid, rid, label) {
     window.ptDraftBuckets.forEach(function (b) {
       st.buckets[b.k] = (st.buckets[b.k] || []).filter(function (r2) { return inF[String(r2)]; });
     });
-    if (saved && saved.picks && saved.picks.length && st.order.length) st.phase = 'live';
+    /* ⭐ B-214 (v610.0, s251) — RESTORE THE SCREEN. Prefer the saved phase;
+       fall back to the old picks-based rule for records written before v610.0.
+       ⛔ A phase is only honoured if the state behind it actually exists. */
+    var _sp = saved && saved.phase;
+    if (_sp === 'live' && st.order.length) st.phase = 'live';
+    else if (_sp === 'order' && st.order.length) st.phase = 'order';
+    else if (saved && saved.picks && saved.picks.length && st.order.length) st.phase = 'live';
     window._ptDraft = st;
     window._ptDraftPaint();
   }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not open the draft')); });
+};
+/* ⭐ FR-130 (v609.0, s251) — HIS ASK: every list of men reads alphabetically
+   by first name. ONE comparator, asked by every list (trap 9) — the pool, the
+   four buckets on the setup screen and the four buckets on the live board.
+   ⛔ DISPLAY ONLY: it sorts a COPY. `st.buckets` keeps its own order, so the
+   draft order seeded from the Captains bucket is untouched, and so is the
+   pick record that rides in cfg.draft. */
+window._ptDraftByName = function (a, b) {
+  return String(a || '').localeCompare(String(b || ''), undefined, { sensitivity: 'base', numeric: true });
+};
+window._ptDraftSorted = function (rids) {
+  return (rids || []).slice().sort(function (x, y) {
+    return window._ptDraftByName(window._ptDraftName(x), window._ptDraftName(y));
+  });
+};
+/* ⭐⭐⭐ B-212 (v609.0, s251) — CRASH-PROOF THE SETUP HALF. Measured s251: a
+   seating and an order drag wrote NOTHING to the server, so a lost page threw
+   away every bucket. Picks were already safe. Now every one of them saves.
+   ⛔ ptDraftSave is a READ-MERGE-WRITE (GET /events/:id -> merge -> PATCH) and
+   120 rapid taps would interleave two of them and lose a man. This serialiser
+   is the ONE way the setup half saves: never two in flight, and a change that
+   lands mid-save re-runs after it, so the LAST state always reaches the wire.
+   ⛔ ptDraftFinish deliberately does NOT come through here — it needs the real
+   promise and the real rejection to print its honest "the write stopped". */
+window._ptDraftSaveQ = null;
+window._ptDraftSaveDirty = false;
+/* ⭐⭐⭐ B-213 (v610.0, s251) — A FAILED SAVE USED TO BE SILENT. Every caller
+   swallowed the rejection, so a dropped connection on draft night looked
+   exactly like a working one: 120 taps, nothing on the server, no warning.
+   Now a failure is SAID OUT LOUD, the screen carries a banner until it clears,
+   and the save keeps retrying on its own. ⛔ Nothing on screen is ever thrown
+   away — the retry writes whatever the current state is. */
+window._ptDraftUnsaved = 0;      // consecutive failed saves
+window._ptDraftRetryT = null;
+window.ptDraftSaveSoon = function () {
+  if (window._ptDraftSaveQ) { window._ptDraftSaveDirty = true; return window._ptDraftSaveQ; }
+  window._ptDraftSaveQ = window.ptDraftSave().then(function () {
+    var was = window._ptDraftUnsaved;
+    window._ptDraftUnsaved = 0;
+    if (was) { ptToast('Saved — you are back on the wire.'); window._ptDraftPaint(); }
+    return null;
+  }).catch(function () {
+    window._ptDraftUnsaved++;
+    if (window._ptDraftUnsaved === 1) ptToast('Not saving — check the connection. Nothing on this screen is lost.');
+    if (window._ptDraftRetryT) clearTimeout(window._ptDraftRetryT);
+    window._ptDraftRetryT = setTimeout(function () {
+      window._ptDraftRetryT = null;
+      if (window._ptDraft) window.ptDraftSaveSoon();
+    }, 5000);
+    window._ptDraftPaint();
+    return null;
+  }).then(function () {
+    window._ptDraftSaveQ = null;
+    if (window._ptDraftSaveDirty) { window._ptDraftSaveDirty = false; return window.ptDraftSaveSoon(); }
+    return null;
+  });
+  return window._ptDraftSaveQ;
 };
 window._ptDraftName = function (rid) {
   var st = window._ptDraft; if (!st) return '';
@@ -44811,6 +44877,7 @@ window.ptDraftTapBucket = function (k) {
   if (cur) st.buckets[cur] = st.buckets[cur].filter(function (r2) { return String(r2) !== String(st.pick); });
   if (cur !== k) st.buckets[k].push(st.pick);
   st.pick = null;
+  window.ptDraftSaveSoon();          /* B-212 — a seat is saved the moment it is taken */
   window._ptDraftPaint();
 };
 window.ptDraftToOrder = function () {
@@ -44834,6 +44901,7 @@ window.ptDraftMove = function (i, dir) {
   var j = i + dir;
   if (j < 0 || j >= st.order.length) return;
   var t = st.order[i]; st.order[i] = st.order[j]; st.order[j] = t;
+  window.ptDraftSaveSoon();          /* B-212 — the order survives a lost page too */
   window._ptDraftPaint();
 };
 window.ptDraftDropTo = function (from, to) {
@@ -44841,6 +44909,7 @@ window.ptDraftDropTo = function (from, to) {
   if (from === to || from < 0 || to < 0 || from >= st.order.length || to >= st.order.length) return;
   var m = st.order.splice(from, 1)[0];
   st.order.splice(to, 0, m);
+  window.ptDraftSaveSoon();          /* B-212 — same for a drag */
   window._ptDraftPaint();
 };
 window.ptDraftStart = function () {
@@ -44981,11 +45050,20 @@ window._ptDraftPaint = function () {
   ov.style.cssText = 'position:fixed;inset:0;z-index:764;background:#10200f;color:#fff;overflow-y:auto';
   var h = '<div id="ptDraftBody" style="max-width:1100px;margin:0 auto;padding:26px 20px 60px;box-sizing:border-box">';
   var close = '<button onclick="window._ptDraftClose()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,.45);font-size:22px;cursor:pointer">✕</button>';
+  /* B-213 — the banner. It stands on EVERY phase because the painter is one. */
+  if (window._ptDraftUnsaved) {
+    close += '<div id="ptDraftSaveBanner" style="position:fixed;left:0;right:0;top:0;z-index:3;background:#8c3b2e;color:#fff;'
+      + 'font-size:13px;font-weight:800;text-align:center;padding:9px 44px 9px 12px;box-sizing:border-box">'
+      + '\u26a0 Not saved \u2014 no connection. Keep going, it keeps trying.</div>';
+  }
   var esc = _ptEsc;
   if (st.phase === 'buckets') {
     h += '<div style="font-size:22px;font-weight:800;color:#f5d97a">Draft Night</div>'
       + '<div style="font-size:13px;color:rgba(255,255,255,.5);margin:2px 0 14px">Put every player in a bucket</div>';
-    var pool = st.field.filter(function (p) { return !window._ptDraftBucketOf(p.roster_id); });
+    /* FR-130 — the pool reads alphabetically too; .filter already returns a
+       new array, so nothing upstream of the screen moves. */
+    var pool = st.field.filter(function (p) { return !window._ptDraftBucketOf(p.roster_id); })
+      .sort(function (x, y) { return window._ptDraftByName(x.name, y.name); });
     h += '<div style="margin-bottom:14px">'
       + '<div style="font-size:11.5px;font-weight:800;color:rgba(255,255,255,.5);margin-bottom:7px">TAP A PLAYER, THEN HIS BUCKET</div>';
     pool.forEach(function (p) {
@@ -45005,7 +45083,7 @@ window._ptDraftPaint = function () {
     window.ptDraftBuckets.forEach(function (b) {
       h += '<div onclick="ptDraftTapBucket(\'' + b.k + '\')" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);border-radius:14px;padding:12px;cursor:pointer;min-height:90px">'
         + '<div style="font-size:14px;font-weight:900;color:#f5d97a;margin-bottom:8px">' + b.label + ' <span style="color:rgba(255,255,255,.35);font-weight:400">' + (st.buckets[b.k] || []).length + '</span></div>';
-      (st.buckets[b.k] || []).forEach(function (rid) {
+      window._ptDraftSorted(st.buckets[b.k]).forEach(function (rid) {
         h += '<div onclick="event.stopPropagation();ptDraftTapPlayer(' + rid + ')" style="background:rgba(255,255,255,.07);border-radius:8px;padding:6px 9px;font-size:12.5px;margin-bottom:5px;cursor:pointer'
           + (st.pick === rid ? ';outline:1.5px solid #c9a84c' : '') + '">' + esc(window._ptDraftName(rid)) + '</div>';
       });
@@ -45049,7 +45127,7 @@ window._ptDraftPaint = function () {
         if (b.k === 'captain') return;
         h += '<div style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);border-radius:14px;padding:12px">'
           + '<div style="font-size:18px;font-weight:900;color:#f5d97a;margin-bottom:9px">' + b.label + '</div>';
-        (st.buckets[b.k] || []).forEach(function (rid) {
+        window._ptDraftSorted(st.buckets[b.k]).forEach(function (rid) {
           var tk = window.ptDraftPickTaken(rid);
           if (tk) {
             h += '<div style="background:rgba(255,255,255,.07);border-radius:9px;padding:10px 12px;font-size:17px;margin-bottom:6px;opacity:.32"><span style="text-decoration:line-through">' + esc(window._ptDraftName(rid)) + '</span> <span style="font-style:italic;font-size:12px">— gone — Team ' + esc(window._ptDraftName(tk.c)) + '</span></div>';
@@ -65654,7 +65732,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v608.0';
+    const TOUR_VERSION     = 'pards-tour-v610.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
