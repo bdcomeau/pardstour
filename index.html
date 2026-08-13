@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v612.0 -->
+  <!-- pards-tour-v613.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -8137,14 +8137,33 @@ function _gcRemoveShow(msg, tone){
   const el = document.getElementById('gcRemoveResult');
   if(!el){ alert(msg); return; }
   el.style.display = 'block';
-  el.style.color = tone === 'ok' ? '#9fe8b8' : (tone === 'bad' ? '#ff9c8f' : 'var(--pt-ondark-80)');
+  // ⭐ FR-135 (v613.0) — this pane moved from the DARK Backup screen onto the
+  // LIGHT Manage Players card. The old tones (#9fe8b8 / #ff9c8f) were picked to
+  // read on near-black and are unreadable on #f4f1ea. Dark tones now, and the
+  // neutral case is real ink rather than an on-dark token that resolves white.
+  el.style.color = tone === 'ok' ? '#1b7a44' : (tone === 'bad' ? '#b3261e' : 'var(--pt-ink)');
   el.textContent = msg;
 }
 
-// ⭐ ONE input box (ruling 4) + a confirm step (ruling 5). On the Backup screen,
-// for every player — his words: "for all players in the back-up page".
+// ⭐ ONE input box (ruling 4) + a confirm step (ruling 5). ⭐⭐ FR-135 (v613.0)
+// MOVED it off the Backup screen onto the ME record in Manage Players — his
+// later ask, and the later message wins. It is ME-only now, by his own logic:
+// a removal only ever touches the signed-in man's own handicap record.
 async function gcRemovePostedScore(){
   const inp = document.getElementById('gcRemoveId');
+  /* ⭐⭐⭐ FR-135 ruling 4 (s253), his words: "you should never be able to do
+     this - so remove from test". A removal with no Golf Canada session is
+     REFUSED here, before the id is even read — the sign-in state is the gate,
+     not a label. ⛔ This also retires the open FR-128 measurement: the app can
+     no longer send a removal without a token, so there is nothing left to
+     measure about the signed-out shape. The gc-proxy route still forwards a
+     bearer when it has one and reports which in X-GC-Auth; that stays. */
+  var _cfg = null;
+  try{ _cfg = (typeof gcConfig === 'function') ? gcConfig() : null; }catch(e){}
+  if(!_cfg || !_cfg.worker || !_cfg.username){
+    _gcRemoveShow('You are not signed in to Golf Canada, so nothing can be removed.\n\nSign in first \u2014 Manage Players \u2192 Refresh All Handicaps \u2014 then try again.', 'bad');
+    return;
+  }
   const raw = ((inp && inp.value) || '').trim();
   if(!/^[0-9]{6,12}$/.test(raw)){
     _gcRemoveShow('Enter the score id first — the number Pards Golf shows on the round card in History, e.g. 266247687.', 'bad');
@@ -18872,28 +18891,6 @@ function renderBackup(){
       <div id="nassauImportResult" style="display:none;font-size:12px;font-weight:600;margin-top:8px;text-align:center"></div>
     </div>
   </div>`;
-  /* ⭐⭐⭐ FR-128 (v612.0) — GOLF CANADA SCORE REMOVAL.
-     This replaces the 🥚 v281.0 dev-accordion easter egg, which Bruce ruled
-     out of the app at s250 ("you can probably remove all of this"). The egg was
-     Bruce-only and Derrick-only; THIS BLOCK IS FOR EVERY PLAYER — his words,
-     "for all players in the back-up page".
-     ⛔ Nothing went until the replacement stood: same build, same push. */
-  html+=`<div style="margin-bottom:14px;border:1px solid var(--pt-ondark-25);border-radius:10px;overflow:hidden">
-    <div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.querySelector('.gcr-arrow').textContent=this.nextElementSibling.style.display==='block'?'\u25b2':'\u25bc'" style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;background:var(--pt-ondark-08)">
-      <span style="font-size:13px;font-weight:600;color:var(--pt-ondark-60)">\u26f3 Golf Canada — Remove a Posted Score</span>
-      <span class="gcr-arrow" style="font-size:11px;color:var(--pt-ondark-50)">\u25bc</span>
-    </div>
-    <div style="display:none;padding:12px 14px;background:var(--pt-wash-15)">
-      <div style="font-size:12px;color:var(--pt-ondark-60);margin-bottom:10px;line-height:1.7">
-        Deletes a score from <b style="color:var(--pt-ondark-80)">your</b> Golf Canada handicap record. You need its <b style="color:var(--gold)">score id</b> — Pards Golf prints it on the round card in History for every round it posted for you. If the score was posted somewhere else, look it up below.
-        <div style="margin-top:8px;color:var(--pt-danger-bright);font-weight:700">⚠️ This is permanent. Check the id against the date before you tap.</div>
-      </div>
-      <input id="gcRemoveId" type="text" inputmode="numeric" autocomplete="off" placeholder="Score id, e.g. 266247687" style="display:block;width:100%;box-sizing:border-box;padding:11px 12px;border-radius:8px;border:1px solid var(--pt-ondark-25);background:var(--pt-wash-35);color:var(--pt-white);font-size:15px;font-weight:700;letter-spacing:.5px">
-      <button onclick="gcRemovePostedScore()" style="display:block;width:100%;background:#6b1f1f;color:var(--pt-white);border:none;border-radius:8px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;box-sizing:border-box;margin-top:8px">\ud83d\uddd1 Remove Score from Golf Canada</button>
-      <button onclick="gcLookupMyScores()" style="display:block;width:100%;background:#3a5a1f;color:var(--pt-white);border:none;border-radius:8px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;box-sizing:border-box;margin-top:8px">\ud83d\udcdc Look up my recent Golf Canada scores</button>
-      <pre id="gcRemoveResult" style="display:none;margin-top:10px;padding:10px;background:var(--pt-wash-35);border-radius:8px;font-size:11px;line-height:1.6;color:var(--pt-ondark-80);white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto"></pre>
-    </div>
-  </div>`;
   html+=`<div style="font-size:11px;color:var(--pt-ondark-45);text-align:center;line-height:1.6;padding:0 8px">Export opens the share sheet — save to Files, iCloud Drive, or email. A backup in iCloud is accessible from all your devices. This is the <b>only</b> way to recover your data if the app is ever deleted or reinstalled.</div>`;
   html+='</div>';
   el.innerHTML=html;
@@ -24130,6 +24127,38 @@ function favOpenEdit(name){ try {
     h += '</div>';
     h += '<p style="font-size:11px;color:var(--pt-ink-mute);margin:8px 0 0">Used for weather and Golf Canada imports</p>';
     h += '</div>'; // end me details card
+    /* ⭐⭐⭐ FR-135 (v613.0, s253) — THE GOLF CANADA REMOVAL BLOCK LIVES HERE NOW.
+       His ask, minutes after FR-128 shipped: "maybe we move the Golf Canada -
+       Remove Posted Score from Back-up to the ME record in Manage Players -
+       client app - logical to be there?" — a REVERSAL of his own rulings 4/5
+       ("for all players in the back-up page"), and the later message wins (122).
+       ⛔ MOVED, NOT CLONED (trap 9). There is exactly ONE #gcRemoveId, ONE
+       #gcRemoveResult, ONE gcRemovePostedScore() and ONE gcLookupMyScores() in
+       the app, and renderBackup() no longer emits any of them.
+       ⭐ HIS THREE RULINGS, s253, verbatim answers:
+         1. raw score lookup travels with the box — "yes"
+         2. nothing at all left behind on Backup — "nothing"
+         3. visible when signed out — "yes - but indicate not signed in"
+       ⭐⭐ AND HIS FOURTH: "you should never be able to do this - so remove from
+       test" — a removal while signed out is REFUSED, not merely labelled. The
+       guard is in gcRemovePostedScore(); this banner is the honest warning.
+       ⛔ It is inside if(isMe) on purpose: a removal only ever touches the ME
+       player's OWN handicap record. It must never render on another man's card. */
+    var _fr135In = false;
+    try{ var _fr135Cfg = (typeof gcConfig === 'function') ? gcConfig() : null;
+         _fr135In = !!(_fr135Cfg && _fr135Cfg.worker && _fr135Cfg.username); }catch(e){}
+    h += '<p style="font-size:10px;font-weight:800;color:var(--pt-ink-soft);letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px">Golf Canada</p>';
+    h += '<div style="background:var(--pt-white);border:1px solid #c8e6d4;border-radius:12px;padding:12px 14px;margin-bottom:12px">';
+    h += '<p style="font-size:13px;font-weight:800;color:var(--pt-ink);margin:0 0 8px">\u26f3 Remove a Posted Score</p>';
+    h += _fr135In
+      ? '<p id="gcRemoveSignedIn" style="font-size:11px;font-weight:700;color:#1b7a44;margin:0 0 8px">\u2713 Signed in to Golf Canada</p>'
+      : '<p id="gcRemoveSignedIn" style="font-size:11px;font-weight:700;color:#b3261e;background:#fdecea;border:1px solid #f5c6c0;border-radius:8px;padding:7px 9px;margin:0 0 8px">\u26a0 Not signed in to Golf Canada \u2014 you cannot remove a score until you sign in. Use Refresh All Handicaps on the Players list to sign in.</p>';
+    h += '<p style="font-size:12px;color:var(--pt-ink-mute);margin:0 0 10px;line-height:1.7">Deletes a score from <b style="color:var(--pt-ink)">your</b> Golf Canada handicap record. You need its <b style="color:#8a6d1f">score id</b> \u2014 Pards Golf prints it on the round card in History for every round it posted for you. If the score was posted somewhere else, look it up below.</p>';
+    h += '<input id="gcRemoveId" type="text" inputmode="numeric" autocomplete="off" placeholder="Score id, e.g. 266247687" style="display:block;width:100%;box-sizing:border-box;height:40px;padding:0 13px;border-radius:10px;border:1.5px solid #ddd;background:var(--pt-card);color:var(--pt-ink);font-size:16px;font-weight:800;letter-spacing:.5px;outline:none;-webkit-appearance:none">';
+    h += '<button onclick="gcRemovePostedScore()" style="display:block;width:100%;background:#8c2323;color:#fff;border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:800;cursor:pointer;box-sizing:border-box;margin-top:8px;-webkit-tap-highlight-color:transparent">\ud83d\uddd1 Remove Score from Golf Canada</button>';
+    h += '<button onclick="gcLookupMyScores()" style="display:block;width:100%;background:#2f5d1c;color:#fff;border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:800;cursor:pointer;box-sizing:border-box;margin-top:8px;-webkit-tap-highlight-color:transparent">\ud83d\udcdc Look up my recent Golf Canada scores</button>';
+    h += '<pre id="gcRemoveResult" style="display:none;margin-top:10px;padding:10px;background:#f4f1ea;border:1px solid #e3ded2;border-radius:8px;font-size:11px;line-height:1.6;color:var(--pt-ink);white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto"></pre>';
+    h += '</div>'; // end FR-135 Golf Canada card
   }
 
   // ── SECTION 4 (non-Me only): Home Club ────────────────────────────────────
@@ -65720,7 +65749,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v612.0';
+    const TOUR_VERSION     = 'pards-tour-v613.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
