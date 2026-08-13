@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.5 s227)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.6 s241)
+     v1.6 (FR-120): the sponsor ask — "Can you sponsor a prize?"
+     Yes/No (default No) + a notes box that appears on Yes. Shown to
+     BOTH answers (a man sending regrets can still sponsor). The day-of
+     sheet shows a 🎁 Sponsor badge and the notes. Needs pards-reg
+     reg-v1.3.0. FR-119 rides in the same worker bump: a one-round
+     event's Format line now shows the round's real format.
      v1.3 (D103): the sheet gate is the STAFF PIN, not the watch-live PIN.
      Wording only on this page — the check itself moved in pards-reg
      reg-v1.2.0 (events.staff_pin). The old label said "Organizer PIN"
@@ -63,12 +69,13 @@
   .agenda{ white-space:pre-line; text-align:right;}
   label{ display:block; letter-spacing:.14em; text-transform:uppercase; font-size:11.5px;
     color:var(--ink-soft); font-weight:500; margin:13px 0 4px;}
-  input[type=text],input[type=email],input[type=tel],input[type=number]{
+  input[type=text],input[type=email],input[type=tel],input[type=number],textarea{
     width:100%; padding:10px 11px; font-family:'Jost',sans-serif; font-size:16px;
     color:var(--ink); background:#fff; border:1px solid var(--hair); border-radius:3px;
     outline:none;
   }
-  input:focus{ border-color:var(--brass);}
+  textarea{ resize:vertical; min-height:56px;}
+  input:focus,textarea:focus{ border-color:var(--brass);}
   .row2{ display:flex; gap:10px;} .row2>div{flex:1;}
   .rsvp-toggle{ display:flex; gap:0; border:1px solid var(--hair); border-radius:3px; overflow:hidden; margin-top:4px;}
   .rsvp-toggle button{
@@ -77,6 +84,7 @@
   }
   .rsvp-toggle button.on{ background:var(--green); color:var(--linen); font-weight:600;}
   .rsvp-toggle button#rsvpNoBtn.on{ background:var(--ink-soft);}
+  .rsvp-toggle button#spNoBtn.on{ background:var(--ink-soft);}
   .btn{
     display:block; width:100%; margin-top:20px; padding:13px 0; cursor:pointer;
     background:var(--green); color:var(--linen); border:0; border-radius:3px;
@@ -112,6 +120,8 @@
   .badge.yes{ background:rgba(29,74,56,.12); color:var(--green);}
   .badge.no{ background:rgba(34,33,28,.10); color:var(--ink-soft);}
   .badge.in{ background:var(--green); color:var(--linen);}
+  .badge.sp{ background:rgba(168,134,60,.15); color:var(--brass);}
+  .prow .spnote{ font-size:12.5px; color:var(--brass); margin-top:2px;}
   .prow .act{ display:flex; gap:8px; margin-top:8px; align-items:center;}
   .prow .act input{ width:92px; padding:7px 8px; font-size:15px;}
   .prow .act button{
@@ -163,6 +173,18 @@
       <input type="email" id="fEmail" autocomplete="email">
       <label for="fPhone">Phone <span id="phoneReq">(optional)</span></label>
       <input type="tel" id="fPhone" autocomplete="tel">
+
+      <!-- FR-120 — the sponsor ask. Visible on Yes AND Regrets. -->
+      <label>Can you sponsor a prize?</label>
+      <div class="rsvp-toggle">
+        <button type="button" id="spYesBtn">Yes</button>
+        <button type="button" id="spNoBtn" class="on">No</button>
+      </div>
+      <div id="spNotesWrap" class="hidden">
+        <label for="fSpNotes">Sponsor notes</label>
+        <textarea id="fSpNotes" rows="2" maxlength="500" placeholder="What would you like to sponsor? (optional)"></textarea>
+      </div>
+
       <button class="btn" id="rsvpSubmit">Send my RSVP</button>
       <div class="err" id="rsvpErr"></div>
     </div>
@@ -307,6 +329,17 @@ function setRsvp(v){
 $('rsvpYesBtn').addEventListener('click', function(){ setRsvp('yes'); });
 $('rsvpNoBtn').addEventListener('click', function(){ setRsvp('no'); });
 
+/* FR-120 (v1.6) — the sponsor ask. Default No; the notes box appears on Yes. */
+var spChoice = 'no';
+function setSp(v){
+  spChoice = v;
+  $('spYesBtn').classList.toggle('on', v === 'yes');
+  $('spNoBtn').classList.toggle('on', v === 'no');
+  $('spNotesWrap').classList.toggle('hidden', v !== 'yes');
+}
+$('spYesBtn').addEventListener('click', function(){ setSp('yes'); });
+$('spNoBtn').addEventListener('click', function(){ setSp('no'); });
+
 $('rsvpSubmit').addEventListener('click', async function(){
   var first = $('fFirst').value.trim(), last = $('fLast').value.trim();
   var email = $('fEmail').value.trim(), phone = $('fPhone').value.trim();
@@ -316,7 +349,9 @@ $('rsvpSubmit').addEventListener('click', async function(){
   if (!first || !last) { errBox.textContent = 'First and last name, please.'; return; }
   if (!email) { errBox.textContent = 'Email is required.'; return; }
   var r = await api('/api/reg/rsvp', {
-    code: evCode, first: first, last: last, email: email, phone: phone, gc_id: gc, rsvp: rsvpChoice
+    code: evCode, first: first, last: last, email: email, phone: phone, gc_id: gc, rsvp: rsvpChoice,
+    sponsor: spChoice,   /* FR-120 */
+    sponsor_notes: spChoice === 'yes' ? $('fSpNotes').value.trim() : ''
   });
   if (!r.ok) { errBox.textContent = (r.data && r.data.error) || 'Something went wrong — try again.'; return; }
   $('rsvpForm').classList.add('hidden');
@@ -329,6 +364,10 @@ $('rsvpSubmit').addEventListener('click', async function(){
   } else {
     $('doneTitle').textContent = 'Sorry you will miss it';
     $('doneMsg').textContent = 'Your regrets are recorded. If plans change, come back any time and change your answer.';
+  }
+  /* FR-120 — acknowledge a sponsor offer on either answer */
+  if (spChoice === 'yes') {
+    $('doneMsg').textContent += ' Thank you for offering to sponsor a prize — the organizer will be in touch.';
   }
 });
 $('doneAgain').addEventListener('click', function(){
@@ -373,13 +412,17 @@ function renderSheet(d){
     var badge = p.checked_in_at
       ? '<span class="badge in">In' + (p.paid_amount != null ? ' · ' + money(p.paid_amount) : '') + '</span>'
       : (p.rsvp === 'yes' ? '<span class="badge yes">RSVP Yes</span>' : '<span class="badge no">RSVP No</span>');
+    /* FR-120 — sponsor badge + notes on the day-of sheet */
+    var spBadge = p.sponsor === 'yes' ? ' <span class="badge sp">&#127873; Sponsor</span>' : '';
+    var spNote = (p.sponsor === 'yes' && p.sponsor_notes)
+      ? '<div class="spnote">&#127873; ' + esc(p.sponsor_notes) + '</div>' : '';
     var contact = [p.email, p.phone].filter(Boolean).map(esc).join(' · ');
     var act = p.checked_in_at
       ? '<div class="act"><button class="undo" data-undo="' + p.id + '">Undo</button></div>'
       : '<div class="act"><input type="number" step="0.01" placeholder="' + esc(d.fee != null ? d.fee : '') + '" data-amt="' + p.id + '">' +
         '<button data-in="' + p.id + '">Check in</button></div>';
-    return '<div class="prow"><div class="top"><span class="nm">' + esc(p.name) + '</span>' + badge + '</div>' +
-      '<div class="contact">' + contact + '</div>' + act + '</div>';
+    return '<div class="prow"><div class="top"><span class="nm">' + esc(p.name) + '</span><span>' + badge + spBadge + '</span></div>' +
+      '<div class="contact">' + contact + '</div>' + spNote + act + '</div>';
   }).join('');
   $('sheetRows').innerHTML = html || '<p class="note">No registrations yet.</p>';
 }
