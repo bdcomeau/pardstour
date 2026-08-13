@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v611.0 -->
+  <!-- pards-tour-v612.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -7630,25 +7630,52 @@ async function gcPostScore(payload){
   }
 }
 
-// ── Golf Canada score remove (v272.0) ──
-// POST {worker}/score/remove — same rails as gcPostScore. golfcanada.ca's UI
-// cannot delete externally-created scores, so removal MUST go through the API.
-// Returns { status, text } raw; fail-soft like gcPostScore.
+// ── Golf Canada score remove (v272.0 · ⭐ REBUILT v612.0 for FR-128) ──
+// POST {worker}/score/remove with { scoreId }. The proxy turns that into
+// golfnet's query form (score/remove?scoreId=N), which is the shape Bruce
+// measured answering live.
+// ⚠⚠ THE BEARER IS NOT SETTLED. Bruce measured the endpoint answering with no
+// token; the v274.0 source comment right below records golfnet refusing with
+// canDelete:false. Neither is proven, so this sends the token when the device
+// has one, sends nothing when it does not, and reports the REAL status either
+// way — the first live call is the measurement. Fail-soft like gcPostScore:
+// a network error resolves with status 0, it never throws.
 async function gcRemoveScore(payload){
-  const cfg = gcConfig();
-  if(!cfg || !cfg.worker || !cfg.username) throw new Error('Not logged in to Golf Canada');
-  const token = await gcGetToken(cfg);
+  const cfg  = gcConfig();
+  const base = ((cfg && cfg.worker) ? cfg.worker : 'https://gc-proxy.bdapple.workers.dev').replace(/\/+$/,'');
+  const headers = {'Content-Type':'application/json'};
   try{
-    const res = await fetch(cfg.worker.replace(/\/+$/,'')+'/score/remove',{
+    if(cfg && cfg.worker && cfg.username){
+      const token = await gcGetToken(cfg);
+      if(token) headers.Authorization = 'Bearer '+token;
+    }
+  }catch(e){ /* no token — carry on without one and let the status speak */ }
+  const sentToken = !!headers.Authorization;
+  try{
+    const res = await fetch(base+'/score/remove',{
       method:'POST',
-      headers:{'Content-Type':'application/json', Authorization:'Bearer '+token},
+      headers,
       body:JSON.stringify(payload)
     });
     const text = await res.text();
-    return { status: res.status, text };
+    return { status: res.status, text, sentToken };
   }catch(e){
-    return { status: 0, text: String(e && e.message || e) };
+    return { status: 0, text: String(e && e.message || e), sentToken };
   }
+}
+
+// ⭐ FR-128 (v612.0) — the posted-score ledger must never name a score that is
+// gone. After a confirmed removal every ledger entry carrying that id is
+// dropped, so the history pill stops painting it. Returns how many it dropped.
+function _gcPostedForget(id){
+  try{
+    const map = _gcPostedGet(); let n = 0;
+    Object.keys(map).forEach(function(k){
+      if(map[k] && String(map[k].id) === String(id)){ delete map[k]; n++; }
+    });
+    if(n) _gcPostedSet(map);
+    return n;
+  }catch(e){ return 0; }
 }
 
 // ═══ GOLF CANADA ROUND POSTING (v278.0) — THE real feature ═══
@@ -8093,188 +8120,97 @@ async function gcModalConfirmTapped(){
   }
 }
 
-// TEMP (v269.0): one-shot GC score-post validation test — Bruce's account only.
-// Remove this function + its Backup-screen accordion once /score/create is validated.
-async function gcScorePostTest(){
-  if(!confirm('Post TEST score to Golf Canada?\n\nDerrick Deck 2 \u00b7 gross 85 \u00b7 dated yesterday\nCard \u2022\u2022\u20221968 (Bruce)\n\nThis hits the LIVE handicap record \u2014 delete the score on golfcanada.ca afterwards.')) return;
-  const el = document.getElementById('gcTestResult');
-  if(el){ el.style.display='block'; el.textContent='Posting\u2026'; }
-  const d = new Date(); d.setDate(d.getDate()-1);
-  const dateIso = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'T14:00:00Z';
-  const payload = {
-    date: dateIso,
-    golfCanadaCardId: '5130031968',  // v274.0: RESTORED — REQUIRED (400 "Unable to calculate differential" without it; v273.0 theory dead)
-    courseId: 18662,
-    teeId: 51226,
-    courseName: 'Derrick Golf & Winter Club',   // v270.0 — golfnet 400 said required
-    teeName: 'Deck 2',                          // v270.0
-    rating: 69.6,                               // v270.0 (D1: Deck 2)
-    slope: 119,                                 // v270.0 (D1: Deck 2)
-    gender: 'Male',
-    holesPlayed: 'EighteenHoles',
-    scaleTypeId: 'EighteenHole',
-    gross: 85,
-    adjScore: 85,
-    isHoleByHole: false,
-    isManualEntry: true,
-    isTrackingStats: false,
-    overrideDuplicateCheck: false
-  };
-  let r;
-  try{ r = await gcPostScore(payload); }
-  catch(e){ r = { status:'ERR', text: String(e && e.message || e) }; }
-  const raw = 'HTTP '+r.status+'\n'+(r.text || '(empty body)');
-  try{ console.log('[GC score test]', payload, raw); }catch(e){}
-  if(el){ el.textContent = raw; }
-  else { alert(raw.slice(0, 1500)); }
+/* ═══════════════════════════════════════════
+   FR-128 (v612.0) — REMOVE A SCORE FROM GOLF CANADA
+   ═══════════════════════════════════════════
+   ⛔ THE DEV ACCORDION IS GONE (his ruling 6, s250). gcScorePostTest,
+   gcScorePostTestHBH, gcRemoveTestScores and gcScgRemoveStuck were deleted
+   with it, along with the shared raw-output pane they all wrote into.
+   ⭐⭐ ONE thing was carried out alive: the raw score lookup. He said "bin it"
+   and reversed inside a minute — "okay - keep it that button" — and later
+   message wins. It is now gcLookupMyScores(), and it lives BESIDE the removal
+   input box (his "yes"), because the only reason to look a raw id up is to
+   paste it into that box.
+   ═══════════════════════════════════════════ */
+
+function _gcRemoveShow(msg, tone){
+  const el = document.getElementById('gcRemoveResult');
+  if(!el){ alert(msg); return; }
+  el.style.display = 'block';
+  el.style.color = tone === 'ok' ? '#9fe8b8' : (tone === 'bad' ? '#ff9c8f' : 'var(--pt-ondark-80)');
+  el.textContent = msg;
 }
 
-// TEMP (v271.0): hole-by-hole GC score-post test — Bruce's account only. Same 85,
-// built from 18 holeScores (Deck 2). Element shape {number, gross} per the
-// score/update Swagger example Bruce captured (July 27).
-// Remove together with gcScorePostTest() + the Backup-screen accordion.
-async function gcScorePostTestHBH(){
-  if(!confirm('Post HOLE-BY-HOLE test score to Golf Canada?\n\nDerrick Deck 2 \u00b7 18 holes \u00b7 gross 85 \u00b7 dated yesterday\nCard \u2022\u2022\u20221968 (Bruce)\n\nThis hits the LIVE handicap record \u2014 delete the score on golfcanada.ca afterwards.')) return;
-  const el = document.getElementById('gcTestResult');
-  if(el){ el.style.display='block'; el.textContent='Posting (hole-by-hole)\u2026'; }
-  const d = new Date(); d.setDate(d.getDate()-1);
-  const dateIso = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'T14:00:00Z';
-  // Deck 2 (teeId 51226) — gross per hole, sums to 85 (out 41 / in 44, par 34/36)
-  const hbhGross = [5,4,5,4,3,6,5,3,6, 5,5,4,5,4,5,4,5,7];
-  const payload = {
-    date: dateIso,
-    golfCanadaCardId: '5130031968',
-    courseId: 18662,
-    teeId: 51226,
-    courseName: 'Derrick Golf & Winter Club',
-    teeName: 'Deck 2',
-    rating: 69.6,
-    slope: 119,
-    gender: 'Male',
-    holesPlayed: 'EighteenHoles',
-    scaleTypeId: 'EighteenHole',
-    gross: 85,
-    adjScore: 85,
-    isHoleByHole: true,
-    holeScores: hbhGross.map((g,i)=>({ number: i+1, gross: g })),   // v272.0: Swagger truth = 'number' (was holeNumber — silently ignored by golfnet)
-    isManualEntry: true,
-    isTrackingStats: false,
-    overrideDuplicateCheck: false
-  };
-  let r;
-  try{ r = await gcPostScore(payload); }
-  catch(e){ r = { status:'ERR', text: String(e && e.message || e) }; }
-  const raw = 'HTTP '+r.status+'\n'+(r.text || '(empty body)');
-  try{ console.log('[GC HBH score test]', payload, raw); }catch(e){}
-  if(el){ el.textContent = raw; }
-  else { alert(raw.slice(0, 1500)); }
-}
-
-// TEMP (v272.0): list Bruce's recent GC scores RAW (proxy score-history?raw=1)
-// so the score ids are visible. Remove with the rest of the test accordion.
-async function gcListScoresTest(){
-  const el = document.getElementById('gcTestResult');
-  if(el){ el.style.display='block'; el.textContent='Fetching raw score history\u2026'; }
-  try{
-    const cfg = gcConfig();
-    if(!cfg || !cfg.worker) throw new Error('Not logged in to Golf Canada');
-    const token = await gcGetToken(cfg);
-    const res = await fetch(cfg.worker.replace(/\/+$/,'')+'/score-history?cardId=5130031968&take=6&raw=1',{
-      headers:{ Authorization:'Bearer '+token }
-    });
-    const text = await res.text();
-    let out = 'HTTP '+res.status+'\n';
-    try{ out += JSON.stringify(JSON.parse(text), null, 1).slice(0, 6000); }
-    catch(e){ out += text.slice(0, 6000); }
-    try{ console.log('[GC raw history]', text); }catch(e){}
-    if(el){ el.textContent = out; } else { alert(out.slice(0,1500)); }
-  }catch(e){
-    const msg = 'ERR '+String(e && e.message || e);
-    if(el){ el.textContent = msg; } else { alert(msg); }
+// ⭐ ONE input box (ruling 4) + a confirm step (ruling 5). On the Backup screen,
+// for every player — his words: "for all players in the back-up page".
+async function gcRemovePostedScore(){
+  const inp = document.getElementById('gcRemoveId');
+  const raw = ((inp && inp.value) || '').trim();
+  if(!/^[0-9]{6,12}$/.test(raw)){
+    _gcRemoveShow('Enter the score id first — the number Pards Golf shows on the round card in History, e.g. 266247687.', 'bad');
+    if(inp) inp.focus();
+    return;
+  }
+  if(!confirm('Remove score id '+raw+' from Golf Canada?\n\nThis deletes the score from your Golf Canada handicap record. It is permanent and cannot be undone from this app.')) return;
+  _gcRemoveShow('Removing score id '+raw+'\u2026', 'info');
+  const r = await gcRemoveScore({ scoreId: raw });
+  const via = r.sentToken ? 'signed in to Golf Canada' : 'not signed in — sent without a token';
+  if(r.status >= 200 && r.status < 300){
+    const forgot = _gcPostedForget(raw);
+    if(inp) inp.value = '';
+    try{ if(typeof renderHistory === 'function') renderHistory(); }catch(e){}
+    _gcRemoveShow('✓ Score id '+raw+' removed from Golf Canada.'
+      + '\nHTTP '+r.status+' · '+via
+      + (forgot ? '\nThe score id has been cleared from '+forgot+' round card'+(forgot>1?'s':'')+' in History.' : '')
+      + (r.text ? '\n\n'+String(r.text).slice(0,800) : ''), 'ok');
+  } else if(r.status === 0){
+    _gcRemoveShow('⚠ Could not reach Golf Canada.\n'+String(r.text||'').slice(0,600)+'\n\nNothing was removed. Try again when you have a signal.', 'bad');
+  } else {
+    _gcRemoveShow('⚠ Golf Canada refused the removal.\nHTTP '+r.status+' · '+via
+      + '\n\n'+String(r.text||'(empty response)').slice(0,900)
+      + '\n\nNothing was removed.', 'bad');
   }
 }
 
-// TEMP (v272.0): remove the two test 85s. Fetches raw history, finds records
-// with gross 85, confirms, then POSTs /score/remove with { id } for each.
-// If golfnet's validator wants more fields, the raw 400 will name them.
-async function gcRemoveTestScores(){
-  const el = document.getElementById('gcTestResult');
-  if(el){ el.style.display='block'; el.textContent='Fetching raw score history\u2026'; }
+// ⭐⭐ KEPT AT HIS REVERSAL (trap 122). Carried out of the ripped Dev accordion
+// and re-homed beside the removal box. It is the ONLY thing in the app that can
+// find the id of a score posted anywhere other than this app — which is exactly
+// why he kept it.
+// ⛔ The old copy hardcoded Bruce's own card number. It now reads the ME
+// contact's Golf Canada id, so every player sees THEIR OWN scores and nobody
+// else's.
+async function gcLookupMyScores(){
+  _gcRemoveShow('Looking up your recent Golf Canada scores\u2026', 'info');
   try{
     const cfg = gcConfig();
-    if(!cfg || !cfg.worker) throw new Error('Not logged in to Golf Canada');
+    if(!cfg || !cfg.worker || !cfg.username) throw new Error('Not signed in to Golf Canada. Sign in from Settings → Manage Players first.');
+    let gid = '';
+    try{
+      const me = loadContacts().find(function(c){ return c && c.me; });
+      gid = ((me && me.golfId) || '').trim();
+    }catch(e){}
+    if(!/^[0-9]{10}$/.test(gid)) throw new Error('No Golf Canada id on your own contact. Set your 10-digit Golf Canada number on the ME contact first.');
     const token = await gcGetToken(cfg);
-    const res = await fetch(cfg.worker.replace(/\/+$/,'')+'/score-history?cardId=5130031968&take=10&raw=1',{
+    const res = await fetch(cfg.worker.replace(/\/+$/,'')+'/score-history?cardId='+encodeURIComponent(gid)+'&take=10&raw=1',{
       headers:{ Authorization:'Bearer '+token }
     });
     const text = await res.text();
-    if(!res.ok){ if(el){ el.textContent='History HTTP '+res.status+'\n'+text.slice(0,3000); } return; }
-    const data = JSON.parse(text);
-    const recs = data.data || data.scores || (Array.isArray(data) ? data : []);
-    const hits = recs.filter(function(rec){ return (rec.grossScore===85 || rec.gross===85); });
-    if(!hits.length){ if(el){ el.textContent='No gross-85 scores found in the last '+recs.length+' records.'; } return; }
-    const idOf = function(rec){
-      var id = (rec.id != null ? rec.id : (rec.gameScoreId != null ? rec.gameScoreId : (rec.gcGameScoreId != null ? rec.gcGameScoreId : rec.scoreId)));
-      return id;
-    };
-    const lines = hits.map(function(rec){ return 'id '+idOf(rec)+' \u00b7 '+(rec.playedOn||rec.date||'?')+' \u00b7 gross '+(rec.grossScore!=null?rec.grossScore:rec.gross); });
-    if(!confirm('Remove '+hits.length+' test score(s) from Golf Canada?\n\n'+lines.join('\n')+'\n\nThis is permanent.')) return;
-    let out = '';
-    for(let i=0;i<hits.length;i++){
-      const id = idOf(hits[i]);
-      if(id == null){ out += 'SKIP: no id field found on record '+i+' \u2014 keys: '+Object.keys(hits[i]).join(',')+'\n'; continue; }
-      const r = await gcRemoveScore({ id: id });
-      out += 'remove id '+id+' \u2192 HTTP '+r.status+'\n'+(r.text||'(empty body)').slice(0,800)+'\n\n';
-    }
-    try{ console.log('[GC remove test scores]', out); }catch(e){}
-    if(el){ el.textContent = out; } else { alert(out.slice(0,1500)); }
+    if(!res.ok){ _gcRemoveShow('Golf Canada returned HTTP '+res.status+'\n\n'+text.slice(0,900), 'bad'); return; }
+    let recs = [];
+    try{
+      const data = JSON.parse(text);
+      recs = data.data || data.scores || (Array.isArray(data) ? data : []);
+    }catch(e){}
+    if(!recs.length){ _gcRemoveShow('No scores came back for card '+gid+'.\n\n'+text.slice(0,900), 'info'); return; }
+    const lines = recs.map(function(rec){
+      const id = (rec.id != null ? rec.id : (rec.gameScoreId != null ? rec.gameScoreId : (rec.gcGameScoreId != null ? rec.gcGameScoreId : rec.scoreId)));
+      const on = String(rec.playedOn || rec.date || '?').slice(0,10);
+      const gross = (rec.grossScore != null ? rec.grossScore : (rec.gross != null ? rec.gross : '?'));
+      return 'score id '+(id == null ? '(none on this record)' : id)+'  ·  '+on+'  ·  gross '+gross;
+    });
+    _gcRemoveShow('Your last '+recs.length+' Golf Canada scores — copy an id into the box above:\n\n'+lines.join('\n'), 'info');
   }catch(e){
-    const msg = 'ERR '+String(e && e.message || e);
-    if(el){ el.textContent = msg; } else { alert(msg); }
-  }
-}
-
-// TEMP (v274.0): remove the two STUCK test scores via the SCG surface.
-// golfnet /score/remove refused them (canDelete:false — golfnet-born scores are
-// "external" to Score Centre). But scg.golfcanada.ca/api shares one score
-// id-space and its DELETE /api/scores/{id} (site-captured, 204) is how the UI
-// deletes. Trying our existing golfnet token there — same CfDJ8 key ring as the
-// site's tokens, so it should authenticate. 401 = need the scg token flow.
-async function gcScgRemoveStuck(){
-  // v276.0: generic remove-by-id (the old hardcoded pair is deleted history —
-  // and hardcoding ids without dates is how a real score nearly got lost).
-  const idsRaw = prompt('Score id(s) to DELETE via SCG (comma-separated):', '265005880');
-  if(idsRaw == null) return;
-  const STUCK = idsRaw.split(',').map(function(s){ return s.trim(); }).filter(function(s){ return /^[0-9]+$/.test(s); });
-  if(!STUCK.length){ alert('No valid numeric ids.'); return; }
-  const el = document.getElementById('gcTestResult');
-  if(!confirm('Remove '+STUCK.length+' score(s) via SCG?\n\nids: '+STUCK.join(', ')+'\n\nDELETE scg.golfcanada.ca/api/scores/{id}\n\nThis is PERMANENT \u2014 double-check the ids against dates first.')) return;
-  if(el){ el.style.display='block'; el.textContent='Removing via SCG\u2026'; }
-  try{
-    const cfg = gcConfig();
-    if(!cfg || !cfg.worker) throw new Error('Not logged in to Golf Canada');
-    // v275.0: golfnet tokens 401 on the SCG surface (proven). Accept a fresh
-    // access token pasted from a logged-in scg.golfcanada.ca DevTools session
-    // (any API request -> Request Headers -> authorization). Blank falls back
-    // to the app's golfnet token (will 401 until an scg token flow exists).
-    let token = prompt('Paste SCG access token from golfcanada.ca DevTools\n(the part AFTER "Bearer "; blank = use app token):') || '';
-    token = token.trim().replace(/^Bearer\s+/i,'');
-    if(!token) token = await gcGetToken(cfg);
-    let out = '';
-    for(let i=0;i<STUCK.length;i++){
-      const res = await fetch(cfg.worker.replace(/\/+$/,'')+'/scg/score/remove',{
-        method:'POST',
-        headers:{'Content-Type':'application/json', Authorization:'Bearer '+token},
-        body:JSON.stringify({ id: STUCK[i] })
-      });
-      const text = await res.text();
-      out += 'scg remove '+STUCK[i]+' \u2192 HTTP '+res.status+(res.status===204?' (deleted)':'')+'\n'+(text||'(empty body)').slice(0,800)+'\n\n';
-    }
-    try{ console.log('[SCG remove stuck]', out); }catch(e){}
-    if(el){ el.textContent = out; } else { alert(out.slice(0,1500)); }
-  }catch(e){
-    const msg = 'ERR '+String(e && e.message || e);
-    if(el){ el.textContent = msg; } else { alert(msg); }
+    _gcRemoveShow('⚠ '+String(e && e.message || e), 'bad');
   }
 }
 
@@ -18936,30 +18872,28 @@ function renderBackup(){
       <div id="nassauImportResult" style="display:none;font-size:12px;font-weight:600;margin-top:8px;text-align:center"></div>
     </div>
   </div>`;
-  // 🥚 EASTER EGG (v281.0, Bruce's call): the GC dev accordion is PERMANENT,
-  // but only for Bruce — shown when the ME contact is named "Bruce Comeau"
-  // (AND the Derrick gate passes). Everyone else never sees it. Do NOT remove
-  // with the old TEMP plan; this is the developer's private toolkit.
-  var _gcDevEgg=false; try{ var _m=loadContacts().find(function(c){return c.me;}); _gcDevEgg=!!(_m && _m.name==='Bruce Comeau'); }catch(e){}
-  if(_gcDevEgg && (G.courseId||'derrick-gwc')==='derrick-gwc'){
+  /* ⭐⭐⭐ FR-128 (v612.0) — GOLF CANADA SCORE REMOVAL.
+     This replaces the 🥚 v281.0 dev-accordion easter egg, which Bruce ruled
+     out of the app at s250 ("you can probably remove all of this"). The egg was
+     Bruce-only and Derrick-only; THIS BLOCK IS FOR EVERY PLAYER — his words,
+     "for all players in the back-up page".
+     ⛔ Nothing went until the replacement stood: same build, same push. */
   html+=`<div style="margin-bottom:14px;border:1px solid var(--pt-ondark-25);border-radius:10px;overflow:hidden">
-    <div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.querySelector('.gct-arrow').textContent=this.nextElementSibling.style.display==='block'?'\u25b2':'\u25bc'" style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;background:var(--pt-ondark-08)">
-      <span style="font-size:13px;font-weight:600;color:var(--pt-ondark-60)">\ud83e\uddea Dev: Golf Canada Score Post Test</span>
-      <span class="gct-arrow" style="font-size:11px;color:var(--pt-ondark-50)">\u25bc</span>
+    <div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.querySelector('.gcr-arrow').textContent=this.nextElementSibling.style.display==='block'?'\u25b2':'\u25bc'" style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;background:var(--pt-ondark-08)">
+      <span style="font-size:13px;font-weight:600;color:var(--pt-ondark-60)">\u26f3 Golf Canada — Remove a Posted Score</span>
+      <span class="gcr-arrow" style="font-size:11px;color:var(--pt-ondark-50)">\u25bc</span>
     </div>
     <div style="display:none;padding:12px 14px;background:var(--pt-wash-15)">
       <div style="font-size:12px;color:var(--pt-ondark-60);margin-bottom:10px;line-height:1.7">
-        Posts one <b>test score</b> (Derrick Deck 2, gross 85, dated yesterday) to <b>Bruce's</b> Golf Canada record and shows the raw response. <b style="color:var(--pt-danger-bright)">Live handicap record \u2014 delete the score on golfcanada.ca after checking.</b>
+        Deletes a score from <b style="color:var(--pt-ondark-80)">your</b> Golf Canada handicap record. You need its <b style="color:var(--gold)">score id</b> — Pards Golf prints it on the round card in History for every round it posted for you. If the score was posted somewhere else, look it up below.
+        <div style="margin-top:8px;color:var(--pt-danger-bright);font-weight:700">⚠️ This is permanent. Check the id against the date before you tap.</div>
       </div>
-      <button onclick="gcScorePostTest()" style="display:block;width:100%;background:#6b3a1f;color:var(--pt-white);border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;box-sizing:border-box">\ud83e\uddea Post Test Score (85)</button>
-      <button onclick="gcScorePostTestHBH()" style="display:block;width:100%;background:#1f4a6b;color:var(--pt-white);border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;box-sizing:border-box;margin-top:8px">\ud83e\uddea Post Test Score (85, hole-by-hole)</button>
-      <button onclick="gcListScoresTest()" style="display:block;width:100%;background:#3a5a1f;color:var(--pt-white);border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;box-sizing:border-box;margin-top:8px">\ud83d\udcdc List Recent GC Scores (raw)</button>
-      <button onclick="gcRemoveTestScores()" style="display:block;width:100%;background:#6b1f1f;color:var(--pt-white);border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;box-sizing:border-box;margin-top:8px">\ud83d\uddd1 Remove Test 85s</button>
-      <button onclick="gcScgRemoveStuck()" style="display:block;width:100%;background:#4a1f6b;color:var(--pt-white);border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;box-sizing:border-box;margin-top:8px">\ud83e\uddf9 Remove Scores by ID (SCG)</button>
-      <pre id="gcTestResult" style="display:none;margin-top:10px;padding:10px;background:var(--pt-wash-35);border-radius:8px;font-size:11px;line-height:1.5;color:#9fe8b8;white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto"></pre>
+      <input id="gcRemoveId" type="text" inputmode="numeric" autocomplete="off" placeholder="Score id, e.g. 266247687" style="display:block;width:100%;box-sizing:border-box;padding:11px 12px;border-radius:8px;border:1px solid var(--pt-ondark-25);background:var(--pt-wash-35);color:var(--pt-white);font-size:15px;font-weight:700;letter-spacing:.5px">
+      <button onclick="gcRemovePostedScore()" style="display:block;width:100%;background:#6b1f1f;color:var(--pt-white);border:none;border-radius:8px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;box-sizing:border-box;margin-top:8px">\ud83d\uddd1 Remove Score from Golf Canada</button>
+      <button onclick="gcLookupMyScores()" style="display:block;width:100%;background:#3a5a1f;color:var(--pt-white);border:none;border-radius:8px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;box-sizing:border-box;margin-top:8px">\ud83d\udcdc Look up my recent Golf Canada scores</button>
+      <pre id="gcRemoveResult" style="display:none;margin-top:10px;padding:10px;background:var(--pt-wash-35);border-radius:8px;font-size:11px;line-height:1.6;color:var(--pt-ondark-80);white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto"></pre>
     </div>
   </div>`;
-  }
   html+=`<div style="font-size:11px;color:var(--pt-ondark-45);text-align:center;line-height:1.6;padding:0 8px">Export opens the share sheet — save to Files, iCloud Drive, or email. A backup in iCloud is accessible from all your devices. This is the <b>only</b> way to recover your data if the app is ever deleted or reinstalled.</div>`;
   html+='</div>';
   el.innerHTML=html;
@@ -19607,6 +19541,36 @@ function renderHistory(){
         + 'cursor:pointer;-webkit-tap-highlight-color:transparent">\uD83D\uDD04 Rematch</button>'
         : '';
 
+      /* ⭐⭐ FR-128 (v612.0) — THE GOLF CANADA SCORE ID, ON THE REMATCH ROW,
+         RIGHT SIDE (his ruling 2, marked up on his own screenshot).
+         Ruling 3: it reads the LOCAL posted-score ledger and nothing else, so
+         it paints for the man who posted the score and for nobody else, on no
+         other device. ⛔ NEVER GUESS — no ledger entry for this round's date
+         means no pill. Rounds posted before the ledger existed, and rounds
+         whose key drifted to 'r:nodate', simply do not paint one.
+         ⛔ This is a READ. Nothing new is captured; the id has been written by
+         gcModalConfirmTapped since v269.0. */
+      const gcPill = (function(){
+        try{
+          const _rec = _gcPostedGet()['r:'+(r.roundDate||'')];
+          if(!_rec || !_rec.id) return '';
+          return '<span style="margin-top:6px;margin-left:auto;padding:6px 12px;background:var(--pt-green-deep);'
+            + 'color:var(--pt-gold);border:1.5px solid var(--pt-gold-a45);border-radius:20px;'
+            + 'font-size:11px;font-weight:800;white-space:nowrap">'
+            + '\u26f3 Posted to Golf Canada \u00b7 score id ' + _rec.id + '</span>';
+        }catch(e){ return ''; }
+      })();
+      /* Rematch left, score id RIGHT — and right on a PHONE too.
+         ⛔ space-between was wrong: the pill is ~250px and Rematch ~110px, so
+         at 414px the row WRAPS, and on a wrapped line space-between puts the
+         lone pill hard LEFT. The gate caught it 99px left of the Rematch
+         button. `margin-left:auto` is right on ONE line and right on TWO, so
+         his ruling holds at every width. */
+      const rematchRow = (rematchBtn || gcPill)
+        ? '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
+          + rematchBtn + gcPill + '</div>'
+        : '';
+
       // Side Bets summary pill — for isSideBets history records
       const sideBetsBtn = r.isSideBets
         ? '<button onclick="event.stopPropagation();openSideBetsFromHistory(' + i + ')" '
@@ -19645,7 +19609,7 @@ function renderHistory(){
           ${mcNamesLine}
           ${gameSum}
           ${resumeBtn}
-          ${rematchBtn}
+          ${rematchRow}
           ${sideBetsBtn}
           ${scoreRoundBtn}
           <div style="display:flex;justify-content:flex-end;margin-top:4px">${lockBtn}</div>
@@ -49452,8 +49416,27 @@ function _ptMRStats(st, ev, r) {
     gL = st.games.map(function (g) { return _ptFmtLabel(g); }).filter(Boolean).join(' · ');
   } catch (e) { gL = ''; }
   var skTxt = st.skinsRow ? (st.skinsRow.on ? 'skins on' : 'skins off') : 'skins not set';
+  /* ⭐ FR-133 (v612.0) — HIS ASK, s252: "add score card swap(s) to this title",
+     with the test he set himself: "as long as at a glance you know what cards
+     are doing".
+     ⛔ NOT A SECOND READER. ptEvCardSwap is the ONE card-swap reader in this
+     app (trap 9) — the round row's D44 chip, the live scorer map and the
+     printed cards all come through it, and so does this.
+     ⭐ AUTO SPEAKS HERE. The D44 chip stays silent on Auto because a chip that
+     says nothing is simply absent; a CAPTION that says nothing fails his own
+     at-a-glance test, so Auto is named out loud. */
+  var _cswTxt = (function () {
+    try {
+      var m = ptEvCardSwap(st.cfg, r).mode;
+      return 'Card Swap: ' + (m === 'pair' ? 'Pair'
+        : m === 'pointer' ? 'Pointer'
+        : m === 'marker' ? 'Marker rotation'
+        : m === 'none' ? 'None' : 'Auto');
+    } catch (e) { return ''; }
+  })();
   S[3] = st.nGames > 0
-    ? D('done', (st.nGames > 1 ? _ptMRPl(st.nGames, 'game') : (gL || '1 game')) + ' · ' + skTxt)
+    ? D('done', (st.nGames > 1 ? _ptMRPl(st.nGames, 'game') : (gL || '1 game')) + ' · ' + skTxt
+        + (_cswTxt ? ' · ' + _cswTxt : ''))
     : D('ready', 'No game chosen yet');
 
   // 4 — ⭐ FR-27's guardrail: no game, nothing to allocate to
@@ -65737,7 +65720,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v611.0';
+    const TOUR_VERSION     = 'pards-tour-v612.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
