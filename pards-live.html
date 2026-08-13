@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.0 -->
+<!-- pards-live-v1.1 -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -59,6 +59,36 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
 .note { font-size:11.5px; color:var(--dim); margin-top:12px; line-height:1.5; text-align:center; }
 .err { color:#ff8f8f; font-size:13px; margin-top:10px; text-align:center; }
 .foot { text-align:center; font-size:10px; color:rgba(233,237,242,.25); margin-top:22px; letter-spacing:.5px; }
+
+/* ── FR-126 DRAFT BOARD (v1.1, s249) ── */
+.dHd { display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+.dTitle { font-size:11px; letter-spacing:1.6px; text-transform:uppercase; color:var(--gold); font-weight:800; }
+.dClock { margin-top:9px; padding:10px 12px; border-radius:10px; border:1px solid rgba(123,216,143,.35);
+  background:rgba(123,216,143,.07); }
+.dClockTop { font-size:10px; text-transform:uppercase; letter-spacing:.8px; color:var(--dim); font-weight:700; }
+.dClockName { font-size:17px; font-weight:800; margin-top:2px; }
+.dClockNeeds { font-size:11.5px; color:var(--dim); margin-top:3px; }
+.dProg { font-size:11px; color:var(--dim); margin-top:9px; }
+.dBar { height:4px; border-radius:3px; background:rgba(255,255,255,.07); margin-top:5px; overflow:hidden; }
+.dBar i { display:block; height:100%; background:var(--gold); }
+.teams { display:grid; grid-template-columns:repeat(auto-fill,minmax(238px,1fr)); gap:9px; margin-top:11px; }
+.team { border:1px solid var(--line); border-radius:10px; padding:9px 10px; background:rgba(255,255,255,.02); }
+.team.onclock { border-color:rgba(123,216,143,.45); background:rgba(123,216,143,.05); }
+.teamNm { font-size:13px; font-weight:800; }
+.teamNm .ord { color:var(--dim); font-weight:700; font-size:11px; margin-right:5px; }
+.slot { display:grid; grid-template-columns:52px 1fr; gap:8px; align-items:center; padding:5px 0;
+  border-top:1px solid rgba(255,255,255,.05); font-size:12.5px; }
+.slot:first-of-type { border-top:0; }
+.slotK { font-size:9px; text-transform:uppercase; letter-spacing:.7px; color:var(--dim); font-weight:800; }
+.slotV { font-weight:650; }
+.slotV.empty { color:rgba(233,237,242,.25); font-weight:600; font-style:italic; }
+.pool { margin-top:12px; }
+.poolHd { font-size:10px; text-transform:uppercase; letter-spacing:.8px; color:var(--dim); font-weight:800;
+  padding-bottom:6px; border-bottom:1px solid var(--line); }
+.poolGrp { margin-top:9px; }
+.poolK { font-size:10px; text-transform:uppercase; letter-spacing:.7px; color:var(--gold); font-weight:800; }
+.poolNames { font-size:12.5px; color:rgba(233,237,242,.78); line-height:1.7; margin-top:2px; }
+.card.done { border-color:rgba(201,168,76,.4); }
 </style>
 </head>
 <body>
@@ -92,7 +122,7 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.0';
+var LIVE_VERSION = 'live-v1.1';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null };
@@ -175,7 +205,14 @@ function paintHeader() {
 }
 
 function refresh() {
-  if (!S.ev || !S.roundId) { gid('app').innerHTML = '<div class="card"><div class="note">No round is open for scoring yet.</div></div>'; return Promise.resolve(); }
+  if (!S.ev || !S.roundId) {
+    /* FR-126: draft night can arrive before any round is scoreable. The board
+       is worth watching on its own; the old sentence stays when there is none. */
+    var _d0 = draftRec();
+    gid('app').innerHTML = (_d0 ? draftCard(_d0) : '')
+      + '<div class="card"><div class="note">No round is open for scoring yet.</div></div>';
+    return Promise.resolve();
+  }
   return jget(API + '/api/events/' + S.ev.id + '/rounds/' + S.roundId + '/leaderboard')
     .then(function (d) { paintBoard(d); })
     .catch(function (e) { gid('app').innerHTML = '<div class="err">' + esc(e.message || 'Could not load') + '</div>'; });
@@ -197,6 +234,12 @@ function paintBoard(d) {
   var key = scoreKey(round.format);
   var rows = (d.standings || []);
   var h = '';
+
+  /* FR-126 ruling 1 — a RUNNING draft is the show; it goes above everything.
+     A FINISHED one is history and rides below the leaderboard (see the tail). */
+  var _dr = draftRec();
+  var _dDone = !!(_dr && (_dr.done || ((_dr.picks || []).length >= (_dr.order || []).length * 3)));
+  if (_dr && !_dDone) h += draftCard(_dr);
 
   if (S.rounds.length > 1) {
     h += '<div class="tabs">';
@@ -229,6 +272,8 @@ function paintBoard(d) {
   }
   h += '</div>';
   h += '<div class="note">Updated ' + (rows.length && rows[0].updated_at ? esc(rows[0].updated_at) + ' UTC' : 'just now') + '</div>';
+  /* FR-126 ruling 3 — the Final teams card stays, under the leaderboard. */
+  if (_dr && _dDone) h += draftCard(_dr);
   gid('app').innerHTML = h;
   Object.keys(S.open).forEach(function (k) { var el = gid(k); if (el && S.open[k]) el.className = 'det on'; });
 }
@@ -288,6 +333,129 @@ function holeMsgs(round) {
     out += '<div class="msg ' + esc(m.tone || '') + '"><div class="msgHole">Hole ' + esc(k) + '</div>' + esc(m.text) + '</div>';
   });
   return out;
+}
+
+/* ══ FR-126 — THE REMOTE DRAFT BOARD (v1.1, s249) ══════════════
+
+   `draft` is the SEVENTH key on the FR-116 allow-list (worker v3.38.0) and the
+   only one this file's existence added. The record is written by the client's
+   draft module on EVERY pick, so this page needs no new route and no polling
+   of its own — the 30-second refresh already running picks it up.
+
+   ⛔ READ-ONLY, like everything else here. ⛔ No money is in the record and
+   none is derived from it: it is four bucket lists, a captain order, the picks
+   and a roster_id→name map.
+
+   Bruce's s249 rulings, which this code obeys:
+     1. While the draft runs, the board sits ABOVE the leaderboard.
+     2. The undrafted men are shown BY NAME — "yes of course".
+     3. When it is done the Final teams card stays, below the leaderboard.
+   ═════════════════════════════════════════════ */
+var DBK = [['captain', 'Captain'], ['second', 'Second'], ['third', 'Third'], ['anchor', 'Anchor']];
+var DNEED = { second: 'a Second', third: 'a Third', anchor: 'an Anchor' };
+
+/* WHICH record: the watched round's, by id. A one-record event answers even if
+   the round tab has moved (a draft night event usually has one round). An event
+   carrying several drafts never guesses — it shows nothing rather than the
+   wrong night's teams. */
+function draftRec() {
+  var all = (S.cfg && S.cfg.draft) || null;
+  if (!all || typeof all !== 'object') return null;
+  var r = all[String(S.roundId)];
+  if (r && typeof r === 'object') return r;
+  var ks = Object.keys(all);
+  return (ks.length === 1 && all[ks[0]] && typeof all[ks[0]] === 'object') ? all[ks[0]] : null;
+}
+
+/* A record written before client v605.0 has no names map. Say "Player 412"
+   rather than nothing — the board still tells you the shape of the night. */
+function dName(rec, rid) {
+  var n = (rec.names || {})[String(rid)];
+  return (n == null || n === '') ? ('Player ' + rid) : String(n);
+}
+
+/* The snake, the client's ptDraftTurn verbatim: pick n (0-based) among C
+   captains → the ORDER INDEX of the captain. Forward on even rounds, reversed
+   on odd. Four lines of wire format, not a second engine. */
+function dTurn(n, C) {
+  var r = Math.floor(n / C), i = n % C;
+  return (r % 2 === 0) ? i : (C - 1 - i);
+}
+
+function draftCard(rec) {
+  var order = rec.order || [];
+  var picks = rec.picks || [];
+  var C = order.length;
+  if (!C) return '';                                  // buckets picked, order not set — nothing to watch yet
+  var total = C * 3;                                  // every captain calls a Second, a Third and an Anchor
+  var done = !!rec.done || picks.length >= total;
+
+  var seats = {};
+  order.forEach(function (c) { seats[String(c)] = { captain: c }; });
+  picks.forEach(function (p) { var t = p && seats[String(p.c)]; if (t) t[p.b] = p.rid; });
+
+  var onClock = null, needs = [];
+  if (!done) {
+    onClock = order[dTurn(picks.length, C)];
+    var has = {};
+    picks.forEach(function (p) { if (p && String(p.c) === String(onClock)) has[p.b] = 1; });
+    needs = ['second', 'third', 'anchor'].filter(function (b) { return !has[b]; });
+  }
+
+  var h = '<div class="card' + (done ? ' done' : '') + '">'
+    + '<div class="dHd"><div class="dTitle">Draft Night</div>'
+    + '<span class="chip' + (done ? '' : ' live') + '">' + (done ? 'Final' : 'On the clock') + '</span></div>';
+
+  if (done) {
+    h += '<div class="dProg" style="margin-top:8px">' + C + ' team' + (C === 1 ? '' : 's')
+      + (rec.at ? ' &middot; drafted ' + esc(String(rec.at).slice(0, 10)) : '') + '</div>';
+  } else {
+    h += '<div class="dClock">'
+      + '<div class="dClockTop">Pick ' + (picks.length + 1) + ' of ' + total
+      + ' &middot; Round ' + (Math.floor(picks.length / C) + 1) + ' of 3</div>'
+      + '<div class="dClockName">' + esc(dName(rec, onClock)) + ' is on the clock</div>'
+      + '<div class="dClockNeeds">Still needs '
+      + needs.map(function (b) { return DNEED[b]; }).join(', ').replace(/, ([^,]*)$/, ' or $1')
+      + '</div></div>'
+      + '<div class="dProg">' + picks.length + ' of ' + total + ' picked</div>'
+      + '<div class="dBar"><i style="width:' + Math.round(picks.length / total * 100) + '%"></i></div>';
+  }
+
+  h += '<div class="teams">';
+  order.forEach(function (c, i) {
+    var t = seats[String(c)] || {};
+    h += '<div class="team' + (!done && String(c) === String(onClock) ? ' onclock' : '') + '">'
+      + '<div class="teamNm"><span class="ord">' + (i + 1) + '</span>Team ' + esc(dName(rec, c)) + '</div>';
+    DBK.forEach(function (b) {
+      var rid = t[b[0]];
+      h += '<div class="slot"><div class="slotK">' + b[1] + '</div>'
+        + '<div class="slotV' + (rid == null ? ' empty' : '') + '">'
+        + (rid == null ? '&mdash;' : esc(dName(rec, rid))) + '</div></div>';
+    });
+    h += '</div>';
+  });
+  h += '</div>';
+
+  /* His ruling 2: the men still on the board, BY NAME. Gone once it is Final —
+     there is nobody left to name. */
+  if (!done) {
+    var taken = {};
+    picks.forEach(function (p) { if (p) taken[String(p.rid)] = 1; });
+    var bk = rec.buckets || {};
+    var left = 0, body = '';
+    [['second', 'Seconds'], ['third', 'Thirds'], ['anchor', 'Anchors']].forEach(function (b) {
+      var men = (bk[b[0]] || []).filter(function (rid) { return !taken[String(rid)]; });
+      if (!men.length) return;
+      left += men.length;
+      body += '<div class="poolGrp"><div class="poolK">' + b[1] + ' &middot; ' + men.length + ' left</div>'
+        + '<div class="poolNames">'
+        + men.map(function (rid) { return esc(dName(rec, rid)); }).join(' &middot; ')
+        + '</div></div>';
+    });
+    if (left) h += '<div class="pool"><div class="poolHd">Still on the board &mdash; ' + left + ' left</div>' + body + '</div>';
+  }
+
+  return h + '</div>';
 }
 
 /* ── TRIP FLAVOUR ────────────────────────────────────────────── */
