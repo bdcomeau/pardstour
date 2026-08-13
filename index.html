@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v606.0 -->
+  <!-- pards-tour-v607.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -44958,11 +44958,21 @@ window.ptDraftFinish = function () {
 /* ── the one renderer — four phases, one overlay ── */
 window._ptDraftPaint = function () {
   var st = window._ptDraft; if (!st) return;
-  var old = document.getElementById('ptDraftOv'); if (old) old.remove();
+  /* ⭐⭐ B-210 (v607.0, s251) — THIS PAINTER DESTROYS AND REBUILDS THE WHOLE
+     OVERLAY ON EVERY TAP, so a brand-new node arrives with scrollTop 0 and a
+     120-man field threw him back to the top on every single seating. Read the
+     scroll off the OLD node here, put it back after the append. One painter,
+     fixed in place (trap 3) — buckets, order and live all get it at once. */
+  var old = document.getElementById('ptDraftOv');
+  var _ptKeepTop  = old ? old.scrollTop : 0;
+  var _od         = document.getElementById('ptDraftDock');
+  var _ptKeepDock = _od ? _od.scrollTop : 0;
+  var _ptWasPhase = window._ptDraftPaintedPhase || null;
+  if (old) old.remove();
   var ov = document.createElement('div');
   ov.id = 'ptDraftOv';
   ov.style.cssText = 'position:fixed;inset:0;z-index:764;background:#10200f;overflow-y:auto';
-  var h = '<div style="max-width:1100px;margin:0 auto;padding:26px 20px 60px;box-sizing:border-box">';
+  var h = '<div id="ptDraftBody" style="max-width:1100px;margin:0 auto;padding:26px 20px 60px;box-sizing:border-box">';
   var close = '<button onclick="window._ptDraftClose()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,.45);font-size:22px;cursor:pointer">✕</button>';
   var esc = _ptEsc;
   if (st.phase === 'buckets') {
@@ -44977,7 +44987,14 @@ window._ptDraftPaint = function () {
         + (on ? 'solid #c9a84c;background:rgba(201,168,76,.2);color:#f5d97a' : 'dashed rgba(245,217,122,.4);background:rgba(255,255,255,.05);color:#fff') + '">' + esc(p.name) + '</button>';
     });
     if (!pool.length) h += '<div style="font-size:12px;color:#7bd88f">Everyone is in a bucket.</div>';
-    h += '</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">';
+    /* ⭐ B-210 (v607.0, s251) — the four buckets ride a dock pinned to the
+       bottom of the viewport so they are always in reach. It is capped at
+       40vh and scrolls itself; the body below reserves its height so the
+       "Buckets are set" button is never covered by it. */
+    h += '</div>'
+      + '<div id="ptDraftDockWrap" style="position:fixed;left:0;right:0;bottom:0;z-index:2;background:#10200f;border-top:1.5px solid rgba(245,217,122,.28);box-shadow:0 -12px 28px rgba(0,0,0,.5)">'
+      + '<div id="ptDraftDock" style="max-width:1100px;margin:0 auto;padding:12px 20px 14px;box-sizing:border-box;max-height:40vh;overflow-y:auto">'
+      + '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">';
     window.ptDraftBuckets.forEach(function (b) {
       h += '<div onclick="ptDraftTapBucket(\'' + b.k + '\')" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);border-radius:14px;padding:12px;cursor:pointer;min-height:90px">'
         + '<div style="font-size:14px;font-weight:900;color:#f5d97a;margin-bottom:8px">' + b.label + ' <span style="color:rgba(255,255,255,.35);font-weight:400">' + (st.buckets[b.k] || []).length + '</span></div>';
@@ -44987,7 +45004,7 @@ window._ptDraftPaint = function () {
       });
       h += '</div>';
     });
-    h += '</div>'
+    h += '</div></div></div>'
       + '<div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:12px">Everyone drafts — the field divides by 4.'
       + (st.off ? ' <span style="color:#ffaa3c">⚠ ' + st.off + ' RSVP-yes ' + (st.off === 1 ? 'man is' : 'men are') + ' not on the roster yet — match ' + (st.off === 1 ? 'him' : 'them') + ' on the Day-of sheet first; ' + (st.off === 1 ? 'he' : 'they') + ' can’t be drafted.</span>' : '') + '</div>'
       + '<button onclick="ptDraftToOrder()" style="width:100%;padding:15px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:13px;font-size:16px;font-weight:900;cursor:pointer;margin-top:14px">Buckets are set — on to the draft order</button>';
@@ -45069,6 +45086,16 @@ window._ptDraftPaint = function () {
   h += '</div>';
   ov.innerHTML = close + h;
   document.body.appendChild(ov);
+  /* B-210 — reserve the dock's height FIRST (it changes scrollHeight, which
+     would clamp the scroll we are about to restore), then put the scroll back.
+     A phase change is a new screen and starts at the top on purpose. */
+  var _dw = document.getElementById('ptDraftDockWrap');
+  var _bd = document.getElementById('ptDraftBody');
+  if (_dw && _bd) _bd.style.paddingBottom = (_dw.offsetHeight + 24) + 'px';
+  if (_ptKeepTop && _ptWasPhase === st.phase) ov.scrollTop = _ptKeepTop;
+  var _dk = document.getElementById('ptDraftDock');
+  if (_dk && _ptKeepDock && _ptWasPhase === st.phase) _dk.scrollTop = _ptKeepDock;
+  window._ptDraftPaintedPhase = st.phase;
 };
 window._ptDraftClose = function () {
   var st = window._ptDraft;
@@ -65620,7 +65647,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v606.0';
+    const TOUR_VERSION     = 'pards-tour-v607.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
