@@ -5,7 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.7 s251)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.8 s255)
+     v1.8 (FR-127): THE FORM IS CONFIG-DRIVEN. The event payload now
+     carries fields{email,phone,sponsor} and the page renders only what
+     is switched on — his word was "dynamic", so this is ONE form that
+     reads the event, not a second "simple" page. All three off leaves
+     NAME + YES/NO. ⭐ An old worker sends no fields[] at all and the
+     page falls back to all-on — today's form, unchanged.
+     ⭐⭐ NAME-ONLY MODE ASKS BEFORE IT WRITES. With no email to dedupe
+     on, the worker answers a look-alike name with needs_confirm and a
+     candidate list; this page shows "Is this you?" and NOTHING is
+     written until he answers. ⛔ Never a silent merge (Bruce, s248).
+     ⛔ NO WALK-UP FORM when the email field is off — his ruling, and
+     the walk-up's own required field is the one that just went away.
+     ⭐ The FORMAT row is unchanged here: the organizer's typed line
+     arrives as `format` and prints on that same row.
      v1.7 (FR-129): THE ENTRY FEE IS PRE-FILLED AT CHECK-IN. His words:
      "having to enter each time is a pain". The amount box was already
      SHOWING the fee — as a grey placeholder, which submits nothing — so
@@ -111,6 +125,16 @@
   footer{ margin-top:22px; text-align:center; font-size:12.5px; color:var(--ink-soft);}
   footer a{ color:var(--green); text-decoration:none; border-bottom:1px dotted var(--brass);}
   .hidden{ display:none !important;}
+  /* FR-127 (v1.8) — a candidate row on the "Is this you?" card */
+  .cand{ display:flex; align-items:center; gap:10px; padding:9px 2px;
+    border-bottom:1px dotted var(--hair);}
+  .cand .cn{ flex:1; font-weight:600; font-size:15px;}
+  .cand .ch{ font-size:12.5px; color:var(--ink-soft); white-space:nowrap;}
+  .cand button{
+    padding:8px 12px; font-family:'Jost',sans-serif; font-size:12px; letter-spacing:.12em;
+    text-transform:uppercase; border-radius:3px; cursor:pointer; font-weight:600;
+    border:1px solid var(--green); background:var(--green); color:var(--linen); white-space:nowrap;
+  }
   /* ---- day-of sheet ---- */
   .totals{
     display:flex; justify-content:space-around; background:var(--green); color:var(--linen);
@@ -181,7 +205,9 @@
       <label for="fPhone">Phone <span id="phoneReq">(optional)</span></label>
       <input type="tel" id="fPhone" autocomplete="tel">
 
-      <!-- FR-120 — the sponsor ask. Visible on Yes AND Regrets. -->
+      <!-- FR-120 — the sponsor ask. Visible on Yes AND Regrets.
+           FR-127 (v1.8) — wrapped so the whole ask hides as one unit. -->
+      <div id="spBlock">
       <label>Can you sponsor a prize?</label>
       <div class="rsvp-toggle">
         <button type="button" id="spYesBtn">Yes</button>
@@ -191,9 +217,20 @@
         <label for="fSpNotes">Sponsor notes</label>
         <textarea id="fSpNotes" rows="2" maxlength="500" placeholder="What would you like to sponsor? (optional)"></textarea>
       </div>
+      </div>
 
       <button class="btn" id="rsvpSubmit">Send my RSVP</button>
       <div class="err" id="rsvpErr"></div>
+    </div>
+
+    <!-- FR-127 (v1.8) — the fuzzy name check. Shown only when the worker
+         asks; it never appears on a form that has an email to key on. -->
+    <div id="dupeCard" class="hidden">
+      <label>Is this you?</label>
+      <p class="note" style="text-align:left;margin-top:0">We already have someone by that name.</p>
+      <div id="dupeList"></div>
+      <button class="btn secondary slim" id="dupeNew">No, I&#39;m someone else</button>
+      <div class="err" id="dupeErr"></div>
     </div>
 
     <!-- closed notice -->
@@ -257,6 +294,9 @@ var REG_API = 'https://pards-reg.bdapple.workers.dev';
 
 var evCode = new URLSearchParams(location.search).get('e') || '';
 var evData = null;
+/* FR-127 (v1.8) — what this event asks for. ⭐ The default is ALL ON, so a
+   page talking to a pre-FR-127 worker behaves exactly as v1.7 did. */
+var evFields = { email: true, phone: true, sponsor: true };
 var sheetPin = '';
 var rsvpChoice = 'yes';
 
@@ -312,6 +352,14 @@ async function loadEvent(){
     return;
   }
   evData = r.data;
+  /* FR-127 — read the switches before anything renders. */
+  var _f = evData.fields || {};
+  evFields = {
+    email: _f.email === false ? false : true,
+    phone: _f.phone === false ? false : true,
+    sponsor: _f.sponsor === false ? false : true
+  };
+  applyFields();
   $('evName').textContent = evData.name;
   $('evBlurb').textContent = evData.blurb || '';
   $('evFacts').innerHTML =
@@ -326,6 +374,29 @@ async function loadEvent(){
     $('closedNotice').classList.remove('hidden');
   }
   show('viewEvent');
+}
+/* FR-127 (v1.8) — ONE place decides what is on screen. Every caller of the
+   form (RSVP, the confirm card, the day-of sheet) reads this, so the page can
+   never disagree with itself about which fields exist. */
+function applyFields(){
+  function box(id, on){
+    var el = $(id); if (!el) return;
+    var lab = document.querySelector('label[for="' + id + '"]');
+    el.classList.toggle('hidden', !on);
+    if (lab) lab.classList.toggle('hidden', !on);
+    if (!on) el.value = '';
+  }
+  box('fEmail', evFields.email);
+  box('fPhone', evFields.phone);
+  var spWrap = $('spBlock');
+  if (spWrap) spWrap.classList.toggle('hidden', !evFields.sponsor);
+  if (!evFields.sponsor) setSp('no');
+  /* ⛔ His s248 ruling — no walk-up at all in simple mode. The walk-up's own
+     required field is the email that just went away, so this is also the only
+     honest thing to do. */
+  var wt = $('walkToggle'), wf = $('walkForm');
+  if (wt) wt.classList.toggle('hidden', !evFields.email);
+  if (wf && !evFields.email) wf.classList.add('hidden');
 }
 function setRsvp(v){
   rsvpChoice = v;
@@ -347,21 +418,36 @@ function setSp(v){
 $('spYesBtn').addEventListener('click', function(){ setSp('yes'); });
 $('spNoBtn').addEventListener('click', function(){ setSp('no'); });
 
-$('rsvpSubmit').addEventListener('click', async function(){
+/* ⭐⭐ FR-127 (v1.8) — ONE SUBMIT ENGINE. The Send button, "Yes that's me" and
+   "No I'm someone else" all come through here with a different `extra`; there
+   is deliberately no second fetch anywhere on this page (trap 9). */
+async function sendRsvp(extra){
   var first = $('fFirst').value.trim(), last = $('fLast').value.trim();
-  var email = $('fEmail').value.trim(), phone = $('fPhone').value.trim();
+  var email = evFields.email ? $('fEmail').value.trim() : '';
+  var phone = evFields.phone ? $('fPhone').value.trim() : '';
   var gc = '';   /* v1.5 — Bruce, s227: GC ID field removed from the form; the worker's dedupe simply skips its first rung */
   var errBox = $('rsvpErr');
   errBox.textContent = '';
+  $('dupeErr').textContent = '';
   if (!first || !last) { errBox.textContent = 'First and last name, please.'; return; }
-  if (!email) { errBox.textContent = 'Email is required.'; return; }
-  var r = await api('/api/reg/rsvp', {
+  /* FR-127 — required only while the organizer is actually asking for it. */
+  if (evFields.email && !email) { errBox.textContent = 'Email is required.'; return; }
+  var body = {
     code: evCode, first: first, last: last, email: email, phone: phone, gc_id: gc, rsvp: rsvpChoice,
-    sponsor: spChoice,   /* FR-120 */
-    sponsor_notes: spChoice === 'yes' ? $('fSpNotes').value.trim() : ''
-  });
-  if (!r.ok) { errBox.textContent = (r.data && r.data.error) || 'Something went wrong — try again.'; return; }
+    sponsor: evFields.sponsor ? spChoice : null,   /* FR-120 */
+    sponsor_notes: (evFields.sponsor && spChoice === 'yes') ? $('fSpNotes').value.trim() : ''
+  };
+  Object.keys(extra || {}).forEach(function(k){ body[k] = extra[k]; });
+  var r = await api('/api/reg/rsvp', body);
+  if (!r.ok) {
+    var box = $('dupeCard').classList.contains('hidden') ? errBox : $('dupeErr');
+    box.textContent = (r.data && r.data.error) || 'Something went wrong — try again.';
+    return;
+  }
+  /* ⭐⭐⭐ FR-127 — the worker has a QUESTION, not a result. Nothing was written. */
+  if (r.data && r.data.needs_confirm) { showDupes(r.data.candidates || []); return; }
   $('rsvpForm').classList.add('hidden');
+  $('dupeCard').classList.add('hidden');
   $('doneCard').classList.remove('hidden');
   if (r.data.rsvp === 'yes') {
     $('doneTitle').textContent = 'See you there, ' + first;
@@ -373,12 +459,39 @@ $('rsvpSubmit').addEventListener('click', async function(){
     $('doneMsg').textContent = 'Your regrets are recorded. If plans change, come back any time and change your answer.';
   }
   /* FR-120 — acknowledge a sponsor offer on either answer */
-  if (spChoice === 'yes') {
+  if (evFields.sponsor && spChoice === 'yes') {
     $('doneMsg').textContent += ' Thank you for offering to sponsor a prize — the organizer will be in touch.';
   }
+}
+$('rsvpSubmit').addEventListener('click', function(){ sendRsvp({}); });
+
+/* FR-127 (v1.8) — the "Is this you?" card. Name and handicap only: the worker
+   sends nothing else, because this page is public and unauthenticated. */
+function showDupes(cands){
+  var h = '';
+  cands.forEach(function(c, i){
+    var hcp = (c.handicap != null && c.handicap !== '') ? ('Hcp ' + esc(c.handicap)) : '';
+    h += '<div class="cand"><span class="cn">' + esc(c.name) + '</span>'
+       + '<span class="ch">' + hcp + '</span>'
+       + '<button type="button" data-cand="' + i + '">Yes, that&#39;s me</button></div>';
+  });
+  $('dupeList').innerHTML = h;
+  window._regCands = cands;
+  $('rsvpForm').classList.add('hidden');
+  $('dupeCard').classList.remove('hidden');
+}
+$('dupeList').addEventListener('click', function(e){
+  var i = e.target.getAttribute && e.target.getAttribute('data-cand');
+  if (i == null) return;
+  var c = (window._regCands || [])[Number(i)];
+  if (!c) return;
+  sendRsvp(c.kind === 'roster' ? { roster_id: c.id } : { reg_id: c.id });
 });
+$('dupeNew').addEventListener('click', function(){ sendRsvp({ confirm_new: true }); });
+
 $('doneAgain').addEventListener('click', function(){
   $('doneCard').classList.add('hidden');
+  $('dupeCard').classList.add('hidden');
   $('rsvpForm').classList.remove('hidden');
 });
 
@@ -423,6 +536,8 @@ function renderSheet(d){
     var spBadge = p.sponsor === 'yes' ? ' <span class="badge sp">&#127873; Sponsor</span>' : '';
     var spNote = (p.sponsor === 'yes' && p.sponsor_notes)
       ? '<div class="spnote">&#127873; ' + esc(p.sponsor_notes) + '</div>' : '';
+    /* FR-127 (v1.8): in name-only mode there is no contact line at all. An
+       empty div is fine — it must not print a stray separator. */
     var contact = [p.email, p.phone].filter(Boolean).map(esc).join(' · ');
     var act = p.checked_in_at
       ? '<div class="act"><button class="undo" data-undo="' + p.id + '">Undo</button></div>'
@@ -456,7 +571,8 @@ $('walkGo').addEventListener('click', async function(){
   var first = $('wFirst').value.trim(), last = $('wLast').value.trim();
   var email = $('wEmail').value.trim();
   $('walkErr').textContent = '';
-  if (!first || !last || !email) { $('walkErr').textContent = 'Name and email are required.'; return; }
+  if (!first || !last) { $('walkErr').textContent = 'Name and email are required.'; return; }
+  if (evFields.email && !email) { $('walkErr').textContent = 'Name and email are required.'; return; }
   var paid = $('wPaid').value !== '' ? Number($('wPaid').value) : null;
   var r = await api('/api/reg/walkup', {
     code: evCode, pin: sheetPin, first: first, last: last,
