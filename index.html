@@ -39988,12 +39988,14 @@ function _ptXmlEsc(s) {
 /* ⭐ HIS COLOURS, HIS WORDS. s257, verbatim: "Green for birdie - dark green
    eagle - orange bogey dark orange double or worse". Par is left white, exactly
    as the Golf Genius sheet he sent.
-   ⚠ The eagle cell in his screenshot reads cyan. HIS WORD WINS: dark green. */
+   ⚠⚠ HE REVERSED IT, s257, one message later: "can we go cyan - you match colors
+   from what I sent?" LATER MESSAGE WINS (trap 122). Eagle is CYAN, read off the
+   Golf Genius sheet he sent, not off the word "dark green" he used first. */
 var _PT_FILLS = {
-  eagle:  'FF2E7D32',   // dark green  — eagle or better
-  birdie: 'FFC6EFCE',   // green       — one under
+  eagle:  'FF66D9D9',   // cyan        — eagle or better
+  birdie: 'FFC6E0B4',   // green       — one under
   bogey:  'FFFCD5B4',   // orange      — one over
-  dbl:    'FFF79646',   // dark orange — two over or worse
+  dbl:    'FFFFA042',   // dark orange — two over or worse
 };
 // style index into cellXfs, below. 0 general · 1 header · 2 plain-centred
 // 3 eagle · 4 birdie · 5 bogey · 6 double+ · 7 totals · 8 name
@@ -40017,7 +40019,7 @@ function _ptStylesXml() {
     + '<fonts count="3">'
     +   '<font><sz val="11"/><name val="Calibri"/></font>'
     +   '<font><b/><sz val="11"/><name val="Calibri"/></font>'
-    +   '<font><b/><color rgb="FFFFFFFF"/><sz val="11"/><name val="Calibri"/></font>'
+    +   '<font><sz val="11"/><name val="Calibri"/></font>'
     + '</fonts>'
     // ⛔ fills 0 and 1 are RESERVED by the spec (none, gray125). Excel repairs
     //    the file if they are not exactly these two, in this order.

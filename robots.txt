@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pardstour.com/sitemap.xml
