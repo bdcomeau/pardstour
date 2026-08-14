@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v615.0 -->
+  <!-- pards-tour-v616.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -35169,9 +35169,21 @@ function _ptUtcToLocal(ts){
         (tt.players || []).forEach(function(seat){
           if (seat.roster_id != null){
             var hd = rHcp[seat.roster_id] != null ? rHcp[seat.roster_id] : 0;
+            /* @@@ B-218 (v616.0, s257) — THE EXPORT'S HANDICAP COLUMN WAS A RAW INDEX.
+               Bruce, s257, asked whether the pro shop takes the index: "adjusted for tee".
+               MEASURED, not guessed. Round 164 (Week 16 - Lauber), from D1:
+                 Bill Burch  roster.handicap 25.3  ·  seat tee 'Deck 3'  ·  round tee 'Deck 2'
+                 derrick-gwc Deck 3 = rating 67.1 / slope 117 / par 70
+                 25.3 x (117/113) + (67.1 - 70) = 23.3 -> 23        <- the playing figure
+               v615.0 printed 25.3. That is his INDEX, off no tee at all.
+               ⛔ NO MATH HERE — the worker's fr52ResolvePlayerHcp already did it, against
+               D1 course_tees for THE ROUND'S course. The phone's own courseHandicap()
+               resolves against G.courseId (the ACTIVE course) and would be wrong for any
+               event not currently loaded. Read the wire; do not re-derive. */
+            var _adj = (seat.effective_course_handicap != null) ? Number(seat.effective_course_handicap) : null;
             players.push({ _key: 'r' + seat.roster_id, name: rName[seat.roster_id] || ('Roster #' + seat.roster_id),
                            roster_id: seat.roster_id, group_id: teamOf[seat.roster_id] || null,
-                           handicap: hd, playing_handicap: hd,
+                           handicap: hd, playing_handicap: hd, export_hcp: _adj,
                            tee: (seat.effective_tee || seat.tee || tee) });
           } else if (seat.group_id != null){
             var tg = gById[seat.group_id] || {};
@@ -39907,7 +39919,7 @@ window.ptExportRoundCards = function (evId, round) {
     var _ros = (r[2] && r[2].players) || [];
     var gcBy = {};
     _ros.forEach(function (p) { if (p && p.id != null && p.ghin) { gcBy[String(p.id)] = String(p.ghin); } });
-    var head = ['Name', 'Golf Canada ID', 'Handicap', 'Tee', 'Flight'];
+    var head = ['Name', 'Golf Canada ID', 'Playing HCP', 'Tee', 'Flight'];
     for (var hh = 1; hh <= 18; hh++) head.push(String(hh));
     /* ⭐⭐ HIS RULING, s255, asked and answered before the push: "Gross only".
        ⛔ NO NET COLUMN. The course is posting scores, not settling a night, and a
@@ -39915,7 +39927,7 @@ window.ptExportRoundCards = function (evId, round) {
        gets the wrong number typed into a handicap system. Handicap stays as its
        own column because it is who the man is, not what he shot. */
     head.push('Out', 'In', 'Gross');
-    var rows = [], noGc = 0;
+    var rows = [], noGc = 0, noAdj = 0;
     cards.forEach(function (g) {
       var sc = g.existing_scores || {};
       (g.players || []).forEach(function (pl) {
@@ -39923,7 +39935,16 @@ window.ptExportRoundCards = function (evId, round) {
         /* A TEAM has no Golf Canada ID — it is not a person. Blank, never a guess. */
         var gc = (!pl._isTeam && pl.roster_id != null) ? (gcBy[String(pl.roster_id)] || '') : '';
         if (!pl._isTeam && !gc) { noGc++; }
-        var row = [pl.name, gc, (pl.handicap != null ? Number(pl.handicap) : ''), (pl.tee || ''), ''];
+        /* B-218 — the tee-adjusted figure if the worker resolved one, else the old
+           raw value, counted so the fallback is never silent. Teams keep their team
+           handicap: it is an agreed number, not an index off a tee. */
+        var _hcell;
+        if (pl.export_hcp != null) { _hcell = Number(pl.export_hcp); }
+        else {
+          _hcell = (pl.handicap != null ? Number(pl.handicap) : '');
+          if (!pl._isTeam) { noAdj++; }
+        }
+        var row = [pl.name, gc, _hcell, (pl.tee || ''), ''];
         /* ⛔ TRAP 17 — the flight rule is NOT re-implemented here. ptEffectiveFlight
            is this app's ONE flight engine: a manual cfg.flight_assign beats the
            rule, and ptAutoFlightName ROUNDS the index before bracketing. Teams
@@ -39956,7 +39977,8 @@ window.ptExportRoundCards = function (evId, round) {
        will bounce the file for, and he should hear it from this app before he
        hears it from them. ⛔ Never a silent gap. */
     ptToast(rows.length + ' score card' + (rows.length === 1 ? '' : 's') + ' exported'
-      + (noGc ? ' \u00b7 ' + noGc + ' with no Golf Canada ID' : ''));
+      + (noGc ? ' \u00b7 ' + noGc + ' with no Golf Canada ID' : '')
+      + (noAdj ? ' \u00b7 ' + noAdj + ' not tee-adjusted' : ''));
   }).catch(function (e) {
     ptToast('Could not export — ' + _ptMsg(e, 'try again'));
   });
@@ -66117,7 +66139,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v615.0';
+    const TOUR_VERSION     = 'pards-tour-v616.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
