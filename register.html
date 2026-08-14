@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.9 s257)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.10 s261)
+     v1.10 (FR-143): FIND YOURSELF FIRST. The type-ahead and the First/Last boxes
+     read as equal doors, so newcomers typed a name that already existed. A lead
+     line now points at the search and a divider demotes the boxes to a fallback.
+     ⛔ COPY ONLY — no new input, no logic change, no worker change.
+     (FR-105, page v1.9 s257)
      v1.9 (FR-139): PICK YOUR NAME FROM THE LEAGUE LIST — type-ahead. Shown
      only when the event payload says `league: true`. Two letters minimum,
      enforced by the WORKER; picking sends roster_id alongside the name. The
@@ -140,6 +145,12 @@
   .pickRow:last-child{ border-bottom:0;}
   .pickRow:hover{ background:#efe9dc;}
   .pickHint{ font-size:12.5px; color:var(--ink-soft); margin-top:6px;}
+  /* FR-143 (v1.10, s261) — the two lines that tell him which door to use.
+     The lead sits ABOVE the search; the fallback DEMOTES the name boxes. */
+  .pickLead{ font-size:12.5px; color:var(--ink-soft); line-height:1.5; margin:12px 0 8px;}
+  .pickLead b{ color:var(--green);}
+  .nameFallback{ font-size:12.5px; color:var(--ink-soft); margin:14px 0 6px;
+    padding-top:12px; border-top:1px dotted var(--hair);}
   .pickHint b{ color:var(--green);}
   .pickLink{ background:none; border:0; padding:0; font:inherit; font-size:12.5px;
     color:var(--green); text-decoration:underline; cursor:pointer;}
@@ -224,6 +235,7 @@
            that — this page cannot pull the league roster wholesale even if it
            tries. Hidden entirely unless the event is a league night. -->
       <div id="pickBox" class="pickBox hidden">
+        <div class="pickLead">Got this link? <b>You&rsquo;re probably already on the list.</b> Type 2 or 3 letters of your name to find yourself — no need to type it all out.</div>
         <label for="fPick">Find your name</label>
         <input type="text" id="fPick" autocomplete="off" autocapitalize="words"
                placeholder="Type 2 or 3 letters…">
@@ -234,6 +246,7 @@
         <div class="pn" id="pickName"></div>
         <button type="button" class="pickLink" id="pickClear">not you?</button>
       </div>
+      <div id="nameFallback" class="nameFallback hidden">Can&rsquo;t find your name above? Type it in here.</div>
       <div class="row2" id="nameRow">
         <div><label for="fFirst">First name</label><input type="text" id="fFirst" autocomplete="given-name"></div>
         <div><label for="fLast">Last name</label><input type="text" id="fLast" autocomplete="family-name"></div>
@@ -444,6 +457,11 @@ function applyFields(){
      types his name exactly as he did at v1.8. The boxes only hide once a
      name has actually been picked. */
   if (nr) nr.classList.toggle('hidden', !!pickedRoster);
+  /* FR-143 (v1.10) — the fallback caption lives and dies with the picker.
+     ⛔ A non-league event never had a search box, so it is never told to
+     use one; and once a name is picked the boxes are gone anyway. */
+  var nf = $('nameFallback');
+  if (nf) nf.classList.toggle('hidden', !evLeague || !!pickedRoster);
   box('fPhone', evFields.phone);
   var spWrap = $('spBlock');
   if (spWrap) spWrap.classList.toggle('hidden', !evFields.sponsor);
