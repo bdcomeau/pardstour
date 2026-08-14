@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.8 s255)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.9 s257)
+     v1.9 (FR-139): PICK YOUR NAME FROM THE LEAGUE LIST — type-ahead. Shown
+     only when the event payload says `league: true`. Two letters minimum,
+     enforced by the WORKER; picking sends roster_id alongside the name. The
+     typed boxes remain the escape hatch for guests and unknown names, and
+     FR-127's fuzzy check still owns that path untouched.
      v1.8 (FR-127): THE FORM IS CONFIG-DRIVEN. The event payload now
      carries fields{email,phone,sponsor} and the page renders only what
      is switched on — his word was "dynamic", so this is ONE form that
@@ -125,6 +130,22 @@
   footer{ margin-top:22px; text-align:center; font-size:12.5px; color:var(--ink-soft);}
   footer a{ color:var(--green); text-decoration:none; border-bottom:1px dotted var(--brass);}
   .hidden{ display:none !important;}
+  /* FR-139 (v1.9) — the league name picker. Same visual language as the
+     FR-127 "Is this you?" rows, because it is the same question asked earlier. */
+  .pickBox{ margin-bottom:14px;}
+  .pickList{ border:1px solid var(--hair); border-radius:4px; margin-top:6px; overflow:hidden;}
+  .pickRow{ display:block; width:100%; text-align:left; padding:11px 12px; font-size:15.5px;
+    font-weight:600; font-family:inherit; color:var(--ink); background:var(--linen);
+    border:0; border-bottom:1px dotted var(--hair); cursor:pointer;}
+  .pickRow:last-child{ border-bottom:0;}
+  .pickRow:hover{ background:#efe9dc;}
+  .pickHint{ font-size:12.5px; color:var(--ink-soft); margin-top:6px;}
+  .pickHint b{ color:var(--green);}
+  .pickLink{ background:none; border:0; padding:0; font:inherit; font-size:12.5px;
+    color:var(--green); text-decoration:underline; cursor:pointer;}
+  .pickChosen{ display:flex; align-items:center; gap:10px; padding:11px 12px;
+    border:1px solid var(--green); border-radius:4px; background:#eef3ec;}
+  .pickChosen .pn{ flex:1; font-weight:700; font-size:16px; color:var(--green-deep);}
   /* FR-127 (v1.8) — a candidate row on the "Is this you?" card */
   .cand{ display:flex; align-items:center; gap:10px; padding:9px 2px;
     border-bottom:1px dotted var(--hair);}
@@ -196,7 +217,24 @@
         <button type="button" id="rsvpYesBtn" class="on">Yes, I'm in</button>
         <button type="button" id="rsvpNoBtn">Regrets</button>
       </div>
-      <div class="row2">
+      <!-- ⭐⭐⭐ FR-139 (v1.9) — PICK YOUR NAME FROM THE LEAGUE LIST.
+           His words, s255: "select your name - yes or no - 2 taps to register for
+           chibri week 17". Ruled TYPE-AHEAD at s256, twice: "I agree - two taps".
+           ⛔ Nothing renders until 2 letters are typed, and the WORKER enforces
+           that — this page cannot pull the league roster wholesale even if it
+           tries. Hidden entirely unless the event is a league night. -->
+      <div id="pickBox" class="pickBox hidden">
+        <label for="fPick">Find your name</label>
+        <input type="text" id="fPick" autocomplete="off" autocapitalize="words"
+               placeholder="Type 2 or 3 letters…">
+        <div id="pickList" class="pickList hidden"></div>
+        <div id="pickHint" class="pickHint"></div>
+      </div>
+      <div id="pickChosen" class="pickChosen hidden">
+        <div class="pn" id="pickName"></div>
+        <button type="button" class="pickLink" id="pickClear">not you?</button>
+      </div>
+      <div class="row2" id="nameRow">
         <div><label for="fFirst">First name</label><input type="text" id="fFirst" autocomplete="given-name"></div>
         <div><label for="fLast">Last name</label><input type="text" id="fLast" autocomplete="family-name"></div>
       </div>
@@ -297,6 +335,14 @@ var evData = null;
 /* FR-127 (v1.8) — what this event asks for. ⭐ The default is ALL ON, so a
    page talking to a pre-FR-127 worker behaves exactly as v1.7 did. */
 var evFields = { email: true, phone: true, sponsor: true };
+/* FR-139 (v1.9) — the league picker. ⭐ `evLeague` is a BOOLEAN off the event
+   payload; the names never ride along with it. A pre-FR-139 worker sends no
+   `league` key at all, so this stays false and the page behaves exactly as
+   v1.8 did — same fail-soft shape FR-127 used. */
+var evLeague = false;
+var pickedRoster = 0;
+var _pickTimer = null;
+var _pickSeq = 0;
 var sheetPin = '';
 var rsvpChoice = 'yes';
 
@@ -359,6 +405,7 @@ async function loadEvent(){
     phone: _f.phone === false ? false : true,
     sponsor: _f.sponsor === false ? false : true
   };
+  evLeague = evData.league === true;   /* FR-139 */
   applyFields();
   $('evName').textContent = evData.name;
   $('evBlurb').textContent = evData.blurb || '';
@@ -387,6 +434,16 @@ function applyFields(){
     if (!on) el.value = '';
   }
   box('fEmail', evFields.email);
+  /* FR-139 — the picker and the typed boxes are two doors to the same field.
+     ⛔ ONE painter decides which is open, so the page can never show both
+     a chosen name and an empty pair of name boxes. */
+  var pb = $('pickBox'), pc = $('pickChosen'), nr = $('nameRow');
+  if (pb) pb.classList.toggle('hidden', !evLeague || !!pickedRoster);
+  if (pc) pc.classList.toggle('hidden', !pickedRoster);
+  /* ⭐ THE ESCAPE HATCH. A guest, or a member the list has never heard of,
+     types his name exactly as he did at v1.8. The boxes only hide once a
+     name has actually been picked. */
+  if (nr) nr.classList.toggle('hidden', !!pickedRoster);
   box('fPhone', evFields.phone);
   var spWrap = $('spBlock');
   if (spWrap) spWrap.classList.toggle('hidden', !evFields.sponsor);
@@ -415,6 +472,70 @@ function setSp(v){
   $('spNoBtn').classList.toggle('on', v === 'no');
   $('spNotesWrap').classList.toggle('hidden', v !== 'yes');
 }
+/* ⭐⭐⭐ FR-139 (v1.9) — THE TYPE-AHEAD.
+   ⛔ TWO letters minimum, checked here AND in the worker. The page check is
+   courtesy; the worker's is the ruling.
+   ⭐ Debounced at 180ms and sequence-guarded, so a fast typist cannot have an
+   older reply overwrite a newer one — the classic out-of-order race. */
+function pickRender(list, q){
+  var box = $('pickList'), hint = $('pickHint');
+  if (!box) return;
+  if (q.length < 2){
+    box.innerHTML = ''; box.classList.add('hidden');
+    hint.textContent = 'Type at least 2 letters of your first or last name.';
+    return;
+  }
+  if (!list.length){
+    box.innerHTML = ''; box.classList.add('hidden');
+    hint.innerHTML = 'No match on the league list — <b>just type your name below.</b>';
+    return;
+  }
+  box.innerHTML = list.map(function(p, i){
+    return '<button type="button" class="pickRow" data-i="' + i + '">' + esc(p.name) + '</button>';
+  }).join('');
+  box.classList.remove('hidden');
+  hint.textContent = list.length === 1 ? 'Tap your name.' : 'Tap your name.';
+  Array.prototype.forEach.call(box.querySelectorAll('.pickRow'), function(btn){
+    btn.addEventListener('click', function(){ pickChoose(list[parseInt(btn.getAttribute('data-i'),10)]); });
+  });
+}
+function pickChoose(p){
+  if (!p) return;
+  pickedRoster = p.id;
+  /* ⭐ The typed boxes are still the thing that gets sent, so they are FILLED,
+     not bypassed — a picked name and a typed name reach the worker in the same
+     shape, and the roster_id rides alongside as the proof. */
+  var bits = String(p.name || '').trim().split(/\s+/);
+  $('fFirst').value = bits.shift() || '';
+  $('fLast').value  = bits.join(' ');
+  $('pickName').textContent = p.name;
+  $('pickList').innerHTML = '';
+  $('pickList').classList.add('hidden');
+  $('pickHint').textContent = '';
+  $('fPick').value = '';
+  $('rsvpErr').textContent = '';
+  applyFields();
+}
+function pickClearFn(){
+  pickedRoster = 0;
+  $('fFirst').value = ''; $('fLast').value = '';
+  $('pickHint').textContent = '';
+  applyFields();
+  var el = $('fPick'); if (el) el.focus();
+}
+if ($('pickClear')) $('pickClear').addEventListener('click', pickClearFn);
+if ($('fPick')) $('fPick').addEventListener('input', function(){
+  var q = $('fPick').value.trim();
+  if (_pickTimer) clearTimeout(_pickTimer);
+  if (q.length < 2){ pickRender([], q); return; }
+  var mine = ++_pickSeq;
+  _pickTimer = setTimeout(async function(){
+    var r = await api('/api/reg/roster?code=' + encodeURIComponent(evCode) + '&q=' + encodeURIComponent(q));
+    if (mine !== _pickSeq) return;                 /* a newer keystroke won */
+    pickRender((r.ok && r.data && r.data.roster) || [], q);
+  }, 180);
+});
+
 $('spYesBtn').addEventListener('click', function(){ setSp('yes'); });
 $('spNoBtn').addEventListener('click', function(){ setSp('no'); });
 
@@ -434,6 +555,9 @@ async function sendRsvp(extra){
   if (evFields.email && !email) { errBox.textContent = 'Email is required.'; return; }
   var body = {
     code: evCode, first: first, last: last, email: email, phone: phone, gc_id: gc, rsvp: rsvpChoice,
+    /* FR-139 — the proof. 0 means nothing was picked and the worker behaves
+       exactly as v1.8: fuzzy check, confirm card, the lot. */
+    roster_id: pickedRoster || undefined,
     sponsor: evFields.sponsor ? spChoice : null,   /* FR-120 */
     sponsor_notes: (evFields.sponsor && spChoice === 'yes') ? $('fSpNotes').value.trim() : ''
   };
