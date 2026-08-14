@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.14 s265)
+     v1.14 (FR-147 layout): STACKED WINNER ROWS. Bruce, s265, off the live
+              card: "it is - but very well formated" — the side-by-side flex
+              row crushed a long game label to three lines and let a four-name
+              team string overflow the card. Game name now sits on its own
+              small-caps line, winners underneath in the serif. CSS only —
+              the markup and renderer are byte-identical to v1.13.
      PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.13 s265)
      v1.13 (FR-147): LAST WEEK'S WINNERS, BELOW THE TAGLINE. Bruce, s264: "have
               a check box to show last weeks winners - a summary on the
@@ -110,17 +117,20 @@
   }
   .blurb{ text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic;
     font-size:18px; color:var(--ink-soft); margin-bottom:12px;}
-  /* FR-147 (v1.13) — last week's winners card */
-  .lastweek{ margin:0 0 12px; padding:10px 14px 6px; background:rgba(168,134,60,.05);
+  /* FR-147 (v1.14) — last week's winners card, stacked rows (v1.13's flex
+     row crushed long labels and overflowed long winner strings) */
+  .lastweek{ margin:0 0 12px; padding:12px 14px 8px; background:rgba(168,134,60,.05);
     border:1px solid rgba(168,134,60,.3); border-radius:10px;}
   .lastweek .lw-title{ text-align:center; letter-spacing:.18em; text-transform:uppercase;
-    font-size:10.5px; color:var(--brass); font-weight:600; margin-bottom:7px;}
-  .lastweek .lw-row{ display:flex; justify-content:space-between; gap:12px;
-    padding:5px 0; border-top:1px dotted var(--hair); font-size:13.5px;}
+    font-size:10.5px; color:var(--brass); font-weight:600; margin-bottom:4px;}
+  .lastweek .lw-row{ display:block; text-align:center; padding:7px 0 5px;
+    border-top:1px dotted var(--hair);}
   .lastweek .lw-row:first-of-type{ border-top:0;}
-  .lastweek .lw-game{ letter-spacing:.1em; text-transform:uppercase; font-size:10.5px;
-    color:var(--ink-soft); font-weight:500; padding-top:2px; text-align:left;}
-  .lastweek .lw-win{ text-align:right; font-weight:600; flex-shrink:0; align-self:center;}
+  .lastweek .lw-game{ display:block; letter-spacing:.14em; text-transform:uppercase;
+    font-size:10px; color:var(--ink-soft); font-weight:500; margin-bottom:2px;}
+  .lastweek .lw-win{ display:block; font-family:'Cormorant Garamond',serif;
+    font-size:16.5px; font-weight:600; color:var(--green-deep); line-height:1.35;
+    overflow-wrap:break-word;}
   .hairline{ border:0; border-top:1px solid var(--hair); margin:16px 0;}
   .hairline.brass{ border-top:1px solid rgba(168,134,60,.55); width:64%; margin:14px auto;}
   .factrow{ display:flex; justify-content:space-between; gap:12px; padding:7px 2px;
