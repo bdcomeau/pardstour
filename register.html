@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.10 s261)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.11 s262)
+     v1.11 (FR-144): THE PICKER IS NO LONGER LEAGUE-ONLY. Bruce, s262: "this
+              should apply to all registration sites - cross reference to roster
+              database". The gate moves from `league` to `picker`, which reg-v1.6.0
+              sends as true for every event and which falls back to `league` so this
+              page still works against an older worker.
      v1.10 (FR-143): FIND YOURSELF FIRST. The type-ahead and the First/Last boxes
      read as equal doors, so newcomers typed a name that already existed. A lead
      line now points at the search and a divider demotes the boxes to a fallback.
@@ -353,6 +358,7 @@ var evFields = { email: true, phone: true, sponsor: true };
    `league` key at all, so this stays false and the page behaves exactly as
    v1.8 did — same fail-soft shape FR-127 used. */
 var evLeague = false;
+var evPicker = false;
 var pickedRoster = 0;
 var _pickTimer = null;
 var _pickSeq = 0;
@@ -419,6 +425,11 @@ async function loadEvent(){
     sponsor: _f.sponsor === false ? false : true
   };
   evLeague = evData.league === true;   /* FR-139 */
+  /* ⭐⭐ FR-144 (v1.11) — the picker is now shown for EVERY event, not just a
+     league night. `picker` is what reg-v1.6.0 sends; the `|| evLeague` fallback
+     means an older worker that has never heard of FR-144 still lights the picker
+     on league events exactly as v1.10 did. ⛔ Fail-soft, never fail-dark. */
+  evPicker = evData.picker === true || evLeague;
   applyFields();
   $('evName').textContent = evData.name;
   $('evBlurb').textContent = evData.blurb || '';
@@ -451,7 +462,7 @@ function applyFields(){
      ⛔ ONE painter decides which is open, so the page can never show both
      a chosen name and an empty pair of name boxes. */
   var pb = $('pickBox'), pc = $('pickChosen'), nr = $('nameRow');
-  if (pb) pb.classList.toggle('hidden', !evLeague || !!pickedRoster);
+  if (pb) pb.classList.toggle('hidden', !evPicker || !!pickedRoster);
   if (pc) pc.classList.toggle('hidden', !pickedRoster);
   /* ⭐ THE ESCAPE HATCH. A guest, or a member the list has never heard of,
      types his name exactly as he did at v1.8. The boxes only hide once a
@@ -461,7 +472,7 @@ function applyFields(){
      ⛔ A non-league event never had a search box, so it is never told to
      use one; and once a name is picked the boxes are gone anyway. */
   var nf = $('nameFallback');
-  if (nf) nf.classList.toggle('hidden', !evLeague || !!pickedRoster);
+  if (nf) nf.classList.toggle('hidden', !evPicker || !!pickedRoster);
   box('fPhone', evFields.phone);
   var spWrap = $('spBlock');
   if (spWrap) spWrap.classList.toggle('hidden', !evFields.sponsor);
@@ -505,7 +516,7 @@ function pickRender(list, q){
   }
   if (!list.length){
     box.innerHTML = ''; box.classList.add('hidden');
-    hint.innerHTML = 'No match on the league list — <b>just type your name below.</b>';
+    hint.innerHTML = 'No match — <b>just type your name below.</b>';
     return;
   }
   box.innerHTML = list.map(function(p, i){
