@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.6 -->
+<!-- pards-live-v1.7 -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>Pards Live</title>
 <style>
-:root { --gold:#c9a84c; --bg:#0b0d10; --card:#14181d; --line:rgba(201,168,76,.16); --txt:#e9edf2; --dim:rgba(233,237,242,.45); }
+:root { --gold:#c9a84c; --bg:#0b0d10; --card:#14181d; --line:rgba(201,168,76,.16); --txt:#e9edf2; --dim:rgba(233,237,242,.78); }
 * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html,body { margin:0; padding:0; background:var(--bg); color:var(--txt);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
@@ -31,17 +31,29 @@ body { padding:0 0 40px; }
 .nm { font-size:14px; font-weight:650; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .thru { font-size:11.5px; color:var(--dim); text-align:right; }
 .sc { font-size:16px; font-weight:800; text-align:right; color:var(--gold); }
-.grid { display:grid; grid-template-columns:repeat(9,1fr); gap:3px; margin-top:8px; }
-.cellHd { font-size:9px; color:var(--dim); text-align:center; padding-bottom:2px; }
-.cell { text-align:center; font-size:12.5px; font-weight:700; padding:5px 0; border-radius:5px;
-  background:rgba(255,255,255,.04); }
+.grid { display:grid; grid-template-columns:repeat(10,1fr); gap:3px; margin-top:8px; }
+.cellHd { font-size:10px; font-weight:700; color:var(--dim); text-align:center; padding-bottom:2px; }
+.cell { text-align:center; font-size:13.5px; font-weight:800; padding:6px 0; border-radius:5px;
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.16); }
 .eag { background:rgba(255,205,60,.24); color:#ffd83c; }
 .bird { background:rgba(123,216,143,.2); color:#7bd88f; }
-.bog { background:rgba(255,255,255,.06); color:rgba(255,255,255,.55); }
+.bog { background:rgba(255,255,255,.14); color:rgba(255,255,255,.92); }
 .dbl { background:rgba(255,110,110,.16); color:#ff8f8f; }
 .det { display:none; padding:4px 2px 12px; border-bottom:1px solid rgba(255,255,255,.05); }
 .det.on { display:block; }
-.detMeta { font-size:11px; color:var(--dim); margin-top:7px; }
+.detMeta { font-size:12px; color:var(--dim); margin-top:7px; }
+/* ⭐⭐⭐ s268 STANDING RULE — Bruce: "whenever there is a scoreboard or display
+   or printout for an individual round ALWAYS include Gross Score TOTALs after
+   front 9 and back nine and total". OUT/IN ride the score grid as a 10th
+   column; the total gets its own strip because it is the number people look
+   for from across a patio. */
+.cellTot { text-align:center; font-size:13.5px; font-weight:800; padding:6px 0; border-radius:5px;
+  background:rgba(201,168,76,.22); border:1px solid rgba(201,168,76,.5); color:var(--gold); }
+.cellTotHd { font-size:10px; font-weight:800; color:var(--gold); text-align:center; padding-bottom:2px; letter-spacing:.5px; }
+.grossBar { display:flex; align-items:baseline; justify-content:center; gap:8px; margin-top:9px;
+  padding:7px 10px; border-radius:8px; background:rgba(201,168,76,.14); border:1px solid rgba(201,168,76,.42); }
+.grossBar b { font-size:19px; font-weight:900; color:var(--gold); letter-spacing:1px; }
+.grossBar span { font-size:10.5px; font-weight:800; color:var(--gold); text-transform:uppercase; letter-spacing:.8px; }
 .msg { border-radius:10px; padding:9px 11px; margin-top:8px; font-size:12.5px; line-height:1.45;
   border:1px solid var(--line); background:rgba(201,168,76,.06); }
 .msg.danger { border-color:rgba(255,110,110,.35); background:rgba(255,110,110,.08); color:#ffb3b3; }
@@ -157,7 +169,7 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.6';
+var LIVE_VERSION = 'live-v1.7';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null };
@@ -324,9 +336,30 @@ function card(r) {
   var pars = (d.course_id && PARS[d.course_id]) ? PARS[d.course_id] : null;
   if (!Object.keys(by).length) return '<div class="detMeta">No holes posted yet.</div>';
   var out = '';
+  /* ⭐⭐⭐ s268 STANDING RULE — gross totals after the front nine, the back nine
+     and overall, on every individual-round scoreboard.
+     ⭐ segTotal sums the holes ACTUALLY POSTED in the segment and returns null
+     when none are. That is the same rule the existing "Gross 42" meta line has
+     always followed at the turn, so the new OUT can never disagree with it —
+     one semantic, not two (the s267 lesson: two surfaces, one rule).
+     ⛔ A segment with nothing posted prints a dot, never a 0. A 0 would read as
+     a score. */
+  var segTotal = function (a, b) {
+    var t = null;
+    for (var k = a; k <= b; k++) {
+      var x = by[k] != null ? by[k] : by[String(k)];
+      if (x != null && !isNaN(Number(x))) t = (t == null ? 0 : t) + Number(x);
+    }
+    return t;
+  };
+  var _outT = segTotal(1, 9), _inT = segTotal(10, 18);
+  var _totT = (_outT == null && _inT == null) ? null : (_outT || 0) + (_inT || 0);
   [[1, 9], [10, 18]].forEach(function (seg) {
+    var isFront = seg[0] === 1;
+    var segT = isFront ? _outT : _inT;
     out += '<div class="grid">';
     for (var i = seg[0]; i <= seg[1]; i++) out += '<div class="cellHd">' + i + '</div>';
+    out += '<div class="cellTotHd">' + (isFront ? 'OUT' : 'IN') + '</div>';
     out += '</div><div class="grid">';
     for (var j = seg[0]; j <= seg[1]; j++) {
       var v = by[j] != null ? by[j] : by[String(j)];
@@ -337,8 +370,12 @@ function card(r) {
       }
       out += '<div class="' + cls + '">' + (v == null ? '&middot;' : v) + '</div>';
     }
+    out += '<div class="cellTot">' + (segT == null ? '&middot;' : segT) + '</div>';
     out += '</div>';
   });
+  if (_totT != null) {
+    out += '<div class="grossBar"><span>Gross Total</span><b>' + _totT + '</b></div>';
+  }
   var meta = [];
   if (d.tee) meta.push('Tee ' + esc(d.tee));
   if (d.playing_handicap != null) meta.push('Playing hcp ' + d.playing_handicap);
@@ -614,7 +651,7 @@ function tickerNotes(d) {
    that opens on 10 has genuinely reached 10, and a thru-count would say 1.
    ⛔ THE ALERTS ARE NOT GATED. They belong to the whole round, carry no hole,
    and are the only thing on the band before the first putt drops.
-   ⛔ THE CARDS ARE NOT GATED EITHER — he ruled the ticker, not the cards, and
+   ✅ THE CARDS ARE GATED TOO, since v1.6 — both read reachedHoles(d) — he ruled the ticker, not the cards, and
    a spectator scrolling the page should still be able to read hole 14.
 
    ⛔⛔ NO MONEY, EVER — ruling 1 stands. These are Bruce's own config lines and
