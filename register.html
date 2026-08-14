@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.12 s262)
+     v1.12 (FR-145): WHO IS IN / WHO IS OUT. Bruce, s262: "should be a toggle
+              filter - who is in - who is out" — and the why: "it helps as the room
+              get noisy - who is left to check in". ⛔ PAGE ONLY: /api/reg/list
+              already returns checked_in_at on every row, so the sheet always had
+              the answer and simply offered no way to ask. No worker, no D1.
+              ⭐ OUT = RSVP YES AND NOT CHECKED IN. Regrets are not "out" — they
+              are not coming — or the count never reaches zero.
      PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.11 s262)
      v1.11 (FR-144): THE PICKER IS NO LONGER LEAGUE-ONLY. Bruce, s262: "this
               should apply to all registration sites - cross reference to roster
@@ -322,6 +330,16 @@
         <div><span class="num" id="tIn">0</span><span class="cap">Checked in</span></div>
         <div><span class="num" id="tYes">0</span><span class="cap">RSVP Yes</span></div>
         <div><span class="num" id="tCash">$0</span><span class="cap">Collected</span></div>
+      </div>
+      <!-- ⭐⭐⭐ FR-145 (v1.12) — the toggle. Same .rsvp-toggle segmented control
+           the RSVP and sponsor asks already use, because this page had the
+           pattern twice over. ⭐ ALL is the default so the sheet opens exactly as
+           v1.11 did; IN and OUT are his two named sides. The OUT count rides on
+           the button itself — the number going to zero IS the job finishing. -->
+      <div class="rsvp-toggle" id="ciFilter" style="margin:2px 0 10px">
+        <button type="button" id="ciAll" class="on">All</button>
+        <button type="button" id="ciIn">Who&rsquo;s in</button>
+        <button type="button" id="ciOut">Who&rsquo;s out</button>
       </div>
       <div id="sheetRows"></div>
       <div class="walkhead" id="walkToggle">+ Walk-up registration</div>
@@ -658,6 +676,11 @@ $('pinGo').addEventListener('click', async function(){
 });
 $('pinInput').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('pinGo').click(); });
 $('sheetRefresh').addEventListener('click', function(){ loadSheet(false); });
+/* FR-145 — one painter, no refetch. */
+function ciSet(v){ ciView = v; if (_regLastSheet) renderSheet(_regLastSheet); }
+$('ciAll').addEventListener('click', function(){ ciSet('all'); });
+$('ciIn').addEventListener('click',  function(){ ciSet('in');  });
+$('ciOut').addEventListener('click', function(){ ciSet('out'); });
 $('walkToggle').addEventListener('click', function(){ $('walkForm').classList.toggle('hidden'); });
 
 async function loadSheet(fromPin){
@@ -670,7 +693,13 @@ async function loadSheet(fromPin){
   $('sheetBody').classList.remove('hidden');
   renderSheet(r.data);
 }
+/* FR-145 (v1.12) — the current side of the toggle, and the last payload so a
+   tap re-renders WITHOUT a refetch. ⭐ Filtering is a render-time decision; the
+   sheet already holds every row it needs. */
+var ciView = 'all';
+var _regLastSheet = null;
 function renderSheet(d){
+  _regLastSheet = d;
   var list = d.list || [];
   var yes = 0, chk = 0, cash = 0;
   list.forEach(function(p){
@@ -681,7 +710,23 @@ function renderSheet(d){
   $('tYes').textContent = String(yes);
   $('tIn').textContent = chk + ' / ' + yes;
   $('tCash').textContent = money(cash);
-  var html = list.map(function(p){
+  /* ⭐⭐ FR-145 — OUT is RSVP YES AND NOT CHECKED IN. ⛔ A man who sent regrets
+     is not "out", he is not coming; counting him means the number never reaches
+     zero at exactly the moment it matters. */
+  var out = 0;
+  list.forEach(function(p){ if (p.rsvp === 'yes' && !p.checked_in_at) out++; });
+  var ob = $('ciOut'); if (ob) ob.innerHTML = 'Who&rsquo;s out' + (out ? ' (' + out + ')' : '');
+  $('ciAll').classList.toggle('on', ciView === 'all');
+  $('ciIn').classList.toggle('on', ciView === 'in');
+  $('ciOut').classList.toggle('on', ciView === 'out');
+  var shown = list.filter(function(p){
+    if (ciView === 'in')  return !!p.checked_in_at;
+    if (ciView === 'out') return p.rsvp === 'yes' && !p.checked_in_at;
+    return true;
+  });
+  /* ⭐ Rows stay FULLY ACTIONABLE on every side of the toggle — his noisy-room
+     ruling. He is not reading the short list, he is clearing it. */
+  var html = shown.map(function(p){
     var badge = p.checked_in_at
       ? '<span class="badge in">In' + (p.paid_amount != null ? ' · ' + money(p.paid_amount) : '') + '</span>'
       : (p.rsvp === 'yes' ? '<span class="badge yes">RSVP Yes</span>' : '<span class="badge no">RSVP No</span>');
@@ -699,7 +744,10 @@ function renderSheet(d){
     return '<div class="prow"><div class="top"><span class="nm">' + esc(p.name) + '</span><span>' + badge + spBadge + '</span></div>' +
       '<div class="contact">' + contact + '</div>' + spNote + act + '</div>';
   }).join('');
-  $('sheetRows').innerHTML = html || '<p class="note">No registrations yet.</p>';
+  $('sheetRows').innerHTML = html || '<p class="note">' + (
+      ciView === 'out' ? 'Everyone who said yes is checked in.'
+    : ciView === 'in'  ? 'Nobody has checked in yet.'
+    : 'No registrations yet.') + '</p>';
   /* FR-129 (v1.7) — the walk-up form gets the same pre-filled fee. Only when
      it is EMPTY, so a Refresh mid-typing never eats what he has entered. */
   _regSheetFee = (d.fee != null) ? d.fee : null;
