@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.13 s265)
+     v1.13 (FR-147): LAST WEEK'S WINNERS, BELOW THE TAGLINE. Bruce, s264: "have
+              a check box to show last weeks winners - a summary on the
+              regisration page". Ruled: card below the tagline · ⛔ no dollar
+              amounts on a public page (the worker never sends any) · auto-pick
+              last week (the worker picks it). ⭐ PAGE ONLY READS `last_week`
+              from the ONE fetch it already makes — an older worker never sends
+              the key and this page renders v1.12 byte-for-byte the same.
      PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.12 s262)
      v1.12 (FR-145): WHO IS IN / WHO IS OUT. Bruce, s262: "should be a toggle
               filter - who is in - who is out" — and the why: "it helps as the room
@@ -102,6 +110,17 @@
   }
   .blurb{ text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic;
     font-size:18px; color:var(--ink-soft); margin-bottom:12px;}
+  /* FR-147 (v1.13) — last week's winners card */
+  .lastweek{ margin:0 0 12px; padding:10px 14px 6px; background:rgba(168,134,60,.05);
+    border:1px solid rgba(168,134,60,.3); border-radius:10px;}
+  .lastweek .lw-title{ text-align:center; letter-spacing:.18em; text-transform:uppercase;
+    font-size:10.5px; color:var(--brass); font-weight:600; margin-bottom:7px;}
+  .lastweek .lw-row{ display:flex; justify-content:space-between; gap:12px;
+    padding:5px 0; border-top:1px dotted var(--hair); font-size:13.5px;}
+  .lastweek .lw-row:first-of-type{ border-top:0;}
+  .lastweek .lw-game{ letter-spacing:.1em; text-transform:uppercase; font-size:10.5px;
+    color:var(--ink-soft); font-weight:500; padding-top:2px; text-align:left;}
+  .lastweek .lw-win{ text-align:right; font-weight:600; flex-shrink:0; align-self:center;}
   .hairline{ border:0; border-top:1px solid var(--hair); margin:16px 0;}
   .hairline.brass{ border-top:1px solid rgba(168,134,60,.55); width:64%; margin:14px auto;}
   .factrow{ display:flex; justify-content:space-between; gap:12px; padding:7px 2px;
@@ -230,6 +249,7 @@
     <div class="crest">You are invited</div>
     <h1 class="display" id="evName">&nbsp;</h1>
     <div class="blurb" id="evBlurb"></div>
+    <div id="evLastWeek" class="lastweek hidden"></div>   <!-- FR-147 (v1.13) — below the tagline, ruled -->
     <hr class="hairline brass">
     <div id="evFacts"></div>
     <hr class="hairline">
@@ -451,6 +471,23 @@ async function loadEvent(){
   applyFields();
   $('evName').textContent = evData.name;
   $('evBlurb').textContent = evData.blurb || '';
+  /* FR-147 (v1.13) — the winners card. `last_week` arrives on the SAME fetch
+     (one fetch stays one fetch — gated). Absent, null, or empty = the div
+     stays hidden and the page is v1.12. ⛔ Names and game names only; the
+     worker strips everything else, and this renderer escapes what it paints. */
+  (function(){
+    var el = $('evLastWeek'), lw = evData.last_week;
+    if (!el) return;
+    if (!lw || !lw.games || !lw.games.length) { el.classList.add('hidden'); el.innerHTML = ''; return; }
+    var h = '<div class="lw-title">Last week' + (lw.name ? ' — ' + esc(lw.name) : '') + '</div>';
+    lw.games.forEach(function(g){
+      if (!g || !g.name || !(g.winners || []).length) return;
+      h += '<div class="lw-row"><span class="lw-game">' + esc(g.name) + '</span>'
+         + '<span class="lw-win">' + g.winners.map(esc).join(' · ') + '</span></div>';
+    });
+    el.innerHTML = h;
+    el.classList.remove('hidden');
+  })();
   $('evFacts').innerHTML =
     fact('Date', fmtDate(evData.date)) +
     fact('Course', evData.course_name) +
