@@ -52090,6 +52090,9 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
   // exactly the drift class D43 stage 2 retires (TV ← shared view models).
   if (st && st.rows && st.rows.length) {
     st.modes.forEach(function (mode) {
+      /* ⛔ s269 (Bruce, four red-pen TV screenshots, MCC R1): "I want no net score
+         screens". The Overall — Net pane never builds on a TV. Phone boards untouched. */
+      if (mode === 'net') return;
       /* ⭐⭐⭐ FR-95 (v557.0) — THE ROWS COME THROUGH THE FOLD, not raw. The raw
          rows carry per-round to-par but no TOTAL to-par — only the through-N
          pass adds it up. Handing the raw rows straight to the table printed a
@@ -52109,6 +52112,12 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
       var _prevSecs = _prevN != null ? ptFlightSections(st.cfg, ptMdThrough(st.rows, _allR, _prevN)) : null;
       var _prevR = _prevN != null ? _allR.filter(function (r) { return r.round_number <= _prevN; }) : null;
       var html = '';
+      var _tvPages = [];   /* s269 — Overall is PAGED (his "1/3"): 12 rows a page, ranks run through */
+      /* s269 — "way too many screens": the TV pages the FULL FIELD only. The per-flight
+         repeats (Championship / 4-6 / 7 and Over) would have doubled the page count;
+         a man's flight rides as a tag beside his name instead. Phone board + printed
+         reports keep their flight sections untouched. */
+      secs = secs.slice(0, 1);
       secs.forEach(function (sec) {
         if (mode === 'fold') ptApplyFold(sec.rows, st.rounds);
         /* ⭐ FR-95 — the cap is gone. It showed 14 of 36 men, and a board that
@@ -52126,9 +52135,12 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
             _pso.forEach(function (pp, i) { _pmap[String(pp.roster_id)] = _pr[i]; });
           }
         }
-        if (sec.name) html += '<div style="font-size:2vh;font-weight:900;color:#c9a84c;text-transform:uppercase;letter-spacing:1px;margin:1.2vh 0 .8vh">⛳ ' + _ptEsc(sec.name) + '</div>';
-        html += ptTvTable(sorted, st, mode, _pmap);
+        var _secHdr = sec.name ? '<div style="font-size:2vh;font-weight:900;color:#c9a84c;text-transform:uppercase;letter-spacing:1px;margin:1.2vh 0 .8vh">⛳ ' + _ptEsc(sec.name) + '</div>' : '';
+        for (var _pg = 0; _pg < sorted.length; _pg += 12) {
+          _tvPages.push(_secHdr + ptTvTable(sorted.slice(_pg, _pg + 12), st, mode, _pmap, { all: sorted, start: _pg }));
+        }
       });
+      html = _tvPages.length ? _tvPages[0] : html;
       /* FR-108 (v583.0, s218) — trap 73: a board nobody can EXPLAIN is
          indistinguishable from one that is broken. Bruce asked three times.
          Only when EVERY contributing round was derived; a mixed event's board
@@ -52137,7 +52149,8 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
         html = '<div style="font-size:1.6vh;color:rgba(255,255,255,.45);margin:0 0 1vh;text-align:center">'
              + 'Scored from the team night\u2019s cards \u2014 no separate individual game is set</div>' + html;
       }
-      panes.push({ title: '🏆 Overall — ' + ptModeLabel(mode), html: html });
+      if (_tvPages.length <= 1) panes.push({ title: '🏆 Overall — ' + ptModeLabel(mode), html: html });
+      else _tvPages.forEach(function (_ph, _pi) { panes.push({ title: '🏆 Overall — ' + ptModeLabel(mode) + ' (' + (_pi + 1) + '/' + _tvPages.length + ')', html: _ph }); });
     });
   }
 
@@ -52328,6 +52341,7 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
         }
         if (ptIsIndivRoundFormat(g)) {
           if (!_sIndiv) { _sIndiv = true; return; }   // first indiv game = the builder boards
+          if (ptRoundRule(g) === 'net') return;      /* ⛔ s269 — "no net score screens" on the TV */
           var players2 = window.ptFr17Players(groups, cfg);   // B-95
           var irows2 = window.ptFr20IndivRows(g, r, players2, byP);
           if (!irows2.length) return;
@@ -52360,6 +52374,7 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
     // three". Was slice(-2). ?tv=&r= pinning (D25c) untouched.
     (_ptTv.roundOnly ? withScores.filter(function (r) { return r.round_number === _ptTv.roundOnly; }) : withScores.slice(-1)).reverse().forEach(function (r) {   // v385.0 · D25c
       var rule = ptRoundRule(r.format);
+      if (rule === 'net') return;   /* ⛔ s269 — "no net score screens" on the TV */
       var rows = st.rows.filter(function (p) { return p.rounds[r.round_number]; })
         /* ⭐⭐ B-156 · B-158 (v534.0) — a per-round board takes the label THIS
            round owns; the flat one is the multi-round fallback. */
@@ -52428,7 +52443,7 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
          knows who is winning. Stableford keeps Pts (points are not strokes). */
       var _scLead = scRows.length ? (function(){ var r0 = scRows[0].rounds[scR.round_number]; return scRule === 'gross' ? r0.gross : scRule === 'net' ? r0.net : null; })() : null;
       scHead += '<div style="text-align:center;color:rgba(168,213,181,.8)">' + (scRule === 'stableford' ? 'Pts' : 'LEADER') + '</div></div>';
-      for (var scI = 0; scI < scRows.length && scI < 36; scI += 12) {
+      for (var scI = 0; scI < scRows.length; scI += 12) {   /* s269 — no cap: every man's card rides the rotation */
         var chunk = scRows.slice(scI, scI + 12);
         var scHtml = scLegend + scHead;
         chunk.forEach(function (p) {
@@ -52450,8 +52465,8 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
           var _scGap = (scRule === 'stableford' || _scLead == null || tot == null) ? null : (tot - _scLead);
           scHtml += '<div style="text-align:center;font-size:2vh;font-weight:900;color:#a8d5b5">' + (_scGap == null ? tot : (_scGap === 0 ? 'E' : '+' + _scGap)) + '</div></div>';
         });
-        var scMore = scRows.length > 36 && scI + 12 >= 36 ? '<div style="text-align:center;font-size:1.6vh;color:rgba(255,255,255,.4);margin-top:.6vh">+ ' + (scRows.length - 36) + ' more — see the round board</div>' : '';
-        panes.push({ title: '🗂 Scorecard — Round ' + scR.round_number + (scRows.length > 12 ? ' (' + (Math.floor(scI / 12) + 1) + '/' + Math.min(3, Math.ceil(scRows.length / 12)) + ')' : ''), html: scHtml + scMore });
+        var scMore = '';
+        panes.push({ title: '🗂 Scorecard — Round ' + scR.round_number + (scRows.length > 12 ? ' (' + (Math.floor(scI / 12) + 1) + '/' + Math.ceil(scRows.length / 12) + ')' : ''), html: scHtml + scMore });
       }
     }
   }
@@ -52486,7 +52501,7 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
       }
       var _tscLead = tscRows.length ? tscRows[0].total : null;   // s269 — LEADER column, see the individual pane
       tscHead += '<div style="text-align:center;color:rgba(168,213,181,.8)">LEADER</div></div>';
-      for (var tscI = 0; tscI < tscRows.length && tscI < 36; tscI += 12) {
+      for (var tscI = 0; tscI < tscRows.length; tscI += 12) {   /* s269 — no cap */
         var tscChunk = tscRows.slice(tscI, tscI + 12);
         var tscHtml = tscLegend + tscHead;
         tscChunk.forEach(function (p) {
@@ -52503,8 +52518,8 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
           });
           tscHtml += '<div style="text-align:center;font-size:2vh;font-weight:900;color:#a8d5b5">' + (_tscLead == null || p.total == null ? p.total : (p.total - _tscLead === 0 ? 'E' : '+' + (p.total - _tscLead))) + '</div></div>';
         });
-        var tscMore = tscRows.length > 36 && tscI + 12 >= 36 ? '<div style="text-align:center;font-size:1.6vh;color:rgba(255,255,255,.4);margin-top:.6vh">+ ' + (tscRows.length - 36) + ' more \u2014 see the round board</div>' : '';
-        panes.push({ title: '\ud83d\uddc2 Scorecard \u2014 Round ' + r.round_number + (tscRows.length > 12 ? ' (' + (Math.floor(tscI / 12) + 1) + '/' + Math.min(3, Math.ceil(tscRows.length / 12)) + ')' : ''), html: tscHtml + tscMore });
+        var tscMore = '';
+        panes.push({ title: '\ud83d\uddc2 Scorecard \u2014 Round ' + r.round_number + (tscRows.length > 12 ? ' (' + (Math.floor(tscI / 12) + 1) + '/' + Math.ceil(tscRows.length / 12) + ')' : ''), html: tscHtml + tscMore });
       }
     });
   }
@@ -52549,7 +52564,9 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
   });
 
   // 4 \u00b7 ON COURSE \u2014 finished / still out / not started for the live round
-  if (st && st.rows && st.rows.length) {
+  /* ⛔ s269 (Bruce, red X on the pane): "nothing about who is on the course".
+     The pane never builds. The rest of the block is left in place, unreached. */
+  if (false && st && st.rows && st.rows.length) {
     var live = null;
     if (_ptTv.roundOnly) st.rounds.forEach(function (r) { if (r.round_number === _ptTv.roundOnly) live = r; });   // v385.0 · D25c
     if (!live) st.rounds.forEach(function (r) { if (st.rows.some(function (p) { var rd = p.rounds[r.round_number]; return rd && rd.holes > 0 && rd.holes < 18; })) live = r; });
@@ -52605,37 +52622,45 @@ function _ptErBest(p, st) {
    make the phone board worth watching — To Par on a gross board, and the
    movement against the round before. Prior ranks arrive as pmap (roster id ->
    that man's rank a round ago); no pmap means there is no movement to show. */
-function ptTvTable(sorted, st, mode, pmap) {
+function ptTvTable(sorted, st, mode, pmap, opts) {
+  /* ⭐ s269 (Bruce, red pen on the MCC board): "add a how many over par column on
+     the RIGHT" — To Par now sits after Total. opts {all,start}: the page is a slice
+     of the whole sorted board, so ranks are worked out on the whole and read by
+     offset — page 3 still says 25., not 1. */
   var nR = st.rounds.length;
   var showMove = !!pmap, showTp = (mode === 'gross');
-  var cols = '6vw' + (showMove ? ' 6vw' : '') + ' 1fr' + (showTp ? ' 9vw' : '') + ' 9vw'.repeat(nR) + ' 11vw';
+  var _all = (opts && opts.all) || sorted, _start = (opts && opts.start) || 0;
+  var cols = '6vw' + (showMove ? ' 6vw' : '') + ' 1fr' + ' 9vw'.repeat(nR) + ' 11vw' + (showTp ? ' 9vw' : '');
   var h = '<div style="display:grid;grid-template-columns:' + cols + ';gap:.6vw;padding:.5vh 1vw;font-size:1.7vh;font-weight:800;color:rgba(255,255,255,.4);text-transform:uppercase"><div></div>'
     + (showMove ? '<div style="text-align:center">Move</div>' : '')
-    + '<div>Player</div>'
-    + (showTp ? '<div style="text-align:center;color:rgba(201,168,76,.85)">To Par</div>' : '');
+    + '<div>Player</div>';
   st.rounds.forEach(function (r) { h += '<div style="text-align:center">R' + r.round_number + '</div>'; });
-  h += '<div style="text-align:center;color:rgba(168,213,181,.8)">Total</div></div>';
+  h += '<div style="text-align:center;color:rgba(168,213,181,.8)">Total</div>'
+    + (showTp ? '<div style="text-align:center;color:rgba(201,168,76,.85)">To Par</div>' : '') + '</div>';
   var ranks = [];
-  sorted.forEach(function (p, i) {
-    ranks[i] = (i > 0 && ptMdKey(sorted[i - 1], mode) === ptMdKey(p, mode) && sorted[i - 1].holes === p.holes) ? ranks[i - 1] : i + 1;
+  _all.forEach(function (p, i) {
+    ranks[i] = (i > 0 && ptMdKey(_all[i - 1], mode) === ptMdKey(p, mode) && _all[i - 1].holes === p.holes) ? ranks[i - 1] : i + 1;
   });
   sorted.forEach(function (p, i) {
-    var rk = ranks[i];
+    var rk = ranks[_start + i];
     var med = rk === 1 ? '🥇' : rk === 2 ? '🥈' : rk === 3 ? '🥉' : rk + '.';
     h += '<div style="display:grid;grid-template-columns:' + cols + ';gap:.6vw;align-items:center;padding:1vh 1vw;background:rgba(255,255,255,' + (rk === 1 ? '.09' : '.035') + ');border-radius:1vh;margin-bottom:.6vh">'
       + '<div style="font-size:2.3vh;font-weight:900">' + med + '</div>'
       + (showMove ? '<div style="text-align:center">' + ptMdMoveMark(pmap[String(p.roster_id)] != null ? pmap[String(p.roster_id)] - rk : null, '1.8vh') + '</div>' : '')
       + '<div><span style="font-size:2.3vh;font-weight:800;color:' + (rk === 1 ? '#a8d5b5' : '#ddd') + '">' + _ptEsc(p.name) + '</span>'
       + _ptErMark(_ptErBest(p, st), 'tv')                              // v414.0 \u00b7 FR-01
-      + '<span style="font-size:1.6vh;color:rgba(255,255,255,.35);margin-left:1vw">' + _ptEsc(p.team || '') + '</span></div>'
-      + (showTp ? '<div style="text-align:center;font-size:2.3vh;font-weight:900;color:' + (p.topar < 0 ? '#2ecc71' : p.topar === 0 ? '#f5e6b8' : 'rgba(255,255,255,.75)') + '">' + ptFmtToPar(p.topar) + '</div>' : '');
+      + '<span style="font-size:1.6vh;color:rgba(255,255,255,.35);margin-left:1vw">' + _ptEsc(p.team || '') + '</span>'
+      + (function(){ try { var _fl = (st.cfg && st.cfg.flight_rule) ? ptEffectiveFlight(st.cfg, p) : null; return _fl ? '<span style="font-size:1.4vh;font-weight:800;color:rgba(201,168,76,.85);border:1px solid rgba(201,168,76,.4);border-radius:.6vh;padding:.1vh .6vw;margin-left:1vw;vertical-align:middle">' + _ptEsc(_fl) + '</span>' : ''; } catch (e) { return ''; } })()   /* s269 — flight tag */
+      + '</div>';
     st.rounds.forEach(function (r) {
       var rd = p.rounds[r.round_number];
       var v = mode === 'fold' ? ((p._fold && p._fold.perRound[r.round_number] != null) ? p._fold.perRound[r.round_number] : null)
         : rd ? (mode === 'stableford' ? rd.pts : (mode === 'gross' ? rd.gross : rd.net)) : null;
       h += '<div style="text-align:center;font-size:2.1vh;font-weight:700;color:' + (v != null ? 'rgba(255,255,255,.75)' : 'rgba(255,255,255,.2)') + '">' + (v != null ? v : '—') + '</div>';
     });
-    h += '<div style="text-align:center;font-size:2.6vh;font-weight:900;color:' + (rk === 1 ? '#a8d5b5' : '#bbb') + '">' + ptMdKey(p, mode) + '</div></div>';
+    h += '<div style="text-align:center;font-size:2.6vh;font-weight:900;color:' + (rk === 1 ? '#a8d5b5' : '#bbb') + '">' + ptMdKey(p, mode) + '</div>'
+      + (showTp ? '<div style="text-align:center;font-size:2.3vh;font-weight:900;color:' + (p.topar < 0 ? '#e74c3c' : p.topar === 0 ? '#2563eb' : '#f5e6b8') + '">' + ptFmtToPar(p.topar) + '</div>' : '')
+      + '</div>';
   });
   return h;
 }
