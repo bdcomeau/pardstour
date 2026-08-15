@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v653.0 -->
+  <!-- pards-tour-v654.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -52791,6 +52791,39 @@ function ptTvTeesFold(list) {
     m[String(d.round_id)] = rm;
   });
   _ptTv.tees = m;
+  try { ptSheetsFold(list); } catch (e) { }   /* v654.0 — one store, two surfaces */
+}
+/* ⭐⭐⭐ v654.0 (Bruce, s273, green circle on the PHONE board): "magnus should be
+   DNF - bottom of leaderboard here - this is full client app".
+
+   v653 taught the TV. The phone Individual Standings is a different renderer and
+   still ranked him 10th on 84 from one round, level with men who had played two.
+   Same rule, one more surface (trap 9).
+
+   ⛔ THE TV OWNED THE TEE SHEET. _ptTv.tees is TV-only state, so the phone board
+   had nothing to test against. The store lifts out here " + EMD + " ONE map, keyed
+   round_id -> roster_id, filled by whoever gets there first. The TV keeps filling
+   it through ptTvTeesFold above (its own _ptTv.tees is untouched); the phone
+   board's loader fills it through ptSheetsLoad off the same public read.
+   ⭐ Fail-soft: no sheet means no DNF anywhere, which is the v652 board. */
+window._ptSheets = window._ptSheets || {};
+function ptSheetsFold(list) {
+  (list || []).forEach(function (d) {
+    if (!d || d.round_id == null || !d.tee_times) return;
+    var rm = {};
+    d.tee_times.forEach(function (t) { (t.roster_ids || []).forEach(function (rid) { if (rid != null) rm[String(rid)] = 1; }); });
+    window._ptSheets[String(d.round_id)] = rm;
+  });
+}
+/* Never rejects. A missing code, an old worker or a dead edge all resolve to
+   nothing folded, and every board carries on exactly as it did before. */
+function ptSheetsLoad(code, rounds) {
+  if (!code || !rounds || !rounds.length) return Promise.resolve(null);
+  return Promise.all(rounds.map(function (r) {
+    return fetch(TOUR_API + '/api/round-tees/' + encodeURIComponent(String(code)) + '?round_id=' + r.id)
+      .then(_ptJson).catch(function () { return null; });
+  })).then(function (ls) { try { ptSheetsFold(ls); } catch (e) { } return null; })
+     .catch(function () { return null; });
 }
 /* "8:32" (leading zero dropped), "9:04 #10" on a shotgun start. null when the sheet has no line for him. */
 function ptTvTeeLabel(rid, roundId) {
@@ -52840,7 +52873,7 @@ function ptTvGrossRanks(sorted) {
 function ptTvRoundDnf(st, r, rosterId) {
   try {
     if (rosterId == null || !r) return false;
-    var rm = _ptTv.tees && _ptTv.tees[String(r.id)];
+    var rm = (window._ptSheets && window._ptSheets[String(r.id)]) || (_ptTv.tees && _ptTv.tees[String(r.id)]);   /* v654.0 — the shared store first, the TV's own map as the fallback */
     if (!rm || !rm[String(rosterId)]) return false;              /* not on that sheet — say nothing */
     var any = false, open = false;
     (st.rows || []).forEach(function (q) {
@@ -55578,9 +55611,14 @@ function ptRenderIndivLb() {
     h += '<div style="font-size:10px;color:rgba(255,255,255,.32);margin-bottom:10px;padding:0 3px">Standings after Round ' + tab + (showMove ? ' · ▲▼ vs after Round ' + prevN : ' · first round — no movement yet') + '</div>';
   }
   if (_prOnly) h += '<div style="font-size:11px;color:rgba(255,200,100,.6);margin-bottom:10px;padding:0 2px">Mixed-rule rounds · per-round standings only — no overall winner (organizer setting)</div>';
+  h += '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:8px;padding:0 3px">Tap a player to see his scorecard ▼</div>';   /* v654.0 (s273) — say it in words as well as with the chevron */
 
   var rowsNow  = ptMdThrough(st.rows, allR, tab);
   var rowsPrev = showMove ? ptMdThrough(st.rows, allR, prevN) : null;
+  /* ⭐⭐⭐ v654.0 (s273) — who missed a round the field finished. Tagged over the
+     rounds each board actually covers, so the ▲▼ arrow still measures like against like. */
+  ptTvTagDnf(st, rowsNow, shownR);
+  if (rowsPrev) ptTvTagDnf(st, rowsPrev, prevR || allR.filter(function(r){ return r.round_number <= prevN; }));
   var prevR    = showMove ? allR.filter(function(r){ return r.round_number <= prevN; }) : null;
   var secs     = ptFlightRanked(st.cfg, rowsNow);      /* s272 — rank inside the flight */
   var prevSecs = rowsPrev ? ptFlightRanked(st.cfg, rowsPrev) : null;
@@ -55596,7 +55634,13 @@ function ptRenderIndivLb() {
     var ls = mode === 'gross' ? ptTvGrossSort(secs[0].rows) : ptMdSortRows(secs[0].rows, mode);
     if (ls.length) lead = String(ls[0].roster_id);
   }
-  if (st._openTab !== tab) { st._openTab = tab; st.open = _prOnly ? null : lead; }
+  /* ⭐⭐⭐ v654.0 (Bruce, s273): "stop having leader ... expands his record - I want it
+     collapsed". FR-89 re-pinned the leader open on EVERY render, and this board re-renders
+     on a poll, so his two cards kept springing open and shoving 2nd place off the screen.
+     It opens closed. ⛔ ptIndivLbToggle is untouched — a card HE opened stays open, and
+     only a tab change closes it again. (`lead` above is now read by nobody; left in place
+     because the sort it runs is the same one the section below needs anyway.) */
+  if (st._openTab !== tab) { st._openTab = tab; st.open = null; }
 
   var gridCols = '28px' + (showMove ? ' 30px' : '') + ' 1fr' + (showTp ? ' 44px' : '') + ' auto'.repeat(nR) + ' auto';
   secs.forEach(function(sec) {
@@ -55621,25 +55665,29 @@ function ptRenderIndivLb() {
       prevSecs.forEach(function(x){ if (String(x.name) === String(sec.name)) ps = x; });
       if (ps) {
         if (mode === 'fold') ptApplyFold(ps.rows, prevR);
-        var psorted = mode === 'gross' ? ptTvGrossSort(ps.rows) : ptMdSortRows(ps.rows, mode), pranks = mode === 'gross' ? ptTvGrossRanks(psorted) : ptMdRanks(psorted, mode);   /* v647.0 — like against like */
+        var psorted = ptTvDnfLast(mode === 'gross' ? ptTvGrossSort(ps.rows) : ptMdSortRows(ps.rows, mode)), pranks = mode === 'gross' ? ptTvGrossRanks(psorted) : ptMdRanks(psorted, mode);   /* v647.0 — like against like · v654.0 */
         pmap = {};
         psorted.forEach(function(pp, i){ pmap[String(pp.roster_id)] = pranks[i]; });
       }
     }
 
-    var sorted = mode === 'gross' ? ptTvGrossSort(sec.rows) : ptMdSortRows(sec.rows, mode);   /* v647.0 — to par first on gross */
+    var sorted = ptTvDnfLast(mode === 'gross' ? ptTvGrossSort(sec.rows) : ptMdSortRows(sec.rows, mode));   /* v647.0 — to par first on gross · v654.0 — a DNF sits below every man who finished */
     var ranks = mode === 'gross' ? ptTvGrossRanks(sorted) : ptMdRanks(sorted, mode);
     sorted.forEach(function(pr, idx) {
       var rk = ranks[idx];
       var isTop = rk === 1;
       var rid = String(pr.roster_id);
       var isOpen = String(st.open) === rid;
-      var medal = _prOnly ? '·' : rk === 1 ? '🥇' : rk === 2 ? '🥈' : rk === 3 ? '🥉' : String(rk);   // v359.0 — per_round_only shows no ranks
+      var medal = _prOnly ? '·' : pr._dnf ? String(rk) : rk === 1 ? '🥇' : rk === 2 ? '🥈' : rk === 3 ? '🥉' : String(rk);   // v359.0 — per_round_only shows no ranks · v654.0 — no medal on a DNF
       var _onCourse = false;   // v648.0 — set while painting the round cells below
-      h += '<div onclick="ptIndivLbToggle(\'' + rid + '\')" style="display:grid;grid-template-columns:' + gridCols + ';gap:4px;align-items:center;padding:10px;background:' + (isTop ? 'rgba(201,168,76,.12)' : 'rgba(255,255,255,.04)') + ';border:1px solid ' + (isTop ? 'rgba(201,168,76,.3)' : 'rgba(255,255,255,.06)') + ';border-radius:' + (isOpen ? '10px 10px 0 0' : '10px') + ';margin-bottom:' + (isOpen ? '0' : '6px') + ';cursor:pointer;-webkit-tap-highlight-color:transparent">';
+      h += '<div onclick="ptIndivLbToggle(\'' + rid + '\')" style="display:grid;grid-template-columns:' + gridCols + ';gap:4px;align-items:center;padding:10px;background:' + (isTop ? 'rgba(201,168,76,.12)' : 'rgba(255,255,255,.04)') + ';border:1px solid ' + (isTop ? 'rgba(201,168,76,.3)' : 'rgba(255,255,255,.06)') + ';border-radius:' + (isOpen ? '10px 10px 0 0' : '10px') + ';margin-bottom:' + (isOpen ? '0' : '6px') + ';cursor:pointer;-webkit-tap-highlight-color:transparent' + (pr._dnf ? ';opacity:.45' : '') + '">';   /* v654.0 — a DNF is greyed */
       h += '<div style="font-size:' + (rk < 4 ? '16' : '12') + 'px;text-align:center">' + medal + '</div>';
       if (showMove) h += '<div style="text-align:center">' + ptMdMoveMark(pmap ? (pmap[rid] != null ? pmap[rid] - rk : null) : null) + '</div>';
-      h += '<div><div style="font-size:13px;font-weight:800;color:' + (isTop ? '#f5e6b8' : '#ddd') + '">' + pr.name + '</div><div style="font-size:10px;color:rgba(255,255,255,.4)">' + pr.team + (mode === 'net' && pr.handicap != null ? (pr.team ? ' · ' : '') + 'hcp ' + pr.handicap : '') + '</div></div>';
+      /* ⭐⭐⭐ v654.0 (Bruce, s273): "you also need to indicate that each player pill is
+         expandable - that is NOT obvious". A chevron beside the name, pointing down when the
+         card is shut and up when it is open. It rides INSIDE the name cell, so no column is
+         added and the header, the grid and every other board are untouched. */
+      h += '<div><div style="font-size:13px;font-weight:800;color:' + (isTop ? '#f5e6b8' : '#ddd') + '">' + pr.name + '<span style="font-size:9px;margin-left:6px;color:rgba(201,168,76,' + (isOpen ? '.9' : '.45') + ');vertical-align:middle">' + (isOpen ? '▲' : '▼') + '</span></div><div style="font-size:10px;color:rgba(255,255,255,.4)">' + pr.team + (mode === 'net' && pr.handicap != null ? (pr.team ? ' · ' : '') + 'hcp ' + pr.handicap : '') + '</div></div>';
       if (showTp) h += '<div style="text-align:center;font-size:14px;font-weight:900;color:' + (pr.topar < 0 ? '#2ecc71' : pr.topar === 0 ? '#f5e6b8' : 'rgba(255,255,255,.75)') + '">' + ptFmtToPar(pr.topar) + '</div>';
       shownR.forEach(function(r) {
         var rd = pr.rounds[r.round_number];
@@ -55649,6 +55697,8 @@ function ptRenderIndivLb() {
            its gross ("round 2 score"). Same rule the TV took at v645. */
         var _ipR = (mode === 'gross' && rd && rd.holes > 0 && rd.holes < 18 && rd.topar != null);
         if (_ipR) { _onCourse = true; h += '<div style="text-align:center;min-width:30px;font-size:13px;font-weight:900;color:' + (rd.topar < 0 ? '#2ecc71' : rd.topar === 0 ? '#f5e6b8' : 'rgba(255,255,255,.75)') + '">' + ptFmtToPar(rd.topar) + '</div>'; }
+        /* ⭐⭐⭐ v654.0 (s273) — on this round's sheet, nothing posted, round over: DNF, not a dash. */
+        else if (!rd && ptTvRoundDnf(st, r, pr.roster_id)) h += '<div style="text-align:center;min-width:30px;font-size:11px;font-weight:900;letter-spacing:.3px;color:rgba(255,255,255,.35)">DNF</div>';
         else h += '<div style="text-align:center;min-width:30px;font-size:13px;font-weight:700;color:' + (v != null ? 'rgba(255,255,255,.7)' : 'rgba(255,255,255,.2)') + '">' + (v != null ? v : '—') + '</div>';
       });
       /* v648.0 — "Don't display [the total] until a person has finished round 2": while any gross round
@@ -56286,7 +56336,7 @@ function ptShowIndividualLeaderboard(eventId) {
     fetch(TOUR_API + '/api/events/' + eventId + '/rounds', { headers: headers }).then(_ptJson).catch(function(){ return {rounds:[]}; }),
     fetch(TOUR_API + '/api/events/' + eventId + '/groups', { headers: headers }).then(_ptJson).catch(function(){ return {groups:[]}; }),
     (G.orgToken
-      ? fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(_ptJson).then(function(d){ return ptEvCfg(d.event); }).catch(function(){ return {}; })
+      ? fetch(TOUR_API + '/api/events/' + eventId, { headers: headers }).then(_ptJson).then(function(d){ try { if (d && d.event && d.event.event_code) window._ptEvCode654 = String(d.event.event_code); } catch (e) { } return ptEvCfg(d.event); }).catch(function(){ return {}; })   /* v654.0 — keep the code; the sheet read is keyed by it */
       : Promise.resolve(ptEvCfg(G._watchEvent)))                          // v248.0
   ]).then(function(results) {
     var rounds = results[0].rounds || [];
@@ -56305,11 +56355,17 @@ function ptShowIndividualLeaderboard(eventId) {
       return;
     }
 
+    /* ⭐ v654.0 (s273) — the tee sheets, so the board can tell a man who did not play
+       from a man with a dash. Same public read the TV has used since v644.0. It cannot
+       fail the board: ptSheetsLoad never rejects and an empty store means no DNF at all. */
+    var _code654 = window._ptEvCode654 || (G._watchEvent && G._watchEvent.event_code) || null;
+    return ptSheetsLoad(_code654, indivRounds).then(function () {
     return ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg).then(function(st) {
       G._indivLb = st;
       G._indivLbT = null;                                                // FR-94 (v556.0) — this door owns its own body
       ptRenderIndivLb();
     });
+    });   /* v654.0 — closes ptSheetsLoad */
   }).catch(function() {
     var body = document.getElementById('ptIndivLbBody');
     if (body) body.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:40px 0;font-size:13px">Failed to load data.</div>';
@@ -67615,7 +67671,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v653.0';
+    const TOUR_VERSION     = 'pards-tour-v654.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
