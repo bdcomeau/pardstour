@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour</title>
-  <!-- pards-tour-v643.0 -->
+  <!-- pards-tour-v644.0 -->
 
   <!-- External: html2canvas (used by Pards Golf) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -51841,7 +51841,15 @@ function ptTvRefresh() {
         indiv = window.ptIndivPartition(cfg, rounds);
         var chain = indiv.length ? ptBuildMdIndividual(ev.id, indiv, groups, {}, cfg, { er: true }) : Promise.resolve(null);   // v414.0 \u00b7 FR-01
         var chainX = xofnR.length ? ptBuildMdTeamXofN(ev.id, xofnR, groups, {}, cfg) : Promise.resolve(null);
-        return Promise.all([chain, chainX]).then(function (cs) {
+        /* ⭐ v644.0 (Bruce, s270): "for the THRU — for now — add the R2 tee time; once scores start
+           coming in that will update to the hole they are on". The tee sheets ride the same poll,
+           off worker v3.44.0's public /api/round-tees/:code (roster_ids + start_time + hole, nothing
+           else). Fail-soft: a 404 (old worker) or a dead fetch is an empty sheet, THRU reads — as before. */
+        var chainT = Promise.all((rounds || []).map(function (r) {
+          return fetch(TOUR_API + '/api/round-tees/' + encodeURIComponent(_ptTv.code || '') + '?round_id=' + r.id).then(_ptJson).catch(function () { return null; });
+        })).catch(function () { return []; });
+        return Promise.all([chain, chainX, chainT]).then(function (cs) {
+          ptTvTeesFold(cs[2]);                 /* v644.0 — _ptTv.tees[round_id][roster_id] = { t, h } */
           var st = ptTvApplyCut(cfg, cs[0]);   /* v643.0 — the cut, TV only */
           _ptTv.updated = new Date();
           _ptTv.panes = ptTvBuildPanes(ev, cfg, w, st, groups, cs[1], rounds);   // B-35 (v395.1)
@@ -52195,8 +52203,19 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
             + '<span style="font-size:2.4vh;font-weight:900;color:#f5e6b8">' + (_ldN.length > 1 ? 'Leaders are ' : 'Leader is ') + '<span style="color:' + (sorted[0].topar < 0 ? '#f5d97a' : sorted[0].topar === 0 ? '#2ecc71' : '#e74c3c') + '">' + ptFmtToPar(sorted[0].topar) + '</span></span>'
             + '<span style="font-size:1.8vh;color:rgba(255,255,255,.6)">' + _ptEsc(_ldN.join(' · ')) + '</span></div>';
         }
+        /* ⭐ v644.0 — which round THRU reads. The last round anyone has posted in — unless that
+           round is fully in (no card between 1 and 17 holes) and a later round exists, in which
+           case THRU looks at the NEXT round: tee times before the first hole, holes after. Before
+           this, Saturday morning read F for every man off his Friday card. */
+        var _liveN = _scoredR.length ? _scoredR[_scoredR.length - 1].round_number : null;
+        if (_liveN != null && !st.rows.some(function (q) { var qd = q.rounds[_liveN]; return qd && qd.holes > 0 && qd.holes < 18; })) {
+          var _nx = _allR.filter(function (r) { return r.round_number > _liveN; })[0];
+          if (_nx) _liveN = _nx.round_number;
+        }
+        var _liveRid = null;
+        _allR.forEach(function (r) { if (r.round_number === _liveN) _liveRid = r.id; });
         for (var _pg = 0; _pg < sorted.length; _pg += 10) {   /* v642.0 — 10 a page (Bruce s270: too condensed) */
-          _tvPages.push(_secHdr + (_pg > 0 ? _ldStrip : '') + ptTvTable(sorted.slice(_pg, _pg + 10), st, mode, _pmap, { all: sorted, start: _pg, liveR: _scoredR.length ? _scoredR[_scoredR.length - 1].round_number : null }));   /* s269 — THRU + MOVE at right for R2 */
+          _tvPages.push(_secHdr + (_pg > 0 ? _ldStrip : '') + ptTvTable(sorted.slice(_pg, _pg + 10), st, mode, _pmap, { all: sorted, start: _pg, liveR: _liveN, liveRid: _liveRid }));   /* s269 — THRU + MOVE at right for R2 */
         }
       });
       html = _tvPages.length ? _tvPages[0] : html;
@@ -52700,6 +52719,24 @@ function _ptErBest(p, st) {
    make the phone board worth watching — To Par on a gross board, and the
    movement against the round before. Prior ranks arrive as pmap (roster id ->
    that man's rank a round ago); no pmap means there is no movement to show. */
+/* ⭐ v644.0 (s270) — the TV's tee sheets, keyed round_id → roster_id → { t: 'HH:MM', h: hole }.
+   Rebuilt whole on every poll; never merged, so a re-jigged sheet cannot leave a stale time. */
+function ptTvTeesFold(list) {
+  var m = {};
+  (list || []).forEach(function (d) {
+    if (!d || d.round_id == null || !d.tee_times) return;
+    var rm = {};
+    d.tee_times.forEach(function (t) { (t.roster_ids || []).forEach(function (rid) { rm[String(rid)] = { t: t.start_time || null, h: t.hole }; }); });
+    m[String(d.round_id)] = rm;
+  });
+  _ptTv.tees = m;
+}
+/* "8:32" (leading zero dropped), "9:04 #10" on a shotgun start. null when the sheet has no line for him. */
+function ptTvTeeLabel(rid, roundId) {
+  var rm = _ptTv.tees && _ptTv.tees[String(roundId)], e = rm && rm[String(rid)];
+  if (!e || !e.t) return null;
+  return String(e.t).replace(/^0/, '') + (e.h && Number(e.h) !== 1 ? ' #' + e.h : '');
+}
 /* ⭐⭐ v642.0 (Bruce, s270, R2 morning of the MCC): "While a round is in progress, should the
    TV Overall — Gross board rank by To Par (so Curt at E thru 6 sits above a finished +9)? YES".
    ptMdSortRows ranks most-holes-first — right for a settled standings page, wrong for a board
@@ -52769,7 +52806,7 @@ function ptTvTable(sorted, st, mode, pmap, opts) {
     });
     h += '<div style="text-align:center;font-size:2.6vh;font-weight:900;color:' + (rk === 1 ? '#a8d5b5' : '#bbb') + '">' + ptMdKey(p, mode) + '</div>'
       + (showTp ? '<div style="text-align:center;font-size:2.3vh;font-weight:900;color:' + (p.topar < 0 ? '#f5d97a' : p.topar === 0 ? '#2ecc71' : '#e74c3c') + '">' + ptFmtToPar(p.topar) + '</div>' : '')   /* s269 — his pen: E green, over red; under gold */
-      + (showThru ? (function () { var _lr = p.rounds[_liveR]; var _hh = _lr ? (_lr.holes || 0) : 0; return '<div style="text-align:center;font-size:2vh;font-weight:800;color:' + (_hh >= 18 ? '#a8d5b5' : _hh > 0 ? '#c9a84c' : 'rgba(255,255,255,.35)') + '">' + (_hh >= 18 ? 'F' : _hh > 0 ? _hh : '\u2014') + '</div>'; })() : '')
+      + (showThru ? (function () { var _lr = p.rounds[_liveR]; var _hh = _lr ? (_lr.holes || 0) : 0; var _tt = _hh > 0 ? null : ptTvTeeLabel(p.roster_id, opts && opts.liveRid); return '<div style="text-align:center;font-size:' + (_tt ? '1.7vh' : '2vh') + ';font-weight:800;color:' + (_hh >= 18 ? '#a8d5b5' : _hh > 0 ? '#c9a84c' : 'rgba(255,255,255,' + (_tt ? '.6' : '.35') + ')') + '">' + (_hh >= 18 ? 'F' : _hh > 0 ? _hh : (_tt || '\u2014')) + '</div>'; })() : '')   /* v644.0 — tee time until he is out */
       + (showMove ? '<div style="text-align:center">' + ptMdMoveMark(pmap[String(p.roster_id)] != null ? pmap[String(p.roster_id)] - rk : null, '1.8vh') + '</div>' : '')
       + '</div>';
   });
@@ -67390,7 +67427,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v643.0';
+    const TOUR_VERSION     = 'pards-tour-v644.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
 
