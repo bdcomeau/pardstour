@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v662.0 -->
+  <!-- pards-tour-v663.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -27777,9 +27777,54 @@ function _ptMkBanner(){
   } catch (e) {}
 }
 
+/* ⭐ FR-161 (v663.0, s278) — this phone's opaque card token. Minted once, kept in
+   localStorage, sent on join + submit so the worker knows which phone holds a card.
+   ⛔ Never a name — nothing on the wire identifies the golfer, only the phone. */
+function ptFr161Dev(){
+  try {
+    var t = localStorage.getItem('pt_fr161_device');
+    if (t && /^[A-Za-z0-9_-]{8,64}$/.test(t)) return t;
+    t = 'd' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    localStorage.setItem('pt_fr161_device', t);
+    return t;
+  } catch (e) {
+    window._ptFr161Mem = window._ptFr161Mem || ('d' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36));
+    return window._ptFr161Mem;
+  }
+}
+/* ⭐ FR-161 (v663.0) — the organizer frees a stuck card (dead phone in a pocket)
+   without waiting out the 20-minute lapse. Bearer-gated server-side; the button only
+   renders on the organizer's own progress sheet. */
+function ptFr161Release(code, btn){
+  try { if (btn) { btn.disabled = true; btn.textContent = 'Releasing…'; } } catch (e0) {}
+  fetch(TOUR_API + '/api/round-card-release/' + encodeURIComponent(code), { method: 'POST', headers: { 'Authorization': 'Bearer ' + (G.orgToken || '') } })
+    .then(_ptJson).then(function(d){
+      if (d && d.ok) { if (btn) { btn.textContent = '✓ Released'; } ptToast('Card ' + code + ' released — the next phone in takes it.'); }
+      else { if (btn) { btn.disabled = false; btn.textContent = '\ud83d\udd13 Release'; } ptToast('Release failed — ' + ((d && d.error) || 'try again.')); }
+    }).catch(function(){ if (btn) { btn.disabled = false; btn.textContent = '\ud83d\udd13 Release'; } ptToast('Release failed — check the connection.'); });
+}
+/* ⭐ FR-161 (v663.0) — the read-only strip, same injection pattern as _ptMkBanner
+   (B-51): lives in #screen-score, re-rendered by updateRoundBar, removed when the
+   flag clears. The sentence is the worker's own — one dialect. */
+function _ptFr161Banner(){
+  try {
+    var sc = document.getElementById('screen-score');
+    var el = document.getElementById('ptFr161Bn');
+    var held = G && G._fr161Held && G._tournamentRound;
+    if (!sc || !held) { if (el && el.parentNode) el.parentNode.removeChild(el); return; }
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'ptFr161Bn';
+      el.style.cssText = 'margin:6px 10px 0;padding:8px 11px;background:rgba(231,76,60,.12);border:1.5px solid rgba(231,76,60,.5);border-radius:9px;font-size:12px;font-weight:900;color:#e8a9a9;line-height:1.5;text-align:center';
+      sc.insertBefore(el, sc.firstChild);
+    }
+    el.textContent = '\ud83d\udc40 Another phone is already scoring this card.';
+  } catch (e) {}
+}
 function updateRoundBar(){
   try { _fr112Bar(); } catch (e) {}
   try { _ptMkBanner(); } catch (e) {}
+  try { _ptFr161Banner(); } catch (e) {}
   const hole = document.getElementById('roundBarHole');
   if(hole) hole.textContent = '⛳ Hole ' + (G.hole + 1);
   const bjSub = document.getElementById('rmBJSub');
@@ -53223,7 +53268,11 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
           if (anyPar && totHoles) body += _fr165Stats(S3, S4, S5, B, totHoles, totGross, totOver, fullRounds, bestRd);
           else body += '<div style="text-align:center;font-size:1.7vh;color:rgba(255,255,255,.35);margin-top:1vh">No par table on file for these rounds \u2014 card only.</div>';
 
-          panes.push({ title: MED[idx] + ' ' + ORD[idx] + ' \u2014 ' + (p.name || ''), html: '<div style="max-width:92vw;margin:0 auto">' + body + '</div>' });
+          /* ⭐ s278 (Bruce, screenshot): "you can space this out a little more" — the pane's
+             content hugged the top and left the bottom half of the wall empty. The wrapper is
+             now a flex column over 76vh with space-evenly, so the header, each round card and
+             the stat strips spread down the screen whatever the round count. */
+          panes.push({ title: MED[idx] + ' ' + ORD[idx] + ' \u2014 ' + (p.name || ''), html: '<div style="max-width:92vw;margin:0 auto;min-height:76vh;display:flex;flex-direction:column;justify-content:space-evenly">' + body + '</div>' });
         } catch (eOne) { /* one man's pane, never the board */ }
       });
     } catch (eF165) { /* fail-soft: the TV keeps every other pane */ }
@@ -53949,7 +53998,13 @@ function ptRoundProgress(evId, roundId) {
       fsec += '<div style="display:flex;align-items:center;gap:8px;padding:7px 2px;border-bottom:1px solid rgba(255,255,255,.05)">'
         + '<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:800;color:#f5e6b8">\u26f3 ' + _ptEsc(flab) + ' <span style="font-family:monospace;font-weight:800;color:#c9a84c;letter-spacing:1px">' + _ptEsc(String(tt.foursome_code)) + '</span></div>'
         + '<div style="font-size:10.5px;color:rgba(255,255,255,.45);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + _ptEsc(fnames) + '</div></div>'
-        + '<button onclick="document.getElementById(\'ptRndProgOv\').remove();ptOrgScoreNow(\'' + _ptEsc(String(tt.foursome_code)) + '\')" style="flex:0 0 auto;padding:5px 10px;background:rgba(168,213,181,.12);border:1px solid rgba(168,213,181,.4);border-radius:8px;color:#a8d5b5;font-size:11px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">\u25b6 Score</button></div>';
+        + '<button onclick="document.getElementById(\'ptRndProgOv\').remove();ptOrgScoreNow(\'' + _ptEsc(String(tt.foursome_code)) + '\')" style="flex:0 0 auto;padding:5px 10px;background:rgba(168,213,181,.12);border:1px solid rgba(168,213,181,.4);border-radius:8px;color:#a8d5b5;font-size:11px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">\u25b6 Score</button>'
+        /* ⭐ FR-161 (v663.0, s278) — Bruce: "why not - great feature." A held card shows
+           the organizer a Release button right where he watches the round. Worker
+           v3.49.0's tee-times read marks each card held; older workers omit it and the
+           button simply never draws — fail open. */
+        + (tt.held ? '<button onclick="ptFr161Release(\'' + _ptEsc(String(tt.foursome_code)) + '\', this)" style="flex:0 0 auto;margin-left:6px;padding:5px 10px;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.45);border-radius:8px;color:#e8a9a9;font-size:11px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">\ud83d\udd13 Release</button>' : '')
+        + '</div>';
     });
     if (fsec) fsec = '<div style="font-size:10px;font-weight:800;color:rgba(168,213,181,.8);text-transform:uppercase;letter-spacing:.5px;margin:12px 0 4px">\u26f3 Foursomes \u2014 tap to score</div>' + fsec;
     var body = '<div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:2px">'
@@ -63128,7 +63183,7 @@ function doJoinValidatePin() {
 
   // Individual round foursome mode
   if (G._joinMode === 'foursome' && G._joinFoursome) {
-    fetch(TOUR_API+'/api/join-round/'+code, pin?{headers:{'X-Team-Pin':pin}}:{})
+    fetch(TOUR_API+'/api/join-round/'+code+'?device='+encodeURIComponent(ptFr161Dev()), pin?{headers:{'X-Team-Pin':pin}}:{})
       .then(_ptJson)
       .then(function(d){
         if(btn){btn.disabled=false;btn.textContent=_btnLabel;}
@@ -63790,7 +63845,7 @@ function doJoinLookup() {
 
 function doJoinRoundLookup(code, btn, errEl) {
   // Try the individual round foursome endpoint
-  fetch(TOUR_API+'/api/join-round/'+code)
+  fetch(TOUR_API+'/api/join-round/'+code+'?device='+encodeURIComponent(ptFr161Dev()))
     .then(_ptJson).catch(_ptNetErr)
     .then(function(d){
       btn.disabled=false; btn.textContent='Find Group';
@@ -64851,6 +64906,7 @@ function doJoinGroup() {
   G.mode = 'event';
   G.playerName = name;
   G._ptMkCard = null;   // v399.0 \u00b7 B-51 \u2014 team-code join is never a marker card
+  G._fr161Held = false; // ⭐ FR-161 — team-code join is never a claimed tee-time card
   localStorage.setItem('pards_join_code', G.joinGroup.code);
   localStorage.setItem('pards_player_name', name);
   localStorage.setItem('pards_player_hdcp', hdcpStr);
@@ -65519,6 +65575,10 @@ function ptLaunchFoursomeRound(foursomeData) {
   // v399.0 \u00b7 B-51 \u2014 the scanned card's identity rides the round so the
   // banner survives a reload (updateRoundBar re-renders it). Set here, ahead of
   // the scramble early-return, so EVERY other launch clears a stale one.
+  /* ⭐ FR-161 (v663.0) — the join payload says whether another phone holds this
+     card. Set ahead of the scramble early-return so EVERY launch refreshes it. The
+     worker is the guard (a non-holder save is 409); this flag only drives the strip. */
+  G._fr161Held = !!foursomeData.held;
   G._ptMkCard = (foursomeData._ptMkOfficial && foursomeData._ptMkMarker)
     ? { o: foursomeData._ptMkOfficial.name || '', m: foursomeData._ptMkMarker.name || '' } : null;
 
@@ -66056,6 +66116,7 @@ function ptLaunchFoursomeRound(foursomeData) {
         group_id: tr.group_id || p._group_id || null,
         roster_id: p._roster_id || null
       };
+      body.device = ptFr161Dev();   // ⭐ FR-161 (v663.0) — holder heartbeat / claim; worker 409s a non-holder and _syncHalt shows its sentence
       // v433.0 — B-79 client half: the epoch learned at join rides every post.
       // Tee-time joins never learn one (handleJoinRound sends none) — the field
       // is simply omitted and the worker accepts unchanged (additive protocol).
@@ -68260,7 +68321,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v662.0';
+    const TOUR_VERSION     = 'pards-tour-v663.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
