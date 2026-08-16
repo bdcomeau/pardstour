@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v663.0 -->
+  <!-- pards-tour-v664.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -55325,6 +55325,23 @@ function ptPrintMdOverallReport(eventId) {
         window._ptLbFetch(eventId, r.id, headers)
       ]);
     })).then(function(pairs) {
+      /* ⭐ B-237 (v664.0, s278) — Bruce, off the Round 3 refusal on the MCC paper:
+         an overall report must not refuse the WHOLE paper because one round has not
+         started. A round with ZERO scores AND an empty board is LEFT OUT — 2-round
+         totals today, 3-round totals once scores land — and the paper says so.
+         ⛔ B-132 fail-closed STANDS for every other refusal: a round that HAS scores
+         the worker cannot answer for (401, no payload, missing rows) still kills the
+         paper — both conditions are checked, never the board alone. */
+      var _skippedRounds = [];
+      for (var _ri = allRounds.length - 1; _ri >= 0; _ri--) {
+        var _b237sc = (((pairs[_ri] || [])[0] || {}).scores || []);
+        var _b237st = ((((pairs[_ri] || [])[1]) || {}).standings || []).filter(function (e) { return e && e.entry_type === 'player'; });
+        if (!_b237sc.length && !_b237st.length) {
+          _skippedRounds.unshift(allRounds[_ri].round_number);
+          allRounds.splice(_ri, 1); pairs.splice(_ri, 1);
+        }
+      }
+      if (!allRounds.length) { ptToast('No round has any scores yet — nothing to print.'); return; }
       var scoreResults = pairs.map(function(p){ return p[0]; });
       // One index per round, aligned to allRounds. \u26d4 A round the worker cannot
       // answer for kills the whole paper \u2014 a combined total built on a mix of
@@ -55603,7 +55620,8 @@ function ptPrintMdOverallReport(eventId) {
         + '<div class="rpt-hdr"><h1>' + ev.name + ' — Overall Individual ' + scoringLabel + '</h1>'
         + '<div class="meta">'
         + (dateStr ? '<span>📅 ' + dateStr + '</span>' : '')
-        + '<span>🏌️ ' + allRounds.length + ' rounds</span>'
+        + '<span>🏌️ ' + allRounds.length + ' round' + (allRounds.length === 1 ? '' : 's') + '</span>'
+        + (_skippedRounds.length ? '<span>⏳ Round ' + _skippedRounds.join(', ') + ' not started — left out until scores land</span>' : '')   /* ⭐ B-237 (v664.0) */
         + (courseName ? '<span>⛳ ' + courseName + '</span>' : '')
         + (teeInfo && !mixedTees ? '<span>🎯 ' + teeInfo + '</span>' : '')
         + (mixedTees ? '<span>🎯 Mixed tees — SI/Par header shows Round 1; each line carries its own round’s deck and course handicap</span>' : '')
@@ -68321,7 +68339,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v663.0';
+    const TOUR_VERSION     = 'pards-tour-v664.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
