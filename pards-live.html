@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.12 -->
+<!-- pards-live-v1.13 -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -74,6 +74,37 @@ body { padding:0 0 40px; }
 .tab { padding:6px 11px; border-radius:999px; border:1px solid var(--line); background:transparent;
   color:var(--dim); font-size:11.5px; font-weight:700; cursor:pointer; }
 .tab.on { background:rgba(201,168,76,.14); color:var(--gold); border-color:rgba(201,168,76,.45); }
+
+/* ── FR-158 THE OVERALL BOARD (v1.13, s274) ──────────────────────
+   Bruce, s273: "where is the overall here ? 727930 pards live".
+   ⛔⛔ RANKING HAPPENS INSIDE A FLIGHT (s272). A section is a bracket, and no
+   section is ever compared to another — "overall" means across ROUNDS.
+   ⛔ The column count moves with the round count, so the grid template is set
+   INLINE per row; the class carries everything that does not move. */
+.oSec { margin-top:16px; }
+.oSec.first { margin-top:2px; }
+.oSecH { display:flex; align-items:baseline; gap:8px; padding:0 2px 6px;
+  border-bottom:1px solid rgba(201,168,76,.3); }
+.oSecName { font-size:11.5px; letter-spacing:1.4px; text-transform:uppercase; color:var(--gold); font-weight:800; }
+.oSecN { font-size:10.5px; color:var(--dim); font-weight:700; }
+.oHd,.orow { display:grid; gap:5px; align-items:center; }
+.oHd { font-size:9.5px; text-transform:uppercase; letter-spacing:.5px; color:var(--dim);
+  padding:8px 2px 6px; font-weight:700; }
+.orow { padding:8px 2px; border-bottom:1px solid rgba(255,255,255,.05); }
+.orow:last-child { border-bottom:0; }
+/* s273 — "Magnus goes to the bottom of Championship, greyed, no medal". */
+.orow.out { opacity:.42; }
+.onm { display:flex; align-items:center; gap:5px; min-width:0; }
+.onmN { font-size:14px; font-weight:650; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.oR { font-size:12.5px; font-weight:700; text-align:right; color:var(--dim); }
+.oR.live { font-weight:800; }
+.oTot { font-size:13.5px; font-weight:800; text-align:right; }
+.oTp { font-size:15px; font-weight:900; text-align:right; }
+/* The band marker. A man who has played fewer rounds than his flight is NOT
+   ranked against it (trap 207) — he bands below, and the chip says why. */
+.oTag { flex:0 0 auto; padding:1px 5px; border-radius:999px; font-size:8.5px; font-weight:800;
+  letter-spacing:.6px; text-transform:uppercase; border:1px solid rgba(255,255,255,.22); color:var(--dim); }
+@media (min-width:520px) { .oHd,.orow { gap:9px; } .oR { font-size:13.5px; } .onmN { font-size:14.5px; } }
 /* FR-154 (v1.9) — recent events under the code door */
 .recent { margin-top:14px; border-top:1px solid var(--line); padding-top:10px; }
 .recentH { font-size:9.5px; text-transform:uppercase; letter-spacing:.8px; color:var(--dim); font-weight:800; margin-bottom:6px; }
@@ -187,10 +218,10 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.12';
+var LIVE_VERSION = 'live-v1.13';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
-var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null };   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows */
+var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null, view:'round', overall:null };   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows. v1.13 (s274) — view + the overall payload (FR-158). */
 
 function gid(id) { return document.getElementById(id); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -274,6 +305,7 @@ function wireRecent() {
 /* ── EVENT FLAVOUR ───────────────────────────────────────────── */
 function loadEvent(code) {
   S.code = code;   /* v1.10 (s273) — the two public DNF reads are keyed by event CODE, not id */
+  S.view = 'round'; S.overall = null;   /* v1.13 (s274) — a new code always lands on a round */
   return jget(API + '/api/events/watch', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -321,6 +353,20 @@ function refresh() {
     gid('app').innerHTML = (_d0 ? draftCard(_d0) : '')
       + '<div class="card"><div class="note">No round is open for scoring yet.</div></div>';
     return Promise.resolve();
+  }
+  /* ⭐⭐ FR-158 (v1.13, s274) — THE OVERALL VIEW IS ITS OWN READ. One public
+     GET, keyed on the event code, off worker v3.45.0. ⛔ Fail-soft: an old
+     worker 404s and the tab says so — the round tabs keep working either way.
+     ⛔ The ticker is round-shaped, so it is left exactly as the round view
+     last painted it rather than blanked and re-flowed on every poll. */
+  if (S.view === 'overall') {
+    return jget(API + '/api/event-overall/' + encodeURIComponent(S.code || ''))
+      .then(function (o) { S.overall = o; paintOverall(o); })
+      .catch(function (e) {
+        gid('app').innerHTML = tabsHtml()
+          + '<div class="card"><div class="note">The overall board is not available for this event yet.<br>'
+          + esc(e.message || 'Could not load') + '</div></div>';
+      });
   }
   /* ⭐ v1.10 (s273) — the tee sheet rides the same poll so the board can name a man
      who posted nothing; the field (names for those roster_ids) is fetched ONCE and kept.
@@ -393,6 +439,175 @@ function dnfRows(d) {
   return out;
 }
 
+/* ═════════════════════════════════════════════════════════════
+   FR-158 (v1.13, s274) — THE OVERALL BOARD.
+
+   Bruce, s273: "where is the overall here ? 727930 pards live", and
+   "we have lots of time - build it - need to do it properly".
+
+   THE PAYLOAD. GET /api/event-overall/:CODE (worker v3.45.0, public):
+     { event, rounds[{id,round_number,date,status,format,course_id,tee}],
+       players[{ roster_id, name, flight,
+                 rounds{ "<round_number>": {gross,holes,topar} },
+                 total_gross, total_holes, total_topar, on_sheet[], dnf[] }] }
+   The worker resolves the flight SERVER-SIDE and emits the NAME only —
+   flight_assign never crosses the wire and this page never asks for it.
+
+   ⛔⛔ THE ONE RULE THIS PAGE MUST NOT BREAK (s272): ranking happens INSIDE a
+   flight. Sections never compare. "Overall" is across ROUNDS.
+
+   ⛔⛔ AND THE ONE THAT STARTED ALL OF THIS (trap 207): never rank men who have
+   played different numbers of rounds. So men BAND:
+     band 0  posted in as many rounds as anyone in his flight — he is ranked
+     band 1  posted in FEWER — he sits below the whole band above, chipped
+             "1 of 2", and is never measured against it
+     band 2  DNF — bottom, greyed, holding his place (s273)
+   Positions still run 1..N because Bruce asked for last PLACE, not no place. */
+
+function flightOrder() {
+  /* The organizer's own bracket order, straight off the public config. Both
+     keys are on the seven-key whitelist, so this is honest on the public wire. */
+  var rule = (S.cfg && S.cfg.flight_rule) || '';
+  var br = (S.cfg && S.cfg.flight_brackets) || {};
+  var list = (rule && Array.isArray(br[rule])) ? br[rule] : [];
+  var out = [];
+  list.forEach(function (b) { if (b && b.name) out.push(String(b.name)); });
+  return out;
+}
+
+var O_NONE = '\u0000none';
+
+function overallSections(d) {
+  var players = (d && d.players) || [];
+  var byFlight = {};
+  players.forEach(function (p) {
+    var k = (p.flight == null || p.flight === '') ? O_NONE : String(p.flight);
+    if (!byFlight[k]) byFlight[k] = [];
+    byFlight[k].push(p);
+  });
+  var secs = [];
+  /* Brackets FIRST and in the organizer's order — Championship before 1st. */
+  flightOrder().forEach(function (n) {
+    if (byFlight[n]) { secs.push({ name: n, players: byFlight[n] }); delete byFlight[n]; }
+  });
+  /* A hand-assignment to a name that is not a bracket is still a real flight. */
+  Object.keys(byFlight).filter(function (k) { return k !== O_NONE; }).sort()
+    .forEach(function (n) { secs.push({ name: n, players: byFlight[n] }); delete byFlight[n]; });
+  /* Unflighted last — and unnamed when it is the ONLY section, because an
+     event with no brackets is one board, not a section called Unflighted. */
+  if (byFlight[O_NONE]) secs.push({ name: (secs.length ? 'Unflighted' : null), players: byFlight[O_NONE] });
+  return secs;
+}
+
+function oPlayed(p) {
+  var r = (p && p.rounds) || {}, n = 0, k;
+  for (k in r) if (Object.prototype.hasOwnProperty.call(r, k)) n++;
+  return n;
+}
+function oDnf(p) { return !!(p && (p.dnf || []).length); }
+
+function rankFlight(list) {
+  /* The bar is the most rounds anyone in THIS flight has posted — not the
+     event's round count. A flight that started on Saturday is whole. */
+  var best = 0;
+  list.forEach(function (p) { if (!oDnf(p)) { var n = oPlayed(p); if (n > best) best = n; } });
+  var rows = list.map(function (p) {
+    var played = oPlayed(p);
+    return { p: p, played: played, best: best,
+             band: oDnf(p) ? 2 : ((played > 0 && played === best) ? 0 : 1) };
+  });
+  rows.sort(function (a, b) {
+    if (a.band !== b.band) return a.band - b.band;          /* bands never mix */
+    if (a.band === 1 && a.played !== b.played) return b.played - a.played;
+    var at = a.p.total_topar, bt = b.p.total_topar;
+    if (at == null && bt != null) return 1;                 /* no par, no claim */
+    if (bt == null && at != null) return -1;
+    if (at != null && bt != null && at !== bt) return at - bt;
+    var ag = a.p.total_gross, bg = b.p.total_gross;
+    if (ag == null && bg != null) return 1;
+    if (bg == null && ag != null) return -1;
+    if (ag != null && bg != null && ag !== bg) return ag - bg;
+    return String(a.p.name || '').localeCompare(String(b.p.name || ''));
+  });
+  return rows;
+}
+
+/* s271 — an IN-PROGRESS round cell reads THAT ROUND'S TO PAR; a finished one
+   reads gross. ⛔ A round he is on the sheet for but has not started is a dash,
+   never a 0 and never a DNF — the worker owns that call and sends dnf[]. */
+function oCell(p, rn) {
+  var c = ((p && p.rounds) || {})[String(rn)];
+  if (!c) {
+    if ((p.dnf || []).indexOf(rn) >= 0) return { txt: 'DNF', col: 'rgba(255,255,255,.32)', live: false };
+    return { txt: '\u2013', col: 'rgba(255,255,255,.25)', live: false };
+  }
+  if (c.holes >= 18) return { txt: String(c.gross), col: '', live: false };
+  if (c.topar == null) return { txt: String(c.gross), col: '', live: true };
+  return { txt: fmtTp(c.topar), col: tpColour(c.topar), live: true };
+}
+
+function tabsHtml() {
+  /* One round is not a tournament — no strip, and therefore no Overall tab. */
+  if (S.rounds.length < 2) return '';
+  var h = '<div class="tabs">';
+  S.rounds.forEach(function (r) {
+    h += '<button class="tab' + (S.view === 'round' && r.id === S.roundId ? ' on' : '')
+      + '" onclick="pickRound(' + r.id + ')">Round ' + r.round_number + '</button>';
+  });
+  h += '<button class="tab' + (S.view === 'overall' ? ' on' : '') + '" onclick="pickOverall()">Overall</button>';
+  return h + '</div>';
+}
+
+function paintOverall(d) {
+  var rounds = (d && d.rounds) || [];
+  var secs = overallSections(d);
+  var h = '';
+  var _dr = draftRec();
+  var _dDone = !!(_dr && (_dr.done || ((_dr.picks || []).length >= (_dr.order || []).length * 3)));
+  if (_dr && !_dDone) h += draftCard(_dr);
+  h += tabsHtml();
+  /* 26px pos | name | one cell per round | Tot | To Par. Narrow on purpose:
+     three rounds still has to read on a phone held at arm's length. */
+  var gt = '26px 1fr' + new Array(rounds.length + 1).join(' 34px') + ' 42px 48px';
+  h += '<div class="card">';
+  if (!rounds.length || !secs.length) {
+    h += '<div class="note">Nothing to total yet.<br>The overall board fills in once a round is open and scores are posted.</div>';
+  } else {
+    secs.forEach(function (sec, si) {
+      h += '<div class="oSec' + (si === 0 ? ' first' : '') + '">';
+      if (sec.name) h += '<div class="oSecH"><div class="oSecName">' + esc(sec.name) + '</div>'
+        + '<div class="oSecN">' + sec.players.length + '</div></div>';
+      h += '<div class="oHd" style="grid-template-columns:' + gt + '">'
+        + '<div style="text-align:center">#</div><div>Player</div>'
+        + rounds.map(function (r) { return '<div style="text-align:right">R' + r.round_number + '</div>'; }).join('')
+        + '<div style="text-align:right">Tot</div><div style="text-align:right">To Par</div></div>';
+      rankFlight(sec.players).forEach(function (row, i) {
+        var p = row.p, tag = '';
+        if (row.band === 2) tag = '<span class="oTag">DNF</span>';
+        else if (row.band === 1) tag = '<span class="oTag">' + row.played + ' of ' + row.best + '</span>';
+        h += '<div class="orow' + (row.band === 2 ? ' out' : '') + '" style="grid-template-columns:' + gt + '">'
+          + '<div class="pos">' + (i + 1) + '</div>'
+          + '<div class="onm"><span class="onmN">' + esc(p.name || '') + '</span>' + tag + '</div>'
+          + rounds.map(function (r) {
+              var c = oCell(p, Number(r.round_number));
+              return '<div class="oR' + (c.live ? ' live' : '') + '"'
+                + (c.col ? ' style="color:' + c.col + '"' : '') + '>' + c.txt + '</div>';
+            }).join('')
+          + '<div class="oTot">' + (p.total_gross == null ? '\u2013' : p.total_gross) + '</div>'
+          + '<div class="oTp" style="color:' + tpColour(p.total_topar) + '">' + fmtTp(p.total_topar) + '</div>'
+          + '</div>';
+      });
+      h += '</div>';
+    });
+  }
+  h += '</div>';
+  h += '<div class="note">Ranked inside each flight, across '
+    + rounds.length + (rounds.length === 1 ? ' round' : ' rounds') + '.'
+    + '<br>This page refreshes itself every 30 seconds.</div>';
+  if (_dr && _dDone) h += draftCard(_dr);
+  gid('app').innerHTML = h;
+}
+
 function scoreKey(fmt) {
   var f = String(fmt || '');
   if (f.indexOf('stableford') >= 0) return 'points';
@@ -437,13 +652,7 @@ function paintBoard(d) {
   var _dDone = !!(_dr && (_dr.done || ((_dr.picks || []).length >= (_dr.order || []).length * 3)));
   if (_dr && !_dDone) h += draftCard(_dr);
 
-  if (S.rounds.length > 1) {
-    h += '<div class="tabs">';
-    S.rounds.forEach(function (r) {
-      h += '<button class="tab' + (r.id === S.roundId ? ' on' : '') + '" onclick="pickRound(' + r.id + ')">Round ' + r.round_number + '</button>';
-    });
-    h += '</div>';
-  }
+  h += tabsHtml();   /* v1.13 (s274) — the strip now carries Overall */
 
   h += holeMsgs(d);   /* FR-153 ruling 3 — the cards gate with the crawl */
 
@@ -899,7 +1108,8 @@ window.tog = function (id) {
   el.className = on ? 'det on' : 'det';
   S.open[id] = on;
 };
-window.pickRound = function (id) { S.roundId = id; S.open = {}; refresh(); };
+window.pickRound = function (id) { S.roundId = id; S.view = 'round'; S.open = {}; refresh(); };
+window.pickOverall = function () { S.view = 'overall'; S.open = {}; refresh(); };   /* FR-158 (v1.13, s274) */
 
 function boot() {
   var q = new URLSearchParams(location.search);
