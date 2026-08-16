@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- pards-lite-v1.40 -->
+<!-- pards-lite-v1.41 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -174,6 +174,7 @@ table.lbt td.n{text-align:right;font-weight:800;white-space:nowrap}
      POST /api/scores               (team card submit)
      POST /api/scores/round         (tee-time card submit)
      GET  /api/round-field/:code    (the round's whole field — v1.32, FR-101)
+                                    · v1.41 · B-234: view_only:true = Live View code, refused at the door
      POST /api/round-team/:code     (claim your own team — v1.32, FR-101)
      POST /api/round-team-manage/:code  (fix a claimed card — v1.34, FR-112)
      POST /api/trips/:id/rounds/:rid/scores   (trip card submit — v1.29)
@@ -183,7 +184,7 @@ table.lbt td.n{text-align:right;font-weight:800;white-space:nowrap}
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LITE_VERSION = 'lite-v1.40';
+var LITE_VERSION = 'lite-v1.41';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var COORDS = {"derrick-gwc":[53.4684,-113.5411],"jasper-park-lodge":[52.8855,-118.053],"troon-north-monument":[33.7465,-111.8614],"troon-north-pinnacle":[33.7469,-111.8591],"kierland-ironwood-acacia":[33.6275,-111.9347],"kierland-mesquite-ironwood":[33.6275,-111.9347],"kierland-acacia-mesquite":[33.6275,-111.9347],"blackhawk-gc":[53.3856,-113.6612],"cougar-creek-gc":[53.5666,-114.2903],"trestle-creek-gc":[53.5668,-114.8947],"tower-ranch-gc":[49.9121,-119.3402],"okanagan-bear":[49.9558,-119.3965],"okanagan-quail":[49.9558,-119.3965],"harvest-gc":[49.856,-119.4246],"rise-gc":[50.274,-119.2709],"predator-ridge-predator":[50.1886,-119.3882],"predator-ridge-ridge":[50.1886,-119.3882],"bear-mountain-mountain":[48.4776,-123.5309],"bear-mountain-valley":[48.4776,-123.5309],"edmonton-cc":[53.4904,-113.5989],"glendale-gcc":[53.5828,-113.6651],"royal-mayfair":[53.5331,-113.5416],"edmonton-petroleum":[53.4175,-113.6916],"windermere-gcc":[53.4276,-113.6514],"mill-woods-gc":[53.482,-113.4293],"picture-butte-heritage-harvest":[49.8581,-112.8252],"picture-butte-homestead-harvest":[49.8581,-112.8252],"picture-butte-heritage-homestead":[49.8581,-112.8252],"palm-valley-challenge":[33.7646,-116.3319],"palm-valley-championship":[33.7646,-116.3319],"indian-ridge-arroyo":[33.7518,-116.3327],"indian-ridge-grove":[33.7518,-116.3327],"pgawest-tpc-stadium":[33.6414,-116.2585],"pgawest-citrus":[33.6713,-116.2873],"pgawest-mountain":[33.6831,-116.313],"pgawest-dunes":[33.6832,-116.313],"pgawest-nicklaus-tournament":[33.6453,-116.2576],"pgawest-greg-norman":[33.6465,-116.2438],"pgawest-nicklaus-private":[33.643,-116.2687],"pgawest-arnold-palmer":[33.6434,-116.2671],"pgawest-weiskopf":[33.6428,-116.2672],"banff-springs-rundle-sulphur":[51.1744,-115.5368],"banff-springs-rundle-tunnel":[51.1744,-115.5368],"banff-springs-sulphur-tunnel":[51.1744,-115.5368],"banff-springs-tunnel":[51.1744,-115.5368],"desert-willow-firecliff":[33.7657,-116.3667],"desert-willow-mountain-view":[33.7657,-116.3667],"shadow-ridge-gc":[33.7828,-116.3846],"highlands-gc":[53.5613,-113.4377],"glencoe-bridges-bridges":[51.0253,-114.2955],"glencoe-bridges-slopes":[51.0253,-114.2955],"glencoe-forest":[51.0253,-114.2955],"stewart-creek":[51.0461,-115.3138],"kananaskis-kidd":[50.9031,-115.1437],"kananaskis-lorette":[50.9031,-115.1437],"silvertip-gc":[51.1056,-115.3418],"pinnacle-peak-cc":[33.6959,-111.8951],"mesa-cc":[33.4389,-111.8455],"las-sendas-gc":[33.4892,-111.6703],"copper-point-the-point":[50.5059,-115.9968],"copper-point-ridge":[50.5059,-115.9968],"eagle-ranch-gc":[50.5293,-116.0269],"greywolf-gc":[50.4475,-116.2484],"springs-course":[50.5982,-116.0452],"radium-course":[50.5982,-116.0452],"fairmont-mountainside":[50.3327,-115.8534],"fairmont-riverside":[50.3327,-115.8534],"royal-colwood-gc":[48.4435,-123.4875],"capilano-gcc":[49.3532,-123.1239],"chateau-whistler-gc":[50.1303,-122.9739],"nicklaus-north-gc":[50.143,-122.9499],"trickle-creek-gc":[49.6825,-115.9967],"willow-park-gcc":[50.9584,-114.0485],"boulders-north":[33.8023,-111.9177],"boulders-south":[33.8023,-111.9177],"boulders-fn-bs":[33.8023,-111.9177],"mickelson-national-gc":[51.1209,-114.3835],"canyon-meadows-gc":[50.9413,-114.0979],"eagle-mountain-gc":[33.5767,-111.7589],"phoenician-gc":[33.5064,-111.9493],"longbow-gc":[33.4724,-111.7101],"lookout-mountain-gc":[33.6041,-112.0472],"lakes-palm-mountain":[33.7536,-116.3465],"lakes-mountain-lake":[33.7536,-116.3465],"lakes-lake-palm":[33.7536,-116.3465],"desert-springs-palm":[33.7525,-116.3646],"desert-springs-valley":[33.7525,-116.3646],"gallaghers-canyon":[49.8418,-119.3786],"gallaghers-pinnacle":[49.8418,-119.3786],"cabot-links":[46.2366,-61.3042],"cabot-cliffs":[46.2366,-61.3042],"highlands-links":[46.7631,-60.4548],"crowbush-cove":[46.4323,-62.7957],"royal-montreal-blue":[45.4935,-73.9032],"royal-montreal-dixie":[45.4935,-73.9032],"royal-montreal-red":[45.4935,-73.9032],"makena-gc":[20.6407,-156.4419],"wailea-blue":[20.7651,-156.4251],"wailea-emerald":[20.7651,-156.4251],"wailea-gold":[20.7651,-156.4251],"bandon-bandon-dunes":[43.0374,-124.3662],"bandon-pacific-dunes":[43.0374,-124.3662],"bandon-old-macdonald":[43.0374,-124.3662],"bandon-trails":[43.0374,-124.3662],"bandon-sheep-ranch":[43.0374,-124.3662],"pinehurst-no1":[35.1962,-79.4689],"pinehurst-no2":[35.1962,-79.4689],"pinehurst-no3":[35.1962,-79.4689],"pinehurst-no4":[35.1962,-79.4689],"pinehurst-no5":[35.1962,-79.4689],"pinehurst-no6":[35.1962,-79.4689],"pinehurst-no7":[35.1962,-79.4689],"pinehurst-no8":[35.1962,-79.4689],"pinehurst-no9":[35.1962,-79.4689],"pinehurst-no10":[35.1962,-79.4689],"reynolds-great-waters":[33.5492,-83.1798],"reynolds-national-cove-ridge":[33.5492,-83.1798],"reynolds-preserve":[33.5492,-83.1798],"reynolds-national-bluff-cove":[33.5492,-83.1798],"reynolds-national-ridge-bluff":[33.5492,-83.1798],"reynolds-richland":[33.5492,-83.1798],"reynolds-creek-club":[33.5492,-83.1798],"reynolds-landing":[33.5492,-83.1798],"reynolds-oconee-club":[33.5492,-83.1798],"redtail-landing":[53.3225,-113.5572],"jagare-ridge-gc":[53.4223,-113.5814],"northern-bear-gc":[53.3761,-113.1442],"windermere-valley":[50.4685,-115.9474],"river-ridge-gc":[53.4684,-113.5411]};
@@ -322,7 +323,22 @@ function resolve(code, rid){
                shape. */
             if (r3.status === 404) {
               return jfetch(API + '/api/round-field/' + encodeURIComponent(code) + (rid ? ('?round_id=' + encodeURIComponent(rid)) : '')).then(function(r4){
-                if (r4.ok && r4.data && r4.data.field) return startField(r4.data, code, null);
+                if (r4.ok && r4.data && r4.data.field) {
+                  /* ⭐⭐ v1.41 · B-234 (Bruce s276): "a unique code for LIVE VIEW that
+                     can NEVER keep score." Worker v3.48.0's round-field still answers
+                     on the Live View code (Pards Live and the swap-in sheet read it)
+                     but tags it view_only, and the claim route refuses it. Stop HERE,
+                     at the door, with the worker's own sentence — never draw a
+                     pick-players sheet whose only button is guaranteed to fail.
+                     ⛔ A payload without the flag (older worker) opens exactly as
+                     v1.40 did. */
+                  if (r4.data.view_only) {
+                    var eV = new Error("That\u2019s a Live View code \u2014 it can\u2019t keep score. Ask your organizer for the scoring code.");
+                    eV.viewOnly = true;
+                    throw eV;
+                  }
+                  return startField(r4.data, code, null);
+                }
                 throw new Error((r4.data && r4.data.error) || 'That code didn’t match a card.');
               });
             }
@@ -1783,12 +1799,28 @@ function boot(code, rid, mp, tg){
   });
 }
 
+/* v1.41 · B-234 — the door's error line. Plain text for every failure, exactly
+   as before; ONLY a view-only refusal (e.viewOnly, set in resolve() rail four)
+   adds a Watch link to Pards Live on that same code — the code IS the Live
+   View code, so the link is the honest next step. textContent first, so a
+   worker sentence can never render as markup. */
+function ltDoorErr(e, code){
+  var el = $('codeErr');
+  el.textContent = (e && e.message) || 'Could not open that card.';
+  if (e && e.viewOnly && code) {
+    var a = document.createElement('a');
+    a.href = location.pathname.replace(/[^/]*$/, 'pards-live.html') + '?code=' + encodeURIComponent(code);
+    a.textContent = 'Watch it on Pards Live \u2192';
+    a.style.cssText = 'display:block;margin-top:8px;color:#c9a84c;font-weight:800;text-decoration:none';
+    el.appendChild(a);
+  }
+}
 $('codeGo').addEventListener('click', function(){
   var c = String($('codeIn').value || '').replace(/[^0-9A-Za-z]/g,'');
   if (c.length < 6){ $('codeErr').textContent = 'Enter the 6-digit code from your card.'; return; }
   $('codeGo').disabled = true; $('codeGo').textContent = 'Opening…';
   boot(c, null, null).catch(function(e){
-    $('codeErr').textContent = (e && e.message) || 'Could not open that card.';
+    ltDoorErr(e, c);                             /* v1.41 · B-234 — a Live View code gets a Watch link */
     $('codeGo').disabled = false; $('codeGo').textContent = 'Start scoring';
   });
 });
@@ -1799,7 +1831,7 @@ $('codeIn').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('c
   var c = q.get('code'), rid = q.get('rid'), mp = q.get('mp'), tg = q.get('tg');
   if (c && /^[0-9A-Za-z]{6}$/.test(c)) {
     boot(c, rid, mp, tg).catch(function(e){
-      $('codeErr').textContent = (e && e.message) || 'Could not open that card.';
+      ltDoorErr(e, c);                           /* v1.41 · B-234 */
       $('codeIn').value = c;
     });
   }

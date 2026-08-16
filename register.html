@@ -5,6 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.15 s277)
+     v1.15 (B-236): THERE WAS NO WAY OUT. Bruce, s277, off the live page:
+              "BUG. Pards register. Can't exit held hostage once clicking
+              link". Measured: the ONLY navigation on the whole page was the
+              sheet view's "Back to the invitation" — a man who tapped the
+              invite link, or who finished his RSVP, or who met "Registration
+              is closed", had nothing to tap at all. Same shape as Pards
+              Lite's FR-121 exit and Pards Live's B-233 exit.
+              ⭐ ONE control, fixed top-right of the VIEWPORT, on every view
+              (code entry · invitation · done · closed · day-of sheet). It is
+              a plain <a href="./"> to the Pards Tour front door — no JS, no
+              state, nothing to go wrong, and it can never be below the fold
+              (trap 205) on a 50-row sheet.
+              ⛔ position:fixed, NOT sticky — trap 217: a sticky bar lets rows
+              ride over it on an iOS rubber-band release. Body top padding
+              grows by the pill's height so it never covers the card.
+              ⛔ Zero logic touched: no worker, no D1, no fetch, no field, no
+              renderer. CSS + one anchor + one comment.
      PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.14 s265)
      v1.14 (FR-147 layout): STACKED WINNER ROWS. Bruce, s265, off the live
               card: "it is - but very well formated" — the side-by-side flex
@@ -95,7 +113,7 @@
     background:var(--linen); color:var(--ink);
     font-family:'Jost',sans-serif; font-weight:400; font-size:16px; line-height:1.55;
     min-height:100vh; display:flex; flex-direction:column; align-items:center;
-    padding:22px 14px 40px;
+    padding:calc(48px + env(safe-area-inset-top,0px)) 14px 40px;
   }
   .sheetwrap{width:100%; max-width:430px;}
   .card{
@@ -176,6 +194,17 @@
   }
   footer{ margin-top:22px; text-align:center; font-size:12.5px; color:var(--ink-soft);}
   footer a{ color:var(--green); text-decoration:none; border-bottom:1px dotted var(--brass);}
+  /* B-236 (v1.15) — THE WAY OUT. Fixed to the viewport so it is on screen on
+     every view and at every scroll position; the body's top padding above
+     reserves its strip so it never sits on top of the card. */
+  .exitbar{ position:fixed; top:calc(8px + env(safe-area-inset-top,0px));
+    right:calc(14px + env(safe-area-inset-right,0px)); z-index:50;}
+  .exitbar a{ display:inline-block; padding:7px 13px; text-decoration:none;
+    background:var(--card); border:1px solid rgba(168,134,60,.55); border-radius:999px;
+    color:var(--green); font-family:'Jost',sans-serif; font-size:11.5px; font-weight:600;
+    letter-spacing:.16em; text-transform:uppercase; white-space:nowrap;
+    box-shadow:0 2px 8px rgba(34,33,28,.10);}
+  .exitbar a:hover{ background:var(--green); color:var(--linen); border-color:var(--green);}
   .hidden{ display:none !important;}
   /* FR-139 (v1.9) — the league name picker. Same visual language as the
      FR-127 "Is this you?" rows, because it is the same question asked earlier. */
@@ -241,6 +270,10 @@
 </head>
 <body>
 <div class="sheetwrap">
+
+  <!-- B-236 (v1.15) — one exit, every view. Plain link to the Pards Tour
+       front door; ⛔ no JS, no handler, nothing to fail. -->
+  <div class="exitbar"><a href="./" id="regExit">&#10005;&nbsp; Exit</a></div>
 
   <!-- ================= VIEW 1 — CODE ENTRY ================= -->
   <div id="viewCode" class="card hidden"><div class="inner">
