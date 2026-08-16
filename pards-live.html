@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.11 -->
+<!-- pards-live-v1.12 -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -23,6 +23,11 @@ body { padding:0 0 40px; }
 .chip.live { color:#7bd88f; border-color:rgba(123,216,143,.4); background:rgba(123,216,143,.08); }
 .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; margin-top:12px; }
 .rowsHd,.row { display:grid; grid-template-columns:30px 1fr 46px 56px; gap:8px; align-items:center; }
+/* v1.12 (Bruce, s273): "this view should also include plus and minus to par".
+   ⛔ .rowsHd/.row are shared with the trip board below, so the fifth column
+   rides a MODIFIER used by the event board only. */
+.rowsHd.tp,.row.tp { grid-template-columns:30px 1fr 40px 46px 52px; }
+.tpar { font-size:13px; font-weight:800; text-align:right; }
 .rowsHd { font-size:10px; text-transform:uppercase; letter-spacing:.6px; color:var(--dim);
   padding:0 2px 7px; border-bottom:1px solid var(--line); font-weight:700; }
 .row { padding:9px 2px; border-bottom:1px solid rgba(255,255,255,.05); cursor:pointer; }
@@ -182,7 +187,7 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.11';
+var LIVE_VERSION = 'live-v1.12';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null };   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows */
@@ -395,12 +400,36 @@ function scoreKey(fmt) {
   return 'gross';
 }
 function scoreLabel(k) { return k === 'points' ? 'Pts' : k === 'net' ? 'Net' : 'Gross'; }
+/* ⭐⭐ v1.12 (s273) — TO PAR off the row's OWN card. Par is summed over the holes
+   actually posted (the client's FR-89 rule), so a man thru 11 reads his real
+   figure instead of being credited with seven holes he has not played.
+   ⛔ null when the course is unknown — the column is then never built at all
+   (B-31: a column EXISTS or is OMITTED, never a stack of dashes). */
+function toPar(r) {
+  var d = (r && r.data) || {}, by = d.scores_by_hole || {};
+  var pars = (d.course_id && PARS[d.course_id]) ? PARS[d.course_id] : null;
+  if (!pars) return null;
+  var g = 0, p = 0, n = 0;
+  for (var i = 1; i <= 18; i++) {
+    var v = by[i] != null ? by[i] : by[String(i)];
+    if (v == null || !(v > 0)) continue;
+    g += v; p += (pars[i - 1] != null ? pars[i - 1] : 4); n++;
+  }
+  return n ? (g - p) : null;
+}
+function fmtTp(n) { return n == null ? '\u2013' : n === 0 ? 'E' : n > 0 ? '+' + n : String(n); }
+function tpColour(n) { return n == null ? 'rgba(255,255,255,.25)' : n < 0 ? '#2ecc71' : n === 0 ? '#f5e6b8' : 'rgba(255,255,255,.7)'; }
 
 function paintBoard(d) {
   var round = d.round || {};
   var key = scoreKey(round.format);
   var rows = (d.standings || []);
   var h = '';
+  /* v1.12 (s273) — the column exists only when to par MEANS something: a strokes
+     round on a course whose pars we hold. Stableford and an unknown course get the
+     v1.11 board, unchanged. */
+  var _showTp = key !== 'points' && !!(rows.length && (rows[0].data || {}).course_id && PARS[(rows[0].data || {}).course_id]);
+  var _tpc = _showTp ? ' tp' : '';
 
   /* FR-126 ruling 1 — a RUNNING draft is the show; it goes above everything.
      A FINISHED one is history and rides below the leaderboard (see the tail). */
@@ -424,14 +453,16 @@ function paintBoard(d) {
   } else if (!rows.length) {
     h += '<div class="note">No scores posted yet.<br>This page refreshes itself every 30 seconds.</div>';
   } else {
-    h += '<div class="rowsHd"><div style="text-align:center">#</div><div>Player</div><div style="text-align:right">Thru</div><div style="text-align:right">' + scoreLabel(key) + '</div></div>';
+    h += '<div class="rowsHd' + _tpc + '"><div style="text-align:center">#</div><div>Player</div><div style="text-align:right">Thru</div>' + (_showTp ? '<div style="text-align:right">To Par</div>' : '') + '<div style="text-align:right">' + scoreLabel(key) + '</div></div>';   /* v1.12 (s273) */
     rows.forEach(function (r, i) {
       var v = r[key];
       var id = 'd' + i;
-      h += '<div class="row" onclick="tog(\'' + id + '\')">'
+      var _tp = _showTp ? toPar(r) : null;   /* v1.12 (s273) */
+      h += '<div class="row' + _tpc + '" onclick="tog(\'' + id + '\')">'
         + '<div class="pos">' + (i + 1) + '</div>'
         + '<div class="nm">' + esc(r.name) + '</div>'
         + '<div class="thru">' + (r.holes_played === 18 ? 'F' : (r.holes_played || 0)) + '</div>'
+        + (_showTp ? '<div class="tpar" style="color:' + tpColour(_tp) + '">' + fmtTp(_tp) + '</div>' : '')
         + '<div class="sc">' + (v == null ? '&ndash;' : v) + '</div>'
         + '</div>'
         + '<div class="det" id="' + id + '">' + card(r) + '</div>';
@@ -440,10 +471,11 @@ function paintBoard(d) {
        no THRU, DNF where the score goes, and they carry on the numbering — he asked
        for last PLACE, so they hold a place. ⛔ No detail card: there is nothing in it. */
     dnfRows(d).forEach(function (p, j) {
-      h += '<div class="row" style="opacity:.42">'
+      h += '<div class="row' + _tpc + '" style="opacity:.42">'
         + '<div class="pos">' + (rows.length + j + 1) + '</div>'
         + '<div class="nm">' + esc(p.name) + '</div>'
         + '<div class="thru">&mdash;</div>'
+        + (_showTp ? '<div class="tpar" style="color:rgba(255,255,255,.25)">&ndash;</div>' : '')   /* v1.12 — he posted nothing; there is no to par */
         + '<div class="sc">DNF</div>'
         + '</div>';
     });
