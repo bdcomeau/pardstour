@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.13 -->
+<!-- pards-live-v1.14 -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -11,7 +11,7 @@
 * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html,body { margin:0; padding:0; background:var(--bg); color:var(--txt);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
-body { padding:0 0 40px; }
+body { padding:0 0 84px; }   /* v1.14 (s274) — clear the fixed bottom ticker */
 .wrap { max-width:820px; margin:0 auto; padding:0 12px; }
 .top { position:sticky; top:0; z-index:5; background:linear-gradient(180deg,#0b0d10 72%,rgba(11,13,16,0));
   padding:14px 0 10px; }
@@ -27,6 +27,23 @@ body { padding:0 0 40px; }
    ⛔ .rowsHd/.row are shared with the trip board below, so the fifth column
    rides a MODIFIER used by the event board only. */
 .rowsHd.tp,.row.tp { grid-template-columns:30px 1fr 40px 46px 52px; }
+/* ⭐⭐ v1.14 (Bruce, s274): "it is not obvious the players are selectable to see
+   scorecard". Every event row gets a ▼ that flips when it opens. ⛔ .rowsHd/.row are
+   SHARED with the trip board, so the extra column rides a MODIFIER (.ch) exactly the
+   way the to-par column rides .tp — the trip board's grid does not move. */
+.rowsHd.ch,.row.ch { grid-template-columns:30px 1fr 46px 56px 14px; }
+.rowsHd.tp.ch,.row.tp.ch { grid-template-columns:30px 1fr 40px 46px 52px 14px; }
+.chev { font-size:9px; color:rgba(201,168,76,.6); text-align:right; line-height:1;
+  transition:transform .16s ease; }
+.chev.up { transform:rotate(180deg); }
+/* One card per round inside an open row (v1.14). */
+.cardR { margin-top:12px; }
+.cardR.first { margin-top:2px; }
+.cardRH { display:flex; align-items:baseline; justify-content:space-between; gap:8px;
+  font-size:10px; text-transform:uppercase; letter-spacing:.9px; color:var(--gold);
+  font-weight:800; padding-bottom:4px; margin-bottom:5px;
+  border-bottom:1px solid rgba(201,168,76,.22); }
+.cardRH span { color:var(--dim); font-weight:700; letter-spacing:.3px; text-transform:none; font-size:11px; }
 .tpar { font-size:13px; font-weight:800; text-align:right; }
 .rowsHd { font-size:10px; text-transform:uppercase; letter-spacing:.6px; color:var(--dim);
   padding:0 2px 7px; border-bottom:1px solid var(--line); font-weight:700; }
@@ -167,19 +184,27 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    the browser owns the animation. ⭐ The duration is set in JS from the length
    of the text, because a fixed duration reads as a crawl on a short night and
    a blur on a busy one. */
-.tick { overflow:hidden; white-space:nowrap; margin-top:10px; padding:7px 0;
-  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
-  background:rgba(201,168,76,.05); }
+/* ⭐⭐⭐ v1.14 (Bruce, s274): "the Ticker looks nothing like the client app pards
+   live -ticker - its boring and it should be bottom of the screen".
+   ⭐ The skin is COPIED, not invented — read straight off #ptTickerStrip in client
+   v655.0: #0f2417, a gold top hairline at .35, #e8dcb8 text, 32px on a phone.
+   ⭐ It is FIXED to the viewport. #tickHost sits inside .top, which is position:sticky
+   — and sticky does NOT make a containing block for a fixed child, so the strip spans
+   the whole window and ignores .wrap's 820px. body's bottom padding clears it. */
+.tick { position:fixed; left:0; right:0; bottom:0; z-index:250; height:32px; line-height:32px;
+  overflow:hidden; white-space:nowrap;
+  background:#0f2417; border-top:1px solid rgba(201,168,76,.35);
+  box-shadow:0 -6px 18px rgba(0,0,0,.45); }
 .tickIn { display:inline-block; animation:tickmove 40s linear infinite; will-change:transform; }
-.tickRun { font-size:14px; font-weight:750; letter-spacing:.4px; color:var(--gold); }
-.tickRun b { color:var(--txt); font-weight:800; }
+.tickRun { font-size:13px; font-weight:700; letter-spacing:.3px; color:#e8dcb8; }
+.tickRun b { color:var(--gold); font-weight:800; }
 @keyframes tickmove { from { transform:translateX(0); } to { transform:translateX(-50%); } }
-@media (min-width:1200px) { .tickRun { font-size:20px; } .tick { padding:10px 0; } }
+/* The big screen it was built for. */
+@media (min-width:1200px) { .tick { height:48px; line-height:48px; } .tickRun { font-size:23px; } }
 /* ⛔ Somebody watching on a phone with reduced motion gets the notes, standing
    still, rather than nothing. */
 @media (prefers-reduced-motion:reduce) {
   .tickIn { animation:none; }
-  .tick { white-space:normal; }
 }
 </style>
 </head>
@@ -218,10 +243,10 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.13';
+var LIVE_VERSION = 'live-v1.14';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
-var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null, view:'round', overall:null };   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows. v1.13 (s274) — view + the overall payload (FR-158). */
+var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null, view:'round', overall:null, lb:{} };   /* v1.14 (s274) — lb[round_id] = that round's leaderboard, for all-rounds cards */   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows. v1.13 (s274) — view + the overall payload (FR-158). */
 
 function gid(id) { return document.getElementById(id); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -361,7 +386,7 @@ function refresh() {
      last painted it rather than blanked and re-flowed on every poll. */
   if (S.view === 'overall') {
     return jget(API + '/api/event-overall/' + encodeURIComponent(S.code || ''))
-      .then(function (o) { S.overall = o; paintOverall(o); })
+      .then(function (o) { S.overall = o; return lbLoadAll().then(function () { paintOverall(o); }); })
       .catch(function (e) {
         gid('app').innerHTML = tabsHtml()
           + '<div class="card"><div class="note">The overall board is not available for this event yet.<br>'
@@ -378,7 +403,11 @@ function refresh() {
     S.field ? Promise.resolve(S.field)
             : jget(API + '/api/round-field/' + encodeURIComponent(S.code || '')).catch(function () { return null; })
   ])
-    .then(function (rs) { S.sheet = rs[1]; if (rs[2]) S.field = rs[2]; paintBoard(rs[0]); paintTicker(rs[0]); })   /* FR-134 */
+    .then(function (rs) {
+      S.sheet = rs[1]; if (rs[2]) S.field = rs[2];
+      S.lb[S.roundId] = rs[0];                       /* v1.14 — the live round, every poll */
+      return lbLoadAll().then(function () { paintBoard(rs[0]); paintTicker(rs[0]); });   /* FR-134 */
+    })
     .catch(function (e) { gid('app').innerHTML = '<div class="err">' + esc(e.message || 'Could not load') + '</div>'; });
 }
 
@@ -568,7 +597,8 @@ function paintOverall(d) {
   h += tabsHtml();
   /* 26px pos | name | one cell per round | Tot | To Par. Narrow on purpose:
      three rounds still has to read on a phone held at arm's length. */
-  var gt = '26px 1fr' + new Array(rounds.length + 1).join(' 34px') + ' 42px 48px';
+  var gt = '26px 1fr' + new Array(rounds.length + 1).join(' 34px') + ' 42px 48px 14px';   /* v1.14 — ▼ */
+  var _on = 0;
   h += '<div class="card">';
   if (!rounds.length || !secs.length) {
     h += '<div class="note">Nothing to total yet.<br>The overall board fills in once a round is open and scores are posted.</div>';
@@ -580,12 +610,15 @@ function paintOverall(d) {
       h += '<div class="oHd" style="grid-template-columns:' + gt + '">'
         + '<div style="text-align:center">#</div><div>Player</div>'
         + rounds.map(function (r) { return '<div style="text-align:right">R' + r.round_number + '</div>'; }).join('')
-        + '<div style="text-align:right">Tot</div><div style="text-align:right">To Par</div></div>';
+        + '<div style="text-align:right">Tot</div><div style="text-align:right">To Par</div><div></div></div>';
       rankFlight(sec.players).forEach(function (row, i) {
         var p = row.p, tag = '';
         if (row.band === 2) tag = '<span class="oTag">DNF</span>';
         else if (row.band === 1) tag = '<span class="oTag">' + row.played + ' of ' + row.best + '</span>';
-        h += '<div class="orow' + (row.band === 2 ? ' out' : '') + '" style="grid-template-columns:' + gt + '">'
+        /* ⭐ v1.14 (s274) — the Overall row opens too, and it is the best place on the
+           page for it: one tap gives a man's whole tournament, card by card. */
+        var oid = 'ov' + (_on++);
+        h += '<div class="orow' + (row.band === 2 ? ' out' : '') + '" style="grid-template-columns:' + gt + ';cursor:pointer" onclick="tog(\'' + oid + '\')">'
           + '<div class="pos">' + (i + 1) + '</div>'
           + '<div class="onm"><span class="onmN">' + esc(p.name || '') + '</span>' + tag + '</div>'
           + rounds.map(function (r) {
@@ -595,7 +628,9 @@ function paintOverall(d) {
             }).join('')
           + '<div class="oTot">' + (p.total_gross == null ? '\u2013' : p.total_gross) + '</div>'
           + '<div class="oTp" style="color:' + tpColour(p.total_topar) + '">' + fmtTp(p.total_topar) + '</div>'
-          + '</div>';
+          + chev(oid)
+          + '</div>'
+          + '<div class="det" id="' + oid + '">' + allCards(p.name) + '</div>';
       });
       h += '</div>';
     });
@@ -662,30 +697,32 @@ function paintBoard(d) {
   } else if (!rows.length) {
     h += '<div class="note">No scores posted yet.<br>This page refreshes itself every 30 seconds.</div>';
   } else {
-    h += '<div class="rowsHd' + _tpc + '"><div style="text-align:center">#</div><div>Player</div><div style="text-align:right">Thru</div>' + (_showTp ? '<div style="text-align:right">To Par</div>' : '') + '<div style="text-align:right">' + scoreLabel(key) + '</div></div>';   /* v1.12 (s273) */
+    h += '<div class="rowsHd' + _tpc + ' ch"><div style="text-align:center">#</div><div>Player</div><div style="text-align:right">Thru</div>' + (_showTp ? '<div style="text-align:right">To Par</div>' : '') + '<div style="text-align:right">' + scoreLabel(key) + '</div><div></div></div>';   /* v1.12 (s273) · v1.14 ▼ column */
     rows.forEach(function (r, i) {
       var v = r[key];
       var id = 'd' + i;
       var _tp = _showTp ? toPar(r) : null;   /* v1.12 (s273) */
-      h += '<div class="row' + _tpc + '" onclick="tog(\'' + id + '\')">'
+      h += '<div class="row' + _tpc + ' ch" onclick="tog(\'' + id + '\')">'
         + '<div class="pos">' + (i + 1) + '</div>'
         + '<div class="nm">' + esc(r.name) + '</div>'
         + '<div class="thru">' + (r.holes_played === 18 ? 'F' : (r.holes_played || 0)) + '</div>'
         + (_showTp ? '<div class="tpar" style="color:' + tpColour(_tp) + '">' + fmtTp(_tp) + '</div>' : '')
         + '<div class="sc">' + (v == null ? '&ndash;' : v) + '</div>'
+        + chev(id)                                            /* v1.14 (s274) */
         + '</div>'
-        + '<div class="det" id="' + id + '">' + card(r) + '</div>';
+        + '<div class="det" id="' + id + '">' + allCards(r.name) + '</div>';   /* v1.14 — every round */
     });
     /* ⭐⭐⭐ v1.10 (Bruce, s273): "show DNF - and place them last place". Greyed,
        no THRU, DNF where the score goes, and they carry on the numbering — he asked
        for last PLACE, so they hold a place. ⛔ No detail card: there is nothing in it. */
     dnfRows(d).forEach(function (p, j) {
-      h += '<div class="row' + _tpc + '" style="opacity:.42">'
+      h += '<div class="row' + _tpc + ' ch" style="opacity:.42">'
         + '<div class="pos">' + (rows.length + j + 1) + '</div>'
         + '<div class="nm">' + esc(p.name) + '</div>'
         + '<div class="thru">&mdash;</div>'
         + (_showTp ? '<div class="tpar" style="color:rgba(255,255,255,.25)">&ndash;</div>' : '')   /* v1.12 — he posted nothing; there is no to par */
         + '<div class="sc">DNF</div>'
+        + '<div></div>'                                       /* v1.14 — no ▼: there is nothing to open */
         + '</div>';
     });
   }
@@ -694,13 +731,65 @@ function paintBoard(d) {
   /* FR-126 ruling 3 — the Final teams card stays, under the leaderboard. */
   if (_dr && _dDone) h += draftCard(_dr);
   gid('app').innerHTML = h;
-  Object.keys(S.open).forEach(function (k) { var el = gid(k); if (el && S.open[k]) el.className = 'det on'; });
+  Object.keys(S.open).forEach(function (k) { var el = gid(k); if (el && S.open[k]) el.className = 'det on';
+    var c = gid('cv' + k); if (c && S.open[k]) c.className = 'chev up'; });   /* v1.14 — the ▼ survives a repaint too */
 }
 
 /* The hole-by-hole card. The row's own `data` blob carries scores_by_hole and
    the course id; par comes from the SAME baked table Lite uses, so a course
    Lite knows, this page knows. Unknown course -> plain numbers, no colour, and
    no guessing. */
+/* ⭐⭐⭐ FR (v1.14, Bruce s274): "if I click on a player - show all of their cards
+   for all rounds". The board only ever loaded the round on screen, so an open row
+   showed one card. Now every round's leaderboard is cached and the row opens the
+   man's whole tournament.
+
+   ⛔⛔ TRAP 210 / B-230 — MATCH BY NAME. The round leaderboard carries `player_id`
+   in its data blob and NO roster_id; that is exactly what put the entire field on
+   the board as duplicate DNF rows at s273. Trimmed, lower-cased name is the only
+   key that exists on both sides.
+
+   ⭐ CHEAP: the round on screen is re-read every poll (it moves); the others are
+   fetched ONCE and kept (they are finished). A prior round edited mid-session is
+   picked up on reload — a deliberate trade against three fetches every 30 seconds. */
+function lbLoadAll() {
+  if (!S.ev) return Promise.resolve();
+  var jobs = S.rounds.filter(function (r) { return !S.lb[r.id]; }).map(function (r) {
+    return jget(API + '/api/events/' + S.ev.id + '/rounds/' + r.id + '/leaderboard')
+      .then(function (d) { if (d) S.lb[r.id] = d; })
+      .catch(function () { /* fail-soft — a missing round just has no card */ });
+  });
+  return jobs.length ? Promise.all(jobs) : Promise.resolve();
+}
+
+function lbRowFor(roundId, name) {
+  var lb = S.lb[roundId]; if (!lb) return null;
+  var k = String(name || '').trim().toLowerCase(); if (!k) return null;
+  var hit = null;
+  (lb.standings || []).forEach(function (x) {
+    if (!hit && x && String(x.name || '').trim().toLowerCase() === k) hit = x;
+  });
+  return hit;
+}
+
+function allCards(name) {
+  var out = '', n = 0;
+  S.rounds.forEach(function (rd) {
+    var row = lbRowFor(rd.id, name);
+    if (!row) return;
+    var hp = row.holes_played || 0;
+    var thru = hp >= 18 ? 'Final' : hp > 0 ? ('Thru ' + hp) : 'No holes posted';
+    out += '<div class="cardR' + (n === 0 ? ' first' : '') + '">'
+        +  '<div class="cardRH"><div>Round ' + rd.round_number + '</div><span>' + thru + '</span></div>'
+        +  card(row) + '</div>';
+    n++;
+  });
+  if (!n) return '<div class="detMeta">No holes posted yet.</div>';
+  return out;
+}
+
+function chev(i) { return '<div class="chev" id="cv' + i + '">\u25bc</div>'; }
+
 function card(r) {
   var d = r.data || {};
   var by = d.scores_by_hole || {};
@@ -1069,10 +1158,17 @@ function paintTicker(d) {
   var run = '<span class="tickRun">' + joined + '&nbsp; &nbsp;&bull;&nbsp; &nbsp;</span>';
   host.innerHTML = '<div class="tick"><div class="tickIn" id="tickIn">' + run + run + '</div></div>';
   /* Duration from length: roughly a readable pace at any size of night. */
+  /* ⭐ v1.14 (s274) — the CLIENT'S calibration, lifted from _calibrate() in
+     client v655.0: normalise to ~42px/s off the measured track width, clamped
+     14..90s. ⛔ A width of 0 means "not laid out yet" — refuse to guess and fall
+     back to the old character estimate rather than pinning the crawl at its
+     fastest, which is the v315.0 lesson. */
   var el = gid('tickIn');
   if (el) {
-    var chars = joined.replace(/<[^>]*>/g, '').length;
-    el.style.animationDuration = Math.max(18, Math.min(180, Math.round(chars / 5))) + 's';
+    var w = 0; try { w = el.scrollWidth / 2; } catch (_w) { w = 0; }
+    var secs = w ? Math.min(90, Math.max(14, w / 42))
+                 : Math.max(18, Math.min(180, Math.round(joined.replace(/<[^>]*>/g, '').length / 5)));
+    el.style.animationDuration = secs + 's';
   }
 }
 
@@ -1106,6 +1202,7 @@ window.tog = function (id) {
   var el = gid(id); if (!el) return;
   var on = el.className.indexOf('on') < 0;
   el.className = on ? 'det on' : 'det';
+  var c = gid('cv' + id); if (c) c.className = on ? 'chev up' : 'chev';   /* v1.14 (s274) */
   S.open[id] = on;
 };
 window.pickRound = function (id) { S.roundId = id; S.view = 'round'; S.open = {}; refresh(); };
