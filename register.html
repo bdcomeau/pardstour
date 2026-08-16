@@ -5,6 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.16 s279)
+     v1.16 (FR-167): THE EXIT LANDED IN THE WRONG PLACE. Bruce, s279, asked
+              a third time and ruled: the ✕ Exit goes to the About page.
+              Measured before changing anything — the pill was a plain
+              <a href="./">, which from /register.html resolves to the site
+              root, i.e. index.html at 9,476,383 bytes. About is 16,907. That
+              is 560x lighter for the exact man who presses it: someone who
+              tapped an invite link in a text message, said yes, and is done.
+              He is not a user and should not be handed the whole app.
+              ⭐ About already carries an "Open Pards Tour" call to action, so
+              the way IN survives — every screen still has a way out, and now
+              a way onward too.
+              ⛔ Zero logic touched: no worker, no D1, no fetch, no field, no
+              renderer, no JS. One href, one comment, one changelog block.
+              B-236's rule is untouched: ONE control, fixed to the viewport,
+              present on every view (code entry · invitation · done · closed
+              · day-of sheet), position:fixed not sticky (trap 217).
+
      PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.15 s277)
      v1.15 (B-236): THERE WAS NO WAY OUT. Bruce, s277, off the live page:
               "BUG. Pards register. Can't exit held hostage once clicking
@@ -271,9 +289,12 @@
 <body>
 <div class="sheetwrap">
 
-  <!-- B-236 (v1.15) — one exit, every view. Plain link to the Pards Tour
-       front door; ⛔ no JS, no handler, nothing to fail. -->
-  <div class="exitbar"><a href="./" id="regExit">&#10005;&nbsp; Exit</a></div>
+  <!-- B-236 (v1.15) — one exit, every view. FR-167 (v1.16): it lands on the
+       About page, not the app home — a man who just RSVP'd off a text link is
+       not a user, and the app home is a 9.4 MB download on cell data. About is
+       16,907 bytes and carries its own "Open Pards Tour" button for anyone who
+       does want in. ⛔ Still no JS, no handler, nothing to fail. -->
+  <div class="exitbar"><a href="./about.html" id="regExit">&#10005;&nbsp; Exit</a></div>
 
   <!-- ================= VIEW 1 — CODE ENTRY ================= -->
   <div id="viewCode" class="card hidden"><div class="inner">
