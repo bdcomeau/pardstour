@@ -49053,7 +49053,23 @@ var PT_TVD_FLIGHTABLE = ['overall', 'round', 'scorecard', 'oncourse'];
    actually is (he corrected 4096 to 3840 himself). ⛔ Change these two numbers and
    every frame follows; never hardcode a size anywhere else. */
 var PT_TV_W = 3840, PT_TV_H = 2160;
-function ptTvAspectPct() { return (PT_TV_H / PT_TV_W * 100).toFixed(4) + '%'; }
+/* ⭐⭐ s283 (Bruce): "there should be a switch for 4K and 8K — just to look cool —
+   does not mean it has to do anything, but people will think wow."
+   ⭐ SO I MADE IT TRUE RATHER THAN DECORATIVE. It really is the panel the preview
+   models: the iframe is sized to it, and the caption under the frame names it.
+   ⚠ AND THE HONEST PART, SAID ON SCREEN: both are 16:9, and every board is written
+   in vh/vw, so 8K renders the IDENTICAL picture at twice the pixels. Nothing about
+   the wall changes. That is not a bug — it is why the boards work on any screen. */
+var PT_TV_RES = {
+  '4k': { w: 3840, h: 2160, label: '4K UHD' },
+  '8k': { w: 7680, h: 4320, label: '8K UHD' }
+};
+function ptTvResOf(k) { return PT_TV_RES[String(k || '').toLowerCase()] || PT_TV_RES['4k']; }
+function ptTvResKey() {
+  var S = window._ptTvD;
+  return (S && PT_TV_RES[S.res]) ? S.res : '4k';
+}
+function ptTvAspectPct() { var r = ptTvResOf(ptTvResKey()); return (r.h / r.w * 100).toFixed(4) + '%'; }
 function ptTvDispFlights(cfg) {
   try {
     if (!cfg || !cfg.flight_rule) return [];
@@ -49123,6 +49139,7 @@ function ptTvDispOpen(eventId, roundNo) {
             code: d.event.event_code || '', rounds: rounds,
             cat: ptTvDispCat(rounds), scope: 'event',
             flights: ptTvDispFlights(cfg),
+            res: (cfg && cfg.tv && PT_TV_RES[cfg.tv.res]) ? cfg.tv.res : '4k',
             titles: {}, panes: null, byFlight: {}, pvErr: '', loading: false
           };
           window._ptTvD.list = ptTvDispList('event');
@@ -49149,7 +49166,9 @@ function ptTvDispOpen(eventId, roundNo) {
             +   '<input type="checkbox" id="ptTvD_on"' + (tvOn ? ' checked' : '') + ' style="width:18px;height:18px;accent-color:#c9a84c">'
             +   '<span style="font-size:14px;font-weight:700;color:#eee">Use my playlist instead of the automatic rotation</span></label>'
             + '<div style="font-size:11px;color:rgba(255,255,255,.28);margin-bottom:14px;padding:0 2px">Off, or nothing ticked, and the TV rotates everything by itself exactly as it does today. Boards this screen does not list — game boards — always play, after yours.</div>'
-            + '<div id="ptTvDScopeRow" style="display:flex;gap:6px;margin-bottom:4px"></div>'
+            + '<div id="ptTvDResRow" style="display:flex;gap:6px;margin-bottom:4px"></div>'
+        + '<div id="ptTvDResNote" style="font-size:11px;color:rgba(255,255,255,.28);margin-bottom:14px;padding:0 2px"></div>'
+        + '<div id="ptTvDScopeRow" style="display:flex;gap:6px;margin-bottom:4px"></div>'
             + '<div id="ptTvDScopeNote" style="font-size:11px;color:rgba(255,255,255,.28);margin-bottom:12px;padding:0 2px"></div>'
             + '<div id="ptTvDRows"></div>'
             + '<div id="ptTvDErr" style="display:none;color:#e74c3c;font-size:13px;margin:10px 0;text-align:center"></div>'
@@ -49165,6 +49184,21 @@ function ptTvDispOpen(eventId, roundNo) {
     .catch(function (_e) { ptToast(_ptEsc(_ptMsg(_e, 'Network error — check connection.'))); });
 }
 
+function ptTvDispResBtn(k) {
+  var r = PT_TV_RES[k], on = ptTvResKey() === k;
+  return '<button onclick="ptTvDispRes(\'' + k + '\')" style="flex:1;padding:10px 4px;border-radius:9px;border:1.5px solid rgba(201,168,76,'
+    + (on ? '.9' : '.25') + ');background:' + (on ? 'rgba(201,168,76,.15)' : 'none') + ';color:' + (on ? '#c9a84c' : 'rgba(201,168,76,.5)')
+    + ';font-size:11px;font-weight:800;cursor:pointer">' + r.label + '<span style="display:block;font-weight:600;font-size:9.5px;opacity:.65;margin-top:2px">'
+    + r.w + ' \u00d7 ' + r.h + '</span></button>';
+}
+function ptTvDispRes(k) {
+  var S = window._ptTvD;
+  if (!S || !PT_TV_RES[k] || S.res === k) return;
+  S.res = k;
+  /* The iframe viewport changed, so anything already rendered is the wrong panel. */
+  S.panes = null; S.byFlight = {}; S.titles = {}; S.pvErr = '';
+  ptTvDispPaint();
+}
 function ptTvDispScopeBtn(s, lbl) {
   var on = (window._ptTvD && window._ptTvD.scope) === s;
   return '<button onclick="ptTvDispScope(\'' + s + '\')" style="flex:1;padding:10px 4px;border-radius:9px;border:1.5px solid rgba(201,168,76,' + (on ? '.9' : '.25')
@@ -49183,6 +49217,14 @@ function ptTvDispScope(s) {
 function ptTvDispPaint() {
   var S = window._ptTvD;
   if (!S) return;
+  var rr = document.getElementById('ptTvDResRow');
+  if (rr) rr.innerHTML = ptTvDispResBtn('4k') + ptTvDispResBtn('8k');
+  var rn = document.getElementById('ptTvDResNote');
+  if (rn) {
+    var _r = ptTvResOf(ptTvResKey());
+    rn.innerHTML = 'Previews render at ' + _r.w + ' \u00d7 ' + _r.h + '. Both are 16:9 and every board is built to scale, '
+      + 'so 8K is the same picture at four times the pixels \u2014 which is exactly why these boards look right on any screen.';
+  }
   var sc = document.getElementById('ptTvDScopeRow');
   if (sc) {
     sc.innerHTML = ptTvDispScopeBtn('event', 'Every round')
@@ -49292,6 +49334,7 @@ function ptTvDispSave() {
   });
   tv.on = onEl ? !!onEl.checked : false;
   tv.families = PT_TVD_FAMS;
+  tv.res = ptTvResKey();
   if (S.scope === 'round' && S.roundNo > 0) {
     tv.rounds = (tv.rounds && typeof tv.rounds === 'object') ? tv.rounds : {};
     /* An emptied round override is DELETED, never stored as a husk — the
@@ -49414,8 +49457,11 @@ function ptTvDispShowPv(i, loading) {
       return '<div style="margin-bottom:12px">'
         + (hits.length > 1 ? '<div style="font-size:11px;font-weight:800;color:rgba(201,168,76,.7);margin-bottom:4px">Page ' + (i + 1) + ' of ' + hits.length + '</div>' : '')
         + '<div class="ptPvBox" style="position:relative;width:100%;max-width:560px;margin:0 auto;padding-top:' + ptTvAspectPct() + ';border-radius:12px;overflow:hidden;border:1.5px solid rgba(201,168,76,.35);background:#0c1c0a">'
-        +   '<iframe class="ptPvFr" sandbox="allow-same-origin" scrolling="no" style="position:absolute;top:0;left:0;width:' + PT_TV_W + 'px;height:' + PT_TV_H + 'px;border:0;transform-origin:top left;transform:scale(.1)"></iframe>'
-        + '</div></div>';
+        +   '<iframe class="ptPvFr" sandbox="allow-same-origin" scrolling="no" style="position:absolute;top:0;left:0;width:' + ptTvResOf(ptTvResKey()).w + 'px;height:' + ptTvResOf(ptTvResKey()).h + 'px;border:0;transform-origin:top left;transform:scale(.1)"></iframe>'
+        + '</div>'
+        + '<div style="text-align:center;font-size:10.5px;font-weight:700;color:rgba(201,168,76,.55);margin-top:5px;letter-spacing:.04em">'
+        +   ptTvResOf(ptTvResKey()).w + ' \u00d7 ' + ptTvResOf(ptTvResKey()).h + ' \u00b7 ' + ptTvResOf(ptTvResKey()).label + '</div>'
+        + '</div>';
     }).join('');
   }
   var ov = document.createElement('div');
@@ -49467,7 +49513,7 @@ function ptTvDispShowPv(i, loading) {
       var fr = boxes[q].querySelector('.ptPvFr');
       if (!fr) continue;
       var w = boxes[q].clientWidth || 320;
-      fr.style.transform = 'scale(' + (w / PT_TV_W) + ')';
+      fr.style.transform = 'scale(' + (w / ptTvResOf(ptTvResKey()).w) + ')';
       fr.srcdoc = _mk(_ptEsc((hits[q] && hits[q].title) || ''), (hits[q] && hits[q].html) || '');
     }
   } catch (eS) {}
