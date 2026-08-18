@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v705.0 -->
+  <!-- pards-tour-v706.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -29743,6 +29743,7 @@ window.ptEvCourseSheet = function(){
 window.ptEvCourseSheetClose = function(){
   var ov = document.getElementById('ptEvCrsOv');
   if(ov) ov.remove();
+  window._ptCrsTarget = null; window._ptCrsCur = null;   /* FR-183 -- a cancel forgets the wizard target */
 };
 
 window.ptEvCourseSheetFilter = function(q){
@@ -29751,7 +29752,7 @@ window.ptEvCourseSheetFilter = function(q){
   if(!list) return;
   var all = _ptCoursesSorted();
   var hits = q ? all.filter(function(c){ return _ptCourseMatch(c.name, q); }) : all;
-  var cur = window._ptNewEvCourse || null;
+  var cur = (window._ptCrsCur != null ? window._ptCrsCur : window._ptNewEvCourse) || null;   /* FR-183 -- the wizard's row highlights its own course */
   var html = '';
   if(!q){
     html += '<div onclick="ptEvCourseSheetPick(null)" style="padding:15px 18px;cursor:pointer;font-size:15px;color:rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.05);-webkit-tap-highlight-color:transparent">No course yet</div>';
@@ -29778,6 +29779,16 @@ window.ptEvCourseSheetFilter = function(q){
 };
 
 window.ptEvCourseSheetPick = function(courseId){
+  /* FR-183 (v706.0, s286) -- ONE search sheet, two doors. An opener may set
+     window._ptCrsTarget to a callback (the wizard does); the legacy Create
+     contract below stays byte-for-byte the default. */
+  if (typeof window._ptCrsTarget === 'function') {
+    var _cb183 = window._ptCrsTarget;
+    window._ptCrsTarget = null; window._ptCrsCur = null;
+    ptEvCourseSheetClose();
+    _cb183(courseId);
+    return;
+  }
   ptEvPickCourse(courseId);      // the existing contract — tees, globals, all of it
   _ptEvCourseFieldLabel();
   ptEvCourseSheetClose();
@@ -30415,6 +30426,21 @@ function _ptTBRide() {
     if (!rj.tee && String(rj.course_id) === String(r0.course_id)) rj.tee = r0.tee || '';
   }
 }
+/* FR-183 (v706.0, s286) -- his ask, ruled off the phone mock: "can you format
+   this nicer than the IOS ... also - add a search to course drop down?"
+   The wizard's course field opens the EXISTING search sheet through the
+   callback target; the tee is a pill row. No second picker producer. */
+window.ptTBCourseSheet = function (i) {
+  var t = window._ptTB; if (!t || !t.rounds[i]) return;
+  window._ptCrsCur = t.rounds[i].course_id || null;
+  window._ptCrsTarget = function (courseId) { ptTBRnd(i, 'course_id', courseId || ''); };
+  ptEvCourseSheet();
+};
+window.ptTBTee = function (i, name) {
+  ptTBRnd(i, 'tee', name);
+  ptTBRender();   /* ptTBRnd repaints only on course/format; a pill tap needs the repaint */
+};
+
 window.ptTBRnd = function (i, k, v) {
   var t = window._ptTB; if (!t || !t.rounds[i]) return;
   var _prev96 = t.rounds[i][k];
@@ -30641,13 +30667,21 @@ window.ptTBRender = function () {
          + '<optgroup label="Available now">'
          + fmts.map(function(f){ return '<option value="' + f.v + '"' + (f.v === r.format ? ' selected' : '') + '>' + f.l + '</option>'; }).join('')
          + '</optgroup>' + _ptTBCSOpts() + '</select></div>' : '')
-         + '<div><div style="' + _PT_EV_LBL + '">Course</div><select onchange="ptTBRnd(' + i + ',\'course_id\',this.value)" style="' + _PT_EV_FIELD + '">'
-         + '<option value="">— pick course —</option>'
-         + PARDS_COURSES.slice().sort(function(a,b){ return String(a.name||'').localeCompare(String(b.name||''), undefined, {sensitivity:'base'}) || (a.id - b.id); })             .map(function(c){ return '<option value="' + c.id + '"' + (c.id === r.course_id ? ' selected' : '') + '>' + c.name + '</option>'; }).join('') + '</select></div>'   // B-97 (v447.0) — alphabetical; .slice() so the shared PARDS_COURSES order is untouched
+         /* FR-183 (v706.0, s286) -- ruled off the mock: course opens the search
+            sheet, tees are pills. Both span the row; the old iOS selects are gone. */
+         + '<div style="grid-column:1/-1"><div style="' + _PT_EV_LBL + '">Course</div>'
+         + '<div onclick="ptTBCourseSheet(' + i + ')" style="' + _PT_EV_FIELD + ';cursor:pointer;display:flex;align-items:center;gap:10px;-webkit-tap-highlight-color:transparent">'
+         + '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:' + (course ? '#fff' : 'rgba(255,255,255,.35)') + '">' + (course ? String(course.name).replace(/</g, '&lt;') : 'Select a course') + '</span>'
+         + '<span style="color:rgba(201,168,76,.7);font-size:18px;line-height:1;flex:0 0 auto">\u203a</span></div></div>'
 
-         + '<div><div style="' + _PT_EV_LBL + '">Tee</div><select onchange="ptTBRnd(' + i + ',\'tee\',this.value)" style="' + _PT_EV_FIELD + '">'
-         + (course ? '<option value="">— pick tee —</option>' + course.tees.map(function(x){ return '<option value="' + x.name + '"' + (x.name === r.tee ? ' selected' : '') + '>' + x.name + '</option>'; }).join('') : '<option value="">— course first —</option>')
-         + '</select></div>'
+         + '<div style="grid-column:1/-1"><div style="' + _PT_EV_LBL + '">Tee</div>'
+         + (course
+             ? '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:2px">' + course.tees.map(function(x){
+                 var _on183 = x.name === r.tee;
+                 return '<button onclick="ptTBTee(' + i + ',\'' + String(x.name).replace(/'/g, "\\'") + '\')" style="padding:9px 14px;border-radius:9px;border:' + (_on183 ? '1.5px solid #c9a84c' : '1px solid rgba(255,255,255,.15)') + ';background:' + (_on183 ? 'rgba(201,168,76,.2)' : 'transparent') + ';color:' + (_on183 ? '#c9a84c' : 'rgba(255,255,255,.45)') + ';font-size:13px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">' + String(x.name).replace(/</g, '&lt;') + '</button>';
+               }).join('') + '</div>'
+             : '<div style="font-size:11px;color:rgba(255,255,255,.3);padding:10px 2px 2px">Pick a course first \u2014 its tees appear here.</div>')
+         + '</div>'
          + '</div></div>';
     });
     /* ⭐⭐ FR-96 (v558.0) — SAY THE DEFAULT OUT LOUD. A default nobody touches is
@@ -70327,7 +70361,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v705.0';
+    const TOUR_VERSION     = 'pards-tour-v706.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
