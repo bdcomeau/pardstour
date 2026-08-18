@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v703.0 -->
+  <!-- pards-tour-v704.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -15239,7 +15239,7 @@ function renderCard(){
      picker existed since the RBC build but renderCard NEVER called it -- dead
      code, local-only stores, an always-empty tee_shots table. Official card
      only; shows exactly when the event tracks drives. */
-  if (G.scrambleMode && G._drivesOn) { try { html += ptRbcBuildTeeShotPicker(h + 1, false); } catch (eDrv) {} }
+  if (G._drivesOn) { try { html += ptRbcBuildTeeShotPicker(h + 1, false); } catch (eDrv) {} }   /* v704.0 -- the fact alone */
 
   // ── Mid-round settings entry (between the score wheels and the master scorecard) ──
   const _anyScore = G.scores && G.scores.some(function(ps){ return ps && ps.some(function(s){ return s!==null; }); });
@@ -28323,6 +28323,7 @@ function ptDoAbandon() {
   G._teeShots = {};
   G._refTeeShots = {};
   G._ownPlayers = [];
+  G._drivesOn = false; G._drivesMin = 0;   /* FR-182 (v704.0) -- abandon forgets the facts too */
   G._ownTeamHandicap = null;
   G.scrambleMode   = false; G.mmgMode = false;
   G.scrambleFormat = null;
@@ -30066,6 +30067,40 @@ function _ptTBFmts() {
   if (_ppt >= 2 && _ppt <= 5) out = out.concat(window.ptXofNRows([_ppt]));
   return out;
 }
+/* FR-182 (v704.0, s286) -- THE WIZARD IS WHERE HE BUILDS. v703 put the drives
+   selector on the legacy Create sheet only; he went looking on the wizard's
+   screen 4 of 5 and it was not there ("I am running 703.0 - this is not
+   appearing"). Own resolver + painter, same pills, ONE config shape. */
+function _ptTBDrivesVal() {
+  var t = window._ptTB;
+  if (!t) return null;
+  return t.drivesTouched ? (t.drives || null) : null;   /* no rbc row in the wizard, so untouched = Off */
+}
+function _ptTBDrivesUI() {
+  var t = window._ptTB;
+  if (!t || ['scramble', 'scramble_stableford'].indexOf(t.defFmt) < 0) return '';
+  var cur = _ptTBDrivesVal();
+  var pills = [['off', 'Off'], ['on', 'On'], [1, '1'], [2, '2'], [3, '3'], [4, '4']];
+  return '<div style="margin-top:14px;padding:10px;background:rgba(100,180,255,.05);border:1px solid rgba(100,180,255,.2);border-radius:10px">'
+    + '<div style="font-size:11px;color:rgba(100,180,255,.7);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px">\ud83c\udfcc\ufe0f Track who hit the tee shot</div>'
+    + '<div style="display:flex;gap:6px">'
+    + pills.map(function (p) {
+        var sel = cur === null ? p[0] === 'off' : (p[0] === 'on' ? !(cur.min > 0) : cur.min === p[0]);
+        var st = sel ? 'border:1.5px solid rgba(100,180,255,.8);background:rgba(100,180,255,.2);color:#aad4ff'
+                     : 'border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.4)';
+        return '<button onclick="ptTBDrives(' + (typeof p[0] === 'number' ? p[0] : "\x27" + p[0] + "\x27") + ')" style="flex:1;padding:8px 4px;border-radius:8px;' + st + ';font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">' + p[1] + '</button>';
+      }).join('')
+    + '</div>'
+    + '<div style="font-size:10.5px;color:rgba(255,255,255,.35);margin-top:7px;line-height:1.45">Pick a number to require that many drives per player. The scorecard counts and warns \u2014 it never blocks a score.</div>'
+    + '</div>';
+}
+window.ptTBDrives = function (v) {
+  var t = window._ptTB; if (!t) return;
+  t.drivesTouched = true;
+  t.drives = (v === 'off') ? null : { on: true, min: (typeof v === 'number' ? v : 0) };
+  ptTBRender();
+};
+
 function _ptTBLegalGroups() {
   var t = window._ptTB, out = [];
   /* ⭐⭐ B-153 (v530.0) — the multiple-of-team-size rule (D12) exists so a group can be
@@ -30584,7 +30619,8 @@ window.ptTBRender = function () {
        + _ptTBFmts().map(function(f){ return '<option value="' + f.v + '"' + (f.v === t.defFmt ? ' selected' : '') + '>' + f.l + '</option>'; }).join('')
        + '</optgroup>' + _ptTBCSOpts()
        + '</select>'
-       + _ptTBAlwUI();                                           // D1 (s61) - allowance vector + second cut
+       + _ptTBAlwUI()                                            // D1 (s61) - allowance vector + second cut
+       + _ptTBDrivesUI();                                        /* FR-182 (v704.0) -- drives live where he BUILDS */
   }
 
   if (t.step === 4) {
@@ -30710,6 +30746,9 @@ window.ptTBCreate = function () {
        on the wire that nothing reads. Absent on old events \u2014 every reader
        falls back to the league profile, which is exactly v548.0 behaviour. */
     formation: (t.league && t.form) ? t.form : null } }; // D1 (s61) - v2.78.0 applies these
+  /* FR-182 (v704.0) -- drives ride the wizard's config too; Off writes NOTHING (husk rule) */
+  var _tbDrv = _ptTBDrivesVal();
+  if (_tbDrv && _tbDrv.on && ['scramble', 'scramble_stableford'].indexOf(t.defFmt) >= 0) cfg.drives = { on: true, min: Math.max(0, Math.min(4, Math.round(Number(_tbDrv.min) || 0))) };
   if (t.trip) cfg.trip = { id: t.trip.id, name: t.trip.name }; // v441.0 — D84: minimal stamp, no denormalized siblings (the trip board lives on the trip page)
   /* ⛔⛔ v506.0 — D98 step 1: THERE IS DELIBERATELY NO `cfg.league` LINE HERE, AND
      ADDING ONE IS A BUG. cfg.league is NOT the trip stamp's twin: ptLgStampLeague
@@ -49121,6 +49160,76 @@ function ptTvResKey() {
   return (S && PT_TV_RES[S.res]) ? S.res : '4k';
 }
 function ptTvAspectPct() { var r = ptTvResOf(ptTvResKey()); return (r.h / r.w * 100).toFixed(4) + '%'; }
+/* FR-182 (v704.0, s286) -- event-wide drives setting, editable after creation.
+   B-244-safe sheet (plain scroll container + min-height flex column), B-247
+   width cap. Off saves { drives: null } -- the ptPatchEvConfig({league:null})
+   clear precedent; every reader checks drives && drives.on. */
+window._ptDrvSet = null;
+function ptDrvSetOpen(eventId) {
+  fetch(TOUR_API + '/api/events/' + eventId, { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
+    .then(_ptJson)
+    .then(function (d) {
+      if (!d.event) { ptToast(d.error || 'Could not load event.'); return; }
+      var cfg = ptEvCfg(d.event);
+      var cur = (cfg && cfg.drives && cfg.drives.on) ? { on: true, min: Math.max(0, Math.min(4, Math.round(Number(cfg.drives.min) || 0))) } : null;
+      window._ptDrvSet = { eventId: eventId, val: cur };
+      var ov = document.createElement('div');
+      ov.id = 'ptDrvSetOv';
+      ov.style.cssText = 'position:fixed;inset:0;z-index:720;background:rgba(0,0,0,.75);display:block;overflow-y:auto;-webkit-overflow-scrolling:touch';
+      var wrap = document.createElement('div');
+      wrap.style.cssText = 'min-height:100%;display:flex;flex-direction:column;justify-content:flex-end;box-sizing:border-box';
+      var inner = document.createElement('div');
+      inner.style.cssText = 'background:#1a2a1a;border-radius:20px 20px 0 0;padding:22px 20px 40px;width:100%;max-width:560px;margin:0 auto;box-sizing:border-box';
+      inner.innerHTML =
+          '<div style="font-size:17px;font-weight:800;color:#c9a84c;margin-bottom:4px">\ud83c\udfcc\ufe0f Tee Shot Tracking</div>'
+        + '<div style="font-size:12px;color:rgba(255,255,255,.35);margin-bottom:14px">Applies to every scramble team card in this event \u2014 pick a number to require that many drives per player. The card counts and warns; it never blocks a score.</div>'
+        + '<div id="ptDrvSetPills" style="display:flex;gap:6px"></div>'
+        + '<div id="ptDrvSetErr" style="display:none;color:#e74c3c;font-size:13px;margin:10px 0;text-align:center"></div>'
+        + '<button id="ptDrvSetSave" onclick="ptDrvSetSave()" style="width:100%;padding:13px;background:#c9a84c;color:#1a3a2a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer;margin-top:16px">Save</button>'
+        + '<button onclick="document.getElementById(\'ptDrvSetOv\').remove()" style="width:100%;padding:11px;background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;margin-top:6px">Cancel</button>';
+      wrap.appendChild(inner); ov.appendChild(wrap);
+      ov.addEventListener('click', function (e) { if (e.target === ov) ov.remove(); });
+      document.body.appendChild(ov);
+      ptDrvSetPaint();
+    })
+    .catch(function (_e) { ptToast(_ptMsg(_e, 'Network error \u2014 check connection.')); });
+}
+function ptDrvSetPick(v) {
+  var S2 = window._ptDrvSet; if (!S2) return;
+  S2.val = (v === 'off') ? null : { on: true, min: (typeof v === 'number' ? v : 0) };
+  ptDrvSetPaint();
+}
+function ptDrvSetPaint() {
+  var S2 = window._ptDrvSet, host = document.getElementById('ptDrvSetPills');
+  if (!S2 || !host) return;
+  var cur = S2.val, pills = [['off', 'Off'], ['on', 'On'], [1, '1'], [2, '2'], [3, '3'], [4, '4']];
+  host.innerHTML = pills.map(function (p) {
+    var sel = cur === null ? p[0] === 'off' : (p[0] === 'on' ? !(cur.min > 0) : cur.min === p[0]);
+    var st = sel ? 'border:1.5px solid rgba(100,180,255,.8);background:rgba(100,180,255,.2);color:#aad4ff'
+                 : 'border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.4)';
+    return '<button onclick="ptDrvSetPick(' + (typeof p[0] === 'number' ? p[0] : "\x27" + p[0] + "\x27") + ')" style="flex:1;padding:10px 4px;border-radius:8px;' + st + ';font-size:13px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">' + p[1] + '</button>';
+  }).join('');
+}
+function ptDrvSetSave() {
+  var S2 = window._ptDrvSet; if (!S2) return;
+  var btn = document.getElementById('ptDrvSetSave'), errEl = document.getElementById('ptDrvSetErr');
+  if (btn) { btn.disabled = true; btn.textContent = 'Saving\u2026'; }
+  ptPatchEvConfig(S2.eventId, { drives: S2.val ? { on: true, min: Math.max(0, Math.min(4, Math.round(Number(S2.val.min) || 0))) } : null })
+    .then(function (d) {
+      if (!d.event && !d.ok) {
+        if (btn) { btn.disabled = false; btn.textContent = 'Save'; }
+        if (errEl) { errEl.textContent = d.error || 'Save failed.'; errEl.style.display = 'block'; }
+        return;
+      }
+      var ov = document.getElementById('ptDrvSetOv'); if (ov) ov.remove();
+      ptToast('Tee shot tracking saved.');
+    })
+    .catch(function (_e) {
+      if (btn) { btn.disabled = false; btn.textContent = 'Save'; }
+      if (errEl) { errEl.textContent = _ptMsg(_e, 'Network error \u2014 check connection.'); errEl.style.display = 'block'; }
+    });
+}
+
 function ptTvDispFlights(cfg) {
   try {
     if (!cfg || !cfg.flight_rule) return [];
@@ -52212,6 +52321,11 @@ var _mrRoll = function(ns){ var d=0; for (var i=0;i<ns.length;i++) if (ST[ns[i]]
                  '#a8d5b5', 'rgba(127,191,127,.09)', 'rgba(127,191,127,.3)')
       + _ptMRBtn('ptPrintRoundTeeSheet(' + _ptMR.eventId + ',' + RJ + ')', '📋 Print Tee Sheet…',
                  'rgba(201,168,76,.8)', 'rgba(201,168,76,.08)', 'rgba(201,168,76,.26)')
+      /* FR-182 (v704.0) -- the drives setting reachable on an EXISTING event (his
+         live question exposed the create-time-only gap). Always offered -- B-249:
+         never gate a door on format; the sheet says what it affects. */
+      + _ptMRBtn('ptDrvSetOpen(' + _ptMR.eventId + ')', '\ud83c\udfcc\ufe0f Tee Shot Tracking…',
+                 'rgba(100,180,255,.9)', 'rgba(100,180,255,.07)', 'rgba(100,180,255,.28)')
     : _ptMRGate('No players in the field yet — there is nobody to pair.', 1, 'Add players');
   // ⭐ FR-54 — §5 is now emitted LAST in this group (as step 7). See below.
 
@@ -67214,9 +67328,10 @@ function doJoinGroup() {
 // Called from renderCard() when G.scrambleFormat === 'rbc'
 // Returns HTML string for tee shot picker row, mirrors 3-putt tracker pattern
 function ptRbcBuildTeeShotPicker(hole1based, isRefCard) {
-  /* FR-182 (v703.0) -- the gate is the FACT (G._drivesOn from event config or the
-     RBC rule), never the format string (B-249). */
-  if (!G.scrambleMode || !G._drivesOn) return '';
+  /* FR-182 (v703.0/v704.0) -- the gate is the FACT alone (B-249): the tee-time
+     scramble launcher never sets scrambleMode, and _drivesOn is only ever set
+     on a scramble path (and cleared on every exit and every other launch). */
+  if (!G._drivesOn) return '';
   var store = isRefCard ? G._refTeeShots : G._teeShots;
   var players = isRefCard ? (G._ownPlayers || []) : G.players;
   // Use own team's player names for RBC tee shot tracking
@@ -67263,7 +67378,7 @@ function ptRbcBuildTeeShotPicker(hole1based, isRefCard) {
 }
 
 function ptRbcSelectTeeShot(hole1based, playerName, isRefCard) {
-  if (!G.scrambleMode || !G._drivesOn) return;   /* FR-182 -- the fact, not the format */
+  if (!G._drivesOn) return;   /* FR-182 -- the fact alone (v704.0: the launcher path has no scrambleMode) */
   var store = isRefCard ? G._refTeeShots : G._teeShots;
   if (store[hole1based] === playerName) {
     delete store[hole1based]; // toggle off
@@ -67473,6 +67588,29 @@ function ptLaunchFoursomeRound(foursomeData) {
     G._teeShots = {};
     G._refTeeShots = {};
     G._activeScoreTab = 'official';
+    /* FR-182 (v704.0, s286) -- drives facts for the wizard/tee-time scramble
+       card (this launcher never goes through doJoinGroup). join-round carries
+       no event config, so ask the team's own join door once, fail-soft: no
+       answer means the picker simply stays off. RBC keeps its rule offline.
+       Names follow the team being scored (Lite's correct scope, T3d). */
+    if (teamPlayers.length) G._ownPlayers = teamPlayers;
+    G._drivesOn = foursome.format === 'rbc_scramble';
+    G._drivesMin = G._drivesOn ? 3 : 0;
+    (function (_dCode) {
+      if (!_dCode) return;
+      fetch(TOUR_API + '/api/join/' + encodeURIComponent(_dCode))
+        .then(_ptJson)
+        .then(function (dj) {
+          var _g2 = dj && dj.group, _dv = _g2 && _g2.drives;
+          if (_dv && _dv.on) {
+            G._drivesOn = true;
+            G._drivesMin = Number(_dv.min) > 0 ? Math.min(4, Math.round(Number(_dv.min))) : 0;
+          }
+          ((dj && dj.tee_shots) || []).forEach(function (ts) { if (ts && ts.hole && !G._teeShots[ts.hole]) G._teeShots[ts.hole] = ts.player_name; });
+          if (G._drivesOn) { try { saveG(); renderCard(); } catch (eR2) {} }
+        })
+        .catch(function () {});
+    })(scrambleTeam.group_code || null);
 
     // Tournament context — keeps _tournamentRound set through saveG
     G._tournamentSubmitted = false;
@@ -67686,6 +67824,7 @@ function ptLaunchFoursomeRound(foursomeData) {
   G._teeShots         = {};
   G._refTeeShots      = {};
   G._activeScoreTab   = 'official';
+  G._drivesOn = false; G._drivesMin = 0;   /* FR-182 (v704.0) -- a per-player card never shows the picker */
 
   saveG();
 
@@ -70150,7 +70289,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v703.0';
+    const TOUR_VERSION     = 'pards-tour-v704.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
