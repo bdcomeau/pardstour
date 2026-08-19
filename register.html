@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.16 s279)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.17 s288)
      v1.16 (FR-167): THE EXIT LANDED IN THE WRONG PLACE. Bruce, s279, asked
               a third time and ruled: the ✕ Exit goes to the About page.
               Measured before changing anything — the pill was a plain
@@ -167,6 +167,24 @@
   .lastweek .lw-win{ display:block; font-family:'Cormorant Garamond',serif;
     font-size:16.5px; font-weight:600; color:var(--green-deep); line-height:1.35;
     overflow-wrap:break-word;}
+  /* FR-193 (v1.17, s288) — who is in and who is out. Same card language as the
+     winners card above it; two columns on anything wider than a small phone,
+     stacked below that. */
+  .inout{ margin:0 0 12px; padding:12px 14px 10px; background:rgba(168,134,60,.05);
+    border:1px solid rgba(168,134,60,.3); border-radius:10px;}
+  .inout .io-title{ text-align:center; letter-spacing:.18em; text-transform:uppercase;
+    font-size:10.5px; color:var(--brass); font-weight:600; margin-bottom:8px;}
+  .inout .io-cols{ display:flex; gap:14px;}
+  .inout .io-col{ flex:1; min-width:0;}
+  .inout .io-head{ letter-spacing:.14em; text-transform:uppercase; font-size:10px;
+    font-weight:600; margin-bottom:5px; padding-bottom:4px; border-bottom:1px dotted var(--hair);}
+  .inout .io-head.yes{ color:var(--green-deep);}
+  .inout .io-head.no{ color:var(--ink-soft);}
+  .inout .io-name{ font-family:'Cormorant Garamond',serif; font-size:15.5px; line-height:1.45;
+    overflow-wrap:break-word;}
+  .inout .io-name.out{ color:var(--ink-soft);}
+  .inout .io-none{ font-size:12px; color:var(--ink-soft); font-style:italic;}
+  @media (max-width:420px){ .inout .io-cols{ display:block;} .inout .io-col + .io-col{ margin-top:12px;} }
   .hairline{ border:0; border-top:1px solid var(--hair); margin:16px 0;}
   .hairline.brass{ border-top:1px solid rgba(168,134,60,.55); width:64%; margin:14px auto;}
   .factrow{ display:flex; justify-content:space-between; gap:12px; padding:7px 2px;
@@ -314,6 +332,7 @@
     <h1 class="display" id="evName">&nbsp;</h1>
     <div class="blurb" id="evBlurb"></div>
     <div id="evLastWeek" class="lastweek hidden"></div>   <!-- FR-147 (v1.13) — below the tagline, ruled -->
+    <div id="evInOut" class="inout hidden"></div>   <!-- FR-193 (v1.17) — who is in, who is out -->
     <hr class="hairline brass">
     <div id="evFacts"></div>
     <hr class="hairline">
@@ -550,6 +569,35 @@ async function loadEvent(){
          + '<span class="lw-win">' + g.winners.map(esc).join(' · ') + '</span></div>';
     });
     el.innerHTML = h;
+    el.classList.remove('hidden');
+  })();
+  /* ⭐⭐⭐ FR-193 (v1.17, s288) — WHO IS IN AND WHO IS OUT.
+     Bruce: "maybe just show who is in and who is out on the registration page - no
+     pill required". So it is not a control, it is the page telling you.
+     ⭐ `attendees` rides the SAME fetch — one fetch stays one fetch, exactly as the
+     winners card does. Absent or null = the section stays hidden and the page is
+     v1.16 byte-for-byte, which is also what an organizer who never ticked the box
+     gets forever.
+     ⛔ NAMES ONLY EVER REACH THIS PAGE — the worker's query asks for two columns and
+     a contact detail cannot leak from a SELECT that never named it. This renderer
+     escapes everything it paints regardless. */
+  (function(){
+    var el = $('evInOut'), a = evData.attendees;
+    if (!el) return;
+    if (!a || ((a.yes || []).length === 0 && (a.no || []).length === 0)) {
+      el.classList.add('hidden'); el.innerHTML = ''; return;
+    }
+    var col = function (label, cls, names) {
+      var h = '<div class="io-col"><div class="io-head ' + cls + '">' + label
+            + ' &middot; ' + names.length + '</div>';
+      if (!names.length) h += '<div class="io-none">nobody yet</div>';
+      else names.forEach(function (n) {
+        h += '<div class="io-name' + (cls === 'no' ? ' out' : '') + '">' + esc(n) + '</div>';
+      });
+      return h + '</div>';
+    };
+    el.innerHTML = '<div class="io-title">Who is playing</div><div class="io-cols">'
+      + col('In', 'yes', a.yes || []) + col('Out', 'no', a.no || []) + '</div>';
     el.classList.remove('hidden');
   })();
   $('evFacts').innerHTML =
