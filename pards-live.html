@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.22 -->
+<!-- pards-live-v1.24 -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -105,6 +105,11 @@ body { padding:0 0 calc(84px + env(safe-area-inset-bottom)); }   /* B-256 (v1.22
 .tab { padding:6px 11px; border-radius:999px; border:1px solid var(--line); background:transparent;
   color:var(--dim); font-size:11.5px; font-weight:700; cursor:pointer; }
 .tab.on { background:rgba(201,168,76,.14); color:var(--gold); border-color:rgba(201,168,76,.45); }
+/* ⭐ FR-188 (v1.23, s288, Bruce): "on the pards live screen - if it is listing
+   individual scores - allow user to select to see Gross , Net or Par Point scores".
+   Reuses .tab so the picker reads as one family with the round strip above it. */
+.skBar { display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin:10px 0 -2px; }
+.skLbl { font-size:10px; text-transform:uppercase; letter-spacing:.6px; color:var(--dim); font-weight:800; }
 /* B-233 (v1.15, s276): "there is no exit button to go back and enter a new code".
    A small pill in the top-right of the sticky header (so it stays reachable while the
    board scrolls). Reuses .tab; the id only positions it. Sits under the ticker (z 250). */
@@ -272,10 +277,10 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.22';
+var LIVE_VERSION = 'live-v1.24';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
-var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null, view:'round', overall:null, lb:{} };   /* v1.14 (s274) — lb[round_id] = that round's leaderboard, for all-rounds cards */   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows. v1.13 (s274) — view + the overall payload (FR-158). */
+var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null, view:'round', overall:null, lb:{}, sk:null };   /* FR-188 (v1.23, s288) — sk = his Gross/Net/Par Points pick, null = the round's own format */   /* v1.14 (s274) — lb[round_id] = that round's leaderboard, for all-rounds cards */   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows. v1.13 (s274) — view + the overall payload (FR-158). */
 
 function gid(id) { return document.getElementById(id); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -688,6 +693,90 @@ function scoreKey(fmt) {
   return 'gross';
 }
 function scoreLabel(k) { return k === 'points' ? 'Pts' : k === 'net' ? 'Net' : 'Gross'; }
+
+/* ⭐⭐ FR-188 (v1.23, s288) — GROSS / NET / PAR POINTS ON AN INDIVIDUAL BOARD.
+   The three numbers are ALREADY on the wire: handleRoundLeaderboard sends gross,
+   net AND points on every standings row whatever the round's format (measured
+   s288 — 326 of 326 cache rows carry gross and net, 314 carry points). So this is
+   a VIEW SWITCH, not a new computation, and no worker change was needed.
+   ⛔⛔ GATE ON THE FACT (B-249), never on ev.format or round.format — the picker
+   appears only when every row IS a player. A team board has nothing to pick
+   between, and that is exactly the "if it is listing individual scores" clause.
+   ⛔ A key with no number anywhere on the board is never offered.
+   ⛔ Fewer than two keys to offer = no bar at all (B-31: it exists or it is omitted). */
+var FR188_KEYS  = ['gross', 'net', 'points'];
+var FR188_LABEL = { gross: 'Gross', net: 'Net', points: 'Par Points' };
+function fr188Individual(rows) {
+  if (!rows || !rows.length) return false;
+  for (var i = 0; i < rows.length; i++) { if (!rows[i] || rows[i].entry_type !== 'player') return false; }
+  return true;
+}
+function fr188Offer(rows) {
+  return FR188_KEYS.filter(function (k) {
+    for (var i = 0; i < (rows || []).length; i++) { if (rows[i] && rows[i][k] != null) return true; }
+    return false;
+  });
+}
+/* His pick wins; the round's own format is only the DEFAULT. A pick that this
+   board cannot honour (no data, or a team board) falls straight back to it. */
+/* ⛔⛔⛔ B-260 (v1.24, s288) — THE PRINTED COLUMN IS THE COLUMN THE BOARD IS RANKED ON.
+   Found while rendering FR-188. handleRoundLeaderboard picks its ORDER BY from
+     const RLB_STROKE_RANK = { individual_low_gross: 'gross', individual_low_net: 'net' };
+   and EVERY other format falls through to `points DESC, gross ASC`. scoreKey()
+   answered 'gross' for team_1net1gross — Chibri — so that board ranked on par
+   points and printed GROSS: the right numbers in an order they do not explain.
+   This mirrors the worker's map term for term, so there is ONE ranking rule on
+   this page and it is the worker's.
+   ⛔ DATA-GATED (B-31): a board that carries no points at all (team/scramble,
+   where points is NULL by contract) keeps scoreKey()'s answer rather than
+   printing a column of dashes.
+   ⭐ Bruce, s288, on the two-question fold: "Yes to 1".
+   ⛔ A side effect he was told about: Chibri's default view loses the To Par
+   column, because a points board has never carried one. One tap on Gross
+   brings it back. */
+function b260Default(fmt, rows) {
+  var f = String(fmt || '');
+  if (f === 'individual_low_gross') return 'gross';
+  if (f === 'individual_low_net')   return 'net';
+  return fr188Offer(rows).indexOf('points') >= 0 ? 'points' : scoreKey(f);
+}
+function fr188Key(fmt, rows) {
+  var def = b260Default(fmt, rows);   /* B-260 (v1.24) — the worker's rule, not scoreKey's */
+  if (!S.sk || !fr188Individual(rows)) return def;
+  return fr188Offer(rows).indexOf(S.sk) >= 0 ? S.sk : def;
+}
+function fr188Bar(rows, key) {
+  if (!fr188Individual(rows)) return '';
+  var offer = fr188Offer(rows);
+  if (offer.length < 2) return '';
+  var h = '<div class="skBar"><span class="skLbl">Show</span>';
+  offer.forEach(function (k) {
+    h += '<button class="tab' + (k === key ? ' on' : '') + '" onclick="pickScore(\'' + k + '\')">'
+      +  FR188_LABEL[k] + '</button>';
+  });
+  return h + '</div>';
+}
+/* ⭐⭐⭐ THE PICK RE-RANKS (Bruce, s288) — the # beside a man ALWAYS matches the
+   number beside it. This is not a second ranking engine: it mirrors the worker's
+   own ORDER BY for the same key, term for term —
+     holes_played DESC  (his s287 ruling: a team on 9 holes beats one on 8)
+     then the key       (points HIGH wins, gross/net LOW wins)
+     then gross, then name.
+   ⛔ Nulls sort LAST, never as zero (s268 standing rule). */
+function fr188Sort(items, k) {
+  var hi = (k === 'points');
+  return items.slice().sort(function (a, b) {
+    var A = a.r || {}, B = b.r || {};
+    var ah = A.holes_played || 0, bh = B.holes_played || 0;
+    if (ah !== bh) return bh - ah;
+    var av = A[k], bv = B[k];
+    if (av == null && bv != null) return 1;
+    if (bv == null && av != null) return -1;
+    if (av != null && bv != null && av !== bv) return hi ? (bv - av) : (av - bv);
+    if (A.gross != null && B.gross != null && A.gross !== B.gross) return A.gross - B.gross;
+    return String(A.name || '').localeCompare(String(B.name || '')) || (a.i - b.i);
+  });
+}
 /* ⭐⭐ v1.12 (s273) — TO PAR off the row's OWN card. Par is summed over the holes
    actually posted (the client's FR-89 rule), so a man thru 11 reads his real
    figure instead of being credited with seven holes he has not played.
@@ -840,8 +929,8 @@ function preSheetHtml() {
 }
 function paintBoard(d) {
   var round = d.round || {};
-  var key = scoreKey(round.format);
   var rows = (d.standings || []);
+  var key = fr188Key(round.format, rows);   /* FR-188 (v1.23) — his pick wins, the format is only the default */
   var h = '';
   /* v1.12 (s273) — the column exists only when to par MEANS something. */
   var _showTp = key !== 'points' && !!(rows.length && (rows[0].data || {}).course_id && PARS[(rows[0].data || {}).course_id]);
@@ -864,6 +953,7 @@ function paintBoard(d) {
       .catch(function () {});
   }
 
+  h += fr188Bar(rows, key);   /* FR-188 (v1.23) — directly above the board it governs */
   h += '<div class="card">';
   if (d.unavailable) {
     h += '<div class="note">' + esc(d.unavailable) + '</div>';
@@ -879,6 +969,9 @@ function paintBoard(d) {
        engine is invented here — the positions simply restart at 1 per section. */
     var _items = [];
     rows.forEach(function (r, i) { _items.push({ r: r, i: i, dnf: 0 }); });
+    /* FR-188 (v1.23) — re-rank ONLY when he picked. An untouched board keeps the
+       worker's own order byte-for-byte, and DNFs still ride behind everyone. */
+    if (S.sk && key === S.sk && fr188Individual(rows)) _items = fr188Sort(_items, key);
     dnfRows(d).forEach(function (p, j) { _items.push({ r: p, i: rows.length + j, dnf: 1 }); });
     fltSections(_items, function (it) {
       return _fx.nm[String((it.r && it.r.name) || '').trim().toLowerCase()];
@@ -1535,7 +1628,18 @@ window.tog = function (id) {
   S.open[id] = on;
 };
 window.pickRound = function (id) { S.roundId = id; S.view = 'round'; S.open = {}; refresh(); };
-window.pickOverall = function () { S.view = 'overall'; S.open = {}; refresh(); };   /* FR-158 (v1.13, s274) */
+window.pickOverall = function () { S.view = 'overall'; S.open = {}; refresh(); };
+/* FR-188 (v1.23, s288) — repaint off the CACHED board, no fetch: the pick is a
+   view of numbers already on the page, and a 30-second poll must not gate a tap.
+   ⭐ S.open is deliberately NOT cleared — row ids are the row's ORIGINAL index, so
+   an open scorecard stays open and stays on the same man through a re-rank.
+   ⛔ Fails open: a cold cache just takes the normal refresh path. */
+window.pickScore = function (k) {
+  S.sk = k;
+  var d = S.lb[S.roundId];
+  if (d) { try { paintBoard(d); return; } catch (e) {} }
+  refresh();
+};   /* FR-158 (v1.13, s274) */
 
 function boot() {
   var q = new URLSearchParams(location.search);
