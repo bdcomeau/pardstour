@@ -5,20 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.17 s288)
-     v1.16 (FR-167): THE EXIT LANDED IN THE WRONG PLACE. Bruce, s279, asked
-              a third time and ruled: the ✕ Exit goes to the About page.
-              Measured before changing anything — the pill was a plain
-              <a href="./">, which from /register.html resolves to the site
-              root, i.e. index.html at 9,476,383 bytes. About is 16,907. That
-              is 560x lighter for the exact man who presses it: someone who
-              tapped an invite link in a text message, said yes, and is done.
-              He is not a user and should not be handed the whole app.
-              ⭐ About already carries an "Open Pards Tour" call to action, so
-              the way IN survives — every screen still has a way out, and now
-              a way onward too.
-              ⛔ Zero logic touched: no worker, no D1, no fetch, no field, no
-              renderer, no JS. One href, one comment, one changelog block.
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.18 s288)
+     v1.18 (FR-194 + B-262): the In list now says WHEN each man said yes, and
+              the ✕ Exit no longer sends anyone to the About page.
+     v1.16 (FR-167, REVERSED in v1.18): Bruce, s279, ruled the ✕ Exit should
+              go to the About page. s288 reverses it — "I don't want that
+              being advertised to the masses." LATER MESSAGE WINS.
+              That reasoning still holds for the WEIGHT of the page — the app home
+              is a 9.6 MB download for a man who tapped a text link, said yes and
+              is done. What it got wrong was the DESTINATION: About is a sales
+              page, and he is not being sold to. v1.18 keeps him where he is.
               B-236's rule is untouched: ONE control, fixed to the viewport,
               present on every view (code entry · invitation · done · closed
               · day-of sheet), position:fixed not sticky (trap 217).
@@ -183,6 +179,10 @@
   .inout .io-name{ font-family:'Cormorant Garamond',serif; font-size:15.5px; line-height:1.45;
     overflow-wrap:break-word;}
   .inout .io-name.out{ color:var(--ink-soft);}
+  /* FR-194 (v1.18) — when he said yes. Deliberately quiet: a third the weight of
+     the name, so the list still reads as a list of men, not a log. */
+  .inout .io-when{ font-family:'Jost',sans-serif; font-size:10px; letter-spacing:.04em;
+    color:var(--ink-soft); opacity:.75; margin:-1px 0 5px; white-space:nowrap;}
   .inout .io-none{ font-size:12px; color:var(--ink-soft); font-style:italic;}
   @media (max-width:420px){ .inout .io-cols{ display:block;} .inout .io-col + .io-col{ margin-top:12px;} }
   .hairline{ border:0; border-top:1px solid var(--hair); margin:16px 0;}
@@ -235,12 +235,12 @@
      reserves its strip so it never sits on top of the card. */
   .exitbar{ position:fixed; top:calc(8px + env(safe-area-inset-top,0px));
     right:calc(14px + env(safe-area-inset-right,0px)); z-index:50;}
-  .exitbar a{ display:inline-block; padding:7px 13px; text-decoration:none;
+  .exitbar button{ display:inline-block; padding:7px 13px; text-decoration:none; cursor:pointer;
     background:var(--card); border:1px solid rgba(168,134,60,.55); border-radius:999px;
     color:var(--green); font-family:'Jost',sans-serif; font-size:11.5px; font-weight:600;
     letter-spacing:.16em; text-transform:uppercase; white-space:nowrap;
     box-shadow:0 2px 8px rgba(34,33,28,.10);}
-  .exitbar a:hover{ background:var(--green); color:var(--linen); border-color:var(--green);}
+  .exitbar button:hover{ background:var(--green); color:var(--linen); border-color:var(--green);}
   .hidden{ display:none !important;}
   /* FR-139 (v1.9) — the league name picker. Same visual language as the
      FR-127 "Is this you?" rows, because it is the same question asked earlier. */
@@ -307,12 +307,16 @@
 <body>
 <div class="sheetwrap">
 
-  <!-- B-236 (v1.15) — one exit, every view. FR-167 (v1.16): it lands on the
-       About page, not the app home — a man who just RSVP'd off a text link is
-       not a user, and the app home is a 9.4 MB download on cell data. About is
-       16,907 bytes and carries its own "Open Pards Tour" button for anyone who
-       does want in. ⛔ Still no JS, no handler, nothing to fail. -->
-  <div class="exitbar"><a href="./about.html" id="regExit">&#10005;&nbsp; Exit</a></div>
+  <!-- ⛔⛔ B-262 (v1.18, s288) — THE EXIT MUST NOT ADVERTISE THE APP.
+       v1.16 sent this pill to about.html on Bruce's s279 ruling. s288 reverses it
+       in his words: "After people hit the exit button on the registration page can
+       you stop showing this pop-up of the Pards tour app? I don't want that being
+       advertised to the masses." LATER MESSAGE WINS.
+       ⭐ EVERY SCREEN STILL NEEDS A WAY OUT (B-239). It is a button now, not a
+       link: it tries to close the tab, and when the browser refuses — which iOS
+       Safari always does for a tab it did not open by script — it leaves a quiet
+       sign-off in place of the invitation. Nothing is sold, nothing is linked. -->
+  <div class="exitbar"><button type="button" id="regExit" onclick="regBye()">&#10005;&nbsp; Exit</button></div>
 
   <!-- ================= VIEW 1 — CODE ENTRY ================= -->
   <div id="viewCode" class="card hidden"><div class="inner">
@@ -491,6 +495,25 @@ function show(id){
   ['viewCode','viewEvent','viewSheet'].forEach(function(v){ $(v).classList.add('hidden'); });
   $(id).classList.remove('hidden');
 }
+  /* ⛔⛔ B-262 (v1.18) — the way out, with nothing to sell.
+     ⛔ FAILS OPEN three ways: no card element, a throw inside close(), or a
+     browser that honours close() — in every case the man is left on a page that
+     is either gone or says one calm sentence. He is never trapped. */
+  function regBye() {
+    try { window.close(); } catch (_b262a) { }
+    setTimeout(function () {
+      try {
+        if (window.closed) return;
+        var bar = document.querySelector('.exitbar'); if (bar) bar.style.display = 'none';
+        document.body.innerHTML =
+          '<div class="card" style="text-align:center;padding:44px 24px">'
+          + '<div class="sh" style="margin-bottom:10px">You are all set</div>'
+          + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:19px;color:var(--ink-soft)">'
+          + 'Thanks &mdash; you can close this tab.</div></div>';
+      } catch (_b262b) { }
+    }, 120);
+  }
+
 function esc(s){
   return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
@@ -587,17 +610,39 @@ async function loadEvent(){
     if (!a || ((a.yes || []).length === 0 && (a.no || []).length === 0)) {
       el.classList.add('hidden'); el.innerHTML = ''; return;
     }
-    var col = function (label, cls, names) {
+    /* ⭐⭐ FR-194 (v1.18, s288, Bruce) — "can you also show beside he people that
+       are in the time and date they registered?"
+       ⛔⛔ D1 STORES UTC, HE READS MDT. The worker sends an instant with a Z on it
+       and this line is the ONLY place a time is ever formatted — in the reader's
+       own zone, by his own phone. Never a fixed offset: Edmonton is UTC-6 today
+       and UTC-7 in December, and a hardcoded number is wrong half the year.
+       ⛔ PARALLEL ARRAYS, index-matched with the names by the worker's single
+       pass. A missing, malformed or absent stamp prints NOTHING — a name with no
+       time beside it, never a guess and never "Invalid Date".
+       ⭐ Works against reg-v1.10.0 too: `at` is simply undefined and the list is
+       v1.17 byte-for-byte until he pastes the worker. */
+    var when = function (iso) {
+      if (!iso) return '';
+      try {
+        var d = new Date(iso);
+        if (isNaN(d.getTime())) return '';
+        return d.toLocaleString(undefined, { month:'short', day:'numeric',
+                                             hour:'numeric', minute:'2-digit' });
+      } catch (_fr194) { return ''; }
+    };
+    var col = function (label, cls, names, stamps) {
       var h = '<div class="io-col"><div class="io-head ' + cls + '">' + label
             + ' &middot; ' + names.length + '</div>';
       if (!names.length) h += '<div class="io-none">nobody yet</div>';
-      else names.forEach(function (n) {
+      else names.forEach(function (n, i) {
         h += '<div class="io-name' + (cls === 'no' ? ' out' : '') + '">' + esc(n) + '</div>';
+        var w = when((stamps || [])[i]);
+        if (w) h += '<div class="io-when">' + esc(w) + '</div>';
       });
       return h + '</div>';
     };
     el.innerHTML = '<div class="io-title">Who is playing</div><div class="io-cols">'
-      + col('In', 'yes', a.yes || []) + col('Out', 'no', a.no || []) + '</div>';
+      + col('In', 'yes', a.yes || [], a.yes_at) + col('Out', 'no', a.no || [], a.no_at) + '</div>';
     el.classList.remove('hidden');
   })();
   $('evFacts').innerHTML =
