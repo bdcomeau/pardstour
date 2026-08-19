@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v716.0 -->
+  <!-- pards-tour-v717.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -50801,6 +50801,14 @@ function _ptTTBRender() {
            individual formats. Scramble slots are group-keyed (no roster key), so
            they never render this row; worker v3.19.0 accepts the PATCH. */
         if(!isScramble&&assigned.roster_id) h+=_ptTTBDeckRow(assigned);   // ⭐ FR-52 (v488.0) — SIBLING of the chip, never nested inside it
+        /* ⭐⭐⭐ FR-186 (v717.0, s288) — SOMEONE ELSE IS PLAYING THIS SPOT.
+           His ruling on the surface, asked and answered: the TEE-SHEET CARD, tap the
+           man. ⛔ SIBLING of the chip, never nested — a button inside a button eats
+           the move gesture (the FR-52 lesson, and the chip already carries tap AND
+           drag). ⛔ GATE ON THE FACT (B-249): a real seat, a real roster id, and a
+           tee_time_id that only exists on a SAVED sheet — which is exactly the
+           live-round case this is for. A sheet still being built has no card to keep. */
+        if(!isScramble&&assigned.roster_id&&slot.tee_time_id) h+=_ptFr186Row(si,pi);
       } else {
         h+='<div style="margin-bottom:5px"><button onclick="ptTTBSpotTap('+si+','+pi+')" data-ptdrop="'+si+':'+pi+'" style="width:100%;padding:10px 12px;border-radius:8px;border:1.5px dashed rgba(255,255,255,.2);background:none;color:rgba(255,255,255,.35);font-size:13px;font-weight:600;cursor:pointer">'+(mv?'\u2b07 place here':'+ add '+(isScramble?'team':'player'))+'</button></div>';
       }
@@ -50917,6 +50925,166 @@ function _ptDeckMapFrom(ttData) {
 function _ptTTBHarvestDecks(ttData) { _ptTTB._decks = _ptDeckMapFrom(ttData); }
 
 function _ptTTBDeck(rosterId) { return (_ptTTB._decks || {})[rosterId] || null; }
+
+/* ⭐⭐⭐ FR-186 (v717.0, s288) — SWAP A MAN, KEEP HIS CARD · THE DOOR.
+   Tue Aug 18, mid-round: Doug Campbell no-showed, Thomas Buchanan played his slot,
+   two holes were already posted. By hand it cost an hour, three ghost players and
+   five D1 repairs. This is the one tap that replaces all of it.
+
+   ⛔⛔⛔ IT NEVER GOES THROUGH ptTTBSave. That path re-mints EVERY card code
+   (FR-113) — catastrophic mid-round, with phones already holding the old codes.
+   This writes straight to the worker, then mirrors the result into _ptTTB.slots
+   and repaints. The rest of the builder's unsaved state is untouched.
+
+   ⛔ THE WORKER OWNS THE THREE TABLES (players, roster_event_links,
+   tee_time_players) in one batch. THE CLIENT OWNS cfg.rteams, because rteams
+   caches a RENDERED name string and ptFr66Name is the one producer of it.
+   That split is deliberate: a second name renderer in the worker is what printed
+   "Player 640" for an hour. */
+function _ptFr186Row(si, pi) {
+  return '<div style="margin:-2px 0 7px;padding-left:12px">'
+    + '<button onclick="ptFr186Open(' + si + ',' + pi + ')" '
+    + 'style="background:none;border:none;padding:0;color:rgba(255,255,255,.42);font-size:11.5px;font-weight:700;cursor:pointer;text-align:left">'
+    + '\u21c4 someone else is playing this spot'
+    + '</button></div>';
+}
+/* The candidates: men on the roster who are NOT already in this event's field and
+   NOT already seated on this sheet. ⛔ The worker refuses a man who already has a
+   players row here (UNIQUE roster_id+event_id) — this keeps him out of the list so
+   that refusal is rare, and surfaces the worker's own sentence when it is not. */
+function _ptFr186Candidates() {
+  var inEvent = {}, seated = {};
+  try { ptEventPool(_ptTTB.cfg, _ptTTB.groups).forEach(function (p) { if (p && p.roster_id != null) inEvent[String(p.roster_id)] = 1; }); } catch (_e1) {}
+  (_ptTTB.slots || []).forEach(function (s) {
+    (s.players || []).forEach(function (p) { if (p && p.roster_id != null) seated[String(p.roster_id)] = 1; });
+  });
+  return (_ptTTB.roster || []).filter(function (r) {
+    return r && r.id != null && !inEvent[String(r.id)] && !seated[String(r.id)];
+  }).sort(function (a, b) { return String(a.name || '').localeCompare(String(b.name || '')); });
+}
+window.ptFr186Close = function () { var el = document.getElementById('ptFr186Ov'); if (el) el.remove(); };
+window.ptFr186Open = function (si, pi) {
+  ptFr186Close();
+  var slot = (_ptTTB.slots || [])[si]; if (!slot) return;
+  var man = (slot.players || [])[pi]; if (!man || man.roster_id == null) return;
+  var cands = _ptFr186Candidates();
+  var ov = document.createElement('div');
+  ov.id = 'ptFr186Ov';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:760;background:rgba(0,0,0,.62);display:flex;flex-direction:column;justify-content:flex-end';
+  ov.onclick = function (e) { if (e.target === ov) ptFr186Close(); };
+  var h = '<div style="background:#0f1f14;border-top:1.5px solid rgba(201,168,76,.35);border-radius:16px 16px 0 0;max-height:72vh;display:flex;flex-direction:column">';
+  h += '<div style="display:flex;align-items:flex-start;justify-content:space-between;padding:14px 18px 6px;flex-shrink:0">'
+    + '<div><div style="font-size:14px;font-weight:800;color:#c9a84c">Someone else is playing this spot</div>'
+    + '<div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.55);margin-top:2px">' + _ptEsc(man.name || '') + '\u2019s card \u2014 any holes already posted stay on it.</div></div>'
+    + '<button onclick="ptFr186Close()" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;padding:0">\u2715</button></div>';
+  h += '<div style="overflow-y:auto;padding:6px 14px 20px">';
+  if (cands.length) {
+    h += '<div style="font-size:10.5px;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin:6px 4px 8px">Who is playing instead</div>';
+    cands.forEach(function (r) {
+      h += '<button onclick="ptFr186Pick(' + si + ',' + pi + ',' + r.id + ')" '
+        + 'style="width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:11px 12px;margin-bottom:6px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;font-size:13.5px;font-weight:700;cursor:pointer">'
+        + '<span>' + _ptEsc(r.name || '') + '</span>'
+        + (r.handicap != null ? '<span style="color:rgba(255,255,255,.45);font-weight:600;font-size:11.5px">' + r.handicap + '</span>' : '')
+        + '</button>';
+    });
+  } else {
+    h += '<div style="color:rgba(255,255,255,.4);font-size:13px;text-align:center;padding:20px 0">Everyone on your roster is already in this event.</div>';
+  }
+  h += '</div></div>';
+  ov.innerHTML = h;
+  document.body.appendChild(ov);
+};
+/* The confirm. ⛔ It says what CARRIES before it says what changes — the holes are
+   the thing he is afraid of losing, and they are the thing that is safe. */
+window.ptFr186Pick = function (si, pi, toRosterId) {
+  var slot = (_ptTTB.slots || [])[si]; if (!slot) return;
+  var man = (slot.players || [])[pi]; if (!man) return;
+  var to = (_ptTTB.roster || []).filter(function (r) { return String(r.id) === String(toRosterId); })[0];
+  if (!to) return;
+  var el = document.getElementById('ptFr186Ov'); if (!el) return;
+  el.innerHTML = '<div style="background:#0f1f14;border-top:1.5px solid rgba(201,168,76,.35);border-radius:16px 16px 0 0;display:flex;flex-direction:column">'
+    + '<div style="padding:16px 18px 4px;font-size:14px;font-weight:800;color:#c9a84c">' + _ptEsc(to.name || '') + ' takes this spot</div>'
+    + '<div style="padding:0 18px 12px;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.68);line-height:1.6">'
+    +   '\u2705 Every hole already posted on this card <b>stays</b> \u2014 they become ' + _ptEsc(to.name || '') + '\u2019s.<br>'
+    +   '\u21c4 The card code does <b>not</b> change. Phones already on it keep working.<br>'
+    +   '\u2699\ufe0f ' + _ptEsc(to.name || '') + '\u2019s handicap replaces ' + _ptEsc(man.name || '') + '\u2019s.'
+    + '</div>'
+    + '<div style="display:flex;gap:8px;padding:0 14px 18px">'
+    +   '<button onclick="ptFr186Close()" style="flex:1;padding:13px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#fff;font-size:14px;font-weight:800;cursor:pointer">Cancel</button>'
+    +   '<button id="ptFr186Go" onclick="ptFr186Do(' + si + ',' + pi + ',' + toRosterId + ')" style="flex:1;padding:13px;border-radius:12px;border:1px solid rgba(201,168,76,.5);background:rgba(201,168,76,.16);color:#e6c96f;font-size:14px;font-weight:900;cursor:pointer">Make the swap</button>'
+    + '</div></div>';
+};
+window.ptFr186Do = function (si, pi, toRosterId) {
+  var btn = document.getElementById('ptFr186Go');
+  if (btn) { btn.disabled = true; btn.textContent = 'Swapping\u2026'; }
+  var slot = (_ptTTB.slots || [])[si], man = (slot.players || [])[pi];
+  var fromRid = man.roster_id, fromName = man.name, eid = _ptTTB.eventId, rid = _ptTTB.round.id;
+  fetch(TOUR_API + '/api/events/' + eid + '/swap-player', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + G.orgToken, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from_roster_id: fromRid, to_roster_id: toRosterId })
+  }).then(_ptJson).then(_ptThrow).then(function (d) {
+    /* ⛔ Mirror the server's answer into the builder rather than re-fetching:
+       a reload would rebuild _ptTTB.slots and throw away unsaved moves. */
+    man.name = (d.to && d.to.name) || man.name;
+    man.roster_id = toRosterId;
+    ptFr186Close();
+    _ptTTBRender();
+    var n = (d && d.holes_carried) || 0;
+    ptToast(((d.to && d.to.name) || 'He') + ' has the card' + (n ? ' \u2014 ' + n + ' hole' + (n === 1 ? '' : 's') + ' carried over' : '') + '.');
+    return _ptFr186Rteams(eid, rid, fromRid, toRosterId, (d.to && d.to.name) || '', fromName)
+      .then(function (warn) {
+        /* ⛔ NO SILENT HALF-FIX — if the team name could not be rewritten safely,
+           he hears about it rather than finding it on a printed report. */
+        if (warn === 'name') ptToast('Swapped — but check the team name on this round’s report.');
+      });
+  }).catch(function (e) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Make the swap'; }
+    ptToast(_ptMsg(e, 'Could not make that swap.'));
+  });
+};
+/* ⭐⭐ cfg.rteams — THE TRAP THAT PRINTED "Player 640" FOR AN HOUR.
+   The row caches BOTH the roster ids AND a rendered name string. Both must move.
+   ⛔ ptFr66Name is the ONE producer of that string — never hand-join it here.
+   ⛔ ptRTeamsSave merges every OTHER round's row before patching (its own rule).
+   ⛔ Fail-soft: a round with no team row of its own has nothing to fix. */
+function _ptFr186Rteams(eventId, roundId, fromRid, toRid, toName, fromName) {
+  return fetch(TOUR_API + '/api/events/' + eventId, { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
+    .then(_ptJson).then(_ptThrow).then(function (d) {
+      var cfg = ptEvCfg(d.event || {});
+      var row = ((cfg && cfg.rteams) || {})[String(roundId)];
+      if (!row || !row.list || !row.list.length) return null;
+      var nameOf = {};
+      (_ptTTB.roster || []).forEach(function (r) { if (r && r.id != null) nameOf[String(r.id)] = r.name; });
+      nameOf[String(toRid)] = toName || nameOf[String(toRid)];
+      var touched = false, unresolved = false;
+      row.list.forEach(function (t) {
+        var ix = (t.players || []).indexOf(fromRid);
+        if (ix < 0) return;
+        t.players[ix] = toRid;
+        touched = true;
+        /* ⛔⛔⛔ NEVER REBUILD A NAME FROM A PARTIAL MAP. ptFr66Name filters out the
+           nulls, so ONE unresolved roster id silently DELETES a man from the team
+           name — caught in the harness at s288 turning a four-man team into
+           "Conroy Ip and Thomas Buchanan". That is the "Player 640" bug wearing a
+           different coat. Rebuild ONLY when every id resolves. */
+        var names = (t.players || []).map(function (id) { return nameOf[String(id)] || null; });
+        var allKnown = names.length && names.every(function (n) { return !!n; });
+        if (allKnown) {
+          t.name = window.ptFr66Name(names) || t.name;
+        } else if (fromName && toName && String(t.name || '').split(fromName).length === 2) {
+          /* Second best, and still exact: the stored string was built by ptFr66Name,
+             and the outgoing name appears in it EXACTLY once. Substitute in place. */
+          t.name = String(t.name).replace(fromName, toName);
+        } else {
+          /* ⛔ Leave the string alone rather than corrupt it — and SAY SO. */
+          unresolved = true;
+        }
+      });
+      if (!touched) return null;
+      return window.ptRTeamsSave(eventId, roundId, row.list).then(function () { return unresolved ? 'name' : null; });
+    }).catch(function () { return null; });
+}
 
 function _ptTTBDeckRow(assigned) {
   var d   = _ptTTBDeck(assigned.roster_id) || {};
@@ -70598,7 +70766,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v716.0';
+    const TOUR_VERSION     = 'pards-tour-v717.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
