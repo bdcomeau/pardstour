@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v727.0 -->
+  <!-- pards-tour-v728.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -38188,11 +38188,9 @@ function ptPrintTripOverallReport(opts) {
       var gross = r.hole_scores ? r.hole_scores[h] : null;
       if (gross == null) { cells += '<td style="color:#ddd">—</td>'; continue; }
       var par = r.pars ? r.pars[h-1] : null;
-      var cc = _ptScoreCellColor(gross, par);
       var si = r.si ? r.si[h-1] : h;
       var hasStroke = _ringStrokes(si, r.playing_handicap) > 0;
-      cells += '<td><span class="chip" style="background:' + cc.bg + ';color:' + (cc.bg === 'transparent' ? '#1a1a1a' : cc.color)
-        + (hasStroke ? ';box-shadow:0 0 0 2px #c9a84c' : '') + '">' + gross + '</span></td>';
+      cells += '<td><span class="chip" style="' + _ptPrintScoreCell(gross, par, hasStroke) + '">' + gross + '</span></td>';   /* FR-179 */
     }
     return cells;
   }
@@ -38234,8 +38232,7 @@ function ptPrintTripOverallReport(opts) {
     return '<tbody>' + strip + trs + '</tbody>';
   }).join('');
 
-  var legend = [['Ace',1],['Eagle+',2],['Birdie',3],['Par',4],['Bogey',5],['Double',6],['Triple+',7]].map(function(x){ var _c=_ptScoreCellColor(x[1],4); return [x[0],_c.bg,_c.color]; })   /* s269 — legend derived from the ONE palette */
-    .map(function(x){ return '<span class="chip" style="background:' + x[1] + ';color:' + x[2] + ';padding:0 6px">' + x[0] + '</span>'; }).join('');
+  var legend = _ptPrintScoreLegend();   /* FR-179 — the legend follows the notation */
   var dates = rounds.map(function(r){ return r.date ? _ptLgDate(r.date) : ''; }).filter(Boolean);
   var dateStr = dates.length ? dates[0] + (dates.length > 1 ? ' – ' + dates[dates.length-1] : '') : '';
   var courses = [];
@@ -38357,11 +38354,9 @@ function ptPrintLeagueOverallReport(opts) {
       var gross = e.hole_scores ? e.hole_scores[h] : null;
       if (gross == null) { cells += '<td style="color:#ddd">—</td>'; continue; }
       var par = e.pars ? e.pars[h-1] : null;
-      var cc = _ptScoreCellColor(gross, par);
       var si = e.si ? e.si[h-1] : h;
       var hasStroke = _ringStrokes(si, e.playing_handicap) > 0;
-      cells += '<td><span class="chip" style="background:' + cc.bg + ';color:' + (cc.bg === 'transparent' ? '#1a1a1a' : cc.color)
-        + (hasStroke ? ';box-shadow:0 0 0 2px #c9a84c' : '') + '">' + gross + '</span></td>';
+      cells += '<td><span class="chip" style="' + _ptPrintScoreCell(gross, par, hasStroke) + '">' + gross + '</span></td>';   /* FR-179 */
     }
     return cells;
   }
@@ -38411,8 +38406,7 @@ function ptPrintLeagueOverallReport(opts) {
     return '<tbody>' + strip + trs + '</tbody>';
   }).join('');
 
-  var legend = [['Ace',1],['Eagle+',2],['Birdie',3],['Par',4],['Bogey',5],['Double',6],['Triple+',7]].map(function(x){ var _c=_ptScoreCellColor(x[1],4); return [x[0],_c.bg,_c.color]; })   /* s269 — legend derived from the ONE palette */
-    .map(function(x){ return '<span class="chip" style="background:' + x[1] + ';color:' + x[2] + ';padding:0 6px">' + x[0] + '</span>'; }).join('');
+  var legend = _ptPrintScoreLegend();   /* FR-179 — the legend follows the notation */
   var dateStr = lg.season_start ? _ptLgDate(lg.season_start) + (lg.season_end && lg.season_end !== lg.season_start ? ' – ' + _ptLgDate(lg.season_end) : '') : '';
   var courses = [];
   weeks.forEach(function(w){ if (w.course_name && courses.indexOf(w.course_name) < 0) courses.push(w.course_name); });
@@ -58145,9 +58139,8 @@ function ptPrintMdOverallReport(eventId, opts) {
           if (i === 9) cells += '<td class="rd-total">' + (_lnF != null ? _lnF : '—') + '</td>';   /* ⭐ s269 — Out gross */
           if (gross == null) { cells += '<td style="color:#ddd">—</td>'; continue; }
           if (i < 9) _lnF = (_lnF || 0) + gross; else _lnB = (_lnB || 0) + gross;
-          var cc = _ptScoreCellColor(gross, ptsInfo ? ptsInfo.par : null);
           var hasStroke = showStrokes && ptsInfo && ptsInfo.strokes > 0;
-          cells += '<td><span class="chip" style="background:' + cc.bg + ';color:' + (cc.bg === 'transparent' ? '#1a1a1a' : cc.color) + (hasStroke ? ';box-shadow:0 0 0 2px #c9a84c' : '') + '">' + gross + '</span></td>';
+          cells += '<td><span class="chip" style="' + _ptPrintScoreCell(gross, ptsInfo ? ptsInfo.par : null, hasStroke) + '">' + gross + '</span></td>';   /* FR-179 */
         }
         cells += '<td class="rd-total">' + (_lnB != null ? _lnB : '—') + '</td>';   /* ⭐ s269 — In gross */
         return cells;
@@ -58196,8 +58189,7 @@ function ptPrintMdOverallReport(eventId, opts) {
           + buildTable(sec.rows);
       }).join('');
 
-      var legend = [['Ace',1],['Eagle+',2],['Birdie',3],['Par',4],['Bogey',5],['Double',6],['Triple+',7]].map(function(x){ var _c=_ptScoreCellColor(x[1],4); return [x[0],_c.bg,_c.color]; })   /* s269 — legend derived from the ONE palette */
-        .map(function(x){ return '<span class="chip" style="background:' + x[1] + ';color:' + x[2] + ';padding:0 6px">' + x[0] + '</span>'; }).join('');
+      var legend = _ptPrintScoreLegend();   /* FR-179 — the legend follows the notation */
 
       var scoringLabel = ptScoringLabel(cfg);
       var sortNote = primary === 'stableford' ? 'Ranked by total Stableford points · high wins'
@@ -63899,10 +63891,8 @@ function ptPrintMmgOverallReport(eventId, opts) {
           var gross = (p.hole_gross && p.hole_gross[h2] != null) ? p.hole_gross[h2] : null;
           if (gross == null) { cells += '<td style="color:#ddd">\u2014</td>'; continue; }
           var par = pars ? pars[h2] : null;
-          var cc = _ptScoreCellColor(gross, par);
           var hasStroke = _ringStrokes(si[h2], p.playing_handicap) > 0;
-          cells += '<td><span class="chip" style="background:' + cc.bg + ';color:' + (cc.bg === 'transparent' ? '#1a1a1a' : cc.color)
-            + (hasStroke ? ';box-shadow:0 0 0 2px #c9a84c' : '') + '">' + gross + '</span></td>';
+          cells += '<td><span class="chip" style="' + _ptPrintScoreCell(gross, par, hasStroke) + '">' + gross + '</span></td>';   /* FR-179 */
         }
         return cells;
       }
@@ -63926,8 +63916,7 @@ function ptPrintMmgOverallReport(eventId, opts) {
         }).join('');
         return '<tbody>' + strip + trs + '</tbody>';
       }).join('');
-      var legend = [['Ace',1],['Eagle+',2],['Birdie',3],['Par',4],['Bogey',5],['Double',6],['Triple+',7]].map(function(x){ var _c=_ptScoreCellColor(x[1],4); return [x[0],_c.bg,_c.color]; })   /* s269 — legend derived from the ONE palette */
-        .map(function(x){ return '<span class="chip" style="background:' + x[1] + ';color:' + x[2] + ';padding:0 6px">' + x[0] + '</span>'; }).join('');
+      var legend = _ptPrintScoreLegend();   /* FR-179 — the legend follows the notation */
       var tbLbl = d.tiebreak === 'back9' ? 'ties by back-9 countback (B9 \u2192 B6 \u2192 B3 \u2192 18th)' : 'tied teams share the placing';
       var title = _esc(ev.name || 'Member/Guest') + ' \u2014 Two-Man Combined Net Stableford';
       var html = '<!DOCTYPE html><html><head><meta charset="utf-8">'
@@ -65674,6 +65663,71 @@ function _ptToParLabel(diff) {
   if (diff < 0) return { text: '' + diff, color: '#e74c3c' };   // under par = red (good golf)
   if (diff === 0) return { text: 'E', color: '#2563eb' };
   return { text: '+' + diff, color: 'rgba(255,255,255,.5)' };
+}
+
+/* ⭐⭐⭐ FR-179 (Bruce, s285 — BUILT s289) — THE COLOUR SOUP RETIRES FROM PAPER.
+   His ruling: "Yes. We needs to get rid of the colour soup everywhere." Built off a
+   mock of his own Barnes week-3 round at true Letter size; his word on it: "I am
+   good with this change - go."
+
+   THE PAPER SIBLING OF ptCbsMarkCss (the TV's one notation producer, s285). Same
+   geometry, px instead of vh, BLACK ON WHITE:
+     circle under par · DOUBLE circle eagle+ · square over par · DOUBLE square double+
+   ⛔⛔ PAR GETS NO MARK AT ALL. That is the entire point of the notation — it is what
+   makes a birdie findable in a field of pars. A mark on par is a mark on nothing.
+   ⭐ An ace is −2 or better on any par, so it draws the double circle with NO special
+   case. The old palette's seventh colour was never a seventh category.
+   ⚠ WHY THIS BEATS THE FILLS ON PAPER: on a mono printer the s269 palette collapses —
+   blue par, red birdie and orange eagle all land as similar greys and the black double
+   swallows its own digit. Double and Triple already shared a swatch. This prints
+   identically on any printer, and it is the notation every golfer reads on television.
+   ⛔ SCREENS ARE NOT IN THIS CHANGE. _ptScoreCellColor still owns the phone boards and
+   the watch detail; a ~30px phone cell cannot carry a thin ring (s65 chose the fill FOR
+   thumb scale). That surface gets its own mock and its own ruling. */
+function ptCbsMarkPrint(d, bw) {
+  if (d == null || isNaN(d)) return null;
+  if (d === 0) return null;                                  /* ⛔ PAR: no mark */
+  bw = bw || 1.6;
+  return { bw: bw, radius: (d <= -1 ? '50%' : '2px'), dbl: (d <= -2 || d >= 2) };
+}
+
+/* ONE producer for the whole inline style of a printed score chip. All four overall
+   papers call THIS; ⛔ never a fifth copy of the geometry.
+   ⭐⭐ THE GOLD STROKE RING SURVIVES AND RIDES OUTSIDE ANY CBS RING. It answers a
+   different question — "does he get a shot here" — and box-shadow takes a comma list,
+   so the two signals stack instead of fighting.
+   ⭐ box-sizing:border-box so the added border cannot grow the 18px chip and shove a
+   21-column row off the page (B-263). */
+function _ptPrintScoreCell(gross, par, hasStroke) {
+  var m = (gross != null && par != null) ? ptCbsMarkPrint(gross - par, 1.6) : null;
+  var st = 'box-sizing:border-box;background:transparent;color:#1a1a1a;';
+  var sh = [], out = 0;
+  if (m) {
+    st += 'border:' + m.bw + 'px solid #1a1a1a;border-radius:' + m.radius + ';';
+    out = m.bw;
+    if (m.dbl) {
+      sh.push('0 0 0 ' + (m.bw * 1.5).toFixed(1) + 'px #fff');
+      sh.push('0 0 0 ' + (m.bw * 2.6).toFixed(1) + 'px #1a1a1a');
+      out = m.bw * 2.6;
+    }
+  }
+  if (hasStroke) {
+    var g = out + 1.2;
+    sh.push('0 0 0 ' + g.toFixed(1) + 'px #fff');
+    sh.push('0 0 0 ' + (g + 2).toFixed(1) + 'px #c9a84c');
+  }
+  if (sh.length) st += 'box-shadow:' + sh.join(',') + ';';
+  return st;
+}
+
+/* The legend follows the notation wherever it goes (FR-179 invariant). Five entries,
+   not seven: Ace folds into Eagle+ and Triple+ into Double+, because on paper they
+   always drew the same mark — the old legend promised a distinction it never printed. */
+function _ptPrintScoreLegend() {
+  return [['Eagle+', 2], ['Birdie', 3], ['Par', 4], ['Bogey', 5], ['Double+', 6]].map(function (x) {
+    return '<span style="display:inline-flex;align-items:center;gap:4px;margin-right:11px;vertical-align:middle">'
+      + '<span class="chip" style="' + _ptPrintScoreCell(x[1], 4, false) + '"></span>' + x[0] + '</span>';
+  }).join('');
 }
 
 function _ptScoreCellColor(gross, par) {
@@ -71633,7 +71687,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v727.0';
+    const TOUR_VERSION     = 'pards-tour-v728.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
