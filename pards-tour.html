@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v740.0 -->
+  <!-- pards-tour-v741.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -43194,9 +43194,12 @@ function ptComputeMultiDayStandings(eventId, rounds, groups, headers) {
             return { hole: parseInt(h), gross_score: byHole[h] };
           });
           if (!grossScores.length) return;
-          // Gross stableford — no handicap
-          var teamHdcp = 0;
-          var result = ptCalcStablefordPoints(grossScores, r.course_id, r.tee, teamHdcp);
+          /* ⛔⛔ B-267 (v741.0, s290) — "no handicap" passed INDEX 0, and
+             ptCalcStablefordPoints turns index 0 into a COURSE handicap of
+             round(rating − par) — one silent stroke at Jasper (70.9/70): the
+             header said 48 while the honest per-hole rows said 47.
+             srvCourseHdcp = 0 forces TRUE gross — zero strokes on any deck. */
+          var result = ptCalcStablefordPoints(grossScores, r.course_id, r.tee, 0, 0);
           if (result.holes_played > 0) {
             roundPts += result.total_points;
             playerCount = 1;
@@ -59083,6 +59086,71 @@ function ptPrintTeamOverallReport(eventId, opts) {
           + '<table>' + colDefs + '<thead>' + thRow + _xpar + '</thead><tbody>' + _xrows + '</tbody></table>'
           + '<div style="margin:4px 0 12px;font-size:9px;color:#666">' + _xnote + '</div>';
       }
+      /* ⭐⭐ B-267 (v741.0, s290) — ONE NUMBER FOR THE EVENT. His ruling off the
+         Jasper dry run: "it is not adding up all rounds points into one
+         number". When every round pays STABLEFORD POINTS (X-of-N basis
+         stableford, not mixed, event not gross), the paper prints ONE table —
+         every round's column, one grand total, one ranking — instead of two
+         disconnected sections. Round totals come straight from the engines
+         that own them (ptBuildMdTeamXofN · ptComputeMultiDayStandings), summed
+         here, never recomputed (the FR-42 rule). Mixed-currency events keep
+         the two-section layout — strokes and points do not add. */
+      var _b267 = !!(_xofnSt && _xofnSt.rows && _xofnSt.rows.length && _legacyRounds.length
+        && _xofnSt.basis === 'stableford' && !_xofnSt.mixed && !_rptGross);
+      var _b267Html = '';
+      if (_b267) {
+        var _lgByGid = {};
+        standings.forEach(function(row){ _lgByGid[String(row.group_id)] = row; });
+        var _alls = rounds.slice().sort(function(a,b){ return a.round_number - b.round_number; });
+        var _combined = _xofnSt.rows.map(function(t) {
+          var lg = _lgByGid[String(t.group_id)] || null;
+          var lgPts = 0, lgAny = false;
+          if (lg) (lg.rounds || []).forEach(function(rd){
+            if (rd.players_scored > 0 && _legacyRounds.some(function(r){ return r.round_number === rd.round_number; })){ lgPts += rd.pts; lgAny = true; }
+          });
+          return { t: t, lg: lg, total: (t.total || 0) + lgPts, any: (t.holesCounted > 0) || lgAny };
+        });
+        _combined.sort(function(a, b){ return (b.total - a.total) || String(a.t.name).localeCompare(String(b.t.name)); });
+        var _cpar = '';
+        _alls.forEach(function(r){
+          var pars = ptGetHolePars(r.course_id, r.tee) || Array(18).fill(4);
+          _cpar += '<tr class="par-row"><td class="left">Par R' + r.round_number + '</td>'
+            + pars.map(function(p){ return '<td>' + p + '</td>'; }).join('')
+            + '<td class="left">' + pars.reduce(function(a,b){ return a+b; }, 0) + '</td></tr>';
+        });
+        var _crows = '';
+        _combined.forEach(function(c, idx) {
+          var medal = idx === 0 ? '\ud83e\udd47 ' : idx === 1 ? '\ud83e\udd48 ' : idx === 2 ? '\ud83e\udd49 ' : (idx + 1) + '. ';
+          var cells = _alls.map(function(r) {
+            var isX = _xofnRounds.some(function(x){ return x.round_number === r.round_number; });
+            if (isX) {
+              var rd = (c.t.rounds || {})[r.round_number];
+              return '<td class="rnd-pts">' + (rd && rd.holesCounted ? rd.total : '\u2014') + '</td>';
+            }
+            var lrd = c.lg && (c.lg.rounds || []).find(function(x){ return x.round_number === r.round_number; });
+            return '<td class="rnd-pts">' + (lrd && lrd.players_scored > 0 ? lrd.pts : '\u2014') + '</td>';
+          }).join('');
+          _crows += '<tr class="team-row"><td class="team-name">' + medal + _ptEsc(c.t.name || '\u2014') + '</td>'
+            + cells + '<td class="grand-total">' + (c.any ? c.total : '\u2014') + '</td></tr>';
+          _alls.forEach(function(r) {
+            var isX = _xofnRounds.some(function(x){ return x.round_number === r.round_number; });
+            var ph, lbl;
+            if (isX) { ph = (((c.t.rounds || {})[r.round_number]) || {}).perHole || {}; lbl = 'Team'; }
+            else { ph = ((groupHolePoints[c.t.group_id] || {})[r.round_number]) || {}; lbl = ptIsScrFmt(r.format) ? 'Scr' : 'Ind'; }
+            var hasAny = false, hc = '', ht = 0;
+            for (var h = 1; h <= 18; h++) {
+              var v = ph[h];
+              if (v != null) { hasAny = true; ht += v; hc += '<td class="' + (v === 0 ? 'pts-0' : '') + '">' + v + '</td>'; }
+              else hc += '<td class="pts-0">\u2014</td>';
+            }
+            _crows += '<tr class="sub-row"><td class="rnd-lbl">R' + r.round_number + ' ' + lbl + '</td>' + hc
+              + '<td class="sub-tot">' + (hasAny ? ht : '\u2014') + '</td></tr>';
+          });
+        });
+        _b267Html = '<div style="margin:0 0 6px;font-size:12px;font-weight:900;color:#1a3a2a;border-left:4px solid #c9a84c;padding-left:8px;text-transform:uppercase">\ud83c\udfc6 ' + _ptEsc(ptXofNLabel(_xofnRounds[0].format)) + ' \u00b7 all rounds \u2014 one total</div>'
+          + '<table>' + colDefs + '<thead>' + thRow + _cpar + '</thead><tbody>' + _crows + '</tbody></table>'
+          + '<div style="margin:4px 0 12px;font-size:9px;color:#666">Every round pays Stableford points \u2014 one total, high wins. Team rounds sum the counted balls; scramble rounds are gross.</div>';
+      }
       var dateStr = ev.date ? ptFormatDate(ev.date, ev.course_id) : '';
       var html = '<!DOCTYPE html><html><head><meta charset="utf-8">'
         + '<title>' + ev.name + ' \u2014 Overall Team Report</title>'
@@ -59092,8 +59160,8 @@ function ptPrintTeamOverallReport(eventId, opts) {
         + '<div style="height:40px"></div>'
         + '<div class="rpt-hdr"><h1>' + ev.name + ' \u2014 Overall Team Report</h1>'
         + '<div class="meta">' + (dateStr ? '<span>\uD83D\uDCC5 ' + dateStr + '</span>' : '') + (ev.course_name ? '<span>\u26F3 ' + ev.course_name + '</span>' : '') + '<span>\uD83C\uDFC6 ' + (_rptGross ? 'Gross Scramble \u00B7 Strokes' : 'Net Stableford') + ' \u00B7 All Rounds</span></div></div>'
-        + _xofnHtml   /* B-266 — the X-of-N standings lead the paper */
-        + (_legacyRounds.length ? '<table>' + colDefs + '<thead>' + thRow + parRows + '</thead><tbody>' + bodyRows + '</tbody></table>'
+        + (_b267 ? _b267Html : _xofnHtml)   /* B-267 — one combined table when every round pays points; B-266 sections otherwise */
+        + (!_b267 && _legacyRounds.length ? '<table>' + colDefs + '<thead>' + thRow + parRows + '</thead><tbody>' + bodyRows + '</tbody></table>'
         + '<div style="margin-top:8px;font-size:9px;color:#666">' + (_rptGross ? 'Gross Scramble \u2014 total strokes, fewest wins. Most holes played ranks first.' : 'Net Stableford \u2014 Eagle(4) Birdie(3) Par(2) Bogey(1) Dbl+(0). Individual rounds use course handicaps. Scramble rounds are gross.') + '</div>' : '')   /* B-266 — no legacy rounds, no dash grid */
         + '<div class="footer"><span>Pards Tour \u2014 pards.golf</span><span>Printed ' + new Date().toLocaleString() + '</span></div>'
         + '</body></html>';
@@ -72214,7 +72282,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v740.0';
+    const TOUR_VERSION     = 'pards-tour-v741.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
