@@ -2,7 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <!-- ⭐⭐ FR-200 (s289) — PINCH-TO-ZOOM IS ALLOWED. maximum-scale=1.0 and
+       user-scalable=no came off here on his ruling. They had been blocking zoom on
+       ANDROID; iOS Safari has ignored both since iOS 10 as a deliberate accessibility
+       override, so iPhones could always pinch and Android could not — the app was
+       inconsistent, not locked. His words: "I gave those damn seniors a pinch to zoom
+       feature - they can pinch and zoom if needed". Now they actually can, on both.
+       ⛔ DO NOT PUT THESE BACK. A layout that only works at exactly 100% is a layout
+       problem, not a reason to take zoom away from a 70-year-old. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#0d1a0f" />
@@ -13,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v728.0 -->
+  <!-- pards-tour-v731.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -65730,16 +65738,49 @@ function _ptPrintScoreLegend() {
   }).join('');
 }
 
+/* ⭐⭐⭐ FR-179 PHONE HALF (Bruce, s289) — SEVEN COLOURS FOLD TO FOUR.
+   Mocked at real 22px cells on the real 392px board, four treatments side by side
+   (control · shape only · colour only · both). His ruling, off the render: "I do like C"
+   — the COLOUR FOLD, and no shape change.
+
+   ⛔⛔ WHY THE PHONE DOES NOT GET THE CBS NOTATION THE TV AND PAPER NOW USE:
+   a plain circle-vs-square DOES read at 22px — that part was never the problem. What
+   does NOT survive is the DOUBLING, the second ring that says eagle+ rather than
+   birdie, double+ rather than bogey. At 22px it reads as "slightly thicker chip", not
+   as a distinct mark. ⭐ A HALF-NOTATION IS WORSE THAN NONE: a golfer who has learned
+   that a doubled mark means eagle would be misread by a board that cannot draw one.
+   So the phone keeps FILLS, which s65 chose FOR thumb scale, and simply stops
+   pretending it has seven categories.
+
+   ⭐⭐ THIS IS A FOLD, NOT A REDESIGN. Every colour below is one the app already used;
+   nothing is invented and nothing new has to be learned:
+     ace + eagle  -> the birdie red   (all three are simply "under par")
+     triple+      -> the double black (all are simply "blown up")
+   Seven categories is more than a thumb resolves at a glance, and two of them already
+   shared a swatch — Double and Triple+ differed ONLY in the digit colour, a distinction
+   nobody reads as a category. That was the soup.
+
+   ⛔ ONE PRODUCER. The convention changes HERE; no surface forks its own palette.
+   ⛔ PAPER AND TV ARE NOT THIS FUNCTION — they speak CBS through _ptPrintScoreCell
+   and ptCbsMarkCss. Three media, two notations, one deliberate reason for each. */
 function _ptScoreCellColor(gross, par) {
-  if (gross === null || gross === undefined || par === null) return { bg: 'transparent', color: 'rgba(255,255,255,.15)' };
+  /* ⭐ par === undefined now joins the null guard. It used to fall through every
+     comparison as NaN and land on the final return, painting a BLACK "blown up" chip
+     for a hole whose par we simply do not know. Nothing posted is null, never a
+     verdict (s268). */
+  if (gross === null || gross === undefined || par === null || par === undefined) return { bg: 'transparent', color: 'rgba(255,255,255,.15)' };
   var diff = gross - par;
-  if (gross === 1)   return { bg: '#8e44ad', color: '#fff' }; // hole-in-one
-  if (diff <= -2)    return { bg: '#e67e22', color: '#fff' }; // eagle+
-  if (diff === -1)   return { bg: '#e74c3c', color: '#fff' }; // birdie
-  if (diff === 0)    return { bg: '#2563eb', color: '#fff' }; // par
-  if (diff === 1)    return { bg: '#dde0e3', color: '#1a1a1a' }; // bogey
-  if (diff === 2)    return { bg: '#1a1a1a', color: '#fff' }; // double
-  return { bg: '#1a1a1a', color: '#c9a84c' }; // triple+
+  if (diff < 0)    return { bg: '#e74c3c', color: '#fff' };     // under par — birdie, eagle, ace
+  if (diff === 0)  return { bg: '#2563eb', color: '#fff' };     // par
+  if (diff === 1)  return { bg: '#dde0e3', color: '#1a1a1a' };  // bogey
+  /* ⛔⛔ B-264 (s289) — A SCORE CHIP MUST BE VISIBLE ON THE BOARD IT SITS ON.
+     This was #1a1a1a on a #0f1f14 board: a measured 1.02:1. Near-black on near-black
+     — the chip did not exist, and a blown-up hole showed as a bare white digit
+     floating in the dark. He found it on his own phone: "honestly I Cannot read over
+     half of this screen". #4a4a4a measures 1.93:1 against the board with the white
+     digit at 8.93:1, so the chip has an edge AND the number stays easy.
+     ⛔ The LANGUAGE is unchanged — dark still means blown up. Only the value moved. */
+  return { bg: '#4a4a4a', color: '#fff' };                      // double or worse
 }
 
 /* ⭐ s269 — ONE producer for to-par chips (round-summary pill, watch-detail TOT
@@ -71687,7 +71728,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v728.0';
+    const TOUR_VERSION     = 'pards-tour-v731.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
