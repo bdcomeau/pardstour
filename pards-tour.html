@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v744.0 -->
+  <!-- pards-tour-v745.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -43989,11 +43989,96 @@ function ptPotApportion(total, weights) {
 }
 // How deep a game pays. Always an array, always 1..3 long, always sane —
 // garbage in config can never produce a game that pays nobody.
+/* ══ FR-210 (v745.0, s291) — NAMED PAYOUT TABLES ═══════════════════════════
+   Bruce, s291: "fr-210 - build it as proposed". A pot split stops being three
+   throwaway preset buttons and becomes a NAMED table he owns, carried across
+   every event, with FIELD-SIZE BANDS — "3 places at 10 or fewer, 5 at 11–30,
+   6 at 31+" — so one table survives any turnout.
+
+   ⭐⭐⭐ THE PLACE CAP IS LIFTED, on his word. s125 capped places at three;
+   the file itself said going deeper is "a control change and never a data
+   migration", and this is that change. PT_PLACES_MAX is the ONE number.
+
+   ⛔⛔ THE MONEY ENGINE IS NOT TOUCHED. ptPotPayRanks, the s119 straddle-share
+   and the unclaimed-place re-apportionment are all exactly as they were. A
+   band decides HOW DEEP a slice pays and nothing else.
+
+   ⭐⭐ RESOLVED AT READ TIME, never stored resolved — the FR-27 v456.0 trick.
+   ptPotPlaces already receives a pot carrying `field` (ptPotCfg puts it there
+   on the pct path), so the band resolves inside the ONE function every payout
+   surface already calls. ⛔ NOT ONE OF THE TEN CALL SITES CHANGES.
+   ⛔ FAILS TO TODAY at every step: no library, no chosen table, an unknown id
+   or a table with no bands all fall through to places_pct, which is v744.0. */
+var PT_PLACES_MAX = 10;
+var _PT_ORD = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th'];
+/* ⭐ THE ONE ORDINAL PRODUCER. Three sites used to spell 1st/2nd/3rd inline;
+   they all read this now, so lifting the cap could not leave one behind. */
+function _ptOrd(i) { return _PT_ORD[i] || (String(i + 1) + 'th'); }
+
+/* The organizer's library, as fetched. ⛔ Read-only to everything except
+   ptPayTblLoad and ptPayTblSave — one store, one writer pair. */
+window._ptPayTbl = window._ptPayTbl || null;
+
+function _ptFr210Table(id) {
+  if (!id) return null;
+  var lib = window._ptPayTbl;
+  if (!lib || !lib.length) return null;
+  for (var i = 0; i < lib.length; i++) if (String(lib[i].id) === String(id)) return lib[i];
+  return null;
+}
+/* ⭐⭐⭐ THE ONE BAND RESOLVER. Bands arrive SORTED ascending with the
+   open-ended one last — the worker's _fr210Norm guarantees it, so nothing
+   sorts here and the two sides cannot drift.
+   ⛔ A FIELD ABOVE EVERY CEILING PAYS THE NEAREST BAND BELOW IT (the last
+   one). A table without an open band is therefore still safe on a big night —
+   it pays its deepest rule rather than refusing or paying nobody. */
+function _ptFr210Band(tbl, field) {
+  var bands = (tbl && tbl.bands) || [];
+  if (!bands.length) return null;
+  var f = Math.max(0, Math.trunc(Number(field) || 0));
+  for (var i = 0; i < bands.length; i++) {
+    var m = bands[i].max;
+    if (m === null || m === undefined || m === '') return bands[i];
+    if (f <= Number(m)) return bands[i];
+  }
+  return bands[bands.length - 1];
+}
+/* One sentence naming the table and the band actually in force — for the pot
+   screen and for anything that wants to say WHY a slice pays five places. */
+function _ptFr210Line(tbl, field) {
+  var b = _ptFr210Band(tbl, field);
+  if (!b) return '';
+  var f = Math.max(0, Math.trunc(Number(field) || 0));
+  var lo = 0, bands = tbl.bands;
+  for (var i = 0; i < bands.length; i++) { if (bands[i] === b) break; lo = (bands[i].max || 0); }
+  var range = (b.max === null || b.max === undefined || b.max === '')
+    ? (lo ? (lo + 1) + ' or more' : 'any field')
+    : (lo ? (lo + 1) + '–' + b.max : b.max + ' or fewer');
+  return f + ' in the field → band ' + range + ' → pays ' + b.places.length
+       + (b.places.length === 1 ? ' place' : ' places') + '.';
+}
+
 function ptPotPlaces(pot, gameKey) {
-  var p = pot && pot.places_pct ? pot.places_pct[gameKey] : null;
+  /* ⭐⭐⭐ FR-210 (v745.0, s291) — A NAMED TABLE WINS, RESOLVED BY THE FIELD.
+     ⛔ NOT ONE OF THE TEN CALL SITES CHANGED. `pot` already carries `field`
+     (ptPotCfg puts it there on the pct path), so the band resolves inside the
+     ONE function every payout surface already calls — no new argument, no
+     caller to forget it, nothing to drift.
+     ⛔ FALLS THROUGH TO v744.0 at every step: no chosen table, no library, an
+     unknown id, or a table with no bands all land on places_pct. */
+  var p = null;
+  try {
+    var tid = (pot && pot.places_tbl) ? pot.places_tbl[gameKey] : null;
+    if (tid) {
+      var band = _ptFr210Band(_ptFr210Table(tid), pot.field);
+      if (band && band.places && band.places.length) p = band.places;
+    }
+  } catch (e) { p = null; }
+  if (!p) p = pot && pot.places_pct ? pot.places_pct[gameKey] : null;
   if (Object.prototype.toString.call(p) !== '[object Array]') return [100];
   var out = [];
-  for (var i = 0; i < p.length && i < 3; i++) { var n = Number(p[i]); if (n > 0) out.push(n); }
+  /* ⭐ THE CAP IS PT_PLACES_MAX NOW (10), lifted from s125's 3 on his word. */
+  for (var i = 0; i < p.length && i < PT_PLACES_MAX; i++) { var n = Number(p[i]); if (n > 0) out.push(n); }
   return out.length ? out : [100];
 }
 // ⭐ B-118 (v470.0) — one sentence saying HOW DEEP a slice pays. The printed
@@ -44011,7 +44096,7 @@ function ptPotPlacesNote(places, sliceCents, nounPlural) {
   if (!(sum > 0)) return '';
   var parts = [];
   for (i = 0; i < pl.length; i++) {
-    parts.push((i === 0 ? '1st' : i === 1 ? '2nd' : '3rd') + ' ' + (Math.round(pl[i] / sum * 1000) / 10) + '%');
+    parts.push(_ptOrd(i) + ' ' + (Math.round(pl[i] / sum * 1000) / 10) + '%');
   }
   return 'Pays ' + pl.length + ' places — ' + parts.join(' · ') + ' of the ' + ptMoneyFmt(sliceCents)
        + ' slice. Tied ' + (nounPlural || 'players') + ' pool the places they occupy and split them evenly.';
@@ -48515,6 +48600,8 @@ window.ptPotRender = function (pot, field, round) {
     var seed = window.ptPotSeed(pot, rows, pot ? pot.ante_cents * field : 0);
     ctx.places = seed.places; ctx._seedPct = seed.pct;
   }
+  /* FR-210 (v745.0) — which named table each game is on, this round. */
+  if (!ctx.tbl) ctx.tbl = (pot && pot.places_tbl) ? Object.assign({}, pot.places_tbl) : {};
   var h = '';
   if (settle && !field) {
     h += '<div style="background:rgba(232,163,61,.1);border:1px solid rgba(232,163,61,.3);border-radius:12px;padding:14px;margin-bottom:14px;font-size:13px;color:#e8a33d">No scores in yet — nothing to settle.</div>';
@@ -48576,7 +48663,7 @@ window.ptPotRender = function (pot, field, round) {
       + '<button onclick="ptPotFillRest(&quot;' + k + '&quot;)" style="margin-top:3px;padding:2px 8px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);border-radius:7px;color:#c9a84c;font-size:10px;font-weight:800;cursor:pointer">rest</button>'
       + '<div id="ptPotGD_' + k + '" style="font-size:12px;font-weight:800;color:#f5d97a;margin-top:2px">—</div>'
       + '</div>'
-      + '<div id="ptPotPl_' + k + '" style="display:flex;gap:6px;align-items:flex-start;min-width:210px;justify-content:flex-end"></div>'
+      + '<div id="ptPotPl_' + k + '" style="display:flex;gap:6px;align-items:flex-start;flex:1 1 210px;min-width:0;flex-wrap:wrap;justify-content:flex-start"></div>'
       + '</div>';
     if (!isSkins) {
       h += '<div style="display:flex;gap:6px;align-items:center;margin-top:8px;flex-wrap:wrap">'
@@ -48587,7 +48674,9 @@ window.ptPotRender = function (pot, field, round) {
         + '<span style="margin-left:auto"></span>'
         + '<button id="ptPotAdd_' + k + '" onclick="ptPotAddPlace(\'' + k + '\')" style="padding:5px 9px;background:rgba(168,213,181,.1);border:1px solid rgba(168,213,181,.25);border-radius:7px;color:#a8d5b5;font-size:10.5px;font-weight:700;cursor:pointer">+ place</button>'
         + '<button id="ptPotDel_' + k + '" onclick="ptPotDelPlace(\'' + k + '\')" style="padding:5px 9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:7px;color:rgba(255,255,255,.55);font-size:10.5px;font-weight:700;cursor:pointer">&#10005; remove</button>'
-        + '</div>';
+        + '</div>'
+        /* FR-210 (v745.0) — the named-table chips for this game. */
+        + '<div id="ptPotTbl_' + k + '" style="display:flex;flex-wrap:wrap;align-items:center;margin-top:9px"></div>';
     }
     h += '</div>';
   });
@@ -48596,6 +48685,7 @@ window.ptPotRender = function (pot, field, round) {
     + '<button id="ptPotSave" onclick="ptPotSave()" style="width:100%;padding:13px;background:rgba(100,220,180,.9);color:#0a1a0a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer">Save the payout plan</button>'
     + '<div style="font-size:10.5px;color:rgba(255,255,255,.3);margin-top:10px;line-height:1.6">Percentages, not dollars — set them before anyone tees off and the money follows the field as players join. The slices must total 100%, and each game&rsquo;s places must total 100%. Skins takes a slice but has no places: it pays per skin. Tied players split the places they straddle.</div>';
   b.innerHTML = h;
+  window.ptPayTblPaint();   /* FR-210 (v745.0) */
   window.ptPotPaintPlaces();
   window.ptPotRecalc();
 };
@@ -48606,7 +48696,6 @@ function _ptPotPresetBtn(k, arr, label) {
 // than left in the DOM — one source of truth for how deep a game pays.
 window.ptPotPaintPlaces = function () {
   var ctx = window.__ptPotCtx; if (!ctx) return;
-  var ORD = ['1st', '2nd', '3rd'];
   ptPotGameRows(ctx.cfg, ctx.round).forEach(function (g) {
     var k = g[0], host = document.getElementById('ptPotPl_' + k); if (!host) return;
     if (k === 'skins') {
@@ -48621,14 +48710,16 @@ window.ptPotPaintPlaces = function () {
     for (var i = 0; i < arr.length; i++) {
       out += '<div style="text-align:center">'
         + '<input id="ptPotP_' + k + '_' + i + '" type="number" min="0" max="100" step="1" value="' + arr[i] + '" oninput="ptPotRecalc()" style="width:56px;padding:8px 6px;background:#14260f;border:1px solid rgba(255,255,255,.2);border-radius:8px;color:#fff;font-size:13px;text-align:center">'
-        + '<div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:3px">' + ORD[i] + '</div>'
+        + '<div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:3px">' + _ptOrd(i) + '</div>'
         + '<div id="ptPotPD_' + k + '_' + i + '" style="font-size:11.5px;font-weight:700;color:#a8d5b5;margin-top:2px">—</div>'
         + '</div>';
     }
     host.innerHTML = out;
     var add = document.getElementById('ptPotAdd_' + k), del = document.getElementById('ptPotDel_' + k);
     // ⭐ CAP AT THREE (Bruce, s125) — a UI number only, never a data shape.
-    if (add) { var full = arr.length >= 3; add.disabled = full; add.style.opacity = full ? '.3' : '1'; add.style.cursor = full ? 'not-allowed' : 'pointer'; }
+    /* ⭐ FR-210 (v745.0) — the cap is PT_PLACES_MAX now, not 3. Still a UI
+       number only, never a data shape. */
+    if (add) { var full = arr.length >= PT_PLACES_MAX; add.disabled = full; add.style.opacity = full ? '.3' : '1'; add.style.cursor = full ? 'not-allowed' : 'pointer'; }
     if (del) { var one = arr.length <= 1; del.disabled = one; del.style.opacity = one ? '.3' : '1'; del.style.cursor = one ? 'not-allowed' : 'pointer'; }
   });
 };
@@ -48642,13 +48733,13 @@ window.ptPotReadPlaces = function (k) {
 };
 window.ptPotPreset = function (k, arr) {
   var ctx = window.__ptPotCtx; if (!ctx) return;
-  ctx.places[k] = arr.slice(0, 3);
+  ctx.places[k] = arr.slice(0, PT_PLACES_MAX);
   window.ptPotPaintPlaces(); window.ptPotRecalc();
 };
 window.ptPotAddPlace = function (k) {
   var ctx = window.__ptPotCtx; if (!ctx) return;
   var cur = window.ptPotReadPlaces(k);
-  if (cur.length >= 3) return;
+  if (cur.length >= PT_PLACES_MAX) return;
   cur.push(0); ctx.places[k] = cur;
   window.ptPotPaintPlaces(); window.ptPotRecalc();
 };
@@ -48801,11 +48892,193 @@ window.ptPotRecalc = function (capKey) {
     btn.textContent = clearing ? 'Clear the pot' : 'Save the payout plan';
   }
 };
+/* ══ FR-210 — THE LIBRARY, THE CHIPS AND THE EDITOR (v745.0, s291) ═════════
+   ⛔ ONE LOADER, ONE SAVER. Everything else reads window._ptPayTbl. */
+window.ptPayTblLoad = function (force) {
+  if (window._ptPayTbl && !force) return Promise.resolve(window._ptPayTbl);
+  if (!G.orgToken) { window._ptPayTbl = []; return Promise.resolve([]); }
+  return fetch(TOUR_API + '/api/payout-tables', { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
+    .then(_ptJson)
+    .then(function (d) {
+      window._ptPayTbl = (d && d.tables && d.tables.length !== undefined) ? d.tables : [];
+      window._ptPayMig = !!(d && d.migration_needed);
+      return window._ptPayTbl;
+    })
+    /* ⛔ FAILS TO TODAY: an old worker, a dead edge or D125 not yet run all
+       resolve to an empty library, and every pot screen behaves as v744.0. */
+    .catch(function () { window._ptPayTbl = []; return []; });
+};
+/* Paint the table chips under each game's places. Called at the end of
+   ptPotRender, and again when the library lands. */
+window.ptPayTblPaint = function () {
+  var ctx = window.__ptPotCtx; if (!ctx) return;
+  if (!window._ptPayTbl) {
+    window.ptPayTblLoad().then(function () { window.ptPayTblPaint(); window.ptPotPaintPlaces(); window.ptPotRecalc(); });
+    return;
+  }
+  var lib = window._ptPayTbl || [];
+  ptPotGameRows(ctx.cfg, ctx.round).forEach(function (g) {
+    var k = g[0]; if (k === 'skins') return;
+    var host = document.getElementById('ptPotTbl_' + k); if (!host) return;
+    var sel = (ctx.tbl && ctx.tbl[k]) || '';
+    var h = '<span style="font-size:10.5px;color:rgba(255,255,255,.3);margin-right:4px">table</span>';
+    h += _ptPayChip('', 'Typed here', !sel, k);
+    for (var i = 0; i < lib.length; i++) h += _ptPayChip(lib[i].id, lib[i].name, String(sel) === String(lib[i].id), k);
+    h += '<span onclick="ptPayTblOpen()" style="display:inline-flex;align-items:center;padding:6px 11px;border-radius:16px;font-size:11.5px;font-weight:800;cursor:pointer;'
+       + 'border:1.5px dashed rgba(201,168,76,.45);background:rgba(201,168,76,.07);color:#c9a84c;margin:0 5px 6px 0">+ Tables…</span>';
+    var tbl = _ptFr210Table(sel);
+    if (tbl) {
+      var line = _ptFr210Line(tbl, ctx.field);
+      h += '<div style="width:100%;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.28);border-radius:10px;padding:9px 11px;margin-top:2px;'
+         + 'font-size:11.5px;color:rgba(255,255,255,.7);line-height:1.6">' + _ptEsc(line)
+         + ' <span style="color:rgba(255,255,255,.35)">Change the ante or the field and the dollars follow; the table does not move.</span></div>';
+    }
+    host.innerHTML = h;
+  });
+};
+function _ptPayChip(id, label, on, k) {
+  var st = on ? 'border:1.5px solid rgba(120,220,150,.55);background:rgba(120,220,150,.12);color:#a8d5b5'
+              : 'border:1.5px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:rgba(255,255,255,.75)';
+  return '<span onclick="ptPayTblPick(\'' + k + '\',\'' + _ptEsc(String(id)) + '\')" style="display:inline-flex;align-items:center;'
+       + 'padding:6px 11px;border-radius:16px;font-size:11.5px;font-weight:800;cursor:pointer;margin:0 5px 6px 0;' + st + '">'
+       + (on ? '✓ ' : '') + _ptEsc(label) + '</span>';
+}
+/* Choosing a table REPLACES what the boxes show, so the screen never claims a
+   split the table would not pay. Choosing "Typed here" leaves the boxes alone. */
+window.ptPayTblPick = function (k, id) {
+  var ctx = window.__ptPotCtx; if (!ctx) return;
+  if (!ctx.tbl) ctx.tbl = {};
+  if (!id) { delete ctx.tbl[k]; }
+  else {
+    ctx.tbl[k] = id;
+    var band = _ptFr210Band(_ptFr210Table(id), ctx.field);
+    if (band && band.places && band.places.length) ctx.places[k] = band.places.slice(0, PT_PLACES_MAX);
+  }
+  window.ptPayTblPaint(); window.ptPotPaintPlaces(); window.ptPotRecalc();
+};
+
+/* ── THE EDITOR ─────────────────────────────────────────────────────────── */
+window.ptPayTblOpen = function () {
+  var old = document.getElementById('ptPayOv'); if (old) old.remove();
+  window._ptPayWork = JSON.parse(JSON.stringify(window._ptPayTbl || []));
+  var ov = document.createElement('div');
+  ov.id = 'ptPayOv';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:820;background:#0d1a0d;overflow-y:auto';
+  ov.innerHTML = '<div style="max-width:720px;margin:0 auto;padding:18px 16px 90px">'
+    + '<div style="display:flex;align-items:center;margin-bottom:14px">'
+    + '<button onclick="document.getElementById(\'ptPayOv\').remove()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer;padding:0">‹ Close</button>'
+    + '<div style="margin-left:10px;font-size:16px;font-weight:800;color:#f5d97a">💰 Payout tables</div>'
+    + '</div>'
+    + '<div id="ptPayBody"></div></div>';
+  document.body.appendChild(ov);
+  window.ptPayTblRender();
+};
+window.ptPayTblRender = function () {
+  var b = document.getElementById('ptPayBody'); if (!b) return;
+  var W = window._ptPayWork || [], h = '';
+  if (window._ptPayMig) {
+    h += '<div style="background:rgba(232,163,61,.1);border:1px solid rgba(232,163,61,.35);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:12.5px;color:#e8a33d;line-height:1.6">'
+       + '⚠ Migration <b>D125</b> has not been applied yet, so a table cannot be saved. Everything below still works on this round.</div>';
+  }
+  W.forEach(function (t, ti) {
+    h += '<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;margin-bottom:14px">'
+      + '<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">'
+      + '<input id="ptPayN_' + ti + '" value="' + _ptEsc(t.name || '') + '" oninput="ptPayTblHarvest()" maxlength="40" style="flex:1;padding:9px 11px;background:#14260f;border:1px solid rgba(255,255,255,.18);border-radius:8px;color:#f5e6b8;font-size:14px;font-weight:800">'
+      + '<button onclick="ptPayTblDelTable(' + ti + ')" style="padding:8px 11px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.35);border-radius:8px;color:#e74c3c;font-size:11.5px;font-weight:800;cursor:pointer">Delete</button>'
+      + '</div>';
+    (t.bands || []).forEach(function (bd, bi) {
+      var open = (bd.max === null || bd.max === undefined || bd.max === '');
+      var sum = 0; (bd.places || []).forEach(function (n) { sum += Number(n) || 0; });
+      h += '<div style="border-top:1px solid rgba(255,255,255,.07);padding:11px 0">'
+        + '<div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:8px">'
+        + '<span style="font-size:12px;font-weight:800;color:#f5d97a">⛳ Field up to</span>'
+        + '<input id="ptPayM_' + ti + '_' + bi + '" type="number" min="1" step="1" value="' + (open ? '' : bd.max) + '" placeholder="any" oninput="ptPayTblHarvest()" style="width:64px;padding:7px 8px;background:#14260f;border:1px solid rgba(255,255,255,.18);border-radius:8px;color:#f5e6b8;font-size:13px;font-weight:700;text-align:center">'
+        + '<span style="font-size:11px;color:rgba(255,255,255,.35)">' + (open ? 'blank = every bigger field' : 'players') + '</span>'
+        + '<button onclick="ptPayTblDelBand(' + ti + ',' + bi + ')" style="margin-left:auto;padding:5px 9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer">− band</button>'
+        + '</div><div style="display:flex;gap:5px;flex-wrap:wrap;align-items:flex-start">';
+      (bd.places || []).forEach(function (p, pi) {
+        h += '<div style="text-align:center"><input id="ptPayP_' + ti + '_' + bi + '_' + pi + '" type="number" min="0" step="1" value="' + p + '" oninput="ptPayTblHarvest()" style="width:48px;padding:8px 5px;background:#14260f;border:1px solid rgba(255,255,255,.18);border-radius:8px;color:#f5e6b8;font-size:13px;font-weight:800;text-align:center">'
+          + '<div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:3px">' + _ptOrd(pi) + '</div></div>';
+      });
+      h += '<div style="align-self:center;display:flex;gap:5px">'
+        + '<button onclick="ptPayTblAddPlace(' + ti + ',' + bi + ')" style="padding:6px 9px;background:rgba(168,213,181,.1);border:1px solid rgba(168,213,181,.25);border-radius:8px;color:#a8d5b5;font-size:11px;font-weight:800;cursor:pointer">+ place</button>'
+        + '<button onclick="ptPayTblDelPlace(' + ti + ',' + bi + ')" style="padding:6px 9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:rgba(255,255,255,.5);font-size:11px;font-weight:800;cursor:pointer">−</button>'
+        + '</div></div>';
+      h += (sum === 100)
+        ? '<div style="font-size:12px;font-weight:800;color:#a8d5b5;margin-top:9px">✓ 100% — balanced</div>'
+        : '<div style="font-size:12px;font-weight:800;color:#e8a33d;margin-top:9px">⚠ ' + sum + '% — every band has to total 100% on its own.</div>';
+      h += '</div>';
+    });
+    h += '<div style="margin-top:11px"><button onclick="ptPayTblAddBand(' + ti + ')" style="padding:7px 11px;background:rgba(201,168,76,.07);border:1.5px dashed rgba(201,168,76,.45);border-radius:16px;color:#c9a84c;font-size:11.5px;font-weight:800;cursor:pointer">+ Add a band</button></div>';
+    h += '</div>';
+  });
+  h += '<button onclick="ptPayTblAddTable()" style="width:100%;padding:12px;background:rgba(201,168,76,.07);border:1.5px dashed rgba(201,168,76,.45);border-radius:12px;color:#c9a84c;font-size:13.5px;font-weight:800;cursor:pointer;margin-bottom:12px">+ New payout table</button>';
+  h += '<button id="ptPaySave" onclick="ptPayTblSave()" style="width:100%;padding:13px;background:rgba(100,220,180,.9);color:#0a1a0a;border:none;border-radius:12px;font-size:15px;font-weight:900;cursor:pointer">Save tables</button>';
+  h += '<div style="font-size:10.5px;color:rgba(255,255,255,.3);margin-top:10px;line-height:1.6">Percentages, never dollars — a table set in March pays a July field correctly. A field bigger than every band pays the deepest band. Places stay whole numbers.</div>';
+  b.innerHTML = h;
+};
+/* The working copy is refreshed from the DOM before every structural change,
+   so a half-typed name survives adding a band. Trap 32's lesson, reused. */
+window.ptPayTblHarvest = function () {
+  var W = window._ptPayWork || [];
+  W.forEach(function (t, ti) {
+    var n = document.getElementById('ptPayN_' + ti); if (n) t.name = String(n.value || '');
+    (t.bands || []).forEach(function (bd, bi) {
+      var m = document.getElementById('ptPayM_' + ti + '_' + bi);
+      if (m) { var v = String(m.value || '').trim(); bd.max = v === '' ? null : Math.trunc(Number(v)); }
+      (bd.places || []).forEach(function (_, pi) {
+        var e = document.getElementById('ptPayP_' + ti + '_' + bi + '_' + pi);
+        if (e) bd.places[pi] = Math.max(0, Math.round(Number(e.value || 0)));
+      });
+    });
+  });
+  return W;
+};
+function _ptPayRepaint() { window.ptPayTblRender(); }
+window.ptPayTblAddTable = function () { window.ptPayTblHarvest(); (window._ptPayWork = window._ptPayWork || []).push({ id: '', name: 'New table', bands: [{ max: null, places: [100] }] }); _ptPayRepaint(); };
+window.ptPayTblDelTable = function (ti) { window.ptPayTblHarvest(); window._ptPayWork.splice(ti, 1); _ptPayRepaint(); };
+window.ptPayTblAddBand = function (ti) { window.ptPayTblHarvest(); var t = window._ptPayWork[ti]; if (t.bands.length >= 8) { ptToast('A table holds eight bands at most.'); return; } t.bands.push({ max: null, places: [100] }); _ptPayRepaint(); };
+window.ptPayTblDelBand = function (ti, bi) { window.ptPayTblHarvest(); var t = window._ptPayWork[ti]; if (t.bands.length <= 1) { ptToast('A table needs at least one band.'); return; } t.bands.splice(bi, 1); _ptPayRepaint(); };
+window.ptPayTblAddPlace = function (ti, bi) { window.ptPayTblHarvest(); var bd = window._ptPayWork[ti].bands[bi]; if (bd.places.length >= PT_PLACES_MAX) { ptToast('A band pays ' + PT_PLACES_MAX + ' places at most.'); return; } bd.places.push(0); _ptPayRepaint(); };
+window.ptPayTblDelPlace = function (ti, bi) { window.ptPayTblHarvest(); var bd = window._ptPayWork[ti].bands[bi]; if (bd.places.length <= 1) { ptToast('A band pays at least one place.'); return; } bd.places.pop(); _ptPayRepaint(); };
+/* ⛔ THE WORKER IS THE VALIDATOR (_fr210Norm). This checks the same rules first
+   only so the organizer gets the answer without a round trip — it never
+   decides anything the server would not. */
+window.ptPayTblSave = function () {
+  var W = window.ptPayTblHarvest();
+  for (var i = 0; i < W.length; i++) {
+    if (!String(W[i].name || '').trim()) { ptToast('Every payout table needs a name.'); return; }
+    for (var j = 0; j < W[i].bands.length; j++) {
+      var s = 0; W[i].bands[j].places.forEach(function (n) { s += Number(n) || 0; });
+      if (s !== 100) { ptToast('"' + W[i].name + '" has a band totalling ' + s + '% — every band has to total 100%.'); return; }
+    }
+  }
+  var btn = document.getElementById('ptPaySave'); if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
+  fetch(TOUR_API + '/api/payout-tables', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+    body: JSON.stringify({ tables: W })
+  }).then(_ptJson).then(_ptThrow).then(function (d) {
+    window._ptPayTbl = (d && d.tables) || [];
+    window._ptPayMig = false;
+    ptToast(window._ptPayTbl.length === 1 ? '1 payout table saved.' : window._ptPayTbl.length + ' payout tables saved.');
+    var ov = document.getElementById('ptPayOv'); if (ov) ov.remove();
+    if (window.__ptPotCtx) { window.ptPayTblPaint(); window.ptPotPaintPlaces(); window.ptPotRecalc(); }
+  }).catch(function (e) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Save tables'; }
+    ptToast(_ptMsg(e, 'Could not save the payout tables.'));
+  });
+};
+
 window.ptPotSave = function () {
   var ctx = window.__ptPotCtx; if (!ctx) return;
   var ante = Math.max(0, Math.round(Number(document.getElementById('ptPotAnte').value || 0) * 100));
   var rows = ptPotGameRows(ctx.cfg, ctx.round);
   var pct = {}, places = {}, sum = 0, bad = false;
+  /* ⭐⭐ FR-210 (v745.0) — the chosen table is written ALONGSIDE places_pct,
+     never instead of it. places_pct stays the RESOLVED SNAPSHOT, so any reader
+     that knows nothing about tables still sees a correct split for this field. */
+  var _fr210Sel = {};
   rows.forEach(function (g) {
     var k = g[0], el = document.getElementById('ptPotG_' + k);
     var p = el ? Math.max(0, Number(el.value || 0)) : 0;
@@ -48816,6 +49089,7 @@ window.ptPotSave = function () {
     pl.forEach(function (n) { ps += n; });
     if (ps !== 100) bad = true;
     places[k] = pl;
+    if (ctx.tbl && ctx.tbl[k]) _fr210Sel[k] = ctx.tbl[k];
   });
   if (ante > 0 && (Math.abs(sum - 100) >= 0.005 || bad)) { ptToast('The slices and the places both have to total 100%.'); return; }
   // Read-merge-write, same hazard as cfg.skins: ptPatchEvConfig assigns each
@@ -48825,7 +49099,7 @@ window.ptPotSave = function () {
       if (!d.event) throw new Error('Event not found');
       var cfg = ptEvCfg(d.event);
       var all = Object.assign({}, cfg.pot || {});
-      if (ante > 0) all[String(ctx.round.id)] = { ante_cents: ante, mode: 'pct', split_pct: pct, places_pct: places };
+      if (ante > 0) all[String(ctx.round.id)] = { ante_cents: ante, mode: 'pct', split_pct: pct, places_pct: places, places_tbl: _fr210Sel };
       else delete all[String(ctx.round.id)];
       return ptPatchEvConfig(ctx.eventId, { pot: all });
     }).then(_ptThrow).then(function () {
@@ -72357,7 +72631,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v744.0';
+    const TOUR_VERSION     = 'pards-tour-v745.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
