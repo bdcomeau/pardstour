@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v736.0 -->
+  <!-- pards-tour-v737.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -47592,15 +47592,27 @@ window.ptFr20XofNRows = function (gf, round, groups, byP, evCfg, srv) {
       if (have.length) thru = h;
       if (!need || have.length < need) continue;
       if (p.n1g) {
-        /* FR-184 -- same rule as the multi-day engine above: one net + one gross,
-           two different players, lowest combination. TWO producers exist for the
-           X-of-N hole score (this single-round pass and ptBuildMdTeamXofN); a
-           change to one without the other splits the board from the paper. */
+        /* FR-205 (v737.0, s290) -- THE GROSS BALL IS MANDATORY. His ruling, the
+           official game text: "the lowest gross score MUST be used (even if that
+           player would have a lower resulting net score)". The net ball is the
+           best net among the REMAINING players. This REPLACES FR-184's
+           lowest-combination rule (s286) -- verified against Chibri Aug 18:
+           one hole in 54 moves (Lindenberg's birdie on 8 must count as gross).
+           ⭐ A TIE for lowest gross: any tied ball satisfies "the lowest gross" --
+           the copy that frees the best net is used, in the team's favour.
+           ⛔ TWO producers exist for the X-of-N hole score (this single-round pass
+           and ptBuildMdTeamXofN); a change to one without the other splits the
+           board from the paper. */
+        var _minG5 = null;
+        for (var _g5 = 0; _g5 < have.length; _g5++) if (_minG5 == null || have[_g5].gross < _minG5) _minG5 = have[_g5].gross;
         var _n1gBest2 = null;
-        for (var _i5 = 0; _i5 < have.length; _i5++) for (var _j5 = 0; _j5 < have.length; _j5++) {
-          if (_i5 === _j5) continue;
-          var _s5 = have[_i5].net + have[_j5].gross;
-          if (_n1gBest2 == null || _s5 < _n1gBest2) _n1gBest2 = _s5;
+        for (var _j5 = 0; _j5 < have.length; _j5++) {
+          if (have[_j5].gross !== _minG5) continue;          /* the gross ball MUST be a lowest-gross ball */
+          for (var _i5 = 0; _i5 < have.length; _i5++) {
+            if (_i5 === _j5) continue;
+            var _s5 = have[_j5].gross + have[_i5].net;
+            if (_n1gBest2 == null || _s5 < _n1gBest2) _n1gBest2 = _s5;
+          }
         }
         holesCounted++; total += _n1gBest2;
         continue;
@@ -49468,14 +49480,23 @@ function ptBuildMdTeamXofN(eventId, xofnRounds, groups, headers, cfg) {
           if (have.length) thru = Math.max(thru, h);
           if (!need || have.length < need) continue;       // not enough balls in — hole doesn't contribute
           if (p.n1g) {
-            /* FR-184 -- one NET + one GROSS from two DIFFERENT players; every
-               ordered pair tried, the lowest total takes the hole (his ruling:
-               "whatever combination ... produces the lowest total per hole"). */
+            /* FR-205 (v737.0, s290) -- THE GROSS BALL IS MANDATORY: the lowest
+               gross MUST be used, even if that player would give a lower total
+               from the net slot; the net ball is the best net among the REST.
+               Replaces FR-184's lowest-combination (s286). A tie for lowest
+               gross resolves in the team's favour. Dots still credit the gross
+               man and the net man. Same rule as ptFr20XofNRows -- the two
+               producers move together or the board splits from the paper. */
+            var _minG4 = null;
+            for (var _g4 = 0; _g4 < have.length; _g4++) { var _gv4 = have[_g4].vals[h].gross; if (_minG4 == null || _gv4 < _minG4) _minG4 = _gv4; }
             var _n1gBest = null, _n1gI = -1, _n1gJ = -1;
-            for (var _i4 = 0; _i4 < have.length; _i4++) for (var _j4 = 0; _j4 < have.length; _j4++) {
-              if (_i4 === _j4) continue;
-              var _s4 = have[_i4].vals[h].net + have[_j4].vals[h].gross;
-              if (_n1gBest == null || _s4 < _n1gBest) { _n1gBest = _s4; _n1gI = _i4; _n1gJ = _j4; }
+            for (var _j4 = 0; _j4 < have.length; _j4++) {
+              if (have[_j4].vals[h].gross !== _minG4) continue;   /* gross ball = a lowest-gross ball, MANDATORY */
+              for (var _i4 = 0; _i4 < have.length; _i4++) {
+                if (_i4 === _j4) continue;
+                var _s4 = have[_j4].vals[h].gross + have[_i4].vals[h].net;
+                if (_n1gBest == null || _s4 < _n1gBest) { _n1gBest = _s4; _n1gI = _i4; _n1gJ = _j4; }
+              }
             }
             have[_n1gI].counted++; have[_n1gJ].counted++;
             perHole[h] = _n1gBest; holesCounted++; total += _n1gBest;
@@ -71846,7 +71867,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v736.0';
+    const TOUR_VERSION     = 'pards-tour-v737.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
