@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v731.0 -->
+  <!-- pards-tour-v732.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -38197,8 +38197,7 @@ function ptPrintTripOverallReport(opts) {
       if (gross == null) { cells += '<td style="color:#ddd">—</td>'; continue; }
       var par = r.pars ? r.pars[h-1] : null;
       var si = r.si ? r.si[h-1] : h;
-      var hasStroke = _ringStrokes(si, r.playing_handicap) > 0;
-      cells += '<td><span class="chip" style="' + _ptPrintScoreCell(gross, par, hasStroke) + '">' + gross + '</span></td>';   /* FR-179 */
+      cells += '<td>' + _ptPrintScoreChip(gross, par, _ringStrokes(si, r.playing_handicap)) + '</td>';   /* FR-179 · FR-201 */
     }
     return cells;
   }
@@ -38265,7 +38264,6 @@ function ptPrintTripOverallReport(opts) {
     + '</div></div>'
     + '<table><thead>' + thRow + '</thead>' + bodies + '</table>'
     + '<div style="margin-top:10px;font-size:9px;color:#888;display:flex;gap:16px;flex-wrap:wrap">'
-    + '<span><span class="chip" style="background:#2563eb;color:#fff;box-shadow:0 0 0 2px #c9a84c">4</span> gold ring = stroke received on hole</span>'
     + legend
     + '</div>'
     + '<div class="footer"><span>Pards Tour — Individual NET Stableford · ranked by total points · high wins · all points server-computed</span><span>Printed ' + new Date().toLocaleString() + '</span></div>'
@@ -38363,8 +38361,7 @@ function ptPrintLeagueOverallReport(opts) {
       if (gross == null) { cells += '<td style="color:#ddd">—</td>'; continue; }
       var par = e.pars ? e.pars[h-1] : null;
       var si = e.si ? e.si[h-1] : h;
-      var hasStroke = _ringStrokes(si, e.playing_handicap) > 0;
-      cells += '<td><span class="chip" style="' + _ptPrintScoreCell(gross, par, hasStroke) + '">' + gross + '</span></td>';   /* FR-179 */
+      cells += '<td>' + _ptPrintScoreChip(gross, par, _ringStrokes(si, e.playing_handicap)) + '</td>';   /* FR-179 · FR-201 */
     }
     return cells;
   }
@@ -38438,7 +38435,6 @@ function ptPrintLeagueOverallReport(opts) {
     + '</div></div>'
     + '<table><thead>' + thRow + '</thead>' + bodies + '</table>'
     + '<div style="margin-top:10px;font-size:9px;color:#888;display:flex;gap:16px;flex-wrap:wrap">'
-    + '<span><span class="chip" style="background:#2563eb;color:#fff;box-shadow:0 0 0 2px #c9a84c">4</span> gold ring = stroke received on hole</span>'
     + legend
     + (anySkins ? '<span><span class="skw" style="color:#8e44ad;font-weight:800">skins week</span> — Pts column = skins won that week</span>' : '')
     + '</div>'
@@ -58147,8 +58143,7 @@ function ptPrintMdOverallReport(eventId, opts) {
           if (i === 9) cells += '<td class="rd-total">' + (_lnF != null ? _lnF : '—') + '</td>';   /* ⭐ s269 — Out gross */
           if (gross == null) { cells += '<td style="color:#ddd">—</td>'; continue; }
           if (i < 9) _lnF = (_lnF || 0) + gross; else _lnB = (_lnB || 0) + gross;
-          var hasStroke = showStrokes && ptsInfo && ptsInfo.strokes > 0;
-          cells += '<td><span class="chip" style="' + _ptPrintScoreCell(gross, ptsInfo ? ptsInfo.par : null, hasStroke) + '">' + gross + '</span></td>';   /* FR-179 */
+          cells += '<td>' + _ptPrintScoreChip(gross, ptsInfo ? ptsInfo.par : null, (showStrokes && ptsInfo) ? ptsInfo.strokes : 0) + '</td>';   /* FR-179 · FR-201 */
         }
         cells += '<td class="rd-total">' + (_lnB != null ? _lnB : '—') + '</td>';   /* ⭐ s269 — In gross */
         return cells;
@@ -58226,7 +58221,6 @@ function ptPrintMdOverallReport(eventId, opts) {
         + '</div></div>'
         + tables
         + '<div style="margin-top:10px;font-size:9px;color:#888;display:flex;gap:16px;flex-wrap:wrap">'
-        + (showStrokes ? '<span><span class="chip" style="background:#2563eb;color:#fff;box-shadow:0 0 0 2px #c9a84c">4</span> gold ring = stroke received on hole</span>' : '')
         + legend
         + '</div>'
         // ⭐ v493.0 · B-132 / FR-55 — say where the numbers came from, on the paper.
@@ -63899,8 +63893,7 @@ function ptPrintMmgOverallReport(eventId, opts) {
           var gross = (p.hole_gross && p.hole_gross[h2] != null) ? p.hole_gross[h2] : null;
           if (gross == null) { cells += '<td style="color:#ddd">\u2014</td>'; continue; }
           var par = pars ? pars[h2] : null;
-          var hasStroke = _ringStrokes(si[h2], p.playing_handicap) > 0;
-          cells += '<td><span class="chip" style="' + _ptPrintScoreCell(gross, par, hasStroke) + '">' + gross + '</span></td>';   /* FR-179 */
+          cells += '<td>' + _ptPrintScoreChip(gross, par, _ringStrokes(si[h2], p.playing_handicap)) + '</td>';   /* FR-179 · FR-201 */
         }
         return cells;
       }
@@ -63944,8 +63937,7 @@ function ptPrintMmgOverallReport(eventId, opts) {
         + '</div></div>'
         + '<table><thead>' + thRow + '</thead><tbody>' + siPar + '</tbody>' + bodies + '</table>'
         + '<div style="margin-top:10px;font-size:9px;color:#888;display:flex;gap:16px;flex-wrap:wrap">'
-        + '<span><span class="chip" style="background:#2563eb;color:#fff;box-shadow:0 0 0 2px #c9a84c">4</span> gold ring = stroke received on hole</span>'
-        + legend
+            + legend
         + '</div>'
         + '<div class="footer"><span>Pards Tour \u2014 Member/Guest \u00b7 ranked by combined net stableford points \u00b7 high wins \u00b7 all points server-computed</span><span>Printed ' + new Date().toLocaleString() + '</span></div>'
         + '</body></html>';
@@ -65673,69 +65665,102 @@ function _ptToParLabel(diff) {
   return { text: '+' + diff, color: 'rgba(255,255,255,.5)' };
 }
 
-/* ⭐⭐⭐ FR-179 (Bruce, s285 — BUILT s289) — THE COLOUR SOUP RETIRES FROM PAPER.
-   His ruling: "Yes. We needs to get rid of the colour soup everywhere." Built off a
-   mock of his own Barnes week-3 round at true Letter size; his word on it: "I am
-   good with this change - go."
+/* ⭐⭐⭐ FR-201 (Bruce, s289) — THE STROKE RING BECOMES A RED DOT, AND EVERY MARK
+   IS THE SAME SIZE.
 
-   THE PAPER SIBLING OF ptCbsMarkCss (the TV's one notation producer, s285). Same
-   geometry, px instead of vh, BLACK ON WHITE:
-     circle under par · DOUBLE circle eagle+ · square over par · DOUBLE square double+
-   ⛔⛔ PAR GETS NO MARK AT ALL. That is the entire point of the notation — it is what
-   makes a birdie findable in a field of pars. A mark on par is a mark on nothing.
-   ⭐ An ace is −2 or better on any par, so it draws the double circle with NO special
-   case. The old palette's seventh colour was never a seventh category.
-   ⚠ WHY THIS BEATS THE FILLS ON PAPER: on a mono printer the s269 palette collapses —
-   blue par, red birdie and orange eagle all land as similar greys and the black double
-   swallows its own digit. Double and Triple already shared a swatch. This prints
-   identically on any printer, and it is the notation every golfer reads on television.
-   ⛔ SCREENS ARE NOT IN THIS CHANGE. _ptScoreCellColor still owns the phone boards and
-   the watch detail; a ~30px phone cell cannot carry a thin ring (s65 chose the fill FOR
-   thumb scale). That surface gets its own mock and its own ruling. */
+   He printed the FR-179 paper and asked: "why is there a gold border around a lot of
+   them?" — because the gold ring marked a hole where he RECEIVES A STROKE, and at a
+   course handicap of 19 that is every hole on the card plus a second on one.
+   ⛔⛔ A MARK THAT APPEARS ON 17 OF 18 HOLES CARRIES NO INFORMATION. It was always
+   noisy; FR-179 made it loud, because a black-and-white card leaves gold as the
+   brightest thing on the page, fighting the very notation it sits beside.
+
+   ⭐ HIS RULINGS, IN ORDER, EACH OFF A RENDER:
+     1. "dots - make them red"
+     2. "if the dots are below the score - can see them all the time - circle square
+        or not"  ... then, seeing it cost row height: "don't move the boxes",
+        with the placement drawn in green — INSIDE the chip, flanking the number.
+     3. "Birdie - SINGLE large circle - Bogey - SINGLE large square" · "for symmetry -
+        make the birdie circle same size as the outside circle of a eagle and make the
+        box of a bogey same size as outside box of a double bogey"
+
+   ⛔ THE DOTS ARE TEXT, NOT A BACKGROUND. Background colours and gradients are
+   suppressed when "Background graphics" is unticked in the print dialog — which is
+   the default. A glyph always prints. */
+var PT_FR201_DOT = '#c0392b';
+
+/* The mark geometry itself — unchanged from FR-179 except that its OUTER radius is
+   now shared by singles and doubles alike (composed in _ptPrintScoreCell).
+   ⛔⛔ PAR GETS NO MARK AT ALL. That is the whole point of the notation: it is what
+   makes a birdie findable in a field of pars.
+   ⭐ An ace is −2 or better on any par, so it draws the double circle with no
+   special case. */
 function ptCbsMarkPrint(d, bw) {
   if (d == null || isNaN(d)) return null;
-  if (d === 0) return null;                                  /* ⛔ PAR: no mark */
+  if (d === 0) return null;
   bw = bw || 1.6;
   return { bw: bw, radius: (d <= -1 ? '50%' : '2px'), dbl: (d <= -2 || d >= 2) };
 }
 
-/* ONE producer for the whole inline style of a printed score chip. All four overall
-   papers call THIS; ⛔ never a fifth copy of the geometry.
-   ⭐⭐ THE GOLD STROKE RING SURVIVES AND RIDES OUTSIDE ANY CBS RING. It answers a
-   different question — "does he get a shot here" — and box-shadow takes a comma list,
-   so the two signals stack instead of fighting.
-   ⭐ box-sizing:border-box so the added border cannot grow the 18px chip and shove a
-   21-column row off the page (B-263). */
 function _ptPrintScoreCell(gross, par, hasStroke) {
+  /* ⭐⭐⭐ ONE OUTER DIAMETER FOR EVERY MARK. The OUTER ring is drawn at the SAME
+     radius on all four marks: a birdie is ONE large circle and an eagle is that same
+     circle PLUS an inner one; a bogey is ONE large square and a double is that same
+     square PLUS an inner one.
+     ⛔ Before this a birdie measured 21.2px across and an eagle 26.3px, so a row
+     carrying both read as two different notations instead of one.
+     ⭐ A single mark carries a TRANSPARENT border of the same width as the double's
+     inner ring, so the content box is identical either way — without it the digit
+     would sit 1.6px differently on a birdie than on an eagle.
+     ⛔ hasStroke is unused: strokes are dots now, drawn by _ptPrintScoreChip. */
   var m = (gross != null && par != null) ? ptCbsMarkPrint(gross - par, 1.6) : null;
-  var st = 'box-sizing:border-box;background:transparent;color:#1a1a1a;';
-  var sh = [], out = 0;
+  var st = 'box-sizing:border-box;background:transparent;color:#1a1a1a;position:relative;';
   if (m) {
-    st += 'border:' + m.bw + 'px solid #1a1a1a;border-radius:' + m.radius + ';';
-    out = m.bw;
-    if (m.dbl) {
-      sh.push('0 0 0 ' + (m.bw * 1.5).toFixed(1) + 'px #fff');
-      sh.push('0 0 0 ' + (m.bw * 2.6).toFixed(1) + 'px #1a1a1a');
-      out = m.bw * 2.6;
-    }
+    var GAP = (m.bw * 1.5).toFixed(2), OUT = (m.bw * 2.6).toFixed(2);
+    st += 'border-radius:' + m.radius + ';';
+    st += 'border:' + m.bw + 'px solid ' + (m.dbl ? '#1a1a1a' : 'transparent') + ';';
+    st += 'box-shadow:0 0 0 ' + GAP + 'px #fff,0 0 0 ' + OUT + 'px #1a1a1a;';
   }
-  if (hasStroke) {
-    var g = out + 1.2;
-    sh.push('0 0 0 ' + g.toFixed(1) + 'px #fff');
-    sh.push('0 0 0 ' + (g + 2).toFixed(1) + 'px #c9a84c');
-  }
-  if (sh.length) st += 'box-shadow:' + sh.join(',') + ';';
   return st;
 }
 
-/* The legend follows the notation wherever it goes (FR-179 invariant). Five entries,
-   not seven: Ace folds into Eagle+ and Triple+ into Double+, because on paper they
-   always drew the same mark — the old legend promised a distinction it never printed. */
+/* THE ONE PRINTED SCORE CELL. strokes: 0, 1 or 2 (ptStrokesOnHole's answer).
+   ⛔⛔⛔ THE DOTS LIVE INSIDE THE CHIP, FLANKING THE NUMBER — his placement, drawn
+   in green after three wrong tries of mine:
+     · top-right corner — exactly where a DOUBLED mark's outer ring sits. Red on
+       black, gone on every eagle and every double. He caught it on hole 6.
+     · left gutter — cleared the rings, but shoved the number off-centre so the row
+       read ragged.
+     · below the chip — clean, but cost 11px of row height on every row. That is
+       what "don't move the boxes" rules out.
+     · INSIDE — the mark is a border ON the chip, so its interior is free at every
+       mark. Nothing grows, nothing shifts, nothing collides.
+   ⭐ Absolutely positioned against the chip (_ptPrintScoreCell sets position:relative),
+   so the dots cannot widen the box either. */
+function _ptPrintScoreChip(gross, par, strokes) {
+  var n = Number(strokes) || 0;
+  function dot(side) {
+    return '<span style="position:absolute;' + side + ':1px;top:50%;margin-top:-4px;'
+         + 'font-size:9px;line-height:1;font-weight:900;color:' + PT_FR201_DOT + '">•</span>';
+  }
+  return '<span class="chip" style="' + _ptPrintScoreCell(gross, par, false) + '">'
+       + (n >= 1 ? dot('left') : '')
+       + gross
+       + (n >= 2 ? dot('right') : '')
+       + '</span>';
+}
+
 function _ptPrintScoreLegend() {
-  return [['Eagle+', 2], ['Birdie', 3], ['Par', 4], ['Bogey', 5], ['Double+', 6]].map(function (x) {
+  var out = [['Eagle+', 2], ['Birdie', 3], ['Par', 4], ['Bogey', 5], ['Double+', 6]].map(function (x) {
     return '<span style="display:inline-flex;align-items:center;gap:4px;margin-right:11px;vertical-align:middle">'
-      + '<span class="chip" style="' + _ptPrintScoreCell(x[1], 4, false) + '"></span>' + x[0] + '</span>';
+      + _ptPrintScoreChip(x[1], 4, 0) + x[0] + '</span>';
   }).join('');
+  /* FR-201 — the dot is part of the notation, so it is part of the legend. */
+  out += '<span style="display:inline-flex;align-items:center;gap:4px;margin-right:11px;vertical-align:middle">'
+      + _ptPrintScoreChip(4, 4, 1) + 'stroke</span>'
+      + '<span style="display:inline-flex;align-items:center;gap:4px;vertical-align:middle">'
+      + _ptPrintScoreChip(4, 4, 2) + 'two strokes</span>';
+  return out;
 }
 
 /* ⭐⭐⭐ FR-179 PHONE HALF (Bruce, s289) — SEVEN COLOURS FOLD TO FOUR.
@@ -71728,7 +71753,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v731.0';
+    const TOUR_VERSION     = 'pards-tour-v732.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
