@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v748.0 -->
+  <!-- pards-tour-v749.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -14245,6 +14245,15 @@ function swipeStart(pi,h,e){
 }
 function swipeMove(e){
   if(_touch.pi===null)return;
+  /* ⭐⭐⭐ B-272 (v749.0, s291) — NEVER SWALLOW A PINCH.
+     A pinch IS a touchmove, with two fingers down. Every preventDefault on
+     this event cancels the gesture before iOS can start the zoom — which is
+     why pinch only worked AFTER a double-tap: once the page is zoomed the
+     guard's condition stops being true and it lets go. His words, s291:
+     "you have to double tap most times - then it works."
+     ⛔ FR-200 (v731.0) unblocked pinch in the VIEWPORT META and never touched
+     these listeners, so it has been half-blocked ever since. */
+  if (e.touches && e.touches.length > 1) { _touch.pi = null; return; }   /* B-272 — a pinch is not a swipe */
   e.preventDefault();
   const touch=e.touches?e.touches[0]:e;
   const dx=touch.clientX-_touch.x0;
@@ -23316,7 +23325,8 @@ function renderSideBetsOverlay(){
   ov.id = 'sideBetsOverlay';
   ov.style.cssText = 'position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.6);display:flex;align-items:flex-end';
   document.body.style.overflow = 'hidden';
-  ov.addEventListener('touchmove', function(e){ if(e.target===ov) e.preventDefault(); }, {passive:false});
+  /* B-272 (v749.0) — two fingers on the backdrop is a PINCH, not a scroll. */
+  ov.addEventListener('touchmove', function(e){ if(e.touches && e.touches.length > 1) return; if(e.target===ov) e.preventDefault(); }, {passive:false});
 
   var _sbAlphaRail = !settling ? (function(){ var a='ABCDEFGHIJKLMNOPQRSTUVWXYZ',r='<div id="sbAlphaRail" style="position:absolute;right:0;top:120px;bottom:8px;width:20px;display:flex;flex-direction:column;justify-content:space-between;z-index:20;background:rgba(26,58,42,.85);border-radius:6px 0 0 6px;padding:4px 0;pointer-events:none">'; for(var i=0;i<a.length;i++){ var l=a[i]; r+='<div data-sbl="'+l+'" onclick="sbJumpToLetter(this.dataset.sbl)" style="font-size:8px;font-weight:900;color:#c9a84c;cursor:pointer;text-align:center;line-height:1;-webkit-tap-highlight-color:transparent;user-select:none;pointer-events:auto">'+l+'</div>'; } return r+'</div>'; })() : '';
   ov.innerHTML = '<div id="sbSheet" style="position:relative;width:100%;max-height:90dvh;background:#1a3a2a;border-radius:20px 20px 0 0;display:flex;flex-direction:column;overflow:hidden">'+_sbAlphaRail
@@ -23381,7 +23391,8 @@ function renderSideBetsHistoryView(r, roundIdx){
   ov.id = 'sideBetsOverlay';
   ov.style.cssText = 'position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.6);display:flex;align-items:flex-end';
   document.body.style.overflow = 'hidden';
-  ov.addEventListener('touchmove', function(e){ if(e.target===ov) e.preventDefault(); }, {passive:false});
+  /* B-272 (v749.0) — two fingers on the backdrop is a PINCH, not a scroll. */
+  ov.addEventListener('touchmove', function(e){ if(e.touches && e.touches.length > 1) return; if(e.target===ov) e.preventDefault(); }, {passive:false});
 
   var sheet = document.createElement('div');
   sheet.style.cssText = 'width:100%;max-height:90dvh;background:#1a3a2a;border-radius:20px 20px 0 0;display:flex;flex-direction:column;overflow:hidden';
@@ -58268,6 +58279,13 @@ function ptPrintIndividualRoundReport(eventId, round, opts) {
     var showNet = modes.indexOf('net') !== -1;
     var _rr = ptRoundRule(round.format);                     // v358.0 — a Low Net / Low Gross round ranks by ITS OWN rule
     if (_rr !== 'stableford') { primary = _rr; if (_rr === 'net') showNet = true; }
+    /* ⭐⭐ B-273 (v749.0, s291) — A CALLAWAY ROUND IS NOT STABLEFORD.
+       The title and the PTS column both came off ptScoringLabel(cfg) / modes —
+       the EVENT's scoring setup — so a Callaway round printed "Individual
+       Stableford" above Callaway handicaps and carried a PTS column of dashes.
+       ⛔ The paper describes the ROUND it is printing. */
+    var _isCwRnd = String(round.format || '') === 'callaway';
+    if (_isCwRnd) showPts = false;
     // A circled number means "stroke received here" — only meaningful when a
     // handicap actually moves the result (net or stableford), never for gross.
     var showStrokes = showNet || showPts;
@@ -58544,8 +58562,10 @@ function ptPrintIndividualRoundReport(eventId, round, opts) {
 
     var legend = _ptPrintScoreLegend();   /* FR-179 (v736.0) — the legend follows the notation */
 
-    var scoringLabel = ptScoringLabel(cfg);
-    var sortNote = primary === 'stableford' ? 'Ranked by Stableford points \u00b7 high wins'
+    var _cwVar = (cfg && cfg.callaway && cfg.callaway.variant) || 16;
+    var scoringLabel = _isCwRnd ? ('Callaway ' + _cwVar) : ptScoringLabel(cfg);
+    var sortNote = _isCwRnd ? ('Ranked by net (gross \u2212 his Callaway handicap) \u00b7 low wins')
+      : primary === 'stableford' ? 'Ranked by Stableford points \u00b7 high wins'
       : (primary === 'gross' ? 'Ranked by gross strokes \u00b7 low wins'
                              : 'Ranked by net (gross \u2212 full course handicap) \u00b7 low wins');
 
@@ -72831,7 +72851,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v748.0';
+    const TOUR_VERSION     = 'pards-tour-v749.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
@@ -73256,9 +73276,30 @@ function ptLaunchFoursomeRound(foursomeData) {
     }catch(e){}
 
     // Prevent overscroll bounce on screens that don't scroll
+    /* ⭐⭐⭐ B-272 + B-274 (v749.0, s291) — THIS ONE GUARD CAUSED BOTH.
+       B-272: a pinch IS a touchmove with two fingers, and this cancelled the
+       first one on every overlay — which is why pinch only worked after a
+       double-tap. His words: "you have to double tap most times."
+       B-274: it also cancels a ONE-finger SCROLL. `closest('.tour-screen')`
+       finds the OUTER screen; if that screen does not scroll but a list INSIDE
+       it does, every swipe on that list was cancelled. His words: "takes 10
+       attempts to scroll up or down before it reacts."
+       ⛔ THE BOUNCE IT WAS WRITTEN TO STOP IS STILL STOPPED: a screen with
+       nothing scrollable anywhere between the finger and the screen still
+       preventDefaults, which is the only case it was ever aimed at. */
     document.addEventListener('touchmove', e => {
+      if (e.touches && e.touches.length > 1) return;   /* B-272 — never swallow a pinch */
       const sc = e.target.closest('.tour-screen');
-      if (sc && sc.scrollHeight <= sc.clientHeight) e.preventDefault();
+      if (!sc || sc.scrollHeight > sc.clientHeight) return;
+      /* B-274 — walk finger -> screen. Anything on the way that can actually
+         scroll owns this gesture, and the guard keeps its hands off. */
+      for (let n = e.target; n && n !== sc; n = n.parentElement) {
+        if (n.scrollHeight > n.clientHeight + 1) {
+          const oy = getComputedStyle(n).overflowY;
+          if (oy === 'auto' || oy === 'scroll') return;
+        }
+      }
+      e.preventDefault();
     }, { passive: false });
   </script>
 
