@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v772.0 -->
+  <!-- pards-tour-v773.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -44535,13 +44535,44 @@ function ptSegFmtCfg(cfg, round) {
     var a = +m.alw[i]; if (!(isFinite(a) && a >= 0 && a <= 200)) return null;
     if (m.fmt[i] === 'alt' && sg.size !== 2) return null;   // s293: alternate shot is teams of TWO
   }
-  return { sg: sg, fmt: m.fmt.slice(), alw: m.alw.map(Number) };
+  return { sg: sg, fmt: m.fmt.slice(), alw: m.alw.map(Number), mode: m.mode === 'gg' ? 'gg' : 'std' };   /* v773.0 (FR-228) — GG Option 1 rides the same map; absent or anything else = standard */
 }
 function ptSegFmtLegLabel(k, count, size) {
   if (k === 'scr') return 'Scramble';
   if (k === 'alt') return 'Alt Shot';
   if (k === 'sh') return 'Shamble ' + count + ' of ' + size;
   return 'Best ' + count + ' of ' + size;
+}
+/* ⭐ v773.0 (FR-228) — GOLF GENIUS OPTION 1, from the doc HE supplied
+   (docs.golfgenius.com/en/articles/10777814-handicapping-666-333-and-99):
+   "divide the unrounded Course Handicap by the number of formats … round the
+   result" (their example: 11.237 ÷ 3 = 3.745 → 4), then "re-allocate the
+   strokes to create separate allocation tables" — strokes land WITHIN each
+   leg, on the leg's holes ranked by their full-card stroke index. ⛔ The s292
+   recon's "Option 1 subtracts from segment totals, no dots" was WRONG — it was
+   arithmetic off an image; the primary source wins. Our composition: the leg's
+   allowance % applies to the UNROUNDED CH before the ÷legs, rounded once. */
+function ptSegGgPh(segf, courseId, tee, hdcpIndex, srv) {
+  var raw;
+  if (srv && srv.ch != null) raw = Number(srv.ch);
+  else { var td = ptResolveCourse(courseId, tee); raw = ptCalcCourseHandicap(hdcpIndex || 0, td.slope, td.rating, td.par); }
+  var n = segf.alw.length;
+  return segf.alw.map(function (a) { return Math.round(raw * (Number(a) || 0) / 100 / n); });
+}
+function ptSegGgStrokes(segf, phLegs, si) {
+  var n = segf.alw.length, out = [], h;
+  for (h = 0; h < 18; h++) out.push(0);
+  for (var leg = 0; leg < n; leg++) {
+    var start = Math.round(leg * 18 / n), end = Math.round((leg + 1) * 18 / n);
+    var idxs = []; for (h = start; h < end; h++) idxs.push(h);
+    idxs.sort(function (a, b) { return ((si && si[a]) || a + 1) - ((si && si[b]) || b + 1); });   // hardest first, by the FULL card's index
+    var ph = phLegs[leg] || 0, neg = ph < 0, q = Math.abs(ph), len = idxs.length;
+    for (var r = 0; r < len; r++) {
+      var base = Math.floor(q / len) + (r < (q % len) ? 1 : 0);
+      out[neg ? idxs[len - 1 - r] : idxs[r]] = neg ? -base : base;   // a plus handicap gives back on the EASIEST holes first
+    }
+  }
+  return out;
 }
 // cfg-aware label — null when the round has no per-segment config, so every
 // caller falls back to the v523.0 label it already used (trap 234 again).
@@ -44550,7 +44581,7 @@ function ptSegLabelCfg(cfg, round, pct) {
   var legs = [], i75;
   for (i75 = 0; i75 < sf.fmt.length; i75++) legs.push(ptSegFmtLegLabel(sf.fmt[i75], sf.sg.counts[i75], sf.sg.size));
   return (sf.sg.pat === '666' ? '6-6-6' : '9-9') + ' (' + legs.join(' \u00b7 ') + ', teams of ' + sf.sg.size + ') \u00b7 '
-    + (sf.sg.basis === 'net' ? 'Net' : 'Stableford') + ' \u00b7 ' + sf.alw.join('/') + '%';
+    + (sf.sg.basis === 'net' ? 'Net' : 'Stableford') + ' \u00b7 ' + sf.alw.join('/') + '%' + (sf.mode === 'gg' ? ' \u00b7 \u00f7' + sf.alw.length + ' per leg (GG)' : '');   /* v773.0 (FR-228) */
 }
 // The ONE internal parse for the shared team engine: X-of-N first, then ccc,
 // then the 6-6-6/9-9 composites (v523.0). A varying-count format's count
@@ -50699,13 +50730,14 @@ function ptXofNHoleVals(grossByHole, courseId, tee, hdcpIndex, pct, srv, segf) {
   /* v769.0 (FR-75) — per-segment allowance: one CH per SEGMENT through the
      SAME one rule; segf absent = byte-identical to v768.0. */
   var _chSeg = segf ? segf.alw.map(function (a) { return ptXofNCourseHdcp(courseId, _t190, hdcpIndex, a, srv); }) : null;
+  var _ggStk = (segf && segf.mode === 'gg') ? ptSegGgStrokes(segf, ptSegGgPh(segf, courseId, _t190, hdcpIndex, srv), si) : null;   /* v773.0 (FR-228) — GG Option 1 per-hole strokes */
   var out = {};
   Object.keys(grossByHole).forEach(function(h) {
     var hIdx = parseInt(h) - 1; if (hIdx < 0 || hIdx > 17) return;
     var gross = grossByHole[h]; if (!gross || gross <= 0) return;
     var holeSI = si ? si[hIdx] : (hIdx + 1);
     var holePar = pars ? pars[hIdx] : 4;
-    var net = gross - ptStrokesOnHole(_chSeg ? _chSeg[ptSegIdxAt(_chSeg.length, hIdx, 18)] : chcp, holeSI);   /* v769.0 (FR-75) */
+    var net = gross - (_ggStk ? (_ggStk[hIdx] || 0) : ptStrokesOnHole(_chSeg ? _chSeg[ptSegIdxAt(_chSeg.length, hIdx, 18)] : chcp, holeSI));   /* v769.0 (FR-75) · v773.0 (FR-228) */
     out[h] = { gross: gross, net: net, pts: ptStablefordPts(holePar - net, gross) };
   });
   return out;
@@ -50777,6 +50809,7 @@ function ptBuildMdTeamXofN(eventId, xofnRounds, groups, headers, cfg) {
           return { roster_id: pl.roster_id, name: pl.name, counted: 0,
                    chcp: ptXofNCourseHdcp(rr.round.course_id, rr.round.tee, _hi42, pct, _s190),   // FR-42 — for the dots
                    chseg: _segf75 ? _segf75.alw.map(function (a75) { return ptXofNCourseHdcp(rr.round.course_id, rr.round.tee, _hi42, a75, _s190); }) : null,   /* v769.0 (FR-75) — the dots follow the leg */
+                   stkgg: (_segf75 && _segf75.mode === 'gg') ? ptSegGgStrokes(_segf75, ptSegGgPh(_segf75, rr.round.course_id, rr.round.tee, _hi42, _s190), ptGetSI(rr.round.course_id, rr.round.tee)) : null,   /* v773.0 (FR-228) */
                    vals: ptXofNHoleVals(byPlayer[String(pl.roster_id)] || {}, rr.round.course_id, rr.round.tee,
                                         _hi42, pct, _s190, _segf75) };
         });
@@ -50831,7 +50864,7 @@ function ptBuildMdTeamXofN(eventId, xofnRounds, groups, headers, cfg) {
           // ⭐ FR-42 — vals and chcp ride OUT of the engine. They were computed here
           // and thrown away; the report re-deriving them would have been a second
           // implementation of the points that decide the money above them.
-          players: mem.map(function(m){ return { roster_id: m.roster_id, name: m.name, counted: m.counted, vals: m.vals, chcp: m.chcp, chseg: m.chseg || null }; }) };   /* v769.0 (FR-75) */
+          players: mem.map(function(m){ return { roster_id: m.roster_id, name: m.name, counted: m.counted, vals: m.vals, chcp: m.chcp, chseg: m.chseg || null, stkgg: m.stkgg || null }; }) };   /* v769.0 (FR-75) · v773.0 (FR-228) */
         t.holesCounted += holesCounted; t.total += total;
       });
     });
@@ -58783,6 +58816,7 @@ window.ptSegCfgOpen = function (pat) {
      50) — a competition convention, not a WHS standard. */
   var _sfPrev = st.segFmtPending || (cur && st.cfg && st.cfg.seg_fmt && st.round ? st.cfg.seg_fmt[String(st.round.id)] : null);
   if (_sfPrev && (!_sfPrev.fmt || !_sfPrev.alw || _sfPrev.fmt.length !== nSeg || _sfPrev.alw.length !== nSeg)) _sfPrev = null;
+  var _pm228 = _sfPrev && _sfPrev.mode === 'gg' ? 'gg' : 'std';   /* v773.0 (FR-228) */
   var _sz0 = cur ? cur.size : 4;
   for (var i = 0; i < nSeg; i++) {
     var _pf = _sfPrev ? _sfPrev.fmt[i] : 'best';
@@ -58809,6 +58843,17 @@ window.ptSegCfgOpen = function (pat) {
     + '<option value="net"' + (!cur || cur.basis === 'net' ? ' selected' : '') + '>Net</option>'
     + '<option value="stableford"' + (cur && cur.basis === 'stableford' ? ' selected' : '') + '>Stableford</option>'
     + '</select></div>'
+    /* v773.0 (FR-228) — the STROKES rule, his go off the s294 mock, semantics
+       corrected to the Golf Genius doc HE supplied: BOTH options put strokes
+       on holes. Standard = the full-card allocation (Option 2 — the default
+       since v769.0, his ruling). GG style = Option 1 — unrounded handicap ×
+       leg allowance ÷ legs, rounded, allocated within the leg. */
+    + '<div style="margin-bottom:16px"><div style="' + _lbl + '">Strokes \u2014 one rule for the whole night</div>'
+    + '<select id="ptSegMode" style="' + _fld + '">'
+    + '<option value="std"' + (_pm228 !== 'gg' ? ' selected' : '') + '>Strokes by index \u2014 standard (full 18-hole card)</option>'
+    + '<option value="gg"' + (_pm228 === 'gg' ? ' selected' : '') + '>Handicap \u00f7' + nSeg + ' per leg \u2014 Golf Genius style</option>'
+    + '</select>'
+    + '<div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:5px;line-height:1.5">Standard: strokes fall where they lie on the full card. Golf Genius style: each leg gets handicap \u00d7 allowance \u00f7 ' + nSeg + ' (rounded), landing on that leg\u2019s hardest holes \u2014 every leg gets its share.</div></div>'
     + '<div id="ptSegCfgErr" style="display:none;color:#e74c3c;font-size:12px;font-weight:700;margin-bottom:10px"></div>'
     + '<button onclick="ptSegCfgSave(\'' + pat + '\')" style="width:100%;padding:13px;background:rgba(201,168,76,.15);border:1.5px solid rgba(201,168,76,.5);border-radius:12px;color:#c9a84c;font-size:14px;font-weight:800;cursor:pointer;margin-bottom:8px">Use this composite</button>'
     + '<button onclick="ptSegCfgCancel()" style="width:100%;padding:10px;background:none;border:none;color:rgba(255,255,255,.4);font-size:13px;cursor:pointer">Cancel</button>'
@@ -58882,7 +58927,7 @@ window.ptSegCfgSave = function (pat) {
     return;
   }
   var st = window._ptEditRnd || {};
-  st.segFmtPending = { fmt: fmts, alw: alws };   /* v769.0 (FR-75) — persisted by ptDoEditRound via ptPatchEvConfig, the ONLY writer */
+  st.segFmtPending = { fmt: fmts, alw: alws, mode: (document.getElementById('ptSegMode') || {}).value === 'gg' ? 'gg' : 'std' };   /* v769.0 (FR-75) · v773.0 (FR-228) — persisted by ptDoEditRound via ptPatchEvConfig, the ONLY writer */
   var legs = []; for (var k = 0; k < nSeg; k++) legs.push(ptSegFmtLegLabel(fmts[k], counts[k], size));
   var lbl75 = (pat === '666' ? '6-6-6' : '9-9') + ' (' + legs.join(' \u00b7 ') + ', teams of ' + size + ') \u00b7 ' + (basis === 'net' ? 'Net' : 'Stableford') + ' \u00b7 ' + alws.join('/') + '%';
   var sel = document.getElementById('ptEditRndFormat');
@@ -61959,7 +62004,7 @@ function ptPrintXofNRoundReport(eventId, round, opts) {
                  points stay in the row TOTAL, and the team row above still carries
                  the counted points per hole. Dots still print on EVERY hole, played
                  or not — "where do I get shots" is a question you ask on the tee. */
-              var _n42 = ptStrokesOnHole((m.chseg ? m.chseg[ptSegIdxAt(m.chseg.length, _h2 - 1, 18)] : m.chcp) || 0, (_si42 && _si42[_h2 - 1]) || _h2);   /* v769.0 (FR-75) — per-leg strokes */
+              var _n42 = m.stkgg ? (m.stkgg[_h2 - 1] || 0) : ptStrokesOnHole((m.chseg ? m.chseg[ptSegIdxAt(m.chseg.length, _h2 - 1, 18)] : m.chcp) || 0, (_si42 && _si42[_h2 - 1]) || _h2);   /* v769.0 (FR-75) · v773.0 (FR-228) — a GG leg carries its own allocation */
               if (_g2 != null && _v42) _pp2 += _v42.pts;
               _pc += '<td class="cbs">' + _ptPrintScoreChip(_g2 != null ? _g2 : '\u2014', (_g2 != null && _par42) ? _par42[_h2 - 1] : null, _n42 > 0 ? _n42 : 0) + '</td>';
             } else {
@@ -61979,7 +62024,7 @@ function ptPrintXofNRoundReport(eventId, round, opts) {
       html += '</tbody></table>'
         + '<div style="margin-top:8px;font-size:10px;color:#666">' + (p.ccc ? ptCccLabel(round.format) + ' · balls counted rotate by hole' : _sgFt ? ((_sgFt.pat === '666' ? '6-6-6' : '9-9') + ' · balls counted change by leg (' + _sgFt.counts.join('/') + ' of ' + p.size + ')') : 'Best ' + p.count + ' of ' + p.size) + ' · '
         + (p.basis === 'net' ? 'net per hole' : p.basis === 'gross' ? 'gross per hole' : 'Stableford points per hole')
-        + ' · handicap allowance ' + (_sfFt ? _sfFt.alw.join('/') + '% by leg (a scoring convention, not a WHS standard)' : pct + '%') + ' · a hole counts once that hole\u2019s ' + (p.ccc ? 'rotating count of' : _sgFt ? 'leg\u2019s count of' : p.count + '+') + ' team scores are in (short teams: all balls)'
+        + ' · handicap allowance ' + (_sfFt ? _sfFt.alw.join('/') + '% by leg' + (_sfFt.mode === 'gg' ? ', handicap \u00f7' + _sfFt.alw.length + ' per leg allocated within the leg (Golf Genius Option 1)' : '') + ' (a scoring convention, not a WHS standard)' : pct + '%') + ' · a hole counts once that hole\u2019s ' + (p.ccc ? 'rotating count of' : _sgFt ? 'leg\u2019s count of' : p.count + '+') + ' team scores are in (short teams: all balls)'
         + (_fr42 ? ' · player cells carry the score notation below; the row total is POINTS' : '') + '</div>'
         + (_fr42 ? '<div style="margin-top:6px;font-size:10px;color:#444">' + _ptPrintScoreLegend() + '</div>' : '')
         + '</body></html>';
@@ -62441,7 +62486,8 @@ function ptPrintGameResultsReport(eventId, round, opts) {
         return { name: p.name, holes: hh, count: nH, out: outT, inn: inT, tot: outT + inT,
                  vals: _fr42B ? ptXofNHoleVals(hh, round.course_id, round.tee, _hi, _pct42, _s190sc, _segf42) : null,
                  chcp: _fr42D ? ptXofNCourseHdcp(round.course_id, round.tee, _hi, _pct42, _s190sc) : 0,
-                 chseg: (_fr42D && _segf42) ? _segf42.alw.map(function (a75) { return ptXofNCourseHdcp(round.course_id, round.tee, _hi, a75, _s190sc); }) : null };   /* v769.0 (FR-75) */
+                 chseg: (_fr42D && _segf42) ? _segf42.alw.map(function (a75) { return ptXofNCourseHdcp(round.course_id, round.tee, _hi, a75, _s190sc); }) : null,
+                 stkgg: (_fr42D && _segf42 && _segf42.mode === 'gg') ? ptSegGgStrokes(_segf42, ptSegGgPh(_segf42, round.course_id, round.tee, _hi, _s190sc), ptGetSI(round.course_id, round.tee)) : null };   /* v769.0 (FR-75) · v773.0 (FR-228) */
       }).filter(function(r2){ return r2.count > 0; }).sort(function(a2, b2){ return a2.tot - b2.tot; });
       if (scRows.length) {
         html += '<h3>\ud83d\uddc2 Scorecards</h3>'
@@ -62464,7 +62510,7 @@ function ptPrintGameResultsReport(eventId, round, opts) {
               var _v6 = (_fr42B && r2.vals) ? r2.vals[h6] : null;
               /* v772.0 (FR-179 CLOSES) — same swap as the X-of-N paper: gross keeps
                  its headline INSIDE the chip, points stay in the Pts column. */
-              var _n6 = ptStrokesOnHole((r2.chseg ? r2.chseg[ptSegIdxAt(r2.chseg.length, h6 - 1, 18)] : r2.chcp) || 0, (_si42B && _si42B[h6 - 1]) || h6);   /* v769.0 (FR-75) */
+              var _n6 = r2.stkgg ? (r2.stkgg[h6 - 1] || 0) : ptStrokesOnHole((r2.chseg ? r2.chseg[ptSegIdxAt(r2.chseg.length, h6 - 1, 18)] : r2.chcp) || 0, (_si42B && _si42B[h6 - 1]) || h6);   /* v769.0 (FR-75) · v773.0 (FR-228) */
               if (_g6 != null && _v6) _tp42b += _v6.pts;
               html += '<td class="cbs">' + _ptPrintScoreChip(_g6 != null ? _g6 : '\u2014', (_g6 != null && scPars) ? scPars[h6 - 1] : null, _n6 > 0 ? _n6 : 0) + '</td>';
             } else {
@@ -74637,7 +74683,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v772.0';
+    const TOUR_VERSION     = 'pards-tour-v773.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
