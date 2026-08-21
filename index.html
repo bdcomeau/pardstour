@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v770.0 -->
+  <!-- pards-tour-v771.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -12079,6 +12079,10 @@ function scoreClass(gross,par,strokes){
    NASSAU ENGINE  (verified: $74 for lose-every-hole)
 ═══════════════════════════════════════════════ */
 function holeResult(matchup,playIdx){
+  /* v771.0 (FR-218) — the event path precomputes per-hole results from ROUND
+     scores and rides the ENTIRE press brain below through this one line; a
+     device matchup never carries the field, so the phone game is byte-identical. */
+  if(matchup&&matchup._holes218){var _r218=matchup._holes218[playIdx];return _r218==null?null:_r218;}
   // Translate play-order index (0-17, i.e. 1st-18th hole played) to the actual
   // hole array index, accounting for shotgun starts (G.startHole).
   const h = actualHoleIdx(playIdx);
@@ -48710,6 +48714,244 @@ window.ptFr17SingleRound = function (eid, standings, details, rounds) {
 };
 
 // ── The one surface: config + board in a single self-loading overlay ──────
+// ══ ⭐ v771.0 (FR-218) — MATCH GAMES SCORED ON A TOURNAMENT ROUND ═══════════
+// His words (s291): "and match games from pards golf too — nassau etc" …
+// "just report $ — no scores unless you can". We CAN: the device engine's
+// press brain (computeMatchGames) is reused VERBATIM through one injection
+// (matchup._holes218 — see holeResult), and the per-hole result is computed
+// from the round's OWN posted scores with the app's ONE allocator
+// (ptStrokesOnHole, D43). Playing handicaps zero off the LOW man of the match
+// — the device engine's own convention (matchPlayHdcps), kept exactly.
+// Storage is the D27 pattern: cfg.matches[round_id] = [ {a:[rid..], b:[rid..],
+// type:'1v1'|'2v2', scoring:'hilow'|'1pt', bet:N} ] — read-merge-write through
+// ptPatchEvConfig, the ONE writer; malformed entries drop silently (trap 234).
+// ⛔ NOT touched: the device-local Match Cards, the Barnes league games, and
+// the event_round_money "$ carried from Pards Golf" rows (B-276) — this is the
+// SCORED half beside them. Self-funded bets between the men, never a pot slice.
+function ptFr218Cfg(cfg, roundId) {
+  var raw = cfg && cfg.matches ? cfg.matches[String(roundId)] : null;
+  if (!raw || !raw.length) return [];
+  var out = [];
+  for (var i = 0; i < raw.length && out.length < 12; i++) {
+    var m = raw[i] || {};
+    var t = m.type === '2v2' ? '2v2' : '1v1', n = t === '2v2' ? 2 : 1;
+    var a = (m.a || []).map(Number), b = (m.b || []).map(Number);
+    if (a.length !== n || b.length !== n) continue;
+    var all = a.concat(b), bad = false, seen = {};
+    for (var j = 0; j < all.length; j++) { if (!(all[j] > 0) || seen[all[j]]) { bad = true; break; } seen[all[j]] = 1; }
+    if (bad) continue;
+    var bet = Number(m.bet); if (!(bet >= 0 && bet <= 1000)) bet = 2;
+    out.push({ a: a, b: b, type: t, scoring: m.scoring === '1pt' ? '1pt' : 'hilow', bet: bet });
+  }
+  return out;
+}
+// per-man playing handicaps for ONE match, zeroed off the low man (device rule)
+function ptFr218Ph(m, chOf) {
+  var ids = m.a.concat(m.b), chs = ids.map(chOf), lo = Math.min.apply(null, chs);
+  var ph = {}; ids.forEach(function (id, i) { ph[String(id)] = chs[i] - lo; });
+  return ph;
+}
+function ptFr218Holes(m, byP, ph, si) {
+  var hs = [];
+  var net = function (id, h) {
+    var g = (byP[String(id)] || {})[h];
+    if (!(g > 0)) return null;
+    return g - ptStrokesOnHole(ph[String(id)] || 0, (si && si[h - 1]) || h);
+  };
+  for (var h = 1; h <= 18; h++) {
+    var aN = m.a.map(function (id) { return net(id, h); }), bN = m.b.map(function (id) { return net(id, h); });
+    if (aN.concat(bN).some(function (v) { return v == null; })) { hs.push(null); continue; }
+    if (m.type === '2v2') {
+      var aLo = Math.min.apply(null, aN), aHi = Math.max.apply(null, aN);
+      var bLo = Math.min.apply(null, bN), bHi = Math.max.apply(null, bN);
+      if (m.scoring === '1pt') { hs.push(aLo < bLo ? 1 : bLo < aLo ? -1 : 0); continue; }
+      hs.push((aHi < bHi ? 1 : bHi < aHi ? -1 : 0) + (aLo < bLo ? 1 : bLo < aLo ? -1 : 0));
+      continue;
+    }
+    hs.push(aN[0] < bN[0] ? 1 : bN[0] < aN[0] ? -1 : 0);
+  }
+  return hs;
+}
+// The model: games via the DEVICE press brain, dollars via ITS settle fold
+// (matchSettledDollars verbatim: settled pays; an unsettled leader is the
+// projected standing — the same numbers his phone shows mid-round).
+function ptFr218Model(cfg, round, players, byP, srvCH) {
+  var list = ptFr218Cfg(cfg, round.id);
+  if (!list.length) return { matches: [] };
+  var si = ptGetSI(round.course_id, round.tee);
+  var byId = {}; (players || []).forEach(function (p) { if (p.roster_id != null) byId[String(p.roster_id)] = p; });
+  var chOf = function (id) {
+    var srv = srvCH ? srvCH[String(id)] : null;
+    if (srv && srv.ch != null) return Math.round(Number(srv.ch));
+    var p = byId[String(id)] || {};
+    var td = ptResolveCourse(round.course_id, (srv && srv.tee) || round.tee);
+    return Math.round(ptCalcCourseHandicap(Number(p.handicap) || 0, td.slope, td.rating, td.par));
+  };
+  var out = [];
+  list.forEach(function (m) {
+    var nameOf = function (id) { var p = byId[String(id)]; return p ? p.name : ('#' + id); };
+    var ph = ptFr218Ph(m, chOf);
+    var holes = ptFr218Holes(m, byP, ph, si);
+    var games = computeMatchGames({ bet: m.bet, _holes218: holes, sideA: [], sideB: [] });
+    var thru = 0; for (var h = 0; h < 18; h++) { if (holes[h] == null) break; thru = h + 1; }
+    var dA = 0;
+    games.forEach(function (g) {
+      if (g.isFrontPress) {
+        [g.leg9, g.leg18].forEach(function (leg) {
+          if (!leg || leg.holesPlayed === 0) return;
+          if ((leg.settled && leg.winner && leg.winner !== 'tie') || (!leg.settled && leg.score !== 0)) dA += (leg.score > 0 ? 1 : -1) * m.bet;
+        });
+        return;
+      }
+      if (g.holesPlayed === 0) return;
+      if ((g.settled && g.winner && g.winner !== 'tie') || (!g.settled && g.score !== 0)) dA += (g.score > 0 ? 1 : -1) * g.value;
+    });
+    out.push({ m: m, aLbl: m.a.map(nameOf).join(' + '), bLbl: m.b.map(nameOf).join(' + '), games: games, thru: thru, dA: dA });
+  });
+  return { matches: out };
+}
+// ── the sheet — the ptSkinsOpen shape exactly ────────────────────────────────
+window.ptFr218Open = function (eventId, round) {
+  var old = document.getElementById('ptFr218Ov'); if (old) old.remove();
+  var ov = document.createElement('div');
+  ov.id = 'ptFr218Ov';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:750;background:#0d1a0d;overflow-y:auto';
+  ov.innerHTML = '<div style="max-width:560px;margin:0 auto;padding:20px 20px 90px">'
+    + '<div style="display:flex;align-items:center;margin-bottom:16px">'
+    + '<button onclick="document.getElementById(\'ptFr218Ov\').remove()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:14px;font-weight:700;cursor:pointer;padding:0;margin-right:12px">&larr; Done</button>'
+    + '<div style="font-size:16px;font-weight:800;color:#e8a8b8">⚔️ Match Games</div>'
+    + '<div style="margin-left:auto;font-size:11px;color:rgba(255,255,255,.35)">Round ' + round.round_number + '</div>'
+    + '</div>'
+    + '<div id="ptFr218Body"><div style="color:rgba(255,255,255,.4);text-align:center;padding:40px 0">Loading…</div></div>'
+    + '</div>';
+  document.body.appendChild(ov);
+  window.ptFr218Load(eventId, round);
+};
+window.ptFr218Load = function (eventId, round) {
+  var H = { headers: { 'Authorization': 'Bearer ' + G.orgToken } };
+  var fail = function (msg) {
+    var b = document.getElementById('ptFr218Body');
+    if (b) b.innerHTML = '<div style="color:#e74c3c;padding:20px;text-align:center">' + _ptEsc(msg) + '</div>';
+  };
+  Promise.all([
+    fetch(TOUR_API + '/api/events/' + eventId, H).then(_ptJson),
+    fetch(TOUR_API + '/api/events/' + eventId + '/groups', H).then(_ptJson).catch(function () { return { groups: [] }; }),
+    fetch(TOUR_API + '/api/events/' + eventId + '/rounds/' + round.id + '/scores', H).then(_ptJson).catch(function () { return { scores: [] }; }),
+    window._ptLbFetchPub(eventId, round.id)   // B-193 — the decks for this round
+  ]).then(function (rs) {
+    if (!rs[0].event) return fail(rs[0].error || 'Event not found');
+    var _ix = null;
+    try { _ix = window._ptLbIndex(rs[3], (rs[2] || {}).scores || [], round.id); } catch (_e193) { _ix = null; }
+    var cfg = ptEvCfg(rs[0].event);
+    var players = [], seen = {};
+    (rs[1].groups || []).forEach(function (g) {
+      (g.players || []).forEach(function (p) {
+        if (!p.roster_id || seen[String(p.roster_id)]) return;
+        seen[String(p.roster_id)] = 1;
+        players.push({ roster_id: p.roster_id, name: p.name, handicap: p.handicap });
+      });
+    });
+    players.sort(function (x, y) { return String(x.name).localeCompare(String(y.name)); });
+    var byP = {};
+    (rs[2].scores || []).forEach(function (sc) {
+      if (!sc.roster_id || !(sc.gross_score > 0)) return;
+      (byP[String(sc.roster_id)] = byP[String(sc.roster_id)] || {})[sc.hole] = sc.gross_score;
+    });
+    window._ptFr218St = { eventId: eventId, round: round, cfg: cfg, players: players, byP: byP,
+                          srvCH: (_ix && _ix.ok && _ix.byRoster) ? _ix.byRoster : null };
+    window.ptFr218Render();
+  }).catch(function (e) { fail(_ptMsg(e, 'Could not load match games')); });
+};
+window.ptFr218Render = function () {
+  var st = window._ptFr218St, b = document.getElementById('ptFr218Body');
+  if (!st || !b) return;
+  var _fld = 'width:100%;box-sizing:border-box;padding:11px 14px;border-radius:10px;border:1.5px solid rgba(232,168,184,.3);background:#1a2a1a;color:#fff;font-size:14px;outline:none';
+  var _lbl = 'font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px';
+  var model = ptFr218Model(st.cfg, st.round, st.players, st.byP, st.srvCH);
+  var h = '';
+  if (!model.matches.length) h += '<div style="color:rgba(255,255,255,.35);text-align:center;padding:18px 0 24px;font-size:13px">No match games on this round yet — set one up below. Scores come straight off the round; presses declare at 2 up, exactly as the phone plays them.</div>';
+  model.matches.forEach(function (mm, i) {
+    h += '<div style="background:rgba(255,255,255,.05);border:1px solid rgba(232,168,184,.25);border-radius:12px;padding:14px;margin-bottom:12px">'
+      + '<div style="display:flex;align-items:baseline;gap:8px">'
+      + '<div style="font-size:14px;font-weight:800;color:#e8a8b8;flex:1;min-width:0">' + _ptEsc(mm.aLbl) + ' <span style="color:rgba(255,255,255,.45)">v</span> ' + _ptEsc(mm.bLbl) + '</div>'
+      + '<button onclick="ptFr218Del(' + i + ')" style="background:none;border:none;color:rgba(255,120,120,.7);font-size:11px;font-weight:700;cursor:pointer;flex:0 0 auto">remove</button></div>'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.4);margin:2px 0 8px">$' + mm.m.bet + ' Nassau'
+      + (mm.m.type === '2v2' ? ' · ' + (mm.m.scoring === '1pt' ? 'best low ball (1 pt)' : 'hi/low (2 pts)') : '')
+      + (mm.thru > 0 ? ' · thru ' + mm.thru : ' · no scores yet') + '</div>';
+    mm.games.forEach(function (g) {
+      var stx = g.settled ? (g.winner === 'tie' ? 'Push' : (g.winner === 'A' ? mm.aLbl : mm.bLbl) + ' wins')
+        : g.holesPlayed > 0 ? (g.score === 0 ? 'All square' : (g.score > 0 ? mm.aLbl : mm.bLbl) + ' ' + Math.abs(g.score) + ' up')
+        : '—';
+      h += '<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06)">'
+        + '<span style="color:rgba(255,255,255,.6)">' + _ptEsc(g.label) + '</span>'
+        + '<span style="color:' + (g.settled && g.winner !== 'tie' ? '#a8d5b5' : 'rgba(255,255,255,.85)') + ';font-weight:700">' + _ptEsc(stx) + ' · $' + g.value + '</span></div>';
+    });
+    var mline = mm.dA === 0 ? 'All square on the money' : (mm.dA > 0 ? mm.aLbl : mm.bLbl) + ' up $' + Math.abs(mm.dA);
+    h += '<div style="margin-top:8px;font-size:13px;font-weight:800;color:#f5d97a">' + _ptEsc(mline) + (mm.thru >= 18 ? '' : mm.thru > 0 ? ' <span style="font-weight:600;color:rgba(255,255,255,.4)">(standing)</span>' : '') + '</div></div>';
+  });
+  var opts = '<option value="">— pick —</option>';
+  st.players.forEach(function (p) { opts += '<option value="' + p.roster_id + '">' + _ptEsc(p.name) + '</option>'; });
+  h += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px;margin-top:6px">'
+    + '<div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:10px">Add a match</div>'
+    + '<div style="' + _lbl + '">Type</div>'
+    + '<select id="ptFr218Type" onchange="ptFr218TypeCh()" style="' + _fld + ';margin-bottom:10px"><option value="1v1">1 v 1</option><option value="2v2">2 v 2 — best ball</option></select>'
+    + '<div style="display:flex;gap:8px;margin-bottom:10px"><div style="flex:1"><div style="' + _lbl + '">Side A</div><select id="ptFr218A0" style="' + _fld + '">' + opts + '</select>'
+    + '<select id="ptFr218A1" style="' + _fld + ';margin-top:6px;display:none">' + opts + '</select></div>'
+    + '<div style="flex:1"><div style="' + _lbl + '">Side B</div><select id="ptFr218B0" style="' + _fld + '">' + opts + '</select>'
+    + '<select id="ptFr218B1" style="' + _fld + ';margin-top:6px;display:none">' + opts + '</select></div></div>'
+    + '<div id="ptFr218ScRow" style="display:none;margin-bottom:10px"><div style="' + _lbl + '">2 v 2 scoring</div>'
+    + '<select id="ptFr218Sc" style="' + _fld + '"><option value="hilow">Hi/Low — 2 points a hole</option><option value="1pt">Best low ball — 1 point a hole</option></select></div>'
+    + '<div style="' + _lbl + '">Bet per game ($)</div>'
+    + '<input id="ptFr218Bet" type="number" min="0" max="1000" step="1" value="2" style="' + _fld + ';margin-bottom:10px">'
+    + '<div id="ptFr218Err" style="display:none;color:#e74c3c;font-size:12px;font-weight:700;margin-bottom:8px"></div>'
+    + '<button onclick="ptFr218Add()" style="width:100%;padding:13px;background:rgba(232,168,184,.15);border:1.5px solid rgba(232,168,184,.5);border-radius:12px;color:#e8a8b8;font-size:14px;font-weight:800;cursor:pointer">Add match</button></div>'
+    + '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:10px;line-height:1.5">Handicaps zero off the low man of the match; strokes fall by the round deck’s stroke index. Front 9 · Back 9 · Full 18 at the bet, automatic presses at 2 up for double — the same rules as Match Cards on the phone. Bets settle between the men — never from the pot.</div>';
+  b.innerHTML = h;
+};
+window.ptFr218TypeCh = function () {
+  var t = (document.getElementById('ptFr218Type') || {}).value || '1v1';
+  ['ptFr218A1', 'ptFr218B1'].forEach(function (id) { var el = document.getElementById(id); if (el) el.style.display = t === '2v2' ? 'block' : 'none'; });
+  var sc = document.getElementById('ptFr218ScRow'); if (sc) sc.style.display = t === '2v2' ? 'block' : 'none';
+};
+window.ptFr218Add = function () {
+  var st = window._ptFr218St; if (!st) return;
+  var t = (document.getElementById('ptFr218Type') || {}).value === '2v2' ? '2v2' : '1v1';
+  var pick = function (id) { return Number((document.getElementById(id) || {}).value || 0); };
+  var a = t === '2v2' ? [pick('ptFr218A0'), pick('ptFr218A1')] : [pick('ptFr218A0')];
+  var b = t === '2v2' ? [pick('ptFr218B0'), pick('ptFr218B1')] : [pick('ptFr218B0')];
+  var err = document.getElementById('ptFr218Err');
+  var all = a.concat(b), seen = {}, dup = false;
+  all.forEach(function (id) { if (seen[id]) dup = true; seen[id] = 1; });
+  if (all.some(function (id) { return !(id > 0); }) || dup) {
+    if (err) { err.style.display = 'block'; err.textContent = dup ? 'A man cannot play on both sides of one match.' : 'Pick every player the match needs.'; }
+    return;
+  }
+  var bet = parseInt((document.getElementById('ptFr218Bet') || {}).value, 10); if (!(bet >= 0 && bet <= 1000)) bet = 2;
+  var sc = (document.getElementById('ptFr218Sc') || {}).value === '1pt' ? '1pt' : 'hilow';
+  var list = ptFr218Cfg(st.cfg, st.round.id);
+  if (list.length >= 12) { if (err) { err.style.display = 'block'; err.textContent = 'Twelve matches on one round is the ceiling.'; } return; }
+  list.push({ a: a, b: b, type: t, scoring: sc, bet: bet });
+  window.ptFr218Save(list);
+};
+window.ptFr218Del = function (i) {
+  var st = window._ptFr218St; if (!st) return;
+  var list = ptFr218Cfg(st.cfg, st.round.id);
+  list.splice(i, 1);
+  window.ptFr218Save(list);   /* ⛔ no confirm() — the standing rule; "remove" is one tap and Add rebuilds it in three */
+};
+window.ptFr218Save = function (list) {
+  var st = window._ptFr218St; if (!st) return;
+  /* read-merge-write the WHOLE cfg.matches object (the s288 rule) */
+  var stored = (st.cfg && st.cfg.matches) || {};
+  var merged = {}; Object.keys(stored).forEach(function (k) { merged[k] = stored[k]; });
+  if (list.length) merged[String(st.round.id)] = list; else delete merged[String(st.round.id)];
+  ptPatchEvConfig(st.eventId, { matches: merged }).then(function () {
+    window.ptFr218Load(st.eventId, st.round);   // fresh server read — never trust the local copy after a write
+  }).catch(function () {
+    var err = document.getElementById('ptFr218Err');
+    if (err) { err.style.display = 'block'; err.textContent = 'The match list did not save — try again.'; }
+  });
+};
 window.ptSkinsOpen = function (eventId, round) {
   var old = document.getElementById('ptSkinsOv'); if (old) old.remove();
   var ov = document.createElement('div');
@@ -54629,7 +54871,9 @@ var _mrRoll = function(ns){ var d=0; for (var i=0;i<ns.length;i++) if (ST[ns[i]]
     + _ptMRBtn('ptEditRound(' + _ptMR.eventId + ',' + RJ + ',' + EJ + ')',
                '🎲 Format, games, date, course &amp; tee…', '#c9a84c', 'rgba(201,168,76,.12)', 'rgba(201,168,76,.34)')
     + _ptMRBtn('ptSkinsOpen(' + _ptMR.eventId + ',' + RJ + ')', '💰 Skins…',
-               '#f5d97a', 'rgba(245,217,122,.09)', 'rgba(245,217,122,.3)'));
+               '#f5d97a', 'rgba(245,217,122,.09)', 'rgba(245,217,122,.3)')
+    + _ptMRBtn('ptFr218Open(' + _ptMR.eventId + ',' + RJ + ')', '⚔️ Match Games…',
+               '#e8a8b8', 'rgba(232,168,184,.09)', 'rgba(232,168,184,.3)'));   /* v771.0 (FR-218) */
 
   // 4 · Stakes — GATE: needs at least one game on this round.
   // ⭐ This is FR-27's guardrail by construction: you cannot allocate a pot
@@ -61831,7 +62075,8 @@ function ptPrintGameResultsReport(eventId, round, opts) {
          paper now always ATTEMPTS this report, so a bare round would have sat there
          for 25s before opening — measured in the real browser, not reasoned about.
          Declining out loud costs nothing; declining silently costs the whole paper. */
-      if (!tp && !sm.on && !potCfg && !_calcRow && !_sg42.length && games.length <= 1) {   // FR-20 · B-276
+      var _m218g = 0; try { _m218g = ptFr218Cfg(cfg, round.id).length; } catch (_e218g) { _m218g = 0; }   /* v771.0 (FR-218) — a matches-only round still prints */
+      if (!tp && !sm.on && !potCfg && !_calcRow && !_sg42.length && !_m218g && games.length <= 1) {   // FR-20 · B-276 · FR-218
         window._ptRptBail(opts, 'No games on this round.'); return;
       }
       var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Round ' + rn + ' \u2014 Game Results</title><style>'
@@ -62013,6 +62258,28 @@ function ptPrintGameResultsReport(eventId, round, opts) {
       // ptFr17Players returns as roster_id. Verified against round 117 in D1.
       var _sgBy = {};
       (players || []).forEach(function (p) { if (p && p.roster_id != null) _sgBy[String(p.roster_id)] = p.name; });
+      /* v771.0 (FR-218) — the SCORED match games, beside the carried-$ rows
+         below (B-276's other half finally answered: "no scores unless you can"
+         — now we can). Same engine as the sheet: ONE producer. */
+      var _m218 = null;
+      try { _m218 = window.ptFr218Model(cfg, round, players, byP, srvCH); } catch (_e218) { _m218 = null; }
+      if (_m218 && _m218.matches.length) {
+        html += '<h3>\u2694\ufe0f Match Games</h3>';
+        _m218.matches.forEach(function (mm) {
+          html += '<table><thead><tr><th class="left" style="width:44%">' + _ptEsc(mm.aLbl + ' v ' + mm.bLbl)
+            + (mm.m.type === '2v2' ? ' \u00b7 ' + (mm.m.scoring === '1pt' ? 'best low ball' : 'hi/low') : '')
+            + ' \u00b7 $' + mm.m.bet + ' Nassau</th><th>Standing</th><th>$</th></tr></thead><tbody>';
+          mm.games.forEach(function (g) {
+            var _stx = g.settled ? (g.winner === 'tie' ? 'Push' : (g.winner === 'A' ? mm.aLbl : mm.bLbl) + ' wins')
+              : g.holesPlayed > 0 ? (g.score === 0 ? 'All square' : (g.score > 0 ? mm.aLbl : mm.bLbl) + ' ' + Math.abs(g.score) + ' up')
+              : '\u2014';
+            html += '<tr' + (g.settled && g.winner !== 'tie' ? ' class="win"' : '') + '><td class="left">' + _ptEsc(g.label) + '</td><td>' + _ptEsc(_stx) + '</td><td>$' + g.value + '</td></tr>';
+          });
+          var _mline = mm.dA === 0 ? 'All square on the money' : (mm.dA > 0 ? mm.aLbl : mm.bLbl) + ' up $' + Math.abs(mm.dA);
+          html += '</tbody></table><div class="note">' + _ptEsc(_mline) + (mm.thru >= 18 ? '' : mm.thru > 0 ? ' (standing, thru ' + mm.thru + ')' : ' \u2014 no scores yet')
+            + ' \u00b7 handicaps zero off the low man; presses declare at 2 up, exactly as the phone plays them. Bets settle between the men \u2014 not from the pot.</div>';
+        });
+      }
       if (_sg42.length) {
         var _sgNames = {}, _sgRows = [];
         _sg42.forEach(function (m) {
@@ -74357,7 +74624,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v770.0';
+    const TOUR_VERSION     = 'pards-tour-v771.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
