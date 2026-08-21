@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v781.0 -->
+  <!-- pards-tour-v782.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -44190,6 +44190,69 @@ function ptEvIsTournament(ev, cfg) {
 }
 
 // Normalized mode list — fixed display order, NULL/absent => stableford only.
+/* ⭐⭐⭐ FR-213 (v782.0, s294) — BEST N OF M ROUNDS. cfg.best_rounds (1-7) is the
+   dial; 0/absent = all rounds count, and every aggregator is byte-identical to
+   v781.0 behavior. ⛔ ONE selection rule for every aggregator — ptFr213Pick:
+   fullest rounds first (a 9-hole card never displaces an 18-hole one on a
+   low-wins metric), then best value. Dropped rounds drop CONSISTENTLY: the
+   individual builder, the X-of-N team builder (the team paper rides it,
+   B-266), both fold engines and the worker-totals individual paper all call
+   this one rule — never a per-surface filter (the FR-213 filing's own law). */
+function ptFr213N(cfg) {
+  var n = cfg && Number(cfg.best_rounds);
+  return (isFinite(n) && n >= 1 && n <= 7) ? Math.floor(n) : null;
+}
+function ptFr213Pick(list, n, lowWins) {
+  var a = list.slice();
+  a.sort(function (x, y) { return (y.h - x.h) || (lowWins ? x.v - y.v : y.v - x.v); });
+  return a.slice(0, n);
+}
+window.ptFr213Apply = function (rows, cfg, modes) {
+  /* ⭐ REVERSIBLE BY CONSTRUCTION: the aggregates are ALWAYS recomputed from the
+     per-round records, limited or not — so the dial can go best-2 → All → best-3
+     locally with no refetch and no drift (caught by the end-to-end harness:
+     the first cut returned early on dial-off and left truncated sums behind). */
+  var n = ptFr213N(cfg);
+  var pm = (modes && modes[0]) || 'stableford';
+  (rows || []).forEach(function (p) {
+    p._b213n = n;
+    var rns = Object.keys(p.rounds || {});
+    p._b213 = n ? { n: n, of: rns.length } : null;
+    var mk = function (metric) { return rns.map(function (rn) { return { v: Number(p.rounds[rn][metric]) || 0, h: p.rounds[rn].holes || 0 }; }); };
+    var take = function (metric, low) { var l = mk(metric); return (n && l.length > n) ? ptFr213Pick(l, n, low) : l; };
+    var tp = take('pts', false), tn = take('net', true), tg = take('gross', true);
+    var sum = function (l) { var v = 0; l.forEach(function (x) { v += x.v; }); return v; };
+    p.pts = sum(tp); p.net = sum(tn); p.gross = sum(tg);
+    var hs = pm === 'stableford' ? tp : pm === 'gross' ? tg : tn;
+    p.holes = 0; hs.forEach(function (x) { p.holes += x.h; });
+  });
+};
+window.ptFr213ApplyTeam = function (rows, cfg) {
+  var n = ptFr213N(cfg);
+  (rows || []).forEach(function (t) {
+    t._b213n = n;
+    var rns = Object.keys(t.rounds || {});
+    t._b213 = n ? { n: n, of: rns.length } : null;
+    var list = rns.map(function (rn) { var rd = t.rounds[rn]; return { v: rd.total, h: rd.holesCounted, low: rd.basis !== 'stableford' }; });
+    var low = list.length ? list[0].low : true;   /* uniform events; mixed ranks by fold anyway */
+    var take = (n && list.length > n) ? ptFr213Pick(list, n, low) : list;
+    t.total = 0; t.holesCounted = 0;
+    take.forEach(function (x) { t.total += x.v; t.holesCounted += x.h; });
+  });
+};
+/* The dial — GG's own shape: a dropdown on the multi-round overlay. Applies
+   LOCALLY first (no refetch — the rows carry their per-round values), then
+   persists through the ONE config writer. Organizer-gated at render. */
+window.ptFr213Dial = function (eventId, val) {
+  var n = Number(val) || 0;
+  var st = G._indivLb;
+  if (st && st.cfg) { st.cfg.best_rounds = n; window.ptFr213Apply(st.rows, st.cfg, st.modes); try { ptRenderIndivLb(); } catch (e1) {} }
+  var xst = G._mdXofN;
+  if (xst && xst.cfg) { xst.cfg.best_rounds = n; window.ptFr213ApplyTeam(xst.rows, xst.cfg); try { ptRenderMdXofN(); } catch (e2) {} }
+  ptPatchEvConfig(eventId, { best_rounds: n }).then(function () {
+    ptToast(n ? 'Best ' + n + ' rounds count \u2014 saved.' : 'All rounds count \u2014 saved.');
+  }).catch(function () { ptToast('Could not save the rounds-that-count setting \u2014 check the connection.'); });
+};
 function ptScoringModes(cfg) {
   var m = (cfg && cfg.scoring_modes && cfg.scoring_modes.length) ? cfg.scoring_modes : ['stableford'];
   return ['stableford', 'gross', 'net'].filter(function(x){ return m.indexOf(x) !== -1; });
@@ -50846,7 +50909,8 @@ function ptBuildMdIndividual(eventId, indivRounds, groups, headers, cfg, opts) {
     var mixed = ptRoundsMixedRule(indivRounds);
     var foldRule = ptEvFoldRule(cfg);
     if (mixed && foldRule === 'position_points') modes = ['fold'].concat(modes);
-    return { eventId: eventId, rounds: indivRounds, cfg: cfg || {}, modes: modes, mode: modes[0], rows: rows, mixed: mixed, foldRule: foldRule, rawByRound: rawByRound };   // v433.0 (FR-17)
+    window.ptFr213Apply(rows, cfg, modes);   /* FR-213 (v782.0) — best N of M; no-op when the dial is off */
+  return { eventId: eventId, rounds: indivRounds, cfg: cfg || {}, modes: modes, mode: modes[0], rows: rows, mixed: mixed, foldRule: foldRule, rawByRound: rawByRound };   // v433.0 (FR-17)
   });
 }
 
@@ -50899,17 +50963,31 @@ function ptMdRanks(sorted, mode) {
 // scorecard grids read it), and only the totals are re-summed over rounds <= N.
 // ⛔ Nothing is stored. A stored rank is a stale value with a hard-coded writer
 // (trap 12) and so is a stored subtotal.
-function ptMdThrough(rows, rounds, throughN) {
+function ptMdThrough(rows, rounds, throughN, mode213) {
   return (rows || []).map(function(p) {
     var q = { roster_id: p.roster_id, name: p.name, team: p.team || '', handicap: p.handicap,
-              age: p.age, rounds: p.rounds, pts: 0, gross: 0, net: 0, holes: 0, topar: 0 };
+              age: p.age, rounds: p.rounds, pts: 0, gross: 0, net: 0, holes: 0, topar: 0,
+              _b213n: p._b213n || null, _b213: null };   /* FR-213 (v782.0) */
+    var recs = [];
     (rounds || []).forEach(function(r) {
       if (throughN != null && r.round_number > throughN) return;
       var rd = p.rounds[r.round_number];
       if (!rd || !rd.holes) return;
-      q.pts += rd.pts; q.gross += rd.gross; q.net += rd.net; q.holes += rd.holes;
-      if (rd.topar != null) q.topar += rd.topar;
+      recs.push(rd);
     });
+    /* FR-213 (v782.0) — trap 226: THIS is what reaches the screen and the TV.
+       Best N of the rounds shown so far, per metric, through the ONE picker.
+       Stamp off = full sums, byte-identical numbers to the old loop. */
+    var n213 = q._b213n;
+    var mkq = function (metric) { return recs.map(function (rd2) { return { v: Number(rd2[metric]) || 0, h: rd2.holes || 0, t: rd2.topar }; }); };
+    var takeq = function (metric, low) { var l = mkq(metric); return (n213 && l.length > n213) ? ptFr213Pick(l, n213, low) : l; };
+    var tp = takeq('pts', false), tn = takeq('net', true), tg = takeq('gross', true);
+    tp.forEach(function (x) { q.pts += x.v; });
+    tn.forEach(function (x) { q.net += x.v; });
+    tg.forEach(function (x) { q.gross += x.v; });
+    var hs = (mode213 === 'gross') ? tg : (mode213 === 'net') ? tn : tp;
+    hs.forEach(function (x) { q.holes += x.h; if (x.t != null) q.topar += x.t; });
+    if (n213 && recs.length > n213) q._b213 = { n: n213, of: recs.length };
     return q;
   }).filter(function(p){ return p.holes > 0; });
 }
@@ -50968,7 +51046,13 @@ function ptApplyFold(rows, rounds) {
       i = j + 1;
     }
   });
-  rows.forEach(function(p){ p._fold.tot = Math.round(p._fold.tot * 10) / 10; p._foldTot = p._fold.tot; });
+  rows.forEach(function(p){
+    if (p._b213n) {   /* FR-213 (v782.0) — best N of the per-round position points */
+      var _v213 = Object.keys(p._fold.perRound).map(function (rn) { return p._fold.perRound[rn]; });
+      _v213.sort(function (a, b) { return b - a; });
+      p._fold.tot = 0; _v213.slice(0, p._b213n).forEach(function (v) { p._fold.tot += v; });
+    }
+    p._fold.tot = Math.round(p._fold.tot * 10) / 10; p._foldTot = p._fold.tot; });
 }
 
 // ── v384.0 (D27) — X-of-N compute ────────────────────────────────────────────
@@ -51197,6 +51281,7 @@ function ptBuildMdTeamXofN(eventId, xofnRounds, groups, headers, cfg) {
     xofnRounds.forEach(function(r){ var p = ptTeamParse(r.format); if (p) bases[p.basis] = 1; });   // v430.0
     var mixed = Object.keys(bases).length > 1;
     if (mixed) ptXofNApplyFold(rows, xofnRounds);
+    window.ptFr213ApplyTeam(rows, cfg);   /* FR-213 (v782.0) — the team overall paper rides this too (B-266: one engine) */
     return { eventId: eventId, rounds: xofnRounds, cfg: cfg || {}, rows: rows, rawByRound: rawByRound,   // v433.0 (FR-17)
              mixed: mixed, basis: mixed ? null : (Object.keys(bases)[0] || 'net') };
   });
@@ -51239,7 +51324,13 @@ function ptXofNApplyFold(rows, rounds) {
       i = j + 1;
     }
   });
-  rows.forEach(function(t){ t._fold.tot = Math.round(t._fold.tot * 10) / 10; t._foldTot = t._fold.tot; });
+  rows.forEach(function(t){
+    if (t._b213n) {   /* FR-213 (v782.0) — same rule as the individual fold */
+      var _w213 = Object.keys(t._fold.perRound).map(function (rn) { return t._fold.perRound[rn]; });
+      _w213.sort(function (a, b) { return b - a; });
+      t._fold.tot = 0; _w213.slice(0, t._b213n).forEach(function (v) { t._fold.tot += v; });
+    }
+    t._fold.tot = Math.round(t._fold.tot * 10) / 10; t._foldTot = t._fold.tot; });
 }
 
 function ptXofNToggle(gid) {
@@ -51257,6 +51348,8 @@ function ptRenderMdXofN() {
     wrap.innerHTML = ih; return;
   }
   ih += '<div style="font-size:10px;color:rgba(255,255,255,.25);margin-bottom:8px;padding:0 2px">X-of-N rounds rank unflighted' + (st.mixed ? ' · mixed rules — overall = position points (winner N … last 1)' : '') + ' · tap a team for whose balls counted</div>';
+  var _n213t = st.rows.length ? (st.rows[0]._b213n || null) : null;   /* FR-213 (v782.0) — the board declares */
+  if (_n213t) ih += '<div style="font-size:11px;font-weight:900;color:#c9a84c;margin-bottom:8px;padding:0 2px">\ud83c\udfaf Best ' + _n213t + ' of ' + st.rounds.length + ' rounds count</div>';
   st.rounds.forEach(function (r) {   // FR-18 — draw audit per round on the standings block
     var _eqTxt = window.ptEqLine(st.cfg, r.id);
     if (_eqTxt) ih += '<div style="font-size:10px;color:rgba(245,217,122,.7);margin-bottom:6px;padding:0 2px">\ud83c\udfb2 R' + r.round_number + ' — ' + _ptEsc(_eqTxt) + '</div>';
@@ -56364,7 +56457,7 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
          dash in every To Par cell. This is the same call the phone board makes
          before it sections anything. */
       var _allR = (st.rounds || []).slice().sort(function (a, b) { return a.round_number - b.round_number; });
-      var _thru653 = ptMdThrough(st.rows, _allR, null);
+      var _thru653 = ptMdThrough(st.rows, _allR, null, mode);   /* FR-213 (v782.0) */
       ptTvTagDnf(st, _thru653, _allR);   /* v653.0 (s273) — who missed a round the field finished */
       var secs = ptFlightSections(st.cfg, _thru653);
       /* ⭐⭐ FR-95 (v557.0) — prior-round ranks, the same way the phone board works
@@ -56378,7 +56471,7 @@ function ptTvBuildPanes(ev, cfg, w, st, groups, xst, rounds) {   // B-35 (v395.1
       var _prevN = _scoredR.length > 1 ? _scoredR[_scoredR.length - 2].round_number : null;
       /* v653.0 (s273) — the prior-round board is tagged the same way, over the rounds it
          actually covers, so a MOVE arrow still measures like against like. */
-      var _prevSecs = _prevN != null ? ptFlightSections(st.cfg, ptTvTagDnf(st, ptMdThrough(st.rows, _allR, _prevN), _allR.filter(function (r) { return r.round_number <= _prevN; }))) : null;
+      var _prevSecs = _prevN != null ? ptFlightSections(st.cfg, ptTvTagDnf(st, ptMdThrough(st.rows, _allR, _prevN, mode), _allR.filter(function (r) { return r.round_number <= _prevN; }))) : null;
       var _prevR = _prevN != null ? _allR.filter(function (r) { return r.round_number <= _prevN; }) : null;
       var html = '';
       var _tvPages = [];   /* s269 — Overall is PAGED (his "1/3"): 12 rows a page, ranks run through */
@@ -60562,8 +60655,24 @@ function ptPrintMdOverallReport(eventId, opts) {
         var _b242Exp = ptSheetExpected(allRounds, pd.roster_id, lines.length);
         if (_b242Exp < roundsPlayed) _b242Exp = roundsPlayed;
 
+        /* FR-213 (v782.0) — the paper recomputes the SAME best-N the board
+           shows, on the SERVER's own line totals, through the one picker. */
+        var _n213p = ptFr213N(cfg), _b213p = null;
+        if (_n213p) {
+          var _pl213 = lines.filter(function (l) { return l.holes > 0; });
+          _b213p = { n: _n213p, of: _pl213.length };
+          if (_pl213.length > _n213p) {
+            var _mk213 = function (metric, low) { return ptFr213Pick(_pl213.map(function (l) { return { v: Number(l[metric]) || 0, h: l.holes || 0 }; }), _n213p, low); };
+            var _tp213 = _mk213('pts', false), _tn213 = _mk213('net', true), _tg213 = _mk213('gross', true);
+            totPts = 0; _tp213.forEach(function (x) { totPts += x.v; });
+            totNet = 0; _tn213.forEach(function (x) { totNet += x.v; });
+            totGross = 0; _tg213.forEach(function (x) { totGross += x.v; });
+            var _th213 = primary === 'stableford' ? _tp213 : primary === 'gross' ? _tg213 : _tn213;
+            totHoles = 0; _th213.forEach(function (x) { totHoles += x.h; });
+          }
+        }
         return { roster_id: pd.roster_id, name: name, hdcpIdx: hdcpIdx, handicap: hdcpIdx,
-                 age: pInfo.age, teamName: pInfo.team_name || '', lines: lines,
+                 age: pInfo.age, teamName: pInfo.team_name || '', lines: lines, _b213: _b213p,
                  roundsPlayed: roundsPlayed, expectedRounds: _b242Exp,
                  gross: totGross, net: totNet, pts: totPts, holes: totHoles, holesPlayed: totHoles };
       });
@@ -60736,6 +60845,7 @@ function ptPrintMdOverallReport(eventId, opts) {
         + '<div class="meta">'
         + (dateStr ? '<span>📅 ' + dateStr + '</span>' : '')
         + '<span>🏌️ ' + allRounds.length + ' round' + (allRounds.length === 1 ? '' : 's') + '</span>'
+        + (playerRows.length && playerRows[0]._b213 ? '<span>\ud83c\udfaf Best ' + playerRows[0]._b213.n + ' of ' + allRounds.length + ' rounds count</span>' : '')   /* FR-213 (v782.0) — the paper declares */
         + (_skippedRounds.length ? '<span>⏳ Round ' + _skippedRounds.join(', ') + ' not started — left out until scores land</span>' : '')   /* ⭐ B-237 (v664.0) */
         + (courseName ? '<span>⛳ ' + courseName + '</span>' : '')
         + (teeInfo && !mixedTees ? '<span>🎯 ' + teeInfo + '</span>' : '')
@@ -61569,6 +61679,21 @@ function ptRenderIndivLb() {
     });
     h += '</div>';
   }
+  /* ⭐ FR-213 (v782.0) — THE BOARD DECLARES ITS BASIS (the FR-226 rule) and the
+     organizer gets GG's own control: a plain dropdown on the overlay. ONE
+     writer (ptFr213Dial → ptPatchEvConfig); local re-apply first, no refetch. */
+  var _n213d = st.rows.length ? (st.rows[0]._b213n || null) : ptFr213N(st.cfg);
+  if (st.rounds && st.rounds.length > 1 && (_n213d || (G.orgToken && st.eventId))) {
+    h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">';
+    if (_n213d) h += '<div style="font-size:11px;font-weight:900;color:#c9a84c">\ud83c\udfaf Best ' + _n213d + ' of ' + st.rounds.length + ' rounds count</div>';
+    if (G.orgToken && st.eventId) {
+      h += '<select onchange="ptFr213Dial(' + st.eventId + ', this.value)" style="margin-left:auto;background:#1a2a1a;color:#c9a84c;border:1px solid rgba(201,168,76,.4);border-radius:8px;padding:6px 8px;font-size:11px;font-weight:800">'
+        + '<option value="0"' + (!_n213d ? ' selected' : '') + '>All rounds count</option>';
+      for (var _i213 = 1; _i213 < st.rounds.length; _i213++) h += '<option value="' + _i213 + '"' + (_n213d === _i213 ? ' selected' : '') + '>Best ' + _i213 + ' of ' + st.rounds.length + '</option>';
+      h += '</select>';
+    }
+    h += '</div>';
+  }
   if (!st.rows.length) {
     body.innerHTML = '<div style="color:rgba(255,255,255,.35);text-align:center;padding:40px 0;font-size:14px">No scores yet.</div>';
     return;
@@ -61622,8 +61747,8 @@ function ptRenderIndivLb() {
   if (_prOnly) h += '<div style="font-size:11px;color:rgba(255,200,100,.6);margin-bottom:10px;padding:0 2px">Mixed-rule rounds · per-round standings only — no overall winner (organizer setting)</div>';
   h += '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:8px;padding:0 3px">Tap a player to see his scorecard ▼</div>';   /* v654.0 (s273) — say it in words as well as with the chevron */
 
-  var rowsNow  = ptMdThrough(st.rows, allR, tab);
-  var rowsPrev = showMove ? ptMdThrough(st.rows, allR, prevN) : null;
+  var rowsNow  = ptMdThrough(st.rows, allR, tab, mode);   /* FR-213 (v782.0) */
+  var rowsPrev = showMove ? ptMdThrough(st.rows, allR, prevN, mode) : null;
   /* ⭐⭐⭐ v654.0 (s273) — who missed a round the field finished. Tagged over the
      rounds each board actually covers, so the ▲▼ arrow still measures like against like. */
   ptTvTagDnf(st, rowsNow, shownR);
@@ -75192,7 +75317,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v781.0';
+    const TOUR_VERSION     = 'pards-tour-v782.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
