@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.19 s294)
+     v1.19 (FR-236): THE RSVP PAGE PUBLISHES PARDS LIVE — a participant of
+              event 775376's idea. A Watch Live card under the facts: the
+              event code shown big with a Copy button ("have the Pards Golf
+              app? copy this code into Pards Live") plus a tap-link to the
+              URL version (pards-live.html?code=). ?e= IS the event code —
+              the same code Pards Live takes (s276: event_code = view code)
+              — so this is page-only; no worker change. Copy uses the
+              clipboard API with an execCommand fallback; if both fail the
+              button just SHOWS the code — never a dead tap.
+
      PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.18 s288)
      v1.18 (FR-194 + B-262): the In list now says WHEN each man said yes, and
               the ✕ Exit no longer sends anyone to the About page.
@@ -339,6 +350,7 @@
     <div id="evInOut" class="inout hidden"></div>   <!-- FR-193 (v1.17) — who is in, who is out -->
     <hr class="hairline brass">
     <div id="evFacts"></div>
+    <div id="evWatch" class="hidden"></div>   <!-- FR-236 (v1.19) — Watch Live card -->
     <hr class="hairline">
 
     <!-- RSVP form -->
@@ -652,6 +664,40 @@ async function loadEvent(){
     fact('Entry fee', evData.fee != null ? money(evData.fee) : null) +
     fact('Agenda', evData.agenda, 'agenda');
   $('shName').textContent = evData.name;
+  /* ⭐ FR-236 (v1.19, s294) — the Watch Live card. Everything here is derived
+     from evCode alone, already validated by the event fetch above. */
+  (function(){
+    var wEl = $('evWatch');
+    if (!wEl || !evCode) return;
+    var liveUrl = 'https://pardstour.com/pards-live.html?code=' + encodeURIComponent(evCode);
+    wEl.innerHTML =
+        '<div style="text-align:center;padding:14px 12px 16px;border:1px solid var(--hair);border-radius:12px;background:var(--card);margin:16px 0 2px">'
+      + '<div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brass)">Watch it live</div>'
+      + '<div style="font-size:13px;color:var(--ink-soft);margin:6px 0 10px">Follow the leaderboards during the round.</div>'
+      + '<div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">'
+      + '<span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:22px;font-weight:600;letter-spacing:.18em;color:var(--green)">' + esc(evCode) + '</span>'
+      + '<button type="button" id="evWatchCopy" style="padding:7px 14px;border:1px solid var(--brass);border-radius:999px;background:none;color:var(--brass);font-family:\'Jost\',sans-serif;font-size:12px;font-weight:600;cursor:pointer">Copy code</button>'
+      + '</div>'
+      + '<div style="font-size:12.5px;color:var(--ink-soft);margin-top:8px">Have the <b>Pards Golf</b> app? Copy this code into <b>Pards&nbsp;Live</b>.</div>'
+      + '<div style="margin-top:6px"><a href="' + liveUrl + '" target="_blank" rel="noopener" style="font-size:13px;color:var(--green);font-weight:600">No app? Open Pards Live in your browser &rarr;</a></div>'
+      + '</div>';
+    wEl.classList.remove('hidden');
+    var cb = $('evWatchCopy');
+    if (cb) cb.addEventListener('click', function(){
+      var done = function(){ cb.textContent = 'Copied \u2713'; setTimeout(function(){ cb.textContent = 'Copy code'; }, 2200); };
+      var fallback = function(){
+        try {
+          var ta = document.createElement('textarea'); ta.value = evCode;
+          ta.style.cssText = 'position:fixed;left:-9999px'; document.body.appendChild(ta); ta.select();
+          document.execCommand('copy'); document.body.removeChild(ta); done();
+        } catch (e2) { cb.textContent = 'Code: ' + evCode; }   /* never a dead tap */
+      };
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(evCode).then(done, fallback); return; }
+      } catch (e) {}
+      fallback();
+    });
+  })();
   if (!evData.open) {
     $('rsvpForm').classList.add('hidden');
     $('closedNotice').classList.remove('hidden');
