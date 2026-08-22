@@ -444,13 +444,34 @@ function downloadJSON(slot){
 function copyPards(slot){
   const d=courseData[slot];if(!d)return;
   const c=d.course;
-  const mt=(c.tees||[]).filter(t=>t.type==='Mens');
-  const lines=mt.map(t=>{
+  /* ⭐⭐⭐ s297 — THE RIG NOW HARVESTS BOTH DECKS.
+     It emitted Mens rows only, which is why FR-239 B2 (v794.0) had to hand-build
+     every ♀ deck in the library. Client v804.0 selects a player's deck on
+     `t.gender === 'F'`, so a ♀ row without that field is invisible to the fit —
+     the field is not decoration, it IS the selector.
+     THREE RULES, matching what the library already holds:
+       · a Womens row's name carries a trailing " ♀" (the client strips it again
+         before comparing against GolfNet — _gcNormTeeName, v804.0)
+       · a Womens row carries gender:"F"; a Mens row carries no gender field at
+         all, byte-for-byte what this tool has always produced for men
+       · Mens first, then Womens — the order every existing course uses
+     ⚠ AND THE DUPLICATE KEY IS GONE: rows used to declare `yards:` twice in one
+     literal (scalar t.yardage, then the per-hole array). The array always won. */
+  const row=(t,isF)=>{
     const h=t.holes||[];
-    return `  { name:"${t.name}", rating:${t.rating}, slope:${t.slope}, par:${t.par}, yards:${t.yardage},\n    frontRating:${t.frontRating}, backRating:${t.backRating}, frontSlope:${t.frontSlope}, backSlope:${t.backSlope},\n    pars:[${h.map(x=>x.par)}], yards:[${h.map(x=>x.yardage)}], handicaps:[${h.map(x=>x.handicap)}] }`;
-  }).join(',\n');
-  const out=`// ${c.name}  (GolfNet ID: ${c.id})\n// ${c.address1}, ${c.city}, ${c.region} ${c.postalCode}\n// Coords: ${c.latitude}, ${c.longitude}\ntees: [\n${lines}\n]`;
-  navigator.clipboard.writeText(out).then(()=>showStatus('✓ Pards Golf format for ID '+d.id+' copied.'));
+    const nm=isF?(t.name+' ♀'):t.name;
+    const g =isF?' gender:"F",':'';
+    return '  { name:"'+nm+'",'+g+' rating:'+t.rating+', slope:'+t.slope+', par:'+t.par+',\n'
+         + '    frontRating:'+t.frontRating+', backRating:'+t.backRating+', frontSlope:'+t.frontSlope+', backSlope:'+t.backSlope+',\n'
+         + '    pars:['+h.map(x=>x.par)+'], yards:['+h.map(x=>x.yardage)+'], handicaps:['+h.map(x=>x.handicap)+'] }';
+  };
+  const mt=(c.tees||[]).filter(t=>t.type==='Mens');
+  const wt=(c.tees||[]).filter(t=>t.type==='Womens');
+  const lines=mt.map(t=>row(t,false)).concat(wt.map(t=>row(t,true))).join(',\n');
+  const out='// '+c.name+'  (GolfNet ID: '+c.id+')\n// '+c.address1+', '+c.city+', '+c.region+' '+c.postalCode
+          + '\n// Coords: '+c.latitude+', '+c.longitude
+          + '\n// '+mt.length+' mens + '+wt.length+' womens decks\ntees: [\n'+lines+'\n]';
+  navigator.clipboard.writeText(out).then(()=>showStatus('✓ Pards format for ID '+d.id+' copied — '+mt.length+' mens + '+wt.length+' womens decks.'));
 }
 </script>
 </body>

@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v804.0 -->
+  <!-- pards-tour-v805.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -9906,7 +9906,13 @@ function gcRoundPayload(ctx, existingId){
     courseId: ctx.course.golfNetId,          // v332.0 — was the GC_DERRICK constant
     teeId: ctx.tee.teeId,
     courseName: ctx.course.name,             // these four REQUIRED (validated live)
-    teeName: ctx.p.deck,
+    /* ⭐⭐ v805.0 (s297) — the NAME must belong to the same row as the teeId.
+       When gcLiveTeeForPost returned a UNIQUE match we adopted GolfNet's teeId,
+       rating and slope; sending our own name beside their id described a tee
+       they do not have ("Deck 3 \u2640" vs their "Deck 3"). teeNameLive is set
+       ONLY on that path — with no live match this is byte-for-byte v804.0.
+       ⛔ ctx.p.deck is untouched: his deck name still prints on every screen. */
+    teeName: ctx.teeNameLive || ctx.p.deck,
     rating: ctx.tee.rating,
     slope: ctx.tee.slope,
     /* FR-239 A2 (v791.0, s295) — THE v1 REVISIT, CLOSED: contacts grew the gender
@@ -10011,6 +10017,15 @@ async function gcFetchLiveTee(golfNetId, deckName, wantF){
   }catch(e){ return null; }
 }
 
+/* ⭐ v805.0 (s297) — a course rating is ALWAYS one decimal. The confirm modal
+   printed "68 / 115" directly above "73.9 / 130" and read like a typo.
+   ⛔ SLOPE IS AN INTEGER — it is deliberately not passed through this.
+   Non-numeric or missing falls through untouched, so nothing can print NaN
+   (the s268 rule: nothing posted = null, NEVER 0, never NaN). */
+function _gcRat(v){
+  return (typeof v === 'number' && isFinite(v)) ? v.toFixed(1) : v;
+}
+
 // Does the live answer actually differ from what we store? Only a DIFFERENCE is
 // worth showing — a live lookup that confirms the stored numbers should be silent.
 function gcLiveDiffers(stored, live){
@@ -10028,8 +10043,8 @@ function _gcRenderLiveNote(stored, live){
   if(!el) return;
   if(!gcLiveDiffers(stored, live)){ el.style.display='none'; el.textContent=''; return; }
   el.style.display = 'block';
-  el.textContent = '\u26a0 Golf Canada now rates this tee ' + live.rating + ' / ' + live.slope
-                 + ' (we had ' + stored.rating + ' / ' + stored.slope + '). Posting will use Golf Canada\u2019s numbers.';
+  el.textContent = '\u26a0 Golf Canada now rates this tee ' + _gcRat(live.rating) + ' / ' + live.slope
+                 + ' (we had ' + _gcRat(stored.rating) + ' / ' + stored.slope + '). Posting will use Golf Canada\u2019s numbers.';
 }
 
 // Kick the lookup off when the confirm modal OPENS, not when Post is tapped —
@@ -10179,7 +10194,7 @@ function gcPostOrUpdateMyScore(){
       +  '<div style="font-size:11px;color:#888;margin-top:4px">gross \u00b7 hole-by-hole</div>'
       +'</div>'
       +'<div style="font-size:13px;font-weight:700;color:var(--ink)">'+ctx.course.name+'</div>'
-      +'<div style="font-size:12px;color:#666;margin-top:2px">'+ctx.p.deck+' \u00b7 '+ctx.tee.rating+' / '+ctx.tee.slope+' \u00b7 '+dateLbl+'</div>'
+      +'<div style="font-size:12px;color:#666;margin-top:2px">'+ctx.p.deck+' \u00b7 '+_gcRat(ctx.tee.rating)+' / '+ctx.tee.slope+' \u00b7 '+dateLbl+'</div>'
       +'<div id="gcLiveNote" style="display:none;font-size:11px;color:#b26a00;margin-top:6px;line-height:1.35"></div>'   // v333.0 live-vs-stored notice
       +'<div style="background:#fff;border:1px solid #e5ddcf;border-radius:10px;padding:9px 12px;margin-top:8px;margin-bottom:14px">'
       +  '<div style="font-size:10px;color:#888;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px">Posting to</div>'
@@ -10212,7 +10227,8 @@ async function gcModalConfirmTapped(){
     // so this line can only ever match or improve on the v332.0 payload.
     let _live = null;
     try{ _live = await gcLiveTeeForPost(ctx); }catch(e){ _live = null; }
-    if(_live) ctx = Object.assign({}, ctx, { tee:{ teeId:_live.teeId, rating:_live.rating, slope:_live.slope }, teeSource:'live' });
+    if(_live) ctx = Object.assign({}, ctx, { tee:{ teeId:_live.teeId, rating:_live.rating, slope:_live.slope },
+                                             teeNameLive:_live.name || null, teeSource:'live' });
     const payload = gcRoundPayload(ctx, updating ? rec.id : null);
     const r = updating ? await gcUpdateScore(payload) : await gcPostScore(payload);
     try{ console.log('[GC round '+(updating?'update':'post')+' \u00b7 tee from '+(ctx.teeSource||'stored')+']', payload, r.status, r.text); }catch(e){}
@@ -77695,7 +77711,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v804.0';
+    const TOUR_VERSION     = 'pards-tour-v805.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
