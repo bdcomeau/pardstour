@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v796.0 -->
+  <!-- pards-tour-v797.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -38640,6 +38640,11 @@ function _ptUtcToLocal(ts){
     set('ptEditScSeg_' + gi + '_' + pi + '_pts', any ? pts : '–');
   };
 
+  /* B-293 (v797.0, s296) — NULL IS NOT ZERO ON THE WIRE. `p.handicap` here is
+     the seat's INDEX (rHcp off the roster), and `|| 0` turned "he has none"
+     into "he is scratch" — which handleSubmitScores then snapshotted into
+     tee_time_players.course_handicap (the single row D127 cleared). */
+  function _b293Wire(v){ return (v == null || v === '' || !isFinite(Number(v))) ? null : Number(v); }
   function _postCard(gi, pi, scores, dry){
     var g = _groups[gi], p = g.players[pi], fs = g.foursome;
     if (_ctx.mode === 'event'){                                               // v390.0 — D35 pt 2
@@ -38650,10 +38655,10 @@ function _ptUtcToLocal(ts){
         // writes scores.group_id = tee_times.id, which the scramble board (keyed by
         // groups.id) never sees. Same rule the live scorer follows (v343.0).
         url = TOUR_API + '/api/scores';
-        body = { group_code: p.group_code, player_name: p.name, handicap: p.handicap || 0, tee: p.tee || fs.tee || 'white', scores: bare };
+        body = { group_code: p.group_code, player_name: p.name, handicap: _b293Wire(p.handicap), tee: p.tee || fs.tee || 'white', scores: bare };   /* B-293 (v797.0) */
       } else {
         url = TOUR_API + '/api/scores/round';
-        body = { group_code: fs.code, player_name: p.name, handicap: p.handicap || 0, tee: p.tee || fs.tee || 'white',
+        body = { group_code: fs.code, player_name: p.name, handicap: _b293Wire(p.handicap), tee: p.tee || fs.tee || 'white',   /* B-293 (v797.0) — this row carries roster_id, so it reaches the snapshot */
                  scores: bare, tee_time_id: fs.id, round_id: fs.round_id, group_id: p.group_id || null, roster_id: p.roster_id || null };
       }
       /* FR-209 (v740.0) — a dry post carries the flag AND the organizer's
@@ -74713,6 +74718,25 @@ function ptLaunchFoursomeRound(foursomeData) {
       idx:          p.hdcpIndex || p.handicap || 0,
       hdcpIndex:    p.hdcpIndex || p.handicap || 0,
       hdcpBaseline: p.hdcpIndex || p.handicap || 0,
+      /* ⭐⭐ B-293 (v797.0, s296) — WHERE "NO INDEX" DIED ON THE PHONE.
+         The three lines above turn a null index into 0 and nothing downstream
+         can tell that 0 from a genuine scratch man. The score submit then sent
+         `handicap: p.hdcpIndex || p.idx || 0`, the worker's handleSubmitScores
+         snapshotted it (`COALESCE(?, course_handicap)`), and D1 ended up
+         asserting "his index is scratch" about a man who has none — measured
+         s296 on roster 569 / seat 5339, the single row D127 cleared.
+         ⛔⛔ THE THREE NUMBERS ABOVE DO NOT MOVE. Every net, stableford and
+         dot path on this phone reads them, and handing those paths a null is
+         exactly the NaN class B-290 just closed. This is a FLAG beside them —
+         the wire reads it, the arithmetic never does.
+         ⭐ A genuine scratch (index 0.0) is NOT flagged: 0 is a real index and
+         still rides the wire as 0.
+         ⛔ B-134's TWIN: ptLaunchFoursomeRound builds G.players TWICE (the
+         second copy re-asserts it after a saveG/loadG clobber). BOTH copies
+         carry this flag — B-134's own comment is the warning: fixing one and
+         not the other is how that bug survived a fix. */
+      _noIdx: !((p.hdcpIndex != null && p.hdcpIndex !== '' && isFinite(Number(p.hdcpIndex)))
+             || (p.handicap  != null && p.handicap  !== '' && isFinite(Number(p.handicap)))),
       deck:         p.tee || tee,   // ⛔ B-134 (v495.0) — HIS deck, not the round's
       playHdcp:     p.playHdcp || 0,
       strokes:      Array(18).fill(0),
@@ -74866,6 +74890,25 @@ function ptLaunchFoursomeRound(foursomeData) {
       idx:          p.hdcpIndex || p.handicap || 0,
       hdcpIndex:    p.hdcpIndex || p.handicap || 0,
       hdcpBaseline: p.hdcpIndex || p.handicap || 0,
+      /* ⭐⭐ B-293 (v797.0, s296) — WHERE "NO INDEX" DIED ON THE PHONE.
+         The three lines above turn a null index into 0 and nothing downstream
+         can tell that 0 from a genuine scratch man. The score submit then sent
+         `handicap: p.hdcpIndex || p.idx || 0`, the worker's handleSubmitScores
+         snapshotted it (`COALESCE(?, course_handicap)`), and D1 ended up
+         asserting "his index is scratch" about a man who has none — measured
+         s296 on roster 569 / seat 5339, the single row D127 cleared.
+         ⛔⛔ THE THREE NUMBERS ABOVE DO NOT MOVE. Every net, stableford and
+         dot path on this phone reads them, and handing those paths a null is
+         exactly the NaN class B-290 just closed. This is a FLAG beside them —
+         the wire reads it, the arithmetic never does.
+         ⭐ A genuine scratch (index 0.0) is NOT flagged: 0 is a real index and
+         still rides the wire as 0.
+         ⛔ B-134's TWIN: ptLaunchFoursomeRound builds G.players TWICE (the
+         second copy re-asserts it after a saveG/loadG clobber). BOTH copies
+         carry this flag — B-134's own comment is the warning: fixing one and
+         not the other is how that bug survived a fix. */
+      _noIdx: !((p.hdcpIndex != null && p.hdcpIndex !== '' && isFinite(Number(p.hdcpIndex)))
+             || (p.handicap  != null && p.handicap  !== '' && isFinite(Number(p.handicap)))),
       deck:         p.tee || tee,   // ⛔ B-134 (v495.0) — HIS deck, not the round's
       playHdcp:     p.playHdcp || 0,
       strokes:      Array(18).fill(0),
@@ -75033,7 +75076,7 @@ function ptLaunchFoursomeRound(foursomeData) {
       body = {
         group_code: tr.foursome_code,
         player_name: p.name || G.playerName || 'Player',
-        handicap: p.hdcpIndex || p.idx || 0,
+        handicap: (p._noIdx === true) ? null : (p.hdcpIndex || p.idx || 0),   /* B-293 (v797.0) — no index on file sends NULL. The worker then reads no_index and RAISES D104/R3's "has no handicap index — scored off scratch. Set it in the roster." warning, which the fabricated 0 had been silently suppressing (it made _d104HcpPick answer from:'wire'). ⛔ === true so any caller whose player object predates this flag keeps v796.0 behaviour exactly. */
         tee: p.deck || 'white',
         scores: holes,
         tee_time_id: tr.tee_time_id,
@@ -75058,7 +75101,7 @@ function ptLaunchFoursomeRound(foursomeData) {
       body = {
         group_code: code,
         player_name: pname,
-        handicap: p.hdcpIndex || p.idx || 0,
+        handicap: (p._noIdx === true) ? null : (p.hdcpIndex || p.idx || 0),   /* B-293 (v797.0) — no index on file sends NULL. The worker then reads no_index and RAISES D104/R3's "has no handicap index — scored off scratch. Set it in the roster." warning, which the fabricated 0 had been silently suppressing (it made _d104HcpPick answer from:'wire'). ⛔ === true so any caller whose player object predates this flag keeps v796.0 behaviour exactly. */
         tee: p.deck || 'white',
         scores: holes
       };
@@ -77246,7 +77289,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v796.0';
+    const TOUR_VERSION     = 'pards-tour-v797.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
