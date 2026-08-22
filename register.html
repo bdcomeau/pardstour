@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.19 s294)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.20 s297)
+     v1.20 (FR-250): THE FORM CAN ASK GENDER — "for teeing and handicap
+     purposes", his words. OFF unless the organizer switches it on.
+     It is the first AUTOMATIC door into roster.gender; before this the
+     only way in was typing it on the player card, so every self-
+     registered lady arrived genderless and was fitted as a man.
      v1.19 (FR-236): THE RSVP PAGE PUBLISHES PARDS LIVE — a participant of
               event 775376's idea. A Watch Live card under the facts: the
               event code shown big with a Copy button ("have the Pards Golf
@@ -313,6 +318,20 @@
   .prow .act button.undo{ background:transparent; color:var(--ink-soft); border-color:var(--hair);}
   .walkhead{ cursor:pointer; user-select:none; letter-spacing:.16em; text-transform:uppercase;
     font-size:12px; color:var(--green); font-weight:600; text-align:center; padding:12px 0 2px;}
+  /* FR-250 (v1.20) — the select copies the input rule EXACTLY. A native
+     select left unstyled is a different control on every phone; this one is
+     the same box as Email and Phone, with the chevron drawn in. */
+  select#fGender{
+    width:100%; padding:10px 11px; font-family:'Jost',sans-serif; font-size:16px;
+    color:var(--ink); background:#fff; border:1px solid var(--hair); border-radius:3px;
+    outline:none; box-sizing:border-box; -webkit-appearance:none; appearance:none;
+    background-image:linear-gradient(45deg,transparent 50%,var(--ink-soft) 50%),linear-gradient(135deg,var(--ink-soft) 50%,transparent 50%);
+    background-position:calc(100% - 17px) calc(50% + 1px),calc(100% - 12px) calc(50% + 1px);
+    background-size:5px 5px,5px 5px; background-repeat:no-repeat; padding-right:32px;
+  }
+  select#fGender:focus{ border-color:var(--brass);}
+  /* his words, but out from under the uppercase transform — an aside, not a shout */
+  .gLite{ text-transform:none; letter-spacing:.01em; font-weight:400; opacity:.72;}
 </style>
 </head>
 <body>
@@ -387,6 +406,18 @@
       <input type="email" id="fEmail" autocomplete="email">
       <label for="fPhone">Phone <span id="phoneReq">(optional)</span></label>
       <input type="tel" id="fPhone" autocomplete="tel">
+
+      <!-- ⭐ FR-250 (v1.20, s297) — HIS WORDING. A public form has to say why it
+           is asking, and this is why: gender picks the deck and the course
+           handicap. Hidden unless the organizer switched it on. Blank is a real
+           answer and is stored as nothing at all. -->
+      <label for="fGender">Gender <span class="gLite">&mdash; for teeing and handicap purposes</span></label>
+      <select id="fGender">
+        <option value="">&mdash; prefer not to say &mdash;</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+        <option value="X">Other</option>
+      </select>
 
       <!-- FR-120 — the sponsor ask. Visible on Yes AND Regrets.
            FR-127 (v1.8) — wrapped so the whole ask hides as one unit. -->
@@ -489,7 +520,7 @@ var evCode = new URLSearchParams(location.search).get('e') || '';
 var evData = null;
 /* FR-127 (v1.8) — what this event asks for. ⭐ The default is ALL ON, so a
    page talking to a pre-FR-127 worker behaves exactly as v1.7 did. */
-var evFields = { email: true, phone: true, sponsor: true };
+var evFields = { email: true, phone: true, sponsor: true, gender: false };   /* FR-250 — OFF by default */
 /* FR-139 (v1.9) — the league picker. ⭐ `evLeague` is a BOOLEAN off the event
    payload; the names never ride along with it. A pre-FR-139 worker sends no
    `league` key at all, so this stays false and the page behaves exactly as
@@ -578,7 +609,11 @@ async function loadEvent(){
   evFields = {
     email: _f.email === false ? false : true,
     phone: _f.phone === false ? false : true,
-    sponsor: _f.sponsor === false ? false : true
+    sponsor: _f.sponsor === false ? false : true,
+    /* ⭐ FR-250 — opt-in, like FR-147 and FR-193. An older worker sends no
+       `gender` key at all, so this is false and the page is exactly v1.19.
+       ⛔ Fail-soft, never fail-dark. */
+    gender: _f.gender === true
   };
   evLeague = evData.league === true;   /* FR-139 */
   /* ⭐⭐ FR-144 (v1.11) — the picker is now shown for EVERY event, not just a
@@ -716,6 +751,7 @@ function applyFields(){
     if (!on) el.value = '';
   }
   box('fEmail', evFields.email);
+  box('fGender', evFields.gender);   /* FR-250 — same painter, same rule */
   /* FR-139 — the picker and the typed boxes are two doors to the same field.
      ⛔ ONE painter decides which is open, so the page can never show both
      a chosen name and an empty pair of name boxes. */
@@ -846,6 +882,10 @@ async function sendRsvp(extra){
        exactly as v1.8: fuzzy check, confirm card, the lot. */
     roster_id: pickedRoster || undefined,
     sponsor: evFields.sponsor ? spChoice : null,   /* FR-120 */
+    /* ⭐ FR-250 — only when asked, and blank travels as null. The worker drops
+       anything that arrives for a switched-off field anyway, so this and the
+       gate there agree; neither one is load-bearing alone. */
+    gender: evFields.gender ? (($('fGender') || {}).value || null) : null,
     sponsor_notes: (evFields.sponsor && spChoice === 'yes') ? $('fSpNotes').value.trim() : ''
   };
   Object.keys(extra || {}).forEach(function(k){ body[k] = extra[k]; });
