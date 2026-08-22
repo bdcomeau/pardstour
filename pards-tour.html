@@ -32575,6 +32575,7 @@ function _ptTBFmts() {
   if (_ppt >= 2 && _ppt <= 8) out = out.concat(window.ptOeRows(_ppt));
   if (_ppt >= 3 && _ppt <= 8) out = out.concat(window.ptParRows(_ppt));
   if (_ppt >= 3 && _ppt <= 8) out = out.concat(window.ptGnRows(_ppt));
+  if (_ppt >= 2 && _ppt <= 5) out = out.concat(window.ptFbRows(_ppt));   /* v798.0 (FR-242) — the same door as the round editor, together (trap 42) */
   /* ⭐⭐ B-287b (v781.0) — his second report, same session: "2 player teams ...
      no 6-6-6 option in scoring rule". The sentinel families join the wizard
      too: picking one opens the SAME config sheet the round editor uses
@@ -46410,6 +46411,7 @@ function ptXofNLabel(f, pct) {
   var _pp = ptParParse(f); if (_pp) return ptParLabel(f, pct);   // v775.0 (FR-230)
   var _gn2 = ptGnParse(f); if (_gn2) return ptGnLabel(f, pct);   // v777.0 (FR-232)
   var _cb2 = ptCbhParse(f); if (_cb2) return ptCbhLabel(f, pct);   // v779.0 (FR-234)
+  var _fb2 = ptFbParse(f); if (_fb2) return ptFbLabel(f, pct);   // v798.0 (FR-242)
   var sg = ptSegParse(f); if (sg) return ptSegLabel(f, pct);   // v523.0 (FR-72)
   var p = ptXofNParse(f); if (!p) return String(f || '');
   var b = p.basis === 'net' ? 'Net' : p.basis === 'gross' ? 'Gross' : 'Stableford';
@@ -46605,6 +46607,52 @@ function ptCbhLabel(f, pct) {
   var o = ptCbhParse(f); if (!o) return String(f || '');
   return 'Custom Balls Per Hole (teams of ' + o.size + ') \u00b7 ' + (o.basis === 'net' ? 'Net' : 'Stableford') + (pct != null ? ' \u00b7 ' + pct + '%' : '');
 }
+/* ⭐⭐⭐ FR-242 (v798.0, s296) — GROSS FRONT / NET BACK BEST BALL, and its
+   mirror. From the D16 Coming-soon catalogue ("Gross Front Net Back Best Ball"
+   / "Net Front Gross Back Best Ball"), his go, s296.
+
+   ⭐⭐ THE ENGINE WAS ALREADY THE ANSWER (the s293 lesson, again). This game is
+   not a new way of scoring a hole — it is the SAME best-ball hole the X-of-N
+   tail has always scored, with the BASIS changing at the turn. So:
+     • the hole→nine resolver is `ptSegAt` with a two-way split — D62's ONE
+       resolver, the same one 6-6-6 and 9-9 ride. ⛔ Never a second slicing.
+     • the count is 1 (best ball), so `need` falls out of `p.count` and the two
+       hole loops keep their existing generic tail — the ONLY change there is
+       WHICH value is compared, per hole.
+     • ⛔ NO NEW HOLE PRODUCER. FR-232 needed one because it combines two balls;
+       this combines nothing.
+   ⭐ basis:'net' on the parse is deliberate and follows FR-184/FR-232: the
+   totals are STROKES (lower wins), which is what every sorter, the fold and
+   the card's HDCP columns read. Half the round being gross does not change
+   that — it changes which stroke is compared on which hole.
+   ⭐ THE REACH IS FIVE, not the catalogue's four: our own X-of-N door has
+   reached five since FR-102 and PT_XOFN_ALLOW is honest to five (1of5 = 75),
+   so a five-man team gets a real allowance and not a silent 100% default.
+   One character in the regex reverses it if he wants four.
+   ⚠ THE NUANCE, SAID OUT LOUD: the printed card still draws his stroke dots on
+   all 18 holes, because that is his card — the dots say where he GETS shots,
+   and on the gross nine the engine simply does not spend them. Not changed
+   here, and not silently: it is written into the round's declaration strip. */
+var PT_FB_RE = /^team_fb(gn|ng)_([2-5])_net$/;
+function ptFbParse(f) {
+  var m = PT_FB_RE.exec(String(f || ''));
+  return m ? { dir: m[1], size: +m[2], legs: m[1].split('') } : null;   /* legs: ['g','n'] front→back */
+}
+/* The one basis resolver. Every consumer asks THIS — never its own arithmetic. */
+function ptFbBasisAt(p, hole1) {
+  if (!p || !p.fb) return p ? p.basis : 'net';
+  return ptSegAt({ split: p.fb.legs }, hole1 - 1, 18) === 'g' ? 'gross' : 'net';
+}
+function ptFbLabel(f, pct) {
+  var o = ptFbParse(f); if (!o) return String(f || '');
+  return (o.dir === 'gn' ? 'Gross Front / Net Back' : 'Net Front / Gross Back')
+    + ' Best Ball \u00b7 teams of ' + o.size + (pct != null ? ' \u00b7 ' + pct + '%' : '');
+}
+window.ptFbRows = function (sz) {
+  return [['gn', 'Gross Front / Net Back'], ['ng', 'Net Front / Gross Back']].map(function (d) {
+    return { v: 'team_fb' + d[0] + '_' + sz + '_net', l: d[1] + ' Best Ball' };
+  });
+};
 var PT_GN_RE = /^team_g([12])n([23])_([3-8])_net$/;
 function ptGnParse(f) {
   var m = PT_GN_RE.exec(String(f || '')); if (!m) return null;
@@ -46664,6 +46712,7 @@ function ptTeamParse(f) {
   var pp = ptParParse(f); if (pp) return { count: null, size: pp.size, basis: pp.basis, par: pp };   /* v775.0 (FR-230) */
   var gn = ptGnParse(f); if (gn) return { count: null, size: gn.size, basis: 'net', gn: gn };   /* v777.0 (FR-232) — net basis: totals are strokes, lower wins (the FR-184 rule) */
   var cb = ptCbhParse(f); if (cb) return { count: null, size: cb.size, basis: cb.basis, cbh: cb };   /* v779.0 (FR-234) */
+  var fb = ptFbParse(f); if (fb) return { count: 1, size: fb.size, basis: 'net', fb: fb };   /* v798.0 (FR-242) — count 1: best ball. The basis FLIPS at the turn; ptFbBasisAt is the only thing that knows. */
   var sg = ptSegParse(f); if (!sg) return null;
   return { count: null, size: sg.size, basis: sg.basis, seg: sg };
 }
@@ -50648,13 +50697,14 @@ window.ptFr20XofNRows = function (gf, round, groups, byP, evCfg, srv) {
         holesCounted++; total += _n1gBest2;
         continue;
       }
+      var _bh242 = ptFbBasisAt(p, h);   /* v798.0 (FR-242) — p.basis on every legacy round, byte-identical; the nine's basis on a flip round */
       have.sort(function (a, b) {
-        var va = p.basis === 'stableford' ? -a.pts : (p.basis === 'gross' ? a.gross : a.net);
-        var vb = p.basis === 'stableford' ? -b.pts : (p.basis === 'gross' ? b.gross : b.net);
+        var va = _bh242 === 'stableford' ? -a.pts : (_bh242 === 'gross' ? a.gross : a.net);
+        var vb = _bh242 === 'stableford' ? -b.pts : (_bh242 === 'gross' ? b.gross : b.net);
         return va - vb;
       });
       var sum = 0;
-      for (var i = 0; i < need; i++) sum += p.basis === 'stableford' ? have[i].pts : (p.basis === 'gross' ? have[i].gross : have[i].net);
+      for (var i = 0; i < need; i++) sum += _bh242 === 'stableford' ? have[i].pts : (_bh242 === 'gross' ? have[i].gross : have[i].net);
       holesCounted++; total += sum;
     }
     if (holesCounted) rows.push({ name: g.name || '—', holesCounted: holesCounted, total: total, thru: thru });
@@ -53011,14 +53061,15 @@ function ptBuildMdTeamXofN(eventId, xofnRounds, groups, headers, cfg) {
             perHole[h] = _n1gBest; holesCounted++; total += _n1gBest;
             continue;
           }
+          var _bh242r = ptFbBasisAt(p, h);   /* v798.0 (FR-242) — the SAME resolver the board uses; ⛔ two producers exist for this hole score and they must not split (the FR-205 warning) */
           have.sort(function(a, b) {
-            var va = p.basis === 'stableford' ? -a.vals[h].pts : (p.basis === 'gross' ? a.vals[h].gross : a.vals[h].net);
-            var vb = p.basis === 'stableford' ? -b.vals[h].pts : (p.basis === 'gross' ? b.vals[h].gross : b.vals[h].net);
+            var va = _bh242r === 'stableford' ? -a.vals[h].pts : (_bh242r === 'gross' ? a.vals[h].gross : a.vals[h].net);
+            var vb = _bh242r === 'stableford' ? -b.vals[h].pts : (_bh242r === 'gross' ? b.vals[h].gross : b.vals[h].net);
             return va - vb;
           });
           var sum = 0;
           for (var i = 0; i < need; i++) {
-            sum += p.basis === 'stableford' ? have[i].vals[h].pts : (p.basis === 'gross' ? have[i].vals[h].gross : have[i].vals[h].net);
+            sum += _bh242r === 'stableford' ? have[i].vals[h].pts : (_bh242r === 'gross' ? have[i].vals[h].gross : have[i].vals[h].net);
             have[i].counted++;
           }
           perHole[h] = sum; holesCounted++; total += sum;
@@ -64439,8 +64490,8 @@ function ptPrintXofNRoundReport(eventId, round, opts) {
       var _sgFt = p.seg ? ptSegParse(round.format) : null;
       var _sfFt = _sgFt ? ptSegFmtCfg(cfg, round) : null;
       html += '</tbody></table>'
-        + '<div style="margin-top:8px;font-size:10px;color:#666">' + (p.cbh ? ptCbhLabel(round.format) + ' · organizer-typed counts per hole' : p.gn ? ptGnLabel(round.format) + ' · lowest gross ball(s) mandatory, best net balls from the rest' : p.ccc ? ptCccLabel(round.format) + ' · balls counted rotate by hole' : p.oe ? ptOeLabel(round.format) + ' · balls counted alternate by hole' : p.par ? ptParLabel(round.format) + ' · balls counted follow the hole\u2019s par' : _sgFt ? ((_sgFt.pat === '666' ? '6-6-6' : '9-9') + ' · balls counted change by leg (' + _sgFt.counts.join('/') + ' of ' + p.size + ')') : 'Best ' + p.count + ' of ' + p.size) + ' · '
-        + (p.basis === 'net' ? 'net per hole' : p.basis === 'gross' ? 'gross per hole' : 'Stableford points per hole')
+        + '<div style="margin-top:8px;font-size:10px;color:#666">' + (p.fb ? ptFbLabel(round.format) + ' · your shot dots print on all 18 — the gross nine simply does not spend them' : p.cbh ? ptCbhLabel(round.format) + ' · organizer-typed counts per hole' : p.gn ? ptGnLabel(round.format) + ' · lowest gross ball(s) mandatory, best net balls from the rest' : p.ccc ? ptCccLabel(round.format) + ' · balls counted rotate by hole' : p.oe ? ptOeLabel(round.format) + ' · balls counted alternate by hole' : p.par ? ptParLabel(round.format) + ' · balls counted follow the hole\u2019s par' : _sgFt ? ((_sgFt.pat === '666' ? '6-6-6' : '9-9') + ' · balls counted change by leg (' + _sgFt.counts.join('/') + ' of ' + p.size + ')') : 'Best ' + p.count + ' of ' + p.size) + ' · '
+        + (p.fb ? (p.fb.dir === 'gn' ? 'gross on the front nine, net on the back' : 'net on the front nine, gross on the back') : p.basis === 'net' ? 'net per hole' : p.basis === 'gross' ? 'gross per hole' : 'Stableford points per hole')
         + ' · handicap allowance ' + (_sfFt ? _sfFt.alw.join('/') + '% by leg' + (_sfFt.mode === 'gg' ? ', handicap \u00f7' + _sfFt.alw.length + ' per leg allocated within the leg (Golf Genius Option 1)' : '') + ' (a scoring convention, not a WHS standard)' : pct + '%') + ' · a hole counts once that hole\u2019s ' + (p.cbh ? 'typed count of' : p.gn ? (p.gn.g + p.gn.n) + ' (' + p.gn.g + ' gross + ' + p.gn.n + ' net)' : p.ccc ? 'rotating count of' : p.oe ? 'alternating count of' : p.par ? 'par-driven count of' : _sgFt ? 'leg\u2019s count of' : p.count + '+') + ' team scores are in ' + (p.gn ? '(short teams: the hole does not count)' : '(short teams: all balls)')
         + (_fr42 ? ' · player cells carry the score notation below; the row total is POINTS' : '') + '</div>'
         + (_fr42 ? '<div style="margin-top:6px;font-size:10px;color:#444">' + _ptPrintScoreLegend() + '</div>' : '')
