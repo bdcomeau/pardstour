@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v792.0 -->
+  <!-- pards-tour-v793.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -5760,7 +5760,15 @@ function teeYardageStr(teeName){
 function courseHandicap(index, teeName){
   if(index===null || index===undefined || isNaN(index)) return index;
   const tee = activeTee(teeName);
-  const coursePar = activeCourse().par.reduce((a,b)=>a+b,0);
+  /* ⭐⭐ FR-239 B1 (v793.0, s295) — WHS-CORRECT PAR, his ruling: CH = HI ×
+     slope/113 + (rating − PAR OF THE TEES PLAYED). 33 of 701 shipped tees
+     carry their own par (forward tees rated against it) and were being
+     docked the difference — Glencoe Forest's par-67 deck lost ~5 strokes
+     against course par 72. Tees whose par equals the course par — 668 of
+     701 — are byte-identical. The women’s decks (below in ptDlMap) need
+     this to compute against the LADIES’ card. Fallback: course par. */
+  const _tp239 = Number(tee && tee.par);
+  const coursePar = (isFinite(_tp239) && _tp239 >= 54 && _tp239 <= 80) ? _tp239 : activeCourse().par.reduce((a,b)=>a+b,0);
   const ch = index * (tee.slope / 113) + (tee.rating - coursePar);
   return Math.round(ch);
 }
@@ -6704,6 +6712,36 @@ function ptDlMap(p){
       yards: t.holes.map(function(h){ return Number(h.yardage); }),
       handicaps: t.holes.map(function(h){ return Number(h.handicap); })
     };
+  });
+
+  /* ⭐⭐ FR-239 B1 (v793.0, s295) — THE WOMEN'S DECKS. GolfNet sends Womens
+     tee rows for nearly every course (measured s33: 829 Mens / 622 Womens);
+     until today this mapper threw them away. A COMPLETE Womens row becomes
+     its OWN deck named "<name> ♀" — a unique key, so every name-keyed
+     consumer (deck pickers, deckAdjust, FR-52 tee writes, printed cards)
+     works untouched, and the UNCHANGED courseHandicap computes her CH from
+     HER rating/slope/par the moment she picks it. ⭐ B-115's rule pays off
+     here too: ptGetSI prefers the per-tee handicaps array, so her deck
+     carries her OWN stroke allocation. Incomplete Womens rows are skipped —
+     a mens-only course downloads exactly as before. Course-level par/si stay
+     the championship mens set (the B-111 convention). */
+  var womens = (Array.isArray(p.tees) ? p.tees : []).filter(function(t){
+    return t && String(t.type||'') === 'Womens' && t.isActive !== false && Array.isArray(t.holes) && t.holes.length === 18;
+  });
+  womens.forEach(function(t){
+    var wPars = t.holes.map(function(h){ return Number(h.par); });
+    if (wPars.some(function(v){ return !isFinite(v) || v < 3 || v > 6; })) return;
+    tees.push({
+      name: String(t.name||'') + ' ♀',
+      gender: 'F',
+      teeId: t.id != null ? t.id : null,
+      rating: Number(t.rating), slope: Number(t.slope), par: Number(t.par),
+      frontRating: Number(t.frontRating), backRating: Number(t.backRating),
+      frontSlope: Number(t.frontSlope), backSlope: Number(t.backSlope),
+      pars: wPars,
+      yards: t.holes.map(function(h){ return Number(h.yardage); }),
+      handicaps: t.holes.map(function(h){ return Number(h.handicap); })
+    });
   });
 
   var lat = parseFloat(p.latitude), lon = parseFloat(p.longitude);
@@ -75658,7 +75696,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v792.0';
+    const TOUR_VERSION     = 'pards-tour-v793.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
