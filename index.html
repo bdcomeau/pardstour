@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v807.0 -->
+  <!-- pards-tour-v808.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -54979,6 +54979,24 @@ function ptOpenFlightEditor(eventId) {
       if (!cfg.flight_rule) { ptToast('Set a flight rule first (Scoring & Flights).'); return; }
       var players = ptEventPool(cfg, d.groups || []);                    // v248.0
       window._ptFE = { eventId: eventId, rule: cfg.flight_rule, assign: JSON.parse(JSON.stringify(cfg.flight_assign || {})), players: players, fb: cfg.flight_brackets || null };   // v397.0 · D50 — custom brackets ride along
+      /* ⭐⭐⭐ FR-251 (v808.0, s298) — A FLIGHT CARRIES A DECK.
+         Options are the EVENT COURSE'S deck names, deduped. ⛔ NOT gender
+         filtered: this names a PHYSICAL TEE BOX, and the ♀ rating for that
+         same box is resolved downstream by FR-247. Filtering here would stop
+         an organizer naming the box his mixed flight actually plays. */
+      var _fd251 = {};
+      try { var _c = cfg.flight_decks; if (_c && typeof _c === 'object' && !Array.isArray(_c)) _fd251 = JSON.parse(JSON.stringify(_c)); } catch (_e251) { _fd251 = {}; }
+      var _dop251 = [];
+      try {
+        var _cid251 = d.event && d.event.course_id;
+        var _crs251 = (typeof PARDS_COURSES !== 'undefined' && _cid251)
+          ? PARDS_COURSES.filter(function(c){ return c && c.id === _cid251; })[0] : null;
+        ((_crs251 && _crs251.tees) || []).forEach(function(t){
+          if (t && t.name && _dop251.indexOf(t.name) < 0) _dop251.push(t.name);
+        });
+      } catch (_e252) { _dop251 = []; }
+      window._ptFE.decks = _fd251;
+      window._ptFE.deckOpts = _dop251;
       var ov = document.createElement('div');
       ov.id = 'ptFEOv';
       ov.style.cssText = 'position:fixed;inset:0;z-index:710;background:#0f1f14;display:flex;flex-direction:column;overflow:hidden';
@@ -55025,12 +55043,20 @@ function ptFERender() {
   brackets.forEach(function(b) {
     var inB = fe.players.filter(function(p){ return ptEffectiveFlight(cfgLike, p) === b.name; });
     h += '<div style="margin:12px 0 6px;font-size:11px;font-weight:800;color:rgba(201,168,76,.75);text-transform:uppercase;letter-spacing:.5px">' + b.name + ' <span style="color:rgba(255,255,255,.25);font-weight:600">(' + inB.length + ')</span></div>';
+    /* ⭐ FR-251 — the deck this flight plays, stated once. */
+    h += ptFEDeckRow(b.name);
     h += inB.length ? inB.map(row).join('') : '<div style="font-size:11px;color:rgba(255,255,255,.2);padding:4px 2px 8px">Empty</div>';
   });
   var unf = fe.players.filter(function(p){ return !ptEffectiveFlight(cfgLike, p); });
   if (unf.length) {
     h += '<div style="margin:12px 0 6px;font-size:11px;font-weight:800;color:rgba(231,76,60,.7);text-transform:uppercase;letter-spacing:.5px">Unflighted <span style="color:rgba(255,255,255,.25);font-weight:600">(' + unf.length + ')</span></div>';
     h += unf.map(row).join('');
+  }
+  /* ⭐⭐ FR-251 — stamping the decks onto a round. ⛔ The button PREVIEWS;
+     nothing is written until he has looked at the list and pressed Apply. */
+  if (Object.keys(fe.decks || {}).length) {
+    h += '<button onclick="ptFEApplyOpen()" style="width:100%;margin-top:16px;padding:12px;background:none;border:1px solid rgba(201,168,76,.45);border-radius:10px;color:#c9a84c;font-size:13px;font-weight:800;cursor:pointer">\u26f3 Apply these decks to a round\u2026</button>';
+    h += '<div id="ptFEApply" style="margin-top:10px"></div>';
   }
   h += '<div style="margin-top:14px;font-size:10px;color:rgba(255,255,255,.2);text-align:center">Auto-assigned by ' + (fe.rule === 'age' ? 'age' : 'handicap index') + ' \u00b7 manual picks always win \u00b7 flights only affect individual standings</div>';
   el.innerHTML = h;
@@ -55051,10 +55077,132 @@ function ptResetFlightsAuto() {
   if (window._ptFE) { window._ptFE.assign = {}; ptFERender(); }
 }
 
+/* ══ FR-251 (v808.0, s298) — A FLIGHT CARRIES A DECK ═══════════════════════
+   His three s298 rulings live in the WORKER, which is the one place that
+   decides. ⛔ Nothing below re-implements them: this screen shows the deck,
+   asks the worker what it would change, and shows him that answer verbatim. */
+
+function ptFEDeckRow(flightName) {
+  var fe = window._ptFE;
+  if (!fe) return '';
+  var cur = (fe.decks && fe.decks[flightName]) || '';
+  var opts = '<option value="">— no deck set —</option>';
+  (fe.deckOpts || []).forEach(function(n) {
+    opts += '<option value="' + _ptEsc(n) + '"' + (cur === n ? ' selected' : '') + '>' + _ptEsc(n) + '</option>';
+  });
+  return '<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;margin-bottom:6px;'
+    + 'background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);border-radius:10px">'
+    + '<div style="font-size:11px;font-weight:700;color:rgba(201,168,76,.8);flex-shrink:0">Plays</div>'
+    + '<select onchange="ptFEDeckChange(' + JSON.stringify(flightName) + ',this.value)" '
+    + 'style="flex:1;padding:6px 8px;border-radius:8px;border:1px solid rgba(201,168,76,.3);'
+    + 'background:#1a2a1a;color:#eee;font-size:12px;outline:none">' + opts + '</select></div>';
+}
+
+function ptFEDeckChange(flightName, val) {
+  var fe = window._ptFE;
+  if (!fe) return;
+  fe.decks = fe.decks || {};
+  if (val) fe.decks[String(flightName)] = String(val);
+  else delete fe.decks[String(flightName)];
+  ptFERender();
+}
+
+/* Which round? A flight deck is stated on the EVENT; it is stamped on a ROUND. */
+function ptFEApplyOpen() {
+  var fe = window._ptFE, box = document.getElementById('ptFEApply');
+  if (!fe || !box) return;
+  box.innerHTML = '<div style="font-size:11px;color:rgba(255,255,255,.35);padding:8px 2px">Loading rounds…</div>';
+  fetch(TOUR_API + '/api/events/' + fe.eventId + '/rounds', { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
+    .then(_ptJson)
+    .then(function(d) {
+      var rs = (d && d.rounds) || [];
+      if (!rs.length) { box.innerHTML = '<div style="font-size:11px;color:rgba(255,255,255,.35);padding:8px 2px">This event has no rounds yet.</div>'; return; }
+      var h = '<div style="font-size:10px;font-weight:800;color:rgba(201,168,76,.7);text-transform:uppercase;letter-spacing:.5px;margin:10px 0 6px">Which round?</div>';
+      rs.forEach(function(r) {
+        var lbl = 'Round ' + (r.round_number != null ? r.round_number : r.id) + (r.date ? ' · ' + String(r.date).slice(0, 10) : '');
+        h += '<button onclick="ptFEApplyPreview(' + Number(r.id) + ')" style="width:100%;text-align:left;padding:10px;margin-bottom:5px;'
+          + 'background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:#ddd;font-size:12px;font-weight:700;cursor:pointer">'
+          + _ptEsc(lbl) + '</button>';
+      });
+      box.innerHTML = h;
+    })
+    .catch(function(_e) { box.innerHTML = '<div style="font-size:11px;color:#e74c3c;padding:8px 2px">' + _ptEsc(_ptMsg(_e, 'Could not load rounds.')) + '</div>'; });
+}
+
+/* ⛔⛔ PREVIEW FIRST, ALWAYS. This calls the route with apply:false, which the
+   worker answers WITHOUT WRITING A ROW. What he sees here is produced by the
+   same _fr251Plan that the apply then executes — one decision, shown once. */
+function ptFEApplyPreview(roundId) {
+  var box = document.getElementById('ptFEApply');
+  if (!box) return;
+  box.innerHTML = '<div style="font-size:11px;color:rgba(255,255,255,.35);padding:8px 2px">Checking…</div>';
+  fetch(TOUR_API + '/api/rounds/' + roundId + '/flight-decks', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+    body: JSON.stringify({ apply: false })
+  }).then(_ptJson).then(function(d) {
+    var ch = (d && d.changes) || [], sk = (d && d.skipped) || [];
+    var h = '';
+    if (d && d.note) h += '<div style="font-size:11px;color:rgba(255,255,255,.4);padding:8px 2px">' + _ptEsc(d.note) + '</div>';
+    if (!ch.length && !sk.length && !(d && d.note)) {
+      h += '<div style="font-size:12px;color:rgba(255,255,255,.45);padding:10px 2px">Nothing to change — every player is already on his flight’s deck.</div>';
+    }
+    if (ch.length) {
+      h += '<div style="font-size:10px;font-weight:800;color:rgba(201,168,76,.7);text-transform:uppercase;letter-spacing:.5px;margin:10px 0 6px">Will change (' + ch.length + ')</div>';
+      ch.forEach(function(c) {
+        h += '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;margin-bottom:4px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:9px">'
+          + '<div style="min-width:0"><div style="font-size:12px;font-weight:700;color:#ddd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + _ptEsc(c.name || ('#' + c.roster_id)) + '</div>'
+          + '<div style="font-size:10px;color:rgba(255,255,255,.35)">' + _ptEsc(c.flight || '') + '</div></div>'
+          + '<div style="font-size:11px;font-weight:800;color:#c9a84c;white-space:nowrap">' + _ptEsc(c.from || 'no deck') + ' → ' + _ptEsc(c.to) + '</div></div>';
+      });
+    }
+    /* ⭐ His ruling 3, said out loud. A man skipped in silence is a man he will
+       later think the feature missed. */
+    if (sk.length) {
+      h += '<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px;margin:12px 0 6px">Left alone — you set these by hand (' + sk.length + ')</div>';
+      sk.forEach(function(x) {
+        h += '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px;margin-bottom:4px;background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.10);border-radius:9px">'
+          + '<div style="font-size:12px;color:rgba(255,255,255,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + _ptEsc(x.name || ('#' + x.roster_id)) + '</div>'
+          + '<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);white-space:nowrap">stays on ' + _ptEsc(x.deck || '') + '</div></div>';
+      });
+    }
+    if (ch.length) {
+      h += '<button onclick="ptFEApplyRun(' + Number(roundId) + ')" style="width:100%;margin-top:12px;padding:12px;'
+        + 'background:#c9a84c;border:none;border-radius:10px;color:#1a3a2a;font-size:13px;font-weight:900;cursor:pointer">'
+        + 'Apply to ' + ch.length + ' player' + (ch.length === 1 ? '' : 's') + '</button>';
+    }
+    h += '<button onclick="ptFEApplyOpen()" style="width:100%;margin-top:6px;padding:9px;background:none;'
+      + 'border:1px solid rgba(255,255,255,.12);border-radius:10px;color:rgba(255,255,255,.45);font-size:11px;font-weight:700;cursor:pointer">Pick a different round</button>';
+    box.innerHTML = h;
+  }).catch(function(_e) {
+    box.innerHTML = '<div style="font-size:11px;color:#e74c3c;padding:8px 2px">' + _ptEsc(_ptMsg(_e, 'Could not read the round.')) + '</div>';
+  });
+}
+
+function ptFEApplyRun(roundId) {
+  var box = document.getElementById('ptFEApply');
+  if (!box) return;
+  box.innerHTML = '<div style="font-size:11px;color:rgba(255,255,255,.35);padding:8px 2px">Applying…</div>';
+  fetch(TOUR_API + '/api/rounds/' + roundId + '/flight-decks', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+    body: JSON.stringify({ apply: true })
+  }).then(_ptJson).then(function(d) {
+    var n = (d && d.written) || 0;
+    ptToast(n ? (n + ' player' + (n === 1 ? '' : 's') + ' moved to their flight’s deck.') : 'Nothing needed changing.');
+    ptFEApplyPreview(roundId);
+  }).catch(function(_e) {
+    box.innerHTML = '<div style="font-size:11px;color:#e74c3c;padding:8px 2px">' + _ptEsc(_ptMsg(_e, 'Could not apply.')) + '</div>';
+  });
+}
+
 function ptSaveFlights() {
   var fe = window._ptFE;
   if (!fe) return;
-  ptPatchEvConfig(fe.eventId, { flight_assign: fe.assign })
+  /* ⭐ FR-251 — decks ride out on the SAME save as the assignments; one
+     button, one write. ⛔ Empty goes as null so the key never lingers. */
+  ptPatchEvConfig(fe.eventId, { flight_assign: fe.assign,
+                                flight_decks: (Object.keys(fe.decks || {}).length ? fe.decks : null) })
     .then(function(d) {
       if (d.event || d.ok) {
         ptToast('Flights saved.');
@@ -77759,7 +77907,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v807.0';
+    const TOUR_VERSION     = 'pards-tour-v808.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
