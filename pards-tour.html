@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v814.0 -->
+  <!-- pards-tour-v815.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -38567,6 +38567,83 @@ function _ptUtcToLocal(ts){
   }catch(e){ return ''; }
 }
 
+// ═════════ FR-256 Stage 0 (v815.0, s299) — SCAN A SCORECARD: THE TESTER ═════════
+/* His ask: photograph a paper card → present findings → confirm → store. This
+   stage is the FEASIBILITY GATE: it reads the card through the worker's
+   /api/scan-test (Workers AI vision, organizer Bearer) and shows what it saw
+   beside the photo. ⛔ NOTHING IS STORED — Stage 1 builds confirm-and-store
+   only after the accuracy number exists on his real cards. */
+function ptFr256ScanOpen(eventId){
+  var ex = document.getElementById('ptFr256Ov'); if(ex) ex.remove();
+  var ov = document.createElement('div');
+  ov.id = 'ptFr256Ov';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:9997;background:rgba(0,0,0,.82);display:flex;align-items:flex-end;justify-content:center';
+  ov.innerHTML = '<div style="background:linear-gradient(160deg,#12281b,#1a3a2a);border-radius:20px 20px 0 0;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;padding:18px 18px 34px;box-sizing:border-box">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">'
+    + '<div style="font-size:16px;font-weight:900;color:#c9a84c">📷 Scan Card — test</div>'
+    + '<button onclick="document.getElementById(\'ptFr256Ov\').remove()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;-webkit-tap-highlight-color:transparent">✕</button></div>'
+    + '<div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:12px">Stage 0 — reads the card and shows what it saw. <b>Nothing is stored.</b></div>'
+    + '<input id="ptFr256File" type="file" accept="image/*" capture="environment" style="display:none">'
+    + '<button onclick="document.getElementById(\'ptFr256File\').click()" style="width:100%;padding:14px;background:rgba(168,213,181,.1);border:1.5px solid rgba(168,213,181,.35);border-radius:12px;color:#a8d5b5;font-size:14px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">📸 Take / choose a card photo</button>'
+    + '<div id="ptFr256Prev" style="margin-top:12px"></div>'
+    + '<div id="ptFr256Out" style="margin-top:12px"></div>'
+    + '</div>';
+  document.body.appendChild(ov);
+  ov.addEventListener('click', function(e){ if(e.target===ov) ov.remove(); });
+  document.getElementById('ptFr256File').onchange = function(ev){
+    var f = ev.target.files && ev.target.files[0]; if(!f) return;
+    var img = new Image();
+    img.onload = function(){
+      /* downscale — a consistent ~1600px long edge reads better than 12MP and keeps the payload small */
+      var MAX = 1600, sc = Math.min(1, MAX/Math.max(img.width, img.height));
+      var cv = document.createElement('canvas'); cv.width = Math.round(img.width*sc); cv.height = Math.round(img.height*sc);
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      window._ptFr256Img = cv.toDataURL('image/jpeg', .85);
+      document.getElementById('ptFr256Prev').innerHTML =
+        '<img src="'+window._ptFr256Img+'" style="width:100%;border-radius:10px;margin-bottom:10px">'
+        + '<button onclick="ptFr256Send('+eventId+')" style="width:100%;padding:14px;background:#c9a84c;border:none;border-radius:12px;color:#1a3a2a;font-size:14px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent">🔎 Read this card</button>';
+      try{ URL.revokeObjectURL(img.src); }catch(_u){}
+    };
+    img.src = URL.createObjectURL(f);
+  };
+}
+function ptFr256Send(eventId){
+  var out = document.getElementById('ptFr256Out');
+  if(!window._ptFr256Img || !out) return;
+  out.innerHTML = '<div style="color:rgba(255,255,255,.45);font-size:13px;text-align:center;padding:14px">Reading… (can take 10–30s on the free model)</div>';
+  /* the event roster gives the model a CLOSED list of names to bind rows to */
+  fetch(TOUR_API + '/api/events/' + eventId, { headers:{ 'Authorization':'Bearer ' + G.orgToken } }).then(_ptJson)
+  .catch(function(){ return {}; })
+  .then(function(d){
+    var roster = [];
+    try{ (d.groups||[]).forEach(function(g){ (g.players||[]).forEach(function(p){ if(p.name) roster.push(p.name); }); }); }catch(_r){}
+    return fetch(TOUR_API + '/api/scan-test', { method:'POST',
+      headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer ' + G.orgToken },
+      body: JSON.stringify({ image: window._ptFr256Img, roster: roster }) }).then(_ptJson);
+  })
+  .then(function(d){
+    if(!d || !d.ok){ out.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:10px">'+_ptEsc((d&&d.error)||'Scan failed.')+'</div>'; return; }
+    var h = '<div style="font-size:10px;color:rgba(255,255,255,.35);margin-bottom:8px">'+_esc(d.model||'')+' · '+_esc(d.shape||'')+' · '+(d.ms||0)+'ms</div>';
+    if(d.parsed && d.parsed.players && d.parsed.players.length){
+      h += '<div style="font-size:12px;font-weight:800;color:#a8d5b5;margin-bottom:6px">What it read — check it against the paper:</div>';
+      d.parsed.players.forEach(function(p){
+        h += '<div style="background:rgba(255,255,255,.05);border-radius:10px;padding:8px 10px;margin-bottom:6px">'
+          + '<div style="font-size:12px;font-weight:800;color:#f5e6b8">'+_esc(p.name||'?')+'</div>'
+          + '<div style="font-family:monospace;font-size:12px;color:rgba(255,255,255,.8);letter-spacing:2px;overflow-x:auto;white-space:nowrap;padding:2px 0">'
+          + (Array.isArray(p.holes)?p.holes.map(function(x){return x==null?'·':x;}).join(' '):'—') + '</div>'
+          + '<div style="font-size:10px;color:rgba(255,255,255,.4)">OUT '+(p.out!=null?p.out:'·')+' · IN '+(p['in']!=null?p['in']:'·')+' · TOT '+(p.total!=null?p.total:'·')+'</div>'
+          + '</div>';
+      });
+    } else {
+      h += '<div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:6px">The model answered but no clean grid came back — the raw output below is the finding.</div>';
+    }
+    h += '<details style="margin-top:8px"><summary style="font-size:11px;color:rgba(255,255,255,.4);cursor:pointer">Raw model output</summary>'
+      + '<pre style="font-size:10px;color:rgba(255,255,255,.6);white-space:pre-wrap;background:rgba(0,0,0,.3);border-radius:8px;padding:8px;max-height:220px;overflow:auto">'+_ptEsc(String(d.raw||''))+'</pre></details>';
+    out.innerHTML = h;
+  })
+  .catch(function(e){ out.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:10px">'+_ptEsc(_ptMsg(e,'Scan failed.'))+'</div>'; });
+}
+
 // ═════════ v389.0 — D35 + D36: Edit Scores overlay (trip & league rounds) ═════════
 // Bruce s68, from competitor screenshots: every round gets an organizer "Edit
 // Scores" pill → overlay listing every scorecard, expand one → 18 editable gross
@@ -57965,6 +58042,11 @@ var _mrRoll = function(ns){ var d=0; for (var i=0;i<ns.length;i++) if (ST[ns[i]]
   var b11 = st.tee
     ? _ptMRBtn('ptEventEditScores(' + _ptMR.eventId + ',' + RJ + ')', '✏️ Edit scores…',
                'rgba(201,168,76,.85)', 'rgba(201,168,76,.08)', 'rgba(201,168,76,.3)')
+      /* ⭐ FR-256 Stage 0 (v815.0, s299) — HIS DOOR, HIS SCREENSHOT (s286): the scan
+         tester lives under Edit scores. Stage 0 READS a photographed card and shows
+         the findings — ⛔ it stores nothing until the accuracy gate is measured. */
+      + _ptMRBtn('ptFr256ScanOpen(' + _ptMR.eventId + ')', '📷 Scan card — read a paper card (test)',
+               'rgba(168,213,181,.85)', 'rgba(168,213,181,.08)', 'rgba(168,213,181,.3)')
     : _ptMRGate('No tee sheet on this round yet — score cards hang off tee times.', 5, 'Build tee times');
   h += _ptMRSec(11, '✏️ Edit Scores', ST[11], b11);
 
@@ -78154,7 +78236,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v814.0';
+    const TOUR_VERSION     = 'pards-tour-v815.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
