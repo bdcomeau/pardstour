@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v832.0 -->
+  <!-- pards-tour-v833.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -28167,6 +28167,7 @@ function renderFavoritesList(){
   }
 
   var lastSection = '\u26A1 Quick Add'; // already rendered above
+  var _sk262 = [];   /* FR-262 — one slot per linked pill, filled after render */
   contacts.forEach(function(c){
     var section = '';
     if(c.me) section = '\u2b50 Me';
@@ -28225,7 +28226,11 @@ function renderFavoritesList(){
       if(_f254C && _f254C.name) html += '<span style="margin-right:8px;display:inline-block;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom">\u26f3 '+_f254C.name+'</span>';
     }
     if(typeof _ptGenderIsF === 'function' ? _ptGenderIsF(c) : c.gender === 'F') html += '<span style="margin-right:8px">\u2640</span>';
-    if(gid) html += '<span style="color:#2d5a3d;font-weight:800;font-size:11px;white-space:nowrap">GC \u2713</span>';
+    /* ⭐ FR-262 (v833.0, s299) — his ask off the FR-198 graph: 'remove gc check and
+       add this graph? For each player?' The slot renders EMPTY now and the filler
+       below draws the season sparkline — or falls back to GC ✓ (fail-open). */
+    if(gid){ var _sid262 = 'gnSpark_' + _sk262.length; _sk262.push({ gid: gid, elId: _sid262 });
+      html += '<span id="'+_sid262+'" style="display:inline-block;width:64px;height:16px;vertical-align:middle"></span>'; }
     html += '</div></div>';
     if(gid){
       html += '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0;min-width:72px;text-align:right">';
@@ -28238,8 +28243,51 @@ function renderFavoritesList(){
   });
 
   box.innerHTML = html;
+  if(_sk262.length) ptFr262Fill(_sk262);   /* FR-262 — sparks arrive as their histories do */
 }
 
+/* ⭐ FR-262 (v833.0, s299) — the pill-sized season sparkline. ⛔ ONE set of
+   producers: ptFr198Series (day series) + ptFr198Pts (projection) + ptFr198D
+   (path) — this draws SMALL, it never re-decides. Green = trending down
+   (down is better); gold otherwise. */
+function ptFr262Spark(revs){
+  var s = ptFr198Series(revs);
+  if(s.length < 2) return '';
+  var lo = Infinity, hi = -Infinity, i;
+  for(i=0;i<s.length;i++){ if(s[i].v < lo) lo = s[i].v; if(s[i].v > hi) hi = s[i].v; }
+  if(!isFinite(lo) || !isFinite(hi)) return '';
+  var pad = (hi - lo) * 0.15; if(!(pad > 0)) pad = 0.5; lo -= pad; hi += pad;
+  var pts = ptFr198Pts(s, 'v', 58, 13, lo, hi);
+  if(!pts) return '';
+  var d = ptFr198D(pts), end = pts[pts.length-1];
+  var delta = s[s.length-1].v - s[0].v;
+  var col = delta < 0 ? '#27ae60' : '#8a7a3a';
+  return '<svg width="64" height="16" viewBox="-3 -1.5 64 16" style="vertical-align:middle">'
+    + '<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+    + '<circle cx="'+end[0]+'" cy="'+end[1]+'" r="2" fill="'+col+'"/></svg>';
+}
+async function ptFr262Fill(list){
+  var GC = '<span style="color:#2d5a3d;font-weight:800;font-size:11px;white-space:nowrap">GC \u2713</span>';
+  window._ptFr262Cache = window._ptFr262Cache || {};
+  var cfg = null, token = null;
+  try{ cfg = gcConfig(); }catch(_c){ cfg = null; }
+  for(var i = 0; i < list.length; i++){
+    var it = list[i], el = document.getElementById(it.elId);
+    if(!el) continue;   /* the list re-rendered under us — stop touching ghosts */
+    try{
+      var revs = window._ptFr262Cache[it.gid];
+      if(!revs){
+        if(!cfg || !cfg.worker || !cfg.username || !cfg.password) throw 0;
+        if(!token) token = await gcGetToken(cfg);
+        revs = await ptFr197FetchRevisions(cfg, it.gid, token);
+        window._ptFr262Cache[it.gid] = revs;
+      }
+      var svg = ptFr262Spark(revs);
+      el = document.getElementById(it.elId); if(!el) continue;   /* re-check after the await */
+      el.innerHTML = svg || GC;
+    }catch(_e){ el = document.getElementById(it.elId); if(el) el.innerHTML = GC; }
+  }
+}
 
 function openHomeCourseModal(name){
   const ex = document.getElementById('homeCourseModal'); if(ex) ex.remove();
@@ -78460,7 +78508,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v832.0';
+    const TOUR_VERSION     = 'pards-tour-v833.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
