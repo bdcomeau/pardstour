@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v808.0 -->
+  <!-- pards-tour-v809.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -15887,9 +15887,22 @@ function completeRound(){
   if(existing) existing.remove();
   const banner=document.createElement('div');
   banner.id='roundCompleteBanner';
-  banner.style.cssText='background:#1a3a2a;border:1.5px solid rgba(201,168,76,.5);border-radius:12px;margin:8px 10px 0;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px';
-  banner.innerHTML='<div><div style="font-size:13px;font-weight:800;color:#c9a84c">🏆 Round Complete — Saved ✓</div><div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:2px">You can still edit any hole above</div></div>'
-    +'<button onclick="newRound()" style="background:#c9a84c;color:#1a3a2a;border:none;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0">New Round →</button>';
+  banner.style.cssText='background:#1a3a2a;border:1.5px solid rgba(201,168,76,.5);border-radius:12px;margin:8px 10px 0;padding:12px 14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px';
+  /* ⭐ FR-252 (v809.0, s299) — THE DOOR BACK. ptShowRoundSummary shipped and then
+     lost its caller; FR-204 (s289) measured it as DEAD CODE — zero call sites on
+     v808.0. An event card with ONE card on this phone gets its summary door here,
+     on the surface the round ends on. A multi-player group card keeps its door on
+     the leaderboard (ptShowGroupScorecard). ⭐ Rendered and LOOKED at: a third
+     button wrapped the title to three lines, so the text block keeps flex:1 and
+     the two buttons ride one right-aligned group that wraps AS A UNIT. */
+  var _fr252Door = (G.joinGroup && G.scores && G.scores.length === 1)
+    ? '<button onclick="ptShowRoundSummary()" style="background:none;border:1.5px solid rgba(201,168,76,.5);color:#c9a84c;border-radius:10px;padding:9px 12px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0">📜 Summary</button>'
+    : '';
+  banner.innerHTML='<div style="flex:1;min-width:180px"><div style="font-size:13px;font-weight:800;color:#c9a84c">🏆 Round Complete — Saved ✓</div><div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:2px">You can still edit any hole above</div></div>'
+    +'<div style="display:flex;gap:8px;align-items:center;flex-shrink:0;margin-left:auto">'
+    +_fr252Door
+    +'<button onclick="newRound()" style="background:#c9a84c;color:#1a3a2a;border:none;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0">New Round →</button>'
+    +'</div>';
   const sbody=document.getElementById('sbody');
   if(sbody) sbody.insertBefore(banner,sbody.firstChild);
 }
@@ -71410,53 +71423,60 @@ function ptShowRoundSummary() {
     } catch (e) {}
   })();
 
-  // Hole-by-hole grid
-  var grid = '<div style="padding:0 16px;flex-shrink:0"><div style="font-size:11px;color:rgba(201,168,76,.6);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Hole by Hole</div>';
-  var rows = ['<div style="display:flex;gap:2px;margin-bottom:2px">'];
-  // Header row
-  rows.push('<div style="width:40px;font-size:9px;color:rgba(255,255,255,.25);font-weight:700;display:flex;align-items:center">HOLE</div>');
-  for (var hh = 0; hh < 18; hh++) {
-    var isFront = hh < 9;
-    rows.push('<div style="flex:1;font-size:8px;color:rgba(255,255,255,.25);font-weight:700;text-align:center">' + (hh+1) + '</div>');
-    if (hh === 8) rows.push('<div style="width:22px;font-size:8px;color:rgba(201,168,76,.4);font-weight:700;text-align:center">OUT</div>');
+  /* ⭐⭐⭐ FR-252 (v809.0, s299) — THE ROUND SUMMARY JOINS THE WHITE MASK.
+     The last renderer on fills. FR-202 (s289, his words: "majhority of screen can be
+     dark - but scores, par hole, parpoints, etc are on a white mask") did the phone
+     scorecard; FR-204 did the other two; ptScorecardModel is a model. Same three
+     constants, same ptFr202Chip → ptCbsMarkPrint — ONE geometry engine, one notation
+     across paper, TV and phone. ⛔ No fills below this line. */
+  var _sh252 = parseInt(G.startHole, 10); if (!(_sh252 > 0 && _sh252 <= 18)) _sh252 = 1;
+  function _rsCell(s, pv) {
+    if (s == null) return '<div style="flex:1;display:flex;align-items:center;justify-content:center"><span style="font-size:5px;color:rgba(20,20,15,.22)">●</span></div>';
+    return '<div style="flex:1;display:flex;align-items:center;justify-content:center">' + ptFr202Chip(s, pv) + '</div>';
   }
-  rows.push('<div style="width:22px;font-size:8px;color:rgba(201,168,76,.4);font-weight:700;text-align:center">IN</div>');
-  rows.push('<div style="width:28px;font-size:8px;color:rgba(201,168,76,.5);font-weight:700;text-align:center">TOT</div>');
-  rows.push('</div>');
-
-  // Par row
-  var frontPar = par.slice(0,9).reduce(function(a,b){return a+b;},0);
-  var backPar  = par.slice(9,18).reduce(function(a,b){return a+b;},0);
-  rows.push('<div style="display:flex;gap:2px;margin-bottom:2px">');
-  rows.push('<div style="width:40px;font-size:9px;color:rgba(255,255,255,.3);font-weight:700;display:flex;align-items:center">PAR</div>');
-  for (var hh = 0; hh < 18; hh++) {
-    rows.push('<div style="flex:1;font-size:9px;color:rgba(255,255,255,.3);text-align:center">' + (par[hh]||'-') + '</div>');
-    if (hh === 8) rows.push('<div style="width:22px;font-size:9px;color:rgba(201,168,76,.35);text-align:center;font-weight:700">' + frontPar + '</div>');
+  function _rsHoleHdr(nums, lbl) {
+    var r = '<div style="width:38px;flex-shrink:0;font-size:8.5px;font-weight:800;color:' + PT_FR202_SOFT + ';letter-spacing:.04em">HOLE</div>';
+    nums.forEach(function (n) { r += '<div style="flex:1;text-align:center">' + ptFr202HoleNum(n, n === _sh252) + '</div>'; });
+    r += '<div style="width:32px;text-align:center;font-size:9px;font-weight:800;color:' + PT_FR202_SOFT + '">' + lbl + '</div>';
+    return '<div style="display:flex;align-items:center;margin-bottom:2px">' + r + '</div>';
   }
-  rows.push('<div style="width:22px;font-size:9px;color:rgba(201,168,76,.35);text-align:center;font-weight:700">' + backPar + '</div>');
-  rows.push('<div style="width:28px;font-size:9px;color:rgba(201,168,76,.4);text-align:center;font-weight:700">' + (frontPar+backPar) + '</div>');
-  rows.push('</div>');
-
-  // Score row
-  var frontTotal = scores.slice(0,9).reduce(function(a,s){return s!==null?a+s:a;},0);
-  var backTotal  = scores.slice(9,18).reduce(function(a,s){return s!==null?a+s:a;},0);
-  rows.push('<div style="display:flex;gap:2px">');
-  rows.push('<div style="width:40px;font-size:9px;color:rgba(255,255,255,.4);font-weight:700;display:flex;align-items:center">SCORE</div>');
-  for (var hh = 0; hh < 18; hh++) {
-    var s = scores[hh];
-    var d = s !== null && par[hh] ? s - par[hh] : null;
-    var _scc = (s !== null && par[hh]) ? _ptScoreCellColor(s, par[hh]) : _ptScoreCellColor(null, null);   // s269 — the ONE palette
-    var bg = _scc.bg, col = _scc.color;
-    rows.push('<div style="flex:1;display:flex;align-items:center;justify-content:center">'
-      + '<span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:3px;font-size:9px;font-weight:800;background:' + bg + ';color:' + col + '">'
-      + (s!==null?s:'—') + '</span></div>');
-    if (hh === 8) rows.push('<div style="width:22px;font-size:10px;color:#c9a84c;text-align:center;font-weight:900;display:flex;align-items:center;justify-content:center">' + (frontTotal||'—') + '</div>');
+  function _rsParRow(slice, tot) {
+    var r = '<div style="width:38px;flex-shrink:0;font-size:8.5px;font-weight:800;color:' + PT_FR202_SOFT + ';letter-spacing:.04em">PAR</div>';
+    slice.forEach(function (p) { r += '<div style="flex:1;text-align:center;font-size:10px;font-weight:700;color:#3d3a33">' + (p || '·') + '</div>'; });
+    r += '<div style="width:32px;text-align:center;font-size:10px;font-weight:900;color:' + PT_FR202_INK + '">' + (tot || '·') + '</div>';
+    return '<div style="display:flex;align-items:center;margin-bottom:3px">' + r + '</div>';
   }
-  rows.push('<div style="width:22px;font-size:10px;color:#c9a84c;text-align:center;font-weight:900;display:flex;align-items:center;justify-content:center">' + (backTotal||'—') + '</div>');
-  rows.push('<div style="width:28px;font-size:11px;color:#c9a84c;text-align:center;font-weight:900;display:flex;align-items:center;justify-content:center">' + (totalStrokes||'—') + '</div>');
-  rows.push('</div>');
-
-  grid += rows.join('') + '</div>';
+  function _rsScoreRow(a, b, totPar) {
+    var r = '<div style="width:38px;flex-shrink:0"></div>';   /* FR-202 — must match the other two gutters or the row shifts a column */
+    var t = 0, any = false;
+    for (var i = a; i < b; i++) {
+      var s = scores[i] != null ? scores[i] : null;
+      if (s !== null) { t += s; any = true; }
+      r += _rsCell(s, par[i] != null ? par[i] : null);
+    }
+    var d = any ? (t - totPar) : null;
+    var dl = d === null ? '·' : (d === 0 ? 'E' : (d > 0 ? '+' + d : '' + d));
+    r += '<div style="width:32px;display:flex;align-items:center;justify-content:center"><span style="font-size:12px;font-weight:900;color:' + (d === null ? 'rgba(20,20,15,.28)' : PT_FR202_INK) + '">' + dl + '</span></div>';
+    return '<div style="display:flex;align-items:center">' + r + '</div>';
+  }
+  var frontPar = par.slice(0,9).reduce(function(a,b){return a+(b||0);},0);
+  var backPar  = par.slice(9,18).reduce(function(a,b){return a+(b||0);},0);
+  var _f252 = 0, _b252 = 0, _fAny = false, _bAny = false;
+  for (var _i252 = 0; _i252 < 18; _i252++) { var _s252 = scores[_i252]; if (_s252 != null) { if (_i252 < 9) { _f252 += _s252; _fAny = true; } else { _b252 += _s252; _bAny = true; } } }
+  var grid = '<div style="padding:0 16px;flex-shrink:0">'
+    + '<div style="font-size:11px;color:rgba(201,168,76,.6);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Hole by Hole</div>'
+    + '<div style="background:' + PT_FR202_PAPER + ';border-radius:12px;padding:12px">'
+    + '<div style="margin-bottom:6px">' + _rsHoleHdr([1,2,3,4,5,6,7,8,9],'OUT') + _rsParRow(par.slice(0,9),frontPar) + _rsScoreRow(0,9,frontPar) + '</div>'
+    + '<div style="border-top:1px solid rgba(20,20,15,.08);padding-top:8px">' + _rsHoleHdr([10,11,12,13,14,15,16,17,18],'IN') + _rsParRow(par.slice(9,18),backPar) + _rsScoreRow(9,18,backPar) + '</div>'
+    + '<div style="display:flex;align-items:baseline;justify-content:center;gap:12px;margin-top:9px;padding:7px 10px;border-radius:8px;background:rgba(20,20,15,.05);border:1px solid rgba(20,20,15,.14)">'
+    + '<span style="font-size:10px;font-weight:800;color:' + PT_FR202_SOFT + ';text-transform:uppercase;letter-spacing:.8px">Gross</span>'
+    + '<span style="font-size:12px;font-weight:800;color:#3d3a33">OUT ' + (_fAny ? _f252 : '·') + '</span>'
+    + '<span style="font-size:12px;font-weight:800;color:#3d3a33">IN ' + (_bAny ? _b252 : '·') + '</span>'
+    + '<span style="font-size:16px;font-weight:900;color:' + PT_FR202_INK + ';letter-spacing:1px">TOT ' + ((_fAny || _bAny) ? (_f252 + _b252) : '·') + '</span>'
+    + '</div>'
+    + '</div>'
+    + '<div style="margin-top:8px">' + ptFr202Legend() + '</div>'
+    + '</div>';
 
   // Leaderboard position (fetch async and inject)
   var lbSection = '<div id="ptSumLb" style="padding:16px;flex-shrink:0"><div style="font-size:11px;color:rgba(255,255,255,.2);text-align:center">Fetching leaderboard position…</div></div>';
@@ -77907,7 +77927,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v808.0';
+    const TOUR_VERSION     = 'pards-tour-v809.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
