@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v817.0 -->
+  <!-- pards-tour-v819.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -31315,31 +31315,50 @@ function ptLoadOrgUsage(){
   el.innerHTML = '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">Loading…</div>';
   fetch(TOUR_API + '/api/usage/summary', { headers:{ 'Authorization':'Bearer ' + G.orgToken } }).then(_ptJson).then(_ptThrow)
   .then(function(d){
-    var rows = d.rounds || [];
-    var now = new Date(); var wk = new Date(now); wk.setDate(now.getDate()-7);
-    var mo = new Date(now); mo.setDate(now.getDate()-30);
-    var wkN=0, moN=0, players={};
-    rows.forEach(function(r){ var t = new Date(r.played_on); if(t>=wk) wkN++; if(t>=mo) moN++; if(r.player) players[r.player]=1; });
-    var h = '<div style="display:flex;gap:8px;margin-bottom:14px">';
-    [['7 days',wkN],['30 days',moN],['All',rows.length],['Players',Object.keys(players).length]].forEach(function(x){
-      h += '<div style="flex:1;background:rgba(255,255,255,.06);border-radius:12px;padding:10px 6px;text-align:center">'
-        + '<div style="font-size:20px;font-weight:900;color:#c9a84c">'+x[1]+'</div>'
-        + '<div style="font-size:9px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px">'+x[0]+'</div></div>';
-    });
-    h += '</div>';
-    if(!rows.length) h += '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">No rounds reported yet — they arrive as players finish cards on the new client.</div>';
-    rows.slice(0,200).forEach(function(r){
-      h += '<div style="background:rgba(255,255,255,.05);border-radius:10px;padding:10px 14px;margin-bottom:6px;display:flex;align-items:center;gap:10px">'
-        + '<div style="flex:1;min-width:0">'
-        + '<div style="font-size:13px;font-weight:800;color:#f5e6b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+_esc(r.player||'')+(r.backfill?' <span style="color:rgba(255,255,255,.25);font-weight:600">↞</span>':'')+'</div>'
-        + '<div style="font-size:11px;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+_esc(r.played_on||'')+' · '+_esc(r.course_name||r.course_id||'—')+'</div></div>'
-        + '<div style="text-align:right;flex-shrink:0">'
-        + '<div style="font-size:14px;font-weight:900;color:'+(r.source==='event'?'#a8d5b5':'#c9a84c')+'">'+(r.total_score!=null?r.total_score:'—')+'</div>'
-        + '<div style="font-size:9px;color:rgba(255,255,255,.35)">'+(r.players_on_card||1)+' on card'+(r.source==='event'?' · event':'')+'</div></div>'
-        + '</div>';
-    });
-    el.innerHTML = h;
+    /* ⭐ FR-257 (v818.0, s299) — his ask: "filter by Me name … just want to see Ben
+       Toma activity". One fetch, cached; the picker re-renders without refetching. */
+    window._ptFr257Rows = d.rounds || [];
+    if(window._ptFr257Sel === undefined) window._ptFr257Sel = '';
+    ptFr257Render();
   }).catch(function(e){ el.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:20px;text-align:center">'+_ptEsc(_ptMsg(e,'Failed to load usage.'))+'</div>'; });
+}
+function ptFr257Render(){
+  var el = document.getElementById('ptOrgUsageList');
+  if(!el) return;
+  var all = window._ptFr257Rows || [];
+  var sel = window._ptFr257Sel || '';
+  var names = {};
+  all.forEach(function(r){ if(r.player) names[r.player] = 1; });
+  if(sel && !names[sel]) sel = window._ptFr257Sel = '';   /* a vanished name never strands an empty pane */
+  var rows = sel ? all.filter(function(r){ return r.player === sel; }) : all;
+  var now = new Date(); var wk = new Date(now); wk.setDate(now.getDate()-7);
+  var mo = new Date(now); mo.setDate(now.getDate()-30);
+  var wkN=0, moN=0, players={}, courses={};
+  rows.forEach(function(r){ var t = new Date(r.played_on); if(t>=wk) wkN++; if(t>=mo) moN++; if(r.player) players[r.player]=1; var _c = r.course_name||r.course_id; if(_c) courses[_c]=1; });
+  var h = '<select onchange="window._ptFr257Sel=this.value;ptFr257Render()" style="width:100%;margin-bottom:12px;padding:11px 12px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.18);border-radius:10px;color:#f5e6b8;font-size:13px;font-weight:700;outline:none;-webkit-appearance:none">'
+    + '<option value=""'+(sel===''?' selected':'')+'>👥 All players</option>'
+    + Object.keys(names).sort().map(function(n){ return '<option value="'+_esc(n).replace(/"/g,'&quot;')+'"'+(n===sel?' selected':'')+'>'+_esc(n)+'</option>'; }).join('')
+    + '</select>';
+  h += '<div style="display:flex;gap:8px;margin-bottom:14px">';
+  /* filtered: the 4th tile flips to the player's distinct courses — his player count would always read 1 */
+  [['7 days',wkN],['30 days',moN],['All',rows.length],[sel?'Courses':'Players', sel?Object.keys(courses).length:Object.keys(players).length]].forEach(function(x){
+    h += '<div style="flex:1;background:rgba(255,255,255,.06);border-radius:12px;padding:10px 6px;text-align:center">'
+      + '<div style="font-size:20px;font-weight:900;color:#c9a84c">'+x[1]+'</div>'
+      + '<div style="font-size:9px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px">'+x[0]+'</div></div>';
+  });
+  h += '</div>';
+  if(!rows.length) h += '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">'+(sel?('No rounds for '+_esc(sel)+' yet.'):'No rounds reported yet — they arrive as players finish cards on the new client.')+'</div>';
+  rows.slice(0,200).forEach(function(r){
+    h += '<div style="background:rgba(255,255,255,.05);border-radius:10px;padding:10px 14px;margin-bottom:6px;display:flex;align-items:center;gap:10px">'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="font-size:13px;font-weight:800;color:#f5e6b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+_esc(r.player||'')+(r.backfill?' <span style="color:rgba(255,255,255,.25);font-weight:600">↞</span>':'')+'</div>'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+_esc(r.played_on||'')+' · '+_esc(r.course_name||r.course_id||'—')+'</div></div>'
+      + '<div style="text-align:right;flex-shrink:0">'
+      + '<div style="font-size:14px;font-weight:900;color:'+(r.source==='event'?'#a8d5b5':'#c9a84c')+'">'+(r.total_score!=null?r.total_score:'—')+'</div>'
+      + '<div style="font-size:9px;color:rgba(255,255,255,.35)">'+(r.players_on_card||1)+' on card'+(r.source==='event'?' · event':'')+'</div></div>'
+      + '</div>';
+  });
+  el.innerHTML = h;
 }
 
 function ptLoadOrgLeagues() {
@@ -38650,11 +38669,11 @@ function ptFr256Send(eventId){
     window._ptFr256RosterN = roster.length;   /* v817.0 — the result header confesses it */
     return fetch(TOUR_API + '/api/scan-test', { method:'POST',
       headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer ' + G.orgToken },
-      body: JSON.stringify({ image: window._ptFr256Img, roster: roster }) }).then(_ptJson);
+      body: JSON.stringify({ image: window._ptFr256Img, roster: roster, event_id: eventId }) }).then(_ptJson);   /* v819.0 — the worker falls back to the FIELD */
   })
   .then(function(d){
     if(!d || !d.ok){ out.innerHTML = '<div style="color:#e74c3c;font-size:13px;padding:10px">'+_ptEsc((d&&d.error)||'Scan failed.')+'</div>'; return; }
-    var _rn = window._ptFr256RosterN || 0;
+    var _rn = (d.roster_used != null) ? d.roster_used : (window._ptFr256RosterN || 0);   /* v819.0 — the worker's count is the truth */
     var h = '<div style="font-size:10px;color:rgba(255,255,255,.35);margin-bottom:8px">'+_esc(d.model||'')+' · '+_esc(d.shape||'')+' · '+(d.ms||0)+'ms · roster '+_rn+'</div>'
       + (!_rn ? '<div style="font-size:11px;color:#e8a020;margin-bottom:8px">⚠ The event roster came back EMPTY — names were unguided and unfiltered. Tell Claude; that is its own bug.</div>' : '');
     if(d.parsed && d.parsed.players && d.parsed.players.length){
@@ -38664,7 +38683,22 @@ function ptFr256Send(eventId){
           + '<div style="font-size:12px;font-weight:800;color:#f5e6b8">'+_esc(p.name||'?')+'</div>'
           + '<div style="font-family:monospace;font-size:12px;color:rgba(255,255,255,.8);letter-spacing:2px;overflow-x:auto;white-space:nowrap;padding:2px 0">'
           + (Array.isArray(p.holes)?p.holes.map(function(x){return x==null?'·':x;}).join(' '):'—') + '</div>'
-          + '<div style="font-size:10px;color:rgba(255,255,255,.4)">OUT '+(p.out!=null?p.out:'·')+' · IN '+(p['in']!=null?p['in']:'·')+' · TOT '+(p.total!=null?p.total:'·')+'</div>'
+          + (function(){
+              /* v819.0 — his ruling: never trust the written OUT/IN totals; the holes are
+                 the truth. Compute, show the computed line, and flag a written total that
+                 disagrees — a flagged row is the checksum working, not an error. */
+              var f=0,fN=0,b=0,bN=0;
+              if(Array.isArray(p.holes)) p.holes.forEach(function(x,i){ if(typeof x==='number'){ if(i<9){f+=x;fN++;}else{b+=x;bN++;} } });
+              var fT = fN===9 ? f : '·', bT = bN===9 ? b : '·';
+              var tT = (fN===9&&bN===9) ? (f+b) : '·';
+              var s = '<div style="font-size:10px;color:rgba(255,255,255,.55)">Σ from holes: OUT '+fT+' · IN '+bT+' · TOT '+tT+'</div>';
+              var w = [];
+              if(fN===9 && p.out!=null && p.out!==f) w.push('OUT '+p.out);
+              if(bN===9 && p['in']!=null && p['in']!==b) w.push('IN '+p['in']);
+              if(fN===9 && bN===9 && p.total!=null && p.total!==f+b) w.push('TOT '+p.total);
+              if(w.length) s += '<div style="font-size:10px;color:#e8a020">⚠ card wrote '+w.join(' · ')+' — disagrees with the holes</div>';
+              return s;
+            })()
           + '</div>';
       });
     } else {
@@ -78269,7 +78303,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v817.0';
+    const TOUR_VERSION     = 'pards-tour-v819.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
