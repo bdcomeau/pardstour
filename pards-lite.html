@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- pards-lite-v1.54 -->
+<!-- pards-lite-v1.55 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -223,7 +223,7 @@ table.lbt td.n{text-align:right;font-weight:800;white-space:nowrap}
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LITE_VERSION = 'lite-v1.54';
+var LITE_VERSION = 'lite-v1.55';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var COORDS = {"derrick-gwc":[53.4684,-113.5411],"jasper-park-lodge":[52.8855,-118.053],"troon-north-monument":[33.7465,-111.8614],"troon-north-pinnacle":[33.7469,-111.8591],"kierland-ironwood-acacia":[33.6275,-111.9347],"kierland-mesquite-ironwood":[33.6275,-111.9347],"kierland-acacia-mesquite":[33.6275,-111.9347],"blackhawk-gc":[53.3856,-113.6612],"cougar-creek-gc":[53.5666,-114.2903],"trestle-creek-gc":[53.5668,-114.8947],"tower-ranch-gc":[49.9121,-119.3402],"okanagan-bear":[49.9558,-119.3965],"okanagan-quail":[49.9558,-119.3965],"harvest-gc":[49.856,-119.4246],"rise-gc":[50.274,-119.2709],"predator-ridge-predator":[50.1886,-119.3882],"predator-ridge-ridge":[50.1886,-119.3882],"bear-mountain-mountain":[48.4776,-123.5309],"bear-mountain-valley":[48.4776,-123.5309],"edmonton-cc":[53.4904,-113.5989],"glendale-gcc":[53.5828,-113.6651],"royal-mayfair":[53.5331,-113.5416],"edmonton-petroleum":[53.4175,-113.6916],"windermere-gcc":[53.4276,-113.6514],"mill-woods-gc":[53.482,-113.4293],"picture-butte-heritage-harvest":[49.8581,-112.8252],"picture-butte-homestead-harvest":[49.8581,-112.8252],"picture-butte-heritage-homestead":[49.8581,-112.8252],"palm-valley-challenge":[33.7646,-116.3319],"palm-valley-championship":[33.7646,-116.3319],"indian-ridge-arroyo":[33.7518,-116.3327],"indian-ridge-grove":[33.7518,-116.3327],"pgawest-tpc-stadium":[33.6414,-116.2585],"pgawest-citrus":[33.6713,-116.2873],"pgawest-mountain":[33.6831,-116.313],"pgawest-dunes":[33.6832,-116.313],"pgawest-nicklaus-tournament":[33.6453,-116.2576],"pgawest-greg-norman":[33.6465,-116.2438],"pgawest-nicklaus-private":[33.643,-116.2687],"pgawest-arnold-palmer":[33.6434,-116.2671],"pgawest-weiskopf":[33.6428,-116.2672],"banff-springs-rundle-sulphur":[51.1744,-115.5368],"banff-springs-rundle-tunnel":[51.1744,-115.5368],"banff-springs-sulphur-tunnel":[51.1744,-115.5368],"banff-springs-tunnel":[51.1744,-115.5368],"desert-willow-firecliff":[33.7657,-116.3667],"desert-willow-mountain-view":[33.7657,-116.3667],"shadow-ridge-gc":[33.7828,-116.3846],"highlands-gc":[53.5613,-113.4377],"glencoe-bridges-bridges":[51.0253,-114.2955],"glencoe-bridges-slopes":[51.0253,-114.2955],"glencoe-forest":[51.0253,-114.2955],"stewart-creek":[51.0461,-115.3138],"kananaskis-kidd":[50.9031,-115.1437],"kananaskis-lorette":[50.9031,-115.1437],"silvertip-gc":[51.1056,-115.3418],"pinnacle-peak-cc":[33.6959,-111.8951],"mesa-cc":[33.4389,-111.8455],"las-sendas-gc":[33.4892,-111.6703],"copper-point-the-point":[50.5059,-115.9968],"copper-point-ridge":[50.5059,-115.9968],"eagle-ranch-gc":[50.5293,-116.0269],"greywolf-gc":[50.4475,-116.2484],"springs-course":[50.5982,-116.0452],"radium-course":[50.5982,-116.0452],"fairmont-mountainside":[50.3327,-115.8534],"fairmont-riverside":[50.3327,-115.8534],"royal-colwood-gc":[48.4435,-123.4875],"capilano-gcc":[49.3532,-123.1239],"chateau-whistler-gc":[50.1303,-122.9739],"nicklaus-north-gc":[50.143,-122.9499],"trickle-creek-gc":[49.6825,-115.9967],"willow-park-gcc":[50.9584,-114.0485],"boulders-north":[33.8023,-111.9177],"boulders-south":[33.8023,-111.9177],"boulders-fn-bs":[33.8023,-111.9177],"mickelson-national-gc":[51.1209,-114.3835],"canyon-meadows-gc":[50.9413,-114.0979],"eagle-mountain-gc":[33.5767,-111.7589],"phoenician-gc":[33.5064,-111.9493],"longbow-gc":[33.4724,-111.7101],"lookout-mountain-gc":[33.6041,-112.0472],"lakes-palm-mountain":[33.7536,-116.3465],"lakes-mountain-lake":[33.7536,-116.3465],"lakes-lake-palm":[33.7536,-116.3465],"desert-springs-palm":[33.7525,-116.3646],"desert-springs-valley":[33.7525,-116.3646],"gallaghers-canyon":[49.8418,-119.3786],"gallaghers-pinnacle":[49.8418,-119.3786],"cabot-links":[46.2366,-61.3042],"cabot-cliffs":[46.2366,-61.3042],"highlands-links":[46.7631,-60.4548],"crowbush-cove":[46.4323,-62.7957],"royal-montreal-blue":[45.4935,-73.9032],"royal-montreal-dixie":[45.4935,-73.9032],"royal-montreal-red":[45.4935,-73.9032],"makena-gc":[20.6407,-156.4419],"wailea-blue":[20.7651,-156.4251],"wailea-emerald":[20.7651,-156.4251],"wailea-gold":[20.7651,-156.4251],"bandon-bandon-dunes":[43.0374,-124.3662],"bandon-pacific-dunes":[43.0374,-124.3662],"bandon-old-macdonald":[43.0374,-124.3662],"bandon-trails":[43.0374,-124.3662],"bandon-sheep-ranch":[43.0374,-124.3662],"pinehurst-no1":[35.1962,-79.4689],"pinehurst-no2":[35.1962,-79.4689],"pinehurst-no3":[35.1962,-79.4689],"pinehurst-no4":[35.1962,-79.4689],"pinehurst-no5":[35.1962,-79.4689],"pinehurst-no6":[35.1962,-79.4689],"pinehurst-no7":[35.1962,-79.4689],"pinehurst-no8":[35.1962,-79.4689],"pinehurst-no9":[35.1962,-79.4689],"pinehurst-no10":[35.1962,-79.4689],"reynolds-great-waters":[33.5492,-83.1798],"reynolds-national-cove-ridge":[33.5492,-83.1798],"reynolds-preserve":[33.5492,-83.1798],"reynolds-national-bluff-cove":[33.5492,-83.1798],"reynolds-national-ridge-bluff":[33.5492,-83.1798],"reynolds-richland":[33.5492,-83.1798],"reynolds-creek-club":[33.5492,-83.1798],"reynolds-landing":[33.5492,-83.1798],"reynolds-oconee-club":[33.5492,-83.1798],"redtail-landing":[53.3225,-113.5572],"jagare-ridge-gc":[53.4223,-113.5814],"northern-bear-gc":[53.3761,-113.1442],"windermere-valley":[50.4685,-115.9474],"river-ridge-gc":[53.4684,-113.5411]};
@@ -1953,6 +1953,227 @@ function tickRender(){
 /* ⭐ B-69 — ONE board renderer, two sources (the D66 padBlock precedent).
    No arg = the team board off _st, exactly as before. An array arg = the
    individual rows ltRoundLb fetched. One .lbt table, one click delegate. */
+/* FR-259 (lite-v1.55, s299) — SHARE LEADERBOARD VIEW. His ask: a QR at the top
+   of the leaderboard the scorekeeper shows the group; it opens Pards Live with
+   the EVENT (view) code — s276: event_code = view, score_code = scoring.
+   ptScbQR/ptScbQRSvg are the client's own producers, ported VERBATIM. */
+function ptScbQR(text) {
+  var data = [];
+  for (var i = 0; i < text.length; i++) {
+    var c = text.charCodeAt(i);
+    if (c < 0x80) data.push(c);
+    else if (c < 0x800) { data.push(0xC0 | (c >> 6), 0x80 | (c & 63)); }
+    else { data.push(0xE0 | (c >> 12), 0x80 | ((c >> 6) & 63), 0x80 | (c & 63)); }
+  }
+  var TAB = { 1: [16, [[1, 26, 16]]], 2: [28, [[1, 44, 28]]], 3: [44, [[1, 70, 44]]], 4: [64, [[2, 50, 32]]], 5: [86, [[2, 67, 43]]], 6: [108, [[4, 43, 27]]] };
+  var ALIGN = { 1: [], 2: [6, 18], 3: [6, 22], 4: [6, 26], 5: [6, 30], 6: [6, 34] };
+  var ver = 0;
+  for (var v = 1; v <= 6; v++) { if (TAB[v][0] >= data.length + 2) { ver = v; break; } }
+  if (!ver) return null;
+  var dataCW = TAB[ver][0], blocks = TAB[ver][1], size = 17 + 4 * ver;
+  var bits = [];
+  function put(val, n) { for (var b = n - 1; b >= 0; b--) bits.push((val >> b) & 1); }
+  put(4, 4); put(data.length, 8);
+  for (i = 0; i < data.length; i++) put(data[i], 8);
+  var cap = dataCW * 8;
+  for (i = 0; i < 4 && bits.length < cap; i++) bits.push(0);
+  while (bits.length % 8) bits.push(0);
+  var cw = [];
+  for (i = 0; i < bits.length; i += 8) {
+    var byte = 0; for (var j = 0; j < 8; j++) byte = (byte << 1) | bits[i + j];
+    cw.push(byte);
+  }
+  var padSeq = [0xEC, 0x11], pi = 0;
+  while (cw.length < dataCW) cw.push(padSeq[(pi++) % 2]);
+  var EXP = new Array(512), LOG = new Array(256);
+  for (i = 0, j = 1; i < 255; i++) { EXP[i] = j; LOG[j] = i; j <<= 1; if (j & 256) j ^= 0x11D; }
+  for (i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+  function rsGen(n) {
+    var g = [1];
+    for (var k = 0; k < n; k++) {
+      var ng = new Array(g.length + 1).fill(0);
+      for (var t = 0; t < g.length; t++) {
+        ng[t] ^= g[t];
+        ng[t + 1] ^= g[t] ? EXP[(LOG[g[t]] + k) % 255] : 0;
+      }
+      g = ng;
+    }
+    return g;
+  }
+  function rsEC(msg, ecLen) {
+    var gen = rsGen(ecLen);
+    var rem = msg.concat(new Array(ecLen).fill(0));
+    for (var k = 0; k < msg.length; k++) {
+      var coef = rem[k];
+      if (coef !== 0) {
+        for (var t = 1; t < gen.length; t++) rem[k + t] ^= gen[t] ? EXP[(LOG[coef] + LOG[gen[t]]) % 255] : 0;
+      }
+    }
+    return rem.slice(msg.length);
+  }
+  var dBlocks = [], eBlocks = [], pos = 0;
+  blocks.forEach(function (bl) {
+    var num = bl[0], total = bl[1], dlen = bl[2], ecLen = total - dlen;
+    for (var b = 0; b < num; b++) {
+      var d = cw.slice(pos, pos + dlen); pos += dlen;
+      dBlocks.push(d); eBlocks.push(rsEC(d, ecLen));
+    }
+  });
+  var seq = [];
+  var maxD = Math.max.apply(null, dBlocks.map(function (b) { return b.length; }));
+  for (i = 0; i < maxD; i++) dBlocks.forEach(function (b) { if (i < b.length) seq.push(b[i]); });
+  var maxE = Math.max.apply(null, eBlocks.map(function (b) { return b.length; }));
+  for (i = 0; i < maxE; i++) eBlocks.forEach(function (b) { if (i < b.length) seq.push(b[i]); });
+  var M = [], R = [];
+  for (i = 0; i < size; i++) { M.push(new Array(size).fill(0)); R.push(new Array(size).fill(false)); }
+  function set(r, c, val) { M[r][c] = val ? 1 : 0; R[r][c] = true; }
+  function finder(r, c) {
+    for (var dr = -1; dr <= 7; dr++) for (var dc = -1; dc <= 7; dc++) {
+      var rr = r + dr, cc = c + dc;
+      if (rr < 0 || rr >= size || cc < 0 || cc >= size) continue;
+      var on = (dr >= 0 && dr <= 6 && dc >= 0 && dc <= 6) &&
+        (dr === 0 || dr === 6 || dc === 0 || dc === 6 || (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4));
+      set(rr, cc, on);
+    }
+  }
+  finder(0, 0); finder(0, size - 7); finder(size - 7, 0);
+  for (i = 8; i < size - 8; i++) { if (!R[6][i]) set(6, i, i % 2 === 0); if (!R[i][6]) set(i, 6, i % 2 === 0); }
+  var ap = ALIGN[ver];
+  for (i = 0; i < ap.length; i++) for (j = 0; j < ap.length; j++) {
+    var ar = ap[i], ac = ap[j];
+    if (R[ar][ac]) continue;
+    for (var dr2 = -2; dr2 <= 2; dr2++) for (var dc2 = -2; dc2 <= 2; dc2++)
+      set(ar + dr2, ac + dc2, Math.max(Math.abs(dr2), Math.abs(dc2)) !== 1);
+  }
+  set(size - 8, 8, 1);
+  for (i = 0; i <= 8; i++) {
+    if (i !== 6) { if (!R[8][i]) set(8, i, 0); if (!R[i][8]) set(i, 8, 0); }
+  }
+  for (i = 0; i < 8; i++) { if (!R[8][size - 1 - i]) set(8, size - 1 - i, 0); if (!R[size - 1 - i][8]) set(size - 1 - i, 8, 0); }
+  var dataCells = [];
+  var bitIdx = 0, totalBits = seq.length * 8;
+  var col = size - 1, up = true;
+  while (col > 0) {
+    if (col === 6) col--;
+    for (var step = 0; step < size; step++) {
+      var row = up ? size - 1 - step : step;
+      for (var side = 0; side < 2; side++) {
+        var cc2 = col - side;
+        if (R[row][cc2]) continue;
+        var bit = 0;
+        if (bitIdx < totalBits) bit = (seq[bitIdx >> 3] >> (7 - (bitIdx & 7))) & 1;
+        bitIdx++;
+        M[row][cc2] = bit;
+        dataCells.push([row, cc2]);
+      }
+    }
+    up = !up; col -= 2;
+  }
+  function maskFn(m, r, c) {
+    switch (m) {
+      case 0: return (r + c) % 2 === 0;
+      case 1: return r % 2 === 0;
+      case 2: return c % 3 === 0;
+      case 3: return (r + c) % 3 === 0;
+      case 4: return (Math.floor(r / 2) + Math.floor(c / 3)) % 2 === 0;
+      case 5: return ((r * c) % 2 + (r * c) % 3) === 0;
+      case 6: return ((r * c) % 2 + (r * c) % 3) % 2 === 0;
+      case 7: return ((r + c) % 2 + (r * c) % 3) % 2 === 0;
+    }
+  }
+  function fmtBits(mask) {
+    var d5 = mask; // ECC M indicator = 00
+    var rem = d5 << 10;
+    for (var b = 14; b >= 10; b--) if ((rem >> b) & 1) rem ^= 0x537 << (b - 10);
+    return (((d5 << 10) | rem) ^ 0x5412) & 0x7FFF;
+  }
+  function writeFormat(mask) {
+    var f = fmtBits(mask);
+    for (var b = 0; b < 15; b++) {
+      var bit = (f >> (14 - b)) & 1; // MSB of the 15-bit format string sits at (8,0)
+      if (b < 6) M[8][b] = bit;
+      else if (b === 6) M[8][7] = bit;
+      else if (b === 7) M[8][8] = bit;
+      else if (b === 8) M[7][8] = bit;
+      else M[14 - b][8] = bit;
+      if (b < 8) M[size - 1 - b][8] = bit;
+      else M[8][size - 15 + b] = bit;
+    }
+    M[size - 8][8] = 1;
+  }
+  function penalty() {
+    var p = 0, r, c;
+    for (r = 0; r < size; r++) {
+      var run = 1;
+      for (c = 1; c <= size; c++) {
+        if (c < size && M[r][c] === M[r][c - 1]) run++;
+        else { if (run >= 5) p += 3 + (run - 5); run = 1; }
+      }
+    }
+    for (c = 0; c < size; c++) {
+      var run2 = 1;
+      for (r = 1; r <= size; r++) {
+        if (r < size && M[r][c] === M[r - 1][c]) run2++;
+        else { if (run2 >= 5) p += 3 + (run2 - 5); run2 = 1; }
+      }
+    }
+    for (r = 0; r < size - 1; r++) for (c = 0; c < size - 1; c++) {
+      var x = M[r][c];
+      if (M[r][c + 1] === x && M[r + 1][c] === x && M[r + 1][c + 1] === x) p += 3;
+    }
+    var pat1 = [1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0], pat2 = [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1];
+    function scan(get) {
+      for (var a = 0; a < size; a++) for (var s = 0; s + 11 <= size; s++) {
+        var ok1 = true, ok2 = true;
+        for (var k = 0; k < 11; k++) {
+          var val = get(a, s + k);
+          if (val !== pat1[k]) ok1 = false;
+          if (val !== pat2[k]) ok2 = false;
+        }
+        if (ok1) p += 40; if (ok2) p += 40;
+      }
+    }
+    scan(function (a, k) { return M[a][k]; });
+    scan(function (a, k) { return M[k][a]; });
+    var dark = 0;
+    for (r = 0; r < size; r++) for (c = 0; c < size; c++) dark += M[r][c];
+    p += Math.floor(Math.abs(dark * 100 / (size * size) - 50) / 5) * 10;
+    return p;
+  }
+  var bestP = Infinity, saved = null;
+  for (var m = 0; m < 8; m++) {
+    dataCells.forEach(function (rc) { if (maskFn(m, rc[0], rc[1])) M[rc[0]][rc[1]] ^= 1; });
+    writeFormat(m);
+    var p = penalty();
+    if (p < bestP) { bestP = p; saved = M.map(function (row) { return row.slice(); }); }
+    dataCells.forEach(function (rc) { if (maskFn(m, rc[0], rc[1])) M[rc[0]][rc[1]] ^= 1; });
+  }
+  return { size: size, matrix: saved };
+}
+function ptScbQRSvg(text, px) {
+  var q = ptScbQR(text);
+  if (!q) return '';
+  var n = q.size, quiet = 4, dim = n + 2 * quiet;
+  var s = '<svg xmlns="http://www.w3.org/2000/svg" width="' + px + '" height="' + px + '" viewBox="0 0 ' + dim + ' ' + dim + '" shape-rendering="crispEdges">'
+    + '<rect width="' + dim + '" height="' + dim + '" fill="#fff"/><path fill="#000" d="';
+  for (var r = 0; r < n; r++) {
+    for (var c = 0; c < n; c++) {
+      if (q.matrix[r][c]) s += 'M' + (c + quiet) + ' ' + (r + quiet) + 'h1v1h-1z';
+    }
+  }
+  return s + '"/></svg>';
+}
+function ltShareBlock(){
+  if (!S.evCode) return '';   /* trip boards and codeless cards: nothing, fail-open */
+  var url = 'https://pardstour.com/pards-live.html?code=' + S.evCode;
+  return '<div style="margin:0 0 10px">'
+    + '<button onclick="document.getElementById(\'lbShareQr\').classList.toggle(\'hide\')" style="width:100%;padding:11px;background:rgba(100,180,255,.10);border:1.5px solid rgba(100,180,255,.45);border-radius:11px;color:#7cc0ff;font-size:13px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">\ud83d\udcfa Share leaderboard \u2014 show QR</button>'
+    + '<div id="lbShareQr" class="hide" style="text-align:center;padding:12px;background:#fff;border-radius:12px;margin-top:8px">'
+    + ptScbQRSvg(url, 148)
+    + '<div style="font-size:11px;color:#1a3a2a;margin-top:6px;font-weight:800">Scan to watch \u00b7 Pards Live</div>'
+    + '<div style="font-size:10px;color:#666;margin-top:2px">' + esc(url) + '</div>'
+    + '</div></div>';
+}
 function lbOpen(indiv){
   var rows, h;
   if (indiv){
@@ -1983,7 +2204,7 @@ function lbOpen(indiv){
   }
   $('lbTitle').textContent = S.evName;
   $('lbClock').textContent = _at ? ('Updated ' + String(_at).replace('T',' ').replace('Z',' UTC')) : '';
-  $('lbBody').innerHTML = h;
+  $('lbBody').innerHTML = ltShareBlock() + h;
   $('lb').style.display = 'block';
 }
 $('lbBody').addEventListener('click', function(e){
@@ -2087,7 +2308,7 @@ function ltTripLb(){
       h += '</table><div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:8px">Trip standings \u00b7 every round, by points.</div>';
       $('lbTitle').textContent = S.evName;
       $('lbClock').textContent = '';
-      $('lbBody').innerHTML = h;
+      $('lbBody').innerHTML = ltShareBlock() + h;
       $('lb').style.display = 'block';
     })
     .catch(nb);
