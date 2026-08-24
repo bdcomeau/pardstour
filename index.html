@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v834.0 -->
+  <!-- pards-tour-v835.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -20901,22 +20901,28 @@ function manualSaveRound(){
       ? hist.filter(r=>new Date(r.roundDate)>new Date(lastBackup)).length
       : hist.length;
     if(roundsSinceBackup>0 && roundsSinceBackup%10===0){
-      setTimeout(()=>{
-        if(confirm(
-          '⚠️ Backup Reminder\n\n'
-          +'You have played '+roundsSinceBackup+' rounds since your last backup.\n\n'
-          +'It\'s a good time to export your round history.\n\n'
-          +'Open the Backup screen to save a copy.\n\n'
-          +'Open Backup now?'
-        )){
-          showS('backup');
-        }
-      }, 1500);
+      setTimeout(()=>{ ptBackupReminder(roundsSinceBackup); }, 1500);   /* v835.0 — was a confirm() */
     }
   }catch(e){}
   // Refresh save buttons (hide them now that it's saved)
   if(document.getElementById('screen-score').classList.contains('active')) renderCard();
   if(document.getElementById('screen-bets').classList.contains('active')) renderBets();
+}
+
+/* ⭐ v835.0 (s300) — his "do it": the every-10th-round backup reminder was the last
+   window.confirm() on a golfer's own path in Pards Golf. confirm() is unreliable in an
+   iOS PWA (this file has learned it three times) and a standing ⛔. Same family as the
+   International reminder: an export-overlay, two honest buttons, no browser dialog. */
+function ptBackupReminder(n){
+  _showBJOverlay('backupReminderPopup',`
+    <div style="background:#F8F3EB;border-radius:14px;padding:24px;max-width:320px;text-align:center">
+      <div style="font-size:36px;margin-bottom:8px">⚠️</div>
+      <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:8px">Backup Reminder</div>
+      <div style="font-size:13px;color:#666;margin-bottom:6px">You have played <b>${n}</b> round${n===1?'':'s'} since your last backup.</div>
+      <div style="font-size:13px;color:#666;margin-bottom:16px">It's a good time to export your round history — the Backup screen saves a copy.</div>
+      <button class="export-overlay-btn save" style="width:100%;margin-bottom:8px" onclick="document.getElementById('backupReminderPopup').remove();showS('backup')">📦 Open Backup</button>
+      <button class="export-overlay-btn close" style="width:100%;background:transparent;color:#666;border:1.5px solid #ccc" onclick="document.getElementById('backupReminderPopup').remove()">Later</button>
+    </div>`);
 }
 
 function showToast(msg){
@@ -78534,7 +78540,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v834.0';
+    const TOUR_VERSION     = 'pards-tour-v835.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
