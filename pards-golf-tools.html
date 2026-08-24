@@ -639,10 +639,11 @@ const SK = 'pards_gc';
    deploy: pards-tools-v1.0 -> v1.1 -> v1.2 ... Two occurrences in the file
    need the bump — this const, and nowhere else (the header badge reads it
    live via displayVersion()). */
-const CURRENT_VERSION = 'pards-tools-v1.22';
+const CURRENT_VERSION = 'pards-tools-v1.23';
 const LIVE_URL = 'https://bdcomeau.github.io/pardstour/pards-golf-tools.html';  // s85 (Bruce): serve from the pardstour repo
 const VERSION_REGEX = /const CURRENT_VERSION = '(pards-tools-v[\d.]+)'/;
 const RELEASE_NOTES = [
+  'v1.23 — HCP Calc: an 8 handicap now prints "8" and a plus player prints "+2" (B-308) — the sign was backwards. A "+1.8" index from Golf Canada is read as a plus handicap (strokes given back), not as 1.8.',
   'v1.21 — Login: removed the Score Centre fallback (B-180) — a failed golfnet login now reports honestly instead of signing in with a token the lookups reject.',
   'v1.19 — Menu (Members / HCP Calc / Courses) moved from the bottom of the screen to the top, pinned under the header while scrolling.',
   'v1.18 — Members: added blue "📊 Last 20 Rounds" button on each player card — opens the round history modal directly.',
@@ -1179,6 +1180,26 @@ document.addEventListener('keydown', e => {
    TAB 2 — HCP CALCULATOR
    ========================================================================= */
 let _selectedGid = null, _selectedIndex = null;
+
+/* ⭐ B-308 (v1.23, s301) — ONE reader for a Golf Canada handicap index, ONE formatter each for an
+   index and a course handicap. THE GOLF CONVENTION: a PLUS handicap (better than scratch) prints
+   "+1.8" / "+2" and is a NEGATIVE number in the arithmetic; an ordinary handicap prints plain "8.3" / "8".
+   GC's numeric fields are signed that way already; its display strings carry the "+". Never parseFloat a
+   display string — parseFloat('+1.8') is +1.8, the wrong sign, and a scratch-beater gets given strokes. */
+function gcIndexOf(m){
+  if(!m) return null;
+  const raw = m.displayHandicap;
+  const t = (raw == null) ? '' : String(raw).trim();
+  const plus = t.charAt(0) === '+';                       // the display string's "+" is THE authority on the sign
+  const keys = ['handicapValue','handicapIndex','handicap','index'];
+  for(let i=0;i<keys.length;i++){ const v = m[keys[i]]; if(typeof v === 'number' && isFinite(v)) return plus ? -Math.abs(v) : v; }
+  if(t === '' || t === 'NA') return null;
+  const n = parseFloat(t.replace(/^[+\u2212-]/, ''));
+  if(!isFinite(n)) return null;
+  return (plus || t.charAt(0) === '-' || t.charAt(0) === '\u2212') ? -Math.abs(n) : n;
+}
+function fmtIndex(n){ if(n == null || !isFinite(n)) return ''; return n < 0 ? '+' + Math.abs(n).toFixed(1) : Number(n).toFixed(1); }
+function fmtCourseHcp(adj){ return adj < 0 ? '+' + Math.abs(adj) : String(adj); }
 let _selectedTee = null, _selectedCourse = null;
 
 function hcpStatus(id, msg, type){
@@ -1324,11 +1345,11 @@ async function searchPlayer(){
 function selectPlayer(m){
   const fullName = ((m.firstName||'')+' '+(m.lastName||'')).trim();
   const gcId = m.golfCanadaCardId || m.cardId || m.id || '';
-  const hdcp = (m.displayHandicap && m.displayHandicap!=='NA') ? parseFloat(m.displayHandicap) : null;
+  const hdcp = gcIndexOf(m);   /* B-308 — signed the golf way: a plus index is negative here */
   _selectedGid = gcId;
   _selectedIndex = hdcp;
   document.getElementById('playerName').textContent = fullName;
-  document.getElementById('playerMeta').textContent = 'GC '+gcId+(hdcp!=null?' · Index '+hdcp:'') + (m.clubName ? ' · '+m.clubName : '');
+  document.getElementById('playerMeta').textContent = 'GC '+gcId+(hdcp!=null?' · Index '+fmtIndex(hdcp):'') + (m.clubName ? ' · '+m.clubName : '');
   document.getElementById('selectedPlayer').style.display = 'block';
   document.getElementById('searchResults').style.display = 'none';
   hcpStatus('searchStatus','');
@@ -1342,11 +1363,11 @@ function calcHandicap(){
   const coursePar = t.par || 72;
   const raw = (_selectedIndex * t.slope / 113) + (t.rating - coursePar);
   const adj = Math.round(raw);
-  document.getElementById('resultHcp').textContent = adj >= 0 ? '+'+adj : adj;
+  document.getElementById('resultHcp').textContent = fmtCourseHcp(adj);   /* B-308 — "8" for an 8, "+2" for a plus player */
   document.getElementById('resultCourse').textContent = _selectedCourse.name+' · '+t.name+' ('+t.rating+'/'+t.slope+')';
   document.getElementById('resultDetail').innerHTML =
-    'Index '+_selectedIndex+' × '+t.slope+' ÷ 113 + ('+t.rating+' − '+coursePar+')'
-    +'<br>= '+raw.toFixed(1)+' → rounded to <strong>'+adj+'</strong>';
+    'Index '+fmtIndex(_selectedIndex)+' × '+t.slope+' ÷ 113 + ('+t.rating+' − '+coursePar+')'
+    +'<br>= '+raw.toFixed(1)+' → rounded to <strong>'+fmtCourseHcp(adj)+'</strong>';
   document.getElementById('resultBox').style.display = 'block';
   document.getElementById('resultBox').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
