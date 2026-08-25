@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.21 s303)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.22 s303)
+     v1.22 (FR-274 amendment, his words): the kinds are DISTINCT head-level
+     groups — In — Golf and Dinner Party / In — Golf Only / In — Dinner Party
+     Only — and the first form option says "Golf and Dinner Party".
      v1.21 (FR-274): THE ATTENDANCE PICK LIST — "Golf and Dinner / Golf Only /
      Dinner Party Only", opt-in via reg_page.attend. Golf answers are normal
      yeses; Dinner Party Only registers without ever joining the player field.
@@ -437,7 +440,7 @@
       <div id="atBlock" class="hidden">
       <label>I&rsquo;m coming for&hellip;</label>
       <div class="at-stack">
-        <button type="button" id="atGD" class="on">&#9971;&#127869;&nbsp; Golf and Dinner</button>
+        <button type="button" id="atGD" class="on">&#9971;&#127869;&nbsp; Golf and Dinner Party</button>
         <button type="button" id="atG">&#9971;&nbsp; Golf Only</button>
         <button type="button" id="atD">&#127869;&nbsp; Dinner Party Only</button>
       </div>
@@ -721,9 +724,10 @@ async function loadEvent(){
     var anyKind = Array.isArray(kinds) && kinds.some(function (k) { return k === 'golf_dinner' || k === 'golf' || k === 'dinner'; });
     var inCol;
     if (anyKind) {
-      var groups = [ ['golf_dinner', '\u26f3\ud83c\udf7d Golf & Dinner'], ['golf', '\u26f3 Golf Only'],
-                     ['dinner', '\ud83c\udf7d Dinner Party Only'], [null, 'In'] ];
-      inCol = '<div class="io-col"><div class="io-head yes">In &middot; ' + (a.yes || []).length + '</div>';
+      /* v1.22 — HIS WORDS: distinct groups, each with the full "In —" head. */
+      var groups = [ ['golf_dinner', 'In \u2014 Golf and Dinner Party'], ['golf', 'In \u2014 Golf Only'],
+                     ['dinner', 'In \u2014 Dinner Party Only'], [null, 'In'] ];
+      inCol = '<div class="io-col">';
       groups.forEach(function (g) {
         var idx = [];
         (a.yes || []).forEach(function (_n, i) {
@@ -731,7 +735,7 @@ async function loadEvent(){
           if (g[0] === null ? !(k === 'golf_dinner' || k === 'golf' || k === 'dinner') : k === g[0]) idx.push(i);
         });
         if (!idx.length) return;
-        inCol += '<div class="io-sub">' + g[1] + ' &middot; ' + idx.length + '</div>';
+        inCol += '<div class="io-head yes"' + (g[0] === 'golf_dinner' ? '' : ' style="margin-top:10px"') + '>' + g[1] + ' &middot; ' + idx.length + '</div>';
         idx.forEach(function (i) {
           inCol += '<div class="io-name">' + esc(a.yes[i]) + '</div>';
           var w = when((a.yes_at || [])[i]);
