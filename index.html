@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v863.0 -->
+  <!-- pards-tour-v864.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -46264,6 +46264,7 @@ function loadOrgEventDetail(eventId) {
         + '</div>';
     }
     var _footerHtml = '<div style="display:flex;gap:8px;margin-top:8px">'
+      +'<button onclick="ptTeamBuilderOpen('+ev.id+')" style="flex:1;padding:13px;background:rgba(168,213,181,.1);border:1.5px solid rgba(168,213,181,.4);border-radius:12px;color:#a8d5b5;font-size:14px;font-weight:800;cursor:pointer">🧩 Team Builder</button>'   /* FR-269 (v864.0) */
       +'<button onclick="ptShowAddGroup('+ev.id+')" style="flex:1;padding:13px;background:rgba(201,168,76,.08);border:1.5px dashed rgba(201,168,76,.3);border-radius:12px;color:#c9a84c;font-size:14px;font-weight:700;cursor:pointer">+ Add Team</button>'
       /* FR-225 (v767.0) — the player door, on the screen he named (s286 rule).
          Team events only; individual events reach players through the tee sheet. */
@@ -71771,6 +71772,173 @@ var _ptDrawImportRoster = [];
 var _ptDrawImportFormat = null;
 var _ptDrawImportMode = 'teams';   /* FR-273 (v860.0) — 'teams' | 'players' (players = field only, no teams) */
 
+/* ⭐⭐⭐ FR-269 (v864.0, s303) — THE FIELD-FIRST TEAM BUILDER. Filed at the dress rehearsal off
+   his verbatim premise ("people register - then I use a team builder to drag and drop into
+   teams"), asked again today on the Corn Cup. Pool = the FIELD (in_field registrations — the
+   FR-274 dinner-only guests can never appear here) minus everyone already seated; teams = the
+   event's real groups. Tap-tap on every device, drag on desktop, one mover. 🎲 Auto-Draw deals
+   the shuffled pool into teams of the event's size. ⛔ Never a second team engine: Save replays
+   the FR-21/Draft-Night writers sequentially and nothing is written before Save. */
+window._ptTB269 = null;
+window.ptTeamBuilderOpen = function (eventId) {
+  var ov = document.createElement('div');
+  ov.id = 'ptTB269Ov';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:900;background:#0d1f0d;display:flex;flex-direction:column;overflow:hidden';
+  ov.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 12px;border-bottom:1px solid rgba(201,168,76,.2);flex-shrink:0">'
+    + '<button onclick="ptTB269Close()" style="background:none;border:none;color:rgba(201,168,76,.7);font-size:24px;cursor:pointer;padding:0">\u2190</button>'
+    + '<div style="font-size:16px;font-weight:800;color:#c9a84c">\ud83e\udde9 Team Builder</div><div style="width:32px"></div></div>'
+    + '<div id="ptTB269Body" style="flex:1;overflow-y:auto;padding:16px 16px 140px"><div style="color:rgba(255,255,255,.4);text-align:center;padding:40px 0">Loading\u2026</div></div>'
+    + '<div id="ptTB269Foot" style="position:absolute;left:0;right:0;bottom:0;padding:12px 16px calc(14px + env(safe-area-inset-bottom));background:rgba(13,31,13,.97);border-top:1px solid rgba(201,168,76,.25)"></div>';
+  document.body.appendChild(ov);
+  var H = { headers: { 'Authorization': 'Bearer ' + G.orgToken } };
+  Promise.all([
+    fetch(TOUR_API + '/api/events/' + eventId, H).then(_ptJson),
+    fetch(TOUR_API + '/api/events/' + eventId + '/registrations', H).then(_ptJson).catch(function () { return { list: [] }; })
+  ]).then(function (res) {
+    var d = res[0] || {}, regs = (res[1] && res[1].list) || [];
+    var size = 4;
+    try { var _tb = ptEvCfg(d.event || d).tb; if (Number(_tb && _tb.players_per_team)) size = Number(_tb.players_per_team); } catch (_e) {}
+    var teams = (d.groups || []).map(function (g) {
+      return { gid: g.id, name: g.name || ('Team ' + g.id),
+               seats: (g.players || []).filter(function (p) { return p && p.roster_id != null; })
+                        .map(function (p) { return { rid: p.roster_id, name: p.name || '' }; }) };
+    });
+    var seated = {};
+    teams.forEach(function (t) { t.orig = {}; t.seats.forEach(function (m) { seated[m.rid] = true; t.orig[m.rid] = true; }); });
+    var pool = regs.filter(function (r) { return r && r.rsvp === 'yes' && r.roster_id != null && Number(r.in_field) && !seated[r.roster_id]; })
+      .map(function (r) { return { rid: r.roster_id, name: r.name || '' }; })
+      .sort(function (a, b) { return String(a.name).localeCompare(String(b.name)); });
+    window._ptTB269 = { eid: eventId, size: size, teams: teams, pool: pool, sel: null, drag: null };
+    _ptTB269Render();
+  }).catch(function (e) {
+    var b = document.getElementById('ptTB269Body');
+    if (b) b.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:40px 0">' + _ptEsc(_ptMsg(e, 'Could not load the field')) + '</div>';
+  });
+};
+window._ptTB269Dirty = function () {
+  var st = window._ptTB269; if (!st) return false;
+  var moved = false;
+  st.teams.forEach(function (t) {
+    if (!t.gid) { if (t.seats.length) moved = true; return; }
+    var now = {}; t.seats.forEach(function (m) { now[m.rid] = true; });
+    Object.keys(t.orig || {}).forEach(function (r) { if (!now[r]) moved = true; });
+    t.seats.forEach(function (m) { if (!(t.orig || {})[m.rid]) moved = true; });
+  });
+  return moved;
+};
+window.ptTB269Close = function () {
+  var go = function () { var o = document.getElementById('ptTB269Ov'); if (o) o.remove(); window._ptTB269 = null; };
+  if (!window._ptTB269Dirty()) return go();
+  ptConfirm('The team changes on this screen have not been saved.',
+    { title: 'Leave without saving?', ok: 'Leave', cancel: 'Stay' }).then(function (ok) { if (ok) go(); });
+};
+function _ptTB269Chip(m, loc) {
+  var st = window._ptTB269, sel = st.sel === m.rid;
+  return '<button draggable="true" ondragstart="ptTB269DragStart(' + m.rid + ')" onclick="event.stopPropagation();ptTB269Sel(' + m.rid + ')"'
+    + ' style="padding:7px 12px;border-radius:18px;border:1.5px solid ' + (sel ? '#c9a84c' : 'rgba(255,255,255,.2)') + ';background:' + (sel ? 'rgba(201,168,76,.25)' : 'rgba(255,255,255,.05)') + ';color:' + (sel ? '#f5e6b8' : 'rgba(255,255,255,.85)') + ';font-size:12.5px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">'
+    + _ptEsc(m.name) + '</button>';
+}
+window._ptTB269Render = function () {
+  var st = window._ptTB269, body = document.getElementById('ptTB269Body'), foot = document.getElementById('ptTB269Foot');
+  if (!st || !body) return;
+  var h = '<div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px">Tap a player, then tap a team \u2014 or drag them in. Nothing is saved until you tap Save.</div>';
+  h += '<div ondragover="event.preventDefault()" ondrop="ptTB269DropOn(-1)" onclick="ptTB269Place(-1)" style="background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.18);border-radius:12px;padding:10px 12px;margin-bottom:14px">'
+    + '<div style="font-size:10px;font-weight:900;letter-spacing:.6px;color:rgba(123,216,143,.85);margin-bottom:8px">UNASSIGNED \u00b7 ' + st.pool.length + '</div>'
+    + '<div style="display:flex;flex-wrap:wrap;gap:6px;min-height:26px">' + st.pool.map(function (m) { return _ptTB269Chip(m, -1); }).join('') + '</div></div>';
+  st.teams.forEach(function (t, ti) {
+    var over = t.seats.length > st.size;
+    h += '<div ondragover="event.preventDefault()" ondrop="ptTB269DropOn(' + ti + ')" onclick="ptTB269Place(' + ti + ')" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(201,168,76,.28);border-radius:12px;padding:10px 12px;margin-bottom:10px">'
+      + '<div style="display:flex;justify-content:space-between;margin-bottom:8px"><div style="font-size:13px;font-weight:800;color:#f5e6b8">' + _ptEsc(t.name) + (t.gid ? '' : ' <span style="font-size:9px;color:#a8d5b5;font-weight:800">NEW</span>') + '</div>'
+      + '<div style="font-size:11px;font-weight:800;color:' + (over ? '#e8c96b' : 'rgba(255,255,255,.45)') + '">' + t.seats.length + ' / ' + st.size + '</div></div>'
+      + '<div style="display:flex;flex-wrap:wrap;gap:6px;min-height:26px">' + t.seats.map(function (m) { return _ptTB269Chip(m, ti); }).join('') + '</div></div>';
+  });
+  h += '<button onclick="ptTB269AddTeam()" style="width:100%;padding:12px;border-radius:12px;border:1.5px dashed rgba(201,168,76,.4);background:none;color:#c9a84c;font-size:13px;font-weight:800;cursor:pointer">\uff0b Add Team</button>';
+  body.innerHTML = h;
+  if (foot) foot.innerHTML = '<div style="display:flex;gap:8px">'
+    + '<button onclick="ptTB269AutoDraw()" style="flex:1;padding:13px;border-radius:12px;border:1px solid rgba(168,213,181,.4);background:rgba(168,213,181,.12);color:#a8d5b5;font-size:13px;font-weight:800;cursor:pointer">\ud83c\udfb2 Auto-Draw ' + st.pool.length + '</button>'
+    + '<button id="ptTB269SaveBtn" onclick="ptTB269Save()" style="flex:2;padding:13px;border-radius:12px;border:none;background:#c9a84c;color:#1a3a2a;font-size:14px;font-weight:900;cursor:pointer">Save Teams</button></div>';
+};
+window.ptTB269Sel = function (rid) { var st = window._ptTB269; if (!st) return; st.sel = (st.sel === rid ? null : rid); _ptTB269Render(); };
+window.ptTB269DragStart = function (rid) { var st = window._ptTB269; if (st) { st.drag = rid; st.sel = rid; } };
+window.ptTB269Move = function (rid, ti) {
+  var st = window._ptTB269; if (!st || rid == null) return;
+  var man = null;
+  st.pool = st.pool.filter(function (m) { if (m.rid === rid) { man = m; return false; } return true; });
+  st.teams.forEach(function (t) { t.seats = t.seats.filter(function (m) { if (m.rid === rid) { man = m; return false; } return true; }); });
+  if (!man) return;
+  if (ti === -1) { st.pool.push(man); st.pool.sort(function (a, b) { return String(a.name).localeCompare(String(b.name)); }); }
+  else st.teams[ti].seats.push(man);
+  st.sel = null; st.drag = null;
+  _ptTB269Render();
+};
+window.ptTB269Place = function (ti) { var st = window._ptTB269; if (st && st.sel != null) ptTB269Move(st.sel, ti); };
+window.ptTB269DropOn = function (ti) { var st = window._ptTB269; if (st && st.drag != null) ptTB269Move(st.drag, ti); };
+window.ptTB269AddTeam = function () {
+  var st = window._ptTB269; if (!st) return;
+  st.teams.push({ gid: null, name: 'Team ' + (st.teams.length + 1), seats: [], orig: {} });
+  _ptTB269Render();
+};
+window.ptTB269AutoDraw = function () {
+  var st = window._ptTB269; if (!st || !st.pool.length) return;
+  var pool = st.pool.slice();
+  for (var i = pool.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+  st.pool = [];
+  var fill = function (team) { while (team.seats.length < st.size && pool.length) team.seats.push(pool.shift()); };
+  st.teams.forEach(fill);
+  while (pool.length) { var nt = { gid: null, name: 'Team ' + (st.teams.length + 1), seats: [], orig: {} }; st.teams.push(nt); fill(nt); }
+  st.sel = null;
+  _ptTB269Render();
+};
+window.ptTB269Save = function () {
+  var st = window._ptTB269; if (!st) return;
+  var btn = document.getElementById('ptTB269SaveBtn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Saving\u2026'; }
+  var AJ = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken };
+  var chain = Promise.resolve();
+  /* removals first — a man changing teams leaves his old seat before taking the new one */
+  st.teams.forEach(function (t) {
+    if (!t.gid) return;
+    var now = {}; t.seats.forEach(function (m) { now[m.rid] = true; });
+    Object.keys(t.orig || {}).forEach(function (rid) {
+      if (now[rid]) return;
+      chain = chain.then(function () {
+        return fetch(TOUR_API + '/api/groups/' + t.gid + '/roster/' + rid, { method: 'DELETE', headers: AJ }).then(_ptJson).then(_ptThrow);
+      });
+    });
+  });
+  st.teams.forEach(function (t) {
+    chain = chain.then(function () {
+      if (t.gid || !t.seats.length) return null;   /* an empty NEW team is never minted */
+      return fetch(TOUR_API + '/api/events/' + st.eid + '/groups', {
+        method: 'POST', headers: AJ, body: JSON.stringify({ name: t.name, start_hole: 1, bypass_hole_limit: true })
+      }).then(_ptJson).then(_ptThrow).then(function (d) {
+        if (!d.group) throw new Error('Could not create ' + t.name);
+        t.gid = d.group.id; t.orig = {};
+      });
+    }).then(function () {
+      if (!t.gid) return null;
+      var sc = Promise.resolve();
+      t.seats.forEach(function (m) {
+        if ((t.orig || {})[m.rid]) return;
+        sc = sc.then(function () {
+          return fetch(TOUR_API + '/api/groups/' + t.gid + '/roster', {
+            method: 'POST', headers: AJ, body: JSON.stringify({ roster_id: m.rid })
+          }).then(_ptJson).then(_ptThrow);
+        });
+      });
+      return sc;
+    });
+  });
+  chain.then(function () {
+    ptToast('Teams saved.');
+    var o = document.getElementById('ptTB269Ov'); if (o) o.remove(); window._ptTB269 = null;
+    try { loadOrgEventDetail(st.eid); } catch (_e) {}
+  }).catch(function (e) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Save Teams'; }
+    ptToast('Error: ' + _ptMsg(e, 'Could not save the teams'));
+  });
+};
+
 function ptShowDrawImport(eventId, format) {
   _ptDrawImportEventId = eventId;
   _ptDrawImportFormat = format || null;
@@ -79760,7 +79928,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v863.0';
+    const TOUR_VERSION     = 'pards-tour-v864.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
