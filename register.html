@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.20 s297)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.21 s303)
+     v1.21 (FR-274): THE ATTENDANCE PICK LIST — "Golf and Dinner / Golf Only /
+     Dinner Party Only", opt-in via reg_page.attend. Golf answers are normal
+     yeses; Dinner Party Only registers without ever joining the player field.
+     The who's-in list groups the yes column by the kind of yes.
      v1.20 (FR-250): THE FORM CAN ASK GENDER — "for teeing and handicap
      purposes", his words. OFF unless the organizer switches it on.
      It is the first AUTOMATIC door into roster.gender; before this the
@@ -228,6 +232,14 @@
   .rsvp-toggle button.on{ background:var(--green); color:var(--linen); font-weight:600;}
   .rsvp-toggle button#rsvpNoBtn.on{ background:var(--ink-soft);}
   .rsvp-toggle button#spNoBtn.on{ background:var(--ink-soft);}
+  /* FR-274 (v1.21) — the attendance pick: stacked, full-width, same voice as the toggles. */
+  .at-stack{ margin-top:4px;}
+  .at-stack button{ display:block; width:100%; box-sizing:border-box; text-align:left; padding:11px 14px;
+    margin-bottom:6px; font-family:'Jost',sans-serif; font-size:14px; letter-spacing:.06em;
+    background:#fff; color:var(--ink-soft); border:1px solid var(--hair); border-radius:3px; cursor:pointer;}
+  .at-stack button.on{ background:var(--green); color:var(--linen); font-weight:600; border-color:var(--green);}
+  .inout .io-sub{ letter-spacing:.12em; text-transform:uppercase; font-size:9.5px; color:var(--green-deep);
+    margin:8px 0 2px; opacity:.85;}
   .btn{
     display:block; width:100%; margin-top:20px; padding:13px 0; cursor:pointer;
     background:var(--green); color:var(--linen); border:0; border-radius:3px;
@@ -418,6 +430,18 @@
         <option value="F">Female</option>
         <option value="X">Other</option>
       </select>
+
+      <!-- ⭐ FR-274 (v1.21, s303) — the attendance pick, his three choices verbatim. Hidden unless
+           the organizer switched it on; any golf choice is a normal yes, Dinner Party Only never
+           joins the player field (the worker enforces that — this page only asks). -->
+      <div id="atBlock" class="hidden">
+      <label>I&rsquo;m coming for&hellip;</label>
+      <div class="at-stack">
+        <button type="button" id="atGD" class="on">&#9971;&#127869;&nbsp; Golf and Dinner</button>
+        <button type="button" id="atG">&#9971;&nbsp; Golf Only</button>
+        <button type="button" id="atD">&#127869;&nbsp; Dinner Party Only</button>
+      </div>
+      </div>
 
       <!-- FR-120 — the sponsor ask. Visible on Yes AND Regrets.
            FR-127 (v1.8) — wrapped so the whole ask hides as one unit. -->
@@ -613,7 +637,9 @@ async function loadEvent(){
     /* ⭐ FR-250 — opt-in, like FR-147 and FR-193. An older worker sends no
        `gender` key at all, so this is false and the page is exactly v1.19.
        ⛔ Fail-soft, never fail-dark. */
-    gender: _f.gender === true
+    gender: _f.gender === true,
+    /* ⭐ FR-274 — same opt-in rule; an older worker sends no key and the page is v1.20. */
+    attend: _f.attend === true
   };
   evLeague = evData.league === true;   /* FR-139 */
   /* ⭐⭐ FR-144 (v1.11) — the picker is now shown for EVERY event, not just a
@@ -688,8 +714,36 @@ async function loadEvent(){
       });
       return h + '</div>';
     };
-    el.innerHTML = '<div class="io-title">Who is playing</div><div class="io-cols">'
-      + col('In', 'yes', a.yes || [], a.yes_at) + col('Out', 'no', a.no || [], a.no_at) + '</div>';
+    /* ⭐ FR-274 (v1.21) — sorted by the KIND of yes when the worker sends yes_kind (parallel,
+       index-matched). Absent or all-null = the exact v1.20 two-column list. Grouping is a
+       reorder of the same names — nothing is added, nothing dropped. */
+    var kinds = a.yes_kind;
+    var anyKind = Array.isArray(kinds) && kinds.some(function (k) { return k === 'golf_dinner' || k === 'golf' || k === 'dinner'; });
+    var inCol;
+    if (anyKind) {
+      var groups = [ ['golf_dinner', '\u26f3\ud83c\udf7d Golf & Dinner'], ['golf', '\u26f3 Golf Only'],
+                     ['dinner', '\ud83c\udf7d Dinner Party Only'], [null, 'In'] ];
+      inCol = '<div class="io-col"><div class="io-head yes">In &middot; ' + (a.yes || []).length + '</div>';
+      groups.forEach(function (g) {
+        var idx = [];
+        (a.yes || []).forEach(function (_n, i) {
+          var k = (kinds || [])[i];
+          if (g[0] === null ? !(k === 'golf_dinner' || k === 'golf' || k === 'dinner') : k === g[0]) idx.push(i);
+        });
+        if (!idx.length) return;
+        inCol += '<div class="io-sub">' + g[1] + ' &middot; ' + idx.length + '</div>';
+        idx.forEach(function (i) {
+          inCol += '<div class="io-name">' + esc(a.yes[i]) + '</div>';
+          var w = when((a.yes_at || [])[i]);
+          if (w) inCol += '<div class="io-when">' + esc(w) + '</div>';
+        });
+      });
+      inCol += '</div>';
+    } else {
+      inCol = col('In', 'yes', a.yes || [], a.yes_at);
+    }
+    el.innerHTML = '<div class="io-title">' + (anyKind ? 'Who is coming' : 'Who is playing') + '</div><div class="io-cols">'
+      + inCol + col('Out', 'no', a.no || [], a.no_at) + '</div>';
     el.classList.remove('hidden');
   })();
   $('evFacts').innerHTML =
@@ -742,6 +796,17 @@ async function loadEvent(){
 /* FR-127 (v1.8) — ONE place decides what is on screen. Every caller of the
    form (RSVP, the confirm card, the day-of sheet) reads this, so the page can
    never disagree with itself about which fields exist. */
+/* FR-274 — ONE painter for the pick, default Golf and Dinner (the common case). */
+var atChoice = 'golf_dinner';
+function setAt(v){
+  atChoice = (v === 'golf' || v === 'dinner') ? v : 'golf_dinner';
+  var m = { golf_dinner:'atGD', golf:'atG', dinner:'atD' };
+  ['atGD','atG','atD'].forEach(function(id){ var b = $(id); if (b) b.classList.toggle('on', m[atChoice] === id); });
+}
+(function(){
+  var w = { atGD:'golf_dinner', atG:'golf', atD:'dinner' };
+  Object.keys(w).forEach(function(id){ var b = $(id); if (b) b.addEventListener('click', function(){ setAt(w[id]); }); });
+})();
 function applyFields(){
   function box(id, on){
     var el = $(id); if (!el) return;
@@ -768,6 +833,8 @@ function applyFields(){
   var nf = $('nameFallback');
   if (nf) nf.classList.toggle('hidden', !evPicker || !!pickedRoster);
   box('fPhone', evFields.phone);
+  var atWrap = $('atBlock');   /* FR-274 — the whole ask hides as one unit, the spBlock pattern */
+  if (atWrap) atWrap.classList.toggle('hidden', !evFields.attend);
   var spWrap = $('spBlock');
   if (spWrap) spWrap.classList.toggle('hidden', !evFields.sponsor);
   if (!evFields.sponsor) setSp('no');
@@ -886,6 +953,8 @@ async function sendRsvp(extra){
        anything that arrives for a switched-off field anyway, so this and the
        gate there agree; neither one is load-bearing alone. */
     gender: evFields.gender ? (($('fGender') || {}).value || null) : null,
+    /* ⭐ FR-274 — only when asked; the worker drops it when off, so the gates agree. */
+    attend: evFields.attend ? atChoice : null,
     sponsor_notes: (evFields.sponsor && spChoice === 'yes') ? $('fSpNotes').value.trim() : ''
   };
   Object.keys(extra || {}).forEach(function(k){ body[k] = extra[k]; });
