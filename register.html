@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.22 s303)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.23 s303)
+     v1.23 (FR-281): the tournament crest tops the page — rendered only when the
+     payload carries `logo` (the organizer's "Include Tournament Logo on
+     Registration Page" switch); absent, nothing changes.
      v1.22 (FR-274 amendment, his words): the kinds are DISTINCT head-level
      groups — In — Golf and Dinner Party / In — Golf Only / In — Dinner Party
      Only — and the first form option says "Golf and Dinner Party".
@@ -170,6 +173,8 @@
     font-size:30px; line-height:1.15; text-align:center; color:var(--green-deep);
     margin:2px 0 4px;
   }
+  .evlogo{ display:block; margin:0 auto 12px; max-height:110px; max-width:62%;
+           object-fit:contain; border-radius:10px; }   /* FR-281 — the tournament crest */
   .blurb{ text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic;
     font-size:18px; color:var(--ink-soft); margin-bottom:12px;}
   /* FR-147 (v1.14) — last week's winners card, stacked rows (v1.13's flex
@@ -377,6 +382,7 @@
 
   <!-- ================= VIEW 2 — EVENT + RSVP ================= -->
   <div id="viewEvent" class="card hidden"><div class="inner">
+    <img id="evLogo" class="evlogo hidden" alt="">   <!-- FR-281 — shown only when the payload ships a crest -->
     <div class="crest">You are invited</div>
     <h1 class="display" id="evName">&nbsp;</h1>
     <div class="blurb" id="evBlurb"></div>
@@ -652,6 +658,11 @@ async function loadEvent(){
   evPicker = evData.picker === true || evLeague;
   applyFields();
   $('evName').textContent = evData.name;
+  /* FR-281 — the crest, opt-in via the payload. Only a data URI is honoured. */
+  if (evData.logo && /^data:image\//.test(String(evData.logo))) {
+    $('evLogo').src = evData.logo;
+    $('evLogo').classList.remove('hidden');
+  }
   $('evBlurb').textContent = evData.blurb || '';
   /* FR-147 (v1.13) — the winners card. `last_week` arrives on the SAME fetch
      (one fetch stays one fetch — gated). Absent, null, or empty = the div
