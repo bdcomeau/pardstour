@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v865.0 -->
+  <!-- pards-tour-v868.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -24018,8 +24018,12 @@ function printHistoryRound(){
 
 function _printCourseHdr(GD, GOLD, dateStr, shotgunNote, wxLine){
   const _pc = activeCourse();
-  const _pcLogoSrc = logoSrc(_pc, false);  // false = light/white background
-  const _pcLogoFilter = logoFilter(_pc, false);
+  /* ⭐ FR-279 (v867.0, s303) — the tournament's own crest outranks the course logo on the
+     front of the card. Rides the join payload; a casual round carries none and prints exactly
+     as before. */
+  const _evL279 = (G.joinGroup && G.joinGroup.event_logo) || null;
+  const _pcLogoSrc = _evL279 || logoSrc(_pc, false);  // false = light/white background
+  const _pcLogoFilter = _evL279 ? '' : logoFilter(_pc, false);
   const _pcLogoHtml = _pcLogoSrc
     ? `<img src="${_pcLogoSrc}" style="height:40px;width:auto;object-fit:contain;display:inline-block;vertical-align:middle;margin-right:10px;border-radius:6px;${_pcLogoFilter}" alt="">`
     : '';
@@ -44976,6 +44980,7 @@ window.ptInv277Load = function (eid) {
     .then(_ptJson).then(function (d) {
       window._ptInv277[eid] = { list: (d && d.invites) || [], res: [], copying: false, events: null };
       _ptInv277Render(eid);
+      if ((window._ptRegData || {})[eid]) ptRegRender(eid);   /* FR-278 (v866.0) — the walk-up chips need the list */
     }).catch(function () {
       var b = document.getElementById('ptInv277Body_' + eid);
       if (b) b.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,.35)">Could not load the invite list.</div>';
@@ -45086,6 +45091,69 @@ window.ptRegLoad = function (eventId) {
    is — GHIN, handicap, club — because that is the only way to tell a real
    duplicate from two men who share a name. "Not him" just shuts the drawer;
    there is deliberately no "never ask again" flag to get stale (unruled). */
+/* ⭐⭐ FR-279 (v867.0, s303) — THE TOURNAMENT'S OWN SCORECARD LOGO. Stored in the event
+   config as a small data URI (canvas-resized here, flattened onto white — the card front is
+   paper-white), written through the one merge-PATCH producer, carried to every scoring phone on
+   the join payload (worker v3.88.0), preferred by the ONE print header producer. Remove = back
+   to the course logo. */
+window._ptLogo279Body = function (evId, logo) {
+  var h = '';
+  if (logo) {
+    h += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">'
+      + '<img src="' + logo + '" style="height:56px;width:auto;max-width:130px;object-fit:contain;background:#fff;border-radius:10px;padding:4px" alt="">'
+      + '<div style="flex:1;font-size:11px;color:rgba(255,255,255,.55)">Prints on the front of this tournament\u2019s scorecards in place of the course logo.</div>'
+      + '</div>';
+  } else {
+    h += '<div style="font-size:11.5px;color:rgba(255,255,255,.55);margin-bottom:10px">No logo uploaded \u2014 scorecards print the golf course\u2019s logo. Upload your tournament\u2019s crest to put it on the front of the cards instead.</div>';
+  }
+  h += '<input type="file" id="ptLogo279File_' + evId + '" accept="image/*" style="display:none" onchange="ptLogo279File(' + evId + ', this)">'
+    + '<div style="display:flex;gap:8px">'
+    + '<button onclick="document.getElementById(\'ptLogo279File_' + evId + '\').click()" style="flex:1;padding:9px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);border-radius:9px;color:#c9a84c;font-size:12px;font-weight:800;cursor:pointer">\u2b06 Upload logo</button>'
+    + (logo ? '<button onclick="ptLogo279Clear(' + evId + ')" style="flex:0 0 auto;padding:9px 14px;background:rgba(255,120,120,.08);border:1px solid rgba(255,120,120,.3);border-radius:9px;color:rgba(255,140,140,.85);font-size:12px;font-weight:700;cursor:pointer">Remove</button>' : '')
+    + '</div>'
+    + '<div id="ptLogo279Msg_' + evId + '" style="font-size:11px;margin-top:6px;color:rgba(255,255,255,.6)"></div>';
+  return h;
+};
+window.ptLogo279File = function (evId, input) {
+  var f = input.files && input.files[0];
+  if (!f) return;
+  var msg = document.getElementById('ptLogo279Msg_' + evId);
+  var rd = new FileReader();
+  rd.onload = function () {
+    var img = new Image();
+    img.onload = function () {
+      var MAX = 340, w = img.width, h = img.height;
+      var sc = Math.min(1, MAX / Math.max(w, h));
+      var cw = Math.max(1, Math.round(w * sc)), ch = Math.max(1, Math.round(h * sc));
+      var cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
+      var cx = cv.getContext('2d');
+      cx.fillStyle = '#ffffff'; cx.fillRect(0, 0, cw, ch);
+      cx.drawImage(img, 0, 0, cw, ch);
+      var uri = cv.toDataURL('image/jpeg', 0.85);
+      if (uri.length > 200000) uri = cv.toDataURL('image/jpeg', 0.6);
+      if (uri.length > 200000) { if (msg) msg.innerHTML = '<span style="color:#e8776a">That image is too detailed to store \u2014 try a smaller or simpler version.</span>'; return; }
+      if (msg) msg.textContent = 'Saving\u2026';
+      ptPatchEvConfig(evId, { logo: uri }).then(function () {
+        ptLogo279Paint(evId, uri);
+      }).catch(function () { if (msg) msg.innerHTML = '<span style="color:#e8776a">Could not save the logo \u2014 try again.</span>'; });
+    };
+    img.onerror = function () { if (msg) msg.innerHTML = '<span style="color:#e8776a">That file is not an image.</span>'; };
+    img.src = rd.result;
+  };
+  rd.readAsDataURL(f);
+};
+window.ptLogo279Clear = function (evId) {
+  var msg = document.getElementById('ptLogo279Msg_' + evId);
+  if (msg) msg.textContent = 'Removing\u2026';
+  ptPatchEvConfig(evId, { logo: null }).then(function () {
+    ptLogo279Paint(evId, null);
+  }).catch(function () { if (msg) msg.innerHTML = '<span style="color:#e8776a">Could not remove it \u2014 try again.</span>'; });
+};
+window.ptLogo279Paint = function (evId, logo) {
+  var b = document.getElementById('ptLogo279Body_' + evId);
+  if (b) b.innerHTML = _ptLogo279Body(evId, logo);
+};
+
 window._b196Card = function (eventId, p) {
   var h = '<div id="ptDup_' + eventId + '_' + p.reg_id + '" style="display:none;margin-top:8px;background:rgba(255,170,60,.06);border:1px solid rgba(255,170,60,.25);border-radius:10px;padding:9px 11px">'
     + '<div style="font-size:10px;color:rgba(255,170,60,.8);text-transform:uppercase;letter-spacing:.5px;font-weight:800;margin-bottom:6px">Already on your roster?</div>';
@@ -45097,7 +45165,8 @@ window._b196Card = function (eventId, p) {
     if (o.email) bits.push(o.email);
     h += '<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-top:1px solid rgba(255,255,255,.06)">'
       + '<div style="flex:1;min-width:0">'
-      + '<div style="font-size:12.5px;font-weight:700;color:#fff">' + _ptEsc(o.name) + '</div>'
+      + '<div style="font-size:12.5px;font-weight:700;color:#fff">' + _ptEsc(o.name)
+      + (o.match === 'close' ? ' <span style="font-size:9px;font-weight:800;color:#ffaa3c;opacity:.85">≈ CLOSE MATCH</span>' : '') + '</div>'
       + '<div style="font-size:10px;color:rgba(255,255,255,.4);word-break:break-all">' + _ptEsc(bits.join(' · ') || 'no details on file') + '</div>'
       + '</div>'
       + '<button onclick="ptRegMerge(' + eventId + ',' + p.reg_id + ',' + o.id + ')" style="padding:6px 10px;background:rgba(255,170,60,.14);border:1px solid rgba(255,170,60,.4);border-radius:8px;color:#ffaa3c;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap">Merge into this one</button>'
@@ -45531,6 +45600,13 @@ window.ptRegRender = function (eventId) {
   });
   var _fr117Dupes = 0;
   list.forEach(function (p) { if (p.dupes && p.dupes.length) _fr117Dupes++; });
+  /* ⭐ FR-278 (v866.0, s303) — THE WALK-UP FLAG. Only when this tournament HAS an invite list:
+     a yes whose roster entry is not on it came through the public page on a typed name. The
+     chip is a REPORT; the duplicate card underneath is where he links the master-roster match
+     (B-196's engine, one tap, unchanged). No invite list → no chips, exactly yesterday. */
+  var _inv278 = ((window._ptInv277 || {})[eventId] || {}).list || [];
+  var _invSet278 = {};
+  _inv278.forEach(function (iv) { if (iv && iv.roster_id != null) _invSet278[iv.roster_id] = 1; });
   var _fr117Open = _fr117IsOpen(eventId);
   if (list.length) {
     h += '<div style="background:rgba(255,255,255,.04);border-radius:12px;margin-bottom:10px;overflow:hidden">';
@@ -45559,11 +45635,14 @@ window.ptRegRender = function (eventId) {
       var rb = p.rsvp === 'yes'
         ? '<span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(123,216,143,.12);color:#7bd88f">YES</span>'
         : '<span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(255,120,120,.1);color:rgba(255,140,140,.8)">NO</span>';
+      var wb = (_inv278.length && p.rsvp === 'yes' && (p.roster_id == null || !_invSet278[p.roster_id]))
+        ? '<span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(255,120,60,.16);color:#ff9c5a;border:1px solid rgba(255,120,60,.4)">⚠ WALK-UP</span>'
+        : '';   /* FR-278 */
       h += '<div id="ptRegRow_' + eventId + '_' + p.reg_id + '" style="padding:9px 12px;' + (i < list.length - 1 ? 'border-bottom:1px solid rgba(255,255,255,.06)' : '') + '">'
         + '<div style="display:flex;align-items:center;gap:6px">'
         + '<div style="flex:1;font-size:13px;font-weight:700;color:#fff">' + _ptEsc(p.name)
         + (Number(p.in_field) ? ' <span style="color:#7bd88f;font-size:11px">✓ in field</span>' : '') + '</div>'
-        + _fr141Can(eventId, p) + rb + vb + db
+        + _fr141Can(eventId, p) + rb + wb + vb + db
         + (p.checked_in_at ? '<span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(123,216,143,.9);color:#0d1a0f">IN' + (p.paid_amount != null ? ' · $' + p.paid_amount : '') + '</span>' : '')
         + '</div>'
         + '<div style="font-size:10.5px;color:rgba(255,255,255,.6);word-break:break-all">' + _ptEsc([p.email, p.phone, p.gc_id ? 'GC ' + p.gc_id : ''].filter(Boolean).join(' · ')) + '</div>'
@@ -46033,6 +46112,10 @@ window._fr127Cfg = function (eventId) {
                                      Golf/Dinner attendance pick list on the reg form; any golf
                                      answer is a normal yes, Dinner Party Only registers without
                                      ever joining the player field (reg-v1.16.0 enforces it). */
+    invite_only: rp.invite_only === true,   /* ⭐ FR-280 (v868.0, s303) — NEW switch, absent =
+                                     OFF. On: only the tournament invite list (the Roster
+                                     section) may RSVP; a typed name that is not on it gets
+                                     "contact the Tournament Director" (reg-v1.18.0 enforces). */
     gender: rp.gender === true,   /* ⭐ FR-250 (v807.0, s297) — NEW switch, absent = OFF.
                                      Same opt-in rule and for the same reason: an untouched
                                      event must never start asking a question it was not
@@ -46060,8 +46143,9 @@ window._fr127Block = function (eventId) {
     + _fr127Sw(eventId, 'attend', 'Golf / Dinner attendance', f.attend)   /* ⭐ FR-274 (s303) — an ASKED question too */
     + _fr127Sw(eventId, 'winners', 'Show last week\'s winners', f.winners)   /* FR-147 — beside Prize sponsor, ruled by screenshot */
     + _fr127Sw(eventId, 'attendees', 'Show who\'s in and who\'s out', f.attendees)   /* FR-193 — his words, minus the pill */
+    + _fr127Sw(eventId, 'invite_only', 'Invite list only', f.invite_only)   /* FR-280 — invitation-only events */
     + '</div>'
-    + '<div style="font-size:10px;color:rgba(255,255,255,.6);margin:4px 0 8px">Email, phone and sponsor off = name and Yes/No only. “Gender” adds one optional question and is what puts a lady on the ♀ decks — leave it off and everyone is treated as before. \u201cWho\u2019s in and who\u2019s out\u201d puts every registrant\u2019s NAME on the public page \u2014 never their email or phone. “Golf / Dinner attendance” asks Golf and Dinner / Golf Only / Dinner Party Only — golf choices count as playing; Dinner Party Only registers without joining the player list.</div>'
+    + '<div style="font-size:10px;color:rgba(255,255,255,.6);margin:4px 0 8px">Email, phone and sponsor off = name and Yes/No only. “Gender” adds one optional question and is what puts a lady on the ♀ decks — leave it off and everyone is treated as before. \u201cWho\u2019s in and who\u2019s out\u201d puts every registrant\u2019s NAME on the public page \u2014 never their email or phone. “Golf / Dinner attendance” asks Golf and Dinner / Golf Only / Dinner Party Only — golf choices count as playing; Dinner Party Only registers without joining the player list. \u201cInvite list only\u201d locks registration to this tournament\u2019s Roster \u2014 a name not on the invite list is told to contact the Tournament Director, so fill the Roster section first.</div>'
     + '<div style="font-size:10px;color:rgba(255,255,255,.7);margin-bottom:3px">FORMAT LINE (optional)</div>'
     + '<input id="ptRegFormat_' + eventId + '" type="text" maxlength="120" value="' + _ptEsc(String(f.format || '')) + '" placeholder="Team Event with SKINs" style="width:100%;box-sizing:border-box;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;font-size:13px">'
     + '<div style="font-size:10px;color:rgba(255,255,255,.6);margin:3px 0 8px">Leave blank to use the tournament\'s own format.</div>';
@@ -46100,6 +46184,7 @@ window.ptRegSave = function (eventId, openOverride) {
       attendees: !!(document.getElementById('ptRegF_attendees_' + eventId) || {}).checked,   /* FR-193 */
       gender: !!(document.getElementById('ptRegF_gender_' + eventId) || {}).checked,   /* FR-250 */
       attend: !!(document.getElementById('ptRegF_attend_' + eventId) || {}).checked,   /* FR-274 */
+      invite_only: !!(document.getElementById('ptRegF_invite_only_' + eventId) || {}).checked,   /* FR-280 */
       format: String((document.getElementById('ptRegFormat_' + eventId) || {}).value || '').trim()
     };
   }
@@ -46326,6 +46411,8 @@ function loadOrgEventDetail(eventId) {
        REGISTRATION. The list the reg page's name search obeys (reg-v1.17.0). */
     html+=_ptEvSec(ev.id,'invites','Roster','<span id="ptInv277Chip_'+ev.id+'"></span>','<div id="ptInv277Body_'+ev.id+'"><div style="font-size:12px;color:rgba(255,255,255,.35)">Loading invite list…</div></div>', false);
     html+=_ptEvSec(ev.id,'registration','Registration','<span id="ptFr149Reg_'+ev.id+'"></span>','<div id="ptRegSection_'+ev.id+'"><div style="font-size:12px;color:rgba(255,255,255,.35)">Loading registration…</div></div>', false);
+    /* FR-279 (v867.0, s303) — the tournament's own scorecard crest, organizer-set. */
+    html+=_ptEvSec(ev.id,'logo279','Scorecard Logo',(_evConfig.logo?'<span style="font-size:10px;font-weight:800;color:#7bd88f">SET</span>':''),'<div id="ptLogo279Body_'+ev.id+'">'+_ptLogo279Body(ev.id,_evConfig.logo||null)+'</div>', false);
     setTimeout(function(){ if(window.ptRegRestore) ptRegRestore(ev.id); }, 120);   // B-184 (v581.0)
     setTimeout(function(){ if(window.ptInv277Load) ptInv277Load(ev.id); }, 140);   // FR-277 (v865.0)
     var _teamN=_indEv?_indRoster.length:groups.length;
@@ -80032,7 +80119,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v865.0';
+    const TOUR_VERSION     = 'pards-tour-v868.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
