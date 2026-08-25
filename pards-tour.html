@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v871.0 -->
+  <!-- pards-tour-v872.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -37477,8 +37477,7 @@ function ptRenderGameDay(c) {
     teeTimes.forEach(function(tt){
       var when = _shotgun ? ('⛳ Shotgun · Hole '+(tt.hole||1)) : (tt.start_time ? ('🕐 '+_pt12h(tt.start_time)) : 'Time TBD');
       var names = (tt.players||[]).map(function(p){ return _esc(p.name||''); }).join(', ');
-      var code = tt.foursome_code || '';
-      var pin  = tt.foursome_pin || tt.pin || '';
+      var code = tt.foursome_code || '';   /* B-322 (v872.0, s304) — the PIN display is gone: "There are no 4 digit pins anymore." */
       var prog = _ptGroupProgress(tt, c.standings);
       var progBadge = !prog ? ''
         : prog.complete
@@ -37487,7 +37486,7 @@ function ptRenderGameDay(c) {
       tsheet += '<div style="background:rgba(0,0,0,.22);border-radius:10px;padding:11px 12px;margin-bottom:8px">'
         + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px">'
         +   '<div style="font-size:13px;font-weight:800;color:#c9a84c">'+when+progBadge+'</div>'
-        +   (code?'<div style="font-size:15px;font-weight:900;color:#f5e6b8;font-family:monospace;letter-spacing:2px">'+_esc(code)+(pin?' <span style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px">PIN '+_esc(String(pin))+'</span>':'')+'</div>':'')
+        +   (code?'<div style="font-size:15px;font-weight:900;color:#f5e6b8;font-family:monospace;letter-spacing:2px">'+_esc(code)+'</div>':'')
         + '</div>'
         + '<div style="font-size:12px;color:rgba(255,255,255,.55);line-height:1.5">'+(names||'<span style="color:rgba(255,255,255,.25)">empty</span>')+'</div>'
         + (code?'<button onclick="ptOrgScoreNow(\''+_esc(code)+'\')" style="width:100%;margin-top:8px;padding:9px;background:rgba(168,213,181,.1);border:1.5px solid rgba(168,213,181,.35);border-radius:9px;color:#a8d5b5;font-size:12px;font-weight:800;cursor:pointer">&#9654; Score Now</button>':'')
@@ -39467,8 +39466,7 @@ function ptRenderTripDetail(trip, players, rounds) {
         var _sgHoles = _cache.map(function(t){return t.hole||1;});
         var _isShotgun = _cache.length>1 && _sgTimes.every(function(t){return t===_sgTimes[0];}) && (new Set(_sgHoles).size>1);
         _cache.forEach(function(tt){
-          var _code = tt.foursome_code || '';
-          var _pin  = tt.foursome_pin || tt.pin || '';
+          var _code = tt.foursome_code || '';   /* B-322 — the dead _pin var is gone (assigned, never rendered) */
           var _names = (tt.players||[]).map(function(p){ return _esc(p.name||p.player_name||''); }).join(', ');
           var _when = _isShotgun ? ('⛳ Shotgun · Hole '+(tt.hole||1)) : (tt.start_time ? ('🕐 '+_pt12h(tt.start_time)) : '');
           // Store players by code so the join flow can pre-populate the setup screen
@@ -71652,7 +71650,6 @@ function ptPrintMmgCodeSheets(eventId, opts) {
         + '.pl{font-size:11px;color:#555;margin-top:2px;line-height:1.6}'
         + '.code-row{display:flex;align-items:center;gap:18px;margin-top:8px}'
         + '.code{font-family:monospace;font-size:26px;font-weight:900;letter-spacing:5px;color:#1a3a2a}'
-        + '.pin{font-size:13px;font-weight:800;color:#8e44ad}'
         + '.keeps{margin-top:8px;font-size:12px;line-height:1.7}'
         + '.keeps b{color:#1a5276}'
         + '.hint{font-size:10px;color:#999;margin-top:6px}'
@@ -71669,11 +71666,10 @@ function ptPrintMmgCodeSheets(eventId, opts) {
           return '<div class="slip">'
             + '<div class="tm">' + _esc(g.name || 'Team') + '</div>'
             + '<div class="pl">' + (ps || '\u2014') + '</div>'
-            + '<div class="code-row"><span class="code">' + _esc(g.code || '\u2014') + '</span>'
-            + (g.team_pin ? '<span class="pin">PIN ' + _esc(String(g.team_pin)) + '</span>' : '') + '</div>'
+            + '<div class="code-row"><span class="code">' + _esc(g.code || '\u2014') + '</span></div>'   /* B-322 — team PIN retired at v217.0; the slip stops printing it */
             + '<div class="keeps">\ud83d\udcdd You keep the card for: <b>' + (keeps ? _esc(keeps.name || '') : '\u2014 not set \u2014') + '</b>'
             + (keptBy ? '<br>\u26f3 Your card is kept by: <b>' + _esc(keptBy.name || '') + '</b>' : '') + '</div>'
-            + '<div class="hint">Join with this code + PIN in Pards Tour \u2014 your card shows the pair you are scoring plus your own pair for reference.</div>'
+            + '<div class="hint">Join with this code in Pards Tour \u2014 your card shows the pair you are scoring plus your own pair for reference.</div>'
             + '</div>';
         }).join('');
         return '<div class="unit"><div class="u-hdr"><h1>Start Unit ' + _esc(k) + (hole ? ' \u2014 Hole ' + hole : '') + '</h1>'
@@ -80242,7 +80238,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v871.0';
+    const TOUR_VERSION     = 'pards-tour-v872.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
