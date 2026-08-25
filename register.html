@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.24 s304)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.25 s304)
+     v1.25 (FR-274b): the day-of sheet groups by the FR-274 answer — Golf and
+     Dinner Party / Golf Only / Dinner Party Only (his labels), then No answer,
+     then RSVP No. Needs reg-v1.21.0's attend on /api/reg/list; without it the
+     sheet is v1.24 exactly.
      v1.24 (FR-284): invite-only closes the typed-name boxes — the invite-list
      search is the only door in. Engages only when the payload says
      fields.invite_only AND the picker is open; older workers = v1.23.
@@ -320,6 +324,8 @@
   }
   .totals .num{ font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; display:block;}
   .totals .cap{ font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; opacity:.85;}
+  .sh-head{ font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--brass); font-weight:600; margin:18px 0 4px; }   /* FR-274b */
   .prow{ border-bottom:1px solid var(--hair); padding:11px 2px;}
   .prow .top{ display:flex; justify-content:space-between; align-items:baseline; gap:8px;}
   .prow .nm{ font-weight:600; font-size:16px;}
@@ -1107,7 +1113,7 @@ function renderSheet(d){
   });
   /* ⭐ Rows stay FULLY ACTIONABLE on every side of the toggle — his noisy-room
      ruling. He is not reading the short list, he is clearing it. */
-  var html = shown.map(function(p){
+  var _shRow = function(p){   /* FR-274b — the ONE row producer; the flat and grouped paths both use it */
     var badge = p.checked_in_at
       ? '<span class="badge in">In' + (p.paid_amount != null ? ' · ' + money(p.paid_amount) : '') + '</span>'
       : (p.rsvp === 'yes' ? '<span class="badge yes">RSVP Yes</span>' : '<span class="badge no">RSVP No</span>');
@@ -1124,7 +1130,30 @@ function renderSheet(d){
         '<button data-in="' + p.id + '">Check in</button></div>';
     return '<div class="prow"><div class="top"><span class="nm">' + esc(p.name) + '</span><span>' + badge + spBadge + '</span></div>' +
       '<div class="contact">' + contact + '</div>' + spNote + act + '</div>';
-  }).join('');
+  };
+  /* ⭐ FR-274b (v1.25, s304) — GROUP THE SHEET BY THE FR-274 ANSWER. His labels verbatim
+     for the three kinds. Buckets sweep every shown row exactly once: the three kinds
+     (yes rows), then yes rows with no answer, then the regrets. Rows keep their full
+     check-in controls inside every group — his noisy-room ruling stands. No answers
+     anywhere (switch off, old worker) -> the flat v1.24 sheet. */
+  var _shKind = function(p){ var k = p.attend; return (k === 'golf_dinner' || k === 'golf' || k === 'dinner') ? k : null; };
+  var _shAny = list.some(function(p){ return _shKind(p) !== null; });
+  var html;
+  if (!_shAny) {
+    html = shown.map(_shRow).join('');
+  } else {
+    html = '';
+    [ ['golf_dinner', 'Golf and Dinner Party'], ['golf', 'Golf Only'], ['dinner', 'Dinner Party Only'] ]
+      .forEach(function(g){
+        var rows = shown.filter(function(p){ return p.rsvp === 'yes' && _shKind(p) === g[0]; });
+        if (!rows.length) return;
+        html += '<div class="sh-head">' + g[1] + ' &middot; ' + rows.length + '</div>' + rows.map(_shRow).join('');
+      });
+    var _shNoAns = shown.filter(function(p){ return p.rsvp === 'yes' && _shKind(p) === null; });
+    if (_shNoAns.length) html += '<div class="sh-head">No answer &middot; ' + _shNoAns.length + '</div>' + _shNoAns.map(_shRow).join('');
+    var _shNos = shown.filter(function(p){ return p.rsvp !== 'yes'; });
+    if (_shNos.length) html += '<div class="sh-head">RSVP No &middot; ' + _shNos.length + '</div>' + _shNos.map(_shRow).join('');
+  }
   $('sheetRows').innerHTML = html || '<p class="note">' + (
       ciView === 'out' ? 'Everyone who said yes is checked in.'
     : ciView === 'in'  ? 'Nobody has checked in yet.'
