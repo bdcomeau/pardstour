@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.23 s303)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.24 s304)
+     v1.24 (FR-284): invite-only closes the typed-name boxes — the invite-list
+     search is the only door in. Engages only when the payload says
+     fields.invite_only AND the picker is open; older workers = v1.23.
      v1.23 (FR-281): the tournament crest tops the page — rendered only when the
      payload carries `logo` (the organizer's "Include Tournament Logo on
      Registration Page" switch); absent, nothing changes.
@@ -648,7 +651,10 @@ async function loadEvent(){
        ⛔ Fail-soft, never fail-dark. */
     gender: _f.gender === true,
     /* ⭐ FR-274 — same opt-in rule; an older worker sends no key and the page is v1.20. */
-    attend: _f.attend === true
+    attend: _f.attend === true,
+    /* ⭐ FR-284 — same opt-in rule again; reg-v1.20.0 sends it, older workers do not,
+       and absent = false keeps this page exactly v1.23. ⛔ Fail-soft, never fail-dark. */
+    invite_only: _f.invite_only === true
   };
   evLeague = evData.league === true;   /* FR-139 */
   /* ⭐⭐ FR-144 (v1.11) — the picker is now shown for EVERY event, not just a
@@ -835,18 +841,25 @@ function applyFields(){
   /* FR-139 — the picker and the typed boxes are two doors to the same field.
      ⛔ ONE painter decides which is open, so the page can never show both
      a chosen name and an empty pair of name boxes. */
+  /* ⭐⭐ FR-284 (v1.24, s304) — INVITE-ONLY CLOSES THE ESCAPE HATCH. His words: "if an event
+     registration is 'invite only' you should not present the name fields - they should have
+     to search for their name in invite list". The lock only engages while the picker door is
+     actually open (evPicker), so a payload without a picker can never leave the page doorless.
+     ⛔ The FR-280 worker gate stays the ruling; this page just stops offering a door the
+     gate would slam anyway. */
+  var inviteLock = evFields.invite_only && evPicker;
   var pb = $('pickBox'), pc = $('pickChosen'), nr = $('nameRow');
   if (pb) pb.classList.toggle('hidden', !evPicker || !!pickedRoster);
   if (pc) pc.classList.toggle('hidden', !pickedRoster);
   /* ⭐ THE ESCAPE HATCH. A guest, or a member the list has never heard of,
      types his name exactly as he did at v1.8. The boxes only hide once a
      name has actually been picked. */
-  if (nr) nr.classList.toggle('hidden', !!pickedRoster);
+  if (nr) nr.classList.toggle('hidden', !!pickedRoster || inviteLock);   /* FR-284 */
   /* FR-143 (v1.10) — the fallback caption lives and dies with the picker.
      ⛔ A non-league event never had a search box, so it is never told to
      use one; and once a name is picked the boxes are gone anyway. */
   var nf = $('nameFallback');
-  if (nf) nf.classList.toggle('hidden', !evPicker || !!pickedRoster);
+  if (nf) nf.classList.toggle('hidden', !evPicker || !!pickedRoster || inviteLock);   /* FR-284 */
   box('fPhone', evFields.phone);
   var atWrap = $('atBlock');   /* FR-274 — the whole ask hides as one unit, the spBlock pattern */
   if (atWrap) atWrap.classList.toggle('hidden', !evFields.attend);
@@ -892,7 +905,9 @@ function pickRender(list, q){
   }
   if (!list.length){
     box.innerHTML = ''; box.classList.add('hidden');
-    hint.innerHTML = 'No match — <b>just type your name below.</b>';
+    hint.innerHTML = (evFields.invite_only && evPicker)
+      ? 'No match — this event is invite list only. Contact the Tournament Director.'
+      : 'No match — <b>just type your name below.</b>';   /* FR-284 — never point at hidden boxes */
     return;
   }
   box.innerHTML = list.map(function(p, i){
@@ -955,6 +970,8 @@ async function sendRsvp(extra){
   var errBox = $('rsvpErr');
   errBox.textContent = '';
   $('dupeErr').textContent = '';
+  /* FR-284 — with the boxes gone, the only valid submit is a picked name. */
+  if (evFields.invite_only && evPicker && !pickedRoster) { errBox.textContent = 'Find your name in the list above — this event is invite list only.'; return; }
   if (!first || !last) { errBox.textContent = 'First and last name, please.'; return; }
   /* FR-127 — required only while the organizer is actually asking for it. */
   if (evFields.email && !email) { errBox.textContent = 'Email is required.'; return; }
