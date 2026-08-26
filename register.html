@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.25 s304)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.26 s304)
+     v1.26 (FR-296): the Watch it Live card moves to the BOTTOM of the
+     registration card — it stood between the event facts and "Will you be
+     joining us?", so the first thing a man met was a scoring code. Pure move:
+     the card, its Copy-code handler and its clipboard fallbacks are untouched.
      v1.25 (FR-274b): the day-of sheet groups by the FR-274 answer — Golf and
      Dinner Party / Golf Only / Dinner Party Only (his labels), then No answer,
      then RSVP No. Needs reg-v1.21.0's attend on /api/reg/list; without it the
@@ -399,7 +403,6 @@
     <div id="evInOut" class="inout hidden"></div>   <!-- FR-193 (v1.17) — who is in, who is out -->
     <hr class="hairline brass">
     <div id="evFacts"></div>
-    <div id="evWatch" class="hidden"></div>   <!-- FR-236 (v1.19) — Watch Live card -->
     <hr class="hairline">
 
     <!-- RSVP form -->
@@ -503,6 +506,8 @@
       <p class="note" id="doneMsg"></p>
       <button class="btn secondary slim" id="doneAgain">Change my answer</button>
     </div>
+
+    <div id="evWatch" class="hidden"></div>   <!-- FR-236 (v1.19) — Watch Live card. FR-296 (v1.26): moved from above the RSVP to the BOTTOM of the card, his call — the ask comes first, watching comes later. -->
 
     <footer>Day of the tournament? <a href="#" id="sheetLink">Open the sign-in sheet</a></footer>
   </div></div>
