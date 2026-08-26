@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.27 s305)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.28 s305)
      v1.26 (FR-296): the Watch it Live card moves to the BOTTOM of the
      registration card — it stood between the event facts and "Will you be
      joining us?", so the first thing a man met was a scoring code. Pure move:
@@ -223,6 +223,16 @@
   .inout .io-when{ font-family:'Jost',sans-serif; font-size:10px; letter-spacing:.04em;
     color:var(--ink-soft); opacity:.75; margin:-1px 0 5px; white-space:nowrap;}
   .inout .io-none{ font-size:12px; color:var(--ink-soft); font-style:italic;}
+  /* ⭐⭐ FR-303 (v1.28, s305) — THE LISTS COLLAPSE. His ask: with 140 on the
+     invite list this page would put a hundred names above the RSVP form. The
+     HEAD is the control and it keeps the count, because the count is the part
+     anybody actually wants at a glance. Collapsed on every load. */
+  .inout .io-head.io-tog{ cursor:pointer; display:flex; align-items:center;
+    gap:6px; user-select:none; -webkit-user-select:none;}
+  .inout .io-head.io-tog:hover{ opacity:.75;}
+  .inout .io-car{ margin-left:auto; font-size:9px; line-height:1; opacity:.65;
+    transition:transform .15s ease; transform:rotate(0deg);}
+  .inout .io-head.io-open .io-car{ transform:rotate(90deg);}
   @media (max-width:420px){ .inout .io-cols{ display:block;} .inout .io-col + .io-col{ margin-top:12px;} }
   .hairline{ border:0; border-top:1px solid var(--hair); margin:16px 0;}
   .hairline.brass{ border-top:1px solid rgba(168,134,60,.55); width:64%; margin:14px auto;}
@@ -616,6 +626,19 @@ function esc(s){
   });
 }
 function money(n){ return '$' + (Math.round(Number(n || 0) * 100) / 100).toLocaleString(); }
+/* ⭐⭐ FR-303 (v1.28, s305) — THE ONE TOGGLE for the in/out lists.
+   ⛔ Collapsed on EVERY load and never remembered: a man opening this link has
+      come to register, not to read a hundred names. He opens the list when he
+      wants it, and the next visit starts closed again.
+   ⛔ Fails open — a head with no body beside it simply does nothing. */
+window.ioTog = function (head) {
+  if (!head) return;
+  var body = head.nextElementSibling;
+  if (!body || body.className.indexOf('io-body') === -1) return;
+  var open = body.classList.toggle('hidden') === false;
+  head.classList.toggle('io-open', open);
+};
+
 async function api(path, body){
   var opts = body
     ? { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) }
@@ -731,6 +754,9 @@ async function loadEvent(){
        time beside it, never a guess and never "Invalid Date".
        ⭐ Works against reg-v1.10.0 too: `at` is simply undefined and the list is
        v1.17 byte-for-byte until he pastes the worker. */
+    /* ⭐ FR-303 (v1.28) — THE ONE TOGGLE. Every collapsible head goes through
+       this; nothing else opens or shuts a list. The body is always the head's
+       next sibling, which is why the markup below never separates them. */
     var when = function (iso) {
       if (!iso) return '';
       try {
@@ -741,15 +767,20 @@ async function loadEvent(){
       } catch (_fr194) { return ''; }
     };
     var col = function (label, cls, names, stamps) {
-      var h = '<div class="io-col"><div class="io-head ' + cls + '">' + label
-            + ' &middot; ' + names.length + '</div>';
+      /* FR-303 — the head is the tap target and keeps the count; the names sit
+         in the body beside it, hidden until asked for. */
+      var h = '<div class="io-col">'
+            + '<div class="io-head io-tog ' + cls + '" onclick="ioTog(this)">'
+            + '<span>' + label + ' &middot; ' + names.length + '</span>'
+            + '<span class="io-car">\u25b6</span></div>'
+            + '<div class="io-body hidden">';
       if (!names.length) h += '<div class="io-none">nobody yet</div>';
       else names.forEach(function (n, i) {
         h += '<div class="io-name' + (cls === 'no' ? ' out' : '') + '">' + esc(n) + '</div>';
         var w = when((stamps || [])[i]);
         if (w) h += '<div class="io-when">' + esc(w) + '</div>';
       });
-      return h + '</div>';
+      return h + '</div></div>';
     };
     /* ⭐ FR-274 (v1.21) — sorted by the KIND of yes when the worker sends yes_kind (parallel,
        index-matched). Absent or all-null = the exact v1.20 two-column list. Grouping is a
@@ -761,7 +792,13 @@ async function loadEvent(){
       /* v1.22 — HIS WORDS: distinct groups, each with the full "In —" head. */
       var groups = [ ['golf_dinner', 'In \u2014 Golf and Dinner Party'], ['golf', 'In \u2014 Golf Only'],
                      ['dinner', 'In \u2014 Dinner Party Only'], [null, 'In'] ];
-      inCol = '<div class="io-col">';
+      /* FR-303 — one outer head for the whole In column carrying the TOTAL, and
+         his FR-274b group heads live on inside it, untouched. */
+      inCol = '<div class="io-col">'
+            + '<div class="io-head io-tog yes" onclick="ioTog(this)">'
+            + '<span>In &middot; ' + (a.yes || []).length + '</span>'
+            + '<span class="io-car">\u25b6</span></div>'
+            + '<div class="io-body hidden">';
       groups.forEach(function (g) {
         var idx = [];
         (a.yes || []).forEach(function (_n, i) {
@@ -769,14 +806,14 @@ async function loadEvent(){
           if (g[0] === null ? !(k === 'golf_dinner' || k === 'golf' || k === 'dinner') : k === g[0]) idx.push(i);
         });
         if (!idx.length) return;
-        inCol += '<div class="io-head yes"' + (g[0] === 'golf_dinner' ? '' : ' style="margin-top:10px"') + '>' + g[1] + ' &middot; ' + idx.length + '</div>';
+        inCol += '<div class="io-head yes" style="margin-top:8px">' + g[1] + ' &middot; ' + idx.length + '</div>';
         idx.forEach(function (i) {
           inCol += '<div class="io-name">' + esc(a.yes[i]) + '</div>';
           var w = when((a.yes_at || [])[i]);
           if (w) inCol += '<div class="io-when">' + esc(w) + '</div>';
         });
       });
-      inCol += '</div>';
+      inCol += '</div></div>';
     } else {
       inCol = col('In', 'yes', a.yes || [], a.yes_at);
     }
