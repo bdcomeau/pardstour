@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v878.0 -->
+  <!-- pards-tour-v879.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -44189,6 +44189,15 @@ function _ptBSWeek() {
       + '</button>';
   });
 
+  // ⭐ FR-289 (v879.0) — ⟳ NEXT WEEK. One tap clones the latest game day
+  // (worker v3.92.0): same men with refreshed indexes, same groups and times,
+  // fresh codes, tee carried. The evergreen door re-resolves the new codes,
+  // so nothing needs re-distributing.
+  if (bs.rounds.length) {
+    html += '<button onclick="ptBS289NextWeek()" style="width:100%;padding:13px;margin:4px 0 2px;border-radius:12px;border:1.5px solid rgba(100,220,180,.35);background:rgba(100,220,180,.1);color:rgba(100,220,180,1);font-size:14px;font-weight:800;cursor:pointer">⟳ Next Week — clone the latest game day</button>'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-bottom:6px">Same men and groups, fresh codes, indexes refreshed. The draw is never carried — record it on the night.</div>';
+  }
+
   if (!bs.roundId) return html;
 
   // ── the picked week ──────────────────────────────────────────────────────
@@ -44236,6 +44245,8 @@ function _ptBSWeek() {
 
   html += _ptBSPreview(_per);
 
+  html += _ptBS289PotGroups();   // FR-289 — the draw recorder
+
   var gameDirty = bs.game !== bs.game0;
   var lineupDirty = JSON.stringify(bs.lineup) !== JSON.stringify(bs.lineup0);
   var lineupOk = !!bs.lineup && ['A', 'B', 'C'].every(function (t) { return (bs.lineup[t] || []).length === 4; });
@@ -44280,6 +44291,10 @@ window.ptBSPickWeek = function (roundId) {
   // measured against.
   bs.game0 = bs.game;
   bs.lineup0 = bs.lineup ? JSON.parse(JSON.stringify(bs.lineup)) : null;
+  // FR-289 — the stored draw, if the night has one. null = not recorded yet.
+  bs.pg = bw.pot_groups ? JSON.parse(JSON.stringify(bw.pot_groups)) : null;
+  bs.pg0 = bs.pg ? JSON.parse(JSON.stringify(bs.pg)) : null;
+  bs.pgPick = null;
   _ptBSLoadTee(roundId);
   _ptBSRender();
 };
@@ -44334,6 +44349,169 @@ window.ptBSSaveWeek = function () {
     (r.warnings || []).forEach(function (wmsg) { ptToast(wmsg); });
     _ptBSRender();
   }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not save this week')); });
+};
+
+/* ── ⭐ FR-289 (v879.0) — BARNES PRODUCTION MODE, client half ────────────────
+   ⟳ Next Week (the one-tap clone) and the DRAW RECORDER — his "for certain
+   we need to add a team draw at the end of the round to determine if they're
+   uneven who goes where". The pot pays by PLAYING GROUP (FR-288, his ruling);
+   groups prefill from the tee sheet; a short group draws extras from the
+   night's field — drawn men are starred and may sit in two groups (Crisp,
+   Aug 25). Saved as its OWN partial patch {barnes_week:{pot_groups}} so game
+   and lineup are never touched by a draw save. */
+
+window.ptBS289NextWeek = function () {
+  var bs = G._ptBS; if (!bs) return;
+  ptConfirm(
+    'Builds next week from the latest game day: same men, same groups and times, fresh scoring codes.\n\nIndexes refresh from the roster, and the tee carries over — change it on the new week if they are playing a different deck.',
+    { title: 'Build next week?', icon: '⟳', ok: 'Build it' }
+  ).then(function (go) {
+    if (!go) return;
+    ptToast('Building next week…');
+    fetch(TOUR_API + '/api/leagues/' + bs.leagueId + '/barnes-next-week', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+      body: '{}'
+    }).then(_ptJson).then(_ptThrow).then(function (r) {
+      var d = (r.leagueRound || {}).round_date;
+      ptToast('Next week is built' + (d ? ' — ' + _ptLgDate(d) : '') + '. Codes are fresh; the league link finds them.');
+      // Reload the screen from the server so the new week appears in the list
+      // as stored truth, never as optimism.
+      ptShowBarnesSetup(bs.leagueId);
+    }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not build next week')); });
+  });
+};
+
+/* The night's field for the draw picker: the tee sheet's union when we have
+   it (the men who actually played), the league members otherwise. */
+function _ptBS289Field() {
+  var bs = G._ptBS, tee = bs && bs.tee;
+  if (tee && tee.state === 'ok' && tee.groups.length) {
+    var seen = [], out = [];
+    tee.groups.forEach(function (g) { (g.ids || []).forEach(function (rid) {
+      rid = Number(rid);
+      if (seen.indexOf(rid) === -1) { seen.push(rid); out.push(rid); }
+    }); });
+    return out;
+  }
+  return (bs.members || []).map(function (m) { return Number(m.roster_id); });
+}
+
+function _ptBS289PotGroups() {
+  var bs = G._ptBS;
+  var html = '<div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;margin:20px 0 4px">Pot groups — the draw</div>'
+    + '<div style="font-size:11px;color:rgba(255,255,255,.35);line-height:1.55;margin-bottom:10px">The weekly stableford pot pays by <strong>playing group</strong>, not by team. Groups come from the tee sheet; a short group <strong>draws</strong> extra men from the night\'s field — drawn men are starred and score for both groups.</div>';
+
+  if (!bs.pg) {
+    var tee = bs.tee;
+    if (tee && tee.state === 'ok' && tee.groups.length) {
+      html += '<button onclick="ptBS289PgFromTee()" style="width:100%;padding:12px;border-radius:11px;border:1.5px solid rgba(224,122,95,.4);background:rgba(224,122,95,.1);color:rgba(224,122,95,1);font-size:13px;font-weight:800;cursor:pointer">Load the groups from the tee sheet</button>';
+    } else if (tee && tee.state === 'loading') {
+      html += '<div style="color:rgba(255,255,255,.35);font-size:12px">Reading the tee sheet…</div>';
+    } else {
+      html += '<div style="color:rgba(255,255,255,.35);font-size:12px;line-height:1.5">No draw recorded and no tee sheet to load from — build the tee times first, then come back here.</div>';
+    }
+    return html;
+  }
+
+  bs.pg.forEach(function (g, gi) {
+    var ids = g.ids || [], drawn = g.drawn || [];
+    html += '<div style="background:rgba(255,255,255,.04);border-radius:11px;padding:10px 12px;margin-bottom:7px">'
+      + '<div style="display:flex;align-items:center;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.35);margin-bottom:6px">'
+      + '<div>Group ' + (gi + 1) + '</div>'
+      + '<div style="margin-left:auto;color:' + (ids.length >= 2 && ids.length <= 4 ? 'rgba(100,220,180,.85)' : '#e0a05f') + '">' + ids.length + ' men</div></div>';
+    ids.forEach(function (rid) {
+      rid = Number(rid);
+      var isDrawn = drawn.map(Number).indexOf(rid) > -1;
+      html += '<div style="display:flex;align-items:center;font-size:13px;padding:3px 0">'
+        + '<div style="flex:1;color:#fff;font-weight:700">' + _ptEsc(_ptBSMemberName(rid)) + (isDrawn ? '<span style="color:#e0a05f;font-weight:900"> *</span>' : '') + '</div>'
+        + (isDrawn ? '<div onclick="ptBS289PgRemove(' + gi + ',' + rid + ')" style="color:rgba(255,255,255,.35);font-size:15px;cursor:pointer;padding:0 4px">✕</div>' : '')
+        + '</div>';
+    });
+    if (ids.length < 4) {
+      html += '<div onclick="ptBS289PgDraw(' + gi + ')" style="font-size:12px;font-weight:800;color:rgba(224,122,95,.9);cursor:pointer;padding:6px 0 2px">＋ Draw a man into this group</div>';
+      if (bs.pgPick === gi) {
+        var pool = _ptBS289Field().filter(function (rid) { return ids.map(Number).indexOf(rid) === -1; });
+        if (!pool.length) {
+          html += '<div style="font-size:12px;color:rgba(255,255,255,.35);padding:4px 0">No one left to draw.</div>';
+        }
+        pool.forEach(function (rid) {
+          html += '<div onclick="ptBS289PgPick(' + gi + ',' + rid + ')" style="font-size:13px;color:rgba(255,255,255,.7);cursor:pointer;padding:6px 0 6px 14px;border-top:1px solid rgba(255,255,255,.06)">' + _ptEsc(_ptBSMemberName(rid)) + '</div>';
+        });
+      }
+    }
+    html += '</div>';
+  });
+
+  html += '<div style="display:flex;gap:8px;margin-top:4px">'
+    + '<button onclick="ptBS289PgFromTee()" style="flex:1;padding:10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.55);font-size:12px;font-weight:800;cursor:pointer">Reset from tee sheet</button>'
+    + '</div>';
+
+  var dirty = JSON.stringify(bs.pg) !== JSON.stringify(bs.pg0);
+  var ok = bs.pg.length && bs.pg.every(function (g) { return (g.ids || []).length >= 2 && (g.ids || []).length <= 4; });
+  var can = dirty && ok;
+  html += '<button onclick="ptBS289PgSave()"' + (can ? '' : ' disabled')
+    + ' style="width:100%;padding:13px;margin-top:8px;border-radius:12px;border:1.5px solid ' + (can ? 'rgba(100,220,180,.4)' : 'rgba(255,255,255,.08)')
+    + ';background:' + (can ? 'rgba(100,220,180,.14)' : 'rgba(255,255,255,.03)')
+    + ';color:' + (can ? 'rgba(100,220,180,1)' : 'rgba(255,255,255,.2)')
+    + ';font-size:14px;font-weight:800;cursor:' + (can ? 'pointer' : 'default') + '">'
+    + (can ? 'Save the draw' : (dirty ? 'Every group needs 2–4 men' : (bs.pg0 ? 'Draw saved' : 'Nothing to save yet'))) + '</button>'
+    + '<div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-top:6px">Sends pot groups only — game and lineup are left alone.</div>';
+  return html;
+}
+
+window.ptBS289PgFromTee = function () {
+  var bs = G._ptBS, tee = bs && bs.tee;
+  if (!tee || tee.state !== 'ok' || !tee.groups.length) { ptToast('No tee sheet to load from'); return; }
+  bs.pg = tee.groups.map(function (g) { return { ids: (g.ids || []).map(Number), drawn: [] }; });
+  bs.pgPick = null;
+  _ptBSRender();
+};
+
+window.ptBS289PgDraw = function (gi) {
+  var bs = G._ptBS; if (!bs || !bs.pg) return;
+  bs.pgPick = (bs.pgPick === gi) ? null : gi;
+  _ptBSRender();
+};
+
+window.ptBS289PgPick = function (gi, rid) {
+  var bs = G._ptBS; if (!bs || !bs.pg || !bs.pg[gi]) return;
+  rid = Number(rid);
+  var g = bs.pg[gi];
+  g.ids = (g.ids || []).map(Number); g.drawn = (g.drawn || []).map(Number);
+  if (g.ids.length >= 4) { ptToast('Four is a full group'); return; }
+  if (g.ids.indexOf(rid) === -1) { g.ids.push(rid); g.drawn.push(rid); }
+  bs.pgPick = null;
+  _ptBSRender();
+};
+
+window.ptBS289PgRemove = function (gi, rid) {
+  var bs = G._ptBS; if (!bs || !bs.pg || !bs.pg[gi]) return;
+  rid = Number(rid);
+  var g = bs.pg[gi];
+  g.ids = (g.ids || []).map(Number).filter(function (x) { return x !== rid; });
+  g.drawn = (g.drawn || []).map(Number).filter(function (x) { return x !== rid; });
+  _ptBSRender();
+};
+
+window.ptBS289PgSave = function () {
+  var bs = G._ptBS; if (!bs || !bs.roundId || !bs.pg) return;
+  var ok = bs.pg.length && bs.pg.every(function (g) { return (g.ids || []).length >= 2 && (g.ids || []).length <= 4; });
+  if (!ok) { ptToast('Every group needs 2–4 men'); return; }
+  fetch(TOUR_API + '/api/leagues/' + bs.leagueId + '/rounds/' + bs.roundId + '/config', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+    body: JSON.stringify({ barnes_week: { pot_groups: bs.pg } })
+  }).then(_ptJson).then(_ptThrow).then(function (r) {
+    var merged = (r.config || {}).barnes_week || {};
+    bs.rounds.forEach(function (x) {
+      if (x.league_round_id === bs.roundId) x.round_config = JSON.stringify(r.config || {});
+    });
+    bs.pg = merged.pot_groups ? JSON.parse(JSON.stringify(merged.pot_groups)) : bs.pg;
+    bs.pg0 = JSON.parse(JSON.stringify(bs.pg));
+    ptToast('Draw saved — the pot pays by these groups');
+    _ptBSRender();
+  }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not save the draw')); });
 };
 
 
@@ -80356,7 +80534,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v878.0';
+    const TOUR_VERSION     = 'pards-tour-v879.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
