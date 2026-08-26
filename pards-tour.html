@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v877.0 -->
+  <!-- pards-tour-v878.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -42964,7 +42964,9 @@ function ptRenderLeagueBarnes(d) {
     // — it is neither match points nor best-3-players — so the board states the
     // rule rather than leaving the number to be re-derived from a memory of it.
     html += potCard('Team Pot', pot.team || {},
-      'Per hole, the best 3 of each team\'s 4 match players\' full-handicap net stableford points, summed over 18. Not match points. A hole with no score contributes nothing and is not a zero.');
+      (pot.team && pot.team.group_mode)
+        ? 'Per hole, the best 3 of each PLAYING GROUP\'s 4 full-handicap net stableford points, summed over 18 \u2014 a short group\'s drawn fourth is marked *. Not match points, not the league teams.'   /* FR-288 — his ruling */
+        : 'Per hole, the best 3 of each team\'s 4 match players\' full-handicap net stableford points, summed over 18. Not match points. A hole with no score contributes nothing and is not a zero.');
     html += potCard('Front Nine', pot.front || {}, null);
     html += potCard('Back Nine', pot.back || {}, null);
 
@@ -43246,7 +43248,29 @@ window.ptPrintBarnesWeekReport = function (opts) {
     /* ⭐ FR-271 (v859.0, s303) — THE TEAM STABLEFORD ALLOCATION, EXPLAINABLE ON PAPER. One row per
        team from pot.team.by_team — the worker's best-3-of-4-per-hole detail (⛔ re-derives nothing,
        B-137): the team's total, the winner marked with the money, and who contributed what. */
-    var _bt271 = (pot.team && pot.team.by_team) || null;
+    /* ⭐⭐ FR-288 (v878.0, s304) — HIS RULING: "Team combined three of four Stableford each
+       week is by group not by an annual league team." A group-mode payload (v3.91.0,
+       pot.team.by_group) prints the GROUP table — * marks a drawn fourth; a drawn man's
+       card may count in more than one group, as played. No by_group -> the team table
+       below renders byte-identically. ⛔ Re-derives nothing (B-137): every number is the
+       worker's. */
+    var _bg288 = (pot.team && pot.team.by_group) || null;
+    if (_bg288 && _bg288.length) {
+      money += '<div class="sec">Group Stableford &mdash; best 3 of 4, hole by hole</div>'
+        + '<div class="note">The pot competes by playing group. Each hole counts the best three Par-points of the group\'s four; * marks a drawn fourth. The winning group takes the Team Pot.</div>'
+        + '<table class="yl"><thead><tr><th class="left">Group</th><th>Points</th><th class="left">Contributions (pts &middot; holes counted)</th><th>Money</th></tr></thead><tbody>';
+      _bg288.slice().sort(function (a, b) { return (b.total || 0) - (a.total || 0); }).forEach(function (g) {
+        var contrib = (g.contributions || []).map(function (c) {
+          return _esc(c.name) + (((g.drawn || []).indexOf(c.roster_id) > -1) ? '*' : '') + ' ' + _ptBarnesPts(c.pts) + ' (' + c.holes + ')';
+        }).join(' &middot; ');
+        money += '<tr' + (g.win ? ' style="background:#eef4f0"' : '') + '><td class="left"><strong>' + _esc(g.label || '') + '</strong>' + (g.win ? ' \u2713' : '') + '</td>'
+          + '<td class="big">' + _ptBarnesPts(g.total || 0) + '</td>'
+          + '<td class="left" style="font-size:9.5px;color:#555">' + (contrib || '&mdash;') + '</td>'
+          + '<td>' + (g.win ? '<strong>' + _ptBarnesMoney(pot.team.each != null ? pot.team.each : pot.team.amount) + '</strong>' : '&mdash;') + '</td></tr>';
+      });
+      money += '</tbody></table>';
+    }
+    var _bt271 = (!_bg288 || !_bg288.length) ? ((pot.team && pot.team.by_team) || null) : null;
     if (_bt271) {
       var _tw271 = ((pot.team && pot.team.winners) || []).filter(function (x) { return typeof x === 'string'; });
       money += '<div class="sec">Team Stableford &mdash; best 3 of 4, hole by hole</div>'
@@ -80332,7 +80356,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v877.0';
+    const TOUR_VERSION     = 'pards-tour-v878.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
