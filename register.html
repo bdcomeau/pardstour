@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.26 s304)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.27 s305)
      v1.26 (FR-296): the Watch it Live card moves to the BOTTOM of the
      registration card — it stood between the event facts and "Will you be
      joining us?", so the first thing a man met was a scoring code. Pure move:
@@ -435,6 +435,12 @@
         <div><label for="fFirst">First name</label><input type="text" id="fFirst" autocomplete="given-name"></div>
         <div><label for="fLast">Last name</label><input type="text" id="fLast" autocomplete="family-name"></div>
       </div>
+      <!-- ⭐⭐⭐ FR-301 (v1.27, s305) — CONFIRM THE EMAIL WE ALREADY HAVE.
+           138 of the 140 Last Call invitees have an address on the roster, so
+           asking a 70-year-old to retype it is asking for a typo. Filled ONLY
+           after he picks his own name, and shown MASKED (his ruling) because
+           this page is a public url. Empty and invisible on every other path. -->
+      <div id="emailOnFile" class="hidden"></div>
       <label for="fEmail">Email</label>
       <input type="email" id="fEmail" autocomplete="email">
       <label for="fPhone">Phone <span id="phoneReq">(optional)</span></label>
@@ -848,6 +854,10 @@ function applyFields(){
     if (!on) el.value = '';
   }
   box('fEmail', evFields.email);
+  /* ⛔ FR-301 (v1.27) — s302's lesson: this painter runs on every state change,
+     and without the next line it would re-open the email box a man has ALREADY
+     answered, one keystroke after he answered it. */
+  if (_eofState === 2 || _eofState === 1) eofShowInput(false);
   box('fGender', evFields.gender);   /* FR-250 — same painter, same rule */
   /* FR-139 — the picker and the typed boxes are two doors to the same field.
      ⛔ ONE painter decides which is open, so the page can never show both
@@ -930,6 +940,76 @@ function pickRender(list, q){
     btn.addEventListener('click', function(){ pickChoose(list[parseInt(btn.getAttribute('data-i'),10)]); });
   });
 }
+/* ⭐⭐⭐ FR-301 (v1.27, s305) — THE EMAIL WE ALREADY HAVE.
+   States: 0 nothing offered · 2 he confirmed ours · 3 he wants to type a new one.
+   ⛔ The page NEVER receives the real address. It receives a mask to recognise,
+      and sends back a FLAG; reg-v1.24.0 reads roster.email itself.
+   ⛔ FAILS OPEN on every miss — no picked name, field switched off, no stored
+      address, a 404, a dead network: the block stays hidden and the ordinary
+      email box does exactly what it did at v1.26. */
+var _eofState = 0, _eofSeq = 0;
+function eofBox(){ return $('emailOnFile'); }
+function eofShowInput(on){
+  var el = $('fEmail'); if (el) el.classList.toggle('hidden', !on);
+  var lab = document.querySelector('label[for="fEmail"]');
+  if (lab) lab.classList.toggle('hidden', !on);
+}
+function eofReset(){
+  _eofSeq++;                                  /* any answer in flight is stale */
+  _eofState = 0;
+  var b = eofBox(); if (b){ b.innerHTML = ''; b.classList.add('hidden'); }
+  if (evFields.email) eofShowInput(true);
+}
+function eofCard(inner){
+  var b = eofBox(); if (!b) return;
+  b.innerHTML = '<div style="padding:12px 14px 13px;border:1px solid var(--hair);'
+    + 'border-radius:12px;background:var(--card);margin:14px 0 2px">' + inner + '</div>';
+  b.classList.remove('hidden');
+}
+function eofOffer(masked){
+  _eofState = 1;
+  eofCard(
+      '<div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brass)">Confirm your email</div>'
+    + '<div style="font-size:13px;color:var(--ink-soft);margin:6px 0 9px">We have this on file for you.</div>'
+    + '<div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:17px;font-weight:600;color:var(--green);word-break:break-all;margin-bottom:11px">' + esc(masked) + '</div>'
+    + '<div style="display:flex;gap:9px;flex-wrap:wrap">'
+    + '<button type="button" id="eofYes" style="flex:1 1 auto;min-width:130px;padding:10px 14px;border:1px solid var(--green);border-radius:999px;background:var(--green);color:#fff;font-family:\'Jost\',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;cursor:pointer">That&rsquo;s right</button>'
+    + '<button type="button" id="eofNo" style="flex:1 1 auto;min-width:130px;padding:10px 14px;border:1px solid var(--hair);border-radius:999px;background:none;color:var(--ink-soft);font-family:\'Jost\',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;cursor:pointer">Use a different one</button>'
+    + '</div>');
+  eofShowInput(false);                        /* nothing to type while he decides */
+  var y = $('eofYes'); if (y) y.addEventListener('click', function(){ eofConfirm(masked); });
+  var n = $('eofNo');  if (n) n.addEventListener('click', eofDecline);
+}
+function eofConfirm(masked){
+  _eofState = 2;
+  eofCard(
+      '<div style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brass)">Email</div>'
+    + '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:7px">'
+    + '<span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:16px;font-weight:600;color:var(--green);word-break:break-all">' + esc(masked) + '</span>'
+    + '<button type="button" id="eofChange" style="padding:5px 12px;border:1px solid var(--hair);border-radius:999px;background:none;color:var(--ink-soft);font-family:\'Jost\',sans-serif;font-size:12px;cursor:pointer">change</button>'
+    + '</div>');
+  eofShowInput(false);
+  var c = $('eofChange'); if (c) c.addEventListener('click', eofDecline);
+  var e = $('rsvpErr'); if (e) e.textContent = '';
+}
+function eofDecline(){
+  _eofState = 3;
+  var b = eofBox(); if (b){ b.innerHTML = ''; b.classList.add('hidden'); }
+  eofShowInput(true);
+  var el = $('fEmail'); if (el){ el.value = ''; el.focus(); }
+}
+async function eofLoad(rid){
+  eofReset();
+  if (!evFields.email || !rid) return;
+  var mine = _eofSeq;
+  var r;
+  try { r = await api('/api/reg/onfile?code=' + encodeURIComponent(evCode) + '&roster_id=' + encodeURIComponent(rid)); }
+  catch (_e301){ return; }                    /* fail open — the plain box stands */
+  if (mine !== _eofSeq) return;               /* he picked somebody else meanwhile */
+  if (!(r && r.ok && r.data && r.data.has === true && r.data.masked)) return;
+  eofOffer(r.data.masked);
+}
+
 function pickChoose(p){
   if (!p) return;
   pickedRoster = p.id;
@@ -946,9 +1026,11 @@ function pickChoose(p){
   $('fPick').value = '';
   $('rsvpErr').textContent = '';
   applyFields();
+  eofLoad(p.id);                              /* FR-301 — ask for HIS address only */
 }
 function pickClearFn(){
   pickedRoster = 0;
+  eofReset();                                 /* FR-301 — a new man, a new question */
   $('fFirst').value = ''; $('fLast').value = '';
   $('pickHint').textContent = '';
   applyFields();
@@ -985,12 +1067,17 @@ async function sendRsvp(extra){
   if (evFields.invite_only && evPicker && !pickedRoster) { errBox.textContent = 'Find your name in the list above — this event is invite list only.'; return; }
   if (!first || !last) { errBox.textContent = 'First and last name, please.'; return; }
   /* FR-127 — required only while the organizer is actually asking for it. */
-  if (evFields.email && !email) { errBox.textContent = 'Email is required.'; return; }
+  /* FR-301 — a confirmed on-file address IS an email; the worker resolves it. */
+  if (evFields.email && !email && _eofState !== 2) { errBox.textContent = 'Email is required.'; return; }
   var body = {
     code: evCode, first: first, last: last, email: email, phone: phone, gc_id: gc, rsvp: rsvpChoice,
     /* FR-139 — the proof. 0 means nothing was picked and the worker behaves
        exactly as v1.8: fuzzy check, confirm card, the lot. */
     roster_id: pickedRoster || undefined,
+    /* ⭐ FR-301 (v1.27) — a FLAG, never an address. reg-v1.24.0 reads
+       roster.email itself off this roster_id; older workers ignore the key and
+       fall straight back to the required-email refusal. */
+    email_on_file: _eofState === 2 ? true : undefined,
     sponsor: evFields.sponsor ? spChoice : null,   /* FR-120 */
     /* ⭐ FR-250 — only when asked, and blank travels as null. The worker drops
        anything that arrives for a switched-off field anyway, so this and the
