@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v879.0 -->
+  <!-- pards-tour-v880.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -44233,13 +44233,19 @@ function _ptBSWeek() {
     (tm.roster_ids || []).forEach(function (rid) {
       rid = Number(rid);
       var slot = picked.indexOf(rid);
+      /* ⭐ FR-299 (v880.0) — DOUBLE DUTY IS A REAL LINEUP (s304). A man filling
+         two of his own team's slots must show BOTH, or the badge quietly lies
+         about the night. `slot` still drives every colour test below. */
+      var _s299 = [];
+      picked.forEach(function (x, i) { if (x != null && Number(x) === rid) _s299.push(i + 1); });
       html += '<div onclick="ptBSSlot(\'' + t + '\',' + rid + ')" style="display:flex;align-items:center;padding:6px 0;cursor:pointer">'
         + '<div style="width:22px;height:22px;border-radius:6px;margin-right:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;'
         + (slot > -1 ? 'background:' + _PT_BARNES_TEAMCOL[t] + ';color:#0d1f0d' : 'border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.2)') + '">'
-        + (slot > -1 ? (slot + 1) : '·') + '</div>'
+        + (_s299.length ? _s299.join('\u00b7') : '\u00b7') + '</div>'
         + '<div style="flex:1;font-size:13px;color:' + (slot > -1 ? '#fff' : 'rgba(255,255,255,.45)') + ';font-weight:' + (slot > -1 ? '700' : '400') + '">' + _ptEsc(_ptBSMemberName(rid)) + '</div>'
         + '</div>';
     });
+    html += _ptBS299Slots(t, picked);   /* FR-299 (v880.0) — the absent lever */
     html += '</div>';
   });
 
@@ -44306,9 +44312,144 @@ window.ptBSSetGame = function (key) {
   _ptBSRender();
 };
 
+/* ⭐⭐⭐ FR-299 (v880.0, s305) — THE ABSENT-PLAYER LEVER.
+   His ruling: DOUBLE DUTY FIRST. On Aug 25 he covered both absences and nobody
+   forfeited, so "who is covering him?" is the question the lever asks first and
+   the forfeit sits underneath it.
+
+   MEASURED PREMISE (s305, the real Aug 18 week, the worker's own scoreOneWeek):
+     a man seeded in the field who posts NO CARD  -> 12 of 18 awarded, NO forfeit
+     his slot NULLED                              -> 18 of 18, the other side paid
+     a team-mate covering his slot                -> 18 of 18, real golf decides
+   Six points were vanishing to nobody. This is the lever that stops it.
+
+   ⛔ THE LINEUP IS THE RECORD. null = absent, forfeit this match. A repeated id
+      = double duty. Nothing else is stored: `_a299` below is session-only chrome
+      that remembers WHO stepped out so the strip can caption it and the undo can
+      put him back. A second stored fact about one night is a second thing to
+      drift (trap 3).
+   ⛔ worker v3.93.0 is what accepts a null slot. Against an older worker the
+      PATCH simply 400s and the strip's own text is the only thing lost. */
+function _ptBS299Bag(t) {
+  var bs = G._ptBS; if (!bs) return {};
+  if (!bs._a299) bs._a299 = { A: {}, B: {}, C: {} };
+  if (!bs._a299[t]) bs._a299[t] = {};
+  return bs._a299[t];
+}
+function _ptBS299Locked(t) {
+  var bag = _ptBS299Bag(t);
+  for (var k in bag) if (Object.prototype.hasOwnProperty.call(bag, k)) return true;
+  return false;
+}
+function _ptBS299Name(rid) {
+  return rid == null ? '' : _ptBSMemberName(Number(rid));
+}
+/* The strip. Only once the team is actually fielded — four entries — because a
+   half-built lineup has no slots to be absent from. */
+function _ptBS299Slots(t, picked) {
+  picked = picked || [];
+  if (picked.length !== 4) return '';
+  var bs = G._ptBS; if (!bs) return '';
+  var bag = _ptBS299Bag(t);
+  var open = bs._a299open || '';
+  var ACC = 'rgba(224,122,95,1)';
+  var html = '<div style="margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.07)">'
+    + '<div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">Slots &mdash; tap Absent if a man does not show</div>';
+  picked.forEach(function (rid, i) {
+    var out = bag[i];                       // the man who stepped out of THIS slot
+    var isForfeit = (rid == null);
+    var isCover = (out != null && rid != null);
+    var badge = '<div style="width:20px;height:20px;border-radius:6px;margin-right:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;'
+      + (isForfeit ? 'border:1.5px solid ' + ACC + ';color:' + ACC
+                   : 'background:' + _PT_BARNES_TEAMCOL[t] + ';color:#0d1f0d') + '">' + (i + 1) + '</div>';
+    html += '<div style="display:flex;align-items:center;padding:5px 0">' + badge;
+    if (isForfeit) {
+      html += '<div style="flex:1;font-size:12px;font-weight:800;color:' + ACC + '">ABSENT &mdash; forfeit'
+        + (out != null ? '<span style="font-weight:400;color:rgba(255,255,255,.35)"> &nbsp;' + _ptEsc(_ptBS299Name(out)) + '</span>' : '')
+        + '</div>';
+    } else if (isCover) {
+      html += '<div style="flex:1;font-size:12px;color:#fff"><strong>' + _ptEsc(_ptBS299Name(rid)) + '</strong>'
+        + '<span style="color:' + ACC + ';font-weight:800"> &nbsp;DOUBLE DUTY</span>'
+        + '<span style="color:rgba(255,255,255,.35)"> &nbsp;covering ' + _ptEsc(_ptBS299Name(out)) + '</span></div>';
+    } else {
+      html += '<div style="flex:1;font-size:12px;color:rgba(255,255,255,.8)">' + _ptEsc(_ptBS299Name(rid)) + '</div>';
+    }
+    if (isForfeit || isCover) {
+      html += '<div onclick="ptBS299Undo(\'' + t + '\',' + i + ')" style="font-size:11px;font-weight:800;color:rgba(255,255,255,.45);cursor:pointer;padding:3px 7px;border:1px solid rgba(255,255,255,.12);border-radius:8px">undo</div>';
+    } else {
+      html += '<div onclick="ptBS299Open(\'' + t + '\',' + i + ')" style="font-size:11px;font-weight:800;color:' + ACC + ';cursor:pointer;padding:3px 8px;border:1px solid rgba(224,122,95,.35);border-radius:8px">Absent</div>';
+    }
+    html += '</div>';
+
+    /* the chooser — DOUBLE DUTY FIRST, his ruling, then the forfeit */
+    if (open === t + ':' + i) {
+      var mates = [];
+      picked.forEach(function (x, j) { if (j !== i && x != null && Number(x) !== Number(rid)) {
+        if (mates.map(Number).indexOf(Number(x)) === -1) mates.push(Number(x));
+      } });
+      html += '<div style="margin:2px 0 8px 28px;padding:9px 10px;border-radius:10px;background:rgba(224,122,95,.08);border:1px solid rgba(224,122,95,.25)">'
+        + '<div style="font-size:11px;font-weight:800;color:' + ACC + ';margin-bottom:5px">Who is covering ' + _ptEsc(_ptBS299Name(rid)) + '?</div>';
+      if (mates.length) {
+        mates.forEach(function (m) {
+          html += '<div onclick="ptBS299Cover(\'' + t + '\',' + i + ',' + m + ')" style="font-size:13px;color:#fff;cursor:pointer;padding:7px 0;border-top:1px solid rgba(255,255,255,.07)">' + _ptEsc(_ptBS299Name(m)) + '</div>';
+        });
+      } else {
+        html += '<div style="font-size:11px;color:rgba(255,255,255,.35);padding:4px 0">Nobody else is in this team&rsquo;s lineup yet.</div>';
+      }
+      html += '<div onclick="ptBS299Forfeit(\'' + t + '\',' + i + ')" style="font-size:12px;font-weight:800;color:' + ACC + ';cursor:pointer;padding:8px 0 3px;border-top:1px solid rgba(255,255,255,.07)">Nobody &mdash; forfeit his match</div>'
+        + '<div onclick="ptBS299Close()" style="font-size:11px;color:rgba(255,255,255,.35);cursor:pointer;padding:5px 0 1px">cancel</div>'
+        + '</div>';
+    }
+  });
+  html += '<div style="font-size:10px;color:rgba(255,255,255,.28);line-height:1.5;margin-top:4px">A covered slot plays for real. A forfeited slot pays the other side its points, so the week is still worth 18.</div>';
+  return html + '</div>';
+}
+window.ptBS299Open = function (t, i) {
+  var bs = G._ptBS; if (!bs) return;
+  bs._a299open = t + ':' + i;
+  _ptBSRender();
+};
+window.ptBS299Close = function () {
+  var bs = G._ptBS; if (!bs) return;
+  bs._a299open = null;
+  _ptBSRender();
+};
+window.ptBS299Cover = function (t, i, coverRid) {
+  var bs = G._ptBS; if (!bs || !bs.lineup || !bs.lineup[t]) return;
+  var arr = bs.lineup[t];
+  if (arr[i] == null) return;
+  _ptBS299Bag(t)[i] = Number(arr[i]);     // remember who stepped out
+  arr[i] = Number(coverRid);              // ⛔ WRITE THE SLOT, never splice
+  bs._a299open = null;
+  _ptBSRender();
+};
+window.ptBS299Forfeit = function (t, i) {
+  var bs = G._ptBS; if (!bs || !bs.lineup || !bs.lineup[t]) return;
+  var arr = bs.lineup[t];
+  if (arr[i] == null) return;
+  _ptBS299Bag(t)[i] = Number(arr[i]);
+  arr[i] = null;                          // ⛔ null IS the forfeit (worker v3.93.0)
+  bs._a299open = null;
+  _ptBSRender();
+};
+window.ptBS299Undo = function (t, i) {
+  var bs = G._ptBS; if (!bs || !bs.lineup || !bs.lineup[t]) return;
+  var bag = _ptBS299Bag(t);
+  if (bag[i] == null) return;
+  bs.lineup[t][i] = Number(bag[i]);
+  delete bag[i];
+  bs._a299open = null;
+  _ptBSRender();
+};
+
 window.ptBSSlot = function (t, rid) {
   var bs = G._ptBS; if (!bs) return;
   rid = Number(rid);
+  /* ⛔ FR-299 (v880.0) — THE ROW LOCK. Once a slot on this team is answered
+     "absent", the roster rows stop toggling: on a short-handed night the man
+     who is out gets tapped back in by somebody trying to help, and the lineup
+     that reaches the worker is not the lineup that played. Undo the slot first. */
+  if (_ptBS299Locked(t)) { ptToast('Undo the absent slot first'); return; }
   if (!bs.lineup) bs.lineup = { A: [], B: [], C: [] };
   ['A', 'B', 'C'].forEach(function (k) { if (!bs.lineup[k]) bs.lineup[k] = []; });
   var arr = bs.lineup[t];
@@ -80534,7 +80675,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v879.0';
+    const TOUR_VERSION     = 'pards-tour-v880.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
