@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v883.0 -->
+  <!-- pards-tour-v884.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -16364,6 +16364,10 @@ function ptFr255Row(){
              course_id: G.courseId || '',
              course_name: crs ? crs.name : (G.courseId || ''),
              players_on_card: (G.players||[]).length || 1,
+             /* ⭐ FR-305 (v884.0, s306) — the NAMES, not just the count. They
+                were always right here in G.players and only the length was
+                sent, so the pane could never say more than "4 on card". */
+             players: (G.players||[]).map(function(p){ return (p && p.name) || ''; }).filter(Boolean),
              total_score: any ? tot : null,
              source: G.joinGroup ? 'event' : 'personal' };
   }catch(_e){ return null; }
@@ -16396,7 +16400,7 @@ function ptFr255Report(){
    only — never checkpoints, never paused rounds, never Match Cards companions. */
 function ptFr255Backfill(){
   try{
-    if(localStorage.getItem('pards_usage_backfill_v1')) { ptFr255Flush(); return; }
+    if(localStorage.getItem('pards_usage_backfill_v2')) { ptFr255Flush(); return; }   /* FR-305 — v2: one more pass, this time WITH the names */
     var hist = loadHistory().filter(function(r){ return r && !r.checkpoint && !r.paused && !r.isMatchCards && r.roundDate && r.players && r.players.length; });
     var rows = hist.map(function(r){
       var who = (r.players[0] && r.players[0].name) || '';
@@ -16405,9 +16409,12 @@ function ptFr255Backfill(){
       var crs = PARDS_COURSES.find(function(x){ return x.id === r.courseId; });
       return { round_key: who + '|' + r.roundDate, played_on: String(r.roundDate).slice(0,10), player: who,
                course_id: r.courseId||'', course_name: crs?crs.name:(r.courseId||''),
-               players_on_card: r.players.length, total_score: any?tot:null, source:'personal', backfill:true };
+               players_on_card: r.players.length,
+               /* ⭐ FR-305 — same names, same place, previously discarded. */
+               players: r.players.map(function(p){ return (p && p.name) || ''; }).filter(Boolean),
+               total_score: any?tot:null, source:'personal', backfill:true };
     }).filter(function(r){ return r.player; });
-    localStorage.setItem('pards_usage_backfill_v1','1');
+    localStorage.setItem('pards_usage_backfill_v2','1');   /* FR-305 */
     if(rows.length) ptFr255Queue(rows);
     ptFr255Flush();
   }catch(_e){}
@@ -31917,18 +31924,41 @@ function ptFr257Render(){
   if(!el) return;
   var all = window._ptFr257Rows || [];
   var sel = window._ptFr257Sel || '';
+  /* ⭐ FR-305 (v884.0, s306) — HIDE A NAME. His ask: "add a filter to usage to
+     exclude a 'me'. Like me. As I have a ton of test rounds I'd not like to
+     see". Remembered in localStorage — test rounds are permanent noise, so a
+     hide that forgot itself on every reload would be no hide at all.
+     ⛔ Only offered while the include picker is on All: choosing ONE player
+     already scopes the pane, and hiding that same man would strand an empty
+     screen with two controls disagreeing. */
+  if(window._ptFr257Hide === undefined){
+    try{ window._ptFr257Hide = localStorage.getItem('pards_usage_hide') || ''; }catch(_h){ window._ptFr257Hide = ''; }
+  }
+  var hide = sel ? '' : (window._ptFr257Hide || '');
   var names = {};
   all.forEach(function(r){ if(r.player) names[r.player] = 1; });
   if(sel && !names[sel]) sel = window._ptFr257Sel = '';   /* a vanished name never strands an empty pane */
-  var rows = sel ? all.filter(function(r){ return r.player === sel; }) : all;
+  if(hide && !names[hide]) hide = window._ptFr257Hide = '';
+  var rows = sel ? all.filter(function(r){ return r.player === sel; })
+                 : (hide ? all.filter(function(r){ return r.player !== hide; }) : all);
+  var hidN = hide ? (all.length - rows.length) : 0;
   var now = new Date(); var wk = new Date(now); wk.setDate(now.getDate()-7);
   var mo = new Date(now); mo.setDate(now.getDate()-30);
   var wkN=0, moN=0, players={}, courses={};
   rows.forEach(function(r){ var t = new Date(r.played_on); if(t>=wk) wkN++; if(t>=mo) moN++; if(r.player) players[r.player]=1; var _c = r.course_name||r.course_id; if(_c) courses[_c]=1; });
-  var h = '<select onchange="window._ptFr257Sel=this.value;ptFr257Render()" style="width:100%;margin-bottom:12px;padding:11px 12px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.18);border-radius:10px;color:#f5e6b8;font-size:13px;font-weight:700;outline:none;-webkit-appearance:none">'
+  var h = '<select onchange="window._ptFr257Sel=this.value;ptFr257Render()" style="width:100%;margin-bottom:8px;padding:11px 12px;background:rgba(255,255,255,.07);border:1.5px solid rgba(201,168,76,.3);border-radius:10px;color:#f5e6b8;font-size:13px;font-weight:700;outline:none">'
     + '<option value=""'+(sel===''?' selected':'')+'>👥 All players</option>'
     + Object.keys(names).sort().map(function(n){ return '<option value="'+_esc(n).replace(/"/g,'&quot;')+'"'+(n===sel?' selected':'')+'>'+_esc(n)+'</option>'; }).join('')
     + '</select>';
+  if(!sel){
+    h += '<select onchange="ptFr305Hide(this.value)" style="width:100%;margin-bottom:12px;padding:10px 12px;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;color:'+(hide?'#e0a05f':'rgba(255,255,255,.5)')+';font-size:12.5px;font-weight:700;outline:none">'
+      + '<option value=""'+(hide===''?' selected':'')+'>🚫 Hide nobody</option>'
+      + Object.keys(names).sort().map(function(n){ return '<option value="'+_esc(n).replace(/"/g,'&quot;')+'"'+(n===hide?' selected':'')+'>🚫 Hide '+_esc(n)+'</option>'; }).join('')
+      + '</select>';
+    if(hide) h += '<div style="font-size:11px;color:rgba(224,160,95,.85);margin:-6px 0 12px;text-align:center">'+hidN+' round'+(hidN===1?'':'s')+' hidden · '+_esc(hide)+'</div>';
+  } else {
+    h += '<div style="margin-bottom:12px"></div>';
+  }
   h += '<div style="display:flex;gap:8px;margin-bottom:14px">';
   /* filtered: the 4th tile flips to the player's distinct courses — his player count would always read 1 */
   [['7 days',wkN],['30 days',moN],['All',rows.length],[sel?'Courses':'Players', sel?Object.keys(courses).length:Object.keys(players).length]].forEach(function(x){
@@ -31937,19 +31967,57 @@ function ptFr257Render(){
       + '<div style="font-size:9px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px">'+x[0]+'</div></div>';
   });
   h += '</div>';
-  if(!rows.length) h += '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">'+(sel?('No rounds for '+_esc(sel)+' yet.'):'No rounds reported yet — they arrive as players finish cards on the new client.')+'</div>';
+  if(!rows.length) h += '<div style="color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">'+(sel?('No rounds for '+_esc(sel)+' yet.'):(hide?('Every round is '+_esc(hide)+'\u2019s \u2014 nothing left to show.'):'No rounds reported yet \u2014 they arrive as rounds are completed.'))+'</div>';
+  if(!window._ptFr305Open) window._ptFr305Open = {};
   rows.slice(0,200).forEach(function(r){
-    h += '<div style="background:rgba(255,255,255,.05);border-radius:10px;padding:10px 14px;margin-bottom:6px;display:flex;align-items:center;gap:10px">'
+    /* ⭐⭐ FR-305 — TAP A ROUND, SEE WHO WAS ON THE CARD. The key is the same
+       "<player>|<date>" the ping builds as round_key, so the open row survives
+       a re-render (filter change, hide change) without an index that shifts. */
+    var key = (r.player||'') + '|' + (r.played_on||'');
+    var open = !!window._ptFr305Open[key];
+    var nm = [];
+    try{ nm = r.players ? JSON.parse(r.players) : []; }catch(_p){ nm = []; }
+    if(!Array.isArray(nm)) nm = [];
+    var canOpen = nm.length > 0;
+    h += '<div style="background:rgba(255,255,255,.05);border-radius:10px;margin-bottom:6px;overflow:hidden">'
+      + '<div onclick="ptFr305Toggle(\''+_esc(key).replace(/"/g,'&quot;').replace(/'/g,"\\'")+'\')" style="padding:10px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;-webkit-tap-highlight-color:transparent">'
       + '<div style="flex:1;min-width:0">'
-      + '<div style="font-size:13px;font-weight:800;color:#f5e6b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+_esc(r.player||'')+(r.backfill?' <span style="color:rgba(255,255,255,.25);font-weight:600">↞</span>':'')+'</div>'
-      + '<div style="font-size:11px;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+_esc(r.played_on||'')+' · '+_esc(r.course_name||r.course_id||'—')+'</div></div>'
+      + '<div style="font-size:13px;font-weight:800;color:#f5e6b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+_esc(r.player||'')+(r.backfill?' <span style="color:rgba(255,255,255,.25)">\u21de</span>':'')+'</div>'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+_esc(r.played_on||'')+' \u00b7 '+_esc(r.course_name||r.course_id||'')+'</div></div>'
       + '<div style="text-align:right;flex-shrink:0">'
-      + '<div style="font-size:14px;font-weight:900;color:'+(r.source==='event'?'#a8d5b5':'#c9a84c')+'">'+(r.total_score!=null?r.total_score:'—')+'</div>'
-      + '<div style="font-size:9px;color:rgba(255,255,255,.35)">'+(r.players_on_card||1)+' on card'+(r.source==='event'?' · event':'')+'</div></div>'
+      + '<div style="font-size:14px;font-weight:900;color:'+(r.source==='event'?'#a8d5b5':'#c9a84c')+'">'+(r.total_score!=null?r.total_score:'\u2014')+'</div>'
+      + '<div style="font-size:9px;color:rgba(255,255,255,.35)">'+(r.players_on_card||1)+' on card'+(r.source==='event'?' \u00b7 event':'')+'</div></div>'
+      + '<div style="flex-shrink:0;color:rgba(255,255,255,'+(canOpen?'.35':'.12')+');font-size:15px;width:12px;text-align:center">'+(open?'\u25be':'\u203a')+'</div>'
       + '</div>';
+    if(open){
+      h += '<div style="padding:2px 14px 11px;border-top:1px solid rgba(255,255,255,.06)">';
+      if(canOpen){
+        h += '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px;margin:8px 0 5px">On the card</div>';
+        nm.forEach(function(n){
+          var isMe = (n||'').trim().toLowerCase() === (r.player||'').trim().toLowerCase();
+          h += '<div style="font-size:12.5px;color:'+(isMe?'#c9a84c':'rgba(255,255,255,.72)')+';font-weight:'+(isMe?'800':'600')+';padding:3px 0">'+_esc(n)+(isMe?' <span style="font-size:9px;color:rgba(255,255,255,.3);font-weight:700">REPORTED</span>':'')+'</div>';
+        });
+      } else {
+        /* ⛔ Never a blank panel. The 135 rounds that predate FR-305 have no
+           names to show and never will unless that phone re-reports. */
+        h += '<div style="font-size:11.5px;color:rgba(255,255,255,.4);line-height:1.5;margin:8px 0 2px">Names not recorded \u2014 this round was reported before the app started sending them. It fills in if that phone reports again.</div>';
+      }
+      h += '</div>';
+    }
+    h += '</div>';
   });
   el.innerHTML = h;
 }
+window.ptFr305Toggle = function(key){
+  if(!window._ptFr305Open) window._ptFr305Open = {};
+  if(window._ptFr305Open[key]) delete window._ptFr305Open[key]; else window._ptFr305Open[key] = 1;
+  ptFr257Render();
+};
+window.ptFr305Hide = function(v){
+  window._ptFr257Hide = v || '';
+  try{ localStorage.setItem('pards_usage_hide', window._ptFr257Hide); }catch(_e){}
+  ptFr257Render();
+};
 
 function ptLoadOrgLeagues() {
   var el = document.getElementById('ptOrgLeagueList');
@@ -80290,7 +80358,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v883.0';
+    const TOUR_VERSION     = 'pards-tour-v884.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
