@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.29 s306)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.31 s306)
      v1.26 (FR-296): the Watch it Live card moves to the BOTTOM of the
      registration card — it stood between the event facts and "Will you be
      joining us?", so the first thing a man met was a scoring code. Pure move:
@@ -285,6 +285,7 @@
     border-radius:12px; padding:13px 14px; margin:18px 0 2px;}
   .sp-lead{ font-size:14.5px; color:var(--ink); line-height:1.5;}
   .sp-lead strong{ color:var(--brass); font-weight:600;}
+  .sp-money{ font-size:13px; color:var(--green); font-weight:600; line-height:1.5; margin-top:8px;}
   .sp-sub{ font-size:12.5px; color:var(--ink-soft); line-height:1.6; margin-top:7px;}
   .done-mark{
     width:52px; height:52px; margin:6px auto 10px; border:1px solid var(--brass);
@@ -492,15 +493,22 @@
       <!-- ⭐⭐ FR-306 (v1.29, s306) — HISTORY BEFORE THE ASK (his s304 ruling,
            "I am not a marketer"). It opens with something that actually
            happened at this tournament, in his own words, and only then asks.
-           And it names what he wants — a HOLE, a special prize, a raffle item
-           — instead of the vague "a prize" this has asked since FR-120.
+           And it names what he wants — a HOLE, or a prize good enough for the
+           table — instead of the vague "a prize" this has asked since FR-120.
+           ⛔ v1.31 — HIS RULING, twice: "there is no raffle unless someone asks
+           - we just want good prizes for table", then "remove raffle reference
+           - that just happened once with the mcdavid jersey". That word is now
+           GONE from every line a golfer can read. The jersey stays, because it
+           is the reason to say yes, told as what it was: a man put something up
+           and it brought in $2,000.
            ⛔ The Yes/No toggle, the notes box, spChoice and the payload are
            UNTOUCHED: this is copy, not plumbing. -->
       <div class="sp-ask">
         <div class="sp-lead">In 2015 someone put up a Connor McDavid jersey.<br>
-          <strong>It raffled for $2,000.</strong></div>
-        <div class="sp-sub">Sponsor a hole &middot; put up a special prize &middot; bring something for the raffle.
-          It is the 40th &mdash; if you have wanted to do something memorable, this is the year.</div>
+          <strong>It brought in $2,000.</strong></div>
+        <div class="sp-money">All of it went on the prize table and out as cash to the winners.</div>
+        <div class="sp-sub">We are after good prizes for the table. Sponsor a hole, or put one up yourself.
+          It is the 40th &mdash; if you have ever wanted to do something memorable, this is the year.</div>
       </div>
       <label>Would you like to do something special this year?</label>
       <div class="rsvp-toggle">
@@ -509,7 +517,7 @@
       </div>
       <div id="spNotesWrap" class="hidden">
         <label for="fSpNotes">What do you have in mind?</label>
-        <textarea id="fSpNotes" rows="2" maxlength="500" placeholder="A hole? A prize? Something for the raffle? Rough ideas are fine."></textarea>
+        <textarea id="fSpNotes" rows="2" maxlength="500" placeholder="A hole? A prize for the table? Rough ideas are fine."></textarea>
       </div>
       </div>
 
