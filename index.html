@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v899.0 -->
+  <!-- pards-tour-v900.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -35441,6 +35441,14 @@ function ptRenderLeagueDetail(league, members, rounds, teamNights) {   // FR-19 
      night cards, which on a 20-week season is an entire screen away from the thing it
      adds to. */
   html += _lgAddNight;
+  /* FR-316 (v900.0, s310) — the league's crest, above the game days it reaches. */
+  var _lg316 = null;
+  try { var _lc316 = typeof league.config === 'string' ? JSON.parse(league.config || '{}') : (league.config || {}); _lg316 = (typeof _lc316.logo === 'string' && _lc316.logo.indexOf('data:image/') === 0) ? _lc316.logo : null; } catch (_e316) { _lg316 = null; }
+  html += '<div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px 14px;margin-bottom:14px">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">'
+    + '<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px">League Logo / Scorecard Logo</div>'
+    + '<span id="ptLogo316Chip_' + lid + '">' + (_lg316 ? '<span style="font-size:10px;font-weight:800;color:#7bd88f">SET</span>' : '') + '</span></div>'
+    + '<div id="ptLogo316Body_' + lid + '">' + _ptLogo316Body(lid, _lg316) + '</div></div>';
   html += '<div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px 14px;margin-bottom:20px">'
     +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:'+(_lgWk.length?'10':'2')+'px">'
     +'<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px">Game Days \u00b7 <span style="color:rgba(245,217,122,.85)">'+_lgWk.length+'</span></div>'
@@ -45443,10 +45451,13 @@ window._ptLogo279Body = function (evId, logo) {
     + '<div id="ptLogo279Msg_' + evId + '" style="font-size:11px;margin-top:6px;color:rgba(255,255,255,.6)"></div>';
   return h;
 };
-window.ptLogo279File = function (evId, input) {
+/* FR-316 (v900.0, s310) — THE ONE LOGO READER. FR-279's resize (340px cap), white flatten and
+   JPEG budget, lifted out whole so the league logo below uses the SAME producer. `onUri` gets the
+   finished data URI; every failure is written to `msg` and nothing is saved. Byte-identical
+   behaviour for the tournament crest. */
+window._ptLogoRead = function (input, msg, onUri) {
   var f = input.files && input.files[0];
   if (!f) return;
-  var msg = document.getElementById('ptLogo279Msg_' + evId);
   var rd = new FileReader();
   rd.onload = function () {
     var img = new Image();
@@ -45462,14 +45473,20 @@ window.ptLogo279File = function (evId, input) {
       if (uri.length > 200000) uri = cv.toDataURL('image/jpeg', 0.6);
       if (uri.length > 200000) { if (msg) msg.innerHTML = '<span style="color:#e8776a">That image is too detailed to store \u2014 try a smaller or simpler version.</span>'; return; }
       if (msg) msg.textContent = 'Saving\u2026';
-      ptPatchEvConfig(evId, { logo: uri }).then(function () {
-        ptLogo279Paint(evId, uri);
-      }).catch(function () { if (msg) msg.innerHTML = '<span style="color:#e8776a">Could not save the logo \u2014 try again.</span>'; });
+      onUri(uri);
     };
     img.onerror = function () { if (msg) msg.innerHTML = '<span style="color:#e8776a">That file is not an image.</span>'; };
     img.src = rd.result;
   };
   rd.readAsDataURL(f);
+};
+window.ptLogo279File = function (evId, input) {
+  var msg = document.getElementById('ptLogo279Msg_' + evId);
+  _ptLogoRead(input, msg, function (uri) {
+    ptPatchEvConfig(evId, { logo: uri }).then(function () {
+      ptLogo279Paint(evId, uri);
+    }).catch(function () { if (msg) msg.innerHTML = '<span style="color:#e8776a">Could not save the logo \u2014 try again.</span>'; });
+  });
 };
 window.ptLogo279Clear = function (evId) {
   var msg = document.getElementById('ptLogo279Msg_' + evId);
@@ -45481,6 +45498,63 @@ window.ptLogo279Clear = function (evId) {
 window.ptLogo279Paint = function (evId, logo) {
   var b = document.getElementById('ptLogo279Body_' + evId);
   if (b) b.innerHTML = _ptLogo279Body(evId, logo);
+};
+/* ⭐⭐ FR-316 (v900.0, s310) — A LEAGUE LOGO. The league's crest lives in leagues.config.logo,
+   written through the existing PATCH /api/leagues/:id/config. It reaches the game days through
+   the WORKER (v3.103.0): on link, and whenever this changes — every linked night with no crest of
+   its own follows it, so the paper card, the scoring phones and the registration page need no new
+   code. ⛔ Barnes weeks are trips, not events; the league logo does not reach them (said plainly).
+   Same reader, same 340px cap, same white flatten as the tournament crest — one producer. */
+window._ptLogo316Body = function (lid, logo) {
+  var h = '';
+  if (logo) {
+    h += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">'
+      + '<img src="' + logo + '" style="height:56px;width:auto;max-width:130px;object-fit:contain;background:#fff;border-radius:10px;padding:4px" alt="">'
+      + '<div style="flex:1;font-size:11px;color:rgba(255,255,255,.55)">Every game day linked to this league prints this on the front of its scorecards and tops its registration page \u2014 unless that night has a crest of its own.</div>'
+      + '</div>';
+  } else {
+    h += '<div style="font-size:11.5px;color:rgba(255,255,255,.55);margin-bottom:10px">No league logo \u2014 game days print the golf course\u2019s logo. Upload the league\u2019s crest and every linked night carries it.</div>';
+  }
+  h += '<input type="file" id="ptLogo316File_' + lid + '" accept="image/*" style="display:none" onchange="ptLogo316File(' + lid + ', this)">'
+    + '<div style="display:flex;gap:8px">'
+    + '<button onclick="document.getElementById(\'ptLogo316File_' + lid + '\').click()" style="flex:1;padding:9px;background:rgba(245,217,122,.1);border:1px solid rgba(245,217,122,.35);border-radius:9px;color:#f5d97a;font-size:12px;font-weight:800;cursor:pointer">\u2b06 ' + (logo ? 'Replace logo' : 'Upload logo') + '</button>'
+    + (logo ? '<button onclick="ptLogo316Clear(' + lid + ')" style="flex:0 0 auto;padding:9px 14px;background:rgba(255,120,120,.08);border:1px solid rgba(255,120,120,.3);border-radius:9px;color:rgba(255,140,140,.85);font-size:12px;font-weight:700;cursor:pointer">Remove</button>' : '')
+    + '</div>'
+    + '<div id="ptLogo316Msg_' + lid + '" style="font-size:11px;margin-top:6px;color:rgba(255,255,255,.6)"></div>';
+  return h;
+};
+window._ptLogo316Save = function (lid, logo) {
+  return fetch(TOUR_API + '/api/leagues/' + lid + '/config', {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+    body: JSON.stringify({ logo: logo })
+  }).then(_ptJson).then(_ptThrow);
+};
+window.ptLogo316File = function (lid, input) {
+  var msg = document.getElementById('ptLogo316Msg_' + lid);
+  _ptLogoRead(input, msg, function (uri) {
+    _ptLogo316Save(lid, uri).then(function (r) {
+      ptLogo316Paint(lid, uri);
+      var n = (r && r.logo_events && r.logo_events.length) || 0;
+      var m2 = document.getElementById('ptLogo316Msg_' + lid);
+      if (m2) m2.textContent = n ? ('\u2713 Saved \u2014 ' + n + ' game day' + (n === 1 ? '' : 's') + ' now carr' + (n === 1 ? 'ies' : 'y') + ' it.') : '\u2713 Saved \u2014 the next linked game day will carry it.';
+    }).catch(function () { if (msg) msg.innerHTML = '<span style="color:#e8776a">Could not save the logo \u2014 try again.</span>'; });
+  });
+};
+window.ptLogo316Clear = function (lid) {
+  var msg = document.getElementById('ptLogo316Msg_' + lid);
+  if (msg) msg.textContent = 'Removing\u2026';
+  _ptLogo316Save(lid, null).then(function (r) {
+    ptLogo316Paint(lid, null);
+    var n = (r && r.logo_events && r.logo_events.length) || 0;
+    var m2 = document.getElementById('ptLogo316Msg_' + lid);
+    if (m2) m2.textContent = n ? ('Removed from ' + n + ' game day' + (n === 1 ? '' : 's') + '.') : 'Removed.';
+  }).catch(function () { if (msg) msg.innerHTML = '<span style="color:#e8776a">Could not remove it \u2014 try again.</span>'; });
+};
+window.ptLogo316Paint = function (lid, logo) {
+  var b = document.getElementById('ptLogo316Body_' + lid);
+  if (b) b.innerHTML = _ptLogo316Body(lid, logo);
+  var chip = document.getElementById('ptLogo316Chip_' + lid);
+  if (chip) chip.innerHTML = logo ? '<span style="font-size:10px;font-weight:800;color:#7bd88f">SET</span>' : '';
 };
 
 window._b196Card = function (eventId, p) {
@@ -80873,7 +80947,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v899.0';
+    const TOUR_VERSION     = 'pards-tour-v900.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
