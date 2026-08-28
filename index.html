@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v903.0 -->
+  <!-- pards-tour-v904.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -42415,6 +42415,7 @@ function _ptBarnesYearLong(d) {
 
 function ptRenderLeagueBarnes(d) {
   var el = document.getElementById('ptLgBarnesBody');
+  window._ptBarnesLast = d;   /* FR-318 — the settlement cards read the board's own payload */
   if (!el) return;
   var lg = d.league || {};
   var html = '';
@@ -42666,8 +42667,194 @@ function ptRenderLeagueBarnes(d) {
     });
   }
 
+  /* ⭐ FR-318 (v904.0, s311) — SETTLEMENT CARDS, organizer side. One row per man with a card
+     this week; the button draws his PNG and opens the share sheet. Only once the week is
+     complete (18/18) — a half-scored night has no money to settle. */
+  if (d.points && d.points.complete && (d.stableford || []).length) {
+    html += '<div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;margin:22px 0 6px">Settlement cards</div>'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.32);margin-bottom:8px">One card per man \u2014 his matches, his money, what he collects from the pot. Tap \ud83d\udcf2 to share it to the group chat.</div>'
+      + '<div style="background:rgba(255,255,255,.04);border-radius:11px;padding:6px 13px">';
+    (d.stableford || []).forEach(function (p) {
+      var m = _ptFr318Model(d, p.roster_id); if (!m) return;
+      html += '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)">'
+        + '<div style="flex:1;font-size:13px;font-weight:700;color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + _ptEsc(m.name) + (m.best ? ' \u2b50' : '') + '</div>'
+        + '<div style="font-size:12px;color:rgba(255,255,255,.55)">' + m.pts + ' pts</div>'
+        + '<div style="font-size:13px;font-weight:800;min-width:54px;text-align:right;color:' + (m.net >= 0 ? '#8ee08e' : '#f08c8c') + '">' + (m.net >= 0 ? '+' : '\u2212') + '$' + Math.abs(Math.round(m.net)) + '</div>'
+        + '<button onclick="ptBarnesSettleCard(' + Number(p.roster_id) + ')" style="background:#c9a84c;color:#1a3a2a;border:none;border-radius:9px;padding:7px 11px;font-size:12px;font-weight:800;cursor:pointer">\ud83d\udcf2 Card</button>'
+        + '</div>';
+    });
+    html += '</div>';
+  }
+
   el.innerHTML = html;
 }
+
+/* ⭐⭐⭐ FR-318 (v904.0, s311) — THE SETTLEMENT CARD. His pick from six ideas: "go with #1".
+   The moment a Barnes week is complete (18/18), the organizer gets one card per man on the
+   Barnes Week screen — his Stableford, his matches, his money, "COLLECT FROM THE POT" (his
+   words: "it is collect from pot"), the year-long strip — drawn to a PNG and handed to the
+   phone's share sheet, so it lands in the group chat as a picture. ORGANIZER SIDE (his call).
+   ⛔ No worker change: every number is already on the /barnes response the board reads
+   (stableford, matches, pot.team.by_group / by_team, pot.front, pot.back, year_long).
+   ⛔ Never a modal, never confirm(): the share sheet is the phone's own; the fallback is a
+   plain download. Fails open: a man with no card this week simply has no row. */
+function _ptFr318Model(d, rid) {
+  rid = Number(rid);
+  var row = (d.stableford || []).find(function (p) { return Number(p.roster_id) === rid; });
+  if (!row) return null;
+  var best = Math.max.apply(null, (d.stableford || []).map(function (p) { return Number(p.total_pts) || 0; }));
+  var team = null; Object.keys(d.teams || {}).forEach(function (t) { if (((d.teams[t] || {}).roster_ids || []).map(Number).indexOf(rid) > -1) team = t; });
+  var tname = function (t) { return (d.teams && d.teams[t] && d.teams[t].name) || t; };
+  var matches = [], mine = 0;
+  (d.matches || []).forEach(function (m) {
+    var onA = (m.side_a || []).some(function (p) { return Number(p.roster_id) === rid; });
+    var onB = (m.side_b || []).some(function (p) { return Number(p.roster_id) === rid; });
+    if (!onA && !onB) return;
+    var opp = (onA ? m.side_b : m.side_a) || [];
+    var pa = 0, pb = 0, segs = [];
+    (m.segments || []).forEach(function (s) {
+      var me = onA ? (s.points_a || 0) : (s.points_b || 0), them = onA ? (s.points_b || 0) : (s.points_a || 0);
+      pa += me; pb += them;
+      var sc = Number(s.score) || 0; if (!onA) sc = -sc;
+      segs.push((s.segment || '').charAt(0).toUpperCase() + ' ' + (sc > 0 ? sc + '↑' : sc < 0 ? (-sc) + '↓' : 'AS'));
+    });
+    mine += pa;
+    matches.push({ opp: opp.map(function (p) { return p.name; }).join(' + '), me: pa, them: pb, segs: segs.join(' · '),
+                   verb: pa > pb ? 'beat' : pa < pb ? 'lost to' : 'halved with', forfeit: !!m.forfeit });
+  });
+  var pot = d.pot || {}, inAmt = Number(pot.per_player) || 0, lines = [], collect = 0;
+  var tp = pot.team || {};
+  if (tp.group_mode && Array.isArray(tp.by_group)) {
+    tp.by_group.forEach(function (g) {
+      var c = (g.contributions || []).find(function (x) { return Number(x.roster_id) === rid; });
+      if (!c) return;
+      var n = (g.contributions || []).length || 1, each = g.win ? (Number(tp.each) || 0) / n : 0;
+      lines.push({ label: 'Group pot', meta: g.label + ' · ' + g.total + ' pts', amt: each, win: !!g.win }); collect += each;
+    });
+  } else if (team && Array.isArray(tp.winners)) {
+    var won = tp.winners.indexOf(team) > -1 || tp.winners.some(function (w) { return w && w.name === tname(team); });
+    var size = ((d.lineup || {})[team] || []).filter(function (x) { return x != null; }).length || 4;
+    var each = won ? (Number(tp.each) || 0) / size : 0;
+    lines.push({ label: 'Team pot', meta: tname(team) + ' · ' + (tp.points != null ? tp.points + ' pts' : ''), amt: each, win: won }); collect += each;
+  }
+  ['front', 'back'].forEach(function (k) {
+    var p = pot[k] || {}, ws = p.winners || [];
+    var won = ws.some(function (w) { return Number(w.roster_id) === rid; });
+    var pts = k === 'front' ? row.front_pts : row.back_pts;
+    var meta = (pts != null ? pts + ' pts' : '') + (won && ws.length > 1 ? ' · ' + (ws.length === 2 ? 'tied with ' + (ws.find(function (w) { return Number(w.roster_id) !== rid; }) || {}).name.split(' ').pop() : ws.length + '-way') : '');
+    var amt = won ? (Number(p.each) || 0) : 0;
+    lines.push({ label: k === 'front' ? 'Front nine' : 'Back nine', meta: meta, amt: amt, win: won }); collect += amt;
+  });
+  var yl = (d.year_long && d.year_long.points) || {};
+  var ylRows = ['A', 'B', 'C'].map(function (t) { return { t: t, name: tname(t), pts: Number(yl[t]) || 0, me: t === team }; })
+    .sort(function (a, b) { return b.pts - a.pts; });
+  var tpn = d.team_points || {};
+  return {
+    name: row.name, ch: row.ch, pts: Number(row.total_pts) || 0, best: (Number(row.total_pts) || 0) === best && best > 0,
+    league: (d.league && d.league.name) || 'League', course: (d.league && d.league.home_course_name) || '',
+    date: (d.round && d.round.round_date) || '', week: d.week,
+    game: (typeof _ptBarnesGameLabel === 'function' && d.week_game && d.week_game.key) ? _ptBarnesGameLabel(d.week_game.key) : ((d.week_game && d.week_game.label) || ''),
+    team: team, teamName: team ? tname(team) : '', teamCol: (typeof _PT_BARNES_TEAMCOL !== 'undefined' && team) ? _PT_BARNES_TEAMCOL[team] : '#c9a84c',
+    matches: matches, mine: mine, tonight: ['A', 'B', 'C'].map(function (t) { return tname(t).split(' ')[0] + ' ' + (tpn[t] != null ? tpn[t] : 0); }).join(' · '),
+    teamTonight: team ? (tpn[team] != null ? tpn[team] : 0) : null,
+    inAmt: inAmt, lines: lines, collect: collect, net: collect - inAmt, yl: ylRows,
+    groupWon: lines.some(function (l) { return l.win && /pot/.test(l.label); }),
+  };
+}
+function _ptFr318Draw(m) {
+  var W = 784, S = 2, pad = 40;               // 392 CSS px at 2x — the phone's own width
+  var c = document.createElement('canvas'); c.width = W; c.height = 1500;
+  var x = c.getContext('2d'); x.scale(S, S); var w = W / S;
+  var cream = '#f3ead0', gold = '#c9a84c', green = '#1a3a2a', dim = 'rgba(243,234,208,.62)';
+  var sys = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif';
+  var money = function (n) { return (n < 0 ? '−' : '') + (typeof ptMoneyFmt === 'function' ? ptMoneyFmt(Math.round(Math.abs(n) * 100)) : '$' + Math.abs(n)); };
+  var rr = function (X, Y, Wd, H, r, fill, stroke) { x.beginPath(); x.moveTo(X + r, Y); x.arcTo(X + Wd, Y, X + Wd, Y + H, r); x.arcTo(X + Wd, Y + H, X, Y + H, r); x.arcTo(X, Y + H, X, Y, r); x.arcTo(X, Y, X + Wd, Y, r); x.closePath(); if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = 1.5; x.stroke(); } };
+  var T = function (s, X, Y, o) { o = o || {}; x.font = (o.w || '400') + ' ' + (o.s || 14) + 'px ' + sys; x.fillStyle = o.c || cream; x.textAlign = o.a || 'left'; x.textBaseline = 'alphabetic'; if (o.ls) { x.letterSpacing = o.ls + 'px'; } x.fillText(String(s), X, Y); x.letterSpacing = '0px'; return x.measureText(String(s)).width; };
+  var clip = function (s, max, o) { x.font = (o.w || '400') + ' ' + (o.s || 14) + 'px ' + sys; s = String(s); while (s.length > 1 && x.measureText(s).width > max) s = s.slice(0, -2) + '…'; return s; };
+  var y = 0;
+  x.fillStyle = green; x.fillRect(0, 0, w, 750);
+  // header
+  rr(pad - 20, 18, 44, 44, 10, m.teamCol); T(((m.league.match(/[A-Za-z]/) || ['P'])[0]).toUpperCase(), pad + 2, 50, { w: '900', s: 26, c: '#fff', a: 'center' });
+  T(clip(m.league.toUpperCase(), w - pad - 56, { w: '800', s: 12 }), pad + 36, 36, { w: '800', s: 12, c: gold, ls: 2 });
+  T(clip((m.date ? m.date + ' · ' : '') + m.course + (m.week ? ' · Week ' + m.week : ''), w - pad - 56, { s: 12 }), pad + 36, 54, { s: 12, c: 'rgba(243,234,208,.7)' });
+  x.fillStyle = 'rgba(201,168,76,.28)'; x.fillRect(0, 78, w, 1);
+  y = 112; T(clip(m.name, w - 2 * pad + 20, { w: '900', s: 28 }), pad - 20, y, { w: '900', s: 28 });
+  y += 24; T(m.best ? '⭐ Best of the night — ' + m.pts + ' points' : m.groupWon ? 'Your group took the pot' : (m.game || 'Barnes night'), pad - 20, y, { w: '700', s: 13, c: gold });
+  // three tiles
+  y += 16; var tw = (w - 2 * (pad - 20) - 20) / 3;
+  [[m.pts, 'STABLEFORD', cream], [m.ch, 'COURSE HCP', cream], [(m.net >= 0 ? '+' : '') + money(m.net), 'NET TONIGHT', m.net >= 0 ? '#8ee08e' : '#f08c8c']].forEach(function (t, i) {
+    var X = pad - 20 + i * (tw + 10); rr(X, y, tw, 62, 12, 'rgba(255,255,255,.06)');
+    T(t[0], X + tw / 2, y + 34, { w: '900', s: 26, c: t[2], a: 'center' }); T(t[1], X + tw / 2, y + 52, { s: 9.5, c: 'rgba(243,234,208,.6)', a: 'center', ls: 1.2 });
+  });
+  y += 62 + 22;
+  var sec = function (s) { T(s.toUpperCase(), pad - 20, y, { w: '800', s: 10, c: 'rgba(201,168,76,.85)', ls: 1.6 }); y += 16; };
+  var rowLine = function () { x.fillStyle = 'rgba(255,255,255,.05)'; x.fillRect(pad - 20, y + 8, w - 2 * (pad - 20), 1); y += 27; };
+  // matches
+  sec((m.matches.length === 1 ? 'Match' : 'Matches') + (m.game ? ' · ' + m.game.replace(/\s*\(.*$/, '') : ''));
+  m.matches.forEach(function (mt) {
+    var right = mt.forfeit ? 'forfeit' : (mt.me + ' – ' + mt.them);
+    var rw = T(right, w - pad + 20, y + 6, { w: '800', s: 14, c: mt.me > mt.them ? '#8ee08e' : mt.me < mt.them ? '#f08c8c' : cream, a: 'right' });
+    var vw = T(mt.verb + ' ', pad - 20, y + 6, { s: 14 });
+    var nw = T(clip(mt.opp, w - 2 * pad - rw - vw - 80, { w: '800', s: 14 }), pad - 20 + vw, y + 6, { w: '800', s: 14 });
+    T(clip(mt.segs, w - 2 * pad - rw - vw - nw - 30, { s: 11 }), pad - 20 + vw + nw + 8, y + 6, { s: 11, c: dim });
+    rowLine();
+  });
+  if (m.team) {
+    var tlw = T('Tonight', pad - 20, y + 6, { s: 14 });
+    var poss = m.teamName + (/s$/i.test(m.teamName) ? "'" : "'s");
+    T(clip(m.mine + ' of ' + poss + ' ' + m.teamTonight + ' were yours', w - 2 * pad - tlw + 20, { s: 11 }), pad - 20 + tlw + 8, y + 6, { s: 11, c: dim });
+    y += 18; T(m.tonight, w - pad + 20, y + 6, { w: '800', s: 11, c: 'rgba(243,234,208,.85)', a: 'right' }); rowLine();
+  }
+  y += 6;
+  // money
+  sec('Money · ' + money(m.inAmt) + ' in');
+  m.lines.forEach(function (l) {
+    var right = l.amt > 0 ? '+' + money(l.amt) : '—';
+    var rw = T(right, w - pad + 20, y + 6, { w: '800', s: 14, a: 'right' });
+    var lw = T(l.label, pad - 20, y + 6, { s: 14 });
+    T(clip(l.meta, w - 2 * pad - rw - lw - 20, { s: 11 }), pad - 20 + lw + 8, y + 6, { s: 11, c: dim });
+    rowLine();
+  });
+  y += 14;
+  // collect
+  rr(pad - 20, y, w - 2 * (pad - 20), 52, 14, gold);
+  T('COLLECT FROM', pad - 6, y + 22, { w: '800', s: 11, c: green, ls: 1.3 }); T('THE POT', pad - 6, y + 37, { w: '800', s: 11, c: green, ls: 1.3 });
+  T(money(m.collect), w - pad + 6, y + 36, { w: '900', s: 24, c: green, a: 'right' });
+  y += 52 + 16;
+  // year long
+  var yw = (w - 2 * (pad - 20) - 12) / 3;
+  m.yl.forEach(function (r, i) {
+    var X = pad - 20 + i * (yw + 6); rr(X, y, yw, 44, 9, 'rgba(255,255,255,.05)', r.me ? gold : null);
+    T(clip(r.name, yw - 10, { s: 11 }), X + yw / 2, y + 17, { s: 11, a: 'center' }); T(r.pts, X + yw / 2, y + 36, { w: '900', s: 15, a: 'center' });
+  });
+  y += 44 + 26;
+  T('YEAR LONG' + (m.week ? ' · AFTER WEEK ' + m.week : ''), pad - 20, y, { s: 10.5, c: 'rgba(243,234,208,.5)', ls: 1.4 });
+  T('PARDSTOUR.COM', w - pad + 20, y, { w: '800', s: 10.5, c: gold, a: 'right', ls: 1.4 });
+  y += 20;
+  // trim the canvas to the content
+  var out = document.createElement('canvas'); out.width = W; out.height = Math.round(y * S);
+  out.getContext('2d').drawImage(c, 0, 0);
+  return out;
+}
+function ptBarnesSettleCard(rid) {
+  var d = window._ptBarnesLast; if (!d) return;
+  var m = _ptFr318Model(d, rid); if (!m) { if (typeof showToast === 'function') showToast('No card for that man this week.'); return; }
+  var cv = _ptFr318Draw(m);
+  var fname = (m.name.replace(/[^A-Za-z0-9]+/g, '-') + '-' + (m.date || 'week') + '.png');
+  cv.toBlob(function (blob) {
+    if (!blob) return;
+    var file = null; try { file = new File([blob], fname, { type: 'image/png' }); } catch (_e) {}
+    if (file && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: m.name + ' — ' + m.league }).catch(function () {});
+      return;
+    }
+    var url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = fname; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+    if (typeof showToast === 'function') showToast('Card saved — share it from your photos.');
+  }, 'image/png');
+}
+window._ptFr318Model = _ptFr318Model; window._ptFr318Draw = _ptFr318Draw;   /* the render harness drives these */
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BARNES SEASON REPORT (v325.0 — Bruce, session 21)
@@ -80981,7 +81168,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v903.0';
+    const TOUR_VERSION     = 'pards-tour-v904.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
