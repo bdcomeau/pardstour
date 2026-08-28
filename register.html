@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.32 s306)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.33 s308)
      v1.26 (FR-296): the Watch it Live card moves to the BOTTOM of the
      registration card — it stood between the event facts and "Will you be
      joining us?", so the first thing a man met was a scoring code. Pure move:
@@ -797,7 +797,26 @@ async function loadEvent(){
                                              hour:'numeric', minute:'2-digit' });
       } catch (_fr194) { return ''; }
     };
-    var col = function (label, cls, names, stamps) {
+    /* ⭐⭐ B-335 (v1.33, s308) — WHEN HE REGISTERED, AND WHEN HE LAST ANSWERED.
+       His report: "when people change their responses you are not updating their
+       rsvp time stamp". The stamp was never wrong — it was `created_at`, by his own
+       FR-194 ruling at s288, and on the Corn Cup twelve of fourteen In rows showed
+       the IDENTICAL time because that was the bulk IMPORT, not a man answering.
+       His call at s308 was C: show BOTH.
+       ⛔ THE "ONLY WHEN THEY DIFFER" RULE IS THE WORKER'S, NOT THIS PAGE'S.
+       reg-v1.25.0 sends `yes_upd`/`no_upd` already null when updated_at equals
+       created_at, so this function never compares two times — it just prints what
+       it is given. One rule, one place.
+       ⭐ Absent worker keys (reg-v1.24.0 and older) = `upd` is undefined and this
+       returns the v1.32 line byte-for-byte. The page can ship before the worker. */
+    var stampLine = function (atIso, updIso) {
+      var w = when(atIso), u = when(updIso);
+      if (!w && !u) return '';
+      if (!u) return esc(w);
+      if (!w) return 'answered <b>' + esc(u) + '</b>';
+      return esc(w) + ' &middot; answered <b>' + esc(u) + '</b>';
+    };
+    var col = function (label, cls, names, stamps, upds) {
       /* FR-303 — the head is the tap target and keeps the count; the names sit
          in the body beside it, hidden until asked for. */
       var h = '<div class="io-col">'
@@ -808,8 +827,8 @@ async function loadEvent(){
       if (!names.length) h += '<div class="io-none">nobody yet</div>';
       else names.forEach(function (n, i) {
         h += '<div class="io-name' + (cls === 'no' ? ' out' : '') + '">' + esc(n) + '</div>';
-        var w = when((stamps || [])[i]);
-        if (w) h += '<div class="io-when">' + esc(w) + '</div>';
+        var w = stampLine((stamps || [])[i], (upds || [])[i]);
+        if (w) h += '<div class="io-when">' + w + '</div>';
       });
       return h + '</div></div>';
     };
@@ -840,16 +859,16 @@ async function loadEvent(){
         inCol += '<div class="io-head yes" style="margin-top:8px">' + g[1] + ' &middot; ' + idx.length + '</div>';
         idx.forEach(function (i) {
           inCol += '<div class="io-name">' + esc(a.yes[i]) + '</div>';
-          var w = when((a.yes_at || [])[i]);
-          if (w) inCol += '<div class="io-when">' + esc(w) + '</div>';
+          var w = stampLine((a.yes_at || [])[i], (a.yes_upd || [])[i]);
+          if (w) inCol += '<div class="io-when">' + w + '</div>';
         });
       });
       inCol += '</div></div>';
     } else {
-      inCol = col('In', 'yes', a.yes || [], a.yes_at);
+      inCol = col('In', 'yes', a.yes || [], a.yes_at, a.yes_upd);
     }
     el.innerHTML = '<div class="io-title">' + (anyKind ? 'Who is coming' : 'Who is playing') + '</div><div class="io-cols">'
-      + inCol + col('Out', 'no', a.no || [], a.no_at) + '</div>';
+      + inCol + col('Out', 'no', a.no || [], a.no_at, a.no_upd) + '</div>';
     el.classList.remove('hidden');
   })();
   $('evFacts').innerHTML =
