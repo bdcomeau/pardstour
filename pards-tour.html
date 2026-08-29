@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v905.0 -->
+  <!-- pards-tour-v907.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -8023,8 +8023,27 @@ function teeYards(teeName){
 function activeTeenames(){
   return activeCourse().tees.map(t=>t.name);
 }
-// Default tee name for new players — middle of the list
+// Default tee name for new players — Deck 2.
+/* ⭐ FR-323 (v906.0, s312) — Bruce: "The default tee for the players that don't
+   have a name yet is family tee. Can you change that to deck two?" Measured:
+   this returned the MIDDLE of activeTeenames(); Derrick carries 14 tees with
+   the ♀ decks in, so the middle was slot 7 — Family Tee. 66 callers read
+   this one producer (the empty setup slots, favSaveEdit, the me-contact
+   fallback, loadG …), so the rule lives here and nowhere else.
+   Rule: the course's own "Deck 2" by name; elsewhere the Deck 2 target
+   {119, 6200} best-fit inside the MEN'S pool (the deck-visibility law: an
+   unnamed slot has no gender, so it defaults male); fail open to the old
+   middle if neither exists. */
 function defaultTeeName(){
+  const course = activeCourse();
+  const tees = (course && course.tees) || [];
+  const lit = tees.find(function(t){ return t && t.name === 'Deck 2' && t.gender !== 'F'; });
+  if(lit) return lit.name;
+  const target = (typeof DERRICK_DECK_TARGETS !== 'undefined' && DERRICK_DECK_TARGETS['Deck 2']) || null;
+  if(target && tees.length && typeof bestFitTeeForCourse === 'function'){
+    const fit = bestFitTeeForCourse(course, target.slope, target.yards, false);
+    if(fit && fit.name) return fit.name;
+  }
   const names = activeTeenames();
   return names[Math.floor(names.length/2)];
 }
@@ -27093,7 +27112,7 @@ function favOpenEdit(name){ try {
   var _g239 = (c && c.gender) || '';
   h += '<div style="display:flex;gap:10px;align-items:center;margin-top:10px">';
   h += '<p style="font-size:11px;font-weight:700;color:#666;margin:0;flex-shrink:0;width:70px">Gender</p>';
-  h += '<select id="favEditGender" onchange="_fr322Apply();favCheckDirty()" style="flex:1;height:40px;border:1.5px solid #ddd;border-radius:10px;padding:0 10px;font-size:14px;font-weight:600;color:var(--pt-ink);background:var(--pt-card);outline:none;box-sizing:border-box">';
+  h += '<select id="favEditGender" onchange="_b342Hand(this);_fr322Apply();favCheckDirty()" style="flex:1;height:40px;border:1.5px solid #ddd;border-radius:10px;padding:0 10px;font-size:14px;font-weight:600;color:var(--pt-ink);background:var(--pt-card);outline:none;box-sizing:border-box">';
   h += '<option value=""'+(_g239===''?' selected':'')+'>— optional —</option>';
   h += '<option value="M"'+(_g239==='M'?' selected':'')+'>Male</option>';
   h += '<option value="F"'+(_g239==='F'?' selected':'')+'>Female</option>';
@@ -27296,6 +27315,7 @@ function favTeeYardage(tee){
    Existing players are never re-decked. Fails open: no index, no course, or
    no fit → nothing changes. */
 var _fr322DeckTouched = false, _fr322WheelTouched = false;
+function _b342Hand(el){ if(el) el.dataset.src = 'hand'; }   /* B-342 — he set this field himself; Fetch never overwrites it */
 function ptFr322Suggest(idx, course, wantF){
   if(idx == null || isNaN(idx) || !course || !course.tees || !course.tees.length) return null;
   var band = idx <= 5.0 ? 'Deck 1' : idx <= 12.0 ? 'Deck 2' : idx <= 20.0 ? 'Deck 3' : 'Deck 4';
@@ -27891,6 +27911,27 @@ function favGcSearchSelect(gcId, gcName, gcClub){
   var gcEl = document.getElementById('favEditGcId');
   if(gcEl){
     gcEl.removeAttribute('readonly');
+    /* ⭐ B-342 (v907.0, s312) — A NEW PICK IS A NEW GOLFER. Whatever the LAST Fetch wrote (gender, index, club)
+       belongs to the last golfer; clear it so it cannot ride onto this one. Anything he typed (data-src 'hand',
+       or no provenance at all) is his and stays. FR-322's untouched flags stay as they are, so the deck and
+       wheel re-suggest off THIS golfer's index when he taps Fetch. */
+    var _b342Prev = (gcEl.value || '').trim();
+    if(_b342Prev && _b342Prev !== String(gcId)){
+      ['favEditGender','favEditIdx','favEditHomeCourse'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el && el.dataset.src === 'gc'){ el.value = ''; delete el.dataset.src; }
+      });
+      /* the FR-322 suggestion was HERS too — back to the plain defaults until this golfer's index arrives */
+      if(typeof _fr322DeckTouched !== 'undefined' && !_fr322DeckTouched){
+        var _dk = document.getElementById('favEditDeck'), _db = document.getElementById('favDeckBtn'), _dy = document.getElementById('favEditDeckYds'), _d0 = defaultTeeName();
+        if(_dk){ _dk.value = _d0; } if(_db){ _db.innerHTML = _d0 + ' <span style="font-size:10px;opacity:.7">&#9660;</span>'; } if(_dy){ _dy.textContent = favTeeYardage(_d0); }
+      }
+      if(typeof _fr322WheelTouched !== 'undefined' && !_fr322WheelTouched){
+        var _wk = document.getElementById('favEditWheel'), _wb = document.getElementById('favWheelBtn');
+        if(_wk){ _wk.value = 1; } if(_wb){ _wb.innerHTML = 'Bogey <span style="font-size:10px;opacity:.7">&#9660;</span>'; }
+      }
+      if(typeof favUpdateAdjHcp === 'function') favUpdateAdjHcp();
+    }
     gcEl.value = gcId;
     gcEl.style.background = '#F8F3EB';
     gcEl.style.color = '#1a1a1a';
@@ -27922,7 +27963,7 @@ function favGcSearchSelect(gcId, gcName, gcClub){
     // Write home club if returned and field is empty
     if(gcClub){
       var hcEl = document.getElementById('favEditHomeCourse');
-      if(hcEl && !hcEl.value.trim()) hcEl.value = gcClub;
+      if(hcEl && (!hcEl.value.trim() || hcEl.dataset.src === 'gc')){ hcEl.value = gcClub; hcEl.dataset.src = 'gc'; }   /* B-342 */
     }
     // Trigger dirty check + fetch button update
     if(typeof favGcIdChanged === 'function') favGcIdChanged(gcEl);
@@ -28468,7 +28509,7 @@ async function favFetchHandicap(){
     const rec = Array.isArray(data.data) ? data.data[0] : data;
     if(!rec||rec.handicapValue===undefined) throw new Error('No handicap found');
     const hv = rec.handicapValue;
-    if(idxEl) idxEl.value = hv;
+    if(idxEl){ idxEl.value = hv; idxEl.dataset.src = 'gc'; }   /* B-342 — Golf Canada filled this */
     favUpdateAdjHcp();
     /* ⭐ FR-239 A2 (v791.0, s295) — THE GOOD DATA RIDES THE SAME FETCH.
        Additive and fail-soft: the index above is already in the form; a member
@@ -28483,9 +28524,11 @@ async function favFetchHandicap(){
         const mRec = await mR.json();
         if(mRec && mRec.golfCanadaCardId){
           const _gF = document.getElementById('favEditGender');
-          if(_gF && !_gF.value && (mRec.gender==='M'||mRec.gender==='F')) _gF.value = mRec.gender;
+          /* B-342 (v907.0, s312) — fill a blank OR a value a previous Fetch put here; never one he set by hand.
+             His test: a female Bateman fetched, then a male Bateman picked — her gender stayed on him. */
+          if(_gF && (!_gF.value || _gF.dataset.src === 'gc') && (mRec.gender==='M'||mRec.gender==='F')){ _gF.value = mRec.gender; _gF.dataset.src = 'gc'; }
           const _hF = document.getElementById('favEditHomeCourse');
-          if(_hF && !_hF.value.trim() && mRec.clubName && !_favEditMe) _hF.value = String(mRec.clubName);
+          if(_hF && (!_hF.value.trim() || _hF.dataset.src === 'gc') && mRec.clubName && !_favEditMe){ _hF.value = String(mRec.clubName); _hF.dataset.src = 'gc'; }   /* B-342 */
           if(typeof favCheckDirty==='function') favCheckDirty();
         }
       }
@@ -81227,7 +81270,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v905.0';
+    const TOUR_VERSION     = 'pards-tour-v907.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
