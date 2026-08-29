@@ -1,0 +1,24 @@
+{
+  "name": "Pards Admin",
+  "short_name": "Pards Admin",
+  "description": "Pards Tour organizer console \u2014 tournaments, trips, leagues, rosters",
+  "start_url": "./admin.html",
+  "scope": "./admin.html",
+  "display": "standalone",
+  "background_color": "#0d1a0f",
+  "theme_color": "#0d1a0f",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
