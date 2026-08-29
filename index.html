@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v904.0 -->
+  <!-- pards-tour-v905.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -26902,6 +26902,7 @@ var _favEditMe = false;
 
 function favOpenEdit(name){ try {
   _favEditingName = name;
+  _fr322DeckTouched = false; _fr322WheelTouched = false;   /* FR-322 (v905.0, s312): a fresh form starts untouched */
   const listScreen = document.getElementById('favListScreen');
   const editScreen = document.getElementById('favEditScreen');
   const editTitle  = document.getElementById('favEditTitle');
@@ -27092,7 +27093,7 @@ function favOpenEdit(name){ try {
   var _g239 = (c && c.gender) || '';
   h += '<div style="display:flex;gap:10px;align-items:center;margin-top:10px">';
   h += '<p style="font-size:11px;font-weight:700;color:#666;margin:0;flex-shrink:0;width:70px">Gender</p>';
-  h += '<select id="favEditGender" onchange="favCheckDirty()" style="flex:1;height:40px;border:1.5px solid #ddd;border-radius:10px;padding:0 10px;font-size:14px;font-weight:600;color:var(--pt-ink);background:var(--pt-card);outline:none;box-sizing:border-box">';
+  h += '<select id="favEditGender" onchange="_fr322Apply();favCheckDirty()" style="flex:1;height:40px;border:1.5px solid #ddd;border-radius:10px;padding:0 10px;font-size:14px;font-weight:600;color:var(--pt-ink);background:var(--pt-card);outline:none;box-sizing:border-box">';
   h += '<option value=""'+(_g239===''?' selected':'')+'>— optional —</option>';
   h += '<option value="M"'+(_g239==='M'?' selected':'')+'>Male</option>';
   h += '<option value="F"'+(_g239==='F'?' selected':'')+'>Female</option>';
@@ -27112,13 +27113,13 @@ function favOpenEdit(name){ try {
   h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">';
   h += '<div>';
   h += '<p style="font-size:11px;font-weight:700;color:#666;margin:0 0 5px">'+(hasGcId?'GC index':'Manual index')+'</p>';
-  h += '<input id="favEditIdx" class="inp" type="number" step="0.1" value="'+(c&&c.idx!=null?c.idx:'')+'" placeholder="0.0" oninput="favUpdateAdjHcp();favCheckDirty()" style="width:100%;height:40px;border:1.5px solid #ddd;border-radius:10px;padding:0 13px;font-size:16px;font-weight:800;color:var(--pt-ink);background:var(--pt-card);outline:none;-webkit-appearance:none;box-sizing:border-box">';
+  h += '<input id="favEditIdx" class="inp" type="number" step="0.1" value="'+(c&&c.idx!=null?c.idx:'')+'" placeholder="0.0" oninput="favUpdateAdjHcp();_fr322Apply();favCheckDirty()" style="width:100%;height:40px;border:1.5px solid #ddd;border-radius:10px;padding:0 13px;font-size:16px;font-weight:800;color:var(--pt-ink);background:var(--pt-card);outline:none;-webkit-appearance:none;box-sizing:border-box">';
   if(prevNote) h += prevNote;
   h += '</div>';
   h += '<div>';
-  h += '<p style="font-size:11px;font-weight:700;color:#666;margin:0 0 5px">Playing HCP ('+curDeck+')</p>';
+  h += '<p style="font-size:11px;font-weight:700;color:#666;margin:0 0 5px">Playing HCP (<span id="favAdjHcpLbl">'+curDeck+'</span>)</p>';
   h += '<input id="favEditAdjHcp" type="text" readonly value="'+(adjHcp||'')+'" style="width:100%;height:40px;border:1.5px solid #ddd;border-radius:10px;padding:0 13px;font-size:16px;font-weight:800;color:var(--pt-ink-soft);background:#f0f0ec;outline:none;-webkit-appearance:none;box-sizing:border-box">';
-  h += '<p style="font-size:11px;color:var(--pt-ink-mute);margin:4px 0 0">'+favTeeYardage(curDeck)+'</p>';
+  h += '<p id="favAdjHcpYds" style="font-size:11px;color:var(--pt-ink-mute);margin:4px 0 0">'+favTeeYardage(curDeck)+'</p>';
   h += '</div>';
   h += '</div>';
   // Preferred tee + Wheel
@@ -27281,6 +27282,58 @@ function favTeeYardage(tee){
   return total ? total.toLocaleString()+' yds' : '';
 }
 
+/* ⭐ FR-322 (v905.0, s312) — A NEW PLAYER'S DECK AND WHEEL FOLLOW HIS INDEX.
+   Bruce: "Right now you are defaulting everyone to family tees and bogey typical
+   score." Measured: defaultTeeName() is the MIDDLE of the active course's tee
+   list (12 names on Derrick with the ♀ decks in, so the middle was Deck 4) and
+   the wheel was a literal 1. Neither ever read the index.
+   ONE producer. The index picks a Derrick deck band, the band's published
+   {slope, yards} target goes through bestFitTeeForCourse inside the player's
+   own gender pool (B-295) — the same road contactDeckForCourse walks — so it
+   lands on the right tee at any of the 134 courses, not just Derrick.
+   ⛔ Suggestion only: fires on a NEW player while the deck / wheel buttons are
+   untouched; an explicit pick (favPickDeck / favPickWheel) is his and sticks.
+   Existing players are never re-decked. Fails open: no index, no course, or
+   no fit → nothing changes. */
+var _fr322DeckTouched = false, _fr322WheelTouched = false;
+function ptFr322Suggest(idx, course, wantF){
+  if(idx == null || isNaN(idx) || !course || !course.tees || !course.tees.length) return null;
+  var band = idx <= 5.0 ? 'Deck 1' : idx <= 12.0 ? 'Deck 2' : idx <= 20.0 ? 'Deck 3' : 'Deck 4';
+  /* the band IS a Derrick deck: where the course carries that tee by name (Derrick itself, ♀ suffix for her) take it
+     outright — the published targets table is a fit aid for OTHER courses, and on Derrick it is stale enough to send
+     a 28 to the 3-4 Combo (measured, s312). Elsewhere: best fit inside the gender pool, as contactDeckForCourse does. */
+  var lit = course.tees.find(function(t){ return t && t.name === (wantF ? band + ' ♀' : band) && !!(t.gender === 'F') === !!wantF; });
+  var target = (typeof DERRICK_DECK_TARGETS !== 'undefined' && DERRICK_DECK_TARGETS[band]) || null;
+  var tee = lit || ((target && typeof bestFitTeeForCourse === 'function') ? bestFitTeeForCourse(course, target.slope, target.yards, wantF) : null);
+  var wheel = idx <= 6.0 ? 0 : idx <= 24.0 ? 1 : 2;   /* 0 Par · 1 Bogey · 2 Double — the wheel picker's own values */
+  return { band: band, deck: tee ? tee.name : null, wheel: wheel };
+}
+function _fr322Apply(){
+  try{
+    if(_favEditingName !== null) return;                      /* new players only */
+    var idxEl = document.getElementById('favEditIdx'); if(!idxEl) return;
+    var idx = parseFloat(idxEl.value); if(isNaN(idx)) return;
+    var gEl = document.getElementById('favEditGender');
+    var sug = ptFr322Suggest(idx, activeCourse(), !!(gEl && gEl.value === 'F'));
+    if(!sug) return;
+    if(!_fr322DeckTouched && sug.deck){
+      var deckEl = document.getElementById('favEditDeck'), dBtn = document.getElementById('favDeckBtn'), ydsEl = document.getElementById('favEditDeckYds');
+      if(deckEl && deckEl.value !== sug.deck){
+        deckEl.value = sug.deck;
+        if(dBtn) dBtn.innerHTML = sug.deck + ' <span style="font-size:10px;opacity:.7">&#9660;</span>';
+        if(ydsEl) ydsEl.textContent = favTeeYardage(sug.deck);
+        favUpdateAdjHcp();
+      }
+    }
+    if(!_fr322WheelTouched){
+      var wEl = document.getElementById('favEditWheel'), wBtn = document.getElementById('favWheelBtn');
+      if(wEl && String(wEl.value) !== String(sug.wheel)){
+        wEl.value = sug.wheel;
+        if(wBtn) wBtn.innerHTML = ['Par','Bogey','Double'][sug.wheel] + ' <span style="font-size:10px;opacity:.7">&#9660;</span>';
+      }
+    }
+  }catch(_e){ /* fail open — the form keeps whatever it had */ }
+}
 function favUpdateAdjHcp(){
   const idxEl = document.getElementById('favEditIdx');
   const deckEl = document.getElementById('favEditDeck');
@@ -27292,6 +27345,9 @@ function favUpdateAdjHcp(){
   if(!isNaN(idx)) adjEl.value = deckAdjust(idx, deck);
   else adjEl.value = '';
   if(ydsEl) ydsEl.textContent = favTeeYardage(deck);
+  /* FR-322 — the label and the yardage under the playing HCP follow the deck too (they were painted once at open; a hand-pick left them stale as well) */
+  var _lbl = document.getElementById('favAdjHcpLbl'); if(_lbl) _lbl.textContent = deck;
+  var _ay = document.getElementById('favAdjHcpYds'); if(_ay) _ay.textContent = favTeeYardage(deck);
 }
 
 function favCheckRename(inp, noGcId, origName, hasHistory){
@@ -28434,6 +28490,7 @@ async function favFetchHandicap(){
         }
       }
     }catch(_eM){ /* additive — never blocks the handicap fill */ }
+    _fr322Apply();   /* FR-322 — the index AND the gender are in the form now; suggest the deck and the wheel */
     if(btn){ btn.innerHTML='<img src="'+GC_LOGO+'" style="height:14px;width:auto;vertical-align:middle;margin-right:5px"> \u2713 Done'; }
     setTimeout(function(){
       if(btn){ btn.disabled=false; btn.innerHTML='<img src="'+GC_LOGO+'" style="height:14px;width:auto;vertical-align:middle;margin-right:5px"> Fetch HCP'; }
@@ -28640,6 +28697,7 @@ function favPickDeck(tee){
   var deckEl = document.getElementById('favEditDeck');
   var btn    = document.getElementById('favDeckBtn');
   var ydsEl  = document.getElementById('favEditDeckYds');
+  _fr322DeckTouched = true;   /* FR-322 — an explicit pick is his; the suggestion never overrides it */
   if(deckEl) deckEl.value = tee;
   if(btn) btn.textContent = tee + ' ▾';
   if(ydsEl) ydsEl.textContent = favTeeYardage(tee);
@@ -28677,6 +28735,7 @@ function favOpenWheelPicker(){
 function favPickWheel(val, label){
   var wheelEl = document.getElementById('favEditWheel');
   var btn     = document.getElementById('favWheelBtn');
+  _fr322WheelTouched = true;   /* FR-322 */
   if(wheelEl) wheelEl.value = val;
   if(btn) btn.textContent = label + ' ▾';
   document.getElementById('favPickerModal').remove();
@@ -81168,7 +81227,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v904.0';
+    const TOUR_VERSION     = 'pards-tour-v905.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
