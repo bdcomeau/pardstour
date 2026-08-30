@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="admin-apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Admin — Organizer Console</title>
-  <!-- pards-tour-v909.0 --><!-- pards-admin-v1.07 -->
+  <!-- pards-tour-v909.0 --><!-- pards-admin-v1.08 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -57065,6 +57065,22 @@ function ptOpenTeeTimeBuilder(eventId, round) {
     _ptTTB.cfg    = ptEvCfg(res[0].event||{});
     _ptTTB.keepTeams = _ptTTBKeepDefault();                            // ⭐ D46 (v396.1)                           // v248.0
     _ptTTB.roster = (res[2].players)||[];
+    /* ⭐ FR-321 phase 2 (v915.0, s313) — the sheet asks for the pool's history once; fails open (no route / no history → nothing shown) */
+    _ptTTB.hist = null; _ptTTB.spread = false;
+    try {
+      var _ids321 = {}; ptEventPool(_ptTTB.cfg, _ptTTB.groups).forEach(function (p) { if (p && p.roster_id) _ids321[p.roster_id] = 1; });
+      var _list321 = Object.keys(_ids321), _ttb321 = _ptTTB;
+      if (_list321.length >= 2) fetch(TOUR_API + '/api/pairings/history?roster_ids=' + _list321.join(','), { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d || !d.ok || !d.pairs || _ptTTB !== _ttb321) return;
+          var n = 0, occ = 0; Object.keys(d.pairs).forEach(function (k) { n += Number(d.pairs[k]) || 0; });
+          try { Object.keys(d.occasions || {}).forEach(function (k) { occ += Number(d.occasions[k]) || 0; }); } catch (e) {}
+          if (!n) return;
+          _ptTTB.hist = { pairs: d.pairs, n: n, occ: occ };
+          if (document.getElementById('ptTTBBody') && _ptTTB.slots.length) _ptTTBRender();
+        }).catch(function () {});
+    } catch (_e321) {}
     // Load morning tee times for rest-time constraint
     // If this is an afternoon round, find morning rounds and load their tee times
     var allRounds = (res[3].rounds)||[];
@@ -57408,6 +57424,12 @@ function _ptTTBRender() {
   // v232.0 — discoverability: the v218 move semantics were invisible
   h+='<div style="font-size:10.5px;color:rgba(255,255,255,.38);margin-top:8px;line-height:1.5">\ud83d\udca1 Drag a player onto another to swap them, or onto an empty spot to move them. Tapping still works: tap to pick up, tap again to place.</div>';
   h+='</div>';
+  /* ⭐ FR-321 phase 2 (v915.0) — the history line and the spread switch, only when the map is in */
+  if(_ptTTB.hist&&_ptTTB.hist.n){
+    h+='<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;padding:8px 10px;border:1px solid rgba(168,213,181,.25);border-radius:10px;background:rgba(168,213,181,.06)">'
+      +'<div style="font-size:11px;color:#a8d5b5;line-height:1.4">\ud83e\udd1d <b>'+_ptTTB.hist.n+'</b> pairings this year across '+_ptTTB.hist.occ+' rounds \u2014 the chip on a start is how many times its players have already played together.</div>'
+      +'<label style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:'+(_ptTTB.spread?'#a8d5b5':'rgba(255,255,255,.5)')+';white-space:nowrap;cursor:pointer"><input type="checkbox" '+(_ptTTB.spread?'checked':'')+' onchange="_ptTTB.spread=this.checked;_ptTTBRender()" style="accent-color:#a8d5b5">Spread the field</label></div>';
+  }
   _ptTTB.slots.forEach(function(slot,si){
     var w=_ptTTBCheckWarnings(slot,si),hasST=w.some(function(x){return x.type==='same_team';}),hasRP=w.some(function(x){return x.type==='repeat';});
     var hasRest2=w.some(function(x){return x.type==='rest';});
@@ -57419,6 +57441,7 @@ function _ptTTBRender() {
     /* ⭐ FR-36 (v481.0) — was three sibling conditionals; now ONE id'd node so
        a drag hover can repaint the warning WITHOUT re-rendering the draw. The
        three messages, their colours and their precedence are unchanged. */
+    h+=_ptFr321SlotChip(slot);   /* FR-321 phase 2 */
     h+='<div id="ptTTBWarn_'+si+'">'+_ptTTBWarnHtml(w)+'</div>';
     h+='</div>';
     var n=(slot.players&&slot.players.length)||(isScramble?ptEvTeamsPerSlot(_ptTTB.cfg):ptEvGroupSize(_ptTTB.cfg)); // v390.2 — seats come from the slot
@@ -57916,8 +57939,9 @@ function _ptTTBAutoFillUnits() {
   function _sMin(s) { var p = String(s.start_time || '00:00').split(':'); return parseInt(p[0], 10) * 60 + parseInt(p[1], 10); }
   function _shuf(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 
+  var _h321 = (_ptTTB.spread && _ptTTB.hist) ? _ptTTB.hist.pairs : null;   /* FR-321 phase 2 — the history term, only when the switch is on */
   var best = null, bestV = Infinity, bestLeft = units.length;
-  for (var attempt = 0; attempt < 30; attempt++) {
+  for (var attempt = 0; attempt < (_h321 ? 200 : 30); attempt++) {
     var remaining = _shuf(units);
     var out = _ptTTB.slots.map(function(s) { return { units: [] }; });
     var pairs = {}, viol = 0;
@@ -57928,6 +57952,7 @@ function _ptTTBAutoFillUnits() {
         var pick = 0, pickScore = Infinity;
         for (var ci = 0; ci < remaining.length; ci++) {
           var c = remaining[ci], score = 0;
+          if (_h321) { var _u321 = []; used.forEach(function (u) { u.members.forEach(function (m) { _u321.push(m.roster_id); }); }); c.members.forEach(function (m) { _u321.forEach(function (o) { score += 10 * (Number(_h321[[Number(o), Number(m.roster_id)].sort(function (a, b) { return a - b; }).join('|')]) || 0); }); }); }
           used.forEach(function(u) { var k = [u.gid, c.gid].sort().join(':'); if (pairs[k]) score += 50; });
           c.members.forEach(function(m) {
             if (morningTimes[m.roster_id] != null) {
@@ -57946,7 +57971,8 @@ function _ptTTBAutoFillUnits() {
       }
     }
     var left = remaining.length;
-    var tot = viol + left * 1000;
+    var rep321 = 0; if (_h321) out.forEach(function (o) { var ids = []; o.units.forEach(function (u) { u.members.forEach(function (m) { ids.push(m.roster_id); }); }); rep321 += _ptFr321Score(ids, _h321); });
+    var tot = viol + left * 1000 + rep321;   /* FR-321 phase 2 — fewest repeat pairings wins the tie-break among clean draws */
     if (tot < bestV) { bestV = tot; best = out; bestLeft = left; if (!tot) break; }
   }
 
@@ -58107,10 +58133,11 @@ function ptTTBAutoFill() {
   // ⭐ v386.1 — the organizer's answer, not a constant. Groups of 3 fill 3.
   var _ttbSize = ptEvGroupSize(_ptTTB.cfg);
 
+  var _h321i = (_ptTTB.spread && _ptTTB.hist) ? _ptTTB.hist.pairs : null;   /* FR-321 phase 2 */
   var bestResult = null;
   var bestViolations = Infinity;
 
-  for (var attempt = 0; attempt < 30; attempt++) {
+  for (var attempt = 0; attempt < (_h321i ? 200 : 30); attempt++) {
     var pool = shuffle(grouped);
     var slots = _ptTTB.slots.map(function(s){ return {start_time:s.start_time, hole:s.hole, players:[]}; });
     var remaining = pool.slice();
@@ -58128,6 +58155,7 @@ function ptTTBAutoFill() {
         for (var ci = 0; ci < remaining.length; ci++) {
           var c = remaining[ci];
           var score = 0;
+          if (_h321i) used.forEach(function (u) { score += 10 * (Number(_h321i[[Number(u.roster_id), Number(c.roster_id)].sort(function (a, b) { return a - b; }).join('|')]) || 0); });
           // Same team in same slot — heavy penalty
           if (c.group_id && used.some(function(u){return u.group_id===c.group_id;})) score += 1000;
           // Repeat pairing — medium penalty
@@ -58156,6 +58184,7 @@ function ptTTBAutoFill() {
       }
     }
 
+    if (_h321i) { var rep321i = 0; slots.forEach(function (sl) { rep321i += _ptFr321Score(sl.players.map(function (p) { return p.roster_id; }), _h321i); }); violations += rep321i / 1000; }   /* FR-321 phase 2 — repeats break ties among equally clean draws */
     if (violations < bestViolations) {
       bestViolations = violations;
       bestResult = slots;
@@ -72411,15 +72440,26 @@ window._ptFr321Load = function () {
       _ptTB269Render();
     }).catch(function () {});
 };
+/* FR-321 phase 2 (v915.0): ONE scorer for both surfaces — the sum of pair counts among a set of roster ids */
+window._ptFr321Score = function (rids, pairs) {
+  if (!pairs || !rids || rids.length < 2) return 0;
+  var s = 0, r = rids.map(Number).filter(function (x) { return x > 0; }).sort(function (a, b) { return a - b; });
+  for (var i = 0; i < r.length; i++) for (var j = i + 1; j < r.length; j++) s += Number(pairs[r[i] + '|' + r[j]]) || 0;
+  return s;
+};
 window._ptFr321Repeats = function (team) {
   var st = window._ptTB269; if (!st || !st.hist || !team || !team.seats) return 0;
-  var s = 0, r = team.seats.map(function (m) { return Number(m.rid); }).sort(function (a, b) { return a - b; });
-  for (var i = 0; i < r.length; i++) for (var j = i + 1; j < r.length; j++) s += Number(st.hist.pairs[r[i] + '|' + r[j]]) || 0;
-  return s;
+  return _ptFr321Score(team.seats.map(function (m) { return m.rid; }), st.hist.pairs);
 };
 window._ptFr321Chip = function (team) {
   var n = _ptFr321Repeats(team); if (!n) return '';
   return '<span title="times these players have already played together this year" style="display:inline-block;margin-right:8px;padding:1px 7px;border-radius:999px;background:rgba(168,213,181,.14);border:1px solid rgba(168,213,181,.4);color:#a8d5b5;font-size:10px;font-weight:800">🤝 ' + n + '×</span>';
+};
+window._ptFr321SlotChip = function (slot) {
+  var h = _ptTTB && _ptTTB.hist; if (!h) return '';
+  var n = _ptFr321Score((slot.players || []).filter(Boolean).map(function (p) { return p.roster_id; }), h.pairs);
+  if (!n) return '';
+  return '<span title="times these players have already played together this year" style="display:inline-block;padding:1px 7px;border-radius:999px;background:rgba(168,213,181,.14);border:1px solid rgba(168,213,181,.4);color:#a8d5b5;font-size:10px;font-weight:800;white-space:nowrap">\ud83e\udd1d ' + n + '\u00d7</span>';
 };
 window.ptFr321Spread = function (on) { var st = window._ptTB269; if (!st) return; st.spread = !!on; _ptTB269Render(); };
 /* the spread draw wraps the v913.0 draw: same dealing, tried 200 times, the deal with the fewest repeats wins */
@@ -81031,7 +81071,7 @@ function ptLaunchFoursomeRound(foursomeData) {
    The scoring engine lives in ONE file. showHome() / showSection() land on the organizer login (token → dashboard).
    ⛔ FR-324 PHASE 3 (the JS cut) IS KILLED UNBUILT — Bruce, s313: "we don't need to cut - app runs fine as it is." v1.04 was the
    harvest rig (7,400 probes); v1.05 is v1.03 with the version bumped and nothing else. The JS stays whole. */
-const ADMIN_VERSION = 'pards-admin-v1.07';
+const ADMIN_VERSION = 'pards-admin-v1.08';
 (function(){
   var _adminDoor = function(){
     try{ if(typeof _ptHideAll === 'function') _ptHideAll(); }catch(e){}
