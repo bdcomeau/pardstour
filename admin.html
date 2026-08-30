@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="admin-apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Admin — Organizer Console</title>
-  <!-- pards-tour-v909.0 --><!-- pards-admin-v1.08 -->
+  <!-- pards-tour-v909.0 --><!-- pards-admin-v1.09 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -13755,7 +13755,9 @@ function computeSkinsMoney(){
 function computeSkins(game){
   const idxs = game.players;            // player indices in the game
   const perSkin = (game.perSkin===undefined?5:game.perSkin);
-  const mode = game.mode || 'net';      // 'net' | 'gross'
+  const mode = game.mode || 'net';      // 'net' | 'gross' | 'half'  (FR-327 — FR-15's rule: every stroke counts 0.5)
+  const mult = (mode==='half') ? 0.5 : 1;
+  const validate = (game.validate === true);   // FR-327 — undefined on every pre-v916 saved game = off
   const carry = game.carry !== false;   // default true
   const endgame = game.endgame || 'void'; // 'void' (leftovers vanish) | 'lastHole' (final hole sweeps the pot; tied final flagged)
 
@@ -13777,6 +13779,7 @@ function computeSkins(game){
   const holeResult = []; // [hole] = {winner: gameIdx|null, potValue, carriedIn, washed, unresolved} or null if unplayed
   const skinsWon = idxs.map(() => 0);
   let pot = 0;           // carried skins waiting to be won
+  let _valPending = null; // FR-327 — bundle won on the previous played hole, awaiting its par-or-better
   let holesPlayed = 0;
   let lastPlayedHole = -1;
   let unresolvedPot = 0; // skins left unresolved on a tied final hole (lastHole mode)
@@ -13795,16 +13798,34 @@ function computeSkins(game){
     holesPlayed++;
     lastPlayedHole = h;
     const isFinalHole = (h === finalActualHole);
-    const vals = idxs.map((pi, ii) => mode==='gross' ? grosses[ii] : (grosses[ii] - strokes[ii][h]));
+    const vals = idxs.map((pi, ii) => mode==='gross' ? grosses[ii] : (grosses[ii] - strokes[ii][h] * mult));
     const lo = Math.min(...vals);
     const winners = [];
     vals.forEach((v, ii) => { if(v === lo) winners.push(ii); });
+    /* ⭐ FR-327 — validated skins (Bruce s314): the previous hole's winner keeps his
+       bundle only by making par-or-better ON THIS HOLE, scored on the game's own
+       basis (net / ½-shot / gross — his ruling: follow the game's scoring). A fail
+       puts the bundle back in the pot AFTER this hole resolves — "the next hole is
+       worth more" — so this hole's outright winner never inherits it in the same
+       breath. A bundle whose test lands on the final played hole and fails has no
+       next hole to be worth more on: it washes. One won ON the final hole stands. */
+    let _valReturn = 0;
+    if(_valPending){
+      const _vg = grosses[_valPending.winner];
+      const _vNet = mode==='gross' ? _vg : (_vg - strokes[_valPending.winner][h] * mult);
+      const _vhr = holeResult[_valPending.hole];
+      if(_vNet <= G.par[h]){ _vhr.valOk = true; }
+      else { _vhr.valFailed = true; skinsWon[_valPending.winner] -= _valPending.skins; _valReturn = _valPending.skins; }
+      _vhr.valOn = h; _vhr.pendingVal = false;
+      _valPending = null;
+    }
     const carriedIn = pot;
     if(winners.length === 1){
       const decided = 1 + pot;       // this hole's skin plus anything carried
       skinsWon[winners[0]] += decided;
       pot = 0;
-      holeResult[h] = { winner: winners[0], potValue: decided, carriedIn, washed:false };
+      holeResult[h] = { winner: winners[0], potValue: decided, carriedIn, washed:false, pendingVal: validate };
+      if(validate) _valPending = { winner: winners[0], hole: h, skins: decided };
     } else {
       // Tie on this hole
       if(isFinalHole && endgame==='lastHole'){
@@ -13821,8 +13842,11 @@ function computeSkins(game){
         holeResult[h] = { winner: null, potValue: 0, carriedIn, washed:true };
       }
     }
+    pot += _valReturn;               // FR-327 — a failed bundle is in the pot for the NEXT hole
   }
 
+  // FR-327 — a bundle still awaiting its test after the final played hole STANDS (his ruling).
+  if(_valPending){ const _fhr = holeResult[_valPending.hole]; _fhr.pendingVal = false; _fhr.valStands = true; _valPending = null; }
   // Any pot still carried after the final played hole (void mode, or a no-carry round) is washed.
   const pendingPot = pot;
 
@@ -13838,7 +13862,7 @@ function computeSkins(game){
     settlement = { money, skinsWon: [...skinsWon], totalSkins, unresolvedPot, unresolvedDollars: unresolvedPot * perSkin };
   }
 
-  return { holeResult, skinsWon, totalSkins, holesPlayed, lastPlayedHole, pendingPot, unresolvedPot, perSkin, mode, carry, endgame, settlement };
+  return { holeResult, skinsWon, totalSkins, holesPlayed, lastPlayedHole, pendingPot, unresolvedPot, perSkin, mode, carry, endgame, validate, settlement };
 }
 
 
@@ -14002,6 +14026,7 @@ function renderSkinsGamesList(){
   if(game.mode===undefined) game.mode='net';
   if(game.carry===undefined) game.carry=true;
   if(game.endgame===undefined) game.endgame='void';
+  if(game.validate===undefined) game.validate=false;
 
   function selBtn(active){ return active ? 'var(--pt-ln-g5)' : 'var(--pt-ln-w12)'; }
   function selBg(active){ return active ? 'var(--pt-su-g15)' : 'transparent'; }
@@ -14014,7 +14039,13 @@ function renderSkinsGamesList(){
 
   const modeRow =
     '<button onclick="setSkinsMode(\x27net\x27)" style="flex:1;padding:9px 6px;'+btnBase+';border:1.5px solid '+selBtn(game.mode==='net')+';background:'+selBg(game.mode==='net')+';color:'+selCol(game.mode==='net')+'">Net</button>'+
+    '<button onclick="setSkinsMode(\x27half\x27)" style="flex:1;padding:9px 6px;'+btnBase+';border:1.5px solid '+selBtn(game.mode==='half')+';background:'+selBg(game.mode==='half')+';color:'+selCol(game.mode==='half')+'">½ Shot</button>'+
     '<button onclick="setSkinsMode(\x27gross\x27)" style="flex:1;padding:9px 6px;'+btnBase+';border:1.5px solid '+selBtn(game.mode==='gross')+';background:'+selBg(game.mode==='gross')+';color:'+selCol(game.mode==='gross')+'">Gross</button>';
+
+  /* FR-327 — validated skins */
+  const valRow =
+    '<button onclick="setSkinsValidate(false)" style="flex:1;padding:9px 6px;line-height:1.3;'+btnBase+';border:1.5px solid '+selBtn(game.validate!==true)+';background:'+selBg(game.validate!==true)+';color:'+selCol(game.validate!==true)+'">Off<br><span class="gsheet-sub">a skin is safe when won</span></button>'+
+    '<button onclick="setSkinsValidate(true)" style="flex:1;padding:9px 6px;line-height:1.3;'+btnBase+';border:1.5px solid '+selBtn(game.validate===true)+';background:'+selBg(game.validate===true)+';color:'+selCol(game.validate===true)+'">Validate<br><span class="gsheet-sub">par or better next hole keeps it</span></button>';
 
   const carryRow =
     '<button onclick="setSkinsCarry(true)" style="flex:1;padding:9px 6px;'+btnBase+';border:1.5px solid '+selBtn(game.carry===true)+';background:'+selBg(game.carry===true)+';color:'+selCol(game.carry===true)+'">Carry over</button>'+
@@ -14028,6 +14059,7 @@ function renderSkinsGamesList(){
   let h = '<div style="background:var(--pt-su-k2);border:1.5px solid var(--pt-ln-w1);border-radius:12px;padding:14px;margin-top:10px">';
   h += '<div style="'+lbl+'">Value per skin</div><div style="display:flex;gap:6px;margin-bottom:14px">'+betRow+'</div>';
   h += '<div style="'+lbl+'">Scoring</div><div style="display:flex;gap:6px;margin-bottom:14px">'+modeRow+'</div>';
+  h += '<div style="'+lbl+'">Validation</div><div style="display:flex;gap:6px;margin-bottom:14px">'+valRow+'</div>';
   h += '<div style="'+lbl+'">On a tie</div><div style="display:flex;gap:6px'+(game.carry?';margin-bottom:14px':'')+'">'+carryRow+'</div>';
   if(game.carry){
     h += '<div style="'+lbl+';margin-top:14px">After hole 18</div><div style="display:flex;gap:6px">'+endRow+'</div>';
@@ -14040,6 +14072,7 @@ function setSkinsBet(v){ if(!G.skinsGames.length) return; G.skinsGames[0].perSki
 function setSkinsMode(m){ if(!G.skinsGames.length) return; G.skinsGames[0].mode=m; saveG(); renderSkinsGamesList(); }
 function setSkinsCarry(c){ if(!G.skinsGames.length) return; G.skinsGames[0].carry=c; saveG(); renderSkinsGamesList(); }
 function setSkinsEndgame(e){ if(!G.skinsGames.length) return; G.skinsGames[0].endgame=e; saveG(); renderSkinsGamesList(); }
+function setSkinsValidate(v){ if(!G.skinsGames.length) return; G.skinsGames[0].validate=v; saveG(); renderSkinsGamesList(); }
 
 // ── Vegas setup ─────────────────────────────────────────────────────────────
 const VEGAS_POINT_OPTIONS = [0.25, 0.5, 1, 2, 5];
@@ -23775,7 +23808,7 @@ function buildGamesMenuList(){
   if(!so && G.skinsGames&&G.skinsGames.length&&G.skinsGames[0].players&&G.skinsGames[0].players.length>=2){
     const skGame=G.skinsGames[0];
     const skNames=skGame.players.map(pi=>(G.players[pi]||{}).name||'').map(n=>n.split(' ')[0]).join(', ');
-    games.push({id:'skins',icon:'💰',label:'Skins',sub:'$'+((skGame.perSkin===undefined?5:skGame.perSkin))+'/skin · '+(skGame.mode==='gross'?'gross':'net')+' · '+skNames});
+    games.push({id:'skins',icon:'💰',label:'Skins',sub:'$'+((skGame.perSkin===undefined?5:skGame.perSkin))+'/skin · '+(skGame.mode==='gross'?'gross':(skGame.mode==='half'?'½ shot':'net'))+' · '+skNames});
   }
   if(!so && G.vegasGames&&G.vegasGames.length&&G.vegasGames[0].teamA&&G.vegasGames[0].teamA.length===2&&G.vegasGames[0].teamB&&G.vegasGames[0].teamB.length===2){
     const vg=G.vegasGames[0];
@@ -24142,8 +24175,16 @@ function renderMMSkins(){
   h += '</div>';
 
   h += '<div style="font-size:11px;color:var(--pt-ik-h888888);margin-bottom:6px">Scoring:</div><div style="display:flex;gap:6px;margin-bottom:12px">';
-  [['net','Net (handicap)'],['gross','Gross']].forEach(([m,label])=>{
+  [['net','Net (handicap)'],['half','½ Shot Net'],['gross','Gross']].forEach(([m,label])=>{
     h += `<button onclick="mmSetSkinsMode('${m}')" style="flex:1;padding:7px;border-radius:8px;border:1.5px solid ${mode===m?'var(--pt-ln-h0d5c4e)':'var(--pt-ln-hcccccc)'};background:${mode===m?'var(--pt-su-h0d5c4e)':'var(--pt-su-hffffff)'};color:${mode===m?'var(--pt-ik-h52b788)':'var(--pt-ik-h555555)'};font-size:12px;font-weight:700;cursor:pointer">${label}</button>`;
+  });
+  h += '</div>';
+
+  /* FR-327 — validated skins */
+  h += '<div style="font-size:11px;color:var(--pt-ik-h888888);margin-bottom:6px">Validation:</div><div style="display:flex;gap:6px;margin-bottom:12px">';
+  [[false,'Off','a skin is safe when won'],[true,'Validate','par or better next hole keeps it']].forEach(([v,label,sub])=>{
+    const on = (game.validate===true)===v;
+    h += `<button onclick="mmSetSkinsValidate(${v})" style="flex:1;padding:8px 6px;border-radius:8px;border:1.5px solid ${on?'var(--pt-ln-h0d5c4e)':'var(--pt-ln-hcccccc)'};background:${on?'var(--pt-su-h0d5c4e)':'var(--pt-su-hffffff)'};color:${on?'var(--pt-ik-h52b788)':'var(--pt-ik-h555555)'};font-size:12px;font-weight:700;cursor:pointer;line-height:1.3">${label}<br><span style="font-size:9px;font-weight:400;opacity:.8">${sub}</span></button>`;
   });
   h += '</div>';
 
@@ -24192,6 +24233,7 @@ function mmSetSkinsBet(v){ if(!G.skinsGames.length) return; G.skinsGames[0].perS
 function mmSetSkinsMode(m){ if(!G.skinsGames.length) return; G.skinsGames[0].mode = m; saveG(); renderMMSkins(); renderCard(); }
 function mmSetSkinsCarry(c){ if(!G.skinsGames.length) return; G.skinsGames[0].carry = c; saveG(); renderMMSkins(); renderCard(); }
 function mmSetSkinsEndgame(e){ if(!G.skinsGames.length) return; G.skinsGames[0].endgame = e; saveG(); renderMMSkins(); renderCard(); }
+function mmSetSkinsValidate(v){ if(!G.skinsGames.length) return; G.skinsGames[0].validate = v; saveG(); renderMMSkins(); renderCard(); }
 
 // ── Vegas (mid-round) ───────────────────────────────────────────────────────
 function renderMMVegas(){
@@ -29281,15 +29323,15 @@ function renderSkinsCard(game, gi){
   const C='#c0392b';
   function scoreWithCircle(gross, stk){
     if(gross===null) return `<span style="display:inline-block;width:18px;height:18px;line-height:18px;text-align:center;color:var(--pt-ik-hcccccc);font-size:11px">·</span>`;
-    if(mode==='net' && stk===2) return `<span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;border:1.5px solid ${C};box-shadow:0 0 0 2px #fff,0 0 0 3.5px ${C};font-size:10px;font-weight:800">${gross}</span>`;
-    if(mode==='net' && stk===1) return `<span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;border:1.5px solid ${C};font-size:10px;font-weight:800">${gross}</span>`;
+    if(mode!=='gross' && stk===2) return `<span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;border:1.5px solid ${C};box-shadow:0 0 0 2px #fff,0 0 0 3.5px ${C};font-size:10px;font-weight:800">${gross}</span>`;
+    if(mode!=='gross' && stk===1) return `<span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;border:1.5px solid ${C};font-size:10px;font-weight:800">${gross}</span>`;
     return `<span style="display:inline-block;width:18px;height:18px;line-height:18px;text-align:center;font-size:11px;font-weight:800">${gross}</span>`;
   }
 
   let html = `<div class="msum" style="margin-top:14px;border:1.5px solid var(--pt-ln-h0d5c4e);border-radius:12px;overflow:hidden" data-skins="1">`;
   html += `<div style="background:linear-gradient(135deg,var(--pt-su-h0d5c4e),var(--pt-su-h1a4a3a));padding:10px 14px;display:flex;align-items:center;justify-content:space-between">`;
   html += `<div style="font-size:15px;font-weight:800;color:var(--pt-ik-hc9a84c)">💰 Skins</div>`;
-  html += `<div style="font-size:11px;color:var(--pt-ik-w6)">$${perSkin}/skin · ${mode==='gross'?'Gross':'Net'} · ${carry?(endgame==='lastHole'?'Carry · 18 takes all':'Carry'):'No carry'}</div>`;
+  html += `<div style="font-size:11px;color:var(--pt-ik-w6)">$${perSkin}/skin · ${mode==='gross'?'Gross':(mode==='half'?'½ Shot':'Net')}${game.validate?' · Validate':''} · ${carry?(endgame==='lastHole'?'Carry · 18 takes all':'Carry'):'No carry'}</div>`;
   html += `</div>`;
 
   html += `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">`;
@@ -29298,7 +29340,7 @@ function renderSkinsCard(game, gi){
   html += `<th style="background:var(--pt-su-h1a3a2a);color:var(--pt-ik-h888888);padding:5px 4px;text-align:center;min-width:28px">Par</th>`;
   game.players.forEach((pi) => {
     const hdcp = Math.round(G.players[pi] ? G.players[pi].idx : 0);
-    html += `<th style="background:var(--pt-su-h1a3a2a);color:var(--pt-ik-hc9a84c);padding:4px 2px;text-align:center;min-width:38px;white-space:nowrap">${(nm[pi]||'').split(' ')[0]}${mode==='net'?'<br><span style="font-size:8px;color:var(--pt-ik-h888888);font-weight:400">'+hdcp+'h</span>':''}</th>`;
+    html += `<th style="background:var(--pt-su-h1a3a2a);color:var(--pt-ik-hc9a84c);padding:4px 2px;text-align:center;min-width:38px;white-space:nowrap">${(nm[pi]||'').split(' ')[0]}${mode!=='gross'?'<br><span style="font-size:8px;color:var(--pt-ik-h888888);font-weight:400">'+hdcp+'h</span>':''}</th>`;
   });
   html += `<th style="background:var(--pt-su-h1a3a2a);color:var(--pt-ik-hc9a84c);padding:4px 2px;text-align:center;min-width:42px">Skin</th>`;
   html += `</tr></thead><tbody>`;
@@ -29323,7 +29365,13 @@ function renderSkinsCard(game, gi){
     if(hr){
       if(hr.winner!==null){
         const wn=(nm[game.players[hr.winner]]||'').split(' ')[0];
-        skinCell=`<span style="display:inline-block;background:${WIN};color:var(--pt-if-hffffff);border-radius:10px;padding:2px 7px;font-size:10px;font-weight:800;white-space:nowrap">${wn} ${hr.potValue>1?'×'+hr.potValue:''}</span>`;
+        if(hr.valFailed){        /* FR-327 — failed its par-or-better; the bundle went back to the pot */
+          skinCell=`<span style="color:${C};font-size:10px;font-weight:800;white-space:nowrap;text-decoration:line-through">${wn} ${hr.potValue>1?'×'+hr.potValue:''}</span><br><span style="color:${C};font-size:8px;font-weight:700">↩ pot</span>`;
+        } else if(hr.pendingVal){ /* FR-327 — awaiting the next hole's test */
+          skinCell=`<span style="display:inline-block;background:var(--pt-su-hc9a84c);color:var(--pt-ik-h1a3a2a);border-radius:10px;padding:2px 7px;font-size:10px;font-weight:800;white-space:nowrap">${wn} ${hr.potValue>1?'×'+hr.potValue:''}…</span>`;
+        } else {
+          skinCell=`<span style="display:inline-block;background:${WIN};color:var(--pt-if-hffffff);border-radius:10px;padding:2px 7px;font-size:10px;font-weight:800;white-space:nowrap">${wn} ${hr.potValue>1?'×'+hr.potValue:''}${hr.valOk?' ✓':''}</span>`;
+        }
       } else if(hr.unresolved){
         skinCell=`<span style="display:inline-block;background:var(--pt-su-hc9a84c);color:var(--pt-ik-h1a3a2a);border-radius:10px;padding:2px 7px;font-size:9px;font-weight:800;white-space:nowrap">playoff ×${hr.unresolved}</span>`;
       } else if(hr.washed){
@@ -29364,6 +29412,9 @@ function renderSkinsCard(game, gi){
     html += `</div>`;
     if(result.pendingPot>0 && !result.settlement){
       html += `<div style="font-size:10px;color:var(--pt-ik-h999999);margin-top:8px;text-align:center">${result.pendingPot} skin${result.pendingPot===1?'':'s'} carrying into the next hole</div>`;
+    }
+    if(game.validate){    /* FR-327 */
+      html += `<div style="font-size:10px;color:var(--pt-ik-h999999);margin-top:8px;text-align:center">Validated skins — par or better on the next hole keeps a skin · a failed skin goes back in the pot · the last hole stands</div>`;
     }
     if(result.settlement && result.settlement.unresolvedPot>0){
       html += `<div style="margin-top:10px;background:var(--pt-su-hfff8e1);bordevar(--pt-ln-hc9a84c) solid ${GOLD};border-radius:8px;padding:8px 10px;text-align:center"><div style="font-size:12px;font-weight:800;color:var(--pt-ik-h1a3a2a)">🏌️ Playoff needed</div><div style="font-size:11px;color:var(--pt-ik-h666666);margin-top:2px">${result.settlement.unresolvedPot} skin${result.settlement.unresolvedPot===1?'':'s'} ($${result.settlement.unresolvedDollars}) still up for grabs — the 18th tied. Settle it with a playoff; the totals above don't include this pot.</div></div>`;
@@ -81071,7 +81122,7 @@ function ptLaunchFoursomeRound(foursomeData) {
    The scoring engine lives in ONE file. showHome() / showSection() land on the organizer login (token → dashboard).
    ⛔ FR-324 PHASE 3 (the JS cut) IS KILLED UNBUILT — Bruce, s313: "we don't need to cut - app runs fine as it is." v1.04 was the
    harvest rig (7,400 probes); v1.05 is v1.03 with the version bumped and nothing else. The JS stays whole. */
-const ADMIN_VERSION = 'pards-admin-v1.08';
+const ADMIN_VERSION = 'pards-admin-v1.09';
 (function(){
   var _adminDoor = function(){
     try{ if(typeof _ptHideAll === 'function') _ptHideAll(); }catch(e){}
