@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v916.0 -->
+  <!-- pards-tour-v917.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -14597,6 +14597,7 @@ function computeSkins(game){
   const mode = game.mode || 'net';      // 'net' | 'gross' | 'half'  (FR-327 — FR-15's rule: every stroke counts 0.5)
   const mult = (mode==='half') ? 0.5 : 1;
   const validate = (game.validate === true);   // FR-327 — undefined on every pre-v916 saved game = off
+  const potMode = (game.payout === 'pot');     // FR-328 — Pot Skins: everyone antes perSkin; the pot splits by skins won
   const carry = game.carry !== false;   // default true
   const endgame = game.endgame || 'void'; // 'void' (leftovers vanish) | 'lastHole' (final hole sweeps the pot; tied final flagged)
 
@@ -14691,17 +14692,36 @@ function computeSkins(game){
 
   const totalSkins = skinsWon.reduce((a,b)=>a+b,0);
 
-  // Settlement (only when the round is complete): each player wins
-  // (skinsWon × perSkin) and pays an equal share of the total pot.
+  /* ⭐ FR-328 — ONE money producer for every surface (settlement, both live
+     running totals, the card). Per-skin: (skinsWon × perSkin) − equal share of
+     skins decided so far — unchanged. Pot: everyone antes perSkin, pot = n ×
+     ante; the pot splits by skins won on the Chibri rule — ptSkinsPayouts
+     (s106): whole dollars, the biggest winner absorbs the remainder. No skins
+     decided = no money moves (the antes go home). */
+  const _skMoney = (function(){
+    const n = idxs.length;
+    if(!potMode){
+      const share = totalSkins * perSkin / n;
+      return skinsWon.map(s => (s * perSkin) - share);
+    }
+    if(totalSkins <= 0) return skinsWon.map(() => 0);
+    const potC = Math.round(n * perSkin * 100);
+    if(typeof ptSkinsPayouts === 'function'){
+      const pay = ptSkinsPayouts(potC, idxs.map((pi, ii) => ({ roster_id: ii, name: 'p' + ii, skins: skinsWon[ii] })));
+      const by = {}; (pay.payouts || []).forEach(o => { by[o.roster_id] = o.cents; });
+      return skinsWon.map((s, ii) => ((by[ii] || 0) - perSkin * 100) / 100);
+    }
+    return skinsWon.map(s => (s / totalSkins) * n * perSkin - perSkin);   // fail open: exact shares
+  })();
+  const potDollars = potMode ? idxs.length * perSkin : 0;
+
+  // Settlement (only when the round is complete).
   let settlement = null;
   if(holesPlayed === 18){
-    const n = idxs.length;
-    const share = totalSkins * perSkin / n;
-    const money = skinsWon.map(s => (s * perSkin) - share);
-    settlement = { money, skinsWon: [...skinsWon], totalSkins, unresolvedPot, unresolvedDollars: unresolvedPot * perSkin };
+    settlement = { money: _skMoney, skinsWon: [...skinsWon], totalSkins, unresolvedPot, unresolvedDollars: potMode ? 0 : unresolvedPot * perSkin };
   }
 
-  return { holeResult, skinsWon, totalSkins, holesPlayed, lastPlayedHole, pendingPot, unresolvedPot, perSkin, mode, carry, endgame, validate, settlement };
+  return { holeResult, skinsWon, totalSkins, holesPlayed, lastPlayedHole, pendingPot, unresolvedPot, perSkin, mode, carry, endgame, validate, potMode, potDollars, liveMoney: _skMoney, settlement };
 }
 
 
@@ -14866,6 +14886,7 @@ function renderSkinsGamesList(){
   if(game.carry===undefined) game.carry=true;
   if(game.endgame===undefined) game.endgame='void';
   if(game.validate===undefined) game.validate=false;
+  if(game.payout===undefined) game.payout='perskin';
 
   function selBtn(active){ return active ? 'var(--pt-ln-g5)' : 'var(--pt-ln-w12)'; }
   function selBg(active){ return active ? 'var(--pt-su-g15)' : 'transparent'; }
@@ -14896,7 +14917,15 @@ function renderSkinsGamesList(){
 
   const lbl = 'font-size:10px;font-weight:800;color:var(--pt-ik-g100);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px';
   let h = '<div style="background:var(--pt-su-k2);border:1.5px solid var(--pt-ln-w1);border-radius:12px;padding:14px;margin-top:10px">';
-  h += '<div style="'+lbl+'">Value per skin</div><div style="display:flex;gap:6px;margin-bottom:14px">'+betRow+'</div>';
+  /* FR-328 — Pot Skins */
+  const payRow =
+    '<button onclick="setSkinsPayout(\x27perskin\x27)" style="flex:1;padding:9px 6px;line-height:1.3;'+btnBase+';border:1.5px solid '+selBtn(game.payout!=='pot')+';background:'+selBg(game.payout!=='pot')+';color:'+selCol(game.payout!=='pot')+'">Per skin<br><span class="gsheet-sub">each skin pays its value</span></button>'+
+    '<button onclick="setSkinsPayout(\x27pot\x27)" style="flex:1;padding:9px 6px;line-height:1.3;'+btnBase+';border:1.5px solid '+selBtn(game.payout==='pot')+';background:'+selBg(game.payout==='pot')+';color:'+selCol(game.payout==='pot')+'">Pot<br><span class="gsheet-sub">everyone antes · pot splits by skins</span></button>';
+  h += '<div style="'+lbl+'">Money</div><div style="display:flex;gap:6px;margin-bottom:14px">'+payRow+'</div>';
+  h += '<div style="'+lbl+'">'+(game.payout==='pot'?'Ante per player':'Value per skin')+'</div><div style="display:flex;gap:6px;margin-bottom:'+(game.payout==='pot'?'6px':'14px')+'">'+betRow+'</div>';
+  if(game.payout==='pot'){
+    h += '<div style="font-size:11px;color:var(--pt-ik-w5);margin-bottom:14px">Pot: '+game.players.length+' in × $'+(game.perSkin===undefined?5:game.perSkin)+' = <b style="color:var(--pt-ik-hc9a84c)">$'+(game.players.length*(game.perSkin===undefined?5:game.perSkin))+'</b> — it all pays out unless nobody wins a skin.</div>';
+  }
   h += '<div style="'+lbl+'">Scoring</div><div style="display:flex;gap:6px;margin-bottom:14px">'+modeRow+'</div>';
   h += '<div style="'+lbl+'">Validation</div><div style="display:flex;gap:6px;margin-bottom:14px">'+valRow+'</div>';
   h += '<div style="'+lbl+'">On a tie</div><div style="display:flex;gap:6px'+(game.carry?';margin-bottom:14px':'')+'">'+carryRow+'</div>';
@@ -14912,6 +14941,7 @@ function setSkinsMode(m){ if(!G.skinsGames.length) return; G.skinsGames[0].mode=
 function setSkinsCarry(c){ if(!G.skinsGames.length) return; G.skinsGames[0].carry=c; saveG(); renderSkinsGamesList(); }
 function setSkinsEndgame(e){ if(!G.skinsGames.length) return; G.skinsGames[0].endgame=e; saveG(); renderSkinsGamesList(); }
 function setSkinsValidate(v){ if(!G.skinsGames.length) return; G.skinsGames[0].validate=v; saveG(); renderSkinsGamesList(); }
+function setSkinsPayout(p){ if(!G.skinsGames.length) return; G.skinsGames[0].payout=p; saveG(); renderSkinsGamesList(); }
 
 // ── Vegas setup ─────────────────────────────────────────────────────────────
 const VEGAS_POINT_OPTIONS = [0.25, 0.5, 1, 2, 5];
@@ -17480,7 +17510,7 @@ function renderLiveStandings(){
       if(!res) return;
       var items = game.players.map(function(pi,li){return {pi:pi, s:res.skinsWon[li]||0};});
       items.sort(function(a,b){return b.s-a.s;});
-      h += '<div style="'+wrp+'"><div style="'+hdr+'">\uD83C\uDFC6 Skins ($'+res.perSkin+'/skin)</div><div>';
+      h += '<div style="'+wrp+'"><div style="'+hdr+'">\uD83C\uDFC6 Skins ('+(res.potMode?('$'+res.perSkin+' ante pot — $'+res.potDollars):('$'+res.perSkin+'/skin'))+')</div><div>';
       items.forEach(function(d){
         h += '<span style="'+(d.s>0?gld:dim)+'">'+pn(d.pi)+' '+d.s+'</span>  ';
       });
@@ -20855,9 +20885,7 @@ function computeCombinedMoney(){
     if(r.settlement){
       game.players.forEach((pi,ii)=>{ total[pi]+=r.settlement.money[ii]; });
     } else if(r.holesPlayed>0){
-      const n=game.players.length;
-      const share=r.totalSkins*((game.perSkin===undefined?5:game.perSkin))/n;
-      game.players.forEach((pi,ii)=>{ total[pi]+=(r.skinsWon[ii]*((game.perSkin===undefined?5:game.perSkin)))-share; });
+      game.players.forEach((pi,ii)=>{ total[pi]+=r.liveMoney[ii]; });   /* FR-328 — the engine's one money producer */
     }
   });
   // Vegas
@@ -20955,9 +20983,7 @@ function computeLiveMoney(){
     if(!game.players||game.players.length<2) return;
     const r=computeSkins(game);
     if(r.holesPlayed>0){
-      const n=game.players.length;
-      const share=r.totalSkins*((game.perSkin===undefined?5:game.perSkin))/n;
-      game.players.forEach((pi,ii)=>{ total[pi]+=(r.skinsWon[ii]*((game.perSkin===undefined?5:game.perSkin)))-share; });
+      game.players.forEach((pi,ii)=>{ total[pi]+=r.liveMoney[ii]; });   /* FR-328 — the engine's one money producer */
     }
   });
 
@@ -24647,7 +24673,7 @@ function buildGamesMenuList(){
   if(!so && G.skinsGames&&G.skinsGames.length&&G.skinsGames[0].players&&G.skinsGames[0].players.length>=2){
     const skGame=G.skinsGames[0];
     const skNames=skGame.players.map(pi=>(G.players[pi]||{}).name||'').map(n=>n.split(' ')[0]).join(', ');
-    games.push({id:'skins',icon:'💰',label:'Skins',sub:'$'+((skGame.perSkin===undefined?5:skGame.perSkin))+'/skin · '+(skGame.mode==='gross'?'gross':(skGame.mode==='half'?'½ shot':'net'))+' · '+skNames});
+    games.push({id:'skins',icon:'💰',label:'Skins',sub:'$'+((skGame.perSkin===undefined?5:skGame.perSkin))+(skGame.payout==='pot'?' ante pot':'/skin')+' · '+(skGame.mode==='gross'?'gross':(skGame.mode==='half'?'½ shot':'net'))+' · '+skNames});
   }
   if(!so && G.vegasGames&&G.vegasGames.length&&G.vegasGames[0].teamA&&G.vegasGames[0].teamA.length===2&&G.vegasGames[0].teamB&&G.vegasGames[0].teamB.length===2){
     const vg=G.vegasGames[0];
@@ -25006,13 +25032,24 @@ function renderMMSkins(){
   }
   h += '</div>';
 
-  h += '<div style="font-size:11px;color:var(--pt-ik-h888888);margin-bottom:6px">Value per skin:</div>';
+  /* FR-328 — Pot Skins */
+  h += '<div style="font-size:11px;color:var(--pt-ik-h888888);margin-bottom:6px">Money:</div><div style="display:flex;gap:6px;margin-bottom:12px">';
+  [['perskin','Per skin','each skin pays its value'],['pot','Pot','everyone antes · pot splits by skins']].forEach(([p,label,sub])=>{
+    const on = (game.payout==='pot')===(p==='pot');
+    h += `<button onclick="mmSetSkinsPayout('${p}')" style="flex:1;padding:8px 6px;border-radius:8px;border:1.5px solid ${on?'var(--pt-ln-h0d5c4e)':'var(--pt-ln-hcccccc)'};background:${on?'var(--pt-su-h0d5c4e)':'var(--pt-su-hffffff)'};color:${on?'var(--pt-ik-h52b788)':'var(--pt-ik-h555555)'};font-size:12px;font-weight:700;cursor:pointer;line-height:1.3">${label}<br><span style="font-size:9px;font-weight:400;opacity:.8">${sub}</span></button>`;
+  });
+  h += '</div>';
+
+  h += '<div style="font-size:11px;color:var(--pt-ik-h888888);margin-bottom:6px">'+(game.payout==='pot'?'Ante per player:':'Value per skin:')+'</div>';
   h += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">';
   SKINS_BET_OPTIONS.forEach(v => {
     h += `<button onclick="mmSetSkinsBet(${v})" style="padding:6px 12px;border-radius:8px;border:1.5px solid ${perSkin===v?'var(--pt-ln-h0d5c4e)':'var(--pt-ln-hcccccc)'};background:${perSkin===v?'var(--pt-su-h0d5c4e)':'var(--pt-su-hffffff)'};color:${perSkin===v?'var(--pt-ik-h52b788)':'var(--pt-ik-h555555)'};font-size:12px;font-weight:700;cursor:pointer">${v===0?'$0 - Track ONLY':'$'+v}</button>`;
   });
   h += '</div>';
 
+  if(game.payout==='pot'){   /* FR-328 */
+    h += '<div style="font-size:11px;color:var(--pt-ik-h666666);margin:-4px 0 12px">Pot: '+(game.players||[]).length+' in × $'+(game.perSkin===undefined?5:game.perSkin)+' = <b>$'+((game.players||[]).length*(game.perSkin===undefined?5:game.perSkin))+'</b></div>';
+  }
   h += '<div style="font-size:11px;color:var(--pt-ik-h888888);margin-bottom:6px">Scoring:</div><div style="display:flex;gap:6px;margin-bottom:12px">';
   [['net','Net (handicap)'],['half','½ Shot Net'],['gross','Gross']].forEach(([m,label])=>{
     h += `<button onclick="mmSetSkinsMode('${m}')" style="flex:1;padding:7px;border-radius:8px;border:1.5px solid ${mode===m?'var(--pt-ln-h0d5c4e)':'var(--pt-ln-hcccccc)'};background:${mode===m?'var(--pt-su-h0d5c4e)':'var(--pt-su-hffffff)'};color:${mode===m?'var(--pt-ik-h52b788)':'var(--pt-ik-h555555)'};font-size:12px;font-weight:700;cursor:pointer">${label}</button>`;
@@ -25073,6 +25110,7 @@ function mmSetSkinsMode(m){ if(!G.skinsGames.length) return; G.skinsGames[0].mod
 function mmSetSkinsCarry(c){ if(!G.skinsGames.length) return; G.skinsGames[0].carry = c; saveG(); renderMMSkins(); renderCard(); }
 function mmSetSkinsEndgame(e){ if(!G.skinsGames.length) return; G.skinsGames[0].endgame = e; saveG(); renderMMSkins(); renderCard(); }
 function mmSetSkinsValidate(v){ if(!G.skinsGames.length) return; G.skinsGames[0].validate = v; saveG(); renderMMSkins(); renderCard(); }
+function mmSetSkinsPayout(p){ if(!G.skinsGames.length) return; G.skinsGames[0].payout = p; saveG(); renderMMSkins(); renderCard(); }
 
 // ── Vegas (mid-round) ───────────────────────────────────────────────────────
 function renderMMVegas(){
@@ -30170,7 +30208,7 @@ function renderSkinsCard(game, gi){
   let html = `<div class="msum" style="margin-top:14px;border:1.5px solid var(--pt-ln-h0d5c4e);border-radius:12px;overflow:hidden" data-skins="1">`;
   html += `<div style="background:linear-gradient(135deg,var(--pt-su-h0d5c4e),var(--pt-su-h1a4a3a));padding:10px 14px;display:flex;align-items:center;justify-content:space-between">`;
   html += `<div style="font-size:15px;font-weight:800;color:var(--pt-ik-hc9a84c)">💰 Skins</div>`;
-  html += `<div style="font-size:11px;color:var(--pt-ik-w6)">$${perSkin}/skin · ${mode==='gross'?'Gross':(mode==='half'?'½ Shot':'Net')}${game.validate?' · Validate':''} · ${carry?(endgame==='lastHole'?'Carry · 18 takes all':'Carry'):'No carry'}</div>`;
+  html += `<div style="font-size:11px;color:var(--pt-ik-w6)">${result.potMode?`$${perSkin} ante · Pot $${result.potDollars}`:`$${perSkin}/skin`} · ${mode==='gross'?'Gross':(mode==='half'?'½ Shot':'Net')}${game.validate?' · Validate':''} · ${carry?(endgame==='lastHole'?'Carry · 18 takes all':'Carry'):'No carry'}</div>`;
   html += `</div>`;
 
   html += `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">`;
@@ -30235,9 +30273,7 @@ function renderSkinsCard(game, gi){
   // Money row (live or final)
   const showMoney = result.holesPlayed > 0;
   if(showMoney){
-    const n = game.players.length;
-    const share = result.totalSkins * perSkin / n;
-    const liveMoney = result.skinsWon.map(s => (s*perSkin) - share);
+    const liveMoney = result.liveMoney;   /* FR-328 — the engine's one money producer */
     const finalLabel = result.settlement ? '$ WON/LOST' : 'CURRENT $';
     html += `<div style="padding:10px 14px;background:var(--pt-su-hf9fafb);border-top:1px solid var(--pt-ln-he0e0e0)">`;
     html += `<div style="font-size:11px;font-weight:800;color:var(--pt-ik-h1a3a2a);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">${finalLabel}</div>`;
@@ -30254,6 +30290,9 @@ function renderSkinsCard(game, gi){
     }
     if(game.validate){    /* FR-327 */
       html += `<div style="font-size:10px;color:var(--pt-ik-h999999);margin-top:8px;text-align:center">Validated skins — par or better on the next hole keeps a skin · a failed skin goes back in the pot · the last hole stands</div>`;
+    }
+    if(result.potMode){   /* FR-328 */
+      html += `<div style="font-size:10px;color:var(--pt-ik-h999999);margin-top:8px;text-align:center">Pot Skins — ${game.players.length} in × $${perSkin} ante = $${result.potDollars} · whole-dollar payouts, the biggest winner absorbs the remainder${result.totalSkins===0?' · no skins yet: if nobody wins one, the antes go home':''}</div>`;
     }
     if(result.settlement && result.settlement.unresolvedPot>0){
       html += `<div style="margin-top:10px;background:var(--pt-su-hfff8e1);bordevar(--pt-ln-hc9a84c) solid ${GOLD};border-radius:8px;padding:8px 10px;text-align:center"><div style="font-size:12px;font-weight:800;color:var(--pt-ik-h1a3a2a)">🏌️ Playoff needed</div><div style="font-size:11px;color:var(--pt-ik-h666666);margin-top:2px">${result.settlement.unresolvedPot} skin${result.settlement.unresolvedPot===1?'':'s'} ($${result.settlement.unresolvedDollars}) still up for grabs — the 18th tied. Settle it with a playoff; the totals above don't include this pot.</div></div>`;
@@ -81057,7 +81096,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v916.0';
+    const TOUR_VERSION     = 'pards-tour-v917.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
