@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v924.0 -->
+  <!-- pards-tour-v925.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -56816,6 +56816,9 @@ function ptTvDispOpen(eventId, roundNo) {
             every: (cfg && cfg.tv && Number(cfg.tv.every) > 0) ? Number(cfg.tv.every) : 0,
             sponsors: JSON.parse(JSON.stringify((cfg && cfg.tv && cfg.tv.sponsors) || [])),
             announce: JSON.parse(JSON.stringify((cfg && cfg.tv && cfg.tv.announce) || [])),
+            champsOn: !!(cfg && cfg.tv && cfg.tv.champs && cfg.tv.champs.on === true),   /* FR-331 */
+            champsSub: (cfg && cfg.tv && cfg.tv.champs && cfg.tv.champs.sub) ? String(cfg.tv.champs.sub) : '',
+            champsText: ((cfg && cfg.tv && cfg.tv.champs && cfg.tv.champs.rows) || []).map(function (r) { return r.y + ' — ' + r.n; }).join('\n'),
             _seq: 0,
             titles: {}, panes: null, byFlight: {}, pvErr: '', loading: false
           };
@@ -57039,6 +57042,12 @@ function ptTvDispPaintExtras() {
     + '<input id="ptTvD_spD" type="number" min="0" max="600" value="' + (_se && _se.dwell > 0 ? _se.dwell : '') + '" placeholder="Seconds on screen (optional)" style="' + fld + '">'
     + '<button onclick="ptTvDispAddSponsor()" style="width:100%;padding:10px;background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.35);border-radius:10px;color:#c9a84c;font-size:13px;font-weight:800;cursor:pointer;margin-bottom:16px">' + (_se ? 'Save changes to this ad' : 'Add this sponsor page') + '</button>'
     + (_se ? '<button onclick="ptTvDispEditSponsor(null)" style="width:100%;padding:8px;margin:-10px 0 16px;background:none;border:1px solid rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.5);font-size:12px;font-weight:800;cursor:pointer">Cancel \u2014 keep it as it was</button>' : '')
+    + '<div style="font-size:13px;font-weight:800;color:#c9a84c;margin-bottom:6px">\ud83c\udfc6 Past Champions</div>'
+    + '<div style="font-size:11px;color:rgba(255,255,255,.28);margin-bottom:7px;padding:0 2px">Part of the pre-round show \u2014 the wall pages through these until the first card posts. One line per year: <b>2025 \u2014 the champions\u2019 names</b>.</div>'
+    + '<label style="display:flex;align-items:center;gap:8px;margin-bottom:7px;cursor:pointer"><input type="checkbox"' + (S.champsOn ? ' checked' : '') + ' onchange="ptTvDispChampsOn(this.checked)" style="width:16px;height:16px;accent-color:#c9a84c"><span style="font-size:12.5px;font-weight:700;color:#eee">Show Past Champions before the round</span></label>'
+    + '<input value="' + _ptEsc(S.champsSub || '') + '" placeholder="Subtitle \u2014 e.g. Armand Comeau Cup Champions \u00b7 since 1987 (optional)" onchange="ptTvDispChampsSub(this.value)" style="' + fld + '">'
+    + '<textarea rows="7" placeholder="2025 \u2014 names&#10;2024 \u2014 names" onchange="ptTvDispChampsText(this.value)" style="' + fld + ';font-family:inherit;resize:vertical">' + _ptEsc(S.champsText || '') + '</textarea>'
+    + '<div style="height:14px"></div>'
     + '<div style="font-size:13px;font-weight:800;color:#8fd0ff;margin-bottom:6px">\ud83d\udce3 Announcements</div>'
     + '<div style="font-size:11px;color:rgba(255,255,255,.28);margin-bottom:7px;padding:0 2px">Give it a start and stop time and it appears and disappears on its own \u2014 set it in the morning, forget it.</div>'
     + (S.announce.length ? S.announce.map(function (an, i) {
@@ -57061,6 +57070,20 @@ function ptTvDispPaintExtras() {
             }).join('')
           + '</select>'
         : '');
+}
+function ptTvDispChampsOn(v)  { var S = window._ptTvD; if (S) S.champsOn = !!v; }   /* FR-331 */
+function ptTvDispChampsSub(v) { var S = window._ptTvD; if (S) S.champsSub = String(v || ''); }
+function ptTvDispChampsText(v){ var S = window._ptTvD; if (S) S.champsText = String(v || ''); }
+/* One line per year — "2025 — names". Dash, en/em dash, colon, comma or tab
+   after the year all read; newest first on the wall whatever order he pastes. */
+function _ptChampsParse(text) {
+  var rows = [];
+  String(text || '').split('\n').forEach(function (ln) {
+    var m = /^\s*(\d{4})\s*[—–:,.\-\t]\s*(.+?)\s*$/.exec(ln);
+    if (m) rows.push({ y: +m[1], n: m[2] });
+  });
+  rows.sort(function (a, b) { return b.y - a.y; });
+  return rows;
 }
 function ptTvDispBg(v) { var S = window._ptTvD; if (S) S.bg = String(v || '').trim(); }
 function ptTvDispHdr(v) { var S = window._ptTvD; if (S) S.hdr = !!v; }   /* FR-181 -- top-bar label only (ruled s286), pane html untouched */
@@ -57164,6 +57187,9 @@ function ptTvDispSave() {
   if (S.bg) tv.bg = S.bg; else delete tv.bg;
   if (S.sponsors && S.sponsors.length) tv.sponsors = S.sponsors; else delete tv.sponsors;
   if (S.announce && S.announce.length) tv.announce = S.announce; else delete tv.announce;
+  var _chR = _ptChampsParse(S.champsText);   /* FR-331 */
+  if (S.champsOn && _chR.length) { tv.champs = { on: true, rows: _chR }; if (S.champsSub && String(S.champsSub).trim()) tv.champs.sub = String(S.champsSub).trim(); }
+  else delete tv.champs;
   if (S.every > 0) tv.every = S.every; else delete tv.every;
   if (S.scope === 'round' && S.roundNo > 0) {
     tv.rounds = (tv.rounds && typeof tv.rounds === 'object') ? tv.rounds : {};
@@ -60967,6 +60993,97 @@ function ptTvCopyLink(url) {
 }
 
 // ── The display itself ──────────────────────────────────────────────────
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ⭐⭐ FR-331 (v925.0 / admin v1.18, s316) — THE MORNING SHOW.
+   Bruce: "the morning show I love - build that one - with the Last Call
+   coming up - that can be on the screen before round in ballroom" · "that
+   could be selectable in TV Setup 'Past Champions'".
+   Before the first card posts, the wall said nothing. Now it leads with:
+     · a marquee — crest (the event logo, FR-316's slot), name, date, course,
+       format · start · field size
+     · a tee sheet — shotgun reads the groups' own start holes; the times
+       come off the round-tees wire (v644.0's public payload, stashed raw)
+     · Past Champions — organizer-fed pages, the TV Setup card writes them
+       to the event TV config exactly as FR-177's sponsors ride it
+   ⛔ SHOWN ONLY WHILE THE WATCH PAYLOAD'S STANDINGS ARE EMPTY — the cache
+   fills with the first posted card and the boards take over; a reset that
+   empties it brings the morning back. NOTHING here is a second producer:
+   no score, no rank, no money is computed — only rows the poll already
+   carries. ⛔ FAILS SOFT: one try/catch, any throw shows exactly the wall
+   v924.0 showed.
+   ══════════════════════════════════════════════════════════════════════════ */
+function _ptMorningDate(ds){
+  try { var m=/^(\d{4})-(\d{2})-(\d{2})/.exec(String(ds||'')); if(!m) return '';
+    var d=new Date(+m[1], +m[2]-1, +m[3]);
+    return d.toLocaleDateString('en-CA',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  } catch(e){ return String(ds||''); }
+}
+function _ptMorningAmPm(t){
+  var m=/^(\d{1,2}):(\d{2})/.exec(String(t||'')); if(!m) return String(t||'');
+  var h=+m[1], ap=h>=12?'PM':'AM'; h=h%12||12; return h+':'+m[2]+' '+ap;
+}
+function ptMorningPanes(ev, cfg, w, groups, rounds){
+  var panes=[];
+  try{
+    var r0=(rounds&&rounds[0])||((w&&w.round)||{});
+    var logo=(cfg&&cfg.logo)?String(cfg.logo):'';
+    var fmt=String(r0.format||'').replace(/_/g,' ');
+    fmt=fmt?fmt.charAt(0).toUpperCase()+fmt.slice(1):'';
+    var tRaw=(_ptTv.teesRaw&&_ptTv.teesRaw.length?_ptTv.teesRaw:[]).filter(function(x){return x&&x.tee_times&&x.tee_times.length;});
+    var tts=tRaw.length?tRaw[0].tee_times:[];
+    var t0=null; tts.forEach(function(t){ if(t&&t.start_time&&(t0==null||t.start_time<t0)) t0=t.start_time; });
+    var modeLine = r0.mode==='shotgun' ? ('Shotgun start'+(t0?' · '+_ptMorningAmPm(t0):'')) : (t0?('First tee '+_ptMorningAmPm(t0)):'');
+    var nG=(groups||[]).length;
+    var mHtml='<div style="height:78vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.6vh;text-align:center">'
+      +(logo?'<img src="'+logo+'" alt="" style="max-height:24vh;max-width:30vw;object-fit:contain;border-radius:1.2vh">':'')
+      +'<div style="font-size:6.8vh;font-weight:900;color:#f5e6b8;letter-spacing:.02em;line-height:1.08;max-width:88vw">'+_ptEsc(ev.name||'')+'</div>'
+      +'<div style="font-size:3.2vh;font-weight:800;color:#c9a84c">'+_ptEsc(_ptMorningDate(ev.date))+(ev.course_name?' · '+_ptEsc(ev.course_name):'')+'</div>'
+      +'<div style="font-size:2.8vh;font-weight:700;color:rgba(255,255,255,.85)">'+_ptEsc([fmt,modeLine].filter(Boolean).join(' · '))
+      +(nG?'<span style="color:rgba(255,255,255,.55)"> · '+nG+(String(r0.format||'')==='scramble'?' teams':' groups')+'</span>':'')+'</div>'
+      +'</div>';
+    panes.push({key:'morning', title:'🌅 Game Day', html:mHtml});
+    if(nG){
+      var tByHole={}; tts.forEach(function(t){ if(t&&t.hole!=null) tByHole[t.hole]=t.start_time; });
+      var byHole={};
+      (groups||[]).forEach(function(g){ var h=g.start_hole||1; (byHole[h]=byHole[h]||[]).push(g.name||''); });
+      var holes=Object.keys(byHole).map(Number).sort(function(a,b){return a-b;});
+      if(holes.length){
+        var rowsH=holes.map(function(h){
+          return '<div style="display:flex;align-items:baseline;gap:1.2vw;background:rgba(0,0,0,.55);border-radius:.8vh;padding:1vh 1.4vw;margin-bottom:.9vh">'
+            +'<span style="font-size:2.6vh;font-weight:900;color:#c9a84c;min-width:7vw">Hole '+h+'</span>'
+            +(tByHole[h]?'<span style="font-size:2.2vh;font-weight:800;color:rgba(255,255,255,.6);min-width:6vw">'+_ptEsc(_ptMorningAmPm(tByHole[h]))+'</span>':'')
+            +'<span style="font-size:2.6vh;font-weight:700;color:#e8e6df">'+_ptEsc(byHole[h].join('  ·  '))+'</span>'
+            +'</div>';
+        });
+        var half=Math.ceil(rowsH.length/2);
+        var tHtml='<div style="display:flex;gap:2vw;padding-top:1vh">'
+          +'<div style="flex:1;min-width:0">'+rowsH.slice(0,half).join('')+'</div>'
+          +'<div style="flex:1;min-width:0">'+rowsH.slice(half).join('')+'</div></div>';
+        panes.push({key:'morning-tees', title:'⛳ The Tee Sheet', html:tHtml});
+      }
+    }
+    var C=cfg&&cfg.tv&&cfg.tv.champs;
+    if(C&&C.on===true&&C.rows&&C.rows.length){
+      var per=26, rowsC=C.rows.slice(), pg=0;
+      while(rowsC.length){
+        var chunk=rowsC.splice(0,per), halfC=Math.ceil(chunk.length/2);
+        var col=function(a){ return a.map(function(x){
+          return '<div style="display:flex;align-items:baseline;gap:1vw;background:rgba(0,0,0,.55);border-radius:.7vh;padding:.7vh 1.2vw;margin-bottom:.7vh">'
+            +'<span style="font-size:2.3vh;font-weight:900;color:#c9a84c;min-width:4.4vw">'+_ptEsc(String(x.y))+'</span>'
+            +'<span style="font-size:2.15vh;font-weight:700;color:#e8e6df;line-height:1.25">'+_ptEsc(String(x.n))+'</span>'
+            +'</div>'; }).join(''); };
+        var cHtml=(C.sub?'<div style="font-size:2.2vh;font-weight:800;color:rgba(201,168,76,.85);margin:.4vh 0 1.2vh">'+_ptEsc(C.sub)+'</div>':'')
+          +'<div style="display:flex;gap:2vw"><div style="flex:1;min-width:0">'+col(chunk.slice(0,halfC))+'</div>'
+          +'<div style="flex:1;min-width:0">'+col(chunk.slice(halfC))+'</div></div>';
+        panes.push({key:'morning-champs'+(pg?'#'+(pg+1):''), title:'🏆 '+String(C.title||'Past Champions'), html:cHtml});
+        pg++;
+      }
+    }
+  }catch(e){ }
+  return panes;
+}
+
 function ptTvStart(code) {
   _ptTv.code = String(code || '').toUpperCase();
   _ptTv.trip = null;                                              // FR-45 (v478.0) — an event link never inherits a trip poll
@@ -61155,6 +61272,7 @@ function ptTvRefresh() {
           return fetch(TOUR_API + '/api/round-tees/' + encodeURIComponent(_ptTv.code || '') + '?round_id=' + r.id).then(_ptJson).catch(function () { return null; });
         })).catch(function () { return []; });
         return Promise.all([chain, chainX, chainT]).then(function (cs) {
+          _ptTv.teesRaw = cs[2];                 /* FR-331 — the tee-sheet pane reads the raw payload; the fold below is untouched */
           ptTvTeesFold(cs[2]);                 /* v644.0 — _ptTv.tees[round_id][roster_id] = { t, h } */
           var st = ptTvApplyCut(cfg, cs[0]);   /* v643.0 — the cut, TV only */
           _ptTv.updated = new Date();
@@ -61166,6 +61284,7 @@ function ptTvRefresh() {
              state made every flight but the cut's own come back empty. */
           var _tvB = ptTvBuildAllPanes(ev, cfg, w, st, groups, cs[1], rounds, cfg && cfg.tv, _ptTv.roundOnly, cs[0]);
           _ptTv.panes = ptTvPlaylist(_tvB.base, cfg && cfg.tv, _ptTv.roundOnly, _tvB.byFlight);   // B-35 (v395.1) · FR-172
+          try { if (!((w.standings || []).length)) { var _mp = ptMorningPanes(ev, cfg, w, groups, rounds); for (var _mi = _mp.length - 1; _mi >= 0; _mi--) _ptTv.panes.unshift(_mp[_mi]); } } catch (_em) {}   /* FR-331 — leads until the first card posts */
           ptTvBuildTicker(cfg, st);                                 // v386.0 · D25e
           if (_ptTv.idx >= _ptTv.panes.length) _ptTv.idx = 0;
           ptTvRender();
@@ -81462,7 +81581,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v924.0';
+    const TOUR_VERSION     = 'pards-tour-v925.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
