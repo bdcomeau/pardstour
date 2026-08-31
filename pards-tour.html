@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v919.0 -->
+  <!-- pards-tour-v920.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -15349,6 +15349,12 @@ function mcSetBet(k,v){
   saveG();
   renderMatchCardsConfig();
 }
+function mcSetPress(k,v){   /* FR-329c */
+  if(!G.matchCards||!G.matchCards.opponents[k]) return;
+  G.matchCards.opponents[k].press=(v==='manual'?'manual':'auto');
+  saveG();
+  renderMatchCardsConfig();
+}
 
 // Manually type an opponent's name (for someone who isn't a saved favorite).
 function mcSetName(k,val){
@@ -15589,6 +15595,17 @@ function renderMatchCardsConfig(){
     return '<button onclick="mcSetBet('+k+','+v+')" style="flex:1;padding:9px 4px;'+btnB+';border:1.5px solid '+sb(o.bet===v)+';background:'+sbg(o.bet===v)+';color:'+sc(o.bet===v)+'">$'+v+'</button>';
   }).join('');
   h += '</div>';
+  /* ⭐ FR-329c — presses on a Match Card (a 1v1 Nassau): automatic (2 down) or manual. One or the other; absent = auto. */
+  (function(){
+    var pm=(o.press==='manual')?'manual':'auto';
+    function _p(val,txt,sub){
+      var on=(pm===val);
+      return '<button onclick="mcSetPress('+k+',\x27'+val+'\x27)" style="flex:1;padding:8px 6px;line-height:1.3;'+btnB+';border:1.5px solid '+sb(on)+';background:'+sbg(on)+';color:'+sc(on)+'">'
+        +txt+'<div style="font-size:9px;font-weight:600;opacity:.75">'+sub+'</div></button>';
+    }
+    h += '<div style="'+lbl+';margin-top:12px">Presses</div>';
+    h += '<div style="display:flex;gap:6px">'+_p('auto','Automatic','presses itself at 2 down')+_p('manual','Manual','a side presses on demand')+'</div>';
+  })();
   h += '</div>';
 
   // Summary of other opponents
@@ -21574,7 +21591,7 @@ function buildMatchCardsSnapshot(){
   for(let k=0;k<opps.length;k++){ scores.push(Array(18).fill(null)); }
 
   // One 1v1 Nassau per opponent: scorekeeper (0) vs opponent (k+1)
-  const singleGames = opps.map((o,k)=>({ p1:0, p2:k+1, bet: (o.bet!=null?o.bet:2) }));
+  const singleGames = opps.map((o,k)=>({ p1:0, p2:k+1, bet: (o.bet!=null?o.bet:2), press: (o.press==='manual'?'manual':'auto') }));   /* FR-329c — absent === auto */
 
   // Distinct roundDate (+1s) so it never collides with the normal round's roundDate
   // (isCurrentRoundSaved keys off roundDate; a collision would block the completion save when scoring).
@@ -25476,6 +25493,15 @@ function renderMMMatchCards(){
   h+=MC_BET_OPTIONS.map(v=>`<button onclick="mmSetMCBet(${k},${v})" style="flex:1;padding:9px 4px;border-radius:8px;border:1.5px solid ${o.bet===v?'var(--pt-ln-g5)':'var(--pt-ln-w12)'};background:${o.bet===v?'var(--pt-su-g15)':'var(--pt-su-k2)'};color:${o.bet===v?'var(--pt-ik-hc9a84c)':'var(--pt-if-w4)'};font-size:13px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">$${v}</button>`).join('');
   h+=`</div>`;
 
+  // ── Presses (FR-329c) ──
+  h+=`<div style="font-size:10px;font-weight:800;color:var(--pt-ik-w4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Presses</div>`;
+  h+=`<div style="display:flex;gap:6px;margin-bottom:12px">`;
+  [['auto','Automatic','presses itself at 2 down'],['manual','Manual','a side presses on demand']].forEach(([val,txt,sub])=>{
+    const on=((o.press==='manual')?'manual':'auto')===val;
+    h+=`<button onclick="mmSetMCPress(${k},'${val}')" style="flex:1;padding:8px 6px;border-radius:8px;border:1.5px solid ${on?'var(--pt-ln-g5)':'var(--pt-ln-w12)'};background:${on?'var(--pt-su-g15)':'var(--pt-su-k2)'};color:${on?'var(--pt-ik-hc9a84c)':'var(--pt-if-w4)'};font-size:12px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent;line-height:1.3">${txt}<div style="font-size:9px;font-weight:600;opacity:.75">${sub}</div></button>`;
+  });
+  h+=`</div>`;
+
   // ── Add / Remove ──
   if(mc.opponents.length < MAX_OPP){
     h+=`<button onclick="mmAddMCOpponent()" style="width:100%;padding:10px;background:var(--pt-su-c6a4c933);color:var(--pt-ik-he8d5ff);border:1.5px solid var(--pt-ln-c6a4c935);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px">+ Add Opponent ${mc.opponents.length+1}</button>`;
@@ -25541,6 +25567,12 @@ function mmSelectMCContact(k,val){
 function mmSetMCBet(k,v){
   if(!G.matchCards||!G.matchCards.opponents[k]) return;
   G.matchCards.opponents[k].bet=Number(v);
+  saveG();
+  renderMMMatchCards();
+}
+function mmSetMCPress(k,v){   /* FR-329c */
+  if(!G.matchCards||!G.matchCards.opponents[k]) return;
+  G.matchCards.opponents[k].press=(v==='manual'?'manual':'auto');
   saveG();
   renderMMMatchCards();
 }
@@ -81225,7 +81257,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v919.0';
+    const TOUR_VERSION     = 'pards-tour-v920.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
