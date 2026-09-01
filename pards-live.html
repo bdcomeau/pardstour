@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.29 -->
+<!-- pards-live-v1.30 -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -296,7 +296,7 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.29';
+var LIVE_VERSION = 'live-v1.30';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null, view:'round', overall:null, lb:{}, sk:null };   /* FR-188 (v1.23, s288) — sk = his Gross/Net/Par Points pick, null = the round's own format */   /* v1.14 (s274) — lb[round_id] = that round's leaderboard, for all-rounds cards */   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows. v1.13 (s274) — view + the overall payload (FR-158). */
@@ -823,15 +823,36 @@ function fr188Bar(rows, key) {
    — Compton −2 thru 5 over Hilton −2 thru 4), then gross, then name.
    Nulls sort LAST, never as zero (s268). Gross ONLY — Net and Par Points
    keep the worker's order exactly as before. */
-function b351GrossSort(items) {
+/* ⭐ B-351b (v1.30, s317) — his follow-up the same night: "We should do the
+   same for net and par points." One producer for all three tabs:
+     gross  → to par (v1.29's rule, unchanged)
+     net    → NET to par = toPar − (gross − net) — the same card walk, shifted
+              by the strokes the man gets; no second par table.
+     points → points vs PAR PACE = points − 2 × thru. Par is worth 2 on BOTH
+              scales the worker plays (_fr192Pts: standard 2+diff, chicago
+              par→2), so the pace term is scale-safe. HIGH wins.
+   Ties: MORE holes first (his Compton-over-Hilton call), then the raw key,
+   then gross, then name. Nulls sort LAST, never as zero (s268). */
+function b351FairSort(items, k) {
+  var hi = (k === 'points');
+  var val = function (A) {
+    if (k === 'gross') return toPar(A);
+    if (k === 'net') {
+      var tp = toPar(A);
+      return (tp == null || A.gross == null || A.net == null) ? null : tp - (A.gross - A.net);
+    }
+    return (A.points == null) ? null : (A.points - 2 * (A.holes_played || 0));
+  };
   return items.slice().sort(function (a, b) {
     var A = a.r || {}, B = b.r || {};
-    var at = toPar(A), bt = toPar(B);
-    if (at == null && bt != null) return 1;
-    if (bt == null && at != null) return -1;
-    if (at != null && bt != null && at !== bt) return at - bt;
+    var av = val(A), bv = val(B);
+    if (av == null && bv != null) return 1;
+    if (bv == null && av != null) return -1;
+    if (av != null && bv != null && av !== bv) return hi ? (bv - av) : (av - bv);
     var ah = A.holes_played || 0, bh = B.holes_played || 0;
     if (ah !== bh) return bh - ah;
+    var akv = A[k], bkv = B[k];
+    if (akv != null && bkv != null && akv !== bkv) return hi ? (bkv - akv) : (akv - bkv);
     if (A.gross != null && B.gross != null && A.gross !== B.gross) return A.gross - B.gross;
     return String(A.name || '').localeCompare(String(B.name || '')) || (a.i - b.i);
   });
@@ -1046,7 +1067,7 @@ function paintBoard(d) {
        worker's own order byte-for-byte, and DNFs still ride behind everyone. */
     /* B-351 (v1.29) — gross ALWAYS ranks by to par, picked or untouched;
        every other key keeps FR-188's picked-only re-rank byte-for-byte. */
-    if (key === 'gross' && fr188Individual(rows)) _items = b351GrossSort(_items);
+    if ((key === 'gross' || key === 'net' || key === 'points') && fr188Individual(rows)) _items = b351FairSort(_items, key);   /* B-351b (v1.30) — all three tabs rank fairly mid-round */
     else if (S.sk && key === S.sk && fr188Individual(rows)) _items = fr188Sort(_items, key);
     dnfRows(d).forEach(function (p, j) { _items.push({ r: p, i: rows.length + j, dnf: 1 }); });
     fltSections(_items, function (it) {
