@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="admin-apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Admin — Organizer Console</title>
-  <!-- pards-tour-v909.0 --><!-- pards-admin-v1.29 -->
+  <!-- pards-tour-v909.0 --><!-- pards-admin-v1.30 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -60673,7 +60673,17 @@ function ptMorningPanes(ev, cfg, w, groups, rounds){
         ((cfg&&cfg.event_roster)||[]).forEach(function(p){ var _rid=p.id!=null?p.id:p.roster_id; if(_rid!=null&&_nmB[_rid]==null) _nmB[_rid]=p.name; });
         rowsH=tts.slice().sort(function(a,b){ return String(a.start_time||'').localeCompare(String(b.start_time||'')); }).map(function(t){
           var _seen={};
-          var who=(t.players||[]).map(function(p){ return p.name||p.player_name||(p.group_id!=null?_gnB[p.group_id]:null)||(p.roster_id!=null?_nmB[p.roster_id]:null)||''; })
+          /* ⭐ B-355b (v937.0 / admin v1.30, s317) — READ THE WIRE THE TV ACTUALLY HOLDS.
+             _ptTv.teesRaw is the PUBLIC /api/round-tees payload (v644.0): roster_ids +
+             group_ids (api 3.116.0) — there is no `players` on it, which is why v936.0
+             showed times with no names on his wall. Resolve the id rails against the
+             groups list and roster map first; `players` stays as the fallback for the
+             authed tee-times shape. */
+          var _who39=[].concat(
+            (t.group_ids||[]).map(function(g){ return _gnB[g]||null; }),
+            (t.roster_ids||[]).map(function(r){ return _nmB[r]||null; }));
+          if(!_who39.length) _who39=(t.players||[]).map(function(p){ return p.name||p.player_name||(p.group_id!=null?_gnB[p.group_id]:null)||(p.roster_id!=null?_nmB[p.roster_id]:null)||''; });
+          var who=_who39
             .filter(function(n){ if(!n||_seen[n]) return false; _seen[n]=1; return true; });   /* a group's seats repeat its name — print it once */
           return '<div style="display:flex;align-items:baseline;gap:1.2vw;background:rgba(0,0,0,.55);border-radius:.8vh;padding:1vh 1.4vw;margin-bottom:.9vh">'
             +'<span style="font-size:2.6vh;font-weight:900;color:#c9a84c;min-width:7vw">'+_ptEsc(_ptMorningAmPm(t.start_time||''))+'</span>'
@@ -72353,8 +72363,13 @@ function ptScbPrint(ev, groups, scorerOf, round, o, ttInfo) {
        row NEVER grows (B-299: a td height is a MINIMUM — a grown row pushes the foot
        off the perforation). ⛔ The fold keeps B-299's one-line-and-clip; player rows
        and short rows render v935.0 byte-for-byte. */
-    var _b354w = isScr && bold && !_fold && _scRowH >= 30;
-    return '<tr style="height:' + _scRowH + 'px">' + '<td class="sc-name' + (bold ? ' sc-b' : '') + (_b283m ? ' sc-stk' : '') + (_b283m && _b336t ? ' sc-stk2' : '') + (_b354w ? (_scRowH >= 44 ? ' sc-wrap3' : ' sc-wrap2') : '') + '">'
+    /* B-354b (v937.0 / admin v1.30, s317) — THE WRAP REACHES THE FOLD. His real print
+       is FR-253's fold flow and v936.0's !_fold guard kept the clip there. The ruling
+       being protected ("the fold five-some's 22px rows keep B-299's one-line-and-clip")
+       is about SHORT rows — the ≥30px gate already honours it. Height is the ONE guard;
+       a ≥58px row may take 4 lines (the fold's cell is narrower). */
+    var _b354w = isScr && bold && _scRowH >= 30;
+    return '<tr style="height:' + _scRowH + 'px">' + '<td class="sc-name' + (bold ? ' sc-b' : '') + (_b283m ? ' sc-stk' : '') + (_b283m && _b336t ? ' sc-stk2' : '') + (_b354w ? (_scRowH >= 58 ? ' sc-wrap4' : _scRowH >= 44 ? ' sc-wrap3' : ' sc-wrap2') : '') + '">'
       + '<span class="sc-nm">' + esc(label)
       + (sub && !_b283s ? ' <span class="sc-meta">' + esc(sub) + '</span>' : '') + '</span>'   // v392.0 — B-30: members ride BEHIND the team name, so a narrow column truncates them and never the team · v770.0 (B-283) — unless the row stands tall enough to hand them their own line
       + (sub && _b283s ? '<span class="sc-meta sc-mline">' + esc(sub) + '</span>' : '')
@@ -72783,10 +72798,11 @@ var startRow = '<div class="sc-startrow"><span class="sc-startline">\u26f3 ' + e
     + '.sc-t td.sc-c{font-weight:700;font-size:11px}'
     + '.sc-meta{font-weight:600;font-size:9px;color:#555;white-space:nowrap}'
     + '.sc-t td.sc-name .sc-nm{white-space:nowrap}'   /* v770.0 (B-283) — the name line itself never wraps */
-    + '.sc-t td.sc-name.sc-wrap2,.sc-t td.sc-name.sc-wrap3{white-space:normal}'   /* B-354 — the scramble team row hands its long name the space it already stands on */
-    + '.sc-t td.sc-name.sc-wrap2 .sc-nm,.sc-t td.sc-name.sc-wrap3 .sc-nm{white-space:normal;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;line-height:1.15}'
+    + '.sc-t td.sc-name.sc-wrap2,.sc-t td.sc-name.sc-wrap3,.sc-t td.sc-name.sc-wrap4{white-space:normal}'   /* B-354/B-354b — the scramble team row hands its long name the space it already stands on, fold included */
+    + '.sc-t td.sc-name.sc-wrap2 .sc-nm,.sc-t td.sc-name.sc-wrap3 .sc-nm,.sc-t td.sc-name.sc-wrap4 .sc-nm{white-space:normal;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;line-height:1.15}'
     + '.sc-t td.sc-name.sc-wrap2 .sc-nm{-webkit-line-clamp:2}'
     + '.sc-t td.sc-name.sc-wrap3 .sc-nm{-webkit-line-clamp:3}'
+    + '.sc-t td.sc-name.sc-wrap4 .sc-nm{-webkit-line-clamp:4}'   /* B-354b — a ≥58px row on the fold's narrow cell */
     + '.sc-t td.sc-name.sc-stk{white-space:normal;line-height:1.18;vertical-align:top;padding-top:3px}'   /* v770.0 (B-283) */
     + '.sc-t td.sc-name .sc-mline{display:block;white-space:nowrap;margin-top:1px}'
     + '.sc-t td.sc-name.sc-stk.sc-stk2{line-height:1;padding-top:2px;padding-bottom:1px}'   /* v898.0 (B-336) — the TIGHT stack, rows 25..29px */
@@ -82168,7 +82184,7 @@ function ptLaunchFoursomeRound(foursomeData) {
    The scoring engine lives in ONE file. showHome() / showSection() land on the organizer login (token → dashboard).
    ⛔ FR-324 PHASE 3 (the JS cut) IS KILLED UNBUILT — Bruce, s313: "we don't need to cut - app runs fine as it is." v1.04 was the
    harvest rig (7,400 probes); v1.05 is v1.03 with the version bumped and nothing else. The JS stays whole. */
-const ADMIN_VERSION = 'pards-admin-v1.29';
+const ADMIN_VERSION = 'pards-admin-v1.30';
 (function(){
   var _adminDoor = function(){
     try{ if(typeof _ptHideAll === 'function') _ptHideAll(); }catch(e){}
