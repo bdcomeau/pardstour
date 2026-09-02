@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v934.0 -->
+  <!-- pards-tour-v935.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -70472,17 +70472,29 @@ window.ptFr339ShareLinks = function (eventId, round) {
     var _times = tts.map(function (t) { return t.start_time; });
     var _holes = tts.map(function (t) { return t.hole || 1; });
     var shotgun = tts.length > 1 && _times.every(function (t) { return t === _times[0]; }) && (new Set(_holes).size > 1);
+    /* ⭐ FR-339b (v935.0 / admin v1.28, s317) — THE NAMES WERE NEVER ON THE WIRE.
+       /api/rounds/:id/tee-times returns seats with roster_id/group_id and NO name
+       (SELECT * FROM tee_time_players); every surface that shows names resolves them
+       client-side from the event payload (ptRoundCards' own rule) — and the v933.0
+       sheet did not, so a real event read "(empty)". Same maps, same sources:
+       groups[].players first, then config.event_roster; a group seat shows its
+       group's name. */
+    var _gAll39 = (res[0] && res[0].groups) || [];
+    var _cfg39 = (res[0] && res[0].event) ? ptEvCfg(res[0].event) : {};
+    var _nm39 = {}, _gnm39 = {};
+    _gAll39.forEach(function (g) { _gnm39[g.id] = g.name; (g.players || []).forEach(function (p) { if (p.roster_id != null && p.name) _nm39[p.roster_id] = p.name; }); });
+    (_cfg39.event_roster || []).forEach(function (p) { var _rid = p.id != null ? p.id : p.roster_id; if (_rid != null && _nm39[_rid] == null) _nm39[_rid] = p.name; });
     var list = [], notReady = 0;
     tts.forEach(function (tt) {
       var code = String(tt.foursome_code || '');
-      var names = (tt.players || []).map(function (p) { return p.name || p.player_name || ''; }).filter(Boolean).join(', ');
+      var names = (tt.players || []).map(function (p) { return p.name || p.player_name || (p.roster_id != null ? _nm39[p.roster_id] : null) || (p.group_id != null ? _gnm39[p.group_id] : null) || ''; }).filter(Boolean).join(', ');   /* FR-339b — resolve from the event payload */
       var when = shotgun ? ('⛳ Shotgun · Hole ' + (tt.hole || 1)) : (tt.start_time ? ('🕐 ' + _pt12h(tt.start_time)) : '🕐 Time TBD');
       if (!/^[0-9A-Za-z]{6}$/.test(code)) { notReady++; return; }
       list.push({
         head: when, names: names, code: code,
         text: '⛳ ' + (ev.name || 'Pards Tour') + (dateStr ? ' · ' + dateStr : '') + '\n'
             + when.replace('🕐 ', '🕐 ').replace('⛳ ', '⛳ ') + (names ? ' — ' + names : '') + '\n'
-            + 'Score here: https://pardstour.com/pards-lite.html?code=' + code
+            + 'Score here: ' + _ptLiteShareUrl(code)   /* FR-339b — the ONE share-link producer (_ptLiteShareUrl): unfurls as a rich card naming the players, the date and the event (FR-237/272/272b), then lands on Lite */
       });
     });
     if (!list.length) { ptToast('No cards minted yet — save the tee sheet first.'); return; }
@@ -70500,7 +70512,7 @@ window.ptFr339ShareLinks = function (eventId, round) {
         + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">'
         + '<div style="min-width:0"><div style="font-size:13px;font-weight:800;color:#f5e6b8">' + _ptEsc(b.head) + '</div>'
         + '<div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.5">' + _ptEsc(b.names || '(empty)') + '</div>'
-        + '<div style="font-size:11px;color:rgba(100,180,255,.85);font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">pardstour.com/pards-lite.html?code=' + _ptEsc(b.code) + '</div></div>'
+        + '<div style="font-size:11px;color:rgba(100,180,255,.85);font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">pards-reg\u2026/l/lite/' + _ptEsc(b.code) + '</div></div>'
         + '<button onclick="ptCopyLink(window._ptFr339.list[' + i + '].text, this)" style="flex-shrink:0;padding:9px 14px;background:rgba(127,191,127,.12);border:1.5px solid rgba(127,191,127,.4);border-radius:9px;color:#a8d5b5;font-size:12px;font-weight:800;cursor:pointer">Copy</button>'
         + '</div></div>';
     });
@@ -82050,7 +82062,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v934.0';
+    const TOUR_VERSION     = 'pards-tour-v935.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
