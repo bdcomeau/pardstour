@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v938.0 -->
+  <!-- pards-tour-v939.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -9696,6 +9696,7 @@ function pickCourse(courseId, forceUpdate){
   G.courseId = courseId;
   G.courseChosen = true;   // v346.0 (B-11) — the user picked; nothing may override this
   _refreshCourseShims();
+  try { ptGcAutoRefresh(courseId); } catch (_e341p) {}   /* FR-341 §2 — a picked course gets the overlay + the stale check */
   DECKS = getTeeNames();
   const contacts = loadContacts();
   const newCourse = activeCourse();
@@ -10528,6 +10529,87 @@ async function gcGetToken(cfg){
   _gcTokenVia=data._gcVia||null;   // B-179
   return _gcToken;
 }
+
+/* ⭐⭐ FR-341 §2 (v939.0 / admin v1.32, s317) — THE APP KEEPS THE RATINGS CURRENT.
+   Alberta Golf re-rated Derrick and the app carried the old card until a wrong CH
+   was spotted by eye (B-356/D147). §1 (api 3.118.0) built the validated door;
+   this is the hand that knocks on it:
+   ⭐ ptGcOverlay(course) — ONE overlay producer. When D1's card has been
+      GC-verified (gc_checked_at set), its numbers are written INTO the live
+      PARDS_COURSES entry — every existing consumer (courseHandicap, deck
+      pickers, getTeeNames) sees current numbers with zero changes of its own.
+      Tees D1 knows and the catalogue does not are ADDED; nothing is removed.
+      Session-scoped: offline boots keep the baked card, exactly as before.
+   ⭐ ptGcAutoRefresh(courseId) — the quiet check. Overlay first (anyone,
+      no auth). Then, ONLY when the organizer is signed in AND Golf Canada
+      credentials are saved (gcConfig — the same store the handicap fetches
+      use; nothing ever lives server-side) AND the course's GC check is stale
+      (>7 days), fetch the current card through gc-proxy and hand it to
+      POST /api/courses/:id/gc-refresh — the worker validates, applies, stamps.
+      A real change gets ONE plain toast (per course, per session) and the
+      overlay re-applies. ⛔ FAIL-OPEN AT EVERY STEP: no creds, GC down, route
+      error, no golfnet id — nothing happens, nothing nags, no console noise. */
+window._ptGcToasted = window._ptGcToasted || {};
+window.ptGcOverlay = function (course) {
+  try {
+    if (!course || !course.gc_checked_at || !Array.isArray(course.tees)) return;
+    var cat = PARDS_COURSES.find(function (c) { return c.id === course.id; });
+    if (!cat || !Array.isArray(cat.tees)) return;
+    course.tees.forEach(function (t) {
+      if (!t || !t.name) return;
+      var ex = cat.tees.find(function (x) { return x.name === t.name; });
+      var fresh = { rating: t.rating, slope: t.slope, par: t.par,
+                    frontRating: t.front_rating, backRating: t.back_rating,
+                    frontSlope: t.front_slope, backSlope: t.back_slope };
+      if (Array.isArray(t.pars)) fresh.pars = t.pars;
+      if (Array.isArray(t.yards)) fresh.yards = t.yards;
+      if (Array.isArray(t.handicaps)) fresh.handicaps = t.handicaps;
+      if (ex) { Object.keys(fresh).forEach(function (k) { if (fresh[k] != null) ex[k] = fresh[k]; }); }
+      else {
+        var nt = { name: t.name };
+        if (t.gender === 'F') nt.gender = 'F';
+        Object.keys(fresh).forEach(function (k) { if (fresh[k] != null) nt[k] = fresh[k]; });
+        cat.tees.push(nt);
+      }
+    });
+  } catch (_e341o) {}
+};
+window.ptGcAutoRefresh = function (courseId) {
+  try {
+    if (!courseId) return;
+    fetch(TOUR_API + '/api/courses/' + encodeURIComponent(courseId))
+      .then(_ptJson).then(function (d) {
+        var c = d && d.course; if (!c) return;
+        ptGcOverlay(c);
+        if (!c.golfnet_id) return;
+        if (typeof G === 'undefined' || !G || !G.orgToken) return;              // the refresh is the ORGANIZER'S act (⛔ G is a LEXICAL global — never window.G)
+        var cfg = (typeof gcConfig === 'function') ? gcConfig() : null;
+        if (!cfg || !cfg.worker || !cfg.username || !cfg.password) return;      // no GC creds saved — stay quiet
+        var age = c.gc_checked_at ? (Date.now() - new Date(String(c.gc_checked_at).replace(' ', 'T') + 'Z').getTime()) : Infinity;
+        if (age < 7 * 86400000) return;                                         // checked within a week
+        gcGetToken(cfg).then(function (tok) {
+          return fetch(cfg.worker.replace(/\/+$/, '') + '/course/get?courseId=' + encodeURIComponent(c.golfnet_id),
+                       { headers: { Authorization: 'Bearer ' + tok } });
+        }).then(function (r) { if (!r || !r.ok) throw new Error('gc'); return r.json(); })
+          .then(function (card) {
+            return fetch(TOUR_API + '/api/courses/' + encodeURIComponent(courseId) + '/gc-refresh', {
+              method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + G.orgToken },
+              body: JSON.stringify(card) });
+          }).then(_ptJson).then(function (res) {
+            if (!res || !res.ok) return;
+            var moved = (res.changed && res.changed.length) || (res.added && res.added.length);
+            if (!moved) return;
+            if (!window._ptGcToasted[courseId]) {
+              window._ptGcToasted[courseId] = 1;
+              ptToast('⛳ ' + (c.name || courseId) + ' — Golf Canada re-rated: ' + String(res.summary || '').slice(0, 140));
+            }
+            return fetch(TOUR_API + '/api/courses/' + encodeURIComponent(courseId)).then(_ptJson)
+              .then(function (d2) { if (d2 && d2.course) ptGcOverlay(d2.course); });
+          }).catch(function () {});
+      }).catch(function () {});
+  } catch (_e341r) {}
+};
+setTimeout(function () { try { if (typeof G !== 'undefined' && G && G.courseId) ptGcAutoRefresh(G.courseId); } catch (_e341b) {} }, 4000);   /* FR-341 §2 — the boot check, after the app has settled */
 
 // ── Golf Canada score post (v269.0) ──
 // Rides the existing gc-proxy rails: POST {worker}/score/create with the same
@@ -82133,7 +82215,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v938.0';
+    const TOUR_VERSION     = 'pards-tour-v939.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
