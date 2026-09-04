@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.33 s308)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.34 s320)
+     v1.34 (FR-354, s320): DOWNLOAD CSV on the day-of sheet. The co-organizer
+     (Ryan, the Last Call) opens the sheet on the staff PIN and needs the
+     registrations as a file. One button beside Refresh; it exports EVERY row the
+     sheet holds (all three sides of the FR-145 toggle), pure client — no worker
+     change, the /api/reg/list payload already carries every column.
      v1.26 (FR-296): the Watch it Live card moves to the BOTTOM of the
      registration card — it stood between the event facts and "Will you be
      joining us?", so the first thing a man met was a scoring code. Pure move:
@@ -599,6 +604,7 @@
         <div class="err" id="walkErr"></div>
       </div>
       <button class="btn secondary slim" id="sheetRefresh">Refresh</button>
+      <button class="btn secondary slim" id="sheetCsv">&#8595; Download CSV</button><!-- FR-354 (v1.34) — full width: side by side the label wrapped at 392 -->
     </div>
     <footer><a href="#" id="backLink">&larr; Back to the invitation</a></footer>
   </div></div>
@@ -1242,6 +1248,29 @@ $('pinGo').addEventListener('click', async function(){
 });
 $('pinInput').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('pinGo').click(); });
 $('sheetRefresh').addEventListener('click', function(){ loadSheet(false); });
+/* ⭐ FR-354 (v1.34, s320) — DOWNLOAD CSV. Reads _regLastSheet (the last payload),
+   so it needs no refetch and no PIN round-trip. ⛔ ALL rows, whatever side of the
+   FR-145 toggle is showing — a file is a record, not a view. BOM + CRLF so Excel
+   on Windows opens it clean; every cell quoted. Columns follow the payload:
+   the list route carries no created_at/rsvp_at, so "Last updated" is the stamp. */
+function regSheetCsv(){
+  var d = _regLastSheet; if (!d || !d.list) return;
+  var kind = { golf_dinner: 'Golf and Dinner Party', golf: 'Golf Only', dinner: 'Dinner Party Only' };
+  var head = ['Name', 'Email', 'Phone', 'GHIN', 'RSVP', 'Attending', 'Sponsor', 'Sponsor notes', 'Checked in', 'Paid', 'Paid at', 'Last updated'];
+  var q = function(v){ v = v == null ? '' : String(v); return '"' + v.replace(/"/g, '""') + '"'; };
+  var rows = d.list.map(function(p){
+    return [p.name, p.email, p.phone, p.gc_id, p.rsvp === 'yes' ? 'Yes' : 'No', kind[p.attend] || '',
+            p.sponsor === 'yes' ? 'Yes' : '', p.sponsor_notes, p.checked_in_at, p.paid_amount, p.paid_at, p.updated_at].map(q).join(',');
+  });
+  var text = '﻿' + head.map(q).join(',') + '\r\n' + rows.join('\r\n') + '\r\n';
+  var slug = String(d.event || 'event').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  var name = 'registrations-' + (evCode || 'event') + (slug ? '-' + slug : '') + '.csv';
+  var blob = new Blob([text], { type: 'text/csv;charset=utf-8' });
+  var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+$('sheetCsv').addEventListener('click', regSheetCsv);
 /* FR-145 — one painter, no refetch. */
 function ciSet(v){ ciView = v; if (_regLastSheet) renderSheet(_regLastSheet); }
 $('ciAll').addEventListener('click', function(){ ciSet('all'); });
