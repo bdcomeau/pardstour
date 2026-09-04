@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.34 s320)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.35 s320)
+     v1.35 (FR-354b, s320): THE BACK DOOR. ?e=CODE&csv=1&pin=STAFFPIN presents one
+     card — the event, the count, and "Download Current Registrants". No rows, no
+     check-in, no walk-up, no way into the sheet. Same PIN, same /api/reg/list,
+     same regSheetCsv producer as v1.34; this is a VIEW of it, for the co-organizer.
      v1.34 (FR-354, s320): DOWNLOAD CSV on the day-of sheet. The co-organizer
      (Ryan, the Last Call) opens the sheet on the staff PIN and needs the
      registrations as a file. One button beside Refresh; it exports EVERY row the
@@ -564,6 +568,28 @@
     <footer>Day of the tournament? <a href="#" id="sheetLink">Open the sign-in sheet</a></footer>
   </div></div>
 
+  <!-- ================= VIEW 4 — FR-354b THE BACK DOOR (v1.35) ================= -->
+  <div id="viewCsv" class="card hidden"><div class="inner">
+    <div class="crest">Registrations</div>
+    <h1 class="display" id="csvName" style="font-size:24px">&nbsp;</h1>
+    <div id="csvAsk">
+      <label for="csvPin">Staff PIN</label>
+      <input type="text" id="csvPin" inputmode="numeric" autocomplete="off">
+      <button class="btn" id="csvGo">Continue</button>
+      <div class="err" id="csvErr"></div>
+    </div>
+    <div id="csvBody" class="hidden">
+      <div class="totals">
+        <div><span class="num" id="csvYes">0</span><span class="cap">RSVP Yes</span></div>
+        <div><span class="num" id="csvNo">0</span><span class="cap">RSVP No</span></div>
+        <div><span class="num" id="csvAll">0</span><span class="cap">Registrants</span></div>
+      </div>
+      <button class="btn" id="csvDl">&#8595; Download Current Registrants</button>
+      <button class="btn secondary slim" id="csvRefresh">Refresh</button>
+      <p class="note" id="csvNote"></p>
+    </div>
+  </div></div>
+
   <!-- ================= VIEW 3 — DAY-OF SIGN-IN SHEET ================= -->
   <div id="viewSheet" class="card hidden"><div class="inner">
     <div class="crest">Day-of sign-in</div>
@@ -635,7 +661,7 @@ var rsvpChoice = 'yes';
 
 function $(id){ return document.getElementById(id); }
 function show(id){
-  ['viewCode','viewEvent','viewSheet'].forEach(function(v){ $(v).classList.add('hidden'); });
+  ['viewCode','viewEvent','viewSheet','viewCsv'].forEach(function(v){ $(v).classList.add('hidden'); });   /* FR-354b (v1.35) — + the back door */
   $(id).classList.remove('hidden');
 }
   /* ⛔⛔ B-262 (v1.18) — the way out, with nothing to sell.
@@ -1410,9 +1436,41 @@ $('walkGo').addEventListener('click', async function(){
 // &pin=). Only after the event actually loaded — a bad code still lands on
 // the code-entry view, never an empty sheet.
 var bootSheet = new URLSearchParams(location.search).get('sheet') === '1';
+/* ⭐ FR-354b (v1.35, s320) — THE BACK DOOR. ?csv=1 boots straight into viewCsv:
+   the count and one button. It reuses sheetPin + /api/reg/list + regSheetCsv, so the
+   file is byte-for-byte the sheet's export; it simply never paints the rows or the desk
+   controls. ⛔ No link out of it to the sheet — a back door presents one thing. */
+var bootCsv = new URLSearchParams(location.search).get('csv') === '1';
+async function loadCsvView(fromPin){
+  var r = await api('/api/reg/list?code=' + encodeURIComponent(evCode) + '&pin=' + encodeURIComponent(sheetPin));
+  if (!r.ok) {
+    if (fromPin) $('csvErr').textContent = (r.data && r.data.error) || 'Bad PIN. This needs the STAFF PIN.';
+    return;
+  }
+  _regLastSheet = r.data;
+  var list = r.data.list || [], yes = 0, no = 0;
+  list.forEach(function(p){ if (p.rsvp === 'yes') yes++; else no++; });
+  $('csvYes').textContent = String(yes); $('csvNo').textContent = String(no); $('csvAll').textContent = String(list.length);
+  $('csvNote').textContent = 'Current as of ' + new Date().toLocaleString() + '. The file carries name, email, phone, GHIN, RSVP, attending, sponsor and notes.';
+  $('csvAsk').classList.add('hidden');
+  $('csvBody').classList.remove('hidden');
+}
+$('csvGo').addEventListener('click', function(){
+  sheetPin = $('csvPin').value.trim();
+  if (!sheetPin) { $('csvErr').textContent = 'Enter the PIN.'; return; }
+  loadCsvView(true);
+});
+$('csvRefresh').addEventListener('click', function(){ loadCsvView(false); });
+$('csvDl').addEventListener('click', regSheetCsv);
 var bootPin = new URLSearchParams(location.search).get('pin') || '';
 if (evCode) {
   loadEvent().then(function(){
+    if (bootCsv && evData) {   /* FR-354b — the back door wins over sheet=1 */
+      $('csvName').textContent = evData.name;
+      show('viewCsv');
+      if (bootPin) { $('csvPin').value = bootPin; sheetPin = bootPin; loadCsvView(true); }
+      return;
+    }
     if (bootSheet && evData) {
       show('viewSheet');
       if (bootPin) { $('pinInput').value = bootPin; sheetPin = bootPin; loadSheet(true); }
