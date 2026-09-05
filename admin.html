@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="admin-apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Admin — Organizer Console</title>
-  <!-- pards-tour-v909.0 --><!-- pards-admin-v1.52 -->
+  <!-- pards-tour-v909.0 --><!-- pards-admin-v1.53 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -15935,7 +15935,32 @@ function ptFr255Row(){
                 sent, so the pane could never say more than "4 on card". */
              players: (G.players||[]).map(function(p){ return (p && p.name) || ''; }).filter(Boolean),
              total_score: any ? tot : null,
-             source: G.joinGroup ? 'event' : 'personal' };
+             source: G.joinGroup ? 'event' : 'personal',
+             detail: ptFr359Detail() };   /* ⭐ FR-359 (s320) — the round behind the row; null never blocks the ping */
+  }catch(_e){ return null; }
+}
+/* ⭐ FR-359 (s320) — WHAT THE USAGE ROW CAN SHOW WHEN TAPPED. Every player on the card: name, tee deck, index, the 18
+   gross, the total, and the ENGINE'S computed money (computeCombinedMoney — the one producer, his ruling: computed, not
+   the desk's cash). Plus one label per game on the card. Bounded again server-side (worker 3.123.0 _fr359Detail). */
+function ptFr359Detail(){
+  try{
+    var money = []; try{ money = computeCombinedMoney() || []; }catch(_m){ money = []; }
+    var games = [];
+    try{ buildMatchups().forEach(function(m){ games.push('Nassau ' + (m.type === '1v1' ? '1v1' : '2v2') + ' \u00b7 ' + m.labelA + ' v ' + m.labelB + ' \u00b7 $' + (m.bet || G.bet || 2) + (m.presses && m.presses.length ? ' \u00b7 ' + m.presses.length + ' press' + (m.presses.length === 1 ? '' : 'es') : '')); }); }catch(_g){}
+    try{ (G.skinsGames || []).forEach(function(g){ if(g.players && g.players.length > 1) games.push('Skins \u00b7 $' + (g.perSkin || 0) + ' ' + (g.mode || 'net') + (g.validate ? ' \u00b7 validation' : '') + ' \u00b7 ' + g.players.length + ' players'); }); }catch(_s){}
+    try{ (G.sixPointGames || []).forEach(function(g){ games.push('6-Point \u00b7 $' + (g.perPoint || 1) + '/pt'); }); }catch(_6){}
+    try{ (G.stablefordGames || []).forEach(function(g){ if(g.players && g.players.length > 1) games.push('Stableford \u00b7 $' + (g.betPerPoint == null ? 1 : g.betPerPoint) + '/pt \u00b7 ' + g.players.length + ' players'); }); }catch(_t){}
+    try{ (G.vegasGames || []).forEach(function(g){ games.push('Vegas \u00b7 $' + (g.perPoint || 1) + '/pt ' + (g.mode || 'gross')); }); }catch(_v){}
+    try{ if(G.snake && G.snake.enabled) games.push('Snake \u00b7 $' + (G.snake.bet || 5)); }catch(_k){}
+    var players = (G.players || []).map(function(p, i){
+      var row = (G.scores && G.scores[i]) || [], g = [], tot = 0, any = false;
+      for(var h = 0; h < 18; h++){ var v = row[h]; if(v != null){ tot += v; any = true; g.push(v); } else g.push(null); }
+      var mv = money[i], ix = p && p.idx;
+      return { n: (p && p.name) || '', deck: (p && p.deck) || '', idx: (ix != null && isFinite(Number(ix))) ? Number(ix) : null,
+               g: g, tot: any ? tot : null, money: (mv != null && isFinite(mv)) ? Math.round(mv * 100) / 100 : null };
+    });
+    if(!players.length) return null;
+    return { v: 1, players: players, games: games };
   }catch(_e){ return null; }
 }
 function ptFr255Queue(rows){
@@ -31806,7 +31831,10 @@ function ptFr257Render(){
       + '</div>';
     if(open){
       h += '<div style="padding:2px 14px 11px;border-top:1px solid rgba(255,255,255,.06)">';
-      if(canOpen){
+      var det359 = r.has_detail ? ptFr359Block(key) : '';   /* ⭐ FR-359 (s320) — the round behind the row */
+      if(det359){
+        h += det359;
+      } else if(canOpen){
         h += '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px;margin:8px 0 5px">On the card</div>';
         nm.forEach(function(n){
           var isMe = (n||'').trim().toLowerCase() === (r.player||'').trim().toLowerCase();
@@ -31822,6 +31850,44 @@ function ptFr257Render(){
     h += '</div>';
   });
   el.innerHTML = h;
+}
+/* ⭐ FR-359 (s320) — the detail block for an open row. Fetched ONCE per round (GET /api/usage/round?key=, organizer
+   Bearer), cached on window._ptFr359; the pane re-renders when it lands. Returns '' when the row has no usable detail
+   so the FR-305 names list takes over — never a blank panel. */
+window._ptFr359 = window._ptFr359 || {};
+function ptFr359Block(key){
+  var c = window._ptFr359[key];
+  if(c === undefined){
+    window._ptFr359[key] = 'loading';
+    fetch(TOUR_API + '/api/usage/round?key=' + encodeURIComponent(key), { headers:{ 'Authorization':'Bearer ' + G.orgToken } }).then(_ptJson)
+      .then(function(d){ window._ptFr359[key] = (d && d.round && d.round.detail && Array.isArray(d.round.detail.players) && d.round.detail.players.length) ? d.round.detail : null; ptFr257Render(); })
+      .catch(function(){ window._ptFr359[key] = null; ptFr257Render(); });
+    return '<div style="font-size:11.5px;color:rgba(255,255,255,.4);margin:8px 0 2px">Loading the round\u2026</div>';
+  }
+  if(c === 'loading') return '<div style="font-size:11.5px;color:rgba(255,255,255,.4);margin:8px 0 2px">Loading the round\u2026</div>';
+  if(!c) return '';
+  var money = function(v){ if(v == null) return '<span style="color:rgba(255,255,255,.25)">\u2014</span>'; var a = Math.abs(v), s = (a % 1 ? a.toFixed(2) : String(a)); return v > 0 ? '<span style="color:#7fbf7f">+$' + s + '</span>' : v < 0 ? '<span style="color:#e07a5f">\u2212$' + s + '</span>' : '<span style="color:rgba(255,255,255,.5)">$0</span>'; };
+  var cell = function(v){ return '<span style="display:inline-block;width:9.5%;text-align:center">' + (v == null ? '<span style="color:rgba(255,255,255,.2)">\u00b7</span>' : v) + '</span>'; };
+  var out = '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px;margin:8px 0 4px">Scores \u00b7 deck \u00b7 money</div>';
+  c.players.forEach(function(p){
+    var g = Array.isArray(p.g) ? p.g : [];
+    var o = 0, i9 = 0, oa = false, ia = false; for(var h = 0; h < 9; h++){ if(g[h] != null){ o += g[h]; oa = true; } if(g[h + 9] != null){ i9 += g[h + 9]; ia = true; } }
+    out += '<div style="padding:6px 0;border-top:1px dotted rgba(255,255,255,.08)">'
+      + '<div style="display:flex;align-items:baseline;gap:8px"><div style="flex:1;min-width:0;font-size:12.5px;font-weight:800;color:#f5e6b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + _esc(p.n || '') + '</div>'
+      + '<div style="font-size:10px;color:rgba(255,255,255,.45);white-space:nowrap">' + _esc(p.deck || '') + (p.idx != null ? ' \u00b7 ' + _esc(String(p.idx)) : '') + '</div>'
+      + '<div style="font-size:13px;font-weight:900;color:#c9a84c;min-width:26px;text-align:right">' + (p.tot != null ? p.tot : '\u2014') + '</div>'
+      + '<div style="font-size:12px;font-weight:800;min-width:52px;text-align:right">' + money(p.money) + '</div></div>'
+      + '<div style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;color:rgba(255,255,255,.7);line-height:1.6;margin-top:2px">'
+      + '<div><span style="display:inline-block;width:9.5%;color:rgba(255,255,255,.3);font-size:9px">OUT</span>' + g.slice(0, 9).map(cell).join('') + '<span style="display:inline-block;width:5%;text-align:right;color:#f5e6b8">' + (oa ? o : '') + '</span></div>'
+      + '<div><span style="display:inline-block;width:9.5%;color:rgba(255,255,255,.3);font-size:9px">IN</span>' + g.slice(9, 18).map(cell).join('') + '<span style="display:inline-block;width:5%;text-align:right;color:#f5e6b8">' + (ia ? i9 : '') + '</span></div>'
+      + '</div></div>';
+  });
+  var gm = Array.isArray(c.games) ? c.games : [];
+  out += '<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px;margin:8px 0 4px">Games</div>';
+  if(gm.length) gm.forEach(function(s){ out += '<div style="font-size:11.5px;color:rgba(255,255,255,.72);padding:2px 0">' + _esc(s) + '</div>'; });
+  else out += '<div style="font-size:11.5px;color:rgba(255,255,255,.4)">No games on this card \u2014 scores only.</div>';
+  out += '<div style="font-size:9.5px;color:rgba(255,255,255,.3);margin-top:6px">Money is the app\u2019s computed settlement at the time the round was saved.</div>';
+  return out;
 }
 window.ptFr305Toggle = function(key){
   if(!window._ptFr305Open) window._ptFr305Open = {};
@@ -83437,7 +83503,7 @@ function ptLaunchFoursomeRound(foursomeData) {
    The scoring engine lives in ONE file. showHome() / showSection() land on the organizer login (token → dashboard).
    ⛔ FR-324 PHASE 3 (the JS cut) IS KILLED UNBUILT — Bruce, s313: "we don't need to cut - app runs fine as it is." v1.04 was the
    harvest rig (7,400 probes); v1.05 is v1.03 with the version bumped and nothing else. The JS stays whole. */
-const ADMIN_VERSION = 'pards-admin-v1.52';
+const ADMIN_VERSION = 'pards-admin-v1.53';
 (function(){
   var _adminDoor = function(){
     try{ if(typeof _ptHideAll === 'function') _ptHideAll(); }catch(e){}
