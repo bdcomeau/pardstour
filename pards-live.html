@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.33 -->
+<!-- pards-live-v1.34 -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -62,6 +62,22 @@ body { padding:0 0 calc(84px + env(safe-area-inset-bottom)); }   /* B-256 (v1.22
   border-bottom:1px solid rgba(201,168,76,.22); }
 .cardRH span { color:var(--dim); font-weight:700; letter-spacing:.3px; text-transform:none; font-size:11px; }
 .tpar { font-size:13px; font-weight:800; text-align:right; }
+/* FR-361 (v1.34) — the Skins card under the board */
+.skHd { display:flex; align-items:baseline; gap:8px; font-size:10px; text-transform:uppercase; letter-spacing:.9px; color:var(--gold); font-weight:800; padding-bottom:6px; margin-bottom:8px; border-bottom:1px solid rgba(201,168,76,.22); }
+.skHd .skPot { margin-left:auto; font-size:13px; letter-spacing:0; text-transform:none; color:#f5e6b8; font-weight:900; }
+.skHoles { display:grid; grid-template-columns:repeat(9,1fr); gap:3px; margin-bottom:4px; }
+.skH { text-align:center; border-radius:5px; padding:4px 0 3px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); min-width:0; }
+.skH .n { font-size:9.5px; color:var(--dim); font-weight:700; }
+.skH .w { font-size:9.5px; font-weight:800; color:#f5e6b8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 2px; line-height:1.3; }
+.skH.won { background:rgba(201,168,76,.16); border-color:rgba(201,168,76,.45); }
+.skH.tie .w { color:rgba(255,255,255,.35); }
+.skH.open .w { color:rgba(255,255,255,.18); }
+.skRow { display:flex; align-items:baseline; gap:8px; padding:6px 2px; border-bottom:1px solid rgba(255,255,255,.05); font-size:13.5px; }
+.skRow:last-child { border-bottom:0; }
+.skRow .nm { flex:1; }
+.skRow .k { font-size:12px; color:var(--dim); white-space:nowrap; }
+.skRow .m { font-size:15px; font-weight:800; color:#7fbf7f; min-width:56px; text-align:right; }
+.skFoot { font-size:10.5px; color:var(--dim); margin-top:8px; line-height:1.4; }
 .rowsHd { font-size:10px; text-transform:uppercase; letter-spacing:.6px; color:var(--dim);
   padding:0 2px 7px; border-bottom:1px solid var(--line); font-weight:700; }
 .row { padding:9px 2px; border-bottom:1px solid rgba(255,255,255,.05); cursor:pointer; }
@@ -296,7 +312,7 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.33';
+var LIVE_VERSION = 'live-v1.34';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null, view:'round', overall:null, lb:{}, sk:null };   /* FR-188 (v1.23, s288) — sk = his Gross/Net/Par Points pick, null = the round's own format */   /* v1.14 (s274) — lb[round_id] = that round's leaderboard, for all-rounds cards */   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows. v1.13 (s274) — view + the overall payload (FR-158). */
@@ -1037,6 +1053,126 @@ function preSheetHtml() {
   return '<div class="note" style="padding-bottom:6px">No scores posted yet \u2014 tee sheet for this round, with each man\u2019s overall to par.<br>This page refreshes itself every 30 seconds.</div>'
     + body;
 }
+/* ═══ FR-361 (v1.34, s320) — SKINS ON THE BOARD ═════════════════════════════════════════════════════════════════════════
+   Bruce, off the live Tate round: "any event where there are skins - this should be a part of the leaderboard."
+   ⛔ THIS IS A MIRROR, NOT A SECOND ENGINE. Every function below is the client's event-skins producer line for line —
+   ptStrokesOnHole (B-120 plus-handicap rule), ptPotApportion, ptPotCfg, ptPotCheck, ptSkinsCompute (per-man SI off HIS deck,
+   half/net/gross basis), ptSkinsPayouts (the Chibri whole-dollar split, the biggest winner absorbs the remainder), and
+   ptSkinsModelFrom's pot slice. rig-fr361.mjs proves it equal to the client's own ptSkinsModel on the real Tate scores.
+   Inputs are the rows this page already polls: name · data.course_handicap · data.tee · data.scores_by_hole, plus the
+   worker's additive `games` {skins, pot, si} (3.124.0). Anything missing -> no card, never a wrong one. */
+function skStrokes(ch, si) {
+  var st = Math.floor(ch / 18) + (si <= (ch % 18) ? 1 : 0);
+  if (ch < 0) { var a = Math.abs(ch); st = -(Math.floor(a / 18) + (si > 18 - (a % 18) ? 1 : 0)); }
+  return st;
+}
+function skApportion(total, weights) {
+  var keys = [], sum = 0, k, out = {};
+  for (k in weights) if (weights[k] > 0) { keys.push(k); sum += weights[k]; }
+  if (!keys.length || !(sum > 0) || !(total > 0)) return out;
+  var used = 0, rem = [];
+  keys.forEach(function (kk) { var exact = total * weights[kk] / sum, fl = Math.floor(exact); out[kk] = fl; used += fl; rem.push([kk, exact - fl]); });
+  rem.sort(function (a, b) { return b[1] - a[1]; });
+  var left = total - used;
+  for (var i = 0; i < left; i++) out[rem[i % rem.length][0]] += 1;
+  return out;
+}
+function skPotCfg(row, field) {
+  if (!row || !(row.ante_cents > 0)) return null;
+  var ante = Math.round(row.ante_cents), k;
+  if (row.mode === 'pct') {
+    var pct = {}; for (k in (row.split_pct || {})) if (row.split_pct[k] > 0) pct[k] = Number(row.split_pct[k]);
+    var f = Math.max(0, Math.trunc(Number(field) || 0));
+    if (!(f > 0)) return { ante_cents: ante, split: {}, mode: 'pct', _pctUnresolved: true };
+    return { ante_cents: ante, split: skApportion(ante * f, pct), mode: 'pct', field: f };
+  }
+  var split = {}; for (k in (row.split || {})) if (row.split[k] > 0) split[k] = Math.round(row.split[k]);
+  return { ante_cents: ante, split: split };
+}
+function skPotCheck(pot, fieldSize) {
+  if (!pot) return { ok: false, total_cents: 0 };
+  var field = Math.max(0, Math.trunc(Number(fieldSize) || 0)), total = pot.ante_cents * field, alloc = 0, k;
+  for (k in pot.split) alloc += pot.split[k];
+  return { ok: field > 0 && (total - alloc) === 0, total_cents: total, field: field };
+}
+function skPayouts(pot_cents, players) {
+  var winners = (players || []).filter(function (p) { return p.skins > 0; });
+  if (!(pot_cents > 0) || !winners.length) return { per_skin_cents: 0, payouts: [] };
+  var total = winners.reduce(function (a, p) { return a + p.skins; }, 0), per = pot_cents / total;
+  var outs = winners.map(function (p) { return { id: p.id, name: p.name, skins: p.skins, cents: Math.round(p.skins * per / 100) * 100 }; });
+  outs.sort(function (a, b) { return b.skins - a.skins || (a.name < b.name ? -1 : 1); });
+  var paid = 0; outs.forEach(function (o) { paid += o.cents; });
+  outs[0].cents += pot_cents - paid;
+  for (var i = 0; i < outs.length - 1; i++) { if (outs[i].cents < 0) { outs[i + 1].cents += outs[i].cents; outs[i].cents = 0; } }
+  return { per_skin_cents: per, payouts: outs };
+}
+var SK_BASIS = { gross: 0, net: 1, half: 0.5 }, SK_BASIS_LABEL = { gross: 'Gross', net: 'Net', half: '½ shot' };
+/* The model. rows = the standings rows; g = the worker's games block. Returns null when skins are not on or nothing can be read. */
+function skModel(rows, g) {
+  try {
+    var sk = g && g.skins; if (!sk || !sk.on) return null;
+    var basis = SK_BASIS[sk.basis] != null ? sk.basis : 'half', mult = SK_BASIS[basis];
+    var siBy = (g && g.si) || {};
+    var players = [], field = 0;
+    (rows || []).forEach(function (r) {
+      var d = (r && r.data) || {}, by = d.scores_by_hole || {}, any = false, k;
+      for (k in by) { if (by[k] > 0) { any = true; break; } }
+      var ch = d.course_handicap != null ? Math.round(Number(d.course_handicap)) : (d.team_handicap != null ? Math.round(Number(d.team_handicap)) : 0);
+      var tee = d.tee || d.round_tee || '';
+      var si = siBy[tee] || siBy[String(tee).toLowerCase()] || null;
+      if (!si) { var kk; for (kk in siBy) { if (String(kk).toLowerCase() === String(tee).toLowerCase()) { si = siBy[kk]; break; } } }
+      if (any) field++;
+      players.push({ id: r.entry_key || r.name, name: r.name || '', ch: ch, si: si, g: by, skins: 0, holes: [] });
+    });
+    if (!field) return { on: true, basis: basis, empty: true };
+    var holes = [], total = 0, h, scoredHoles = 0;
+    for (h = 1; h <= 18; h++) {
+      var best = null, tie = false, anyScore = false;
+      players.forEach(function (p) {
+        var gross = p.g[h] != null ? p.g[h] : p.g[String(h)]; if (!(gross > 0)) return;
+        anyScore = true;
+        var rsi = (p.si && p.si[h - 1]) || h;
+        var net = gross - skStrokes(p.ch, rsi) * mult;
+        if (best === null || net < best.net) { best = { p: p, net: net, gross: gross }; tie = false; }
+        else if (net === best.net) tie = true;
+      });
+      if (anyScore) scoredHoles++;
+      if (best && !tie) { best.p.skins++; best.p.holes.push(h); total++; holes.push({ hole: h, id: best.p.id, name: best.p.name, net: best.net, gross: best.gross }); }
+      else holes.push(anyScore ? { hole: h, tie: true } : null);
+    }
+    var potCfg = skPotCfg(g.pot, field), chk = potCfg ? skPotCheck(potCfg, field) : null;
+    var slice = (potCfg && chk && chk.ok) ? (potCfg.split.skins || 0) : 0;
+    var pot_cents = slice > 0 ? slice : (sk.pot_cents > 0 ? Math.round(sk.pot_cents) : 0);
+    var money = skPayouts(pot_cents, players);
+    var pay = money.payouts;
+    if (!pay.length && total) pay = players.filter(function (p) { return p.skins > 0; }).sort(function (a, b) { return b.skins - a.skins || (a.name < b.name ? -1 : 1); }).map(function (p) { return { id: p.id, name: p.name, skins: p.skins, cents: 0 }; });
+    pay = pay.map(function (o) { var pr = players.filter(function (p) { return p.id === o.id; })[0]; return { id: o.id, name: o.name, skins: o.skins, cents: o.cents, holes: pr ? pr.holes.slice() : [] }; });
+    return { on: true, basis: basis, pot_cents: pot_cents, field: field, total_skins: total, per_skin_cents: money.per_skin_cents, payouts: pay, holes: holes, scoredHoles: scoredHoles };
+  } catch (e) { return null; }
+}
+function skMoney(c) { var d = Math.round(c) / 100; return '$' + (d % 1 ? d.toFixed(2) : String(d)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function skFirst(n) { var p = String(n || '').trim().split(/\s+/); return p[0] || ''; }   /* the hole cell is 36px wide on a phone: first name only; the rows below carry the full name */
+function skinsCard(rows, g) {
+  var m = skModel(rows, g); if (!m) return '';
+  var h = '<div class="card"><div class="skHd">💰 Skins <span style="color:var(--dim);letter-spacing:.3px;text-transform:none;font-size:11px">' + esc(SK_BASIS_LABEL[m.basis] || m.basis) + '</span>'
+    + (m.pot_cents ? '<span class="skPot">' + skMoney(m.pot_cents) + (m.total_skins ? ' · ' + skMoney(m.per_skin_cents) + ' a skin' : ' in the pot') + '</span>' : '') + '</div>';
+  if (m.empty) return h + '<div class="note" style="padding:6px 0">No scores posted yet.</div></div>';
+  h += '<div class="skHoles">';
+  for (var i = 0; i < 18; i++) {
+    var x = m.holes[i], cls = x ? (x.tie ? 'tie' : 'won') : 'open';
+    h += '<div class="skH ' + cls + '"><div class="n">' + (i + 1) + '</div><div class="w">' + (x ? (x.tie ? 'tie' : esc(skFirst(x.name))) : '·') + '</div></div>';
+    if (i === 8) h += '</div><div class="skHoles">';
+  }
+  h += '</div>';
+  if (!m.total_skins) h += '<div class="note" style="padding:8px 0 2px">No skins yet — every scored hole is tied.</div>';
+  else m.payouts.forEach(function (o) {
+    h += '<div class="skRow"><div class="nm">' + esc(o.name) + '</div><div class="k">' + o.skins + ' skin' + (o.skins === 1 ? '' : 's') + ' · H' + o.holes.join(', H') + '</div>'
+      + (m.pot_cents ? '<div class="m">' + skMoney(o.cents) + '</div>' : '') + '</div>';
+  });
+  h += '<div class="skFoot">' + m.field + ' in · ' + m.total_skins + ' skin' + (m.total_skins === 1 ? '' : 's') + ' won on ' + m.scoredHoles + ' hole' + (m.scoredHoles === 1 ? '' : 's') + ' scored so far'
+    + (m.pot_cents ? ' · the pot splits by skins won' : '') + '</div></div>';
+  return h;
+}
 function paintBoard(d) {
   var round = d.round || {};
   var rows = (d.standings || []);
@@ -1123,6 +1259,7 @@ function paintBoard(d) {
     });
   }
   h += '</div>';
+  try { h += skinsCard(rows, d.games); } catch (_e361) {}   /* FR-361 (v1.34) — skins are part of the board */
   h += '<div class="note">Updated ' + (rows.length && rows[0].updated_at ? esc(rows[0].updated_at) + ' UTC' : 'just now') + '</div>';
   if (_dr && _dDone) h += draftCard(_dr);
   gid('app').innerHTML = h;
