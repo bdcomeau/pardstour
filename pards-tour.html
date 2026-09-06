@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v972.0 -->
+  <!-- pards-tour-v973.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -23320,22 +23320,30 @@ window.ptFr368PayUrl = function (o) {
   q.push('amt=' + encodeURIComponent(String(Math.round((o.amount || 0) * 100) / 100)));
   if (o.game) q.push('g=' + encodeURIComponent(o.game));
   if (o.date) q.push('d=' + encodeURIComponent(o.date));
+  if (o.from) q.push('f=' + encodeURIComponent(o.from));   /* B-375: who pays */
   return 'https://pardstour.com/pay.html?' + q.join('&');
 };
 /* The chips on Final Totals: one per WINNER (v > 0). Money is the engine's net for the round — one producer. */
 window.ptFr368Chip = function (idx, v) {
-  if (!(v > 0)) return '';
-  return '<button onclick="event.stopPropagation();ptFr368Collect(' + idx + ')" style="margin-left:8px;padding:5px 10px;border-radius:9px;background:rgba(201,168,76,.16);border:1px solid rgba(201,168,76,.5);color:#8a6d1a;font-size:11.5px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">💸 Collect</button>';
+  var c = window._ptFr368Ctx || null, me = c ? c.meIdx : -1;   /* B-375: I'm in the round and up → the men in red owe ME */
+  if (c && me >= 0 && c.money[me] > 0) { if (!(v < 0)) return ''; }
+  else if (!(v > 0)) return '';
+  return '<button class="fr368" onclick="event.stopPropagation();ptFr368Collect(' + idx + ')" style="margin-left:8px;padding:5px 10px;border-radius:9px;background:rgba(201,168,76,.16);border:1px solid rgba(201,168,76,.5);color:#8a6d1a;font-size:11.5px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">💸 Collect</button>';
 };
 window.ptFr368Collect = function (idx, override) {   /* FR-371 (s321): override = the amount he chose, ≤ the total */
-  var p = (G.players || [])[idx]; if (!p) return;
-  var money = []; try { money = computeCombinedMoney() || []; } catch (e) { money = []; }
-  var vt = Math.round((money[idx] || 0) * 100) / 100; if (!(vt > 0)) return;
+  /* B-375: the detail screen hands the live G back before he taps — read the round the chips were painted for. */
+  var c = window._ptFr368Ctx || null, names = c ? c.names : (G.players || []).map(function (x) { return x.name; }), gids = c ? c.golfIds : (G.players || []).map(function (x) { return x.golfId || ''; });
+  var money = c ? c.money : []; if (!c) { try { money = computeCombinedMoney() || []; } catch (e) { money = []; } }
+  var me = c ? c.meIdx : -1, payer = null, payeeIdx = idx;
+  if (me >= 0 && money[me] > 0 && money[idx] < 0) { payer = names[idx]; payeeIdx = me; }   /* his ruling: tap the man in red */
+  var p = { name: names[payeeIdx], golfId: gids[payeeIdx] }; if (!p.name) return;
+  var vt = Math.round((money[payeeIdx] || 0) * 100) / 100; if (!(vt > 0)) return;
+  if (payer) { var owe = Math.round(-(money[idx] || 0) * 100) / 100; if (owe < vt) vt = owe; }   /* Brent's $15 capped at my $12 */
   var v = vt; if (override > 0) { v = Math.round(override * 100) / 100; if (v > vt) v = vt; }   /* FR-371 */
   var addr = window.ptFr368Addr(p.name, p.golfId);
-  var games = []; try { games = (window._ptFr25GameLabels ? window._ptFr25GameLabels() : []) || []; } catch (e) { games = []; }
-  var date = ''; try { date = String(G.roundDate || '').slice(0, 10); } catch (e) { date = ''; }
-  var url = window.ptFr368PayUrl({ name: p.name, addr: addr, amount: v, game: games.join(' · '), date: date });
+  var games = c ? (c.games || []) : []; if (!c) { try { games = (window._ptFr25GameLabels ? window._ptFr25GameLabels() : []) || []; } catch (e) { games = []; } }
+  var date = c ? (c.date || '') : ''; if (!c) { try { date = String(G.roundDate || '').slice(0, 10); } catch (e) { date = ''; } }
+  var url = window.ptFr368PayUrl({ name: p.name, addr: addr, amount: v, game: games.join(' · '), date: date, from: payer || '' });
   var qrHtml = '';
   try { var q = window.ptQr(0, 'M'); q.addData(url); q.make(); qrHtml = q.createSvgTag({ cellSize: 5, margin: 2, scalable: true }); } catch (e) { qrHtml = ''; }
   var old = document.getElementById('ptFr368Ov'); if (old) old.remove();
@@ -23343,12 +23351,12 @@ window.ptFr368Collect = function (idx, override) {   /* FR-371 (s321): override 
   ov.style.cssText = 'position:fixed;inset:0;z-index:99990;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:18px';
   ov.innerHTML = '<div style="background:#0d1f14;border:1px solid rgba(201,168,76,.4);border-radius:16px;padding:18px 16px;max-width:360px;width:100%;color:#e9ede2;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,sans-serif;text-align:center">'
     + '<div style="font-size:11px;font-weight:800;color:rgba(201,168,76,.9);text-transform:uppercase;letter-spacing:.6px">💸 Collect</div>'
-    + '<div style="font-size:12.5px;color:rgba(233,237,226,.6);margin:4px 0 2px">' + _esc368(p.name) + ' is owed</div>'
+    + '<div style="font-size:12.5px;color:rgba(233,237,226,.6);margin:4px 0 2px">' + (payer ? _esc368(payer) + ' pays ' + _esc368(p.name) : _esc368(p.name) + ' is owed') + '</div>'
     + '<div style="font-size:44px;font-weight:900;color:#f5e6b8;line-height:1.1;display:flex;align-items:baseline;justify-content:center">$'
       + '<input id="ptFr368AmtIn" type="text" inputmode="decimal" value="' + (v % 1 ? v.toFixed(2) : String(v)) + '" data-idx="' + idx + '" data-max="' + vt + '" '
       + 'onfocus="this.select()" onkeydown="if(event.key===\'Enter\'){this.blur();}" onblur="ptFr368Amount(this)" '
       + 'style="font:inherit;color:inherit;background:transparent;border:0;border-bottom:2px dashed rgba(201,168,76,.55);outline:0;width:' + Math.max(2, String(v % 1 ? v.toFixed(2) : v).length) + 'ch;text-align:left;padding:0 2px;caret-color:#f5e6b8"></div>'
-    + '<div style="font-size:11px;color:rgba(201,168,76,.75);margin-top:2px">' + (v < vt ? 'of $' + (vt % 1 ? vt.toFixed(2) : String(vt)) + ' owed · ' : '') + 'tap the amount to change it</div>'
+    + '<div style="font-size:11px;color:rgba(201,168,76,.75);margin-top:2px">' + (v < vt ? 'of $' + (vt % 1 ? vt.toFixed(2) : String(vt)) + (payer ? ' · ' : ' owed · ') : '') + 'tap the amount to change it</div>'
     + (games.length ? '<div style="font-size:11.5px;color:rgba(233,237,226,.5);margin:2px 0 10px">' + _esc368(games.join(' · ')) + '</div>' : '<div style="height:10px"></div>')
     + (addr
         ? '<div style="background:#fff;border-radius:12px;padding:8px;display:inline-block;line-height:0;max-width:220px;width:100%">' + qrHtml + '</div>'
@@ -23363,7 +23371,7 @@ window.ptFr368Collect = function (idx, override) {   /* FR-371 (s321): override 
     + '</div>';
   ov.addEventListener('click', function (e) { if (e.target === ov) ov.remove(); });
   document.body.appendChild(ov);
-  window._ptFr368Last = { url: url, addr: addr, amount: v, total: vt, name: p.name };
+  window._ptFr368Last = { url: url, addr: addr, amount: v, total: vt, name: p.name, from: payer || '' };
 };
 /* FR-371 — he typed a new amount (cash slid across the table): rebuild the card on it. Blank / nonsense → the total. */
 window.ptFr368Amount = function (el) {
@@ -23562,6 +23570,11 @@ function openHistoryDetail(i){
     if(hasAnyGame){
       const combinedMoney = computeCombinedMoney();
       const gameNames = [];
+      /* B-375 (s321): the chips' round — G is restored the moment this HTML is built, so the card reads THIS. */
+      window._ptFr368Ctx = (function(){ var meIdx = -1; try { var cs = loadContacts() || [], mc = cs.find(function (x) { return x && x.me; });
+        if (mc) { var mn = String(mc.name || '').trim().toLowerCase(), mg = String(mc.golfId || '').trim();
+          G.players.forEach(function (p, i) { if (meIdx >= 0) return; var n = String(p.name || '').trim().toLowerCase(), g = String(p.golfId || '').trim(); if ((mg && g === mg) || (mn && n === mn)) meIdx = i; }); } } catch (e) { meIdx = -1; }
+        return { names: G.players.map(function (p) { return p.name; }), golfIds: G.players.map(function (p) { return p.golfId || ''; }), money: combinedMoney.slice(), games: gameNames, date: String(G.roundDate || '').slice(0, 10), meIdx: meIdx }; })();
       if(hasNassauH) gameNames.push('Nassau');
       if(hasSixH) gameNames.push('6-Point');
       if(hasSFH) gameNames.push('Stableford');
@@ -23672,6 +23685,7 @@ function openHistoryDetail(i){
   // Disable all interactive controls in the read-only view (score wheels, export, International, edit handicap)
   const body=document.getElementById('historyDetailBody');
   body.querySelectorAll('button, .sw-score, .pcard-hdcp, [onclick]').forEach(el=>{
+    if(el.classList.contains('fr368')) return;   /* B-375: the Collect chip is the one live control on this screen */
     el.style.pointerEvents='none';
     el.style.opacity = el.classList.contains('export-btn')?'0.3':el.style.opacity;
   });
@@ -84106,7 +84120,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v972.0';
+    const TOUR_VERSION     = 'pards-tour-v973.0';
     const TOUR_LIVE_URL    = 'https://bdcomeau.github.io/pardstour/';
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live

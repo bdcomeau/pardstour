@@ -18,11 +18,11 @@
 (function(){
   var q={}; location.search.replace(/^\?/,'').split('&').forEach(function(kv){ if(!kv) return; var i=kv.indexOf('='); var k=decodeURIComponent(i<0?kv:kv.slice(0,i)), v=decodeURIComponent(i<0?'':kv.slice(i+1).replace(/\+/g,' ')); q[k]=v; });
   var esc=function(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
-  var to=q.to||'', e=q.e||'', amt=Number(q.amt)||0, g=q.g||'', d=q.d||'';
+  var to=q.to||'', e=q.e||'', amt=Number(q.amt)||0, g=q.g||'', d=q.d||'', f=q.f||'';   /* B-375: f = who pays */
   var c=document.getElementById('c');
   if(!to||!(amt>0)){ c.innerHTML='<div class="warn">This link is missing the name or the amount — ask the winner to share it again from Pards Golf.</div>'; return; }
   var when=''; try{ var m=/^(\d{4})-(\d{2})-(\d{2})/.exec(d); if(m) when=new Date(Date.UTC(+m[1],+m[2]-1,+m[3])).toLocaleDateString('en-CA',{weekday:'short',month:'short',day:'numeric',timeZone:'UTC'}); }catch(_){}
-  var h='<div class="who">Pay '+esc(to)+'</div><div class="amt">$'+(amt%1?amt.toFixed(2):String(amt))+'</div><div class="g">'+esc([g,when].filter(Boolean).join(' · '))+'</div>';
+  var h='<div class="who">'+(f?esc(f)+' pays ':'Pay ')+esc(to)+'</div><div class="amt">$'+(amt%1?amt.toFixed(2):String(amt))+'</div><div class="g">'+esc([g,when].filter(Boolean).join(' · '))+'</div>';
   if(e){ h+='<div class="addr" id="a"><div style="flex:1"><div class="l">e-transfer to</div><div class="v">'+esc(e)+'</div></div><div class="b" id="b">Copy</div></div>'
          +'<div class="how">Open your bank app → Interac e-Transfer → send <b>$'+(amt%1?amt.toFixed(2):String(amt))+'</b> to the address above. Hold the address to select it, or tap Copy.</div>'; }
   else { h+='<div class="warn">'+esc(to)+' hasn’t added an e-transfer address yet — ask them for it, or hand over cash.</div>'; }
