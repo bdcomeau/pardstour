@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.35 -->
+<!-- pards-live-v1.36 -->
+<!-- v1.36 (s322) — B-378: the Net tab's open card paints NET holes and the Par Points tab paints POINTS per hole (FR-361/362's own producers), each with its OUT/IN and total named; FR-377: a plus player's hcp reads +n. -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -317,7 +318,7 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.35';
+var LIVE_VERSION = 'live-v1.36';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null, view:'round', overall:null, lb:{}, sk:null };   /* FR-188 (v1.23, s288) — sk = his Gross/Net/Par Points pick, null = the round's own format */   /* v1.14 (s274) — lb[round_id] = that round's leaderboard, for all-rounds cards */   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows. v1.13 (s274) — view + the overall payload (FR-158). */
@@ -1432,7 +1433,7 @@ function allCards(name) {
     var thru = hp >= 18 ? 'Final' : hp > 0 ? ('Thru ' + hp) : 'No holes posted';
     out += '<div class="cardR' + (n === 0 ? ' first' : '') + '">'
         +  '<div class="cardRH"><div>Round ' + rd.round_number + '</div><span>' + thru + '</span></div>'
-        +  card(row) + '</div>';
+        +  card(row, S.lb[rd.id]) + '</div>';   /* B-378 (v1.36) — the card learns which tab is showing */
     n++;
   });
   if (!n) return '<div class="detMeta">No holes posted yet.</div>';
@@ -1441,9 +1442,47 @@ function allCards(name) {
 
 function chev(i) { return '<div class="chev" id="cv' + i + '">\u25bc</div>'; }
 
-function card(r) {
+/* ⭐⭐ B-378 (v1.36, s322) — THE NET TAB OPENED A GROSS SCORECARD. Bruce, live on Tate's Sunday: "pards live -
+   net view - you are not showing their net scores - in the scorecard view - the netscore is correct in the case of
+   colin mizier - Even net after 10 - but you are showing his plus 2 gross scorecard". The card never knew which tab
+   was showing. Now allCards hands it the round's payload; on the Net tab every posted hole is gross MINUS the
+   strokes this man gets there — FR-361's own producers (skStrokes off data.course_handicap, sgTeeArr(games.si, his
+   tee)), the same allocation the skins card and the segment card already use, so the card's net total is the
+   server's Net by construction (Colin: 40 − 2 = 38). Colour is net-to-par. OUT/IN/total read NET and say so. A
+   payload with no si block (an older worker) or a man with no course handicap keeps the gross card and its label —
+   a fallback that says "Gross", never a wrong number labelled "Net". The trip cards (no payload) are untouched.
+   ⭐ Same minute, same class, the PAR POINTS tab ("you are showing gross scores - it should be the par points
+   achieved each hole"): points per hole = sgPts(par − net) off FR-362's own scale and the man's tee par, cells
+   coloured by the score they stand for (2 = par), OUT/IN/total in points — the total is the board's Pts. */
+function b378Strokes(d, lb) {
+  try {
+    var g = lb && lb.games; if (!g || !g.si) return null;
+    var ch = d.course_handicap != null ? Math.round(Number(d.course_handicap)) : (d.playing_handicap != null ? Math.round(Number(d.playing_handicap)) : null);
+    if (ch == null || isNaN(ch)) return null;
+    var si = sgTeeArr(g.si, d.tee || d.round_tee || ''); if (!si || si.length !== 18) return null;
+    var out = []; for (var h = 1; h <= 18; h++) out.push(skStrokes(ch, Number(si[h - 1]) || h));
+    return out;
+  } catch (_e378) { return null; }
+}
+function plusFmt(v) { var n = Number(v); return (isFinite(n) && n < 0) ? '+' + Math.abs(n) : String(v); }   /* FR-377 (s322) — a plus player reads +n */
+function card(r, lb) {
   var d = r.data || {};
-  var by = d.scores_by_hole || {};
+  var byG = d.scores_by_hole || {};
+  var _tab = 'gross';
+  try { if (lb) { var _k378 = fr188Key((lb.round || {}).format, lb.standings || []); if (_k378 === 'net' || _k378 === 'points') _tab = _k378; } } catch (_e378k) { _tab = 'gross'; }
+  var _strokes = _tab !== 'gross' ? b378Strokes(d, lb) : null;
+  var _tpar = (_tab === 'points' && _strokes) ? (sgTeeArr(lb.games && lb.games.par, d.tee || d.round_tee || '') || ((d.course_id && PARS[d.course_id]) ? PARS[d.course_id] : null)) : null;
+  var mode = (_tab === 'net' && _strokes) ? 'net' : (_tab === 'points' && _strokes && _tpar && _tpar.length === 18) ? 'points' : 'gross';
+  var isNet = mode !== 'gross';   /* net OR points: the cells are not gross */
+  var by = byG;
+  if (mode !== 'gross') {
+    by = {};
+    Object.keys(byG).forEach(function (k) {
+      var h = Number(k); var v = byG[k]; if (v == null || isNaN(Number(v)) || h < 1 || h > 18) return;
+      var net = Number(v) - _strokes[h - 1];
+      by[h] = mode === 'net' ? net : sgPts(Number(_tpar[h - 1]) - net);   /* points: FR-362's own scale, sgPts */
+    });
+  }
   var pars = (Array.isArray(d.pars) && d.pars.length === 18) ? d.pars.map(Number) : ((d.course_id && PARS[d.course_id]) ? PARS[d.course_id] : null);   /* v1.27 — a trip round carries its OWN tee pars; event rows carry none and take the baked table exactly as before. toPar() above is NOT touched — its rows never carry d.pars. */
   if (!Object.keys(by).length) return '<div class="detMeta">No holes posted yet.</div>';
   var out = '';
@@ -1479,17 +1518,18 @@ function card(r) {
         var diff = v - pars[j - 1];
         cls = v === 1 ? 'cell ace' : diff <= -2 ? 'cell eag' : diff === -1 ? 'cell bird' : diff === 0 ? 'cell par' : diff === 1 ? 'cell bog' : diff === 2 ? 'cell dbl' : 'cell trip';   /* s269 — mirrors _ptScoreCellColor */
       }
-      out += '<div class="' + cls + '">' + (v == null ? '&middot;' : v) + '</div>';
+      if (mode === 'points' && v != null) { var pd = 2 - v; cls = pd <= -2 ? 'cell eag' : pd === -1 ? 'cell bird' : pd === 0 ? 'cell par' : pd === 1 ? 'cell bog' : 'cell dbl'; }
+      out += '<div class="' + cls + '"' + (isNet && v != null && _strokes[j - 1] ? ' title="gross ' + (byG[j] != null ? byG[j] : byG[String(j)]) + ', ' + _strokes[j - 1] + ' stroke' + (Math.abs(_strokes[j - 1]) === 1 ? '' : 's') + '"' : '') + '>' + (v == null ? '&middot;' : v) + '</div>';
     }
     out += '<div class="cellTot">' + (segT == null ? '&middot;' : segT) + '</div>';
     out += '</div>';
   });
   if (_totT != null) {
-    out += '<div class="grossBar"><span>Gross Total</span><b>' + _totT + '</b></div>';
+    out += '<div class="grossBar"><span>' + (mode === 'points' ? 'Points Total' : mode === 'net' ? 'Net Total' : 'Gross Total') + '</span><b>' + _totT + '</b></div>';   /* B-378 — the bar names what it sums */
   }
   var meta = [];
   if (d.tee) meta.push('Tee ' + esc(d.tee));
-  if (d.playing_handicap != null) meta.push('Playing hcp ' + d.playing_handicap);
+  if (d.playing_handicap != null) meta.push('Playing hcp ' + plusFmt(d.playing_handicap));   /* FR-377 */
   if (r.gross != null) meta.push('Gross ' + r.gross);
   if (r.net != null) meta.push('Net ' + r.net);
   if (r.points != null) meta.push('Points ' + r.points);
