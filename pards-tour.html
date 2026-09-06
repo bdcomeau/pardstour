@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v978.0 -->
+  <!-- pards-tour-v979.0 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -7955,6 +7955,12 @@ function _ptCourseWarnSet(key, title, html){
 }
 function _ptCourseMiss(id){
   const fb = PARDS_COURSES[0];
+  if (window.ptFr376Fetch && ptFr376Fetch(id)) {   /* FR-376 (s322) — ask the library first; B-219's words only after a miss */
+    _ptCourseWarnSet('f:' + id, '\u23f3 Fetching this course\u2019s card',
+      'This copy of the app doesn\u2019t carry this course, so it is asking the Pards Tour library for the card. ' +
+      'Until it lands the round shows <b>' + _ptB219Esc(fb.name) + '</b>.');
+    return;
+  }
   _ptCourseWarnSet('c:' + id,
     '\u26a0\ufe0f This app doesn\'t know this course',
     'This round is at a course this copy of the app has never seen, so it is scoring on <b>' +
@@ -7985,6 +7991,90 @@ function activeCourse(){
   if(_ptCourseWarn.charAt(0)==='c') _ptCourseWarnSet('','','');    // B-219 — course is known again, clear it
   return c;
 }
+/* ⭐⭐⭐ FR-376 (v979.0 / admin v1.72, s322) — THE APP FALLS BACK TO D1 FOR A COURSE IT DOES NOT CARRY.
+   Bruce's shelf pick: "pull a course card straight from Golf Canada instead of it having to be baked
+   into the app; the apps would fall back to D1 for courses they don't carry." B-219 (v628.0) made an
+   unknown course id SAY SO and score on the Derrick until the app was updated; FR-222 (s292) let a
+   golfer download a course onto his own phone. Now a course the ORGANIZER added to the library
+   (api 3.127.0, POST /api/courses) reaches every phone the moment it joins a round there:
+   ⭐ ONE GUARD AT THE RESOLVER, again (trap 179): _ptCourseMiss asks ptFr376Fetch first. While the
+      card is on its way the strip says so; when it lands the course joins PARDS_COURSES (and the
+      phone's own FR-222 downloads store, so it is there offline next time), the shims re-read it
+      and the card repaints on the RIGHT pars, stroke index and yardage. A miss (no such course,
+      no signal, a card with no hole data) falls through to B-219's message exactly as before.
+   ⭐ ptFr376MapD1 is the D1-shape mapper (the worker's course row + course_tees), the twin of
+      FR-222's ptDlMap (the GolfNet shape). Same refusals: par 3–6 on every hole, SI a clean 1–18.
+   ⛔ No worker for this half. ⛔ No weather row (no lat/lon in D1) — fails open. ⛔ Never shadows
+      a shipped course: an id already in PARDS_COURSES is never pushed twice. */
+window._ptFr376 = window._ptFr376 || {};      /* id → 'pending' | 'done' | 'miss' (this session) */
+window.ptFr376MapD1 = function (c) {
+  try {
+    if (!c || !c.id) return { ok: false, why: 'empty' };
+    var par = Array.isArray(c.par) ? c.par.map(Number) : null;
+    var si  = Array.isArray(c.si)  ? c.si.map(Number)  : null;
+    if (!par || par.length !== 18 || par.some(function (v) { return !isFinite(v) || v < 3 || v > 6; })) return { ok: false, why: 'par' };
+    if (!si || si.length !== 18) return { ok: false, why: 'si' };
+    var sorted = si.slice().sort(function (a, b) { return a - b; });
+    for (var i = 0; i < 18; i++) if (sorted[i] !== i + 1) return { ok: false, why: 'si' };
+    var tees = (Array.isArray(c.tees) ? c.tees : []).filter(function (t) {
+      return t && t.name && isFinite(Number(t.rating)) && isFinite(Number(t.slope));
+    }).map(function (t) {
+      var o = { name: String(t.name), teeId: null,
+                rating: Number(t.rating), slope: Number(t.slope), par: isFinite(Number(t.par)) ? Number(t.par) : par.reduce(function (a, b) { return a + b; }, 0),
+                frontRating: t.front_rating != null ? Number(t.front_rating) : null, backRating: t.back_rating != null ? Number(t.back_rating) : null,
+                frontSlope: t.front_slope != null ? Number(t.front_slope) : null, backSlope: t.back_slope != null ? Number(t.back_slope) : null,
+                pars: (Array.isArray(t.pars) && t.pars.length === 18) ? t.pars.map(Number) : par.slice(),
+                yards: (Array.isArray(t.yards) && t.yards.length === 18) ? t.yards.map(Number) : null,
+                handicaps: (Array.isArray(t.handicaps) && t.handicaps.length === 18) ? t.handicaps.map(Number) : si.slice() };
+      if (t.gender === 'F') o.gender = 'F';
+      if (!o.yards) delete o.yards;
+      return o;
+    });
+    if (!tees.length) return { ok: false, why: 'tees' };
+    var loc = [c.city, c.province].filter(Boolean).join(', ');
+    var logo = (typeof c.logo_url === 'string' && /^https:\/\//i.test(c.logo_url)) ? c.logo_url : '';
+    var course = { id: String(c.id), golfNetId: (c.golfnet_id != null ? Number(c.golfnet_id) : null),
+                   name: String(c.name || c.id), location: loc, logo: logo,
+                   par: par, si: si, tees: tees,
+                   _dl: true, _d1: true, _dlAt: new Date().toISOString(), _dlLat: null, _dlLon: null, _dlProv: String(c.province || '') };
+    if (logo) course.logoUrl = logo;
+    return { ok: true, course: course };
+  } catch (_e376m) { return { ok: false, why: 'map' }; }
+};
+window.ptFr376Adopt = function (course) {   /* PARDS_COURSES + the phone's downloads store; idempotent */
+  if (!course || !course.id) return false;
+  if (!PARDS_COURSES.some(function (x) { return x.id === course.id; })) PARDS_COURSES.push(course);
+  try { COURSE_REGION[course.id] = PT_DL_REGION; } catch (_e376r) {}
+  try {
+    var list = ptDlLoad();
+    if (!list.some(function (x) { return x.id === course.id; }) && list.length < PT_DL_MAX) { list.push(course); ptDlSave(list); }
+  } catch (_e376s) {}
+  return true;
+};
+window.ptFr376Fetch = function (id) {         /* true = the card is being fetched (or just landed); false = give up, say B-219's piece */
+  try {
+    if (!id || typeof TOUR_API === 'undefined' || typeof fetch !== 'function') return false;
+    var st = window._ptFr376[id];
+    if (st === 'miss' || st === 'done') return false;
+    if (st === 'pending') return true;
+    window._ptFr376[id] = 'pending';
+    fetch(TOUR_API + '/api/courses/' + encodeURIComponent(id))
+      .then(function (r) { return r && r.ok ? r.json() : null; })
+      .then(function (d) {
+        var m = (d && d.course) ? ptFr376MapD1(d.course) : null;
+        if (!m || !m.ok) { window._ptFr376[id] = 'miss'; _ptCourseWarn = ''; _ptCourseMiss(id); return; }
+        ptFr376Adopt(m.course);
+        window._ptFr376[id] = 'done';
+        _ptCourseWarnSet('', '', '');
+        try { if (typeof G !== 'undefined' && G && G.courseId === id) { _refreshCourseShims(); saveG(); } } catch (_e376h) {}
+        try { renderCoursePicker(); } catch (_e376p) {}
+        try { if (typeof G !== 'undefined' && G && G.roundDate) renderCard(); } catch (_e376c) {}
+        try { ptToast('\u26f3 ' + m.course.name + ' \u2014 course card loaded'); } catch (_e376t) {}
+      })
+      .catch(function () { window._ptFr376[id] = 'miss'; _ptCourseWarn = ''; _ptCourseMiss(id); });
+    return true;
+  } catch (_e376f) { return false; }
+};
 // Get a specific tee object by name within the active course
 function activeTee(teeName){
   const c = activeCourse();
@@ -11861,7 +11951,7 @@ function openDeckPicker(i){
       const _ch267=courseHandicap(_ix267,t);
       if(_ch267!==null&&_ch267!==undefined&&!isNaN(_ch267)){
         /* golf sign convention: negative CH = plus player, prints "+n" */
-        _hcp267='<span style="font-size:12px;font-weight:800;color:var(--pt-ik-v-pt-gold);white-space:nowrap;min-width:52px;text-align:right">Hcp '+(_ch267<0?('+'+Math.abs(_ch267)):_ch267)+'</span>';
+        _hcp267='<span style="font-size:12px;font-weight:800;color:var(--pt-ik-v-pt-gold);white-space:nowrap;min-width:52px;text-align:right">Hcp '+ptPlusFmt(_ch267)+'</span>';   /* FR-377 — the s301 convention, now the ONE producer */
       }
     }
     const sel=t===current?'border-left:3px solid var(--pt-ln-v-pt-gold);':'border-left:3px solid transparent;';
@@ -40979,7 +41069,7 @@ window.ptTRMSearchCourses = function(q) {
     .then(_ptJson).then(_ptThrow)
     .then(function(d){
       var courses = d.courses||[];
-      if(!courses.length){ el.innerHTML='<div style="color:rgba(255,255,255,.3);text-align:center;padding:20px 0">No courses found.</div>'; return; }
+      if(!courses.length){ el.innerHTML='<div style="color:rgba(255,255,255,.3);text-align:center;padding:20px 0">No courses found.</div>' + _ptFr376Door(q); return; }
       _ptTRM._searchResults = courses;
       var h = '<div style="background:rgba(255,255,255,.04);border-radius:12px;overflow:hidden">';
       courses.forEach(function(c,i){
@@ -40988,10 +41078,95 @@ window.ptTRMSearchCourses = function(q) {
           + '<div style="font-size:12px;color:rgba(255,255,255,.4)">'+_esc(c.city||'')+(c.province?' · '+_esc(c.province):'')+'</div>'
           + '</div>';
       });
-      h += '</div>';
+      h += '</div>' + _ptFr376Door(q);   /* FR-376 — the library door rides under every result list */
       el.innerHTML = h;
     })
     .catch(function(_e){ el.innerHTML='<div style="color:#e74c3c;text-align:center;padding:20px 0">'+_ptEsc(_ptMsg(_e,'Search failed.'))+'</div>'; });
+};
+
+/* ⭐⭐⭐ FR-376 (admin v1.72, s322) — ADD A COURSE FROM GOLF CANADA, into the LIBRARY.
+   Under the Pick-a-Course results: "Add a course from Golf Canada". Offered only when the organizer's
+   Golf Canada login is saved on this device (FR-222's rule — gcConfig(), the same store the handicap
+   rail and the score post use; ⛔ nothing ever lives server-side). Tap → the same keyword search
+   FR-222 runs (/course/getByKeywords through gc-proxy, nameless rows named by /course/get, capped),
+   each hit with Add → /course/get → POST /api/courses (api 3.127.0) → the new course is SELECTED and
+   its tees load, no reload. A 409 (already in the library) selects the course it names — the ask was
+   "use this course", not "insert a row". Every failure leaves the picker on its feet with the reason. */
+function _ptFr376Door(q){
+  if (typeof ptDlCanSearch !== 'function' || !ptDlCanSearch()) return '';
+  return '<button id="ptFr376Btn" onclick="ptFr376GcSearch(' + JSON.stringify(String(q||'')).replace(/"/g,'&quot;') + ')" style="width:100%;margin-top:12px;padding:12px;background:none;border:1.5px dashed rgba(201,168,76,.55);border-radius:10px;color:#c9a84c;font-size:13px;font-weight:700;cursor:pointer">'
+    + '\u2795 Add a course from Golf Canada' + (q ? ' \u2014 search \u201c' + _esc(q) + '\u201d' : '') + '</button>';
+}
+window.ptFr376GcSearch = async function(q){
+  var el = document.getElementById('ptTRMCourseList'); if(!el) return;
+  q = String(q||'').trim();
+  if(q.length < 2){ ptToast('Type at least two letters of the course name.'); return; }
+  var cfg = gcConfig();
+  if(!ptDlCanSearch()){ ptToast('Log in to Golf Canada first.'); return; }
+  el.innerHTML = '<div style="color:rgba(255,255,255,.3);text-align:center;padding:12px 0">Searching Golf Canada for \u201c' + _esc(q) + '\u201d\u2026</div>';
+  var rows = [];
+  try{
+    var token = await gcGetToken(cfg);
+    var base  = cfg.worker.replace(/\/+$/,'');
+    var res   = await fetch(base + '/course/getByKeywords?keywords=' + encodeURIComponent(q) + '&skip=0&take=25', { headers:{ Authorization:'Bearer ' + token, Accept:'application/json' } });
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    var j = await res.json();
+    rows = (j && (j.data || j)) || [];
+    if(!Array.isArray(rows)) rows = [];
+    var need = [];
+    rows.forEach(function(r){ var gid = (r && r.id != null) ? r.id : (r && r.courseId); if(gid != null && !_ptDlRowName(r) && need.length < PT_DL_DETAIL_MAX) need.push(gid); });
+    if(need.length){
+      var det = await _ptDlNameThem(base, token, need);
+      rows = rows.map(function(r){ var gid = (r && r.id != null) ? r.id : (r && r.courseId); var d = det[gid]; return d ? { id:gid, name:d.name, city:d.city, region:d.region } : r; });
+    }
+  }catch(e){
+    el.innerHTML = '<div style="color:#e74c3c;text-align:center;padding:20px 0">Couldn\u2019t reach Golf Canada \u2014 ' + _esc((e && e.message) || e) + '</div>'
+      + '<button onclick="ptTRMSearchCourses(' + JSON.stringify(q).replace(/"/g,'&quot;') + ')" style="width:100%;margin-top:8px;padding:10px;background:none;border:1px solid rgba(255,255,255,.2);border-radius:8px;color:#fff;cursor:pointer">\u2039 Back to the library</button>';
+    return;
+  }
+  _ptTRM._fr376Rows = rows;
+  var h = '<div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#c9a84c;margin:4px 0 8px">Golf Canada \u00b7 ' + rows.length + ' result' + (rows.length===1?'':'s') + ' for \u201c' + _esc(q) + '\u201d</div>';
+  if(!rows.length) h += '<div style="color:rgba(255,255,255,.4);text-align:center;padding:16px 0">Golf Canada has no course matching that name.</div>';
+  else {
+    h += '<div style="background:rgba(255,255,255,.04);border-radius:12px;overflow:hidden">';
+    rows.forEach(function(r, i){
+      var gid = r.id != null ? r.id : r.courseId;
+      var nm  = _ptDlRowName(r) || ('Course ' + gid);
+      h += '<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;' + (i>0?'border-top:1px solid rgba(255,255,255,.06)':'') + '">'
+        +   '<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#fff">' + _esc(nm) + '</div>'
+        +   '<div style="font-size:12px;color:rgba(255,255,255,.4)">' + _esc(_ptDlRowCity(r)) + '</div></div>'
+        +   '<button data-fr376-add="' + Number(gid) + '" onclick="ptFr376GcAdd(' + Number(gid) + ')" style="border:none;background:#c9a84c;color:#1a3a2a;font-size:12px;font-weight:800;padding:8px 14px;border-radius:8px;cursor:pointer">Add</button>'
+        + '</div>';
+    });
+    h += '</div>';
+  }
+  h += '<button onclick="ptTRMSearchCourses(' + JSON.stringify(q).replace(/"/g,'&quot;') + ')" style="width:100%;margin-top:12px;padding:10px;background:none;border:1px solid rgba(255,255,255,.2);border-radius:8px;color:#fff;font-size:13px;cursor:pointer">\u2039 Back to the library</button>';
+  el.innerHTML = h;
+};
+window.ptFr376GcAdd = async function(gcId){
+  var el = document.getElementById('ptTRMCourseList');
+  var cfg = gcConfig();
+  if(!ptDlCanSearch()){ ptToast('Log in to Golf Canada first.'); return; }
+  if(!G.orgToken){ ptToast('Sign in as the organizer first.'); return; }
+  var btn = document.querySelector('[data-fr376-add="' + Number(gcId) + '"]');
+  if(btn){ btn.disabled = true; btn.textContent = 'Adding\u2026'; }
+  try{
+    var token = await gcGetToken(cfg);
+    var base  = cfg.worker.replace(/\/+$/,'');
+    var res   = await fetch(base + '/course/get?courseId=' + encodeURIComponent(gcId), { headers:{ Authorization:'Bearer ' + token, Accept:'application/json' } });
+    if(!res.ok) throw new Error('Golf Canada HTTP ' + res.status);
+    var card = await res.json();
+    var r = await fetch(TOUR_API + '/api/courses', { method:'POST', headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer ' + G.orgToken }, body: JSON.stringify(card) });
+    var d = await r.json().catch(function(){ return {}; });
+    if(r.status === 409 && d && d.course_id){ ptToast(_ptMsg(d, 'Already in the library') + ' \u2014 selected.'); ptTRMSelectCourse(d.course_id, d.name || card.name || d.course_id); return; }
+    if(!r.ok || !d || !d.ok) throw new Error((d && d.error) || ('HTTP ' + r.status));
+    var nm = (d.course && d.course.name) || card.name || d.course_id;
+    ptToast('\u2713 ' + nm + ' added to the library \u00b7 ' + ((d.added||[]).length) + ' tee' + ((d.added||[]).length===1?'':'s'));
+    ptTRMSelectCourse(d.course_id, nm);
+  }catch(e){
+    if(btn){ btn.disabled = false; btn.textContent = 'Add'; }
+    ptToast('Couldn\u2019t add it: ' + ((e && e.message) || e));
+  }
 };
 
 window.ptTRMSelectCourseByIdx = function(idx) {
@@ -57129,6 +57304,15 @@ function ptMdKey(p, mode) { return mode === 'fold' ? (p._foldTot || 0) : mode ==
 
 // Stableford: high wins. Gross/net: most holes first (incomplete sinks — same
 // convention as the scramble board), then lowest total. Ties share a rank.
+/* ⭐ FR-377 (v979.0 / admin v1.72, s322) — THE GOLF SIGN CONVENTION, ONE PRODUCER. A negative index or course
+   handicap is a PLUS player and PRINTS "+n" (Tate -1.4 / CH -2 → +1.4 / CH:+2). Display only — every engine keeps
+   its signed number ("it's all calculated 100% correctly"). null/blank → an em dash; non-numeric passes through. */
+window.ptPlusFmt = function (v) {
+  if (v == null || v === '' || v === '\u2014') return '\u2014';
+  var n = Number(v); if (!isFinite(n)) return String(v);
+  if (n < 0) return '+' + String(Math.abs(n));
+  return String(v);
+};
 function ptMdSortRows(rows, mode) {
   var r = rows.slice();
   r.sort(function(a, b) {
@@ -67620,7 +67804,7 @@ function ptPrintIndividualRoundReport(eventId, round, opts) {
         return '<tr>'
           + '<td class="pos">' + ranks[idx] + '</td>'
           + '<td class="left"><div class="player-name">' + pr.name + _ptErMark(pr.er, 'print') + '</div><div class="team-name">' + pr.teamName + '</div></td>'
-          + '<td class="hdcp">' + pr.hdcpIdx + '<br><span style="font-size:8px;color:#aaa">CH:' + pr.courseHdcp + '</span></td>'
+          + '<td class="hdcp">' + ptPlusFmt(pr.hdcpIdx) + '<br><span style="font-size:8px;color:#aaa">CH:' + ptPlusFmt(pr.courseHdcp) + '</span></td>'   /* FR-377 — plus players read +n */
           // \u2b50 FR-55 display half (v493.0) — the deck THIS man played, marked
           // when it is not the round's default deck. Same field the figures came
           // from, so the tee printed and the handicap printed cannot disagree.
@@ -68019,7 +68203,7 @@ function ptPrintMdOverallReport(eventId, opts) {
                 + (function(){ var _e = pr.expectedRounds != null ? pr.expectedRounds : n;   /* ⭐ B-242 (v668.0, s282) — off the tee sheet, never off the round count */
                     return pr.roundsPlayed < _e ? '<div style="font-size:8px;color:#c0392b;font-weight:700">DNF — ' + pr.roundsPlayed + ' of ' + _e + ' rounds</div>' : ''; })()
                 + '</td>'
-                + '<td class="hdcp rowspan-cell" rowspan="' + n + '">' + pr.hdcpIdx + '</td>';
+                + '<td class="hdcp rowspan-cell" rowspan="' + n + '">' + ptPlusFmt(pr.hdcpIdx) + '</td>';   /* FR-377 */
             }
             var rdTotCells = rdCols.map(function(c) {
               var v = c.key === 'gross' ? line.gross : (c.key === 'net' ? line.net : line.pts);
@@ -68035,7 +68219,7 @@ function ptPrintMdOverallReport(eventId, opts) {
             return '<tr>' + lead
               // \u2b50 FR-55 display half (v493.0) — the CH is the server's and the deck
               // it came from is printed under it, marked when it is not the round default.
-              + '<td><span class="rd-lbl">R' + line.roundNumber + '</span><br><span class="rd-ch">CH:' + (line.courseHdcp != null ? line.courseHdcp : '\u2014') + '</span>'
+              + '<td><span class="rd-lbl">R' + line.roundNumber + '</span><br><span class="rd-ch">CH:' + ptPlusFmt(line.courseHdcp) + '</span>'
                 + '<br><span class="rd-ch"' + (line.teeOff ? ' style="color:#8B0000;font-weight:800"' : '') + '>' + _ptEsc(String(line.tee || '\u2014')) + (line.teeOff ? ' *' : '') + (line.ptsDrift ? ' \u2020' : '') + '</span></td>'
               + lineCells(line) + rdTotCells + totTds + '</tr>';
           }).join('');
@@ -84124,7 +84308,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v978.0';
+    const TOUR_VERSION     = 'pards-tour-v979.0';
     const TOUR_LIVE_URL    = location.origin + '/index.html';   /* B-377 (s321): SAME ORIGIN — github.io fails CORS from pardstour.com; the button never worked */
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
