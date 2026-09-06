@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="admin-apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Admin — Organizer Console</title>
-  <!-- pards-tour-v909.0 --><!-- pards-admin-v1.56 -->
+  <!-- pards-tour-v909.0 --><!-- pards-admin-v1.57 -->
 
   <!-- ===================================================================
        v658.0 · SEARCH — the homepage head. pardstour.com carried a bare
@@ -49587,8 +49587,13 @@ function ptPotCfg(cfg, roundId, field) {
     for (k in (row.split_pct || {})) if (row.split_pct[k] > 0) pct[k] = Number(row.split_pct[k]);
     for (k in (row.places_pct || {})) places[k] = row.places_pct[k];
     var f = Math.max(0, Math.trunc(Number(field) || 0));
-    if (!(f > 0)) return { ante_cents: ante, split: {}, mode: 'pct', split_pct: pct, places_pct: places, _pctUnresolved: true };
-    return { ante_cents: ante, split: ptPotApportion(ante * f, pct), mode: 'pct', split_pct: pct, places_pct: places, field: f };
+    /* ⭐ B-369 (s321) — places_tbl NEVER LEFT THIS FUNCTION. ptPotPlaces reads pot.places_tbl and the sheet re-seeds its chips
+       from it, but this return dropped it, so FR-210's bands never resolved by field and the chip never re-selected. The money
+       was right (places_pct is the resolved snapshot); the table was invisible. FR-362 (s321) — segments ride the same way. */
+    var _tbl369 = (row.places_tbl && typeof row.places_tbl === 'object') ? row.places_tbl : {};
+    var _seg362 = (row.segments && typeof row.segments === 'object') ? row.segments : null;
+    if (!(f > 0)) return { ante_cents: ante, split: {}, mode: 'pct', split_pct: pct, places_pct: places, places_tbl: _tbl369, segments: _seg362, _pctUnresolved: true };
+    return { ante_cents: ante, split: ptPotApportion(ante * f, pct), mode: 'pct', split_pct: pct, places_pct: places, places_tbl: _tbl369, segments: _seg362, field: f };
   }
   var split = {};
   for (k in (row.split || {})) if (row.split[k] > 0) split[k] = Math.round(row.split[k]);
@@ -51354,6 +51359,303 @@ window.ptMoneyRows = function (acc) {
    handed it over. Every caller that has a leaderboard in hand now does too.
    ⛔ Omitted = every arm falls back to the round's deck, byte for byte the
    pre-v585.0 behaviour. ⛔ No allocation rule changes anywhere (trap 3). */
+/* ══ FR-362 (s321) — PAR POINTS PAYS BY SEGMENT: FRONT 9 · BACK 9 · OVERALL ═════════════════════════════
+   His ask (Sep 5): "a lot of groups want individual Par Points - but pay out selectable percentage for F9 B9 and
+   overall - and payout selectable winner take all, 60-40, 50-30-20 etc for each" — Tate's league round, Sun Sep 6.
+   ⭐ THE SHAPE: cfg.pot[rid].segments[gameKey] = { f9:{pct}, b9:{pct}, all:{pct} } — three shares of THAT GAME'S
+   slice, summing to 100. Each segment's places live where every other places list lives: places_pct['main.f9'] etc.,
+   so ptPotPlaces (FR-210 tables + the resolved snapshot) is the ONE resolver, unchanged. Absent = today, byte for byte.
+   ⭐ ONE PRODUCER: ptFr20IndivRows over a hole-filtered byP — never a second scorer. F9 = holes 1–9, B9 = 10–18
+   by HOLE NUMBER (the Golf Genius convention; a shotgun start still counts by hole number).
+   ⭐ ONE MODEL (ptFr362Model) read by the engine (ptFr19NightMoney), the Watch Live block (ptFr17GamesHtml), the
+   Game Results paper and the settle sheet — if two of them ever disagree, one of them grew a second engine.
+   ⛔ Scope guard: individual PAR POINTS only (ptFr362Eligible). Team stableford, gross, net, quota, tombstone,
+   criss-cross, better-nine: untouched. Skins: their own slice, their own payout, untouched. */
+window.PT_FR362_SEGS = [['f9', 'Front 9', 1, 9], ['b9', 'Back 9', 10, 18], ['all', 'Overall', 1, 18]];
+window.ptFr362Eligible = function (gf) {
+  try {
+    if (!ptIsIndivRoundFormat(gf) || !ptIsStblFmt(gf)) return false;
+    if (window.ptQuotaScaleOf && window.ptQuotaScaleOf(gf)) return false;
+    if (window.ptTombOf && window.ptTombOf(gf)) return false;
+    if (window.ptCcOf && window.ptCcOf(gf)) return false;
+    if (window.ptB9Of && window.ptB9Of(gf)) return false;
+    return true;
+  } catch (e) { return false; }
+};
+/* The stored shares for one game, normalised. null = not paying by segment (today's behaviour). */
+window.ptFr362Cfg = function (evCfg, roundId, gkey) {
+  var row = ((evCfg && evCfg.pot) || {})[String(roundId)];
+  var s = row && row.segments && typeof row.segments === 'object' ? row.segments[gkey] : null;
+  if (!s || typeof s !== 'object') return null;
+  var out = {}, sum = 0, any = false;
+  window.PT_FR362_SEGS.forEach(function (d) {
+    var x = s[d[0]], pct = (x && Number(x.pct) > 0) ? Number(x.pct) : 0;
+    out[d[0]] = { pct: pct };
+    sum += pct; if (pct > 0) any = true;
+  });
+  if (!any) return null;
+  out._sum = sum; out._ok = Math.abs(sum - 100) < 0.005;
+  return out;
+};
+/* byP restricted to holes lo..hi — a man with nothing in the range drops out, exactly as a man with no scores does. */
+window.ptFr362HoleSlice = function (byP, lo, hi) {
+  var out = {};
+  Object.keys(byP || {}).forEach(function (rid) {
+    var hh = byP[rid] || {}, o = {}, any = false;
+    Object.keys(hh).forEach(function (h) { var n = Number(h); if (n >= lo && n <= hi && hh[h] > 0) { o[h] = hh[h]; any = true; } });
+    if (any) out[rid] = o;
+  });
+  return out;
+};
+/* THE MODEL. null when the game is not paying by segment (or the stored shares do not sum to 100 — then the game
+   pays as it always did and the sheet says so). segments[] carry each man's points in that range, his rank and his
+   cents; byRoster is the sum across segments — what the night owes him for this game. */
+window.ptFr362Model = function (evCfg, round, players, byP, srv, gkey, gf, sliceCents, potCfg) {
+  var seg = window.ptFr362Cfg(evCfg, round.id, gkey);
+  if (!seg || !seg._ok || !window.ptFr362Eligible(gf)) return null;
+  var w = {};
+  window.PT_FR362_SEGS.forEach(function (d) { if (seg[d[0]].pct > 0) w[d[0]] = seg[d[0]].pct; });
+  var subs = ptPotApportion(Math.max(0, Math.round(sliceCents || 0)), w);
+  var out = { key: gkey, format: gf, slice_cents: Math.max(0, Math.round(sliceCents || 0)), segments: [], byRoster: {} };
+  window.PT_FR362_SEGS.forEach(function (d) {
+    var k = d[0]; if (!(seg[k].pct > 0)) return;
+    var rows = window.ptFr20IndivRows(gf, round, players, window.ptFr362HoleSlice(byP, d[2], d[3]), srv, evCfg);
+    var ranks = [];
+    rows.forEach(function (t, i) { ranks[i] = (i > 0 && rows[i - 1].total === t.total && rows[i - 1].holes === t.holes) ? ranks[i - 1] : i + 1; });
+    var places = potCfg ? ptPotPlaces(potCfg, gkey + '.' + k) : [100];
+    var pay = window.ptPotPayRanks(ranks, subs[k] || 0, places);
+    var srows = rows.map(function (t, i) {
+      var c = pay[i] || 0;
+      out.byRoster[String(t.roster_id)] = (out.byRoster[String(t.roster_id)] || 0) + c;
+      return { roster_id: t.roster_id, name: t.name, holes: t.holes, total: t.total, rank: ranks[i], cents: c };
+    });
+    out.segments.push({ key: k, label: d[1], lo: d[2], hi: d[3], pct: seg[k].pct, slice_cents: subs[k] || 0, places: places, rows: srows });
+  });
+  return out;
+};
+/* One sentence for the sheet, the paper and the board: "pays by segment — Front 9 25% · Back 9 25% · Overall 50%". */
+window.ptFr362Line = function (m) {
+  if (!m || !m.segments || !m.segments.length) return '';
+  return 'pays by segment — ' + m.segments.map(function (s) { return s.label + ' ' + (Math.round(s.pct * 100) / 100) + '%'; }).join(' · ');
+};
+/* The Watch Live / report block: the game's header carries the whole slice; one sub-board per segment underneath.
+   Same medal rows, same "wins/shares/takes" wording and the same D89 whole-dollar column as the single board. */
+window.ptFr362BoardHtml = function (m, gf) {
+  var out = '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 12px;margin-bottom:8px">';
+  out += '<div style="display:flex;align-items:center;margin-bottom:2px"><div style="font-size:12px;font-weight:800;color:#a8d5b5">🏆 ' + _ptEsc(window._ptFmtLabel(gf, true) || gf) + '</div>'
+    + (m.slice_cents ? '<div style="margin-left:auto;font-size:12px;font-weight:900;color:#a8d5b5">' + ptMoneyFmt(m.slice_cents) + '</div>' : '') + '</div>';
+  out += '<div style="font-size:10.5px;color:rgba(245,217,122,.75);margin-bottom:6px">' + _ptEsc(window.ptFr362Line(m)) + '</div>';
+  m.segments.forEach(function (s) {
+    var payW = ptMoneyWholeArr(s.rows.map(function (r) { return r.cents; }));
+    var nAt = {}; s.rows.forEach(function (r) { nAt[r.rank] = (nAt[r.rank] || 0) + 1; });
+    out += '<div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.06)">'
+      + '<div style="display:flex;align-items:center;margin-bottom:3px"><div style="font-size:11px;font-weight:800;color:#f5d97a">' + _ptEsc(s.label) + ' <span style="color:rgba(255,255,255,.35);font-weight:600">holes ' + s.lo + '–' + s.hi + '</span></div>'
+      + (s.slice_cents ? '<div style="margin-left:auto;font-size:11px;font-weight:900;color:#f5d97a">' + ptMoneyFmt(s.slice_cents) + '</div>' : '') + '</div>';
+    if (!s.rows.length) out += '<div style="font-size:11.5px;color:rgba(255,255,255,.35);padding:3px 0">No scores in this range yet.</div>';
+    s.rows.forEach(function (t, i) {
+      var isW = t.rank === 1;
+      var medal = t.rank === 1 ? '🥇' : t.rank === 2 ? '🥈' : t.rank === 3 ? '🥉' : t.rank + '.';
+      out += '<div style="display:flex;align-items:center;padding:3px 0;font-size:12.5px">'
+        + '<div style="flex:1;font-weight:' + (isW ? '800' : '600') + ';color:' + (isW ? '#f0f0f0' : 'rgba(255,255,255,.55)') + '">' + medal + ' ' + _ptEsc(t.name) + '</div>'
+        + '<div style="font-size:10.5px;color:rgba(255,255,255,.3);margin-right:8px">' + t.holes + ' h</div>'
+        + '<div style="font-weight:800;color:' + (isW ? '#a8d5b5' : 'rgba(255,255,255,.45)') + '">' + t.total + '</div>'
+        + (t.cents > 0 ? '<div style="margin-left:10px;font-size:11px;font-weight:800;color:#a8d5b5">' + (nAt[t.rank] > 1 ? 'shares ' : t.rank === 1 ? 'wins ' : 'takes ') + ptMoneyFmtWhole(payW[i]) + '</div>' : '')
+        + '</div>';
+    });
+    out += '</div>';
+  });
+  return out + '</div>';
+};
+/* The paper: one table per segment under the game's heading. */
+window.ptFr362PaperHtml = function (m) {
+  var html = '<div class="note">' + _ptEsc(window.ptFr362Line(m)) + '</div>';
+  m.segments.forEach(function (s) {
+    var payW = ptMoneyWholeArr(s.rows.map(function (r) { return r.cents; }));
+    var nAt = {}; s.rows.forEach(function (r) { nAt[r.rank] = (nAt[r.rank] || 0) + 1; });
+    html += '<h4 style="margin:8px 0 3px">' + _ptEsc(s.label) + ' — holes ' + s.lo + '–' + s.hi + (s.slice_cents ? ' — ' + ptMoneyFmt(s.slice_cents) : '') + '</h4>';
+    if (!s.rows.length) { html += '<div class="note">No scores in this range yet.</div>'; return; }
+    html += '<table><thead><tr><th style="width:30px">Pos</th><th class="left">Player</th><th>Holes</th><th>Points</th>' + (s.slice_cents ? '<th>Payout</th>' : '') + '</tr></thead><tbody>';
+    s.rows.forEach(function (t, i) {
+      html += '<tr' + (t.rank === 1 ? ' class="win"' : '') + '><td>' + t.rank + '</td><td class="left">' + _ptEsc(t.name) + '</td><td>' + t.holes + '</td><td>' + t.total + '</td>'
+        + (s.slice_cents ? '<td class="money">' + (t.cents > 0 ? (nAt[t.rank] > 1 ? 'shares ' : '') + ptMoneyFmtWhole(payW[i]) : '—') + '</td>' : '') + '</tr>';
+    });
+    html += '</tbody></table>';
+    var note = s.slice_cents ? ptPotPlacesNote(s.places, s.slice_cents, 'players') : '';
+    if (note) html += '<div class="note">' + note + '</div>';
+  });
+  return html;
+};
+/* ── THE SHEET (Stakes, Ante & Payouts) ──────────────────────────────────────────────────────────────────────
+   ctx.seg[k] = { on, pct:{f9,b9,all} }; the places ride ctx.places[k + '.' + seg] so ptPotPreset / ptPotAddPlace /
+   ptPotDelPlace / ptPotReadPlaces work on a segment key untouched. Default when switched on: 25 / 25 / 50, winner
+   takes each (Tate's round). */
+window._fr362GameFmt = function (k) {
+  var ctx = window.__ptPotCtx; if (!ctx) return '';
+  var games = window._ptRGames(ctx.cfg, ctx.round), gi = k === 'main' ? 0 : (Number(String(k).slice(1)) - 1);
+  return games[gi] || '';
+};
+window._fr362Seed = function (pot, rows) {
+  var ctx = window.__ptPotCtx, seg = {};
+  rows.forEach(function (g) {
+    var k = g[0]; if (k === 'skins') return;
+    var s = (pot && pot.mode === 'pct' && pot.segments && typeof pot.segments === 'object') ? pot.segments[k] : null;
+    var on = false, pct = { f9: 0, b9: 0, all: 0 };
+    if (s && typeof s === 'object') window.PT_FR362_SEGS.forEach(function (d) { var x = s[d[0]]; if (x && Number(x.pct) > 0) { pct[d[0]] = Number(x.pct); on = true; } });
+    seg[k] = { on: on, pct: pct };
+    if (ctx && on) window.PT_FR362_SEGS.forEach(function (d) { ctx.places[k + '.' + d[0]] = ptPotPlaces(pot, k + '.' + d[0]).slice(); });
+  });
+  return seg;
+};
+window._fr362PanelHtml = function (k) {
+  var ctx = window.__ptPotCtx; if (!ctx) return '';
+  if (!window.ptFr362Eligible(window._fr362GameFmt(k))) return '';
+  return '<div id="ptPotSeg_' + k + '" style="margin-top:9px;border:1px dashed rgba(168,213,181,.28);border-radius:9px;padding:8px 10px">' + window._fr362PanelInner(k) + '</div>';
+};
+window._fr362PanelInner = function (k) {
+  var ctx = window.__ptPotCtx, st = (ctx && ctx.seg && ctx.seg[k]) || { on: false, pct: {} };
+  var h = '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
+    + '<button id="ptPotSegT_' + k + '" onclick="ptFr362Toggle(\'' + k + '\')" style="padding:6px 11px;background:' + (st.on ? 'rgba(168,213,181,.22)' : 'rgba(255,255,255,.06)') + ';border:1px solid ' + (st.on ? 'rgba(168,213,181,.6)' : 'rgba(255,255,255,.18)') + ';border-radius:8px;color:' + (st.on ? '#a8d5b5' : 'rgba(255,255,255,.7)') + ';font-size:11px;font-weight:800;cursor:pointer">' + (st.on ? '✓ Pays by segment' : 'Pay by segment') + '</button>'
+    + '<span style="font-size:10.5px;color:rgba(255,255,255,.4)">Front 9 · Back 9 · Overall — each takes a share of this game’s slice and pays its own places</span>'
+    + '</div>';
+  if (!st.on) return h;
+  window.PT_FR362_SEGS.forEach(function (d) {
+    var sk = k + '.' + d[0], v = st.pct[d[0]] > 0 ? st.pct[d[0]] : '';
+    h += '<div style="border-top:1px solid rgba(255,255,255,.07);margin-top:8px;padding-top:8px">'
+      + '<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">'
+      + '<div style="flex:1;min-width:110px;font-size:12.5px;color:#e8e8e8;font-weight:700">' + d[1] + ' <span style="font-size:10px;color:rgba(255,255,255,.35);font-weight:600">holes ' + d[2] + '–' + d[3] + '</span></div>'
+      + '<div style="text-align:center">'
+      + '<input id="ptPotSG_' + sk + '" type="number" min="0" max="100" step="0.01" value="' + v + '" oninput="ptPotRecalc()" style="width:64px;padding:7px 8px;background:#14260f;border:1px solid rgba(255,255,255,.2);border-radius:8px;color:#fff;font-size:13px;text-align:center">'
+      + '<div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:3px">% of slice</div>'
+      + '<div id="ptPotSGD_' + sk + '" style="font-size:11.5px;font-weight:800;color:#f5d97a;margin-top:2px">—</div>'
+      + '</div>'
+      + '<div id="ptPotPl_' + sk + '" style="display:flex;gap:6px;align-items:flex-start;flex:1 1 180px;min-width:0;flex-wrap:wrap;justify-content:flex-start"></div>'
+      + '</div>'
+      + '<div style="display:flex;gap:6px;align-items:center;margin-top:6px;flex-wrap:wrap">'
+      + '<span style="font-size:10.5px;color:rgba(255,255,255,.3);margin-right:2px">pays</span>'
+      + _ptPotPresetBtn(sk, [100], 'winner takes it')
+      + _ptPotPresetBtn(sk, [60, 40], '60 / 40')
+      + _ptPotPresetBtn(sk, [50, 30, 20], '50 / 30 / 20')
+      + '<span style="margin-left:auto"></span>'
+      + '<button id="ptPotAdd_' + sk + '" onclick="ptPotAddPlace(\'' + sk + '\')" style="padding:4px 8px;background:rgba(168,213,181,.1);border:1px solid rgba(168,213,181,.25);border-radius:7px;color:#a8d5b5;font-size:10.5px;font-weight:700;cursor:pointer">+ place</button>'
+      + '<button id="ptPotDel_' + sk + '" onclick="ptPotDelPlace(\'' + sk + '\')" style="padding:4px 8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:7px;color:rgba(255,255,255,.55);font-size:10.5px;font-weight:700;cursor:pointer">&#10005; remove</button>'
+      + '</div></div>';
+  });
+  h += '<div id="ptPotSegBal_' + k + '" style="font-size:11px;font-weight:700;margin-top:8px;color:rgba(255,255,255,.4)">—</div>';
+  return h;
+};
+window.ptFr362Toggle = function (k) {
+  var ctx = window.__ptPotCtx; if (!ctx) return;
+  ctx.seg = ctx.seg || {};
+  var st = ctx.seg[k] = ctx.seg[k] || { on: false, pct: { f9: 0, b9: 0, all: 0 } };
+  st.on = !st.on;
+  if (st.on) {
+    var sum = 0; window.PT_FR362_SEGS.forEach(function (d) { sum += st.pct[d[0]] || 0; });
+    if (!(sum > 0)) st.pct = { f9: 25, b9: 25, all: 50 };   /* Tate's default: 25 / 25 / 50, winner takes each */
+    window.PT_FR362_SEGS.forEach(function (d) { if (!ctx.places[k + '.' + d[0]]) ctx.places[k + '.' + d[0]] = [100]; });
+  }
+  var host = document.getElementById('ptPotSeg_' + k); if (host) host.innerHTML = window._fr362PanelInner(k);
+  window.ptPotPaintPlaces(); window.ptPotRecalc();
+};
+/* Paints the segment places hosts exactly as ptPotPaintPlaces paints a game's — called from its tail. */
+window._fr362PaintPlaces = function () {
+  var ctx = window.__ptPotCtx; if (!ctx || !ctx.seg) return;
+  Object.keys(ctx.seg).forEach(function (k) {
+    if (!ctx.seg[k].on) return;
+    window.PT_FR362_SEGS.forEach(function (d) {
+      var sk = k + '.' + d[0], host = document.getElementById('ptPotPl_' + sk); if (!host) return;
+      var arr = ctx.places[sk] || [100], out = '';
+      for (var i = 0; i < arr.length; i++) {
+        out += '<div style="text-align:center">'
+          + '<input id="ptPotP_' + sk + '_' + i + '" type="number" min="0" max="100" step="1" value="' + arr[i] + '" oninput="ptPotRecalc()" style="width:52px;padding:7px 5px;background:#14260f;border:1px solid rgba(255,255,255,.2);border-radius:8px;color:#fff;font-size:12.5px;text-align:center">'
+          + '<div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:3px">' + _ptOrd(i) + '</div>'
+          + '<div id="ptPotPD_' + sk + '_' + i + '" style="font-size:11px;font-weight:700;color:#a8d5b5;margin-top:2px">—</div>'
+          + '</div>';
+      }
+      host.innerHTML = out;
+      var add = document.getElementById('ptPotAdd_' + sk), del = document.getElementById('ptPotDel_' + sk);
+      if (add) { var full = arr.length >= PT_PLACES_MAX; add.disabled = full; add.style.opacity = full ? '.3' : '1'; add.style.cursor = full ? 'not-allowed' : 'pointer'; }
+      if (del) { var one = arr.length <= 1; del.disabled = one; del.style.opacity = one ? '.3' : '1'; del.style.cursor = one ? 'not-allowed' : 'pointer'; }
+    });
+  });
+};
+/* Reads the three boxes for a game. */
+window._fr362ReadPct = function (k) {
+  var out = {}, sum = 0;
+  window.PT_FR362_SEGS.forEach(function (d) {
+    var el = document.getElementById('ptPotSG_' + k + '.' + d[0]);
+    var p = el ? Math.max(0, Number(el.value || 0)) : 0;
+    out[d[0]] = p; sum += p;
+  });
+  out._sum = sum;
+  return out;
+};
+/* The live arbiter's segment pass — dollars under every box, one balance line per game, and the verdict. */
+window._fr362Recalc = function (pct, cents, total) {
+  var ctx = window.__ptPotCtx, ok = true, msgs = [];
+  if (!ctx || !ctx.seg) return { ok: true, msg: '' };
+  Object.keys(ctx.seg).forEach(function (k) {
+    var st = ctx.seg[k]; if (!st.on) return;
+    var live = pct[k] > 0, sp = window._fr362ReadPct(k), slice = cents[k] || 0;
+    st.pct = { f9: sp.f9, b9: sp.b9, all: sp.all };
+    var w = {}; window.PT_FR362_SEGS.forEach(function (d) { if (sp[d[0]] > 0) w[d[0]] = sp[d[0]]; });
+    var subs = _ptPotPreviewCents(slice, w), segOk = Math.abs(sp._sum - 100) < 0.005, badPl = [];
+    window.PT_FR362_SEGS.forEach(function (d) {
+      var sk = k + '.' + d[0], dd = document.getElementById('ptPotSGD_' + sk);
+      if (dd) dd.textContent = (live && sp[d[0]] > 0 && total > 0) ? ptMoneyFmt(subs[d[0]] || 0) : '—';
+      var pl = window.ptPotReadPlaces(sk), ps = 0; pl.forEach(function (n) { ps += n; });
+      if (sp[d[0]] > 0 && ps !== 100) badPl.push(d[1] + ' ' + ps + '%');
+      var pc = _ptPotPreviewCents(subs[d[0]] || 0, (function () { var o = {}; pl.forEach(function (n, i) { if (n > 0) o[String(i)] = n; }); return o; })());
+      pl.forEach(function (n, i) { var pd = document.getElementById('ptPotPD_' + sk + '_' + i); if (pd) pd.textContent = (live && sp[d[0]] > 0 && total > 0 && n > 0) ? ptMoneyFmt(pc[String(i)] || 0) : '—'; });
+    });
+    var bal = document.getElementById('ptPotSegBal_' + k), line;
+    if (!live) line = '<span style="color:rgba(255,255,255,.35)">This game has no slice of the pot yet — the segments wait on it.</span>';
+    else if (!segOk) line = '<span style="color:' + (sp._sum < 100 ? '#e8a33d' : '#e74c3c') + '">Segments must total 100% of the slice — ' + (Math.round(sp._sum * 100) / 100) + '% now.</span>';
+    else line = '<span style="color:#a8d5b5">✓ Segments balanced — ' + (total > 0 ? ptMoneyFmt(slice) + ' carved ' : '') + window.PT_FR362_SEGS.filter(function (d) { return sp[d[0]] > 0; }).map(function (d) { return d[1] + ' ' + (Math.round(sp[d[0]] * 100) / 100) + '%'; }).join(' · ') + '</span>';
+    if (badPl.length) line += '<div style="color:#e8a33d;margin-top:3px">Places must total 100% — ' + _ptEsc(badPl.join(' · ')) + '</div>';
+    if (bal) bal.innerHTML = line;
+    if (live && (!segOk || badPl.length)) { ok = false; msgs.push((k === 'main' ? 'Main' : 'Game ' + String(k).slice(1)) + ' pays by segment and ' + (!segOk ? 'its segments do not total 100%' : 'a segment’s places do not total 100%')); }
+  });
+  return { ok: ok, msg: msgs.length ? '<div style="color:#e8a33d;font-weight:700;margin-top:6px">' + _ptEsc(msgs.join(' · ')) + '</div>' : '' };
+};
+/* What Save writes: segments per game (only the games switched on and funded) + each segment's places list. */
+window._fr362Read = function (pct) {
+  var ctx = window.__ptPotCtx, segments = {}, places = {}, bad = false;
+  if (!ctx || !ctx.seg) return { segments: segments, places: places, bad: false };
+  Object.keys(ctx.seg).forEach(function (k) {
+    var st = ctx.seg[k]; if (!st.on || !(pct[k] > 0)) return;
+    var sp = window._fr362ReadPct(k);
+    if (Math.abs(sp._sum - 100) >= 0.005) bad = true;
+    var row = {};
+    window.PT_FR362_SEGS.forEach(function (d) {
+      row[d[0]] = { pct: sp[d[0]] };
+      if (!(sp[d[0]] > 0)) return;
+      var pl = window.ptPotReadPlaces(k + '.' + d[0]), ps = 0; pl.forEach(function (n) { ps += n; });
+      if (ps !== 100) bad = true;
+      places[k + '.' + d[0]] = pl;
+    });
+    segments[k] = row;
+  });
+  return { segments: segments, places: places, bad: bad };
+};
+/* The settle sheet: under "Hand these out", who won each segment — read off the SAME engine receipt. */
+window._fr362OwedHtml = function (ctx) {
+  var bd = null;
+  try { bd = window.ptFr82Breakdown(ctx.cfg, ctx.round, ctx.groups || [], ctx.byP || {}); } catch (e) { bd = null; }
+  if (!bd || !bd.games) return '';
+  var h = '';
+  bd.games.forEach(function (g) {
+    if (!g.segments || !g.segments.length) return;
+    h += '<div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,.1)"><div style="font-size:10.5px;font-weight:700;color:rgba(245,217,122,.85);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">' + _ptEsc(window._ptFmtLabel(g.format, true) || g.format) + ' — by segment</div>';
+    g.segments.forEach(function (s) {
+      var win = s.rows.filter(function (r) { return r.cents > 0; });
+      h += '<div style="display:flex;align-items:baseline;gap:8px;font-size:12px;padding:2px 0"><div style="min-width:64px;font-weight:800;color:#f5d97a">' + _ptEsc(s.label) + '</div>'
+        + '<div style="flex:1;color:rgba(255,255,255,.75)">' + (win.length ? _ptEsc(win.map(function (r) { return r.name + ' (' + r.total + ')'; }).join(', ')) : '<span style="color:rgba(255,255,255,.35)">nobody yet</span>') + '</div>'
+        + '<div style="font-weight:800;color:#a8d5b5">' + (s.slice_cents ? ptMoneyFmt(s.slice_cents) : '—') + '</div></div>';
+    });
+    h += '</div>';
+  });
+  return h;
+};
 window.ptFr19NightMoney = function (evCfg, round, groups, byP, acc, out, srv) {
   srv = window._ptSrvCHFor(round, srv);   // B-193 — resolved once here and handed to every arm below
   acc = acc || {};
@@ -51441,6 +51743,17 @@ window.ptFr19NightMoney = function (evCfg, round, groups, byP, acc, out, srv) {
       } else if (ptIsIndivRoundFormat(gf)) {
         var irows = window.ptFr20IndivRows(gf, round, players, byP, srv, evCfg);       // already sorted, rule-aware · B-190 srv   /* B-294 (v803.0, s296) — the event cfg reaches the producer; without it the Tombstone allowance is stored and never read */
         if (!irows.length) return;
+        /* ⭐ FR-362 (s321) — PAYS BY SEGMENT: the slice is carved F9/B9/Overall and each range pays its own places off the
+           ONE producer. The receipt row for this game carries each man's TOTAL across segments (so every 'Won' column stays
+           right) and `segments` carries the breakdown. null model = today's path, untouched. */
+        var _k362 = gi === 0 ? 'main' : 'g' + (gi + 1);
+        var _m362 = window.ptFr362Model(evCfg, round, players, byP, srv, _k362, gf, slice, potCfg);
+        if (_m362) {
+          var _o362 = null;
+          if (out) { _o362 = { key: _k362, format: gf, team: false, slice_cents: slice, places: ptPotPlaces(potCfg, _k362), rows: [], segments: _m362.segments }; out.games.push(_o362); }
+          irows.forEach(function (w) { var _c = _m362.byRoster[String(w.roster_id)] || 0; if (_o362) _o362.rows.push({ name: w.name, cents: _c }); add(w.roster_id, w.name, _c); });
+          return;
+        }
         // FR-27 (v457.0) — places, not winner-takes-all.
         var _irk = [];
         irows.forEach(function (t, i) { _irk[i] = (i > 0 && irows[i - 1].total === t.total && irows[i - 1].holes === t.holes) ? _irk[i - 1] : i + 1; });
@@ -54095,7 +54408,10 @@ window.ptFr17GamesHtml = function (evCfg, round, players, byP, teamRows, groups)
     }
     if (ptIsIndivRoundFormat(gf)) {
       var irows = window.ptFr20IndivRows(gf, round, players, byP, null, evCfg);   /* B-294 (v803.0, s296) — the event cfg reaches the producer; without it the Tombstone allowance is stored and never read */
-      if (irows.length) {
+      var _m362w = (potChk && potChk.ok) ? window.ptFr362Model(evCfg, round, players, byP, null, _gkey, gf, potCfg.split[_gkey] || 0, potCfg) : null;   /* FR-362 (s321) */
+      if (_m362w && irows.length) {
+        out += window.ptFr362BoardHtml(_m362w, gf);
+      } else if (irows.length) {
         var _ipc = (potChk && potChk.ok) ? (potCfg.split[_gkey] || 0) : 0;   // FR-20 step 3
         var irk = [];
         irows.forEach(function (t, i) { irk[i] = (i > 0 && irows[i - 1].total === t.total && irows[i - 1].holes === t.holes) ? irk[i - 1] : i + 1; });
@@ -55010,6 +55326,7 @@ window.ptPotOwedHtml = function (ctx) {
       h += '<div style="font-size:11px;font-weight:700;color:#ff6b6b;margin-top:6px">Rounding does not balance against the pot (' + ptMoneyFmt(tot) + ' in, ' + ptMoneyFmtWhole(totW) + ' out). Do not pay from this screen — report it.</div>';
     }
   }
+  h += window._fr362OwedHtml(ctx);   /* FR-362 (s321) — who won each segment, off the same receipt */
   /* B-175 (s203) — a funded Skins slice over an unset skins game pays nobody.
      Say so LOUDLY, and never let the caption promise a balance the column
      does not have (trap 18: this fix's own sentence included). */
@@ -55038,6 +55355,7 @@ window.ptPotRender = function (pot, field, round) {
   }
   /* FR-210 (v745.0) — which named table each game is on, this round. */
   if (!ctx.tbl) ctx.tbl = (pot && pot.places_tbl) ? Object.assign({}, pot.places_tbl) : {};
+  if (!ctx.seg) ctx.seg = window._fr362Seed(pot, rows);   /* FR-362 (s321) */
   var h = '';
   if (settle && !field) {
     h += '<div style="background:rgba(232,163,61,.1);border:1px solid rgba(232,163,61,.3);border-radius:12px;padding:14px;margin-bottom:14px;font-size:13px;color:#e8a33d">No scores in yet — nothing to settle.</div>';
@@ -55113,6 +55431,7 @@ window.ptPotRender = function (pot, field, round) {
         + '</div>'
         /* FR-210 (v745.0) — the named-table chips for this game. */
         + '<div id="ptPotTbl_' + k + '" style="display:flex;flex-wrap:wrap;align-items:center;margin-top:9px"></div>';
+      h += window._fr362PanelHtml(k);   /* FR-362 (s321) — pay by segment, individual Par Points only */
     }
     h += '</div>';
   });
@@ -55158,6 +55477,7 @@ window.ptPotPaintPlaces = function () {
     if (add) { var full = arr.length >= PT_PLACES_MAX; add.disabled = full; add.style.opacity = full ? '.3' : '1'; add.style.cursor = full ? 'not-allowed' : 'pointer'; }
     if (del) { var one = arr.length <= 1; del.disabled = one; del.style.opacity = one ? '.3' : '1'; del.style.cursor = one ? 'not-allowed' : 'pointer'; }
   });
+  window._fr362PaintPlaces();   /* FR-362 (s321) */
 };
 window.ptPotReadPlaces = function (k) {
   var ctx = window.__ptPotCtx, arr = (ctx && ctx.places[k]) || [100], out = [];
@@ -55284,6 +55604,7 @@ window.ptPotRecalc = function (capKey) {
       if (pd) pd.textContent = (pct[k] > 0 && total > 0 && n > 0) ? ptMoneyFmt(pcents[String(i)] || 0) : '—';
     });
   });
+  var _seg362 = window._fr362Recalc(pct, cents, total);   /* FR-362 (s321) — the segment pass of the one arbiter */
   var bal = document.getElementById('ptPotBal'), btn = document.getElementById('ptPotSave');
   var clearing = ante === 0;
   var slicesOk = Math.abs(sum - 100) < 0.005;
@@ -55318,9 +55639,10 @@ window.ptPotRecalc = function (capKey) {
     if (_skStrand) {
       msg += '<div style="color:#e74c3c;font-weight:700;margin-top:6px">' + (Math.round(Number(pct.skins) * 10) / 10) + '% of the pot is allocated to Skins, but Skins is not set on this round — set Skins (💰 Skins… on the Manage sheet) or zero the slice.</div>';
     }
+    if (!clearing && _seg362.msg) msg += _seg362.msg;   /* FR-362 (s321) */
     bal.innerHTML = msg;
   }
-  var can = clearing || (slicesOk && placesOk && !_skStrand);   /* B-175 */
+  var can = clearing || (slicesOk && placesOk && !_skStrand && _seg362.ok);   /* B-175 · FR-362 */
   if (btn) {
     btn.disabled = !can;
     btn.style.opacity = can ? '1' : '.4';
@@ -55527,7 +55849,11 @@ window.ptPotSave = function () {
     places[k] = pl;
     if (ctx.tbl && ctx.tbl[k]) _fr210Sel[k] = ctx.tbl[k];
   });
-  if (ante > 0 && (Math.abs(sum - 100) >= 0.005 || bad)) { ptToast('The slices and the places both have to total 100%.'); return; }
+  /* FR-362 (s321) — the segments and their places ride the same row; a game switched off writes nothing (today's shape). */
+  var _seg362s = window._fr362Read(pct);
+  if (_seg362s.bad) bad = true;
+  Object.keys(_seg362s.places).forEach(function (sk) { places[sk] = _seg362s.places[sk]; });
+  if (ante > 0 && (Math.abs(sum - 100) >= 0.005 || bad)) { ptToast('The slices, the places and the segments all have to total 100%.'); return; }
   // Read-merge-write, same hazard as cfg.skins: ptPatchEvConfig assigns each
   // patch key wholesale, so the other rounds' pot rows must be merged in first.
   fetch(TOUR_API + '/api/events/' + ctx.eventId, { headers: { 'Authorization': 'Bearer ' + G.orgToken } })
@@ -55535,12 +55861,12 @@ window.ptPotSave = function () {
       if (!d.event) throw new Error('Event not found');
       var cfg = ptEvCfg(d.event);
       var all = Object.assign({}, cfg.pot || {});
-      if (ante > 0) all[String(ctx.round.id)] = { ante_cents: ante, mode: 'pct', split_pct: pct, places_pct: places, places_tbl: _fr210Sel };
+      if (ante > 0) all[String(ctx.round.id)] = { ante_cents: ante, mode: 'pct', split_pct: pct, places_pct: places, places_tbl: _fr210Sel, segments: _seg362s.segments };   /* FR-362 (s321) */
       else delete all[String(ctx.round.id)];
       return ptPatchEvConfig(ctx.eventId, { pot: all });
     }).then(_ptThrow).then(function () {
       ptToast(ante > 0 ? 'Payout plan saved' : 'Pot cleared');
-      if (window.__ptPotCtx) window.__ptPotCtx.places = null;
+      if (window.__ptPotCtx) { window.__ptPotCtx.places = null; window.__ptPotCtx.seg = null; }   /* FR-362 (s321) — re-seed both */
       window.ptPotLoad(ctx.eventId, ctx.round, ctx.mode);
       if (document.getElementById('ptSkinsOv')) window.ptSkinsLoad(ctx.eventId, ctx.round);
     }).catch(function (e) { ptToast('Error: ' + _ptMsg(e, 'Could not save the pot')); });
@@ -69039,7 +69365,10 @@ function ptPrintGameResultsReport(eventId, round, opts) {
         if (ptIsIndivRoundFormat(gf)) {
           html += '<h3>🏆 ' + _ptEsc(window._ptFmtLabel(gf, true) || gf) + (_gpc ? ' \u2014 ' + ptMoneyFmt(_gpc) : '') + '</h3>';
           var irows = window.ptFr20IndivRows(gf, round, players, byP, srvCH, cfg);   // \u2b50 v496.0 \u00b7 B-132 family   /* B-294 (v803.0, s296) — the event cfg reaches the producer; without it the Tombstone allowance is stored and never read */
-          if (irows.length) {
+          var _m362p = (potChk && potChk.ok) ? window.ptFr362Model(cfg, round, players, byP, srvCH, _gk, gf, _gpc, potCfg) : null;   /* FR-362 (s321) */
+          if (_m362p && irows.length) {
+            html += window.ptFr362PaperHtml(_m362p);
+          } else if (irows.length) {
             var irk = [];
             irows.forEach(function (t, i) { irk[i] = (i > 0 && irows[i - 1].total === t.total && irows[i - 1].holes === t.holes) ? irk[i - 1] : i + 1; });
             var iWin2 = irows.filter(function (t, i) { return irk[i] === 1; });
@@ -83519,7 +83848,7 @@ function ptLaunchFoursomeRound(foursomeData) {
    The scoring engine lives in ONE file. showHome() / showSection() land on the organizer login (token → dashboard).
    ⛔ FR-324 PHASE 3 (the JS cut) IS KILLED UNBUILT — Bruce, s313: "we don't need to cut - app runs fine as it is." v1.04 was the
    harvest rig (7,400 probes); v1.05 is v1.03 with the version bumped and nothing else. The JS stays whole. */
-const ADMIN_VERSION = 'pards-admin-v1.56';
+const ADMIN_VERSION = 'pards-admin-v1.57';
 (function(){
   var _adminDoor = function(){
     try{ if(typeof _ptHideAll === 'function') _ptHideAll(); }catch(e){}
