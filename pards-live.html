@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.34 -->
+<!-- pards-live-v1.35 -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -78,6 +78,11 @@ body { padding:0 0 calc(84px + env(safe-area-inset-bottom)); }   /* B-256 (v1.22
 .skRow .k { font-size:12px; color:var(--dim); white-space:nowrap; }
 .skRow .m { font-size:15px; font-weight:800; color:#7fbf7f; min-width:56px; text-align:right; }
 .skFoot { font-size:10.5px; color:var(--dim); margin-top:8px; line-height:1.4; }
+.sgSeg { margin-top:8px; padding-top:6px; border-top:1px solid rgba(255,255,255,.06); }
+.sgHd { display:flex; align-items:baseline; gap:8px; font-size:12px; font-weight:800; color:#f5e6b8; padding-bottom:3px; }
+.sgHd .sgHoles { font-size:10.5px; color:var(--dim); font-weight:600; }
+.sgHd .sgM { margin-left:auto; font-weight:900; }
+.skRow.lead .nm { font-weight:800; }
 .rowsHd { font-size:10px; text-transform:uppercase; letter-spacing:.6px; color:var(--dim);
   padding:0 2px 7px; border-bottom:1px solid var(--line); font-weight:700; }
 .row { padding:9px 2px; border-bottom:1px solid rgba(255,255,255,.05); cursor:pointer; }
@@ -312,7 +317,7 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.34';
+var LIVE_VERSION = 'live-v1.35';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null, view:'round', overall:null, lb:{}, sk:null };   /* FR-188 (v1.23, s288) — sk = his Gross/Net/Par Points pick, null = the round's own format */   /* v1.14 (s274) — lb[round_id] = that round's leaderboard, for all-rounds cards */   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows. v1.13 (s274) — view + the overall payload (FR-158). */
@@ -1152,6 +1157,119 @@ function skModel(rows, g) {
 }
 function skMoney(c) { var d = Math.round(c) / 100; return '$' + (d % 1 ? d.toFixed(2) : String(d)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
 function skFirst(n) { var p = String(n || '').trim().split(/\s+/); return p[0] || ''; }   /* the hole cell is 36px wide on a phone: first name only; the rows below carry the full name */
+/* ══ FR-362 (v1.35, s321) — PAR POINTS PAYS BY SEGMENT: Front 9 · Back 9 · Overall, on the board ═══════════════
+   A MIRROR of the client's ptFr362Model → ptFr20IndivRows (stableford branch) → ptPotPlaces → ptPotPayRanks →
+   ptMoneyWholeArr, line for line; rig-fr362-live.mjs holds it equal to the client's own model on the real Tate scores.
+   Inputs: the rows this page already polls (name · data.course_handicap · data.tee · data.scores_by_hole) plus the
+   worker's `games` block — pot (cfg.pot[rid] whole, segments inside), si per tee, and par per tee (3.125.0; the baked
+   PARS table is the fallback for a worker that predates it). The MAIN game only: Live never sees cfg.rgames, so a
+   second ranked game's segments do not reach this board. Anything missing -> no card, never a wrong one. */
+var SG_SEGS = [['f9', 'Front 9', 1, 9], ['b9', 'Back 9', 10, 18], ['all', 'Overall', 1, 18]];
+function sgEligible(fmt) { var f = String(fmt || ''); return f.indexOf('individual') === 0 && /stableford/.test(f) && !/quota|chicago|tombstone|crisscross|better9/.test(f); }
+function sgPts(diff) { return Math.max(0, 2 + diff); }   /* the tour scale: 4 under 6 · … · fixed 2 · 1 over 1 · 2+ over 0 */
+function sgPayRanks(ranks, sliceCents, places) {
+  var out = (ranks || []).map(function () { return 0; });
+  if (!(sliceCents > 0) || !out.length) return out;
+  var pl = (places && places.length) ? places : [100], grp = {}, w = {};
+  ranks.forEach(function (r, i) { (grp[r] = grp[r] || []).push(i); });
+  Object.keys(grp).forEach(function (rk) { var st0 = Number(rk) - 1, n0 = grp[rk].length; for (var i = st0; i < st0 + n0 && i < pl.length; i++) if (pl[i] > 0) w[String(i)] = pl[i]; });
+  if (!Object.keys(w).length) w['0'] = 100;
+  var byPlace = skApportion(sliceCents, w);
+  Object.keys(grp).forEach(function (rk) {
+    var idxs = grp[rk], start = Number(rk) - 1, pool = 0;
+    for (var i = start; i < start + idxs.length; i++) pool += (byPlace[String(i)] || 0);
+    if (!(pool > 0)) return;
+    var ew = {}; idxs.forEach(function (_, j) { ew[String(j)] = 1; });
+    var share = skApportion(pool, ew);
+    idxs.forEach(function (ix, j) { out[ix] = share[String(j)] || 0; });
+  });
+  return out;
+}
+function sgWhole(centsArr) {
+  var arr = centsArr || [], tot = 0, w = {}, i;
+  for (i = 0; i < arr.length; i++) { var c = Number(arr[i]) || 0; tot += c; if (c > 0) w[String(i)] = c; }
+  var target = Math.round(tot / 100);
+  if (!(target > 0)) return arr.map(function () { return 0; });
+  var d = skApportion(target, w);
+  return arr.map(function (_x, ix) { return (d[String(ix)] || 0) * 100; });
+}
+function sgTeeArr(by, tee) {
+  if (!by) return null;
+  var a = by[tee] || by[String(tee).toLowerCase()] || null, kk;
+  if (!a) { for (kk in by) { if (String(kk).toLowerCase() === String(tee).toLowerCase()) { a = by[kk]; break; } } }
+  return a;
+}
+/* The model. Returns null when the main game is not paying by segment, is not individual par points, or nothing can be read. */
+function sgModel(rows, g, round) {
+  try {
+    var pot = g && g.pot; if (!pot || !(pot.ante_cents > 0) || pot.mode !== 'pct') return null;
+    if (!sgEligible(round && round.format)) return null;
+    var s = pot.segments && pot.segments.main; if (!s || typeof s !== 'object') return null;
+    var seg = {}, sum = 0, any = false;
+    SG_SEGS.forEach(function (d) { var x = s[d[0]], pct = (x && Number(x.pct) > 0) ? Number(x.pct) : 0; seg[d[0]] = pct; sum += pct; if (pct > 0) any = true; });
+    if (!any || Math.abs(sum - 100) >= 0.005) return null;
+    var players = [], field = 0;
+    (rows || []).forEach(function (r) {
+      var d = (r && r.data) || {}, by = d.scores_by_hole || {}, anyS = false, k;
+      for (k in by) { if (by[k] > 0) { anyS = true; break; } }
+      if (!anyS) return;
+      field++;
+      var ch = d.course_handicap != null ? Math.round(Number(d.course_handicap)) : 0, tee = d.tee || d.round_tee || '';
+      var si = sgTeeArr(g.si, tee), par = sgTeeArr(g.par, tee) || ((d.course_id && PARS[d.course_id]) ? PARS[d.course_id] : null);
+      players.push({ id: r.entry_key || r.name, name: r.name || '', ch: ch, si: si, par: par, g: by });
+    });
+    if (!field) return { on: true, empty: true };
+    var potCfg = skPotCfg(pot, field), chk = potCfg ? skPotCheck(potCfg, field) : null;
+    var slice = (potCfg && chk && chk.ok) ? (potCfg.split.main || 0) : 0;
+    var w = {}; SG_SEGS.forEach(function (d) { if (seg[d[0]] > 0) w[d[0]] = seg[d[0]]; });
+    var subs = skApportion(slice, w), out = { on: true, field: field, slice_cents: slice, segments: [] };
+    SG_SEGS.forEach(function (d) {
+      var k = d[0]; if (!(seg[k] > 0)) return;
+      var srows = [];
+      players.forEach(function (p) {
+        var pts = 0, holes = 0, h;
+        for (h = d[2]; h <= d[3]; h++) {
+          var gross = p.g[h] != null ? p.g[h] : p.g[String(h)]; if (!(gross > 0)) continue;
+          var rsi = (p.si && p.si[h - 1]) || h, hp = (p.par && p.par[h - 1] != null) ? p.par[h - 1] : 4;
+          pts += sgPts(hp - (gross - skStrokes(p.ch, rsi))); holes++;
+        }
+        if (!holes) return;
+        srows.push({ id: p.id, name: p.name, holes: holes, total: pts });
+      });
+      srows.sort(function (a, b) { return (b.total - a.total) || (b.holes - a.holes); });
+      var ranks = []; srows.forEach(function (t, i) { ranks[i] = (i > 0 && srows[i - 1].total === t.total && srows[i - 1].holes === t.holes) ? ranks[i - 1] : i + 1; });
+      var pl = (pot.places_pct && pot.places_pct['main.' + k]) || [100];
+      if (Object.prototype.toString.call(pl) !== '[object Array]' || !pl.length) pl = [100];
+      var pay = sgPayRanks(ranks, subs[k] || 0, pl), whole = sgWhole(pay);
+      srows.forEach(function (t, i) { t.rank = ranks[i]; t.cents = pay[i] || 0; t.whole = whole[i] || 0; });
+      out.segments.push({ key: k, label: d[1], lo: d[2], hi: d[3], pct: seg[k], slice_cents: subs[k] || 0, rows: srows });
+    });
+    return out;
+  } catch (e) { return null; }
+}
+function sgWholeMoney(c) { return '$' + String(Math.round(c / 100)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function segCard(rows, g, round) {
+  var m = sgModel(rows, g, round); if (!m) return '';
+  var h = '<div class="card"><div class="skHd">🏆 Par Points by segment'
+    + (m.slice_cents ? '<span class="skPot">' + skMoney(m.slice_cents) + '</span>' : '') + '</div>';
+  if (m.empty) return h + '<div class="note" style="padding:6px 0">No scores posted yet.</div></div>';
+  h += '<div class="note" style="padding:0 0 6px">pays by segment — ' + m.segments.map(function (s) { return esc(s.label) + ' ' + (Math.round(s.pct * 100) / 100) + '%'; }).join(' · ') + '</div>';
+  m.segments.forEach(function (s) {
+    var nAt = {}; s.rows.forEach(function (r) { nAt[r.rank] = (nAt[r.rank] || 0) + 1; });
+    var lead = s.rows.filter(function (r) { return r.rank === 1; });
+    h += '<div class="sgSeg"><div class="sgHd"><span>' + esc(s.label) + '</span><span class="sgHoles">holes ' + s.lo + '–' + s.hi + '</span>' + (s.slice_cents ? '<span class="sgM">' + skMoney(s.slice_cents) + '</span>' : '') + '</div>';
+    if (!lead.length) { h += '<div class="note" style="padding:4px 0">No scores in this range yet.</div></div>'; return; }
+    var cut = s.rows.length > 3 ? s.rows[2].rank : 1e9;   /* top three — and every man tied on the last rank shown (a four-way tie for 3rd is four rows, never one) */
+    s.rows.filter(function (r) { return r.rank <= cut; }).forEach(function (r) {
+      var medal = r.rank === 1 ? '🥇' : r.rank === 2 ? '🥈' : r.rank === 3 ? '🥉' : r.rank + '.';
+      h += '<div class="skRow' + (r.rank === 1 ? ' lead' : '') + '"><div class="nm">' + medal + ' ' + esc(r.name) + '</div><div class="k">' + r.holes + ' h · <b>' + r.total + '</b></div>'
+        + (r.cents > 0 ? '<div class="m">' + (nAt[r.rank] > 1 ? 'shares ' : '') + sgWholeMoney(r.whole) + '</div>' : '<div class="m" style="color:var(--dim);font-weight:600">—</div>') + '</div>';
+    });
+    h += '</div>';
+  });
+  h += '<div class="skFoot">' + m.field + ' in · top three per segment, ties included; tied men share the places they straddle · whole dollars, the pot squares off' + '</div></div>';
+  return h;
+}
 function skinsCard(rows, g) {
   var m = skModel(rows, g); if (!m) return '';
   var h = '<div class="card"><div class="skHd">💰 Skins <span style="color:var(--dim);letter-spacing:.3px;text-transform:none;font-size:11px">' + esc(SK_BASIS_LABEL[m.basis] || m.basis) + '</span>'
@@ -1259,6 +1377,7 @@ function paintBoard(d) {
     });
   }
   h += '</div>';
+  try { h += segCard(rows, d.games, round); } catch (_e362) {}   /* FR-362 (v1.35) — Par Points by segment, the main game, above skins */
   try { h += skinsCard(rows, d.games); } catch (_e361) {}   /* FR-361 (v1.34) — skins are part of the board */
   h += '<div class="note">Updated ' + (rows.length && rows[0].updated_at ? esc(rows[0].updated_at) + ' UTC' : 'just now') + '</div>';
   if (_dr && _dDone) h += draftCard(_dr);
