@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.40 -->
+<!-- pards-live-v1.42 -->
+<!-- v1.42 (s322) — FR-388: the master scorecard up top on the match link — one gross grid for every man, always open; the per-player rows and their cards are gone. -->
+<!-- v1.41 (s322) — FR-387: the other games on the live link — 6-Point · Stableford · Skins · Vegas · Snake as per-hole cards off the phone's snapshot, one generic renderer. -->
 <!-- v1.40 (s322) — FR-386: the match summary lines show while the grid is closed and hide when it opens ("redundant when looking at the scorecard"). -->
 <!-- v1.39 (s322) — FR-385: tap a matchup → the match card grid (strokes, running game columns, presses, OUT/IN/TOT, WINS) off the phone's snapshot. -->
 <!-- v1.38 (s322) — FR-383: the matches on the live link — a ⚔️ Matches card off the phone's snapshot (Front 9 · Back 9 · Full 18 · presses, who is up, thru, settled). -->
@@ -126,6 +128,14 @@ body { padding:0 0 calc(84px + env(safe-area-inset-bottom)); }   /* B-256 (v1.22
 .mg tr.wins td { border-top:2px solid rgba(201,168,76,.5); font-weight:800; } .mg tr.wins td.pos { color:#2ecc71; } .mg tr.wins td.neg { color:#ff7b6b; } .mg tr.wins td.z { color:rgba(255,255,255,.35); }
 .mgBan { text-align:center; font-size:12px; font-weight:800; color:#c9a84c; padding:6px 0 2px; } .mgHc { font-size:10px; color:rgba(255,255,255,.45); padding:2px 0 4px; }
 .mgWrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+/* FR-387 (v1.41) — the game cards */
+.mg td.gs.win { background:rgba(46,204,113,.18); border-radius:6px; }
+.mg .pill, .mg .pillw, .mg .strike { display:inline-block; border-radius:10px; padding:1px 7px; font-size:10px; font-weight:800; white-space:nowrap; }
+.mg .pill { background:#c9a84c; color:#0d1117; } .mg .pillw { background:#1a5c3a; color:#fff; } .mg .strike { color:#ff7b6b; text-decoration:line-through; }
+.mg .carry { color:#ff7b6b; font-size:10px; font-weight:700; } .mg .wash { color:rgba(255,255,255,.4); font-size:10px; }
+.mg .pt { display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:50%; font-size:10px; font-weight:800; margin-left:4px; color:#fff; }
+.mg .v2 { display:block; font-size:12px; font-weight:800; } .mg .v1 { display:block; font-size:9px; color:rgba(255,255,255,.55); }
+.mg td.dimc { color:rgba(255,255,255,.2); }
 .detMeta { font-size:12px; color:var(--dim); margin-top:7px; }
 /* ⭐⭐⭐ s268 STANDING RULE — Bruce: "whenever there is a scoreboard or display
    or printout for an individual round ALWAYS include Gross Score TOTALs after
@@ -337,7 +347,7 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.40';
+var LIVE_VERSION = 'live-v1.42';
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, cfg:null, trip:null, code:null, sheet:null, field:null, view:'round', overall:null, lb:{}, sk:null };   /* FR-188 (v1.23, s288) — sk = his Gross/Net/Par Points pick, null = the round's own format */   /* v1.14 (s274) — lb[round_id] = that round's leaderboard, for all-rounds cards */   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows. v1.13 (s274) — view + the overall payload (FR-158). */
@@ -2101,6 +2111,61 @@ function _is404(e) { return /404|not found/i.test((e && e.message) || ''); }
    the phone's: grid.pi (the men in match order) · grid.ph (match handicaps) · grid.strokes[man][actual hole] · grid.order[play] →
    actual hole · grid.run[game][play] (the running score, E/+n/−n) · grid.pressAt[game] (the P) · grid.pay (the WINS row) ·
    grid.lead (the banner). This function only draws — OUT/IN/TOT are sums of what the phone posted. */
+/* ⭐⭐ FR-387 (v1.41, s322) — ONE GENERIC RENDERER for the game cards. A cell is { t, k, v?, p?, win?, span? }; this draws it and adds
+   nothing: no sums, no money, no winners — every figure was produced on the phone by the game's own engine. */
+/* ⭐ FR-388 (v1.42, s322) — THE MASTER SCORECARD. Hole (par under) · Hcp · a column per man (first name, index) · gross by hole ·
+   OUT / IN / TOT / TO PAR. Reads the snapshot's scores as they are; sums are the same sums the old rows showed. */
+function masterGrid(sn, rows, pars) {
+  var si = (Array.isArray(sn.si) && sn.si.length === 18) ? sn.si : null;
+  var h = '<div class="mgWrap"><table class="mg"><thead><tr><th>Hole</th><th>Hcp</th>';
+  rows.forEach(function (r) { var nm = String(r.name || '').split(' '); h += '<th class="nm">' + esc(nm[0]) + (nm[1] ? ' ' + esc(nm[1].charAt(0)) : '') + '<small>' + (r.idx != null ? esc(String(r.idx)) : (r.ph ? '+' + esc(String(r.ph)) : '&nbsp;')) + '</small></th>'; });
+  h += '</tr></thead><tbody>';
+  var out = rows.map(function () { return 0; }), inn = rows.map(function () { return 0; }), oS = rows.map(function () { return false; }), iS = rows.map(function () { return false; }), fPar = 0, bPar = 0;
+  for (var hh = 0; hh < 18; hh++) {
+    var par = pars ? pars[hh] : null; if (par != null) { if (hh < 9) fPar += par; else bPar += par; }
+    h += '<tr><td class="h">' + (hh + 1) + (par != null ? '<div style="font-size:8px;font-weight:400;color:rgba(255,255,255,.35)">' + par + '</div>' : '') + '</td><td class="hc">' + (si ? si[hh] : '') + '</td>';
+    rows.forEach(function (r, ii) {
+      var v = r.by[hh + 1], col = '';
+      if (v != null && v > 0) { if (hh < 9) { out[ii] += v; oS[ii] = true; } else { inn[ii] += v; iS[ii] = true; } if (par != null) col = v < par ? '#2ecc71' : v > par ? 'rgba(255,255,255,.85)' : '#fff'; }
+      h += '<td class="gs"' + (col ? ' style="color:' + col + (par != null && v <= par - 2 ? ';font-weight:900' : '') + '"' : '') + '>' + (v != null && v > 0 ? v : '<span style="color:rgba(255,255,255,.18)">·</span>') + '</td>';
+    });
+    h += '</tr>';
+    if (hh === 8) { h += '<tr class="sum"><td class="h">OUT</td><td>' + (pars ? fPar : '') + '</td>'; rows.forEach(function (_, ii) { h += '<td>' + (oS[ii] ? out[ii] : '–') + '</td>'; }); h += '</tr>'; }
+  }
+  h += '<tr class="sum"><td class="h">IN</td><td>' + (pars ? bPar : '') + '</td>'; rows.forEach(function (_, ii) { h += '<td>' + (iS[ii] ? inn[ii] : '–') + '</td>'; }); h += '</tr>';
+  h += '<tr class="sum"><td class="h">TOT</td><td>' + (pars ? fPar + bPar : '') + '</td>'; rows.forEach(function (_, ii) { h += '<td>' + ((oS[ii] || iS[ii]) ? out[ii] + inn[ii] : '–') + '</td>'; }); h += '</tr>';
+  h += '<tr class="sum"><td class="h">TO PAR</td><td></td>'; rows.forEach(function (r) { h += '<td style="color:' + tpColour(r.tp) + '">' + (r.holes ? fmtTp(r.tp) + '<div style="font-size:8px;font-weight:400;color:rgba(255,255,255,.4)">thru ' + (r.holes >= 18 ? 'F' : r.holes) + '</div>' : '–') + '</td>'; }); h += '</tr>';
+  return h + '</tbody></table></div>';
+}
+function gameCard(sn, c) {
+  var pars = (Array.isArray(sn.pars) && sn.pars.length === 18) ? sn.pars : null, si = (Array.isArray(sn.si) && sn.si.length === 18) ? sn.si : null;
+  var showHcp = c.kind === 'six' || c.kind === 'stableford';
+  var cellHtml = function (x) {
+    if (!x) return '<td></td>';
+    if (x.k === 'gap') return '<td class="sep"></td>';
+    var inner = '', cls = 'gs';
+    if (x.k === 'c1' || x.k === 'c2') inner = '<span class="' + x.k + '">' + esc(x.t) + '</span>';
+    else if (x.k === 'c0') inner = '<span class="c0" style="opacity:.45"></span>';
+    else if (x.k === 'pill' || x.k === 'pillw' || x.k === 'strike') inner = '<span class="' + x.k + '">' + esc(x.t) + '</span>' + (x.v ? '<span class="v1">' + esc(x.v) + '</span>' : '');
+    else if (x.k === 'carry' || x.k === 'wash') inner = '<span class="' + x.k + '">' + esc(x.t) + '</span>';
+    else if (x.k === 'dim') { inner = x.t ? esc(x.t) : ''; cls = 'gs dimc'; }
+    else { inner = esc(x.t); if (x.k === 'pos' || x.k === 'neg' || x.k === 'ev') cls = 'ms ' + x.k; }
+    if (x.v != null && x.k !== 'pill' && x.k !== 'pillw' && x.k !== 'strike') inner = '<span class="v1">' + inner + '</span><span class="v2">' + esc(x.v) + '</span>';
+    if (x.p != null) { var p = Number(x.p), bg = p >= 5 ? '#6c3483' : p === 4 ? '#1a5c3a' : p === 3 ? '#155724' : p === 2 ? '#1a3a2a' : p === 1 ? '#856404' : '#555'; inner += '<span class="pt" style="background:' + bg + '">' + p + '</span>'; }
+    return '<td class="' + cls + (x.win ? ' win' : '') + '"' + (x.span ? ' colspan="' + x.span + '"' : '') + '>' + inner + '</td>';
+  };
+  var h = '<div class="mgWrap"><table class="mg"><thead><tr><th>Hole</th>' + (showHcp ? '<th>Hcp</th>' : '') + '<th>Par</th>';
+  (c.cols || []).forEach(function (col) { h += col.gap ? '<th class="sep"></th>' : '<th class="nm">' + esc(col.l) + (col.s ? '<small>' + esc(col.s) + '</small>' : '') + '</th>'; });
+  h += '</tr></thead><tbody>';
+  var lead = 2 + (showHcp ? 1 : 0);
+  (c.rows || []).forEach(function (r) {
+    if (r.h == null) { h += '<tr class="sum"><td class="h" colspan="' + lead + '">' + esc(r.l || '') + '</td>' + (r.c || []).map(cellHtml).join('') + '</tr>'; return; }
+    h += '<tr><td class="h">' + (r.h + 1) + '</td>' + (showHcp ? '<td class="hc">' + (si ? si[r.h] : '') + '</td>' : '') + '<td class="hc">' + (pars ? pars[r.h] : '') + '</td>' + (r.c || []).map(cellHtml).join('') + '</tr>';
+  });
+  (c.foot || []).forEach(function (r) { h += '<tr class="sum"><td class="h" colspan="' + lead + '">' + esc(r.l || '') + '</td>' + (r.c || []).map(cellHtml).join('') + '</tr>'; });
+  h += '</tbody></table></div>' + (c.note ? '<div class="mgHc" style="text-align:center">' + esc(c.note) + '</div>' : '');
+  return h;
+}
 function matchGrid(sn, m) {
   var g = m.grid, games = m.games || [], pars = (Array.isArray(sn.pars) && sn.pars.length === 18) ? sn.pars : null, si = (Array.isArray(sn.si) && sn.si.length === 18) ? sn.si : null;
   var men = g.pi.map(function (pi, ii) { var p = (sn.players || [])[pi] || {}; return { name: p.name || ('Player ' + (pi + 1)), first: String(p.name || '').split(' ')[0], ph: (g.ph || [])[ii], scores: (sn.scores || [])[pi] || [], strokes: (g.strokes || [])[ii] || [] }; });
@@ -2151,25 +2216,16 @@ function loadMatch(code) {
       + ' &nbsp;<span class="chip live">' + (sn && sn.done ? 'Final' : 'Live') + '</span></div>';
     if (sn && sn.course) recentPut(code, sn.course + ' · match');
     if (!sn || !sn.players || !sn.players.length) { gid('app').innerHTML = '<div class="card"><div class="note">Waiting for the first hole&hellip;</div></div>'; return; }
-    if (!S._fr386) { S._fr386 = 1; (sn.matches || []).forEach(function (m, i) { if (m && m.grid && m.grid.pi && m.grid.pi.length) S.open['mg' + i] = true; }); }   /* FR-386 — "open first when link is open": every grid opens on the first paint */
+    if (!S._fr386) { S._fr386 = 1; (sn.matches || []).forEach(function (m, i) { if (m && m.grid && m.grid.pi && m.grid.pi.length) S.open['mg' + i] = true; }); (sn.cards || []).forEach(function (c, i) { if (c && c.rows && c.rows.length) S.open['gc' + i] = true; }); }   /* FR-387 — the game cards open too */   /* FR-386 — "open first when link is open": every grid opens on the first paint */
     var pars = (Array.isArray(sn.pars) && sn.pars.length === 18) ? sn.pars : null;
     var rows = sn.players.map(function (p, i) {
       var row = (sn.scores && sn.scores[i]) || [], by = {}, gross = 0, holes = 0, parSum = 0;
       for (var h = 0; h < 18; h++) { var v = row[h]; if (v != null && v > 0) { by[h + 1] = v; gross += v; holes++; if (pars) parSum += pars[h]; } }
       return { i: i, name: p.name || ('Player ' + (i + 1)), deck: p.deck || '', ph: p.ph, idx: (p.idx != null ? p.idx : null), by: by, gross: gross, holes: holes, tp: (pars && holes) ? gross - parSum : null, money: (sn.money && sn.money[i] != null) ? Number(sn.money[i]) : null };
     });
-    var h = '<div class="card"><div class="rowsHd tp ch"><div style="text-align:center">#</div><div>Player</div><div style="text-align:right">Thru</div><div style="text-align:right">To Par</div><div style="text-align:right">Gross</div><div></div></div>';
-    rows.forEach(function (r, k) {
-      var id = 'ml' + r.i;
-      h += '<div class="row tp ch" onclick="tog(\'' + id + '\')"><div class="pos">' + (k + 1) + '</div>'
-        + '<div class="nm">' + esc(r.name) + '</div>'
-        + '<div class="thru">' + (r.holes >= 18 ? 'F' : r.holes) + '</div>'
-        + '<div class="tpar" style="color:' + tpColour(r.tp) + '">' + fmtTp(r.tp) + '</div>'
-        + '<div class="sc">' + (r.holes ? r.gross : '&ndash;') + '</div>'
-        + chev(id) + '</div>'
-        + '<div class="det" id="' + id + '">' + (r.holes ? card({ data: { scores_by_hole: r.by, pars: pars, tee: r.deck || null, playing_handicap: (r.ph ? r.ph : null), handicap_index: r.idx }, gross: r.gross }) : '<div class="detMeta">No holes posted yet.</div>') + '</div>';
-    });
-    h += '</div>';
+    /* ⭐ FR-388 (v1.42) — THE MASTER SCORECARD UP TOP: one gross grid for every man, always open — his app's Master Scorecard.
+       The per-player rows and their tap-for-a-card are gone: "then you don't have to click each player to see their gross scores". */
+    var h = '<div class="card"><div class="rowsHd" style="grid-template-columns:1fr"><div>⛳ Scorecard</div></div>' + masterGrid(sn, rows, pars) + '</div>';
     /* ⭐ FR-383 (v1.38) — THE MATCHES. Each matchup as the phone's computeMatchGames has it; this only words it. */
     if (Array.isArray(sn.matches) && sn.matches.length) {
       var _first = function (lbl) { return String(lbl || '').split(' & ').map(function (n) { return n.trim().split(' ')[0]; }).join(' & '); };
@@ -2191,6 +2247,16 @@ function loadMatch(code) {
             + '<div class="nm" style="color:' + col + ';font-size:13px">' + esc(txt) + '</div><div class="sc" style="color:rgba(255,255,255,.4);font-size:11px">$' + esc(g.v != null ? g.v : '') + '</div></div>';
         });
         h += '</div>';
+      });
+      h += '</div>';
+    }
+    /* ⭐ FR-387 (v1.41) — THE OTHER GAMES: one section per card the phone sent, one generic renderer. */
+    if (Array.isArray(sn.cards) && sn.cards.length) {
+      h += '<div class="card"><div class="rowsHd" style="grid-template-columns:1fr"><div>🎲 Games</div></div>';
+      sn.cards.forEach(function (c, ci) {
+        var gid2 = 'gc' + ci;
+        h += '<div class="row" style="grid-template-columns:1fr 20px;padding-bottom:2px" onclick="tog(\'' + gid2 + '\')"><div class="nm" style="font-weight:800">' + esc(c.title) + '<span style="float:right;color:rgba(201,168,76,.85);font-size:11px;font-weight:700">' + esc(c.sub || '') + '</span></div>' + chev(gid2) + '</div>';
+        h += '<div class="det" id="' + gid2 + '">' + gameCard(sn, c) + '</div>';
       });
       h += '</div>';
     }
