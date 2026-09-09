@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="/sidebets-apple-touch-icon.png">
 <meta property="og:title" content="Pards Side Bets">
 <meta property="og:description" content="Team against team. The app keeps the ledger; it never moves money.">
-<!-- pards-sidebets-v1.04 -->
+<!-- pards-sidebets-v1.05 -->
 <!-- ═══════════════════════════════════════════════════════════════════════════
      PARDS SIDE BETS — FR-397, s327.
      A standalone single-file PWA. Own storage keys (psb_*), no G, no History,
@@ -337,7 +337,14 @@ function ptScbQRSvg(text, px) {
 <script>
 (function(){
 'use strict';
-var SB_VERSION = 'sidebets-v1.04';
+var SB_VERSION = 'sidebets-v1.05';
+/* ⭐ FR-400 — HOW OFTEN THIS RE-CHECKS, ONE PRODUCER.
+   A bet moves a handful of times a day: a proposal arrives, someone accepts,
+   a settle lands, cash is marked. This screen is a mailbox, not a scoreboard,
+   and it inherited a scoreboard's heartbeat from the app next door. Opening
+   the app still refreshes instantly (see the visibility listener), so this
+   only governs re-checks while a man is already looking at it. */
+var SB_POLL_MS = 120000;
 var API = 'https://pards-tour-api.bdapple.workers.dev';
 
 /* ───────────────────────────── storage (per-phone, best effort) ───────────── */
@@ -961,7 +968,7 @@ function refresh(){
 }
 function startPoll(){
   clearInterval(POLL);
-  POLL = setInterval(function(){ if (!document.hidden) refresh(); }, 30000);   /* the Pards Live cadence */
+  POLL = setInterval(function(){ if (!document.hidden) refresh(); }, SB_POLL_MS);
 }
 
 /* ───────────────────────────── boot ─────────────────────────────────────── */
