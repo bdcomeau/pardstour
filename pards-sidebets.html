@@ -1,0 +1,895 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Side Bets">
+<meta name="theme-color" content="#0d1f14">
+<title>Pards Side Bets</title>
+<link rel="manifest" href="/sidebets.webmanifest">
+<link rel="icon" type="image/png" href="/sidebets-icon-512.png">
+<link rel="apple-touch-icon" href="/sidebets-apple-touch-icon.png">
+<meta property="og:title" content="Pards Side Bets">
+<meta property="og:description" content="Team against team. The app keeps the ledger; it never moves money.">
+<!-- pards-sidebets-v1.00 -->
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     PARDS SIDE BETS — FR-397, s327.
+     A standalone single-file PWA. Own storage keys (psb_*), no G, no History,
+     no crests. Talks only to /api/sb/ on pards-tour-api 3.137.0 (D155).
+     ⛔ THE APP NEVER MOVES MONEY. It records that cash changed hands.
+     ⛔ NO SERVICE WORKER. ⛔ NO NATIVE BROWSER DIALOGS — sbModal is the one
+     modal producer, and the guard in the build script counts the call token
+     itself, so this sentence must never spell it out (s308's lesson, which
+     tripped three times in s327 alone).
+     ⛔ A bet compares FIGURES, never board positions. Equal is a push.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style>
+:root{
+  --bg:#0d1f14; --ink:#e9ede2; --gold:#c9a84c; --pale:#f5e6b8;
+  --card:rgba(255,255,255,.055); --line:rgba(201,168,76,.35);
+  --dim:rgba(233,237,226,.55); --dimmer:rgba(233,237,226,.35);
+  --warn:#e8a33d; --bad:#e0685c; --good:#6fbf7f; --deep:#14260f;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink);
+  max-width:520px;margin:0 auto;padding:0 14px calc(28px + env(safe-area-inset-bottom));
+  padding-top:calc(10px + env(safe-area-inset-top));-webkit-text-size-adjust:100%}
+.hd{display:flex;align-items:center;gap:9px;padding:6px 0 12px}
+.hd .mk{width:30px;height:30px;border-radius:8px;background:linear-gradient(140deg,var(--gold),#7d6320);
+  display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#11250f;flex:0 0 auto}
+.hd .t{font-size:14px;font-weight:800;letter-spacing:.2px}
+.hd .v{margin-left:auto;font-size:10px;color:var(--dimmer);font-variant-numeric:tabular-nums}
+.k{font-size:10.5px;font-weight:800;color:rgba(201,168,76,.9);text-transform:uppercase;letter-spacing:.7px;margin:16px 0 7px}
+.k:first-child{margin-top:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:9px}
+.card.tight{padding:11px 12px}
+.row{display:flex;align-items:center;gap:10px}
+.row .grow{flex:1;min-width:0}
+/* ⭐ s327, caught by LOOKING, not by an assertion: .teamrow is not .row, so the
+   name block never flexed and the ACCEPT pill sat glued to the name instead of
+   at the right edge. */
+.teamrow .grow{flex:1;min-width:0}
+.nm{font-size:15px;font-weight:800;line-height:1.25}
+.sub{font-size:12px;color:var(--dim);margin-top:2px;line-height:1.4}
+.amt{font-size:19px;font-weight:900;color:var(--pale);font-variant-numeric:tabular-nums;white-space:nowrap}
+.big{font-size:52px;font-weight:900;color:var(--pale);line-height:1.05;letter-spacing:2px;font-variant-numeric:tabular-nums;text-align:center}
+button,.btn{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+.b{display:block;width:100%;min-height:46px;border-radius:11px;background:rgba(245,230,184,.13);
+  border:1px solid rgba(245,230,184,.5);color:var(--pale);font-size:15px;font-weight:800;padding:11px 14px;margin-top:9px}
+.b.go{background:var(--gold);border-color:var(--gold);color:#11250f}
+.b.quiet{background:transparent;border-color:rgba(233,237,226,.22);color:var(--dim);font-weight:700}
+.b:disabled{opacity:.4}
+.b.sm{min-height:38px;font-size:13px;padding:8px 12px;width:auto;display:inline-block;margin-top:0}
+.inp{width:100%;height:46px;background:var(--deep);border:1.5px solid rgba(255,255,255,.2);border-radius:11px;
+  color:var(--ink);font-size:16px;padding:0 12px;font-family:inherit}
+.inp.code{text-align:center;font-size:26px;font-weight:900;letter-spacing:7px;height:58px;font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.chip{padding:9px 13px;border-radius:10px;border:1px solid rgba(233,237,226,.25);font-size:14px;font-weight:800;color:var(--dim)}
+.chip.on{background:rgba(245,230,184,.16);border-color:var(--pale);color:var(--pale)}
+.pill{display:inline-block;padding:3px 8px;border-radius:999px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.pill.win{background:rgba(111,191,127,.16);color:var(--good);border:1px solid rgba(111,191,127,.45)}
+.pill.lose{background:rgba(224,104,92,.14);color:var(--bad);border:1px solid rgba(224,104,92,.45)}
+.pill.push{background:rgba(233,237,226,.1);color:var(--dim);border:1px solid rgba(233,237,226,.3)}
+.pill.wait{background:rgba(232,163,61,.14);color:var(--warn);border:1px solid rgba(232,163,61,.45)}
+.pill.done{background:rgba(201,168,76,.14);color:var(--gold);border:1px solid var(--line)}
+.empty{color:var(--dimmer);font-size:13px;padding:14px 2px;line-height:1.55}
+.note{font-size:11px;color:var(--dimmer);line-height:1.55;margin-top:14px}
+.warnbox{background:rgba(232,163,61,.12);border:1px solid rgba(232,163,61,.4);border-radius:11px;padding:11px 12px;
+  font-size:13px;color:var(--warn);line-height:1.5;margin-bottom:9px}
+.badbox{background:rgba(224,104,92,.12);border:1px solid rgba(224,104,92,.4);border-radius:11px;padding:11px 12px;
+  font-size:13px;color:var(--bad);line-height:1.5;margin-bottom:9px}
+.jump{display:flex;flex-wrap:wrap;gap:5px;margin:2px 0 10px}
+.jump button{font-size:11.5px;font-weight:800;color:var(--gold);padding:5px 7px;border-radius:7px;border:1px solid var(--line);min-width:26px}
+.teamrow{display:flex;align-items:center;gap:10px;padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.07);width:100%;text-align:left}
+.teamrow:last-child{border-bottom:none}
+.list{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:9px}
+.qr{background:#fff;padding:10px;border-radius:12px;width:184px;margin:12px auto 4px;line-height:0}
+.qr svg{width:164px;height:164px;display:block}
+.mask{position:fixed;inset:0;background:rgba(4,12,7,.82);display:flex;align-items:center;justify-content:center;
+  padding:18px;z-index:90}
+.modal{background:#15291c;border:1px solid var(--line);border-radius:16px;padding:17px;max-width:400px;width:100%}
+.modal h3{font-size:16px;font-weight:900;margin-bottom:7px}
+.modal p{font-size:13.5px;color:var(--dim);line-height:1.55}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(22px + env(safe-area-inset-bottom));
+  background:#15291c;border:1px solid var(--line);color:var(--pale);font-size:13.5px;font-weight:700;
+  padding:11px 17px;border-radius:11px;z-index:95;max-width:88vw;text-align:center;box-shadow:0 6px 22px rgba(0,0,0,.5)}
+.tabs{display:flex;gap:6px;margin:2px 0 12px}
+.tabs button{flex:1;padding:9px 4px;border-radius:10px;font-size:12.5px;font-weight:800;color:var(--dim);
+  border:1px solid rgba(233,237,226,.16)}
+.tabs button.on{background:rgba(245,230,184,.14);border-color:var(--pale);color:var(--pale)}
+.tot{display:flex;gap:9px;margin-bottom:12px}
+.tot>div{flex:1;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:11px 10px;text-align:center}
+.tot .l{font-size:10px;font-weight:800;color:var(--dimmer);text-transform:uppercase;letter-spacing:.6px}
+.tot .n{font-size:22px;font-weight:900;color:var(--pale);font-variant-numeric:tabular-nums;margin-top:3px}
+.sp{height:2px}
+[hidden]{display:none!important}
+</style></head><body>
+
+<div class="hd">
+  <div class="mk">P</div>
+  <div class="t">Pards Side Bets</div>
+  <div class="v" id="sbVer"></div>
+</div>
+
+<div id="sbScreen"></div>
+<div id="sbModalHost"></div>
+
+<script>
+/* ══════════════ the proven QR encoder, lifted verbatim from the client ══════════════ */
+// ── ptScbQR: self-contained QR encoder (byte mode, ECC M, versions 1-6) ──
+// Verified s62: structural decode + 37/37 OpenCV round-trips. Returns
+// {size, matrix} or null when text exceeds 106 UTF-8 bytes.
+function ptScbQR(text) {
+  var data = [];
+  for (var i = 0; i < text.length; i++) {
+    var c = text.charCodeAt(i);
+    if (c < 0x80) data.push(c);
+    else if (c < 0x800) { data.push(0xC0 | (c >> 6), 0x80 | (c & 63)); }
+    else { data.push(0xE0 | (c >> 12), 0x80 | ((c >> 6) & 63), 0x80 | (c & 63)); }
+  }
+  var TAB = { 1: [16, [[1, 26, 16]]], 2: [28, [[1, 44, 28]]], 3: [44, [[1, 70, 44]]], 4: [64, [[2, 50, 32]]], 5: [86, [[2, 67, 43]]], 6: [108, [[4, 43, 27]]] };
+  var ALIGN = { 1: [], 2: [6, 18], 3: [6, 22], 4: [6, 26], 5: [6, 30], 6: [6, 34] };
+  var ver = 0;
+  for (var v = 1; v <= 6; v++) { if (TAB[v][0] >= data.length + 2) { ver = v; break; } }
+  if (!ver) return null;
+  var dataCW = TAB[ver][0], blocks = TAB[ver][1], size = 17 + 4 * ver;
+  var bits = [];
+  function put(val, n) { for (var b = n - 1; b >= 0; b--) bits.push((val >> b) & 1); }
+  put(4, 4); put(data.length, 8);
+  for (i = 0; i < data.length; i++) put(data[i], 8);
+  var cap = dataCW * 8;
+  for (i = 0; i < 4 && bits.length < cap; i++) bits.push(0);
+  while (bits.length % 8) bits.push(0);
+  var cw = [];
+  for (i = 0; i < bits.length; i += 8) {
+    var byte = 0; for (var j = 0; j < 8; j++) byte = (byte << 1) | bits[i + j];
+    cw.push(byte);
+  }
+  var padSeq = [0xEC, 0x11], pi = 0;
+  while (cw.length < dataCW) cw.push(padSeq[(pi++) % 2]);
+  var EXP = new Array(512), LOG = new Array(256);
+  for (i = 0, j = 1; i < 255; i++) { EXP[i] = j; LOG[j] = i; j <<= 1; if (j & 256) j ^= 0x11D; }
+  for (i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+  function rsGen(n) {
+    var g = [1];
+    for (var k = 0; k < n; k++) {
+      var ng = new Array(g.length + 1).fill(0);
+      for (var t = 0; t < g.length; t++) {
+        ng[t] ^= g[t];
+        ng[t + 1] ^= g[t] ? EXP[(LOG[g[t]] + k) % 255] : 0;
+      }
+      g = ng;
+    }
+    return g;
+  }
+  function rsEC(msg, ecLen) {
+    var gen = rsGen(ecLen);
+    var rem = msg.concat(new Array(ecLen).fill(0));
+    for (var k = 0; k < msg.length; k++) {
+      var coef = rem[k];
+      if (coef !== 0) {
+        for (var t = 1; t < gen.length; t++) rem[k + t] ^= gen[t] ? EXP[(LOG[coef] + LOG[gen[t]]) % 255] : 0;
+      }
+    }
+    return rem.slice(msg.length);
+  }
+  var dBlocks = [], eBlocks = [], pos = 0;
+  blocks.forEach(function (bl) {
+    var num = bl[0], total = bl[1], dlen = bl[2], ecLen = total - dlen;
+    for (var b = 0; b < num; b++) {
+      var d = cw.slice(pos, pos + dlen); pos += dlen;
+      dBlocks.push(d); eBlocks.push(rsEC(d, ecLen));
+    }
+  });
+  var seq = [];
+  var maxD = Math.max.apply(null, dBlocks.map(function (b) { return b.length; }));
+  for (i = 0; i < maxD; i++) dBlocks.forEach(function (b) { if (i < b.length) seq.push(b[i]); });
+  var maxE = Math.max.apply(null, eBlocks.map(function (b) { return b.length; }));
+  for (i = 0; i < maxE; i++) eBlocks.forEach(function (b) { if (i < b.length) seq.push(b[i]); });
+  var M = [], R = [];
+  for (i = 0; i < size; i++) { M.push(new Array(size).fill(0)); R.push(new Array(size).fill(false)); }
+  function set(r, c, val) { M[r][c] = val ? 1 : 0; R[r][c] = true; }
+  function finder(r, c) {
+    for (var dr = -1; dr <= 7; dr++) for (var dc = -1; dc <= 7; dc++) {
+      var rr = r + dr, cc = c + dc;
+      if (rr < 0 || rr >= size || cc < 0 || cc >= size) continue;
+      var on = (dr >= 0 && dr <= 6 && dc >= 0 && dc <= 6) &&
+        (dr === 0 || dr === 6 || dc === 0 || dc === 6 || (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4));
+      set(rr, cc, on);
+    }
+  }
+  finder(0, 0); finder(0, size - 7); finder(size - 7, 0);
+  for (i = 8; i < size - 8; i++) { if (!R[6][i]) set(6, i, i % 2 === 0); if (!R[i][6]) set(i, 6, i % 2 === 0); }
+  var ap = ALIGN[ver];
+  for (i = 0; i < ap.length; i++) for (j = 0; j < ap.length; j++) {
+    var ar = ap[i], ac = ap[j];
+    if (R[ar][ac]) continue;
+    for (var dr2 = -2; dr2 <= 2; dr2++) for (var dc2 = -2; dc2 <= 2; dc2++)
+      set(ar + dr2, ac + dc2, Math.max(Math.abs(dr2), Math.abs(dc2)) !== 1);
+  }
+  set(size - 8, 8, 1);
+  for (i = 0; i <= 8; i++) {
+    if (i !== 6) { if (!R[8][i]) set(8, i, 0); if (!R[i][8]) set(i, 8, 0); }
+  }
+  for (i = 0; i < 8; i++) { if (!R[8][size - 1 - i]) set(8, size - 1 - i, 0); if (!R[size - 1 - i][8]) set(size - 1 - i, 8, 0); }
+  var dataCells = [];
+  var bitIdx = 0, totalBits = seq.length * 8;
+  var col = size - 1, up = true;
+  while (col > 0) {
+    if (col === 6) col--;
+    for (var step = 0; step < size; step++) {
+      var row = up ? size - 1 - step : step;
+      for (var side = 0; side < 2; side++) {
+        var cc2 = col - side;
+        if (R[row][cc2]) continue;
+        var bit = 0;
+        if (bitIdx < totalBits) bit = (seq[bitIdx >> 3] >> (7 - (bitIdx & 7))) & 1;
+        bitIdx++;
+        M[row][cc2] = bit;
+        dataCells.push([row, cc2]);
+      }
+    }
+    up = !up; col -= 2;
+  }
+  function maskFn(m, r, c) {
+    switch (m) {
+      case 0: return (r + c) % 2 === 0;
+      case 1: return r % 2 === 0;
+      case 2: return c % 3 === 0;
+      case 3: return (r + c) % 3 === 0;
+      case 4: return (Math.floor(r / 2) + Math.floor(c / 3)) % 2 === 0;
+      case 5: return ((r * c) % 2 + (r * c) % 3) === 0;
+      case 6: return ((r * c) % 2 + (r * c) % 3) % 2 === 0;
+      case 7: return ((r + c) % 2 + (r * c) % 3) % 2 === 0;
+    }
+  }
+  function fmtBits(mask) {
+    var d5 = mask; // ECC M indicator = 00
+    var rem = d5 << 10;
+    for (var b = 14; b >= 10; b--) if ((rem >> b) & 1) rem ^= 0x537 << (b - 10);
+    return (((d5 << 10) | rem) ^ 0x5412) & 0x7FFF;
+  }
+  function writeFormat(mask) {
+    var f = fmtBits(mask);
+    for (var b = 0; b < 15; b++) {
+      var bit = (f >> (14 - b)) & 1; // MSB of the 15-bit format string sits at (8,0)
+      if (b < 6) M[8][b] = bit;
+      else if (b === 6) M[8][7] = bit;
+      else if (b === 7) M[8][8] = bit;
+      else if (b === 8) M[7][8] = bit;
+      else M[14 - b][8] = bit;
+      if (b < 8) M[size - 1 - b][8] = bit;
+      else M[8][size - 15 + b] = bit;
+    }
+    M[size - 8][8] = 1;
+  }
+  function penalty() {
+    var p = 0, r, c;
+    for (r = 0; r < size; r++) {
+      var run = 1;
+      for (c = 1; c <= size; c++) {
+        if (c < size && M[r][c] === M[r][c - 1]) run++;
+        else { if (run >= 5) p += 3 + (run - 5); run = 1; }
+      }
+    }
+    for (c = 0; c < size; c++) {
+      var run2 = 1;
+      for (r = 1; r <= size; r++) {
+        if (r < size && M[r][c] === M[r - 1][c]) run2++;
+        else { if (run2 >= 5) p += 3 + (run2 - 5); run2 = 1; }
+      }
+    }
+    for (r = 0; r < size - 1; r++) for (c = 0; c < size - 1; c++) {
+      var x = M[r][c];
+      if (M[r][c + 1] === x && M[r + 1][c] === x && M[r + 1][c + 1] === x) p += 3;
+    }
+    var pat1 = [1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0], pat2 = [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1];
+    function scan(get) {
+      for (var a = 0; a < size; a++) for (var s = 0; s + 11 <= size; s++) {
+        var ok1 = true, ok2 = true;
+        for (var k = 0; k < 11; k++) {
+          var val = get(a, s + k);
+          if (val !== pat1[k]) ok1 = false;
+          if (val !== pat2[k]) ok2 = false;
+        }
+        if (ok1) p += 40; if (ok2) p += 40;
+      }
+    }
+    scan(function (a, k) { return M[a][k]; });
+    scan(function (a, k) { return M[k][a]; });
+    var dark = 0;
+    for (r = 0; r < size; r++) for (c = 0; c < size; c++) dark += M[r][c];
+    p += Math.floor(Math.abs(dark * 100 / (size * size) - 50) / 5) * 10;
+    return p;
+  }
+  var bestP = Infinity, saved = null;
+  for (var m = 0; m < 8; m++) {
+    dataCells.forEach(function (rc) { if (maskFn(m, rc[0], rc[1])) M[rc[0]][rc[1]] ^= 1; });
+    writeFormat(m);
+    var p = penalty();
+    if (p < bestP) { bestP = p; saved = M.map(function (row) { return row.slice(); }); }
+    dataCells.forEach(function (rc) { if (maskFn(m, rc[0], rc[1])) M[rc[0]][rc[1]] ^= 1; });
+  }
+  return { size: size, matrix: saved };
+}
+
+// QR matrix → inline SVG (quiet zone included; black on white).
+function ptScbQRSvg(text, px) {
+  var q = ptScbQR(text);
+  if (!q) return '';
+  var n = q.size, quiet = 4, dim = n + 2 * quiet;
+  var s = '<svg xmlns="http://www.w3.org/2000/svg" width="' + px + '" height="' + px + '" viewBox="0 0 ' + dim + ' ' + dim + '" shape-rendering="crispEdges">'
+    + '<rect width="' + dim + '" height="' + dim + '" fill="#fff"/><path fill="#000" d="';
+  for (var r = 0; r < n; r++) {
+    for (var c = 0; c < n; c++) {
+      if (q.matrix[r][c]) s += 'M' + (c + quiet) + ' ' + (r + quiet) + 'h1v1h-1z';
+    }
+  }
+  return s + '"/></svg>';
+}
+
+</script>
+
+<script>
+(function(){
+'use strict';
+var SB_VERSION = 'sidebets-v1.00';
+var API = 'https://pards-tour-api.bdapple.workers.dev';
+
+/* ───────────────────────────── storage (per-phone, best effort) ───────────── */
+function sbGet(k){ try { return localStorage.getItem(k); } catch(_e){ return null; } }
+function sbSet(k,v){ try { localStorage.setItem(k,v); } catch(_e){} }
+function sbDel(k){ try { localStorage.removeItem(k); } catch(_e){} }
+function sbJson(k){ try { return JSON.parse(sbGet(k)||'null'); } catch(_e){ return null; } }
+
+/* THE KEY IS MINTED ONCE AND NEVER LEAVES THIS PHONE (the FR-382 pattern).
+   The worker only ever stores its SHA-256. */
+function sbKey(){
+  var k = sbGet('psb_key');
+  if (!k) {
+    var b = new Uint8Array(24);
+    (self.crypto || {}).getRandomValues ? self.crypto.getRandomValues(b)
+      : b.forEach(function(_,i){ b[i] = Math.floor(Math.random()*256); });
+    k = Array.from(b).map(function(x){ return x.toString(16).padStart(2,'0'); }).join('');
+    sbSet('psb_key', k);
+  }
+  return k;
+}
+
+/* ───────────────────────────── helpers ───────────────────────────────────── */
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function money(n){ n = Number(n)||0; return '$' + n.toLocaleString('en-CA'); }
+/* D1 hands back 'YYYY-MM-DD HH:MM:SS' in UTC with no zone marker. He reads MDT. */
+function mdt(s){
+  if (!s) return '';
+  try {
+    var iso = String(s).replace(' ','T');
+    if (!/[Zz]|[+\-]\d\d:?\d\d$/.test(iso)) iso += 'Z';
+    return new Date(iso).toLocaleString('en-CA',
+      { timeZone:'America/Edmonton', month:'short', day:'numeric', hour:'numeric', minute:'2-digit' });
+  } catch(_e){ return ''; }
+}
+function el(id){ return document.getElementById(id); }
+function screenEl(){ return el('sbScreen'); }
+
+var TOAST_T = null;
+function toast(msg){
+  var old = document.querySelector('.toast'); if (old) old.remove();
+  var d = document.createElement('div'); d.className = 'toast'; d.textContent = msg;
+  document.body.appendChild(d);
+  clearTimeout(TOAST_T); TOAST_T = setTimeout(function(){ if (d.parentNode) d.remove(); }, 2600);
+}
+
+/* ⛔⛔ THE ONE MODAL PRODUCER. No native browser dialog is used in this file,
+   ever — the build script asserts the call token is absent, so do not name it. */
+function sbModal(o){
+  var host = el('sbModalHost');
+  host.innerHTML =
+    '<div class="mask" id="sbMask"><div class="modal">'
+    + '<h3>' + esc(o.title) + '</h3>'
+    + '<p>' + (o.html || esc(o.body || '')) + '</p>'
+    + '<button class="b go" id="sbMOk">' + esc(o.ok || 'OK') + '</button>'
+    + (o.cancel === false ? '' : '<button class="b quiet" id="sbMNo">' + esc(o.cancel || 'Not now') + '</button>')
+    + '</div></div>';
+  function close(){ host.innerHTML = ''; }
+  el('sbMOk').onclick = function(){ close(); if (o.onOk) o.onOk(); };
+  if (el('sbMNo')) el('sbMNo').onclick = function(){ close(); if (o.onCancel) o.onCancel(); };
+}
+
+/* ───────────────────────────── the wire ──────────────────────────────────── */
+function api(path, opt){
+  opt = opt || {};
+  var h = { 'X-SB-Key': sbKey() };
+  if (opt.body !== undefined) h['Content-Type'] = 'application/json';
+  return fetch(API + path, {
+    method: opt.method || 'GET', headers: h,
+    body: opt.body === undefined ? undefined : JSON.stringify(opt.body)
+  }).then(function(r){
+    return r.json().catch(function(){ return {}; }).then(function(j){
+      j._http = r.status; return j;
+    });
+  }).catch(function(){ return { error:'No signal — try again in a moment', _http:0 }; });
+}
+
+/* ───────────────────────────── state ─────────────────────────────────────── */
+var ME    = sbJson('psb_me');        // {event_code, event_name, group_id, team, roster_id, name}
+var FIELD = sbJson('psb_field');     // {code, teams:[...]}
+var BETS  = [];
+var POLL  = null;
+
+function saveMe(){ sbSet('psb_me', JSON.stringify(ME)); }
+function saveField(){ try { sbSet('psb_field', JSON.stringify(FIELD)); } catch(_e){} }
+function myTeam(){ return (FIELD && ME) ? (FIELD.teams||[]).filter(function(t){ return t.group_id === ME.group_id; })[0] : null; }
+function teamById(id){ return (FIELD ? (FIELD.teams||[]) : []).filter(function(t){ return t.group_id === id; })[0] || null; }
+
+/* A bet's shape from MY side. */
+function mine(b){
+  var side = b.side || (ME && b.from_roster_id === ME.roster_id ? 'from' : 'to');
+  var them = side === 'from' ? b.to_team : b.from_team;
+  var themMan = side === 'from' ? b.to_name : b.from_name;
+  var won  = b.result && b.result !== 'push' && b.result === side;
+  var lost = b.result && b.result !== 'push' && b.result !== side;
+  return { side:side, them:them, themMan:themMan, won:won, lost:lost, push:b.result === 'push' };
+}
+
+/* ───────────────────────────── screens ───────────────────────────────────── */
+var SCREEN = 'home', PROPOSE = null, PENDING = null, ACCEPT = null, LEDGER_TAB = 'open';
+
+function go(s){ SCREEN = s; render(); window.scrollTo(0,0); }
+
+function render(){
+  el('sbVer').textContent = SB_VERSION.replace('sidebets-','');
+  if (!ME || !FIELD) return renderSetup();
+  if (SCREEN === 'propose') return renderPropose();
+  if (SCREEN === 'pending') return renderPending();
+  if (SCREEN === 'accept')  return renderAccept();
+  if (SCREEN === 'ledger')  return renderLedger();
+  if (SCREEN === 'me')      return renderMe();
+  return renderHome();
+}
+
+/* ── SETUP ───────────────────────────────────────────────────────────────── */
+var SETUP = { code:'', teams:null, group_id:null };
+function renderSetup(){
+  var h = '';
+  if (!SETUP.teams) {
+    h += '<div class="k">The event code</div>'
+      +  '<div class="card"><input class="inp code" id="sbEv" inputmode="numeric" maxlength="6" placeholder="000000" value="' + esc(SETUP.code) + '">'
+      +  '<button class="b go" id="sbEvGo">Find the field</button></div>'
+      +  '<div class="note">Ask the organizer for the event code — the same one on the scoring card.</div>';
+  } else if (SETUP.group_id == null) {
+    h += '<div class="k">' + esc(SETUP.event_name || 'Pick your team') + '</div>'
+      +  jumpBar(SETUP.teams) + '<div class="list" id="sbTeamList">'
+      +  SETUP.teams.map(function(t){
+           return '<button class="teamrow" data-g="' + t.group_id + '"><div class="grow">'
+             + '<div class="nm">' + esc(t.name) + '</div>'
+             + '<div class="sub">' + esc(t.players.map(function(p){ return p.name; }).join(' · ')) + '</div>'
+             + '</div></button>'; }).join('')
+      +  '</div>';
+  } else {
+    var t = SETUP.teams.filter(function(x){ return x.group_id === SETUP.group_id; })[0];
+    h += '<div class="k">Which one are you?</div>'
+      +  '<div class="card tight"><div class="nm">' + esc(t.name) + '</div></div>'
+      +  '<div class="list">' + t.players.map(function(p){
+           return '<button class="teamrow" data-r="' + p.roster_id + '"><div class="grow"><div class="nm">' + esc(p.name) + '</div></div></button>';
+         }).join('') + '</div>'
+      +  '<button class="b quiet" id="sbBackTeam">← a different team</button>';
+  }
+  screenEl().innerHTML = h;
+  wireJump();
+  if (el('sbEvGo')) el('sbEvGo').onclick = function(){
+    var c = (el('sbEv').value||'').trim();
+    if (!/^\d{4,8}$/.test(c)) { toast('That does not look like an event code'); return; }
+    this.disabled = true; this.textContent = 'Looking…';
+    api('/api/sb/' + c + '/field').then(function(j){
+      if (j.error) { SETUP.teams = null; render(); toast(j.error); return; }
+      SETUP.code = c; SETUP.teams = j.teams; SETUP.event_name = j.event.name; SETUP.event = j.event; render();
+    });
+  };
+  Array.prototype.forEach.call(document.querySelectorAll('[data-g]'), function(b){
+    b.onclick = function(){ SETUP.group_id = Number(b.getAttribute('data-g')); render(); };
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-r]'), function(b){
+    b.onclick = function(){
+      var t = SETUP.teams.filter(function(x){ return x.group_id === SETUP.group_id; })[0];
+      var p = t.players.filter(function(x){ return x.roster_id === Number(b.getAttribute('data-r')); })[0];
+      ME = { event_code:SETUP.code, event_name:SETUP.event_name, group_id:t.group_id, team:t.name,
+             roster_id:p.roster_id, name:p.name };
+      FIELD = { code:SETUP.code, teams:SETUP.teams };
+      saveMe(); saveField(); go('home'); refresh();
+    };
+  });
+  if (el('sbBackTeam')) el('sbBackTeam').onclick = function(){ SETUP.group_id = null; render(); };
+}
+
+function jumpBar(teams){
+  var letters = [];
+  teams.forEach(function(t){ var c = String(t.name).charAt(0).toUpperCase(); if (letters.indexOf(c) < 0) letters.push(c); });
+  if (letters.length < 6) return '';
+  return '<div class="jump">' + letters.map(function(c){
+    return '<button data-jump="' + esc(c) + '">' + esc(c) + '</button>'; }).join('') + '</div>';
+}
+function wireJump(){
+  Array.prototype.forEach.call(document.querySelectorAll('[data-jump]'), function(b){
+    b.onclick = function(){
+      var c = b.getAttribute('data-jump');
+      var rows = document.querySelectorAll('.teamrow .nm');
+      for (var i = 0; i < rows.length; i++) {
+        if (String(rows[i].textContent).charAt(0).toUpperCase() === c) {
+          rows[i].scrollIntoView({ block:'start', behavior:'smooth' }); break;
+        }
+      }
+    };
+  });
+}
+
+/* ── HOME ────────────────────────────────────────────────────────────────── */
+function renderHome(){
+  var pend = BETS.filter(function(b){ return !b.accepted_at; });
+  var live = BETS.filter(function(b){ return b.accepted_at && !b.result; });
+  var coll = BETS.filter(function(b){ var m = mine(b); return m.won && !b.received_at; });
+  var owe  = BETS.filter(function(b){ var m = mine(b); return m.lost && !b.paid_at; });
+  /* ⭐ s327, caught by the rig: a PUSH belongs to none of the four lists above —
+     it is settled, nobody won, nobody owes — so the card VANISHED off Home the
+     instant a man tapped Settle. He would think the app had eaten his bet. A
+     settled bet with nothing left to do still gets a line. */
+  var done = BETS.filter(function(b){
+    return b.result === 'push' || (b.result && b.result !== 'push' && b.paid_at && b.received_at); });
+  var inPlay = live.reduce(function(t,b){ return t + (Number(b.amount)||0); }, 0);
+  var toGet  = coll.reduce(function(t,b){ return t + (Number(b.amount)||0); }, 0);
+  var toPay  = owe.reduce(function(t,b){ return t + (Number(b.amount)||0); }, 0);
+
+  var h = '<div class="card tight"><div class="row"><div class="grow">'
+    + '<div class="nm">' + esc(ME.team) + '</div>'
+    + '<div class="sub">' + esc(ME.name) + ' · ' + esc(ME.event_name || ('Event ' + ME.event_code)) + '</div>'
+    + '</div><button class="b sm quiet" id="sbMe">Change</button></div></div>'
+    + '<div class="tot">'
+    + '<div><div class="l">In play</div><div class="n">' + money(inPlay) + '</div></div>'
+    + '<div><div class="l">Collect</div><div class="n">' + money(toGet) + '</div></div>'
+    + '<div><div class="l">Owe</div><div class="n">' + money(toPay) + '</div></div>'
+    + '</div>'
+    + '<button class="b go" id="sbNew">+ New side bet</button>'
+    + '<button class="b quiet" id="sbHaveCode">I have a bet code</button>';
+
+  if (coll.length) h += '<div class="k">Collect</div>' + coll.map(betCard).join('');
+  if (owe.length)  h += '<div class="k">You owe</div>'  + owe.map(betCard).join('');
+  if (live.length) h += '<div class="k">Running</div>'  + live.map(betCard).join('');
+  if (pend.length) h += '<div class="k">Waiting to be accepted</div>' + pend.map(betCard).join('');
+  if (done.length) h += '<div class="k">Settled</div>' + done.map(betCard).join('');
+  if (!BETS.length) h += '<div class="k">Your bets</div><div class="card"><div class="empty">No side bets yet. Tap <b>+ New side bet</b>, pick a team and an amount, and show them the code.</div></div>';
+
+  h += '<button class="b quiet" id="sbLedger">The full ledger (' + BETS.length + ')</button>'
+    +  '<div class="note">Pards Side Bets keeps the ledger. It never moves money — you settle in cash at the table, and the winner splits it with his team.</div>';
+  screenEl().innerHTML = h;
+  el('sbNew').onclick = function(){ PROPOSE = { to:null, amount:100, note:'' }; go('propose'); };
+  el('sbMe').onclick = function(){ go('me'); };
+  el('sbLedger').onclick = function(){ go('ledger'); };
+  el('sbHaveCode').onclick = askForCode;
+  wireBetCards();
+}
+
+function betCard(b){
+  var m = pillFor(b);
+  return '<div class="card tight" data-bet="' + esc(b.code) + '"><div class="row">'
+    + '<div class="grow"><div class="nm">' + esc(m.them || '—') + '</div>'
+    + '<div class="sub">' + esc(m.line) + '</div></div>'
+    + '<div style="text-align:right"><div class="amt">' + money(b.amount) + '</div>'
+    + '<div class="sp"></div><span class="pill ' + m.cls + '">' + esc(m.label) + '</span></div>'
+    + '</div>' + (m.actions || '') + '</div>';
+}
+function pillFor(b){
+  var m = mine(b), cls = 'wait', label = 'Waiting', line = '', actions = '';
+  if (!b.accepted_at) { line = 'Code ' + b.code + ' · nobody has accepted yet'; label = 'Pending'; }
+  else if (!b.result) { cls = 'done'; label = 'Running'; line = (m.themMan || '') + ' · accepted ' + mdt(b.accepted_at); }
+  else if (m.push)    { cls = 'push'; label = 'Push';
+                        line = 'Tied at ' + (b.from_figure != null ? b.from_figure : '—') + ' — nobody pays'; }
+  else if (m.won)     { cls = 'win';  label = b.received_at ? 'Collected' : 'You won';
+                        line = figLine(b, m) + (b.paid_at ? ' · he marked it paid' : ''); }
+  else                { cls = 'lose'; label = b.paid_at ? 'Paid' : 'You lost'; line = figLine(b, m); }
+  if (b.result && b.result !== 'push') {
+    if (m.won && !b.received_at)  actions = '<button class="b sm go" data-act="received" data-c="' + esc(b.code) + '" style="margin-top:10px">Received ✓</button>';
+    if (m.lost && !b.paid_at)     actions = '<button class="b sm go" data-act="paid" data-c="' + esc(b.code) + '" style="margin-top:10px">I paid ✓</button>';
+  } else if (b.accepted_at && !b.result) {
+    actions = '<button class="b sm" data-act="settle" data-c="' + esc(b.code) + '" style="margin-top:10px">Settle from the board</button>';
+  }
+  return { cls:cls, label:label, line:line, them:m.them, actions:actions };
+}
+function figLine(b, m){
+  if (b.from_figure == null || b.to_figure == null) return (b.result_source === 'manual' ? 'Marked by hand' : '');
+  var meFig = m.side === 'from' ? b.from_figure : b.to_figure;
+  var themFig = m.side === 'from' ? b.to_figure : b.from_figure;
+  return 'Gross ' + meFig + ' to ' + themFig;
+}
+function wireBetCards(){
+  Array.prototype.forEach.call(document.querySelectorAll('[data-act]'), function(btn){
+    btn.onclick = function(){
+      var act = btn.getAttribute('data-act'), code = btn.getAttribute('data-c');
+      if (act === 'settle') return doSettle(code);
+      btn.disabled = true;
+      api('/api/sb/bets/' + code + '/' + act, { method:'POST', body:{} }).then(function(j){
+        if (j.error) { toast(j.error); btn.disabled = false; return; }
+        toast(act === 'paid' ? 'Marked paid' : 'Marked received'); refresh();
+      });
+    };
+  });
+}
+
+function doSettle(code){
+  var b = BETS.filter(function(x){ return x.code === code; })[0];
+  sbModal({
+    title:'Settle this bet',
+    html:'Read the final board and settle <b>' + esc(b.from_team) + '</b> against <b>' + esc(b.to_team)
+       + '</b>. The lower gross wins; <b>an equal gross is a push</b> — no countback.',
+    ok:'Settle from the board',
+    cancel:'Mark it by hand instead',
+    onOk: function(){
+      api('/api/sb/bets/' + code + '/settle', { method:'POST', body:{ mode:'board' } }).then(function(j){
+        if (j.error) { sbModal({ title:'Not yet', body:j.error, ok:'OK', cancel:false }); return; }
+        toast(j.bet.result === 'push' ? 'A push — nobody pays' : 'Settled'); refresh();
+      });
+    },
+    onCancel: function(){ manualSettle(code); }
+  });
+}
+function manualSettle(code){
+  var b = BETS.filter(function(x){ return x.code === code; })[0];
+  var m = mine(b);
+  sbModal({
+    title:'Mark it by hand',
+    html:'For a bet the board cannot judge — a KP, a long drive. <b>Both of you have to mark the same thing</b> before it settles.',
+    ok:'We won', cancel:'They won',
+    onOk:     function(){ sendManual(code, m.side); },
+    onCancel: function(){ sendManual(code, m.side === 'from' ? 'to' : 'from'); }
+  });
+}
+function sendManual(code, claim){
+  api('/api/sb/bets/' + code + '/settle', { method:'POST', body:{ mode:'manual', claim:claim } }).then(function(j){
+    if (j.disagree) { sbModal({ title:'You two disagree', body:'You have each marked a different winner. Talk it over, then mark it again.', ok:'OK', cancel:false }); refresh(); return; }
+    if (j.error) { toast(j.error); return; }
+    toast(j.bet && j.bet.result ? 'Settled' : 'Marked — waiting on the other side'); refresh();
+  });
+}
+
+/* ── PROPOSE ─────────────────────────────────────────────────────────────── */
+var AMOUNTS = [25, 50, 100, 200, 500];
+function renderPropose(){
+  var others = (FIELD.teams||[]).filter(function(t){ return t.group_id !== ME.group_id; });
+  var h = '<button class="b quiet" id="sbBack" style="margin-top:0">← Home</button>';
+  if (!PROPOSE.to) {
+    h += '<div class="k">Who are you betting? (' + others.length + ' teams)</div>'
+      +  jumpBar(others)
+      +  '<div class="list">' + others.map(function(t){
+           return '<button class="teamrow" data-g="' + t.group_id + '"><div class="grow">'
+             + '<div class="nm">' + esc(t.name) + '</div>'
+             + '<div class="sub">' + esc(t.players.map(function(p){ return p.name; }).join(' · ')) + '</div>'
+             + '</div></button>'; }).join('') + '</div>';
+  } else {
+    var t = teamById(PROPOSE.to);
+    h += '<div class="k">The bet</div>'
+      +  '<div class="card"><div class="sub">' + esc(ME.team) + '</div>'
+      +  '<div class="nm" style="margin:4px 0 6px">versus ' + esc(t.name) + '</div>'
+      +  '<div class="sub">' + esc(t.players.map(function(p){ return p.name; }).join(' · ')) + '</div></div>'
+      +  '<div class="k">How much</div><div class="chips" id="sbAmts">'
+      +  AMOUNTS.map(function(a){ return '<button class="chip' + (a === PROPOSE.amount ? ' on' : '') + '" data-a="' + a + '">$' + a + '</button>'; }).join('')
+      +  '</div>'
+      +  '<div class="sp" style="height:9px"></div>'
+      +  '<input class="inp" id="sbAmt" inputmode="numeric" placeholder="or type an amount" value="' + (AMOUNTS.indexOf(PROPOSE.amount) < 0 ? PROPOSE.amount : '') + '">'
+      +  '<div class="k">A note (optional)</div>'
+      +  '<input class="inp" id="sbNote" maxlength="60" placeholder="front nine, closest to the pin…" value="' + esc(PROPOSE.note) + '">'
+      +  '<button class="b go" id="sbDo">Propose ' + money(PROPOSE.amount) + '</button>'
+      +  '<button class="b quiet" id="sbOther">← a different team</button>'
+      +  '<div class="note">Nothing is a bet until the other side accepts it on his own phone and says who he is. The ceiling is $500.</div>';
+  }
+  screenEl().innerHTML = h;
+  wireJump();
+  el('sbBack').onclick = function(){ go('home'); };
+  Array.prototype.forEach.call(document.querySelectorAll('[data-g]'), function(b){
+    b.onclick = function(){ PROPOSE.to = Number(b.getAttribute('data-g')); render(); };
+  });
+  if (el('sbOther')) el('sbOther').onclick = function(){ PROPOSE.to = null; render(); };
+  Array.prototype.forEach.call(document.querySelectorAll('[data-a]'), function(b){
+    b.onclick = function(){ PROPOSE.amount = Number(b.getAttribute('data-a')); render(); };
+  });
+  if (el('sbAmt')) el('sbAmt').oninput = function(){
+    var v = Math.round(Number(this.value)||0);
+    PROPOSE.amount = v;
+    if (el('sbDo')) el('sbDo').textContent = 'Propose ' + money(v);
+    Array.prototype.forEach.call(document.querySelectorAll('[data-a]'), function(x){
+      x.className = 'chip' + (Number(x.getAttribute('data-a')) === v ? ' on' : ''); });
+  };
+  if (el('sbDo')) el('sbDo').onclick = function(){
+    if (el('sbNote')) PROPOSE.note = el('sbNote').value;
+    var amt = PROPOSE.amount;
+    if (!(amt > 0) || amt > 500) { toast('The amount must be $1 to $500'); return; }
+    var payload = { from_group_id:ME.group_id, from_roster_id:ME.roster_id, to_group_id:PROPOSE.to,
+                    amount:amt, note:PROPOSE.note };
+    this.disabled = true;
+    /* ⭐ Q6 — ask FIRST so the warning lands before anything is written. */
+    api('/api/sb/' + ME.event_code + '/bets', { method:'POST', body:Object.assign({ dry_run:true }, payload) })
+      .then(function(j){
+        if (j.error) { toast(j.error); el('sbDo').disabled = false; return; }
+        if (j.dup && j.dup.length) {
+          var t = teamById(PROPOSE.to);
+          sbModal({
+            title:'Your team already has a bet on',
+            html:'<b>' + esc(t.name) + '</b> — ' + j.dup.map(function(d){ return money(d.amount) + ' (code ' + esc(d.code) + ')'; }).join(', ')
+               + '.<br><br>That is allowed. This would be a <b>second, separate</b> bet.',
+            ok:'Propose it anyway', cancel:'Never mind',
+            onOk: function(){ fireProposal(payload); },
+            onCancel: function(){ if (el('sbDo')) el('sbDo').disabled = false; }
+          });
+          return;
+        }
+        fireProposal(payload);
+      });
+  };
+}
+function fireProposal(payload){
+  api('/api/sb/' + ME.event_code + '/bets', { method:'POST', body:payload }).then(function(j){
+    if (j.error) { toast(j.error); if (el('sbDo')) el('sbDo').disabled = false; return; }
+    PENDING = j.code; go('pending'); refresh();
+  });
+}
+
+/* ── PENDING (the code, the QR, the share) ───────────────────────────────── */
+function renderPending(){
+  var b = BETS.filter(function(x){ return x.code === PENDING; })[0];
+  var t = b ? teamById(b.to_group_id) : null;
+  var link = 'https://pardstour.com/pards-sidebets.html?b=' + PENDING;
+  var svg = (typeof ptScbQRSvg === 'function') ? ptScbQRSvg(link, 164) : '';
+  screenEl().innerHTML =
+      '<div class="k">Show him this</div>'
+    + '<div class="card"><div class="big">' + esc(PENDING) + '</div>'
+    + (svg ? '<div class="qr">' + svg + '</div>' : '')
+    + '<div class="sub" style="text-align:center;margin-top:8px">'
+    + esc(ME.team) + ' vs ' + esc(t ? t.name : '') + (b ? ' · ' + money(b.amount) : '') + '</div></div>'
+    + '<button class="b go" id="sbShare">Share the link</button>'
+    + '<button class="b" id="sbCopy">Copy the code</button>'
+    + '<button class="b quiet" id="sbDone">Done</button>'
+    + '<div class="note">He scans this, or types the code into his own app, picks himself off his team and taps Accept. Until he does, it is not a bet.</div>';
+  el('sbDone').onclick = function(){ go('home'); };
+  el('sbCopy').onclick = function(){ copy(PENDING, 'Code copied'); };
+  el('sbShare').onclick = function(){
+    if (navigator.share) { navigator.share({ text:'Side bet — ' + ME.team + ' vs ' + (t?t.name:'') + '. Code ' + PENDING, url:link }).catch(function(){}); }
+    else copy(link, 'Link copied');
+  };
+}
+function copy(txt, msg){
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(function(){ toast(msg); }).catch(function(){});
+  else { try { var a = document.createElement('textarea'); a.value = txt; document.body.appendChild(a); a.select(); document.execCommand('copy'); document.body.removeChild(a); toast(msg); } catch(_e){} }
+}
+
+/* ── ACCEPT ──────────────────────────────────────────────────────────────── */
+function askForCode(){
+  sbModal({
+    title:'A bet code',
+    html:'<input class="inp code" id="sbCodeIn" inputmode="numeric" maxlength="6" placeholder="000000">',
+    ok:'Look it up',
+    onOk: function(){ }
+  });
+  var inp = el('sbCodeIn'); if (inp) inp.focus();
+  var ok = el('sbMOk');
+  if (ok) ok.onclick = function(){
+    var c = (el('sbCodeIn').value||'').trim();
+    el('sbModalHost').innerHTML = '';
+    if (!/^\d{4,8}$/.test(c)) { toast('That does not look like a bet code'); return; }
+    openAccept(c);
+  };
+}
+function openAccept(code){
+  api('/api/sb/bets/' + code).then(function(j){
+    if (j.error) { toast(j.error); return; }
+    ACCEPT = j.bet; go('accept');
+  });
+}
+function renderAccept(){
+  var b = ACCEPT;
+  var t = teamById(b.to_group_id);
+  var already = !!b.accepted_at;
+  var h = '<div class="k">A side bet</div><div class="card">'
+    + '<div class="sub">' + esc(b.from_name || '') + ' of</div>'
+    + '<div class="nm">' + esc(b.from_team) + '</div>'
+    + '<div class="big" style="margin:12px 0">' + money(b.amount) + '</div>'
+    + '<div class="sub" style="text-align:center">against <b>' + esc(b.to_team) + '</b></div>'
+    + (b.note ? '<div class="sub" style="text-align:center;margin-top:6px">“' + esc(b.note) + '”</div>' : '')
+    + '</div>';
+  if (already) {
+    h += '<div class="warnbox">Already accepted by ' + esc(b.to_name || 'someone') + ' — ' + esc(mdt(b.accepted_at)) + '.</div>'
+      +  '<button class="b quiet" id="sbBack">← Home</button>';
+  } else if (!t) {
+    h += '<div class="warnbox">This bet is against a team that is not in your event.</div><button class="b quiet" id="sbBack">← Home</button>';
+  } else if (ME && ME.group_id !== b.to_group_id) {
+    h += '<div class="warnbox">This one is for ' + esc(b.to_team) + '. You are on ' + esc(ME.team) + ', so it is not yours to accept.</div>'
+      +  '<button class="b quiet" id="sbBack">← Home</button>';
+  } else {
+    h += '<div class="k">Which one are you?</div><div class="list">'
+      +  t.players.map(function(p){
+           return '<button class="teamrow" data-r="' + p.roster_id + '"><div class="grow"><div class="nm">' + esc(p.name) + '</div></div>'
+             + '<span class="pill done">Accept</span></button>'; }).join('')
+      +  '</div>'
+      +  '<button class="b quiet" id="sbBack">← Home</button>'
+      +  '<div class="note">Tap your own name. Whoever taps it is on the hook for this bet, and the time is stamped.</div>';
+  }
+  screenEl().innerHTML = h;
+  if (el('sbBack')) el('sbBack').onclick = function(){ go('home'); };
+  Array.prototype.forEach.call(document.querySelectorAll('[data-r]'), function(btn){
+    btn.onclick = function(){
+      btn.disabled = true;
+      api('/api/sb/bets/' + b.code + '/accept', { method:'POST', body:{ to_roster_id:Number(btn.getAttribute('data-r')) } })
+        .then(function(j){
+          if (j.error) { toast(j.error); btn.disabled = false; return; }
+          toast('Accepted — it is a bet'); go('home'); refresh();
+        });
+    };
+  });
+}
+
+/* ── LEDGER ──────────────────────────────────────────────────────────────── */
+function renderLedger(){
+  var open = BETS.filter(function(b){ return !b.result || (b.result !== 'push' && !(b.paid_at && b.received_at)); });
+  var closed = BETS.filter(function(b){ return b.result === 'push' || (b.result && b.paid_at && b.received_at); });
+  var show = LEDGER_TAB === 'open' ? open : closed;
+  screenEl().innerHTML =
+      '<button class="b quiet" id="sbBack" style="margin-top:0">← Home</button>'
+    + '<div class="tabs"><button id="sbTabO" class="' + (LEDGER_TAB === 'open' ? 'on' : '') + '">Open (' + open.length + ')</button>'
+    + '<button id="sbTabC" class="' + (LEDGER_TAB === 'closed' ? 'on' : '') + '">Closed (' + closed.length + ')</button></div>'
+    + (show.length ? show.map(betCard).join('') : '<div class="card"><div class="empty">Nothing here yet.</div></div>');
+  el('sbBack').onclick = function(){ go('home'); };
+  el('sbTabO').onclick = function(){ LEDGER_TAB = 'open'; render(); };
+  el('sbTabC').onclick = function(){ LEDGER_TAB = 'closed'; render(); };
+  wireBetCards();
+}
+
+/* ── ME ──────────────────────────────────────────────────────────────────── */
+function renderMe(){
+  screenEl().innerHTML =
+      '<button class="b quiet" id="sbBack" style="margin-top:0">← Home</button>'
+    + '<div class="k">You</div><div class="card"><div class="nm">' + esc(ME.name) + '</div>'
+    + '<div class="sub">' + esc(ME.team) + ' · ' + esc(ME.event_name || ME.event_code) + '</div></div>'
+    + '<button class="b" id="sbRepick">Pick myself again</button>'
+    + '<div class="note">Your bets are tied to this phone, not to your name — picking yourself again keeps every bet you already have. '
+    + 'Version ' + esc(SB_VERSION) + '.</div>';
+  el('sbBack').onclick = function(){ go('home'); };
+  el('sbRepick').onclick = function(){
+    SETUP = { code:ME.event_code, teams:(FIELD||{}).teams || null, group_id:null, event_name:ME.event_name };
+    ME = null; sbDel('psb_me'); render();
+  };
+}
+
+/* ───────────────────────────── the poll ─────────────────────────────────── */
+function refresh(){
+  if (!ME) return;
+  api('/api/sb/' + ME.event_code + '/mine').then(function(j){
+    if (j.bets) { BETS = j.bets; if (SCREEN !== 'accept') render(); }
+  });
+}
+function startPoll(){
+  clearInterval(POLL);
+  POLL = setInterval(function(){ if (!document.hidden) refresh(); }, 30000);   /* the Pards Live cadence */
+}
+
+/* ───────────────────────────── boot ─────────────────────────────────────── */
+function boot(){
+  sbKey();
+  var q = {}; location.search.replace(/^\?/,'').split('&').forEach(function(kv){
+    if (!kv) return; var i = kv.indexOf('=');
+    q[decodeURIComponent(i < 0 ? kv : kv.slice(0,i))] = decodeURIComponent(i < 0 ? '' : kv.slice(i+1));
+  });
+  if (q.e && !ME) SETUP.code = String(q.e).slice(0,8);
+  render();
+  if (ME) { refresh(); startPoll(); }
+  if (q.b) {
+    if (ME) openAccept(String(q.b).slice(0,8));
+    else sbModal({ title:'Pick yourself first',
+      body:'Someone has offered you a side bet (code ' + String(q.b).slice(0,8) + '). Find your team and tap your name, and it will be waiting.',
+      ok:'OK', cancel:false });
+  }
+}
+document.addEventListener('visibilitychange', function(){ if (!document.hidden) refresh(); });
+boot();
+})();
+</script>
+</body></html>
