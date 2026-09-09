@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="/sidebets-apple-touch-icon.png">
 <meta property="og:title" content="Pards Side Bets">
 <meta property="og:description" content="Team against team. The app keeps the ledger; it never moves money.">
-<!-- pards-sidebets-v1.00 -->
+<!-- pards-sidebets-v1.01 -->
 <!-- ═══════════════════════════════════════════════════════════════════════════
      PARDS SIDE BETS — FR-397, s327.
      A standalone single-file PWA. Own storage keys (psb_*), no G, no History,
@@ -335,7 +335,7 @@ function ptScbQRSvg(text, px) {
 <script>
 (function(){
 'use strict';
-var SB_VERSION = 'sidebets-v1.00';
+var SB_VERSION = 'sidebets-v1.01';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
 
 /* ───────────────────────────── storage (per-phone, best effort) ───────────── */
@@ -442,10 +442,15 @@ function go(s){ SCREEN = s; render(); window.scrollTo(0,0); }
 
 function render(){
   el('sbVer').textContent = SB_VERSION.replace('sidebets-','');
-  if (!ME || !FIELD) return renderSetup();
+  /* ⛔ B-386 — this guard used to read `if (!ME || !FIELD)`, which bounced a
+     virgin phone straight back to setup and made the whole scan-first flow
+     unreachable. The accept screen is the ONE screen that must work before a
+     man has told us who he is — telling us is what he is about to do. */
+  if (!FIELD) return renderSetup();
+  if (SCREEN === 'accept' && ACCEPT) return renderAccept();
+  if (!ME) return renderSetup();
   if (SCREEN === 'propose') return renderPropose();
   if (SCREEN === 'pending') return renderPending();
-  if (SCREEN === 'accept')  return renderAccept();
   if (SCREEN === 'ledger')  return renderLedger();
   if (SCREEN === 'me')      return renderMe();
   return renderHome();
@@ -498,7 +503,7 @@ function renderSetup(){
       var p = t.players.filter(function(x){ return x.roster_id === Number(b.getAttribute('data-r')); })[0];
       ME = { event_code:SETUP.code, event_name:SETUP.event_name, group_id:t.group_id, team:t.name,
              roster_id:p.roster_id, name:p.name };
-      FIELD = { code:SETUP.code, teams:SETUP.teams };
+      FIELD = { code:SETUP.code, event_name:SETUP.event_name, teams:SETUP.teams };
       saveMe(); saveField(); go('home'); refresh();
     };
   });
@@ -779,6 +784,33 @@ function askForCode(){
     openAccept(c);
   };
 }
+/* ⛔⛔ B-386 (v1.01, s327) — HIS FIRST REAL SCAN. A phone that had never opened
+   this app followed a bet link, was asked for an EVENT code it had no way of
+   knowing, and forgot the bet entirely — the modal said "it will be waiting"
+   and it was not. THE APP ALREADY KNEW: the bet read is public and (api
+   3.138.0) carries its own event. So a scanned bet now loads that event's
+   field by itself and goes straight to "which one are you?" on the team the
+   bet was made against. ⭐ ACCEPTING IS THE SETUP — the man names himself once. */
+function bootstrapFromBet(code){
+  api('/api/sb/bets/' + code).then(function(j){
+    if (j.error) { sbDel('psb_pending');
+      sbModal({ title:'That bet was not found', body:j.error, ok:'OK', cancel:false }); return; }
+    var b = j.bet;
+    if (!b.event_code) {           /* an older worker — fall back to the old path */
+      sbModal({ title:'Pick yourself first',
+        body:'Someone has offered you a side bet (code ' + code + '). Find your team and tap your name, and it will be waiting.',
+        ok:'OK', cancel:false });
+      return;
+    }
+    api('/api/sb/' + b.event_code + '/field').then(function(f){
+      if (f.error) { sbModal({ title:'Could not load the field', body:f.error, ok:'OK', cancel:false }); return; }
+      FIELD = { code:b.event_code, event_name:(f.event && f.event.name) || b.event_name, teams:f.teams };
+      saveField();
+      ACCEPT = b; go('accept');
+    });
+  });
+}
+
 function openAccept(code){
   api('/api/sb/bets/' + code).then(function(j){
     if (j.error) { toast(j.error); return; }
@@ -797,6 +829,7 @@ function renderAccept(){
     + (b.note ? '<div class="sub" style="text-align:center;margin-top:6px">“' + esc(b.note) + '”</div>' : '')
     + '</div>';
   if (already) {
+    sbDel('psb_pending');                                  /* B-386 — done with it */
     h += '<div class="warnbox">Already accepted by ' + esc(b.to_name || 'someone') + ' — ' + esc(mdt(b.accepted_at)) + '.</div>'
       +  '<button class="b quiet" id="sbBack">← Home</button>';
   } else if (!t) {
@@ -818,9 +851,20 @@ function renderAccept(){
   Array.prototype.forEach.call(document.querySelectorAll('[data-r]'), function(btn){
     btn.onclick = function(){
       btn.disabled = true;
-      api('/api/sb/bets/' + b.code + '/accept', { method:'POST', body:{ to_roster_id:Number(btn.getAttribute('data-r')) } })
+      var rid = Number(btn.getAttribute('data-r'));
+      api('/api/sb/bets/' + b.code + '/accept', { method:'POST', body:{ to_roster_id:rid } })
         .then(function(j){
           if (j.error) { toast(j.error); btn.disabled = false; return; }
+          /* ⭐ B-386 — ACCEPTING IS THE SETUP. He has just told us his team and
+             his name; there is nothing left to ask him. */
+          if (!ME) {
+            var tm = teamById(b.to_group_id) || {};
+            var pl = (tm.players || []).filter(function(x){ return x.roster_id === rid; })[0] || {};
+            ME = { event_code:FIELD.code, event_name:FIELD.event_name, group_id:b.to_group_id,
+                   team:tm.name, roster_id:rid, name:pl.name };
+            saveMe();
+          }
+          sbDel('psb_pending');
           toast('Accepted — it is a bet'); go('home'); refresh();
         });
     };
@@ -881,12 +925,11 @@ function boot(){
   if (q.e && !ME) SETUP.code = String(q.e).slice(0,8);
   render();
   if (ME) { refresh(); startPoll(); }
-  if (q.b) {
-    if (ME) openAccept(String(q.b).slice(0,8));
-    else sbModal({ title:'Pick yourself first',
-      body:'Someone has offered you a side bet (code ' + String(q.b).slice(0,8) + '). Find your team and tap your name, and it will be waiting.',
-      ok:'OK', cancel:false });
-  }
+  /* B-386 — the code is remembered the instant it arrives, so nothing can
+     lose it: not a reload, not a detour through setup, not a dropped signal. */
+  var pend = q.b ? String(q.b).slice(0,8) : sbGet('psb_pending');
+  if (q.b) sbSet('psb_pending', pend);
+  if (pend) { if (ME) openAccept(pend); else bootstrapFromBet(pend); }
 }
 document.addEventListener('visibilitychange', function(){ if (!document.hidden) refresh(); });
 boot();
