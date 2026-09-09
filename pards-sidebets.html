@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="/sidebets-apple-touch-icon.png">
 <meta property="og:title" content="Pards Side Bets">
 <meta property="og:description" content="Team against team. The app keeps the ledger; it never moves money.">
-<!-- pards-sidebets-v1.07 -->
+<!-- pards-sidebets-v1.08 -->
 <!-- ═══════════════════════════════════════════════════════════════════════════
      PARDS SIDE BETS — FR-397, s327.
      A standalone single-file PWA. Own storage keys (psb_*), no G, no History,
@@ -337,7 +337,7 @@ function ptScbQRSvg(text, px) {
 <script>
 (function(){
 'use strict';
-var SB_VERSION = 'sidebets-v1.07';
+var SB_VERSION = 'sidebets-v1.08';
 /* ⭐ FR-400 — HOW OFTEN THIS RE-CHECKS, ONE PRODUCER.
    A bet moves a handful of times a day: a proposal arrives, someone accepts,
    a settle lands, cash is marked. This screen is a mailbox, not a scoreboard,
@@ -440,6 +440,10 @@ var BETS  = [];
    is held apart from BETS on purpose: it must never enter the three totals, the
    five Home lists, or the ledger tabs, because none of those are about it. */
 var MAILBOX = [];
+/* FR-406 — THE BETS HIS TEAM TURNED DOWN. Held apart from both the mailbox and
+   the ledger's money lists: it is finished business, not an offer and not a
+   debt, so it belongs on the record and nowhere near the three totals. */
+var TURNED = [];
 var POLL  = null;
 /* FR-405 — WHEN THE DOOR LAST ANSWERED. Not when we last asked: a failed ask
    must never make the screen look fresher than it is. */
@@ -644,11 +648,16 @@ function renderHome(){
   if (owe.length)  h += '<div class="k">You owe</div>'  + owe.map(betCard).join('');
   if (live.length) h += '<div class="k">Running</div>'  + live.map(betCard).join('');
   if (pend.length) h += '<div class="k">Waiting to be accepted</div>' + pend.map(betCard).join('');
-  if (dead.length) h += '<div class="k">Turned down</div>' + dead.map(betCard).join('');
+  /* ⭐ FR-406 — the man who turned a bet down now has the record of it, and so do
+     his three partners: the decline was made on the team's behalf, and the card
+     names who made it. Shown beside the proposer's own turned-down bets, because
+     from Home they are the same fact seen from two ends. */
+  var gone = dead.concat(TURNED);
+  if (gone.length) h += '<div class="k">Turned down</div>' + gone.map(betCard).join('');
   if (done.length) h += '<div class="k">Settled</div>' + done.map(betCard).join('');
   if (!BETS.length) h += '<div class="k">Your bets</div><div class="card"><div class="empty">No side bets yet. Tap <b>+ New side bet</b>, pick a team and an amount, and show them the code.</div></div>';
 
-  h += '<button class="b quiet" id="sbLedger">The full ledger (' + BETS.length + ')</button>'
+  h += '<button class="b quiet" id="sbLedger">The full ledger (' + (BETS.length + TURNED.length) + ')</button>'
     +  '<div class="note">Pards Side Bets keeps the ledger. It never moves money — you settle in cash at the table, and the winner splits it with his team.</div>';
   screenEl().innerHTML = h;
   el('sbNew').onclick = function(){ PROPOSE = { to:null, amount:100, note:'' }; go('propose'); };
@@ -1046,7 +1055,10 @@ function renderAccept(){
 /* ── LEDGER ──────────────────────────────────────────────────────────────── */
 function renderLedger(){
   var open = BETS.filter(function(b){ return !b.declined_at && (!b.result || (b.result !== 'push' && !(b.paid_at && b.received_at))); });
-  var closed = BETS.filter(function(b){ return !!b.declined_at || b.result === 'push' || (b.result && b.paid_at && b.received_at); });
+  /* ⭐ FR-406 — HIS ASK IN ONE LINE: "keep track in the ledger the bets you
+     decline". A turned-down bet is as closed as a bet gets. */
+  var closed = BETS.concat(TURNED).filter(function(b){
+    return !!b.declined_at || b.result === 'push' || (b.result && b.paid_at && b.received_at); });
   var show = LEDGER_TAB === 'open' ? open : closed;
   screenEl().innerHTML =
       '<button class="b quiet" id="sbBack" style="margin-top:0">← Home</button>'
@@ -1072,7 +1084,7 @@ function renderMe(){
   el('sbBack').onclick = function(){ go('home'); };
   el('sbRepick').onclick = function(){
     SETUP = { code:ME.event_code, teams:(FIELD||{}).teams || null, group_id:null, event_name:ME.event_name };
-    ME = null; BETS = []; MAILBOX = []; sbDel('psb_me'); sbDel('psb_lock'); render();
+    ME = null; BETS = []; MAILBOX = []; TURNED = []; sbDel('psb_me'); sbDel('psb_lock'); render();
   };
 }
 
@@ -1088,8 +1100,13 @@ function refresh(done){
        team. The claim says WHOSE DEVICE; the pick says WHO IS PLAYING; a list
        of offers means the team he says he is on. Two identities on one phone
        must never both be trusted. */
-    MAILBOX = j.bets.filter(function(b){
+    var _in = j.bets.filter(function(b){
       return b.side === 'inbound' && ME && _sbSame(b.to_group_id, ME.group_id); });
+    /* ⛔ ONE SPLIT, ONE PLACE. A turned-down offer must never render with an
+       Accept door on it, and an open offer must never sit in the record as if
+       it were finished. */
+    MAILBOX = _in.filter(function(b){ return !b.declined_at; });
+    TURNED  = _in.filter(function(b){ return !!b.declined_at; });
     if (SCREEN !== 'accept') render();
     if (done) done();
   });
