@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="/sidebets-apple-touch-icon.png">
 <meta property="og:title" content="Pards Side Bets">
 <meta property="og:description" content="Team against team. The app keeps the ledger; it never moves money.">
-<!-- pards-sidebets-v1.01 -->
+<!-- pards-sidebets-v1.02 -->
 <!-- ═══════════════════════════════════════════════════════════════════════════
      PARDS SIDE BETS — FR-397, s327.
      A standalone single-file PWA. Own storage keys (psb_*), no G, no History,
@@ -335,7 +335,7 @@ function ptScbQRSvg(text, px) {
 <script>
 (function(){
 'use strict';
-var SB_VERSION = 'sidebets-v1.01';
+var SB_VERSION = 'sidebets-v1.02';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
 
 /* ───────────────────────────── storage (per-phone, best effort) ───────────── */
@@ -608,16 +608,42 @@ function figLine(b, m){
   var themFig = m.side === 'from' ? b.to_figure : b.from_figure;
   return 'Gross ' + meFig + ' to ' + themFig;
 }
+/* ⭐ FR-398 (v1.02, s327) — THE MONEY PROMPT, off the settle itself. His words:
+   "when you settle from board - you should also confirm 'I got the money'".
+   The man who taps Settle is the man standing at the table with the cash, so he
+   is asked then and there. ⭐ HIS RULING: the WINNER's confirmation closes the
+   row outright (api 3.139.0 stamps both sides) — the loser is never made to tap
+   again to agree he paid. The loser's own settle gets the mirror. */
+function sbStamp(code, act){
+  return api('/api/sb/bets/' + code + '/' + act, { method:'POST', body:{} }).then(function(j){
+    if (j.error) { toast(j.error); return false; }
+    toast(act === 'received' ? 'Collected ✓ — that bet is closed' : 'Marked paid');
+    refresh(); return true;
+  });
+}
+function offerMoney(b){
+  if (!b || !b.result || b.result === 'push') return;
+  var m = mine(b), who = esc(m.themMan || m.them || 'him');
+  if (m.won && !b.received_at) {
+    sbModal({ title:'You won ' + money(b.amount),
+      html:'<b>' + who + '</b> owes you ' + money(b.amount) + '. Has he handed it over?',
+      ok:'I got the money', cancel:'Not yet',
+      onOk:function(){ sbStamp(b.code, 'received'); } });
+  } else if (m.lost && !b.paid_at) {
+    sbModal({ title:'You lost ' + money(b.amount),
+      html:'You owe <b>' + who + '</b> ' + money(b.amount) + '. Have you settled up?',
+      ok:'I paid him', cancel:'Not yet',
+      onOk:function(){ sbStamp(b.code, 'paid'); } });
+  }
+}
+
 function wireBetCards(){
   Array.prototype.forEach.call(document.querySelectorAll('[data-act]'), function(btn){
     btn.onclick = function(){
       var act = btn.getAttribute('data-act'), code = btn.getAttribute('data-c');
       if (act === 'settle') return doSettle(code);
       btn.disabled = true;
-      api('/api/sb/bets/' + code + '/' + act, { method:'POST', body:{} }).then(function(j){
-        if (j.error) { toast(j.error); btn.disabled = false; return; }
-        toast(act === 'paid' ? 'Marked paid' : 'Marked received'); refresh();
-      });
+      sbStamp(code, act).then(function(ok){ if (!ok) btn.disabled = false; });
     };
   });
 }
@@ -633,7 +659,8 @@ function doSettle(code){
     onOk: function(){
       api('/api/sb/bets/' + code + '/settle', { method:'POST', body:{ mode:'board' } }).then(function(j){
         if (j.error) { sbModal({ title:'Not yet', body:j.error, ok:'OK', cancel:false }); return; }
-        toast(j.bet.result === 'push' ? 'A push — nobody pays' : 'Settled'); refresh();
+        if (j.bet.result === 'push') { toast('A push — nobody pays'); refresh(); return; }
+        refresh(); offerMoney(j.bet);                     /* FR-398 */
       });
     },
     onCancel: function(){ manualSettle(code); }
@@ -654,7 +681,8 @@ function sendManual(code, claim){
   api('/api/sb/bets/' + code + '/settle', { method:'POST', body:{ mode:'manual', claim:claim } }).then(function(j){
     if (j.disagree) { sbModal({ title:'You two disagree', body:'You have each marked a different winner. Talk it over, then mark it again.', ok:'OK', cancel:false }); refresh(); return; }
     if (j.error) { toast(j.error); return; }
-    toast(j.bet && j.bet.result ? 'Settled' : 'Marked — waiting on the other side'); refresh();
+    if (j.bet && j.bet.result && j.bet.result !== 'push') { refresh(); offerMoney(j.bet); return; }   /* FR-398 */
+    toast(j.bet && j.bet.result ? 'A push — nobody pays' : 'Marked — waiting on the other side'); refresh();
   });
 }
 
