@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="/sidebets-apple-touch-icon.png">
 <meta property="og:title" content="Pards Side Bets">
 <meta property="og:description" content="Team against team. The app keeps the ledger; it never moves money.">
-<!-- pards-sidebets-v1.05 -->
+<!-- pards-sidebets-v1.06 -->
 <!-- ═══════════════════════════════════════════════════════════════════════════
      PARDS SIDE BETS — FR-397, s327.
      A standalone single-file PWA. Own storage keys (psb_*), no G, no History,
@@ -337,7 +337,7 @@ function ptScbQRSvg(text, px) {
 <script>
 (function(){
 'use strict';
-var SB_VERSION = 'sidebets-v1.05';
+var SB_VERSION = 'sidebets-v1.06';
 /* ⭐ FR-400 — HOW OFTEN THIS RE-CHECKS, ONE PRODUCER.
    A bet moves a handful of times a day: a proposal arrives, someone accepts,
    a settle lands, cash is marked. This screen is a mailbox, not a scoreboard,
@@ -427,9 +427,29 @@ function api(path, opt){
 var ME    = sbJson('psb_me');        // {event_code, event_name, group_id, team, roster_id, name}
 var FIELD = sbJson('psb_field');     // {code, teams:[...]}
 var BETS  = [];
+/* FR-402 — A BET AIMED AT MY TEAM THAT NOBODY HAS TAKEN IS NOT IN MY LEDGER.
+   It is a question being asked of four men, and any of them may answer it. It
+   is held apart from BETS on purpose: it must never enter the three totals, the
+   five Home lists, or the ledger tabs, because none of those are about it. */
+var MAILBOX = [];
 var POLL  = null;
 
 function saveMe(){ sbSet('psb_me', JSON.stringify(ME)); }
+
+/* ⭐ FR-399/FR-402 — ONE PRODUCER FOR THE ROSTER LOCK, CLIENT SIDE.
+   Two reasons this call exists. The lock is enforced on the doors that matter,
+   so a man learns here, at the tee, instead of at the bar. And the worker
+   resolves a phone's TEAM from this row, so a phone that has never called it
+   has no team on file and is shown nothing that was aimed at his team.
+   ⛔ FAILS OPEN on anything but a refusal: this door is a courtesy, and the
+   doors that move money claim again for themselves. */
+function sbClaimTag(){ return ME ? (ME.event_code + ':' + ME.roster_id) : ''; }
+function sbLockMe(){
+  if (!ME) return;
+  api('/api/sb/' + ME.event_code + '/claim',
+      { method:'POST', body:{ roster_id:ME.roster_id, group_id:ME.group_id } })
+    .then(function(j){ if (j && !j.claimed && !j.error) sbSet('psb_lock', sbClaimTag()); });
+}
 function saveField(){ try { sbSet('psb_field', JSON.stringify(FIELD)); } catch(_e){} }
 function myTeam(){ return (FIELD && ME) ? (FIELD.teams||[]).filter(function(t){ return t.group_id === ME.group_id; })[0] : null; }
 function teamById(id){ return (FIELD ? (FIELD.teams||[]) : []).filter(function(t){ return t.group_id === id; })[0] || null; }
@@ -528,10 +548,27 @@ function renderSetup(){
     b.onclick = function(){
       var t = SETUP.teams.filter(function(x){ return x.group_id === SETUP.group_id; })[0];
       var p = t.players.filter(function(x){ return x.roster_id === Number(b.getAttribute('data-r')); })[0];
-      ME = { event_code:SETUP.code, event_name:SETUP.event_name, group_id:t.group_id, team:t.name,
-             roster_id:p.roster_id, name:p.name };
-      FIELD = { code:SETUP.code, event_name:SETUP.event_name, teams:SETUP.teams };
-      saveMe(); saveField(); go('home'); refresh();
+      b.disabled = true;
+      /* ⭐ Ask BEFORE writing him to this phone. A man who is told at the tee
+         that his name is on someone else's phone can fix it in ten seconds; the
+         same man told at the settle cannot. ⛔ Only a refusal stops him. */
+      api('/api/sb/' + SETUP.code + '/claim',
+          { method:'POST', body:{ roster_id:p.roster_id, group_id:t.group_id } })
+        .then(function(j){
+          if (j && j.claimed) {
+            b.disabled = false;
+            sbModal({ title:'That name is on another phone',
+                      body:j.error || 'Someone has already picked that name.',
+                      ok:'OK', cancel:false });
+            return;
+          }
+          ME = { event_code:SETUP.code, event_name:SETUP.event_name, group_id:t.group_id, team:t.name,
+                 roster_id:p.roster_id, name:p.name };
+          FIELD = { code:SETUP.code, event_name:SETUP.event_name, teams:SETUP.teams };
+          saveMe(); saveField();
+          if (j && !j.error) sbSet('psb_lock', sbClaimTag());
+          go('home'); refresh();
+        });
     };
   });
   if (el('sbBackTeam')) el('sbBackTeam').onclick = function(){ SETUP.group_id = null; render(); };
@@ -560,7 +597,11 @@ function wireJump(){
 
 /* ── HOME ────────────────────────────────────────────────────────────────── */
 function renderHome(){
-  var pend = BETS.filter(function(b){ return !b.accepted_at; });
+  /* ⛔ A DECLINED PROPOSAL IS NOT STILL WAITING. It left the pending list the
+     moment somebody on the other team killed it, and it gets its own line —
+     s327's rule, that a card which vanishes reads as an app that ate a bet. */
+  var pend = BETS.filter(function(b){ return !b.accepted_at && !b.declined_at; });
+  var dead = BETS.filter(function(b){ return !b.accepted_at && b.declined_at; });
   var live = BETS.filter(function(b){ return b.accepted_at && !b.result; });
   var coll = BETS.filter(function(b){ var m = mine(b); return m.won && !b.received_at; });
   var owe  = BETS.filter(function(b){ var m = mine(b); return m.lost && !b.paid_at; });
@@ -583,6 +624,7 @@ function renderHome(){
     + '<div><div class="l">Collect</div><div class="n">' + money(toGet) + '</div></div>'
     + '<div><div class="l">Owe</div><div class="n">' + money(toPay) + '</div></div>'
     + '</div>'
+    + (MAILBOX.length ? '<div class="k">Waiting on you</div>' + MAILBOX.map(inboxCard).join('') : '')
     + '<button class="b go" id="sbNew">+ New side bet</button>'
     + '<button class="b quiet" id="sbHaveCode">I have a bet code</button>';
 
@@ -590,6 +632,7 @@ function renderHome(){
   if (owe.length)  h += '<div class="k">You owe</div>'  + owe.map(betCard).join('');
   if (live.length) h += '<div class="k">Running</div>'  + live.map(betCard).join('');
   if (pend.length) h += '<div class="k">Waiting to be accepted</div>' + pend.map(betCard).join('');
+  if (dead.length) h += '<div class="k">Turned down</div>' + dead.map(betCard).join('');
   if (done.length) h += '<div class="k">Settled</div>' + done.map(betCard).join('');
   if (!BETS.length) h += '<div class="k">Your bets</div><div class="card"><div class="empty">No side bets yet. Tap <b>+ New side bet</b>, pick a team and an amount, and show them the code.</div></div>';
 
@@ -603,6 +646,24 @@ function renderHome(){
   wireBetCards();
 }
 
+/* ⭐ FR-402 — the mailbox card. It carries the man who proposed it, both teams
+   and the money, because those three are the whole question. Two doors: take it
+   (he is already set up, so there is nobody to pick) or turn it down.
+   ⛔ The click tokens are deliberately NOT the worker's action names, so a tap
+   that ever escaped its route could not spell a real door. */
+function inboxCard(b){
+  return '<div class="card tight" data-bet="' + esc(b.code) + '"><div class="row">'
+    + '<div class="grow"><div class="nm">' + esc(b.from_team || '\u2014') + '</div>'
+    + '<div class="sub">' + esc(b.from_name || 'Someone') + ' is offering'
+    + (b.note ? ' \u00b7 \u201c' + esc(b.note) + '\u201d' : '') + '</div></div>'
+    + '<div style="text-align:right"><div class="amt">' + money(b.amount) + '</div>'
+    + '<div class="sp"></div><span class="pill wait">Your call</span></div></div>'
+    + '<div class="row" style="margin-top:10px">'
+    + '<button class="b sm go grow" data-act="take" data-c="' + esc(b.code) + '">Accept</button>'
+    + '<button class="b sm quiet grow" data-act="refuse" data-c="' + esc(b.code) + '">Turn it down</button>'
+    + '</div></div>';
+}
+
 function betCard(b){
   var m = pillFor(b);
   return '<div class="card tight" data-bet="' + esc(b.code) + '"><div class="row">'
@@ -614,7 +675,11 @@ function betCard(b){
 }
 function pillFor(b){
   var m = mine(b), cls = 'wait', label = 'Waiting', line = '', actions = '';
-  if (!b.accepted_at) { line = 'Code ' + b.code + ' · nobody has accepted yet'; label = 'Pending'; }
+  if (b.declined_at && !b.accepted_at) {
+    cls = 'lose'; label = 'Turned down';
+    line = (b.declined_by ? esc(b.declined_by) + ' turned it down' : 'Turned down') + ' · ' + mdt(b.declined_at);
+  }
+  else if (!b.accepted_at) { line = 'Code ' + b.code + ' · nobody has accepted yet'; label = 'Pending'; }
   else if (!b.result) { cls = 'done'; label = 'Running'; line = (m.themMan || '') + ' · accepted ' + mdt(b.accepted_at); }
   else if (m.push)    { cls = 'push'; label = 'Push';
                         line = 'Tied at ' + (b.from_figure != null ? b.from_figure : '—') + ' — nobody pays'; }
@@ -669,9 +734,42 @@ function wireBetCards(){
     btn.onclick = function(){
       var act = btn.getAttribute('data-act'), code = btn.getAttribute('data-c');
       if (act === 'settle') return doSettle(code);
+      if (act === 'take')   return takeInbox(code, btn);
+      if (act === 'refuse') return refuseInbox(code);
       btn.disabled = true;
       sbStamp(code, act).then(function(ok){ if (!ok) btn.disabled = false; });
     };
+  });
+}
+
+/* ⭐ FR-402 — TAKING AN OFFER HERE NEEDS NO RE-PICK. The scanned path has to ask
+   a virgin phone who it belongs to; this man told us at the tee, and the claim
+   row proves it, so asking him again would be theatre. */
+function takeInbox(code, btn){
+  if (btn) btn.disabled = true;
+  api('/api/sb/bets/' + code + '/accept', { method:'POST', body:{ to_roster_id:ME.roster_id } })
+    .then(function(j){
+      if (j.error) { toast(j.error); if (btn) btn.disabled = false; return; }
+      toast('Accepted \u2014 it is a bet'); refresh();
+    });
+}
+/* ⛔ A STAMP, NEVER A DELETE — and it kills the bet for all four men, so it is
+   asked for once, plainly, before it is sent. */
+function refuseInbox(code){
+  var b = MAILBOX.filter(function(x){ return x.code === code; })[0];
+  if (!b) return;
+  sbModal({
+    title:'Turn down ' + money(b.amount) + '?',
+    html:'<b>' + esc(b.from_name || 'He') + '</b> of <b>' + esc(b.from_team || '') + '</b> offered '
+       + money(b.amount) + ' against <b>' + esc(b.to_team || '') + '</b>.<br><br>'
+       + 'This kills it for your whole team, and he is told you turned it down.',
+    ok:'Turn it down', cancel:'Not now',
+    onOk: function(){
+      api('/api/sb/bets/' + code + '/decline', { method:'POST', body:{} }).then(function(j){
+        if (j.error) { toast(j.error); return; }
+        toast('Turned down'); refresh();
+      });
+    }
   });
 }
 
@@ -928,8 +1026,8 @@ function renderAccept(){
 
 /* ── LEDGER ──────────────────────────────────────────────────────────────── */
 function renderLedger(){
-  var open = BETS.filter(function(b){ return !b.result || (b.result !== 'push' && !(b.paid_at && b.received_at)); });
-  var closed = BETS.filter(function(b){ return b.result === 'push' || (b.result && b.paid_at && b.received_at); });
+  var open = BETS.filter(function(b){ return !b.declined_at && (!b.result || (b.result !== 'push' && !(b.paid_at && b.received_at))); });
+  var closed = BETS.filter(function(b){ return !!b.declined_at || b.result === 'push' || (b.result && b.paid_at && b.received_at); });
   var show = LEDGER_TAB === 'open' ? open : closed;
   screenEl().innerHTML =
       '<button class="b quiet" id="sbBack" style="margin-top:0">← Home</button>'
@@ -955,7 +1053,7 @@ function renderMe(){
   el('sbBack').onclick = function(){ go('home'); };
   el('sbRepick').onclick = function(){
     SETUP = { code:ME.event_code, teams:(FIELD||{}).teams || null, group_id:null, event_name:ME.event_name };
-    ME = null; BETS = []; sbDel('psb_me'); render();
+    ME = null; BETS = []; MAILBOX = []; sbDel('psb_me'); sbDel('psb_lock'); render();
   };
 }
 
@@ -963,7 +1061,16 @@ function renderMe(){
 function refresh(){
   if (!ME) return;
   api('/api/sb/' + ME.event_code + '/mine').then(function(j){
-    if (j.bets) { BETS = j.bets.filter(sbOwnsBet); if (SCREEN !== 'accept') render(); }
+    if (!j.bets) return;
+    BETS = j.bets.filter(function(b){ return b.side !== 'inbound' && sbOwnsBet(b); });
+    /* ⛔ B-388's LESSON AT THE TEAM LEVEL. The worker answers with the team on
+       this phone's claim row, and a man may since have re-picked onto another
+       team. The claim says WHOSE DEVICE; the pick says WHO IS PLAYING; a list
+       of offers means the team he says he is on. Two identities on one phone
+       must never both be trusted. */
+    MAILBOX = j.bets.filter(function(b){
+      return b.side === 'inbound' && ME && _sbSame(b.to_group_id, ME.group_id); });
+    if (SCREEN !== 'accept') render();
   });
 }
 function startPoll(){
@@ -980,6 +1087,11 @@ function boot(){
   });
   if (q.e && !ME) SETUP.code = String(q.e).slice(0,8);
   render();
+  /* ⭐ THE UPGRADE HOLE, CLOSED. Every phone already set up on the last version
+     picked its man before this call existed, so it has no row and would be
+     shown nothing aimed at its team — invisible, silently, to exactly the men
+     who have been using it longest. One call, once, remembered on the phone. */
+  if (ME && sbGet('psb_lock') !== sbClaimTag()) sbLockMe();
   if (ME) { refresh(); startPoll(); }
   /* B-386 — the code is remembered the instant it arrives, so nothing can
      lose it: not a reload, not a detour through setup, not a dropped signal. */
