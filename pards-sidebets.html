@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="/sidebets-apple-touch-icon.png">
 <meta property="og:title" content="Pards Side Bets">
 <meta property="og:description" content="Team against team. The app keeps the ledger; it never moves money.">
-<!-- pards-sidebets-v1.06 -->
+<!-- pards-sidebets-v1.07 -->
 <!-- ═══════════════════════════════════════════════════════════════════════════
      PARDS SIDE BETS — FR-397, s327.
      A standalone single-file PWA. Own storage keys (psb_*), no G, no History,
@@ -337,7 +337,7 @@ function ptScbQRSvg(text, px) {
 <script>
 (function(){
 'use strict';
-var SB_VERSION = 'sidebets-v1.06';
+var SB_VERSION = 'sidebets-v1.07';
 /* ⭐ FR-400 — HOW OFTEN THIS RE-CHECKS, ONE PRODUCER.
    A bet moves a handful of times a day: a proposal arrives, someone accepts,
    a settle lands, cash is marked. This screen is a mailbox, not a scoreboard,
@@ -382,6 +382,14 @@ function mdt(s){
   } catch(_e){ return ''; }
 }
 function el(id){ return document.getElementById(id); }
+/* FR-405 — one producer for how old this screen is, in a man's words. */
+function _sbAgo(){
+  if (!LAST_OK) return 'not checked yet';
+  var s2 = Math.round((Date.now() - LAST_OK) / 1000);
+  if (s2 < 45)  return 'checked just now';
+  var m2 = Math.round(s2 / 60);
+  return 'checked ' + m2 + (m2 === 1 ? ' minute ago' : ' minutes ago');
+}
 function screenEl(){ return el('sbScreen'); }
 
 var TOAST_T = null;
@@ -433,6 +441,9 @@ var BETS  = [];
    five Home lists, or the ledger tabs, because none of those are about it. */
 var MAILBOX = [];
 var POLL  = null;
+/* FR-405 — WHEN THE DOOR LAST ANSWERED. Not when we last asked: a failed ask
+   must never make the screen look fresher than it is. */
+var LAST_OK = 0;
 
 function saveMe(){ sbSet('psb_me', JSON.stringify(ME)); }
 
@@ -624,6 +635,7 @@ function renderHome(){
     + '<div><div class="l">Collect</div><div class="n">' + money(toGet) + '</div></div>'
     + '<div><div class="l">Owe</div><div class="n">' + money(toPay) + '</div></div>'
     + '</div>'
+    + '<button class="b quiet" id="sbSync" style="margin-top:0">Refresh &nbsp;·&nbsp; <span id="sbFresh">' + esc(_sbAgo()) + '</span></button>'
     + (MAILBOX.length ? '<div class="k">Waiting on you</div>' + MAILBOX.map(inboxCard).join('') : '')
     + '<button class="b go" id="sbNew">+ New side bet</button>'
     + '<button class="b quiet" id="sbHaveCode">I have a bet code</button>';
@@ -642,6 +654,13 @@ function renderHome(){
   el('sbNew').onclick = function(){ PROPOSE = { to:null, amount:100, note:'' }; go('propose'); };
   el('sbMe').onclick = function(){ go('me'); };
   el('sbLedger').onclick = function(){ go('ledger'); };
+  /* ⛔ It must SAY it is working. A button that looks identical while it waits
+     gets tapped again, and a man decides the app is broken. */
+  el('sbSync').onclick = function(){
+    var btn = this; if (btn.disabled) return;
+    btn.disabled = true; btn.innerHTML = 'Checking\u2026';
+    refresh(function(){ if (el('sbSync')) { el('sbSync').disabled = false; } });
+  };
   el('sbHaveCode').onclick = askForCode;
   wireBetCards();
 }
@@ -1058,10 +1077,11 @@ function renderMe(){
 }
 
 /* ───────────────────────────── the poll ─────────────────────────────────── */
-function refresh(){
-  if (!ME) return;
+function refresh(done){
+  if (!ME) { if (done) done(); return; }
   api('/api/sb/' + ME.event_code + '/mine').then(function(j){
-    if (!j.bets) return;
+    if (!j.bets) { if (done) done(); toast(j.error || 'No signal \u2014 try again in a moment'); return; }
+    LAST_OK = Date.now();
     BETS = j.bets.filter(function(b){ return b.side !== 'inbound' && sbOwnsBet(b); });
     /* ⛔ B-388's LESSON AT THE TEAM LEVEL. The worker answers with the team on
        this phone's claim row, and a man may since have re-picked onto another
@@ -1071,6 +1091,7 @@ function refresh(){
     MAILBOX = j.bets.filter(function(b){
       return b.side === 'inbound' && ME && _sbSame(b.to_group_id, ME.group_id); });
     if (SCREEN !== 'accept') render();
+    if (done) done();
   });
 }
 function startPoll(){
