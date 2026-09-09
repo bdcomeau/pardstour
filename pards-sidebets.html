@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="/sidebets-apple-touch-icon.png">
 <meta property="og:title" content="Pards Side Bets">
 <meta property="og:description" content="Team against team. The app keeps the ledger; it never moves money.">
-<!-- pards-sidebets-v1.02 -->
+<!-- pards-sidebets-v1.03 -->
 <!-- ═══════════════════════════════════════════════════════════════════════════
      PARDS SIDE BETS — FR-397, s327.
      A standalone single-file PWA. Own storage keys (psb_*), no G, no History,
@@ -335,7 +335,7 @@ function ptScbQRSvg(text, px) {
 <script>
 (function(){
 'use strict';
-var SB_VERSION = 'sidebets-v1.02';
+var SB_VERSION = 'sidebets-v1.03';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
 
 /* ───────────────────────────── storage (per-phone, best effort) ───────────── */
@@ -424,6 +424,24 @@ function saveMe(){ sbSet('psb_me', JSON.stringify(ME)); }
 function saveField(){ try { sbSet('psb_field', JSON.stringify(FIELD)); } catch(_e){} }
 function myTeam(){ return (FIELD && ME) ? (FIELD.teams||[]).filter(function(t){ return t.group_id === ME.group_id; })[0] : null; }
 function teamById(id){ return (FIELD ? (FIELD.teams||[]) : []).filter(function(t){ return t.group_id === id; })[0] || null; }
+
+/* ⛔⛔ B-388 — THE LEDGER BELONGS TO THE MAN, THE HEADER BELONGS TO THE PHONE'S
+   OWNER, AND THOSE ARE NOT THE SAME THING. The door hands back every bet whose
+   stored key is a side, and the key deliberately outlives a change of name. So
+   a phone that has switched men would otherwise show the previous man's bets,
+   quoting the previous man's figures. The key answers WHOSE DEVICE THIS IS; the
+   roster id answers WHO IS PLAYING; a ledger means the man. Two identities on
+   one phone must never both be trusted.
+   A pending proposal is always mine on the 'from' half, so it is covered. */
+function _sbSame(a, b){
+  return a !== null && a !== undefined && b !== null && b !== undefined && Number(a) === Number(b);
+}
+function sbOwnsBet(b){
+  if (!ME || !b) return false;
+  if (b.side === 'from') return _sbSame(b.from_roster_id, ME.roster_id);
+  if (b.side === 'to')   return _sbSame(b.to_roster_id,   ME.roster_id);
+  return false;
+}
 
 /* A bet's shape from MY side. */
 function mine(b){
@@ -922,12 +940,13 @@ function renderMe(){
     + '<div class="k">You</div><div class="card"><div class="nm">' + esc(ME.name) + '</div>'
     + '<div class="sub">' + esc(ME.team) + ' · ' + esc(ME.event_name || ME.event_code) + '</div></div>'
     + '<button class="b" id="sbRepick">Pick myself again</button>'
-    + '<div class="note">Your bets are tied to this phone, not to your name — picking yourself again keeps every bet you already have. '
+    + '<div class="note">Your bets follow your name. Pick a different man and the bets you made as '
+    + esc(ME.name) + ' stay on this phone but stop showing here — pick him again and they come back. '
     + 'Version ' + esc(SB_VERSION) + '.</div>';
   el('sbBack').onclick = function(){ go('home'); };
   el('sbRepick').onclick = function(){
     SETUP = { code:ME.event_code, teams:(FIELD||{}).teams || null, group_id:null, event_name:ME.event_name };
-    ME = null; sbDel('psb_me'); render();
+    ME = null; BETS = []; sbDel('psb_me'); render();
   };
 }
 
@@ -935,7 +954,7 @@ function renderMe(){
 function refresh(){
   if (!ME) return;
   api('/api/sb/' + ME.event_code + '/mine').then(function(j){
-    if (j.bets) { BETS = j.bets; if (SCREEN !== 'accept') render(); }
+    if (j.bets) { BETS = j.bets.filter(sbOwnsBet); if (SCREEN !== 'accept') render(); }
   });
 }
 function startPoll(){
