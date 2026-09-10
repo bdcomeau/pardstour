@@ -55,6 +55,9 @@
   /* ⛔ CHILD selector, not descendant. `.stat div` also matched .n and .l inside each
      tile, so every number and label drew its own bordered box inside the tile.
      Found by looking at the render. */
+  .stat > div.wide{flex:1 1 100%}
+  .stat .plus{font-size:12px;font-weight:700;color:var(--pale);margin-top:6px;line-height:1.45}
+  .stat .plus b{color:var(--gold)}
   .stat > div{flex:1 1 44%;background:var(--deep);border:1px solid var(--line);border-radius:10px;
             padding:11px 12px;text-align:center}
   .stat .n{font-size:22px;font-weight:900;color:var(--gold);line-height:1.15}
@@ -142,7 +145,7 @@
 
 <section id="stats">
   <div class="stat">
-    <div><div class="n">134</div><div class="l">COURSES BUILT IN</div></div>
+    <div class="wide"><div class="n">134</div><div class="l">COURSES BUILT IN</div><div class="plus">plus <b>the whole worldwide Golf Canada database</b> — download any course in it and keep it on your phone — <b>up to an additional 200</b> in My Downloads</div></div>
     <div><div class="n">8</div><div class="l">BETTING GAMES</div></div>
     <div><div class="n">1–5</div><div class="l">PLAYERS PER CARD</div></div>
     <div><div class="n">∞</div><div class="l">GAMES AT ONCE</div></div>
@@ -155,9 +158,10 @@
     <li><b>134 courses built in</b>, with men's and ladies' tees, ratings, slopes and stroke index
         already loaded.</li>
     <li><b>Facility information</b> — phone, address, amenities, every tee with its yardages.</li>
-    <li><b>Download any course in the world</b> that Golf Canada holds, and it is <b>yours, stored on
-        your phone.</b> A download can only ever <i>add</i> a course — it never overwrites one that
-        came with the app.</li>
+    <li><b>Download any course in the world</b> from the Golf Canada database and it is <b>yours,
+        stored on your phone</b> — it lands in its own <b>My Downloads</b> folder, which holds
+        <b>up to 200 more courses</b>, on top of the 134 built in. A download can only ever <i>add</i> a course; it never overwrites
+        one that came with the app.</li>
     <li><b>Search any course</b> from the phone.</li>
     <li><b>Real-time weather</b> for the course you are playing.</li>
     <li><b>Your history at that course</b> before you tee off — best round, average round, career
