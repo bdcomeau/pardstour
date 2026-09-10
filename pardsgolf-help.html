@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pards Golf — User Manual</title>
+<!-- pardsgolf-help DRAFT v0.1 — s330. Built for B-390: the overlay that openUserManual()
+     already opens. ⛔ It MUST open with Add to Home Screen, or the three copy blocks in
+     index.html that promise "these exact instructions are at the beginning of the User
+     Manual" stay false. Every button name below was read out of the LIVE client (v1007.0),
+     and the eight game descriptions are the app's own _GAME_INFO text, verbatim. -->
+<style>
+  :root{
+    --gold:#c9a84c; --gold-pale:#e8d9a8; --band:#1a3a2a; --abyss:#0a1710;
+    --deep:#12291c; --ink:#dfe8e0; --dim:#9fb4a5; --red:#c96a5c; --line:rgba(201,168,76,.22);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--abyss); color:var(--ink);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding:0 0 60px;
+  }
+  header{
+    background:linear-gradient(160deg,#0d2b17 0%,#1a3a2a 100%);
+    border-bottom:2px solid var(--gold); padding:22px 18px 18px; text-align:center;
+  }
+  header .mark{font-size:12px;font-weight:900;letter-spacing:3px;color:var(--gold)}
+  header h1{margin:8px 0 4px;font-size:23px;font-weight:900;color:#fff;letter-spacing:.4px}
+  header .sub{font-size:13px;color:rgba(168,213,181,.85)}
+
+  nav{padding:14px 16px 4px;border-bottom:1px solid var(--line)}
+  nav .t{font-size:10px;font-weight:800;letter-spacing:1.4px;color:var(--dim);margin-bottom:8px}
+  nav ol{margin:0;padding:0 0 0 22px}
+  nav li{margin:5px 0}
+  nav a{color:var(--gold-pale);text-decoration:none;font-size:14.5px}
+
+  section{padding:22px 18px 4px;border-bottom:1px solid rgba(201,168,76,.10)}
+  h2{
+    font-size:18px;font-weight:900;color:var(--gold);margin:0 0 12px;
+    display:flex;align-items:baseline;gap:10px;line-height:1.3;
+  }
+  h2 .n{
+    flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--band);
+    font-size:13px;font-weight:900;
+  }
+  h3{font-size:15px;font-weight:800;color:var(--gold-pale);margin:18px 0 6px}
+  p{margin:0 0 12px}
+  b,strong{color:#fff;font-weight:700}
+  .btn{
+    display:inline-block;background:rgba(201,168,76,.13);border:1px solid var(--line);
+    border-radius:6px;padding:1px 7px;color:var(--gold);font-weight:700;
+    font-size:14px;white-space:nowrap;
+  }
+  ul{margin:0 0 12px;padding-left:20px}
+  li{margin:6px 0}
+
+  .warn{
+    background:rgba(139,46,36,.30);border:1px solid rgba(201,106,92,.55);
+    border-radius:10px;padding:13px 15px;margin:0 0 16px;
+  }
+  .warn .h{color:#ffb3a7;font-weight:900;font-size:14px;margin-bottom:5px;letter-spacing:.3px}
+  .warn p{margin:0;font-size:14.5px;color:#f0d9d4}
+
+  .tip{
+    background:rgba(201,168,76,.07);border:1px solid var(--line);border-left:3px solid var(--gold);
+    border-radius:8px;padding:12px 14px;margin:0 0 16px;font-size:14.5px;color:#cfe0d3;
+  }
+  .tip .h{color:var(--gold);font-weight:800;display:block;margin-bottom:4px}
+
+  .game{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0 0 10px;background:var(--deep)}
+  .game .nm{color:var(--gold);font-weight:800;font-size:15.5px}
+  .game .min{float:right;font-size:11px;color:var(--dim);font-weight:700;padding-top:3px}
+  .game .d{font-size:14.5px;margin:6px 0 0;color:#cfe0d3}
+
+  /* ⛔ table-layout:fixed + a set first column. The first cut had
+     white-space:nowrap here, which a long label ("Two phones, different money")
+     could not wrap — it pushed the table to 406px on a 392px phone and the whole
+     page scrolled sideways. Found by rendering it, not by any assertion. */
+  table{width:100%;table-layout:fixed;border-collapse:collapse;margin:0 0 14px;font-size:14.5px}
+  th,td{text-align:left;padding:8px 6px;border-bottom:1px solid rgba(201,168,76,.14);
+        vertical-align:top;word-wrap:break-word;overflow-wrap:break-word}
+  th{color:var(--dim);font-size:11px;letter-spacing:.8px;font-weight:800;text-transform:uppercase}
+  th:first-child,td:first-child{width:36%;color:var(--gold-pale);font-weight:700}
+
+  footer{padding:22px 18px;text-align:center;color:var(--dim);font-size:12px}
+  a.top{display:block;text-align:right;font-size:12px;color:var(--dim);text-decoration:none;padding:6px 0 0}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="mark">⛳ PARDS TOUR</div>
+  <h1>Pards Golf — User Manual</h1>
+  <div class="sub">Everything from installing it to reading your career record</div>
+</header>
+
+<nav>
+  <div class="t">CONTENTS</div>
+  <ol>
+    <li><a href="#install">Get it on your phone</a></li>
+    <li><a href="#me">Set yourself up as Me</a></li>
+    <li><a href="#players">Add the people you play with</a></li>
+    <li><a href="#round">Start a round</a></li>
+    <li><a href="#games">The games you can run</a></li>
+    <li><a href="#scoring">Scoring as you play</a></li>
+    <li><a href="#live">The Live Link</a></li>
+    <li><a href="#end">Ending a round</a></li>
+    <li><a href="#post">Posting to Golf Canada</a></li>
+    <li><a href="#history">History and your career</a></li>
+    <li><a href="#backup">Back up, or lose it</a></li>
+    <li><a href="#trouble">When something looks wrong</a></li>
+  </ol>
+</nav>
+
+<section id="install">
+  <h2><span class="n">1</span> Get it on your phone</h2>
+
+  <div class="warn">
+    <div class="h">BEFORE YOU START — YOU NEED YOUR GOLF CANADA USERNAME AND PASSWORD</div>
+    <p>Without them Pards cannot find you, cannot fetch a handicap, and cannot set you as Me — so
+    nothing else works. Forgotten them? Reset at golfcanada.ca first.</p>
+  </div>
+
+  <p>On an <b>iPhone</b> open <b>Safari</b>, on <b>Android</b> open <b>Chrome</b>, and go to
+  <b>www.pardstour.com</b>. Nothing to download and no app store — Pards runs from the web page.</p>
+
+  <h3>Add it to your home screen — do this before anything else</h3>
+  <p><b>iPhone / iPad (Safari):</b> tap the <b>Share</b> button (the square with the arrow, at the
+  bottom) → scroll down → <span class="btn">Add to Home Screen</span> → <span class="btn">Add</span>.
+  <b>It must be Safari</b> — Chrome on iPhone cannot do it.</p>
+  <p><b>Android (Chrome):</b> tap the <b>three-dot menu</b> (top right) →
+  <span class="btn">Add to Home screen</span> or <span class="btn">Install app</span> →
+  <span class="btn">Install</span>.</p>
+
+  <div class="tip">
+    <span class="h">Open Pards from that icon, not the browser.</span>
+    It runs full screen, it remembers you, and it works out on the course whether or not you have
+    a signal.
+  </div>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<section id="me">
+  <h2><span class="n">2</span> Set yourself up as Me</h2>
+  <p>You land on the main Pards Tour page with three cards — <b>PARDS GOLF</b>, <b>PARDS EVENTS</b>
+  and <b>PARDS LIVE</b>. Tap <span class="btn">PARDS GOLF</span>, then under <b>Players</b> tap
+  <span class="btn">Manage Players</span>.</p>
+
+  <p>Tap <span class="btn">+ Add New Player / Search Golf Canada</span>, type your <b>First name</b>
+  and <b>Last name</b>, and tap <span class="btn">Find GC ID</span>. Enter your <b>Golf Canada
+  username and password</b> once — they stay on your phone and are used only for handicap lookups.
+  Pick yourself from the results, tap <span class="btn">Fetch</span> for your live index, then set
+  your home course and tee deck.</p>
+
+  <p>On your own player card tap <span class="btn">✓ This is me</span> (also shown as
+  <b>Set as Me</b>). Pards needs one player marked as you — it tracks your career earnings by it,
+  and it is the only player it can post a score for. Skip it and the app stops you with
+  <b>“One quick thing first!”</b> before your first round.</p>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<section id="players">
+  <h2><span class="n">3</span> Add the people you play with</h2>
+  <p><b>Think of this like your contact list on your phone.</b> You need a contact before you can
+  make a call, and Pards needs a saved player before it can build a round. Tap
+  <span class="btn">+ Add New Player / Search Golf Canada</span> for each partner: search by name to
+  auto-fill his Golf Canada ID and pull his live handicap.</p>
+
+  <p><b>No Golf Canada ID? He still plays</b> — type his name and a handicap index by hand.
+  <span class="btn">Refresh All Handicaps</span> updates everyone in one tap.</p>
+
+  <div class="warn">
+    <div class="h">CHECK FOR THE GREEN LINE BEFORE YOU BET</div>
+    <p>Under a player’s handicap you should see <b>🟢 Handicap current as of…</b> with a date.
+    <b>No green line means that number was typed in by hand and has never come from Golf Canada.</b>
+    It will not update on its own. Two phones can then run the same game with two different
+    handicaps for the same man — and the money will not agree at the end. If the line is missing,
+    open his card, add his Golf Canada ID, and tap <span class="btn">Refresh All Handicaps</span>.</p>
+  </div>
+
+  <h3>Buddies and Quick Adds</h3>
+  <p>Open a partner’s card and tap <span class="btn">Buddy</span> — Buddies float to the top of
+  every list. Tap <span class="btn">Quick Add</span> on up to four players: one tap of the
+  lightning-bolt button on the setup screen drops you and them straight into the slots.</p>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<section id="round">
+  <h2><span class="n">4</span> Start a round</h2>
+  <p>Choose the course and the tee, then fill the player slots — up to five. Pards carries more than
+  130 courses already, with ratings and slopes built in, and you can download any other course from
+  Golf Canada.</p>
+  <p>Pick your betting games (next section), then tap <span class="btn">Start Round →</span>.</p>
+  <div class="tip">
+    <span class="h">Tees are filtered for you.</span>
+    Pards shows the decks appropriate to each player, so you are not scrolling past tees you are
+    never going to play.
+  </div>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<section id="games">
+  <h2><span class="n">5</span> The games you can run</h2>
+  <p><b>You are not picking one.</b> Tick as many as you want and they all run at once on the same
+  round, each scored and settled separately. There is no limit and no trade-off.</p>
+
+  <div class="game"><span class="min">2+ players</span><div class="nm">Snake 3-Putt Game</div>
+    <p class="d">A putting penalty game. Any player who 3-putts picks up the snake. Whoever holds the
+    snake at holes 3, 6, 9, 12, 15, and 18 pays every other participant the agreed amount. The snake
+    can change hands multiple times per round — keep your putting sharp.</p></div>
+
+  <div class="game"><span class="min">4+ players</span><div class="nm">2v2 Nassau (High-Low)</div>
+    <p class="d">Two teams of two compete across three separate bets — Front 9, Back 9, and Total 18.
+    Each team contributes their low ball and high ball net scores. Auto-presses kick in when a team
+    goes two down. Losing team can invoke The International on hole 18.</p></div>
+
+  <div class="game"><span class="min">2+ players</span><div class="nm">1v1 Nassau</div>
+    <p class="d">Head-to-head Nassau between two players. Front 9, Back 9, and Total 18 — three
+    separate bets in one. Run multiple 1v1 matchups simultaneously. Auto-presses and The
+    International available.</p></div>
+
+  <div class="game"><span class="min">3+ players</span><div class="nm">6-Point Game</div>
+    <p class="d">A three-player points game played on every hole. The low net score wins 4 points,
+    second place wins 2 points, third place wins 0 points. Ties for low split 3 points each. Points
+    accumulate over 18 holes — highest total wins.</p></div>
+
+  <div class="game"><span class="min">2+ players</span><div class="nm">Stableford</div>
+    <p class="d">Points-based scoring against par. Double bogey or worse = 0 pts, Bogey = 1,
+    Par = 2, Birdie = 3, Eagle = 4, Albatross = 5. Higher score wins. Great for keeping everyone
+    engaged even after a rough hole.</p></div>
+
+  <div class="game"><span class="min">2+ players</span><div class="nm">Skins</div>
+    <p class="d">Each hole is worth one skin. Win a hole outright and you claim the skin. Tie a hole
+    and the skin carries over to the next. Choose Gross or Net scoring. After 18: void unclaimed
+    skins or Last Hole Sweeps.</p></div>
+
+  <div class="game"><span class="min">4+ players</span><div class="nm">Vegas</div>
+    <p class="d">A 2v2 game where each team combines their two scores into a two-digit number, lowest
+    digit first (scores of 4 and 5 become 45). The team with the lower number wins the difference
+    times the bet. The Flip: if a player birdies, the opponent’s digits flip (45 becomes 54). High
+    variance, high drama.</p></div>
+
+  <div class="game"><span class="min">1+ player</span><div class="nm">Match Cards</div>
+    <p class="d">Play 1v1 Nassau against players in other groups — without being in the same group.
+    Enter your scores live during the round. Enter your opponents’ scores later in the clubhouse.
+    Full Nassau results calculated at the end.</p></div>
+
+  <p><b>Birdie Juice</b> runs alongside all of it — the drinks tally, tracked hole by hole and
+  carried into your career record.</p>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<section id="scoring">
+  <h2><span class="n">6</span> Scoring as you play</h2>
+  <p>Tap the score for each player on each hole. <b>Scores save as you go — there is no Submit
+  button</b>, and nothing is lost if your phone rings, locks, or drops signal.</p>
+
+  <p>Along the bottom of the scoring screen:</p>
+  <table>
+    <tr><th>Button</th><th>What it does</th></tr>
+    <tr><td>Scorecards</td><td>The full card for every player, front and back nine.</td></tr>
+    <tr><td>Birdie Juice</td><td>The drinks tally for the round.</td></tr>
+    <tr><td>Settings</td><td>Round settings, Backup &amp; Restore, Help &amp; Info.</td></tr>
+    <tr><td>End Round</td><td>Finish, pause, or abandon — see section 8.</td></tr>
+    <tr><td>Live Link</td><td>Share the round so anyone can watch — see section 7.</td></tr>
+  </table>
+
+  <div class="tip">
+    <span class="h">Live standings, any time.</span>
+    <b>LIVE STANDINGS</b> and <b>WHO STROKES?</b> sit under the player cards — tap either to see
+    where the money stands and who is getting a shot on the hole you are standing on.
+  </div>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<section id="live">
+  <h2><span class="n">7</span> The Live Link</h2>
+  <p>Send it once and anyone can watch the scores and every match as it happens, in their own
+  browser — <b>no app to install and no code to type</b>. Nobody has to keep asking you for the
+  standings, or to look at your phone.</p>
+  <p>The link is view-only. Watchers cannot change a score.</p>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<section id="end">
+  <h2><span class="n">8</span> Ending a round</h2>
+  <table>
+    <tr><th>You want to…</th><th>Do this</th></tr>
+    <tr><td>Finish 18</td>
+        <td>On the last hole tap <span class="btn">✓ Complete Round</span>. Every game settles
+        itself and the round files to History.</td></tr>
+    <tr><td>Stop early</td>
+        <td>Tap <span class="btn">End Round Early</span> → <span class="btn">Save &amp; Pause</span>
+        — after nine holes, after thirteen, or when the rain comes in. It goes to your
+        <b>History</b> tab and you can <b>Resume</b> it whenever you like, exactly where you left
+        off.</td></tr>
+    <tr><td>Throw it away</td>
+        <td><span class="btn">Abandon Round</span>. The card is gone and nothing is settled.</td></tr>
+  </table>
+  <div class="tip">
+    <span class="h">A paused round is not a lost round.</span>
+    Pards keeps every hole you entered, every bet, and every side game. Resume it tomorrow if you
+    like.
+  </div>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<section id="post">
+  <h2><span class="n">9</span> Posting to Golf Canada</h2>
+  <p>When the round is complete Pards offers <span class="btn">Post Score</span> and asks
+  <b>“Post Score to Golf Canada?”</b> — one tap and it files.</p>
+  <ul>
+    <li><b>It posts hole by hole, not just a total.</b> Golf Canada then applies its own adjustment
+    to each hole for your handicap — a double, a triple or worse is brought down to the maximum you
+    are allowed — so what goes on your record is the score the handicap system wants, not the raw
+    number. <b>You do not adjust anything yourself.</b></li>
+    <li><b>Any round from 9 to 18 holes can be posted.</b> Play nine, or thirteen, or seventeen —
+    Golf Canada takes the partial round and files it properly.</li>
+    <li><b>It can only ever post for you</b> — the player marked as Me. That is Golf Canada’s rule,
+    not the app’s: nobody may post another golfer’s score, so your partners post their own from
+    their own phones.</li>
+  </ul>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<section id="history">
+  <h2><span class="n">10</span> History and your career</h2>
+  <p>The <b>History</b> tab holds every round you have played, newest first. Open one to see the
+  full card, the games, and what each man won or lost. A paused round sits here too, with
+  <b>Resume</b>.</p>
+
+  <p>Your record builds up round after round:</p>
+  <table>
+    <tr><th>Where</th><th>What it tells you</th></tr>
+    <tr><td>Career Earnings</td><td>What you are up or down, all time.</td></tr>
+    <tr><td>Career Stats</td><td>Your record — and how you have done against each of the men you play with.</td></tr>
+    <tr><td>Career Ledger</td><td>Round by round, where the money went.</td></tr>
+    <tr><td>Career Birdie Juice</td><td>The drinks tally, all time.</td></tr>
+    <tr><td>Total Rounds Played</td><td>Exactly what it says.</td></tr>
+  </table>
+
+  <p>You can look at any player’s record, not just your own. Open their card in <b>Manage Players</b>
+  and tap <span class="btn">Show Golf Canada Score History</span> — their posted rounds, and a graph
+  of how their handicap index has moved. Every player in the list also carries a small trend line
+  beside their name: <b>green means it is coming down</b>.</p>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<section id="backup">
+  <h2><span class="n">11</span> Back up, or lose it</h2>
+  <div class="warn">
+    <div class="h">THERE IS NO ACCOUNT, AND NOTHING SYNCS TO ANOTHER DEVICE</div>
+    <p>Your rounds, your players and your career earnings live on <b>this phone</b>. Delete the app
+    without a backup and they are gone. There is nowhere to log in and get them back.</p>
+  </div>
+  <p>Go to <b>Settings → Backup &amp; Restore</b> and tap <span class="btn">Export Backup</span>.
+  Do it once after a few rounds, and again before you change phones. To bring it back on a new
+  phone, install Pards, then <span class="btn">Import Backup</span>.</p>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<section id="trouble">
+  <h2><span class="n">12</span> When something looks wrong</h2>
+  <table>
+    <tr><th>What you see</th><th>What it means</th></tr>
+    <tr><td>Two phones, different money</td>
+        <td>Almost always different handicaps or different games. Compare the index for each man on
+        both phones, and check both cards are running the same bets.</td></tr>
+    <tr><td>No 🟢 green line</td>
+        <td>That handicap was typed by hand and has never come from Golf Canada. See section 3.</td></tr>
+    <tr><td>“One quick thing first!”</td>
+        <td>Nobody is marked as Me. See section 2.</td></tr>
+    <tr><td>The app closed mid-round</td>
+        <td>Your round is safe. Phones close apps to free memory — it is not a fault in the app, and
+        it is exactly what Pards saves against. Re-open it and everything through the last hole you
+        entered is where you left it.</td></tr>
+    <tr><td>A handicap looks stale</td>
+        <td>Pards re-checks a handicap at most once every three hours, and only for players who have
+        a Golf Canada ID on <i>this</i> phone. Tap <span class="btn">Refresh All Handicaps</span> to
+        force it.</td></tr>
+  </table>
+  <a class="top" href="#">↑ top</a>
+</section>
+
+<footer>
+  Pards Tour™ — we know the score<br>
+  User Manual · DRAFT v0.1
+</footer>
+
+</body>
+</html>
