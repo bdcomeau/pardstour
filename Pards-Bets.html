@@ -1366,8 +1366,9 @@ function initResetSlider() {
    surfaces — the roll is CONTINUOUS, so vertical space is the cheap thing and
    legibility wins. ⛔ ONE block, both surfaces: B-86 had to be fixed twice
    because these two carried separate copies of the same paper. */
+const PB_ROLL_NUDGE_MM = 2;   /* B-397 (v20.23→v20.24) — mm to move the print RIGHT on the QL-720NW. 0 = the B-181 centred box. Keep 0–2. */
 const PB_ROLL_CSS =
-  '@page{size:54mm 190mm;margin:2mm;}' +   /* B-181 — the TRUE roll width; 62 mm here made the driver shrink every ticket */
+  '@page{size:54mm 190mm;margin:2mm ' + (2 - PB_ROLL_NUDGE_MM) + 'mm 2mm ' + (2 + PB_ROLL_NUDGE_MM) + 'mm;}' +   /* B-181 — the TRUE roll width · B-397 — nudged right, width unchanged */
   'body{font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;color:#000;width:50mm;margin:0;padding:8px 0;font-size:11px;font-weight:700;line-height:1.25;-webkit-text-size-adjust:none;}' +
   '@media print{body{padding:0;}}' +
   '.pbHd{border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:8px;text-align:center;}' +
@@ -1795,7 +1796,12 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.23';
+const APP_VERSION = 'v20.24';
+// ⭐ v20.24 — B-397 (s331): THE ROLL PRINTS 2 MM TOO FAR LEFT. Bruce, first real ticket off the QL-720NW after v20.23:
+// "cutting off about 2mm of the text on the left side ... on the right side there is 4mm of space - can you shift this
+// over 2mm". The page box keeps its 50 mm width; its left margin goes 2 → 4 mm and its right margin 2 → 0 mm, so every
+// line moves 2 mm right and nothing re-wraps. ⭐ PB_ROLL_NUDGE_MM is the ONE knob — if the next print is still off,
+// change that number, nothing else. Both roll surfaces (bettor receipt + payout slips) share this paper, so both move.
 // ⭐ v20.23 — B-396 (s331): THE PRINT BUTTON THAT NEVER PRINTED. Bruce, on the PC after Collect Cash & Issue Ticket:
 // "when I go to print receipt - I do not get print dialogue - cant print ticket". The confirm screen's ONE button,
 // "Share / Print Receipt", called shareTicket(), which hands the receipt to navigator.share: on Windows that is the
