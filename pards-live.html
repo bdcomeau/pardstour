@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.44 -->
+<!-- pards-live-v1.45 -->
 <!-- v1.42 (s322) — FR-388: the master scorecard up top on the match link — one gross grid for every man, always open; the per-player rows and their cards are gone. -->
 <!-- v1.41 (s322) — FR-387: the other games on the live link — 6-Point · Stableford · Skins · Vegas · Snake as per-hole cards off the phone's snapshot, one generic renderer. -->
 <!-- v1.40 (s322) — FR-386: the match summary lines show while the grid is closed and hide when it opens ("redundant when looking at the scorecard"). -->
@@ -192,6 +192,14 @@ body { padding:0 0 calc(84px + env(safe-area-inset-bottom)); }   /* B-256 (v1.22
   display:flex; gap:6px; align-items:flex-start; }
 #exitBtn { position:static; margin:0; padding:5px 10px; font-size:11px; white-space:nowrap; }
 #exitBtn[hidden] { display:none; }
+/* FR-411 (v1.45) — the Refresh pill wears Exit's clothes and hides when Exit hides. */
+#refBtn { position:static; margin:0; padding:5px 10px; font-size:11px; white-space:nowrap; }
+#refBtn[hidden] { display:none; }
+#refBtn:disabled { opacity:.6; }
+/* ⭐ FR-411 (v1.45) — two pills are wider than one, and a long event name ran UNDER them
+   (measured at 392 px: the title's first line reached x=326 and the pills start at 244).
+   The brand row now stands as tall as the pills, so the title always starts below them. */
+.top .brand { min-height:25px; display:flex; align-items:center; }
 
 /* ── FR-158 THE OVERALL BOARD (v1.13, s274) ──────────────────────
    Bruce, s273: "where is the overall here ? 727930 pards live".
@@ -314,6 +322,7 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
   <div class="top">
     <div class="brand">Pards Live</div>
     <div id="topBtns">
+      <button class="tab" id="refBtn" type="button" title="Check for updates now" hidden>&#x21bb; Refresh</button>
       <button class="tab" id="exitBtn" type="button" title="Exit and enter a new code" hidden>&#x2715; Exit</button>
     </div>
     <div id="hdr"></div>
@@ -347,12 +356,19 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.44';
+var LIVE_VERSION = 'live-v1.45';
 /* ⭐ THE POLL CADENCE, ONE PRODUCER. Measured on live D1: one board poll
    reads 61 rows for a 30-team board. A hundred spectators at 30 s spend 73%
    of the enforced 5M free-tier day on this one read; at 90 s they spend 24%.
    His call at s328. Both timers below use this and nothing else. */
 var POLL_MS = 90000;
+/* ⭐ B-394 / FR-411 (v1.45, s331) — THE DRAFT LANE. While a draft is on the clock
+   the board re-reads ONLY the event record (POST /api/events/watch, public:true —
+   ~5 D1 rows: the event by its indexed code, the event cache row, the round pick,
+   reset_epoch) and repaints from what is already on the page. No leaderboard read.
+   Visible tabs only, and it stops by itself the moment the draft is Final.
+   30 phones watching a 2-hour draft ≈ 72k rows ≈ 1.4% of the 5M day. */
+var DRAFT_POLL_MS = 15000;
 var PARS = {"derrick-gwc":[4,3,4,4,3,5,4,3,4,4,4,4,4,3,4,4,4,5],"jasper-park-lodge":[4,5,4,3,5,4,3,4,3,5,4,3,5,4,3,4,4,4],"troon-north-monument":[4,3,5,4,4,4,3,4,5,4,5,4,3,5,4,3,4,4],"troon-north-pinnacle":[4,4,4,4,5,3,4,3,4,4,5,4,3,5,4,3,4,4],"kierland-ironwood-acacia":[4,4,3,4,3,4,5,4,5,5,4,4,3,5,3,4,3,5],"kierland-mesquite-ironwood":[4,4,3,4,3,4,5,4,5,4,4,4,3,5,4,5,3,4],"kierland-acacia-mesquite":[5,4,4,3,5,3,4,3,5,4,4,4,3,5,4,5,3,4],"blackhawk-gc":[4,4,3,5,4,3,5,3,4,4,5,3,4,4,5,3,4,4],"cougar-creek-gc":[4,4,3,5,3,4,4,4,5,4,5,4,4,3,4,5,3,4],"trestle-creek-gc":[4,4,3,4,5,4,3,5,4,4,4,3,4,5,4,3,5,4],"tower-ranch-gc":[4,5,4,5,3,4,3,4,4,4,4,3,4,3,5,4,5,4],"okanagan-bear":[4,4,4,3,4,3,5,4,5,4,3,4,5,3,4,4,4,5],"okanagan-quail":[4,5,4,3,4,5,3,4,4,4,3,5,4,4,3,4,5,3],"harvest-gc":[4,5,4,3,4,3,4,4,5,4,3,4,4,5,4,3,4,5],"rise-gc":[5,5,4,4,4,3,4,4,5,4,4,5,3,4,4,3,4,3],"predator-ridge-predator":[4,4,4,3,4,3,4,5,4,5,4,4,3,5,4,4,3,4],"predator-ridge-ridge":[4,4,4,4,3,4,5,3,5,4,5,3,5,4,3,4,4,4],"bear-mountain-mountain":[5,4,4,3,4,4,3,4,4,3,4,5,5,3,4,3,4,5],"bear-mountain-valley":[5,3,4,4,4,3,4,4,4,3,4,5,4,3,5,3,4,5],"edmonton-cc":[4,4,4,3,4,5,4,4,4,5,3,4,3,4,4,4,5,3],"glendale-gcc":[5,3,4,3,5,4,3,4,5,4,4,4,3,5,4,3,5,4],"royal-mayfair":[4,4,5,3,4,4,4,3,4,4,3,4,4,5,4,3,4,4],"edmonton-petroleum":[4,4,4,5,3,4,4,3,5,4,4,5,3,4,3,4,4,5],"windermere-gcc":[5,4,3,5,3,4,4,3,4,4,5,3,5,4,3,4,4,4],"mill-woods-gc":[4,5,4,3,4,4,3,5,4,4,5,4,3,4,5,4,3,4],"river-ridge-gc":[5,4,3,4,3,4,4,3,5,4,5,3,4,4,3,4,4,5],"picture-butte-heritage-harvest":[5,4,4,4,3,5,3,4,5,4,4,4,3,4,4,5,3,5],"picture-butte-homestead-harvest":[4,4,5,3,4,4,3,4,4,4,4,4,3,4,4,5,3,5],"picture-butte-heritage-homestead":[5,4,4,4,3,5,3,4,5,4,4,5,3,4,4,3,4,4],"palm-valley-challenge":[4,4,4,4,3,3,3,3,4,3,3,4,3,4,4,4,3,4],"palm-valley-championship":[4,4,5,4,3,4,3,5,4,4,4,3,4,5,5,4,3,4],"indian-ridge-arroyo":[4,4,3,4,4,5,3,4,5,3,4,5,4,4,5,4,3,4],"indian-ridge-grove":[4,4,5,4,3,4,5,3,4,5,3,4,4,4,5,4,3,4],"pgawest-tpc-stadium":[4,4,4,3,5,3,4,5,4,4,5,4,3,4,4,5,3,4],"pgawest-citrus":[4,5,3,4,4,4,3,5,4,4,4,4,3,5,4,3,5,4],"pgawest-mountain":[4,3,4,5,3,4,5,4,4,4,4,4,3,4,5,3,4,5],"pgawest-dunes":[4,5,4,4,4,3,5,3,5,4,4,4,3,4,5,3,4,4],"pgawest-nicklaus-tournament":[4,4,3,5,4,4,5,3,4,4,5,3,4,4,5,4,3,4],"pgawest-greg-norman":[4,5,4,3,4,4,3,5,4,4,4,5,3,4,4,5,3,4],"pgawest-nicklaus-private":[4,4,3,5,4,4,3,5,4,4,3,4,5,4,4,5,3,4],"pgawest-arnold-palmer":[4,5,3,4,3,5,4,4,4,4,5,3,4,5,3,4,3,5],"pgawest-weiskopf":[4,4,3,5,4,4,3,4,5,5,4,3,4,4,4,5,3,4],"banff-springs-rundle-sulphur":[4,3,5,3,4,4,5,3,5,3,4,4,3,4,4,4,4,5],"banff-springs-rundle-tunnel":[4,3,5,3,4,4,5,3,5,4,4,5,3,4,5,4,3,4],"banff-springs-sulphur-tunnel":[3,4,4,3,4,4,4,4,5,4,4,5,3,4,5,4,3,4],"banff-springs-tunnel":[4,4,5,3,4,5,4,3,4,4,4,5,3,4,5,4,3,4],"desert-willow-firecliff":[5,4,3,4,4,4,5,3,4,4,4,4,5,3,4,4,3,5],"desert-willow-mountain-view":[4,4,4,4,3,5,4,3,5,4,3,5,3,4,4,4,4,5],"shadow-ridge-gc":[4,5,4,3,4,4,3,4,4,4,4,3,4,5,4,5,3,4],"highlands-gc":[4,4,3,5,4,4,3,4,4,4,5,3,4,4,4,3,5,4],"glencoe-bridges-bridges":[5,4,3,5,4,3,5,4,3,5,4,3,5,4,3,5,4,3],"glencoe-bridges-slopes":[5,4,3,5,4,3,5,4,3,4,4,3,4,3,4,4,4,4],"glencoe-forest":[5,4,4,4,3,4,3,5,4,4,4,4,3,5,4,5,3,4],"stewart-creek":[4,5,3,4,4,5,4,3,3,4,5,3,4,4,4,4,3,5],"kananaskis-kidd":[4,5,4,3,4,5,4,3,4,4,4,3,4,5,4,3,4,5],"kananaskis-lorette":[4,4,4,3,5,3,4,4,5,4,5,4,4,5,3,4,3,4],"silvertip-gc":[4,5,3,4,4,3,4,5,4,5,4,4,4,5,3,4,3,4],"pinnacle-peak-cc":[5,4,3,5,4,4,4,4,3,4,3,4,4,5,3,4,4,5],"mesa-cc":[4,3,4,4,5,4,3,4,5,4,3,4,5,4,4,3,4,5],"las-sendas-gc":[4,5,4,4,3,5,3,4,4,5,3,4,4,3,5,3,4,5],"copper-point-the-point":[4,3,5,4,5,4,3,4,5,5,4,3,4,4,3,4,3,4],"copper-point-ridge":[4,4,3,4,3,3,3,4,4,3,3,4,3,4,3,3,4,3],"eagle-ranch-gc":[4,3,5,4,3,5,4,4,4,4,3,4,4,4,5,3,4,5],"greywolf-gc":[4,4,5,4,5,3,4,4,3,5,4,3,4,5,3,4,4,4],"springs-course":[4,4,5,3,4,3,4,4,5,5,4,4,5,3,4,4,3,4],"radium-course":[4,4,4,3,4,3,5,4,4,4,4,3,5,4,3,4,5,5],"fairmont-mountainside":[5,4,3,5,3,4,4,4,4,5,4,3,5,4,4,3,4,4],"fairmont-riverside":[4,4,3,5,3,5,4,3,4,4,4,4,3,5,3,4,4,5],"royal-colwood-gc":[4,4,4,3,5,4,3,4,4,4,3,4,4,5,3,4,4,4],"capilano-gcc":[4,4,5,3,5,4,4,4,3,4,3,4,4,3,4,3,4,5],"chateau-whistler-gc":[5,4,4,4,3,4,5,3,5,3,4,4,4,4,4,3,4,5],"nicklaus-north-gc":[4,3,5,4,4,3,4,5,4,3,5,3,5,4,4,4,3,4],"trickle-creek-gc":[4,4,3,5,4,4,4,3,5,4,3,4,5,3,4,4,5,4],"willow-park-gcc":[5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,5,3],"boulders-north":[5,3,5,4,4,3,4,4,4,4,4,5,4,3,5,4,3,4],"boulders-south":[4,3,4,4,5,4,3,4,4,3,5,4,4,5,3,3,4,5],"boulders-fn-bs":[5,3,5,4,4,3,4,4,4,3,5,4,4,5,3,3,4,5],"mickelson-national-gc":[4,4,3,5,4,4,4,3,5,4,5,4,4,4,3,4,3,5],"canyon-meadows-gc":[5,4,4,5,3,4,4,4,3,4,5,3,4,3,5,3,4,5],"eagle-mountain-gc":[5,4,3,5,3,4,4,3,4,5,4,5,3,4,3,4,4,4],"phoenician-gc":[4,4,3,4,3,4,4,5,4,4,3,4,4,4,5,4,3,5],"longbow-gc":[5,4,3,4,4,4,3,4,4,4,3,4,4,4,5,3,4,5],"lookout-mountain-gc":[4,5,3,4,5,3,5,4,3,4,3,4,4,4,5,3,4,5],"lakes-palm-mountain":[5,4,3,4,4,5,3,4,4,4,5,4,3,4,5,3,4,4],"lakes-mountain-lake":[4,5,4,3,4,5,3,4,4,5,4,4,3,4,4,5,4,3],"lakes-lake-palm":[5,4,4,3,4,4,5,4,3,5,4,3,4,4,5,3,4,4],"desert-springs-palm":[5,4,3,4,4,4,5,3,4,5,4,3,5,4,4,4,3,4],"desert-springs-valley":[4,4,5,4,4,3,4,3,5,5,4,3,4,4,3,4,5,4],"gallaghers-canyon":[4,4,3,4,4,5,4,3,5,5,4,5,3,4,4,3,4,4],"gallaghers-pinnacle":[4,3,3,4,3,4,3,4,4,4,3,3,4,3,4,3,4,4],"cabot-links":[5,3,4,4,3,4,3,5,4,4,5,4,4,3,4,4,3,4],"cabot-cliffs":[5,4,4,3,4,3,5,5,3,5,4,3,4,3,5,3,4,5],"highlands-links":[4,4,3,4,3,5,5,4,4,3,5,3,4,4,5,5,3,4],"crowbush-cove":[4,4,5,4,5,3,4,3,4,4,5,3,4,5,4,4,3,4],"royal-montreal-blue":[4,4,4,4,3,5,3,4,4,4,4,5,3,4,4,4,3,4],"royal-montreal-dixie":[4,4,4,3,5,4,3,4,5,4,4,4,3,5,4,3,4,5],"royal-montreal-red":[4,5,3,4,4,4,3,4,4,3,5,4,4,5,4,3,4,4],"makena-gc":[5,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4,4],"wailea-blue":[4,4,4,3,5,4,3,4,5,3,5,4,3,4,3,4,5,4],"wailea-emerald":[4,5,3,4,4,4,4,3,5,4,5,4,3,4,4,3,4,5],"wailea-gold":[4,5,3,4,4,4,5,3,4,4,3,4,5,4,5,3,4,4],"bandon-bandon-dunes":[4,3,5,4,4,3,4,4,5,4,4,3,5,4,3,4,4,5],"bandon-pacific-dunes":[4,4,5,4,3,4,4,4,4,3,3,5,4,3,5,4,3,5],"bandon-old-macdonald":[4,3,4,4,3,5,4,3,4,4,4,3,4,4,5,4,5,4],"bandon-trails":[4,3,5,4,3,4,4,4,5,4,4,3,4,4,4,5,3,4],"bandon-sheep-ranch":[5,4,3,4,3,4,3,4,4,4,5,4,5,4,4,3,4,5],"pinehurst-no1":[4,4,4,5,3,4,3,4,3,4,4,3,4,4,4,4,4,5],"pinehurst-no2":[4,4,4,4,5,3,4,4,3,5,4,4,4,4,3,4,3,4],"pinehurst-no3":[4,3,4,3,4,3,4,3,4,4,5,3,5,3,4,4,4,4],"pinehurst-no4":[4,5,4,3,4,3,4,4,5,4,3,4,5,3,4,4,5,4],"pinehurst-no5":[4,5,4,4,3,4,4,4,4,4,4,3,5,3,4,5,4,4],"pinehurst-no6":[4,5,3,4,4,5,3,4,4,4,4,4,3,4,5,3,4,4],"pinehurst-no7":[5,4,4,4,3,4,4,5,3,4,4,5,3,4,4,3,4,5],"pinehurst-no8":[4,5,4,4,3,5,4,3,4,4,5,4,3,4,3,4,5,4],"pinehurst-no9":[4,3,4,5,4,4,4,5,3,5,4,3,4,4,5,4,3,4],"pinehurst-no10":[4,3,5,4,4,4,3,4,4,5,3,5,4,3,4,4,3,4],"reynolds-great-waters":[4,5,4,3,4,5,4,3,4,4,4,5,4,3,4,4,3,5],"reynolds-national-cove-ridge":[4,4,3,5,4,5,3,4,4,4,4,3,4,3,5,4,5,4],"reynolds-preserve":[4,4,3,4,5,4,5,3,5,4,3,4,4,4,3,5,3,5],"reynolds-national-bluff-cove":[4,4,5,3,4,5,3,4,4,4,4,3,5,4,5,3,4,4],"reynolds-national-ridge-bluff":[4,4,3,4,3,5,4,5,4,4,4,5,3,4,5,3,4,4],"reynolds-richland":[4,4,5,3,4,4,3,5,4,4,4,5,4,3,5,3,4,4],"reynolds-creek-club":[5,4,4,3,4,4,3,5,4,4,3,5,3,5,4,4,3,5],"reynolds-landing":[4,5,3,4,4,5,3,4,4,4,3,4,4,5,4,5,3,4],"reynolds-oconee-club":[5,4,4,4,3,4,5,3,4,5,4,4,3,4,3,4,5,4],"redtail-landing":[4,5,4,3,5,4,4,3,4,4,5,3,4,5,4,4,3,4],"jagare-ridge-gc":[5,4,4,3,5,4,3,4,4,4,4,4,3,4,3,4,5,4],"northern-bear-gc":[4,5,4,3,4,5,4,3,4,5,4,4,3,4,5,4,3,4],"windermere-valley":[4,3,4,4,3,3,4,3,4,4,4,4,4,4,3,3,3,5]};
 
 var S = { ev:null, rounds:[], roundId:null, open:{}, timer:null, tick:null, cfg:null, trip:null, code:null, sheet:null, field:null, view:'round', overall:null, lb:{}, sk:null };   /* FR-188 (v1.23, s288) — sk = his Gross/Net/Par Points pick, null = the round's own format */   /* v1.14 (s274) — lb[round_id] = that round's leaderboard, for all-rounds cards */   /* v1.10 (s273) — code + tee sheet + field names, for the DNF rows. v1.13 (s274) — view + the overall payload (FR-158). */
@@ -377,6 +393,7 @@ function jget(url, opts) {
 function askCode(errMsg) {
   gid('hdr').innerHTML = '';
   gid('exitBtn').hidden = true;   /* B-233 (v1.15) — no board, no exit */
+  gid('refBtn').hidden = true;    /* FR-411 (v1.45) — and nothing to refresh */
   gid('app').innerHTML =
     '<div class="card" style="margin-top:26px">'
     + '<div style="font-size:13px;color:rgba(233,237,242,.7);text-align:center;margin-bottom:11px">'
@@ -722,7 +739,7 @@ function paintWire(w) {
   var h = tabsHtml();
   h += '<div class="card"><div class="wireHd">\ud83d\udce1 The Wire<span>' + (w && w.round ? 'Round ' + esc(String(w.round.round_number)) + ' \u00b7 ' : '') + 'as it happened</span></div>';
   if (w && w.unavailable) h += '<div class="note">' + esc(w.unavailable) + '</div>';
-  else if (!ev.length) h += '<div class="note">Nothing on the wire yet \u2014 the first hole lands here.<br>This page refreshes itself every 30 seconds.</div>';
+  else if (!ev.length) h += '<div class="note">Nothing on the wire yet \u2014 the first hole lands here.<br>This page updates itself every ' + Math.round(POLL_MS / 1000) + ' seconds \u2014 or tap Refresh.</div>';
   else ev.slice().reverse().forEach(function (e, i) {
     h += '<div class="wireRow' + (i === 0 ? ' new' : '') + '"><span class="wireAt">' + esc(wireTime(e.at)) + '</span>'
       + '<span class="wireTx ' + esc(String(e.tone || '')) + '">' + esc(e.text || '') + '</span></div>';
@@ -789,7 +806,7 @@ function paintOverall(d) {
   h += '</div>';
   h += '<div class="note">Ranked inside each flight, across '
     + rounds.length + (rounds.length === 1 ? ' round' : ' rounds') + '.'
-    + '<br>This page refreshes itself every 30 seconds.</div>';
+    + '<br>This page updates itself every ' + Math.round(POLL_MS / 1000) + ' seconds \u2014 or tap Refresh.</div>';
   if (_dr && _dDone) h += draftCard(_dr);
   gid('app').innerHTML = h;
 }
@@ -1090,7 +1107,7 @@ function preSheetHtml() {
     body += '</div>';
   });
   if (!body) return '';
-  return '<div class="note" style="padding-bottom:6px">No scores posted yet \u2014 tee sheet for this round, with each man\u2019s overall to par.<br>This page refreshes itself every 30 seconds.</div>'
+  return '<div class="note" style="padding-bottom:6px">No scores posted yet \u2014 tee sheet for this round, with each man\u2019s overall to par.<br>This page updates itself every ' + Math.round(POLL_MS / 1000) + ' seconds \u2014 or tap Refresh.</div>'
     + body;
 }
 /* ═══ FR-361 (v1.34, s320) — SKINS ON THE BOARD ═════════════════════════════════════════════════════════════════════════
@@ -1359,7 +1376,7 @@ function paintBoard(d) {
   } else if (!rows.length) {
     var _fr166 = preSheetHtml();
     if (_fr166) h += _fr166;
-    else h += '<div class="note">No scores posted yet.<br>This page refreshes itself every 30 seconds.</div>';
+    else h += '<div class="note">No scores posted yet.<br>This page updates itself every ' + Math.round(POLL_MS / 1000) + ' seconds \u2014 or tap Refresh.</div>';
   } else {
     var _fx = fltIndex();
     var _hd = '<div class="rowsHd' + _tpc + ' ch"><div style="text-align:center">#</div><div>Player</div><div style="text-align:right">Thru</div>' + (_showTp ? '<div style="text-align:right">To Par</div>' : '') + '<div style="text-align:right">' + scoreLabel(key) + '</div><div></div></div>';
@@ -1622,8 +1639,10 @@ function holeMsgs(d) {
 
    `draft` is the SEVENTH key on the FR-116 allow-list (worker v3.38.0) and the
    only one this file's existence added. The record is written by the client's
-   draft module on EVERY pick, so this page needs no new route and no polling
-   of its own — the 30-second refresh already running picks it up.
+   draft module on EVERY pick, so this page needs no new route.
+   ⛔ s331 correction (B-394): v1.1 said the board refresh "picks it up". It
+   did not — the record rides the event config, read once at boot. v1.45
+   re-reads it on every tick and on a 15 s lane while a draft is running.
 
    ⛔ READ-ONLY, like everything else here. ⛔ No money is in the record and
    none is derived from it: it is four bucket lists, a captain order, the picks
@@ -2350,6 +2369,71 @@ window.pickScore = function (k) {
    ⛔ Both timers and the listener call this and nothing else, so the gate cannot
    be applied to one and forgotten on the other. */
 function ptLiveTick() { if (!document.hidden && S.tick) S.tick(); }
+
+/* ⭐⭐ B-394 (v1.45, s331) — THE DRAFT BOARD NEVER MOVED. Found by Bruce running a full
+   Last Call test (321955): "on the PC I have to refresh the browser to get updates and
+   on the phone I need exit the app and come back in." The draft record lives in the
+   event CONFIG, and the config was read ONCE — by loadEvent, at boot. Every poll since
+   FR-126 (v1.1) called refresh(), which re-reads the leaderboard and never the event,
+   so draftRec() painted the boot-time picks forever. FR-126's own comment claimed the
+   poll "picks it up"; it never did. Reload and Exit both worked because both go back
+   through loadEvent.
+   ⭐ The fix is the missing read, not a faster poll: refreshCfg() re-POSTs the same
+   public watch call loadEvent uses and swaps S.cfg in place. It never touches the round,
+   the tab, the view or the open cards, and it cannot fail the board: an error keeps the
+   last record. The full tick now does it first, so a phone coming back to the screen
+   (visibilitychange) is current on arrival. */
+function _dSig() { try { return JSON.stringify((S.cfg && S.cfg.draft) || null); } catch (e) { return ''; } }
+function refreshCfg() {
+  if (!S.code || !S.ev) return Promise.resolve(false);
+  var code = S.code;
+  return jget(API + '/api/events/watch', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event_code: code, public: true })   /* ⛔ public:true — ruling 1, the six-key whitelist */
+  }).then(function (d) {
+    if (S.code !== code || !d || !d.event) return false;       /* he exited or switched mid-flight */
+    var was = _dSig(), cfg = null;
+    try { cfg = d.event.config ? JSON.parse(d.event.config) : null; } catch (_) { return false; }
+    S.cfg = cfg;
+    S.ev = Object.assign({}, S.ev, d.event); paintHeader();
+    return _dSig() !== was;
+  }).catch(function () { return false; });
+}
+/* A draft is "on the clock" from the moment its record exists until it is Final.
+   ⚠ Not paintBoard's _dDone test: that one reads an empty order as done (0 >= 0), which
+   is right for where the card SITS but wrong here — the buckets phase is exactly when a
+   watcher is waiting for the order to appear. */
+function draftLive() {
+  var r = draftRec(); if (!r) return false;
+  var C = (r.order || []).length;
+  return !(r.done || (C && (r.picks || []).length >= C * 3));
+}
+/* Repaint from what is already on the page — the same no-fetch path pickScore uses. */
+function repaintDraft() {
+  if (!S.roundId) return refresh();                                    /* no round: refresh() paints from S.cfg and fetches nothing */
+  if (S.view === 'overall' && S.overall) { try { paintOverall(S.overall); } catch (e) {} return; }
+  if (S.view === 'round' && S.lb[S.roundId]) { try { paintBoard(S.lb[S.roundId]); } catch (e) {} return; }
+  /* The Wire tab carries no draft board — the next full tick catches up. */
+}
+function ptDraftTick() {
+  if (document.hidden || !S.ev || S.match || S.watchTrip || !draftLive()) return;
+  refreshCfg().then(function (changed) { if (changed) repaintDraft(); });
+}
+/* ⭐ FR-411 (v1.45, s331) — THE REFRESH PILL. His ask: "can we add a refresh button or pill
+   to the Pards Live apps". One tap runs the SAME tick the timer runs — the event record,
+   then the board — so it can never show something the poll would not. It sits beside
+   Exit and hides when Exit hides. A tap is one fetch set; a double tap is ignored. */
+function ptLiveRefreshNow() {
+  var b = gid('refBtn'); if (!b || b.disabled || !S.tick) return;
+  b.disabled = true; b.innerHTML = 'Checking&hellip;';
+  var done = function (ok) {
+    b.innerHTML = ok ? '&#x2713; Updated' : '&#x26a0; Try again';
+    setTimeout(function () { b.disabled = false; b.innerHTML = '&#x21bb; Refresh'; }, 1500);
+  };
+  Promise.resolve().then(function () { return S.tick(); }).then(function () { done(true); }, function () { done(false); });
+}
+gid('refBtn').onclick = ptLiveRefreshNow;
 document.addEventListener('visibilitychange', function () { ptLiveTick(); });
 
 function boot() {
@@ -2359,25 +2443,28 @@ function boot() {
   var pin  = (q.get('pin') || '').trim();
   gid('foot').textContent = 'Pards Live · ' + LIVE_VERSION.replace('live-', '');
   if (S.timer) { clearInterval(S.timer); S.timer = null; } S.tick = null;
+  if (S.dtimer) { clearInterval(S.dtimer); S.dtimer = null; }   /* B-394 (v1.45) */
   gid('exitBtn').hidden = !(code || (trip && pin));   /* B-233 (v1.15) */
+  gid('refBtn').hidden = gid('exitBtn').hidden;         /* FR-411 (v1.45) */
 
   if (trip && pin) {
     loadTrip(trip, pin).catch(function (e) {
       gid('app').innerHTML = '<div class="err">' + esc(e.message || 'Could not open that trip') + '</div>';
     });
-    S.tick = function () { loadTrip(trip, pin).catch(function () {}); };
+    S.tick = function () { return loadTrip(trip, pin).catch(function () {}); };   /* FR-411 — returns, so the pill can wait on it */
     S.timer = setInterval(ptLiveTick, POLL_MS);
     return;
   }
   if (!code) { askCode(''); return; }
   gid('app').innerHTML = '<div class="note" style="margin-top:30px">Loading&hellip;</div>';
   loadByCode(code).then(function () {   /* v1.26 (FR-286) — the cascade; the poll follows the flavour it landed on */
-    S.tick = function () {
-      if (S.match) loadMatch(S.match).catch(function () {});   /* FR-382 */
-      else if (S.watchTrip) loadTrip(S.watchTrip.id, S.watchTrip.cred, S.watchTrip.ctx).catch(function () {});
-      else refresh();
+    S.tick = function () {   /* FR-411 (v1.45) — every branch RETURNS, so the pill can wait on it */
+      if (S.match) return loadMatch(S.match).catch(function () {});   /* FR-382 */
+      else if (S.watchTrip) return loadTrip(S.watchTrip.id, S.watchTrip.cred, S.watchTrip.ctx).catch(function () {});
+      else return refreshCfg().then(function () { return refresh(); });   /* ⭐ B-394 — the event record FIRST */
     };
     S.timer = setInterval(ptLiveTick, POLL_MS);
+    S.dtimer = setInterval(ptDraftTick, DRAFT_POLL_MS);   /* B-394 — a no-op unless a draft is on the clock */
   }).catch(function (e) {
     askCode(e && /404|not found/i.test(e.message || '') ? 'No event, trip, league, or match with that code.' : (e.message || 'Could not load'));
   });
@@ -2395,6 +2482,7 @@ function boot() {
    rather than costing a 9.6 MB push on its own. */
 gid('exitBtn').onclick = function () {
   if (S.timer) { clearInterval(S.timer); S.timer = null; } S.tick = null;
+  if (S.dtimer) { clearInterval(S.dtimer); S.dtimer = null; }   /* B-394 (v1.45) */
   S.ev = null; S.cfg = null; S.code = null; S.trip = null; S.roundId = null; S.rounds = []; S.watchTrip = null; S.match = null;   /* v1.26 · FR-382 */
   S.open = {}; S.overall = null; S.view = 'round'; S.lb = {}; S.sheet = null; S.field = null; S._fr166Kick = 0;
   _tickLast = null; var th = gid('tickHost'); if (th) th.innerHTML = '';
