@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.46 -->
+<!-- pards-live-v1.47 -->
 <!-- v1.42 (s322) — FR-388: the master scorecard up top on the match link — one gross grid for every man, always open; the per-player rows and their cards are gone. -->
 <!-- v1.41 (s322) — FR-387: the other games on the live link — 6-Point · Stableford · Skins · Vegas · Snake as per-hole cards off the phone's snapshot, one generic renderer. -->
 <!-- v1.40 (s322) — FR-386: the match summary lines show while the grid is closed and hide when it opens ("redundant when looking at the scorecard"). -->
@@ -362,7 +362,7 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.46';
+var LIVE_VERSION = 'live-v1.47';
 /* ⭐ THE POLL CADENCE, ONE PRODUCER. Measured on live D1: one board poll
    reads 61 rows for a 30-team board. A hundred spectators at 30 s spend 73%
    of the enforced 5M free-tier day on this one read; at 90 s they spend 24%.
@@ -2051,6 +2051,7 @@ function tickerHoleNotes(d) {
 }
 
 var _tickLast = null;
+var _tickT0 = 0, _tickSecs = 0;   /* B-399 (v1.47) — where the crawl is, so a rebuild carries on instead of starting over */
 function paintTicker(d) {
   var host = gid('tickHost');
   if (!host) return;
@@ -2073,12 +2074,23 @@ function paintTicker(d) {
      14..90s. ⛔ A width of 0 means "not laid out yet" — refuse to guess and fall
      back to the old character estimate rather than pinning the crawl at its
      fastest, which is the v315.0 lesson. */
+  /* ⭐⭐ B-399 (v1.47, s331) — THE CRAWL RAN AT 3.7× ITS OWN PACE ON A BUSY BOARD. Bruce, 321955 with simulated
+     scores: "the ticker is scrolling so fast right now ... cant read it". Measured on his screen: a 13,986 px run
+     (30 notes) on a 90 s loop = 155 px/s against the 42 px/s this code was calibrated to. The 90 s CEILING was the
+     cause: past ~3,800 px of text the loop could not get longer, so the crawl got faster instead. The ceiling is
+     gone; the pace is the constant and the loop grows with the news (floor 14 s kept for a short night).
+     ⭐ And a rebuild no longer throws the crawl back to the first note: a longer loop meets a text change on most
+     polls, so the crawl now CARRIES ON from the same point in its loop (negative animation-delay). */
   var el = gid('tickIn');
   if (el) {
     var w = 0; try { w = el.scrollWidth / 2; } catch (_w) { w = 0; }
-    var secs = w ? Math.min(90, Math.max(14, w / 42))
-                 : Math.max(18, Math.min(180, Math.round(joined.replace(/<[^>]*>/g, '').length / 5)));
+    var secs = w ? Math.max(14, w / 42)
+                 : Math.max(18, Math.round(joined.replace(/<[^>]*>/g, '').length / 5));
+    var now = Date.now(), frac = 0;
+    if (_tickT0 && _tickSecs) frac = (((now - _tickT0) / 1000) % _tickSecs) / _tickSecs;
     el.style.animationDuration = secs + 's';
+    el.style.animationDelay = (-(frac * secs)).toFixed(2) + 's';
+    _tickT0 = now - frac * secs * 1000; _tickSecs = secs;
   }
 }
 
@@ -2511,7 +2523,7 @@ gid('exitBtn').onclick = function () {
   if (S.dtimer) { clearInterval(S.dtimer); S.dtimer = null; }   /* B-394 (v1.45) */
   S.ev = null; S.cfg = null; S.code = null; S.trip = null; S.roundId = null; S.rounds = []; S.watchTrip = null; S.match = null;   /* v1.26 · FR-382 */
   S.open = {}; S.dOpen = false; S.overall = null; S.view = 'round'; S.lb = {}; S.sheet = null; S.field = null; S._fr166Kick = 0;
-  _tickLast = null; var th = gid('tickHost'); if (th) th.innerHTML = '';
+  _tickLast = null; _tickT0 = 0; _tickSecs = 0; var th = gid('tickHost'); if (th) th.innerHTML = '';
   _mm = { key: null, prev: null, list: [], seen: {}, cycle: 0 };   /* v1.16 */
   try { history.replaceState(null, '', location.pathname); } catch (_) {}
   askCode('');
