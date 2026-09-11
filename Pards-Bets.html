@@ -1366,7 +1366,7 @@ function initResetSlider() {
    surfaces — the roll is CONTINUOUS, so vertical space is the cheap thing and
    legibility wins. ⛔ ONE block, both surfaces: B-86 had to be fixed twice
    because these two carried separate copies of the same paper. */
-const PB_ROLL_NUDGE_MM = 2;   /* B-397 (v20.23→v20.24) — mm to move the print RIGHT on the QL-720NW. 0 = the B-181 centred box. Keep 0–2. */
+const PB_ROLL_NUDGE_MM = 1.5;   /* v20.25: his test print asked for 0.5 mm back left · B-397 (v20.23→v20.24) — mm to move the print RIGHT on the QL-720NW. 0 = the B-181 centred box. Keep 0–2. */
 const PB_ROLL_CSS =
   '@page{size:54mm 190mm;margin:2mm ' + (2 - PB_ROLL_NUDGE_MM) + 'mm 2mm ' + (2 + PB_ROLL_NUDGE_MM) + 'mm;}' +   /* B-181 — the TRUE roll width · B-397 — nudged right, width unchanged */
   'body{font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;color:#000;width:50mm;margin:0;padding:8px 0;font-size:11px;font-weight:700;line-height:1.25;-webkit-text-size-adjust:none;}' +
@@ -1796,7 +1796,14 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.24';
+const APP_VERSION = 'v20.25';
+// ⭐ v20.25 — FR-415 (s331): TALLER ROWS ON THE BETTING SHEET, STILL ONE LETTER PAGE. Bruce: "the better sheets - can you
+// make the rows a little taller - but still fit all on one portrait letter sheet". Measured on v20.24 with 30 teams: rows
+// were 15 px and one sheet used ~604 of the page's ~979 px. The row height is now worked out from the team count
+// (_sheetRowPx) so the table grows to fill the page and never spills onto a second one; the team names step up a size
+// when there is room.
+// ⭐ Same build — B-397 follow-up: his first ticket off v20.24 "looks fine", and he asked for 0.5 mm back to the left,
+// so PB_ROLL_NUDGE_MM goes 2 -> 1.5 (the one knob; nothing else on the roll moves).
 // ⭐ v20.24 — B-397 (s331): THE ROLL PRINTS 2 MM TOO FAR LEFT. Bruce, first real ticket off the QL-720NW after v20.23:
 // "cutting off about 2mm of the text on the left side ... on the right side there is 4mm of space - can you shift this
 // over 2mm". The page box keeps its 50 mm width; its left margin goes 2 → 4 mm and its right margin 2 → 0 mm, so every
@@ -3927,6 +3934,10 @@ function printBettingSheet() {
   const evName = ev ? ev.name : (state.tournamentName || 'Last Call Invitational');
   const year   = ev ? new Date(ev.createdAt).getFullYear() : new Date().getFullYear();
   const copies = parseInt(document.getElementById('sheet-copies')?.value || '1');
+  /* FR-415 (v20.25) — one producer for the row height: teams + the FIELD row share ~780 px of letter portrait
+     (0.4 in margins) after the header, column heads, totals and footer. 15 px floor (the old sheet), 28 px ceiling. */
+  const _sheetRowPx = Math.max(15, Math.min(28, Math.floor(780 / (teams.length + 1))));
+  const _sheetTeamPx = _sheetRowPx >= 20 ? 11 : 9;
 
   const rows = teams.map((t,i) =>
     '<tr class="' + (i%2===0?'even':'odd') + '">' +
@@ -4011,9 +4022,10 @@ function printBettingSheet() {
       '.th-show { color: #C9A0E8; width: 60px; }' +
       '.th-total { width: 70px; }' +
 
-      '.team-cell { padding: 2px 5px; border: 1px solid #ddd; font-size: 9px; text-align: left; }' +
+      '.team-cell { padding: 2px 5px; border: 1px solid #ddd; font-size: ' + _sheetTeamPx + 'px; text-align: left; }' +
       '.amt-cell  { padding: 2px 4px; border: 1px solid #ddd; width: 60px; }' +
       '.total-cell{ padding: 2px 4px; border: 1px solid #ddd; width: 70px; background: #f5f5f5; }' +
+      'tbody tr { height: ' + _sheetRowPx + 'px; }' +   /* FR-415 — the row height, from the team count */
 
       'tr.even { background: #fff; }' +
       'tr.odd  { background: #f9f9f9; }' +
