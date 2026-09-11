@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- pards-live-v1.45 -->
+<!-- pards-live-v1.46 -->
 <!-- v1.42 (s322) — FR-388: the master scorecard up top on the match link — one gross grid for every man, always open; the per-player rows and their cards are gone. -->
 <!-- v1.41 (s322) — FR-387: the other games on the live link — 6-Point · Stableford · Skins · Vegas · Snake as per-hole cards off the phone's snapshot, one generic renderer. -->
 <!-- v1.40 (s322) — FR-386: the match summary lines show while the grid is closed and hide when it opens ("redundant when looking at the scorecard"). -->
@@ -249,6 +249,12 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
 
 /* ── FR-126 DRAFT BOARD (v1.1, s249) ── */
 .dHd { display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+/* FR-413 (v1.46) — the Final teams card, folded to one line once the round has a score. */
+.dMini { cursor:pointer; }
+.dMini .dHd { align-items:center; }
+.dMiniTx { font-size:12px; color:var(--dim); }
+.dMiniCh { margin-left:auto; color:var(--gold); font-size:13px; font-weight:800; }
+.dMiniHide { margin-top:12px; font-size:12px; color:var(--gold); cursor:pointer; font-weight:700; }
 .dTitle { font-size:11px; letter-spacing:1.6px; text-transform:uppercase; color:var(--gold); font-weight:800; }
 .dClock { margin-top:9px; padding:10px 12px; border-radius:10px; border:1px solid rgba(123,216,143,.35);
   background:rgba(123,216,143,.07); }
@@ -356,7 +362,7 @@ button.go { width:100%; margin-top:9px; padding:13px; font-size:14px; font-weigh
    ============================================================ */
 'use strict';
 var API = 'https://pards-tour-api.bdapple.workers.dev';
-var LIVE_VERSION = 'live-v1.45';
+var LIVE_VERSION = 'live-v1.46';
 /* ⭐ THE POLL CADENCE, ONE PRODUCER. Measured on live D1: one board poll
    reads 61 rows for a 30-team board. A hundred spectators at 30 s spend 73%
    of the enforced 5M free-tier day on this one read; at 90 s they spend 24%.
@@ -807,7 +813,7 @@ function paintOverall(d) {
   h += '<div class="note">Ranked inside each flight, across '
     + rounds.length + (rounds.length === 1 ? ' round' : ' rounds') + '.'
     + '<br>This page updates itself every ' + Math.round(POLL_MS / 1000) + ' seconds \u2014 or tap Refresh.</div>';
-  if (_dr && _dDone) h += draftCard(_dr);
+  if (_dr && _dDone) h += draftFinal(_dr);
   gid('app').innerHTML = h;
 }
 
@@ -1432,7 +1438,7 @@ function paintBoard(d) {
   try { h += segCard(rows, d.games, round); } catch (_e362) {}   /* FR-362 (v1.35) — Par Points by segment, the main game, above skins */
   try { h += skinsCard(rows, d.games); } catch (_e361) {}   /* FR-361 (v1.34) — skins are part of the board */
   h += '<div class="note">Updated ' + (rows.length && rows[0].updated_at ? esc(rows[0].updated_at) + ' UTC' : 'just now') + '</div>';
-  if (_dr && _dDone) h += draftCard(_dr);
+  if (_dr && _dDone) h += draftFinal(_dr);
   gid('app').innerHTML = h;
   Object.keys(S.open).forEach(function (k) { var el = gid(k); if (el && S.open[k]) el.className = 'det on';
     var c = gid('cv' + k); if (c && S.open[k]) c.className = 'chev up'; });
@@ -1684,6 +1690,26 @@ function dTurn(n, C) {
   return (r % 2 === 0) ? i : (C - 1 - i);
 }
 
+/* ⭐ FR-413 (v1.46, s331) — THE FINAL TEAMS CARD FOLDS ONCE THE ROUND HAS A SCORE.
+   His s249 ruling 3 was "when it is done the Final teams card stays, below the leaderboard". On the 321955
+   full test the round started and the page was a one-row board over a 30-team wall: "live draft is over -
+   round has started - and live link still showing draft board". RULED s331: collapse it. Once any round on
+   this page has a board row (rows are built from posted scores), the card is ONE line; a tap opens the full
+   card and a tap closes it. Before the first score it stays open exactly as ruling 3 had it. */
+function draftScored() {
+  return Object.keys(S.lb || {}).some(function (k) { var d = S.lb[k]; return !!(d && (d.standings || []).length); });
+}
+function draftFinal(rec) {
+  if (!draftScored()) return draftCard(rec);
+  if (S.dOpen) return '<div class="dMiniHide" onclick="dTogFinal()">&#x25B4; Hide the draft teams</div>' + draftCard(rec);
+  try { var _w = document.querySelector('.wrap'); if (_w) _w.classList.remove('wideDraft'); } catch (e) {}
+  var C = (rec.order || []).length;
+  return '<div class="card done dMini" onclick="dTogFinal()" role="button">'
+    + '<div class="dHd"><div class="dTitle">Draft Night</div><span class="chip">Final</span>'
+    + '<span class="dMiniTx">' + C + ' team' + (C === 1 ? '' : 's') + ' &middot; tap to see them</span>'
+    + '<span class="dMiniCh">&#x25B8;</span></div></div>';
+}
+window.dTogFinal = function () { S.dOpen = !S.dOpen; repaintDraft(); };
 function draftCard(rec) {
   var order = rec.order || [];
   var picks = rec.picks || [];
@@ -2484,7 +2510,7 @@ gid('exitBtn').onclick = function () {
   if (S.timer) { clearInterval(S.timer); S.timer = null; } S.tick = null;
   if (S.dtimer) { clearInterval(S.dtimer); S.dtimer = null; }   /* B-394 (v1.45) */
   S.ev = null; S.cfg = null; S.code = null; S.trip = null; S.roundId = null; S.rounds = []; S.watchTrip = null; S.match = null;   /* v1.26 · FR-382 */
-  S.open = {}; S.overall = null; S.view = 'round'; S.lb = {}; S.sheet = null; S.field = null; S._fr166Kick = 0;
+  S.open = {}; S.dOpen = false; S.overall = null; S.view = 'round'; S.lb = {}; S.sheet = null; S.field = null; S._fr166Kick = 0;
   _tickLast = null; var th = gid('tickHost'); if (th) th.innerHTML = '';
   _mm = { key: null, prev: null, list: [], seen: {}, cycle: 0 };   /* v1.16 */
   try { history.replaceState(null, '', location.pathname); } catch (_) {}

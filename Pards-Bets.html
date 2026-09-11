@@ -1795,7 +1795,14 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.22';
+const APP_VERSION = 'v20.23';
+// ⭐ v20.23 — B-396 (s331): THE PRINT BUTTON THAT NEVER PRINTED. Bruce, on the PC after Collect Cash & Issue Ticket:
+// "when I go to print receipt - I do not get print dialogue - cant print ticket". The confirm screen's ONE button,
+// "Share / Print Receipt", called shareTicket(), which hands the receipt to navigator.share: on Windows that is the
+// OS share sheet (Outlook, Teams, OneDrive…) and a share sheet has no printer. v20.19 (B-85) had already split
+// Share and Print on the ticket overlay for exactly this reason; this screen was never given the split. It is now
+// two buttons: 🖨 Print Receipt → printTicketOverlay() (the B-85 print route: the 54 mm roll receipt in a tab with
+// its Print bar, hidden-iframe print when the popup is blocked), and 📤 Share → shareTicket(), unchanged.
 
 // v20.10 — STAMP THE HEADER BADGE FROM APP_VERSION.
 // The badge was a SECOND hardcoded literal in the markup (the span at the top of
@@ -3247,6 +3254,9 @@ function injectPrintButton(html, label) {
 
 function openReceiptTab(html) {
   html = injectPrintButton(html, '🖨 Print / Share Bettor Ticket');
+  /* ⭐ B-396 (v20.23) — the tab opens STRAIGHT INTO the print dialog; the gold 🖨 Print bar stays for a second copy.
+     His words: "I do not get print dialogue". The hidden-iframe fallback below already printed on its own. */
+  html = html.replace(/<\/body>/i, '<script>window.addEventListener("load",function(){setTimeout(function(){try{window.print();}catch(e){}},300);});<\/script></body>');
   const blob = new Blob([html], { type: 'text/html' });
   const url  = URL.createObjectURL(blob);
   const win  = window.open(url, '_blank');
@@ -3315,13 +3325,14 @@ function buildReceiptHTML(td) {
      It survives on the letter-paper reports, which print to a device that can
      render it; a one-bit thermal head can only dither it into speckle. The bet
      type now reads as heavy black caps instead. */
-  const _oddsCtx = _slipOddsCtx();   // v20.18 — FR-11: odds at print time
+  /* ⭐ FR-414 (v20.23, s331) — NO ODDS ON THE TICKET. His words: "remove the lines that look like this '2.50x --> pays
+     $50.00 if 1st' - I don't want the odds printed on the tickets". This REVERSES his s100 call ("odds + potential
+     return on the slip", v20.18 FR-11). The bettor's slip now carries the bet, the team and the stake only; the odds
+     helpers (_slipOddsCtx / _slipOddsLine) stay defined and are no longer called from the receipt. */
   const _betRow = function(b) {
     const tname = b._teamName || teamName(b.teamId);
-    const oddsTxt = _slipOddsLine(_oddsCtx, b.type, b.teamId, b.amount);
     return '<tr>' +
-      '<td><span class="pbType">' + b.type.toUpperCase() + '</span> <span class="pbTeam">' + esc(tname) + '</span>' +
-        (oddsTxt ? '<div class="pbOdds">' + oddsTxt + '</div>' : '') + '</td>' +
+      '<td><span class="pbType">' + b.type.toUpperCase() + '</span> <span class="pbTeam">' + esc(tname) + '</span></td>' +
       '<td class="pbNum">$' + b.amount + '</td>' +
     '</tr>';
   };
@@ -3378,7 +3389,7 @@ function buildReceiptHTML(td) {
       '<span class="pbBarL">TOTAL</span>' +
       '<span class="pbBarV">$' + grandTotal + '</span>' +
     '</div>' +
-    '<div class="pbFoot">Odds shown are AT PRINT TIME — pools move until betting closes; the payout is set at settlement. Keep this slip.</div>' +
+    /* FR-414 — the "odds shown at print time" footer is GONE with the odds: "that is not needed" */
     '<div class="pbFoot">Good luck! 🍀 · Parimutuel Betting</div>' +
     '</body></html>';
 }
@@ -3840,7 +3851,8 @@ function showTicketConfirmation(ticketRef, bettor, grand, bettorId) {
       '<div style="font-size:16px;color:#EDE8DC;font-weight:700;margin-bottom:4px;">' + esc(bettor ? bettor.name : '') + '</div>' +
       '<div style="font-size:14px;color:#3DB86E;font-weight:700;margin-bottom:24px;">Cash collected: ' + fmt(grand) + ' ✓</div>' +
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">' +
-        '<button class="btn btn-primary" style="font-size:14px;padding:12px 20px;" onclick="shareTicket()">📤 Share / Print Receipt</button>' +
+        '<button class="btn btn-primary" style="font-size:14px;padding:12px 20px;" onclick="printTicketOverlay()">🖨 Print Receipt</button>' +   /* B-396 (v20.23) */
+        '<button class="btn btn-ghost" style="font-size:14px;padding:12px 20px;" onclick="shareTicket()">📤 Share</button>' +
         '<button class="btn btn-ghost" style="font-size:14px;padding:12px 20px;" onclick="closeTicketConfirm()">✓ Done</button>' +
       '</div>' +
     '</div>';
