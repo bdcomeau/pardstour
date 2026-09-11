@@ -930,7 +930,7 @@ function fmt(n) {
   return '$' + (Math.round(n * 100) / 100).toFixed(2);
 }
 function teamById(id) { return state.teams.find(t => t.id === id); }
-function bettorById(id) { return state.bettors.find(b => b.id === id); }
+function bettorById(id) { if (id == null) return undefined; const k = String(id); return state.bettors.find(b => String(b.id) === k); }   /* B-398 (v20.26) — String compare: a Number id can never blank a name again */
 function teamName(id) {
   if (!id) return '?';
   if (id === 'FIELD') return 'Field';
@@ -1796,7 +1796,15 @@ function updatePayoutModeUI() {
 }
 
 
-const APP_VERSION = 'v20.25';
+const APP_VERSION = 'v20.26';
+// ⭐ v20.26 — B-398 (s331): A HAND-ADDED BETTOR SHOWED AS "?" AND PRINTED NO NAME. Bruce: "I manually added my self as a
+// bettor as I was not in the field - I created a bet R1G-024 and my name is a ? and did not print on ticket". Measured in
+// D1: all 9 wagers on R1G-024 carry bettor_id 3078 = "Bruce Comeau" — the SERVER was right. The client was not: addBettor
+// (B-29, v20.17) kept the worker's id as a NUMBER, while every select value, every D1-loaded bettor and every wager's
+// bettorId is a STRING. bettorById() is strict (===), so 3078 !== "3078" → "?" on the wager list and a blank name on the
+// ticket and receipt — until a reload re-mapped him as a String. The FOURTH String-vs-Number id bug in this file (v20.5
+// teamId · v20.7 bettorId · v20.14 wager id). Fix: the new bettor's id is String(), and bettorById now compares as
+// Strings so no future id of the wrong type can blank a name again.
 // ⭐ v20.25 — FR-415 (s331): TALLER ROWS ON THE BETTING SHEET, STILL ONE LETTER PAGE. Bruce: "the better sheets - can you
 // make the rows a little taller - but still fit all on one portrait letter sheet". Measured on v20.24 with 30 teams: rows
 // were 15 px and one sheet used ~604 of the page's ~979 px. The row height is now worked out from the team count
@@ -2028,7 +2036,7 @@ async function addBettor() {
           ' \u2014 a bettor that only exists on this device cannot save tickets. Check the connection and add them again.');
         return;
       }
-      _nbId = d.bettor.id;
+      _nbId = String(d.bettor.id);   /* B-398 (v20.26) — ONE id type everywhere: String, like every select value and every D1-loaded row */
     } catch (e) {
       _d1Alarm('"' + name + '" was NOT added to Pards Tour.',
         ((e && e.message) || 'Network error') +
