@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.37 s334)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.38 s334)
+     v1.38 (B-408, s334): THE SHARE SHEET HAD NO SPREADSHEET IN IT. v1.36 put the share
+     sheet first on every phone; on Android that sheet lists WhatsApp, Gmail, Drive —
+     not Sheets, not Excel — so the men who used to tap Download and open the file
+     could not any more ("they can't open new file"). Download is FIRST again, on
+     every browser (Chrome on Android saves to Downloads and opens it in Sheets or
+     Excel from the notification, as before). The share sheet is used automatically
+     ONLY inside an in-app browser, where a.download is ignored, and it stays one tap
+     away for everyone as "Share the file…" beside Copy. Pure client.
      v1.37 (FR-425, s334): CHANGES IN THE LAST 24 HOURS on the back door. His ask, ten
      days out: "every day there are gonna be changes … a summary on a rolling basis".
      A panel above the download: Yesterday N → Now N, then In (new yeses, flips to
@@ -609,6 +617,7 @@
         <p class="note" id="csvAltHint"></p>
         <textarea id="csvText" readonly rows="6" style="width:100%;box-sizing:border-box;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;padding:8px;border:1px solid rgba(0,0,0,.18);border-radius:8px;background:#fff;white-space:pre;overflow:auto"></textarea>
         <button class="btn secondary slim" id="csvCopy">Copy the list</button>
+        <button class="btn secondary slim hidden" id="csvShare">Share the file&hellip;</button>   <!-- B-408 (v1.38) — shown only where the phone can share a file -->
       </div>
     </div>
   </div></div>
@@ -1323,24 +1332,36 @@ function regSheetCsv(){
    Save / Drive / Gmail targets; (2) the a.download path (desktops, and any phone without file
    sharing); (3) ALWAYS the copy box underneath, so the list is never unreachable. ⛔ The share
    sheet must be called from the tap itself (a user gesture) — no await before it. */
-function regCsvDeliver(text, name){
-  var blob = new Blob([text], { type: 'text/csv;charset=utf-8' });
-  var mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+/* ⭐ B-408 (v1.38, s334) — DOWNLOAD FIRST, SHARE ONLY WHERE DOWNLOAD CANNOT WORK. The Android share
+   sheet offers messaging and cloud targets, not Sheets or Excel, so v1.36's share-first order took
+   away the one thing that worked for them: tap Download, open from the notification. Order now:
+   (1) a.download everywhere EXCEPT an in-app browser (which ignores it and goes blank) — there, the
+   share sheet, from the tap itself; (2) ALWAYS the copy box; (3) a "Share the file…" button beside
+   Copy wherever the phone can share a file, so the sheet is still one tap away. */
+var _regCsvLast = null;   /* B-408 — the last CSV built, for the Share button */
+function regCsvInApp(){ return /; wv\)|FBAN|FBAV|Instagram|Line\/|Snapchat|Twitter|Messenger/i.test(navigator.userAgent); }
+function regCsvFile(blob, name){
   try {
-    if (mobile && navigator.share && navigator.canShare && typeof File === 'function') {
+    if (navigator.share && navigator.canShare && typeof File === 'function') {
       var f = new File([blob], name, { type: 'text/csv' });
-      if (navigator.canShare({ files: [f] })) {
-        navigator.share({ files: [f], title: name }).catch(function(e){
-          if (!e || e.name !== 'AbortError') regCsvFallback(blob, name);
-        });
-        regCsvAlt(text);
-        return;
-      }
+      if (navigator.canShare({ files: [f] })) return f;
     }
   } catch (e) {}
-  regCsvFallback(blob, name);
-  regCsvAlt(text);
+  return null;
 }
+function regCsvShare(f){
+  navigator.share({ files: [f], title: f.name }).catch(function(){});   /* a dismissed sheet is not an error */
+}
+function regCsvDeliver(text, name){
+  var blob = new Blob([text], { type: 'text/csv;charset=utf-8' });
+  var f = regCsvFile(blob, name);
+  _regCsvLast = f;
+  if (f && regCsvInApp()) regCsvShare(f);   /* the only browser where a.download goes blank */
+  else regCsvFallback(blob, name);
+  regCsvAlt(text);
+  var sb = $('csvShare'); if (sb) sb.classList.toggle('hidden', !f);
+}
+$('csvShare').addEventListener('click', function(){ if (_regCsvLast) regCsvShare(_regCsvLast); });
 function regCsvFallback(blob, name){
   var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
   document.body.appendChild(a); a.click();
@@ -1350,10 +1371,10 @@ function regCsvFallback(blob, name){
    download attempt on the back door; the in-app-browser hint only when the UA says so. */
 function regCsvAlt(text){
   var box = $('csvAlt'); if (!box) return;
-  var inapp = /; wv\)|FBAN|FBAV|Instagram|Line\/|Snapchat|Twitter|Messenger/i.test(navigator.userAgent);
+  var inapp = regCsvInApp();   /* B-408 — one producer */
   $('csvAltHint').textContent = inapp
     ? 'This app’s built-in browser cannot save files. Open this link in Chrome (menu ⋮ → Open in browser), or copy the list below.'
-    : 'Didn’t get a file? Copy the list below and paste it into Sheets or Excel.';
+    : 'The file is in your Downloads — open it in Sheets or Excel. Didn’t get it? Copy the list below and paste it in.';
   $('csvText').value = text.replace(/^﻿/, '');
   box.classList.remove('hidden');
 }
