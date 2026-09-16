@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.40 s334)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.41 s334)
+     v1.41 (B-409, s334): A PLUS HANDICAP LOST ITS SIGN IN THE SPREADSHEET — and phones
+     read 7.8E+09. The CSV wrote "+2.3"; Excel and Sheets read a quoted +2.3 as the
+     number 2.3 on import, so Tate showed as 2.3. His ruling: "handicap may need to
+     be a text field". Handicap, Phone and GHIN cells are now the ="…" text form —
+     ="+2.3", ="7801234567" — which both spreadsheets display as the literal text.
      v1.40 (FR-426 ruling, s334): ⛔ "Don't display handicaps at the link. Only if they
      download." The v1.39 on-card field list is OUT; the Handicap CSV column stays.
      v1.39 (FR-426, s334): THE CURRENT HANDICAP ON THE BACK DOOR. His ask: "add the
@@ -1325,7 +1330,7 @@ function regSheetCsv(){
   var head = ['Name', 'Email', 'Phone', 'GHIN', 'Handicap', 'RSVP', 'Attending', 'Sponsor', 'Sponsor notes', 'Checked in', 'Paid', 'Paid at', 'Last updated'];   /* FR-426 — Handicap after GHIN */
   var q = function(v){ v = v == null ? '' : String(v); return '"' + v.replace(/"/g, '""') + '"'; };
   var rows = d.list.map(function(p){
-    return [p.name, p.email, p.phone, p.gc_id, regHcp(p.handicap), p.rsvp === 'yes' ? 'Yes' : 'No', kind[p.attend] || '',
+    return [p.name, p.email, regTxt(p.phone), regTxt(p.gc_id), regTxt(regHcp(p.handicap)), p.rsvp === 'yes' ? 'Yes' : 'No', kind[p.attend] || '',   /* B-409 — text cells */
             p.sponsor === 'yes' ? 'Yes' : '', p.sponsor_notes, p.checked_in_at, p.paid_amount, p.paid_at, p.updated_at].map(q).join(',');
   });
   var text = '﻿' + head.map(q).join(',') + '\r\n' + rows.join('\r\n') + '\r\n';
@@ -1565,6 +1570,10 @@ async function loadCsvView(fromPin){
 /* ⭐ FR-426 (v1.39, s334) — THE CURRENT HANDICAP, in the CSV only (v1.40, his ruling: "don't display
    handicaps at the link"). regHcp prints the index the way the apps do: ⛔ a plus handicap is stored
    NEGATIVE and prints +n (the standing rule); null/blank prints nothing. */
+/* B-409 (v1.41) - a CSV cell that MUST stay text. A bare "+2.3" becomes 2.3 and "7801234567" becomes 7.8E+09
+   the moment a spreadsheet opens the file; ="+2.3" stays text in Excel AND Sheets. q() then doubles the inner
+   quotes - the standard CSV escape. Empty stays empty. */
+function regTxt(v){ v = v == null ? '' : String(v).trim(); return v ? '="' + v.replace(/"/g, '') + '"' : ''; }
 function regHcp(h){
   if (h == null || h === '') return '';
   var n = Number(h); if (isNaN(n)) return String(h);
