@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.36 s334)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.37 s334)
+     v1.37 (FR-425, s334): CHANGES IN THE LAST 24 HOURS on the back door. His ask, ten
+     days out: "every day there are gonna be changes … a summary on a rolling basis".
+     A panel above the download: Yesterday N → Now N, then In (new yeses, flips to
+     yes) and Out (flips to no, new regrets), each with his time. Reads created_at +
+     rsvp_at (D143) off /api/reg/list — needs reg-v1.38.0; an older worker sends no
+     created_at and the panel simply stays hidden. ⛔ D1 stamps are 'YYYY-MM-DD HH:MM:SS'
+     UTC and iOS Safari refuses that shape in new Date() — every stamp is converted to
+     strict ISO ('T' + 'Z') first, then printed in the reader's own zone.
      v1.36 (B-407, s334): THE CSV WENT BLANK ON ANDROID. Doug and Ryan opened the
      back door from a message; Android hands that to an in-app browser, which
      ignores a.download and just navigates to the blob: URL — a blank page. The
@@ -591,6 +599,8 @@
         <div><span class="num" id="csvNo">0</span><span class="cap">RSVP No</span></div>
         <div><span class="num" id="csvAll">0</span><span class="cap">Registrants</span></div>
       </div>
+      <!-- FR-425 (v1.37) — changes in the last 24 hours; hidden until the list carries the stamps -->
+      <div id="csvChg" class="inout hidden"></div>
       <button class="btn" id="csvDl">&#8595; Download Current Registrants</button>
       <button class="btn secondary slim" id="csvRefresh">Refresh</button>
       <p class="note" id="csvNote"></p>
@@ -1508,9 +1518,62 @@ async function loadCsvView(fromPin){
   var list = r.data.list || [], yes = 0, no = 0;
   list.forEach(function(p){ if (p.rsvp === 'yes') yes++; else no++; });
   $('csvYes').textContent = String(yes); $('csvNo').textContent = String(no); $('csvAll').textContent = String(list.length);
+  regChanges(list, yes);   /* FR-425 */
   $('csvNote').textContent = 'Current as of ' + new Date().toLocaleString() + '. The file carries name, email, phone, GHIN, RSVP, attending, sponsor and notes.';
   $('csvAsk').classList.add('hidden');
   $('csvBody').classList.remove('hidden');
+}
+/* ⭐ FR-425 (v1.37, s334) — CHANGES IN THE LAST 24 HOURS.
+   What a change IS: the answer's own stamp. D143's rsvp_at is set ONLY when In/Out flips (a check-in, a
+   payment or a roster re-match never moves it — measured on Gugulyn tonight), so:
+     · rsvp_at inside the window            → a FLIP: In if he is yes now, Out if he is no now
+     · no flip, created_at inside the window → NEW: In if yes, "regrets" if no
+   Yesterday's count is arithmetic on the same stamps: now − came in + flipped out (a man who
+   registered and flipped inside the window was never yesterday's yes, so he is not added back).
+   ⛔ APPLE: new Date('2026-09-16 04:16:55') is NaN on iOS Safari. utc() rewrites the D1 stamp to
+   strict ISO before parsing, and every time on screen is toLocaleString in the reader's zone.
+   ⛔ Fail-soft: no created_at on the rows (reg-v1.37.0 or older) → the panel stays hidden. */
+function regChanges(list, yesNow){
+  var box = $('csvChg'); if (!box) return;
+  list = list || [];
+  if (!list.length || !list.some(function(p){ return !!p.created_at; })) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+  var utc = function(s){
+    if (!s) return null;
+    var d = new Date(String(s).trim().replace(' ', 'T').replace(/(\.\d+)?Z?$/, 'Z'));
+    return isNaN(d.getTime()) ? null : d;
+  };
+  var cutoff = Date.now() - 24 * 3600 * 1000;
+  var when = function(d){ try { return d.toLocaleString(undefined, { weekday:'short', hour:'numeric', minute:'2-digit' }); } catch (e) { return ''; } };
+  var ins = [], outs = [], flippedOutFromYesterday = 0;
+  list.forEach(function(p){
+    var c = utc(p.created_at), r = utc(p.rsvp_at);
+    var flipped = !!(r && r.getTime() >= cutoff && (!c || r.getTime() > c.getTime()));
+    var fresh = !flipped && !!(c && c.getTime() >= cutoff);
+    if (!flipped && !fresh) return;
+    var at = flipped ? r : c, yes = p.rsvp === 'yes';
+    var row = { name: p.name || '', t: at.getTime(), when: when(at), how: flipped ? (yes ? 'changed to In' : 'changed to Out') : (yes ? 'new' : 'regrets') };
+    if (yes) ins.push(row); else outs.push(row);
+    if (flipped && !yes && c && c.getTime() < cutoff) flippedOutFromYesterday++;
+  });
+  var byT = function(a, b){ return b.t - a.t; };
+  ins.sort(byT); outs.sort(byT);
+  var yesterday = yesNow - ins.length + flippedOutFromYesterday;
+  var col = function(label, cls, rows){
+    var h = '<div class="io-col"><div class="io-head ' + cls + '">' + label + ' &middot; ' + rows.length + '</div>';
+    if (!rows.length) h += '<div class="io-none">nobody</div>';
+    rows.forEach(function(r){
+      h += '<div class="io-name' + (cls === 'no' ? ' out' : '') + '">' + esc(r.name) + '</div>'
+         + '<div class="io-when">' + esc(r.when) + ' &middot; ' + esc(r.how) + '</div>';
+    });
+    return h + '</div>';
+  };
+  box.innerHTML = '<div class="io-title">Changes in the last 24 hours</div>'
+    + '<div style="text-align:center;font-family:\'Cormorant Garamond\',serif;font-size:19px;color:var(--green-deep);margin:2px 0 10px">'
+    + 'Yesterday <b>' + yesterday + '</b> &rarr; Now <b>' + yesNow + '</b></div>'
+    + ((ins.length || outs.length)
+        ? '<div class="io-cols">' + col('In', 'yes', ins) + col('Out', 'no', outs) + '</div>'
+        : '<div class="io-none" style="text-align:center">No changes in the last 24 hours.</div>');
+  box.classList.remove('hidden');
 }
 $('csvGo').addEventListener('click', function(){
   sheetPin = $('csvPin').value.trim();
