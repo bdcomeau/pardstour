@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.38 s334)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.39 s334)
+     v1.39 (FR-426, s334): THE CURRENT HANDICAP ON THE BACK DOOR. His ask: "add the
+     'yes' registrants current handicap to this link / report". The CSV gains a
+     Handicap column after GHIN (every row that has one); the card gains a collapsed
+     "The field · N" list — the yes men by name with their index — under the changes
+     panel. Reads `handicap` off /api/reg/list (reg-v1.39.0: roster.handicap through
+     roster_id — Golf Canada's current index). ⛔ A plus handicap is stored negative
+     and PRINTS +n. An older worker sends no key: column blank, list hidden.
      v1.38 (B-408, s334): THE SHARE SHEET HAD NO SPREADSHEET IN IT. v1.36 put the share
      sheet first on every phone; on Android that sheet lists WhatsApp, Gmail, Drive —
      not Sheets, not Excel — so the men who used to tap Download and open the file
@@ -609,6 +616,8 @@
       </div>
       <!-- FR-425 (v1.37) — changes in the last 24 hours; hidden until the list carries the stamps -->
       <div id="csvChg" class="inout hidden"></div>
+      <!-- FR-426 (v1.39) — the field with the current index; hidden until the list carries handicap -->
+      <div id="csvField" class="inout hidden"></div>
       <button class="btn" id="csvDl">&#8595; Download Current Registrants</button>
       <button class="btn secondary slim" id="csvRefresh">Refresh</button>
       <p class="note" id="csvNote"></p>
@@ -1314,10 +1323,10 @@ $('sheetRefresh').addEventListener('click', function(){ loadSheet(false); });
 function regSheetCsv(){
   var d = _regLastSheet; if (!d || !d.list) return;
   var kind = { golf_dinner: 'Golf and Dinner Party', golf: 'Golf Only', dinner: 'Dinner Party Only' };
-  var head = ['Name', 'Email', 'Phone', 'GHIN', 'RSVP', 'Attending', 'Sponsor', 'Sponsor notes', 'Checked in', 'Paid', 'Paid at', 'Last updated'];
+  var head = ['Name', 'Email', 'Phone', 'GHIN', 'Handicap', 'RSVP', 'Attending', 'Sponsor', 'Sponsor notes', 'Checked in', 'Paid', 'Paid at', 'Last updated'];   /* FR-426 — Handicap after GHIN */
   var q = function(v){ v = v == null ? '' : String(v); return '"' + v.replace(/"/g, '""') + '"'; };
   var rows = d.list.map(function(p){
-    return [p.name, p.email, p.phone, p.gc_id, p.rsvp === 'yes' ? 'Yes' : 'No', kind[p.attend] || '',
+    return [p.name, p.email, p.phone, p.gc_id, regHcp(p.handicap), p.rsvp === 'yes' ? 'Yes' : 'No', kind[p.attend] || '',
             p.sponsor === 'yes' ? 'Yes' : '', p.sponsor_notes, p.checked_in_at, p.paid_amount, p.paid_at, p.updated_at].map(q).join(',');
   });
   var text = '﻿' + head.map(q).join(',') + '\r\n' + rows.join('\r\n') + '\r\n';
@@ -1540,7 +1549,8 @@ async function loadCsvView(fromPin){
   list.forEach(function(p){ if (p.rsvp === 'yes') yes++; else no++; });
   $('csvYes').textContent = String(yes); $('csvNo').textContent = String(no); $('csvAll').textContent = String(list.length);
   regChanges(list, yes);   /* FR-425 */
-  $('csvNote').textContent = 'Current as of ' + new Date().toLocaleString() + '. The file carries name, email, phone, GHIN, RSVP, attending, sponsor and notes.';
+  regField(list);          /* FR-426 */
+  $('csvNote').textContent = 'Current as of ' + new Date().toLocaleString() + '. The file carries name, email, phone, GHIN, handicap, RSVP, attending, sponsor and notes.';
   $('csvAsk').classList.add('hidden');
   $('csvBody').classList.remove('hidden');
 }
@@ -1554,6 +1564,32 @@ async function loadCsvView(fromPin){
    ⛔ APPLE: new Date('2026-09-16 04:16:55') is NaN on iOS Safari. utc() rewrites the D1 stamp to
    strict ISO before parsing, and every time on screen is toLocaleString in the reader's zone.
    ⛔ Fail-soft: no created_at on the rows (reg-v1.37.0 or older) → the panel stays hidden. */
+/* ⭐ FR-426 (v1.39, s334) — THE CURRENT HANDICAP. regHcp prints the index the way the apps do: ⛔ a plus
+   handicap is stored NEGATIVE and prints +n (the standing rule); null/blank prints nothing. regField paints
+   the yes men, by name, with the index beside each — collapsed on every load (FR-303's rule: the head keeps
+   the count, the names wait to be asked for). Fail-soft: no `handicap` key on any row → hidden. */
+function regHcp(h){
+  if (h == null || h === '') return '';
+  var n = Number(h); if (isNaN(n)) return String(h);
+  return n < 0 ? '+' + (Math.round(-n * 10) / 10) : String(Math.round(n * 10) / 10);
+}
+function regField(list){
+  var box = $('csvField'); if (!box) return;
+  list = list || [];
+  if (!list.some(function(p){ return p.handicap !== undefined; })) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+  var men = list.filter(function(p){ return p.rsvp === 'yes'; }).slice()
+    .sort(function(a, b){ return String(a.name || '').localeCompare(String(b.name || '')); });
+  var h = '<div class="io-head io-tog yes" onclick="ioTog(this)"><span>The field &middot; ' + men.length + '</span><span class="io-car">&#9654;</span></div>'
+        + '<div class="io-body hidden">';
+  if (!men.length) h += '<div class="io-none">nobody yet</div>';
+  men.forEach(function(p){
+    var hc = regHcp(p.handicap);
+    h += '<div class="io-name" style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span>' + esc(p.name) + '</span>'
+       + '<span style="font-family:\'Jost\',sans-serif;font-size:13px;color:var(--ink-soft);white-space:nowrap">' + (hc ? esc(hc) : '&mdash;') + '</span></div>';
+  });
+  box.innerHTML = '<div class="io-title">Current handicaps</div>' + h + '</div>';
+  box.classList.remove('hidden');
+}
 function regChanges(list, yesNow){
   var box = $('csvChg'); if (!box) return;
   list = list || [];
