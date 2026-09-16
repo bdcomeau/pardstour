@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tournament Registration</title>
 <!-- ============================================================
-     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.35 s320)
+     PARDS TOUR — TOURNAMENT REGISTRATION  (FR-105, page v1.36 s334)
+     v1.36 (B-407, s334): THE CSV WENT BLANK ON ANDROID. Doug and Ryan opened the
+     back door from a message; Android hands that to an in-app browser, which
+     ignores a.download and just navigates to the blob: URL — a blank page. The
+     file now goes out through the phone's SHARE SHEET (navigator.share with a
+     File — Save to Files / Drive / Gmail) when the browser can; the a.download
+     path stays for desktops; and every path is followed by a "Didn't get a file?"
+     line with the list in a copy box and an "open in Chrome" hint. Pure client.
      v1.35 (FR-354b, s320): THE BACK DOOR. ?e=CODE&csv=1&pin=STAFFPIN presents one
      card — the event, the count, and "Download Current Registrants". No rows, no
      check-in, no walk-up, no way into the sheet. Same PIN, same /api/reg/list,
@@ -587,6 +594,12 @@
       <button class="btn" id="csvDl">&#8595; Download Current Registrants</button>
       <button class="btn secondary slim" id="csvRefresh">Refresh</button>
       <p class="note" id="csvNote"></p>
+      <!-- B-407 (v1.36) — the way that cannot fail -->
+      <div id="csvAlt" class="hidden">
+        <p class="note" id="csvAltHint"></p>
+        <textarea id="csvText" readonly rows="6" style="width:100%;box-sizing:border-box;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;padding:8px;border:1px solid rgba(0,0,0,.18);border-radius:8px;background:#fff;white-space:pre;overflow:auto"></textarea>
+        <button class="btn secondary slim" id="csvCopy">Copy the list</button>
+      </div>
     </div>
   </div></div>
 
@@ -854,7 +867,7 @@ async function loadEvent(){
       var h = '<div class="io-col">'
             + '<div class="io-head io-tog ' + cls + '" onclick="ioTog(this)">'
             + '<span>' + label + ' &middot; ' + names.length + '</span>'
-            + '<span class="io-car">\u25b6</span></div>'
+            + '<span class="io-car">▶</span></div>'
             + '<div class="io-body hidden">';
       if (!names.length) h += '<div class="io-none">nobody yet</div>';
       else names.forEach(function (n, i) {
@@ -872,14 +885,14 @@ async function loadEvent(){
     var inCol;
     if (anyKind) {
       /* v1.22 — HIS WORDS: distinct groups, each with the full "In —" head. */
-      var groups = [ ['golf_dinner', 'In \u2014 Golf and Dinner Party'], ['golf', 'In \u2014 Golf Only'],
-                     ['dinner', 'In \u2014 Dinner Party Only'], [null, 'In'] ];
+      var groups = [ ['golf_dinner', 'In — Golf and Dinner Party'], ['golf', 'In — Golf Only'],
+                     ['dinner', 'In — Dinner Party Only'], [null, 'In'] ];
       /* FR-303 — one outer head for the whole In column carrying the TOTAL, and
          his FR-274b group heads live on inside it, untouched. */
       inCol = '<div class="io-col">'
             + '<div class="io-head io-tog yes" onclick="ioTog(this)">'
             + '<span>In &middot; ' + (a.yes || []).length + '</span>'
-            + '<span class="io-car">\u25b6</span></div>'
+            + '<span class="io-car">▶</span></div>'
             + '<div class="io-body hidden">';
       groups.forEach(function (g) {
         var idx = [];
@@ -930,7 +943,7 @@ async function loadEvent(){
     wEl.classList.remove('hidden');
     var cb = $('evWatchCopy');
     if (cb) cb.addEventListener('click', function(){
-      var done = function(){ cb.textContent = 'Copied \u2713'; setTimeout(function(){ cb.textContent = 'Copy code'; }, 2200); };
+      var done = function(){ cb.textContent = 'Copied ✓'; setTimeout(function(){ cb.textContent = 'Copy code'; }, 2200); };
       var fallback = function(){
         try {
           var ta = document.createElement('textarea'); ta.value = evCode;
@@ -1291,11 +1304,55 @@ function regSheetCsv(){
   var text = '﻿' + head.map(q).join(',') + '\r\n' + rows.join('\r\n') + '\r\n';
   var slug = String(d.event || 'event').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   var name = 'registrations-' + (evCode || 'event') + (slug ? '-' + slug : '') + '.csv';
+  regCsvDeliver(text, name);
+}
+/* ⭐ B-407 (v1.36, s334) — HOW THE FILE LEAVES THE PHONE. Measured on the code, reported by two
+   Android users: a Blob + a.download + click() is fine in Chrome and Safari, but a link opened
+   from a text / WhatsApp / Gmail lands in an Android in-app browser that ignores `download` and
+   navigates to blob: — blank. Order now: (1) the share sheet with a real File — the phone's own
+   Save / Drive / Gmail targets; (2) the a.download path (desktops, and any phone without file
+   sharing); (3) ALWAYS the copy box underneath, so the list is never unreachable. ⛔ The share
+   sheet must be called from the tap itself (a user gesture) — no await before it. */
+function regCsvDeliver(text, name){
   var blob = new Blob([text], { type: 'text/csv;charset=utf-8' });
+  var mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  try {
+    if (mobile && navigator.share && navigator.canShare && typeof File === 'function') {
+      var f = new File([blob], name, { type: 'text/csv' });
+      if (navigator.canShare({ files: [f] })) {
+        navigator.share({ files: [f], title: name }).catch(function(e){
+          if (!e || e.name !== 'AbortError') regCsvFallback(blob, name);
+        });
+        regCsvAlt(text);
+        return;
+      }
+    }
+  } catch (e) {}
+  regCsvFallback(blob, name);
+  regCsvAlt(text);
+}
+function regCsvFallback(blob, name){
   var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
   document.body.appendChild(a); a.click();
-  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 60000);   /* B-407 — a slow phone needs longer than 1 s */
 }
+/* B-407 — the way that cannot fail: the list itself, in a box, with Copy. Shown after every
+   download attempt on the back door; the in-app-browser hint only when the UA says so. */
+function regCsvAlt(text){
+  var box = $('csvAlt'); if (!box) return;
+  var inapp = /; wv\)|FBAN|FBAV|Instagram|Line\/|Snapchat|Twitter|Messenger/i.test(navigator.userAgent);
+  $('csvAltHint').textContent = inapp
+    ? 'This app’s built-in browser cannot save files. Open this link in Chrome (menu ⋮ → Open in browser), or copy the list below.'
+    : 'Didn’t get a file? Copy the list below and paste it into Sheets or Excel.';
+  $('csvText').value = text.replace(/^﻿/, '');
+  box.classList.remove('hidden');
+}
+$('csvCopy').addEventListener('click', function(){
+  var ta = $('csvText'); ta.focus(); ta.select();
+  var done = function(){ $('csvCopy').textContent = 'Copied ✓'; setTimeout(function(){ $('csvCopy').textContent = 'Copy the list'; }, 1800); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(done, function(){ try { document.execCommand('copy'); done(); } catch (e) {} });
+  else { try { document.execCommand('copy'); done(); } catch (e) {} }
+});
 $('sheetCsv').addEventListener('click', regSheetCsv);
 /* FR-145 — one painter, no refetch. */
 function ciSet(v){ ciView = v; if (_regLastSheet) renderSheet(_regLastSheet); }
