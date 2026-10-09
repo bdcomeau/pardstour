@@ -23,7 +23,8 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAwFBMVEXv45yrnGGrjyljaiaTaSDSozHpzWk7SByWGA/fGhN1c1BTJw7Iupn989bCp1y8spMzOiSAbEZ7gGn4xToIFwYECAARJgoqKAovNhBQRhVJORIUNA8yRQ5zaDGWaRSLh0vJqE7z585UVC+pdxz+/OtoWCpSSSckGwVRVRGviC7HljGOdzHUyKr86JGyl0vSuGdvaEaLeUqzqIfj17loSRHWtFJvVxP21XJxaBaVdhammnTl28JpdBmYi2jiuU3zx03utlm/AAAAQHRSTlP/////////////////////////////////////////////////////////////////////////////////////73leyQAABRtJREFUeNp1lol26jgMhp2F0LK0985I3khCEkhCGsK+lhbe/61GdoDbOXNGPQVi/59lW7IVBsaQZ547/n+ray/jaKXMfnrXa7JYOMndlvsl2eOJehbu2/5aPwGeXPMSW7ONIAUZ3K3tKHdJR9yBvQutkN9ttOiOjD2eectVHW4AXCRoxU895/nLqx+S/t8MJq4B1M06l/o5/ohHL6+vL/3R6Kcf0uibAoaVa8bXSaJkKyeJZ4CXl76WPxiSvVXIYJ+TXqjr7SCllUs5aoHX11chZSipYdQSfgKM75VdweEgW3UYhtIC/Zd+GbZGjAUOV85Eou32SCWtOFSzmYr8PkAp5MyYUjOarQQC1FUQQB44CCkU9avT4UTmR+p8Prtu5brns8EESQyQWMD85oL+yMeJZB+dTnULglun455PsxmX90gAVx0CPjR/xNTMLJx9ua5bu4Hrfnmzrl3A6K54AjbOpPVOX18e2Uzm9BR6X8ZO3iwMRyObourDApQYfDQ7fbU9o7AbojJjqG7Y7oJSobSzegA0ulLczikkB6Nw7JB5Mhp7XmiDRrloiCdAjzIbO58ZZIyNOayH7JM1oWYNYw7nkeNk0qTvEwDossZ5Y4xnJOG4YmMcMw8aBms2DptgfHTg4aGyAC6bElkjHWfJugQ4BT2IJkBcsqh5Qz0G+AFIgGUjuswBpmlIAljTFChZwHHBigVzKHLyASiQew7L4/L4BlnzFjRLjNjaYTnK4xLQCTQugkDCPnwAWF/p2B3XGtF5i/JlIzO2Lpsj58c9ZMd9ITGnX3sXdwRwAuIYIQnoEMogIui49pcO+st1FgTLY6BlIHBx44ezBWgNniwiTI4FQrSmj9KcX3v2KWG1ApTJNbktCqVrXREwEdfDPhKLWiOJSgqhyvKILFdKS3t8UdU1HDr5TVgAJm7H3gp0vCT9g71huM3FkkIshb2DgFK99K0HcVCZ8S+72eoviT2Wvnehx+Zd/rkper1VJswMM30QckJAfFoIt0LMWJoO02nWm27W0y2X0y3gZoibaZpeMppt5YqFHxtAd+IOLW01X11SUUSXC+39tMeHc46fF/yerkSamqB14psmgJ9Bx7rOsChxmwrMp+8ETzfyDhBLXjKc1SQDOyWthaQbCpFvU2m0ANn0XaYG2BqgIA+o/tZCawuUyUK70hwH9gfYiDvwPd2mlxVy6e4WiTgbAPofvqgiAuYEFMMBYG/6TQC0wPoyQIwqEX/cpySw1KJjbv/5liIwH2Z8PpSwTQsxHxBQfE9zrDtClyhaAOqx9pX18Auwv03TdIWY01damAX3hxtUsRq7YABOHsRHrXgEBRusKEJltLaREr9/U9f6cw2DNIMdzQhFzA1Atwbt1IcyKdCWDnDmc8emX1t9ioJ2iGQPAESV5L6kbBK6KHL9i03Jtr90TilKmUWgn/hG9wDIxU7LZ0nbpOmUMmLzp+ZRt+nSBECs7zJbsqTsht2BWXd6mXfNPcntNWxR3MVUsvxDe29SYpuTkEd5sZmzy2U7fy9ycyiUsuXBiEjLQPvPAkuXvtTUP/58HwwGm29pj9Cfbkk3DJXd2IcfJqQW2frb+fz+zsX9xD2sjm2dFpP82dRWZMijVa8XtdX7URwQ6omwAPYntf45kDmtFJjHFt1NVZM+tm8CFMCqqqM/thMllKVQ5i7wPNtUO53YxL99OaERd3E8IfMr359M4tjf7fy2ZWIaqGV398h+voD8sP+23Cf4D+MT6r2rIfaZAAAAAElFTkSuQmCC" />
   <title>Pards Tour — Free Golf Scoring, Leagues and Tournaments</title>
-  <!-- pards-tour-v1041.0 -->
+  <!-- pards-tour-v1042.0 -->
+<!-- v1042.0 (B-422, s336): SAVE & PAUSE LEFT THE ROUND ON DISK. The B-384 guard (an empty round never overwrites a started one) ran after boot too, so every exit that resets G and saves — Save & Pause, Discard, Update History — was refused, and the round came back with "Your round is safe" on every launch. The guard now applies only before the boot load; a stored round that matches a paused History row is cleared, not restored. B-422b: both notices carry his words — "Pick up where you left off?", View &amp; resume from History (parks the round, opens History) / Start a new round (round setup). -->
 <!-- v1041.0 (B-421, s336): A ROUND HE ENDED AND DELETED CAME BACK ON EVERY LAUNCH. Five exits cleared pards_G but not pards_G_backup; boot restored the backup, the autosave re-added it to History, and "Your round is safe" greeted every launch. Every exit now clears both keys, a deleted round is tombstoned by its date so it can never be restored or re-added, and the notice stays silent over a round that is finished and saved. -->
 <!-- v1040.0 (B-419 + B-420, s336): A FULL PHONE LOST A ROUND WITHOUT A WORD — and B-420: Update History now finds the round by its date (it used to overwrite whatever round sat in the old slot, or do nothing if the round was gone, and now adds it back). Bentley's 18 at Derrick (Oct 5) reached neither History nor the server — every write on the way out failed silently when the phone ran out of room, and Back up threw before making a file. Writes now retry after reclaiming the retired safety copy, a round that cannot land rides the backup file with a loud Back up now, the usage row goes straight to the server, and the Backup screen gains a Storage check. -->
 <!-- v1039.0 (FR-437, s335): THE TV WALL GOES QUIET. The ballroom TV polled the board every 60 s all night after the 40th — 1,244
@@ -8359,7 +8360,10 @@ function saveG(){
        intentional exit removeItem()s first, so a refused write here is never a round the golfer meant to drop. */
     var _b384Started = function(o){ return !!(o && o.players && o.players.length && Array.isArray(o.scores) && o.scores.some(function(s){ return Array.isArray(s) && s.some(function(v){ return v !== null; }); })); };
     var _b384Keep = false;
-    if(!_b384Started(G)){ try{ _b384Keep = _b384Started(JSON.parse(localStorage.getItem('pards_G') || 'null')) || _b384Started(JSON.parse(localStorage.getItem('pards_G_backup') || 'null')); }catch(_e384){} }
+    /* ⭐⭐ B-422 (v1042.0, s336) — THE GUARD IS FOR BOOT ONLY. B-384 stopped the empty pre-load G overwriting a started round
+       on the way UP. After boot an empty G is an intentional exit (Save & Pause, Discard, Update History…), and the guard was
+       refusing those too — so Save & Pause at hole 6 left hole 6 on disk and it came back on every launch (Bruce, Oct 9). */
+    if(!window._b422Booted && !_b384Started(G)){ try{ _b384Keep = _b384Started(JSON.parse(localStorage.getItem('pards_G') || 'null')) || _b384Started(JSON.parse(localStorage.getItem('pards_G_backup') || 'null')); }catch(_e384){} }
     if(!_b384Keep){
     if(ptStoreSet('pards_G', _gs)) window._ptGUnsaved = false; else { window._ptGUnsaved = true; ptStoreAlarm('round'); }   /* B-419 */
     try { ptFr382Push(); } catch (_e382) {}   /* FR-382 — the phone is the engine: every save feeds the live link (debounced, fail-soft) */
@@ -8417,6 +8421,9 @@ function loadG(){
                || _tryParse(localStorage.getItem('pards_G_backup'));
     if(!saved) return false;
     if(_b421IsDeleted(saved.roundDate)){ _b421ClearRoundKeys(saved.roundDate); return false; }   /* B-421 — a deleted round stays deleted */
+    /* B-422 — a round he SAVED & PAUSED lives in History, not on the scorecard. If the stored round matches a paused History row
+       it is a leftover from an exit that did not clear — clear it, and never call it an interrupted round. */
+    try{ if(!(saved._editingHistoryIdx >= 0) && loadHistory().some(function(r){ return r && r.paused && !r.checkpoint && r.roundDate === saved.roundDate; })){ _b421ClearRoundKeys(saved.roundDate); return false; } }catch(_e422){}
     Object.assign(G, saved);
     // Backfill fields that may not exist in rounds saved by older app versions
     if(!G.internationals || typeof G.internationals !== 'object') G.internationals = {};
@@ -22261,10 +22268,11 @@ function _fr403Safe(){
   m.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px';
   m.innerHTML = '<div style="background:#F8F3EB;border-radius:16px;padding:24px 20px;max-width:340px;width:100%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.3)">'
     + '<div style="font-size:36px;margin-bottom:8px">⛳</div>'
-    + '<div style="font-size:17px;font-weight:800;color:#1a3a2a;margin-bottom:8px">Your round is safe</div>'
-    + '<div style="font-size:13px;color:#555;line-height:1.55;margin-bottom:10px">Pards Tour was closed while you were playing. Phones do that to free up memory when you have been using other apps — <b>it is not a fault in the app</b>, and it is exactly what the app saves against.</div>'
-    + '<div style="font-size:14px;font-weight:800;color:#1a3a2a;margin-bottom:18px">Everything through hole ' + n + ' is exactly where you left it.</div>'
-    + '<button id="fr403Ok" style="width:100%;padding:12px;background:#1a3a2a;color:#c9a84c;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">Back to my round</button>'
+    + '<div style="font-size:17px;font-weight:800;color:#1a3a2a;margin-bottom:8px">Pick up where you left off?</div>'   /* B-422b — HIS WORDS (Oct 9) */
+    + '<div style="font-size:13px;color:#555;line-height:1.55;margin-bottom:10px">Your last round stopped part-way through. Either the app was closed mid-round, or you saved it to History before finishing.</div>'
+    + '<div style="font-size:14px;font-weight:800;color:#1a3a2a;margin-bottom:18px">' + n + ' of 18 holes are saved.</div>'
+    + '<button id="fr403Ok" style="width:100%;padding:12px;background:#1a3a2a;color:#c9a84c;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent">View &amp; resume from History</button>'
+    + '<button id="fr403New" style="width:100%;padding:10px;margin-top:8px;background:none;color:#555;border:1.5px solid #ccc;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">Start a new round</button>'   /* B-422 — HIS ASK: a way out, not just a way back */
     + '</div>';
   document.body.appendChild(m);
   /* ⛔⛔ FOUND BY LOOKING AT THE RENDER, NOT BY AN ASSERTION. loadG() restores the
@@ -22272,9 +22280,20 @@ function _fr403Safe(){
      card. So a button reading "Back to my round" dismissed a modal and left him
      exactly where he was, having promised otherwise. "It will be waiting" is a
      promise, and a promise is testable. This one now keeps itself. */
+  /* B-422 — HIS WORDS: "it would almost be fine if this said back to my round or start new round." Start a new round is
+     Save & Pause: the round goes to History (resumable, nothing lost) and the scorecard clears. */
+  document.getElementById('fr403New').onclick = function(){
+    m.remove();
+    try{ if(typeof showSection === 'function') showSection('golf'); }catch(_e422s){}
+    try{ saveAndEndRound(); }catch(_e422n){}
+  };
+  /* B-422c — HIS FLOW (Oct 9): "view, and restart the round from history … take them to the history screen. And they can select
+     resume the round from there." The live round is parked in History first (Save & Pause — nothing lost), then History opens. */
   document.getElementById('fr403Ok').onclick = function(){
     m.remove();
     try{ if(typeof showSection === 'function') showSection('golf'); }catch(_e403r){}
+    try{ saveAndEndRound(); }catch(_e422c){}
+    try{ _fr403ToHistory(); }catch(_e422h){}
   };
   return true;
 }
@@ -22306,17 +22325,17 @@ function _b384BootOffer(){
   m.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px';
   m.innerHTML = '<div style="background:#F8F3EB;border-radius:16px;padding:24px 20px;max-width:340px;width:100%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.3)">'
     + '<div style="font-size:36px;margin-bottom:8px">⛳</div>'
-    + '<div style="font-size:17px;font-weight:800;color:#1a3a2a;margin-bottom:8px">Your round is safe</div>'
-    + '<div style="font-size:13px;color:#555;line-height:1.55;margin-bottom:10px">Pards Tour was closed while you were playing. Phones do that to free up memory — <b>it is not a fault in the app</b>. Your round was saved as you went:</div>'
+    + '<div style="font-size:17px;font-weight:800;color:#1a3a2a;margin-bottom:8px">Pick up where you left off?</div>'   /* B-422b — HIS WORDS, the second producer */
+    + '<div style="font-size:13px;color:#555;line-height:1.55;margin-bottom:10px">Your last round stopped part-way through. Either the app was closed mid-round, or you saved it to History before finishing.</div>'
     + '<div style="font-size:14px;font-weight:800;color:#1a3a2a;margin-bottom:2px">' + _b384Esc(course) + '</div>'
     + '<div id="b384Holes" style="font-size:13px;color:#555;margin-bottom:4px">' + holes + ' of 18 holes · ' + _b384Esc(names) + '</div>'
     + '<div style="font-size:11px;color:#888;margin-bottom:18px">Anything scored after hole ' + holes + ' will need re-entering.</div>'
-    + '<button id="b384Resume" style="width:100%;padding:12px;background:#1a3a2a;color:#c9a84c;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:8px">▶ Resume round</button>'
-    + '<button id="b384Later" style="width:100%;padding:10px;background:none;color:#555;border:1.5px solid #ccc;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">Find it in History</button>'
+    + '<button id="b384Resume" style="width:100%;padding:12px;background:#1a3a2a;color:#c9a84c;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:8px">View &amp; resume from History</button>'
+    + '<button id="b384Later" style="width:100%;padding:10px;background:none;color:#555;border:1.5px solid #ccc;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent">Start a new round</button>'
     + '</div>';
   document.body.appendChild(m);
-  document.getElementById('b384Resume').onclick = function(){ m.remove(); try{ if(typeof showSection === 'function') showSection('golf'); }catch(_e){} resumeRound(idx); };   // the score screen lives inside #screen-golf — activate the section first or it renders unseen
-  document.getElementById('b384Later').onclick = function(){ m.remove(); _fr403ToHistory(); };
+  document.getElementById('b384Resume').onclick = function(){ m.remove(); _fr403ToHistory(); };   /* B-422c — HIS FLOW: History, where the round is waiting to resume */   // the score screen lives inside #screen-golf — activate the section first or it renders unseen
+  document.getElementById('b384Later').onclick = function(){ m.remove(); };   /* B-422b — Start a new round: the round stays in History; he is already on setup */
   return true;
 }
 
@@ -32238,7 +32257,7 @@ setTimeout(function(){
   try{ _initLightSetting(); }catch(_l){}   /* FR-264 — light mode at boot */
   try{ _ptInitExits(); }catch(_e){}        /* FR-266 — the Return pills on the static sheets */
   if(!document.getElementById('screen-golf')){ /* FR-324 phase 2 (s312): no setup/scoring screens in this file (admin.html) — nothing to restore or seed */ }
-  else if(loadG()){
+  else if((function(){ try{ return loadG(); } finally { window._b422Booted = true; } })()){   /* B-422 — boot is over once the load has run */
     showRoundBar();
     applyScorecardOnlyNav();
     _ptSetHoleBadge(document.getElementById('badge'), G.hole, 'HOLE '+(G.hole+1));{const _hw=document.getElementById('hdrWx'),_bd=document.getElementById('badge');if(_hw)_hw.style.display='none';if(_bd)_bd.style.display='inline-block';}
@@ -86163,7 +86182,7 @@ function ptLaunchFoursomeRound(foursomeData) {
 
   <script>
     // ─── Tour Version & Update ─────────────────────────────────
-    const TOUR_VERSION     = 'pards-tour-v1041.0';
+    const TOUR_VERSION     = 'pards-tour-v1042.0';
     const TOUR_LIVE_URL    = location.origin + '/index.html';   /* B-377 (s321): SAME ORIGIN — github.io fails CORS from pardstour.com; the button never worked */
     let   _tourUpdateReady = false;
     /* ⭐ B-226 (v648.0, s271) — a build is an UPDATE only when it is NEWER than the one running. The live
